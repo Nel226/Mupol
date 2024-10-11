@@ -1,4 +1,4 @@
-<div class="bg-gray-100 max-w-5xl mx-auto">
+<div class=" max-w-5xl mx-auto my-5">
     <!-- Contenu du slot -->
     {{ $slot }}
 </div>

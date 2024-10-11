@@ -1,5 +1,5 @@
 <div class="w-[90%] md:w-3/4 lg:w-2/3 mx-auto mt-10">
-    <h1 class="text-2xl font-bold mb-5">Formulaire d'adhésion</h1>
+    <h1 class="text-2xl font-bold mb-5 text-center">Formulaire d'adhésion</h1>
 
     <!-- Steper -->
     <div class="flex justify-between items-center mb-6">

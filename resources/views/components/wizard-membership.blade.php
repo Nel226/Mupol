@@ -1,24 +1,24 @@
-<div class="w-[90%] md:w-5/6 lg:w-5/6 mx-auto mt-10">
+<div class="w-[90%] md:w-3/4 lg:w-2/3 mx-auto mt-10">
     <h1 class="text-2xl font-bold mb-5 text-center">Formulaire d'adhésion</h1>
 
     <!-- Steper -->
     <div class="flex justify-between items-center mb-6">
         @for ($step = 1; $step <= $totalSteps; $step++)
-            <div class="flex flex-col items-center flex-1"> <!-- Chaque étape prend une largeur égale -->
-                <div class="relative flex items-center w-full">
-                    <!-- Step Circle -->
-                    <div class="w-10 h-10 flex items-center justify-center {{ $currentStep >= $step ? 'bg-blue-500' : 'bg-gray-300' }} rounded-full text-white z-10">
-                        {{ $step }} <!-- Afficher toujours le numéro dans le cercle -->
+            <div class="flex flex-col items-center">
+                
+                <div class="flex w-24">
+
+                    <div class="w-10 h-10 flex items-center justify-center {{ $currentStep >= $step ? 'bg-blue-500' : 'bg-gray-300' }} rounded-full text-white">
+                        {{ $step }}
                     </div>
-    
-                    <!-- Connecting Line -->
+
                     @if ($step < $totalSteps)
-                        <div class="flex-1 h-1 {{ $currentStep > $step ? 'bg-blue-500' : 'bg-gray-300' }}" style="height: 4px; margin-left: -1rem;"></div> 
+                        <div class="flex-1 h-10 flex items-center">
+                            <div class="h-1 w-full {{ $currentStep >= $step ? 'bg-blue-500' : 'bg-gray-300' }}"></div>
+                        </div>
                     @endif
                 </div>
-    
-                <!-- Step Label -->
-                <div class="text-sm mt-2 text-left w-full">
+                <div class="text-sm mt-2">
                     @if ($step == 1)
                         Références de l'adhérent
                     @elseif ($step == 2)
@@ -30,9 +30,9 @@
                     @endif
                 </div>
             </div>
+            
         @endfor
     </div>
-    
 
     <!-- Contenu des étapes -->
     <div class="bg-gray-200 shadow-md rounded px-8 pt-6 pb-8 mb-4">
@@ -55,7 +55,7 @@
         @if ($currentStep == 1)
             <div>
                 <!-- Grille pour Matricule et NIP -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
 
                     <!-- Matricule -->
                     <div>
@@ -117,13 +117,13 @@
 
 
                 <!-- Grille pour Adresse permanente et Téléphone -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4 mt-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4">
 
                     <!-- Adresse permanente -->
                     <div>
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="adresse">Adresse
                             permanente</label>
-                        <input wire:model="adresse_permanente" id="adresse_permanente" type="text"
+                        <input wire:model="adresse" id="adresse" type="text"
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                         @error('adresse')
                             <span class="text-red-500 text-xs">{{ $message }}</span>
@@ -322,11 +322,9 @@
                         @enderror
                     </div>
                 </div>
-
-                <!-- Tableau des ayants droits -->
-                <!-- Tableau des ayants droits -->
+            
                 <div class="mt-4 overflow-x-auto">
-                    <select wire:model.defer="nombreAyantsDroits" class="border rounded w-full sm:w-1/2 py-1">
+                    <select id="nombreAyantsDroits" onchange="toggleAyantsDroits()" class="border rounded w-full sm:w-1/2 py-1">
                         <option value="" selected>Choisissez un nombre</option>
                         <option value="0">0</option>
                         <option value="1">1</option>
@@ -336,57 +334,77 @@
                         <option value="5">5</option>
                         <option value="6">6</option>
                     </select>
-
-                    @if ($nombreAyantsDroits > 0)
-                        <!-- Affiche les champs uniquement si le nombre est supérieur à 0 -->
-                        @for ($i = 0; $i < $nombreAyantsDroits; $i++)
-                            <div class="border p-4 rounded mb-4 shadow mt-4">
-                                <h3 class="font-bold mb-2">Ayant Droit {{ $i + 1 }}</h3>
-                                <div class="grid grid-cols-1 gap-4 md:grid-cols-2 ">
-                                    <div class="mt-2">
-                                        <label class="block text-gray-700 text-sm font-bold mb-1">Nom</label>
-                                        <input type="text" wire:model="ayantsDroits.{{ $i }}.nom"
-                                            class="border rounded w-full py-1">
-                                    </div>
-                                    <div class="mt-2">
-                                        <label class="block text-gray-700 text-sm font-bold mb-1">Prénom(s)</label>
-                                        <input type="text" wire:model="ayantsDroits.{{ $i }}.prenom"
-                                            class="border rounded w-full py-1">
-                                    </div>
-                                </div>
-
-                                <div class="grid grid-cols-1 gap-4 md:grid-cols-3 ">
-
-                                    <div class="mt-2">
-                                        <label class="block text-gray-700 text-sm font-bold mb-1">Genre</label>
-                                        <select wire:model="ayantsDroits.{{ $i }}.sexe"
-                                            class="border rounded w-full py-1">
-                                            <option value="" disabled>Sélectionner</option>
-                                            <option value="H">Homme</option>
-                                            <option value="F">Femme</option>
-                                        </select>
-                                    </div>
-                                    <div class="mt-2">
-                                        <label class="block text-gray-700 text-sm font-bold mb-1">Date de
-                                            Naissance</label>
-                                        <input type="date"
-                                            wire:model="ayantsDroits.{{ $i }}.date_naissance"
-                                            class="border rounded w-full py-1">
-                                    </div>
-                                    <div class="mt-2">
-                                        <label class="block text-gray-700 text-sm font-bold mb-1">Lien de
-                                            Parenté</label>
-                                        <input type="text"
-                                            wire:model="ayantsDroits.{{ $i }}.lien_parenté"
-                                            class="border rounded w-full py-1">
-                                    </div>
-                                </div>
-                            </div>
-                        @endfor
-                    @endif
+                
+                    <div id="ayantsDroitsContainer" class="mt-4"></div>
                 </div>
-
-
+                <script>
+                    document.addEventListener("DOMContentLoaded", function() {
+                        function toggleAyantsDroits() {
+                            const select = document.getElementById('nombreAyantsDroits');
+                            const container = document.getElementById('ayantsDroitsContainer');
+                            const nombre = parseInt(select.value);
+                        
+                            // Réinitialiser le contenu du conteneur
+                            container.innerHTML = '';
+                        
+                            if (nombre > 0) {
+                                // Afficher le conteneur
+                                container.style.display = 'block';
+                        
+                                // Créer les champs pour chaque ayant droit
+                                for (let i = 0; i < nombre; i++) {
+                                    const div = document.createElement('div');
+                                    div.classList.add('border', 'p-4', 'rounded', 'mb-4', 'shadow', 'mt-4');
+                        
+                                    div.innerHTML = `
+                                        <h3 class="font-bold mb-2">Ayant Droit ${i + 1}</h3>
+                                        <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+                                            <div class="mt-2">
+                                                <label class="block text-gray-700 text-sm font-bold mb-1">Nom</label>
+                                                <input type="text" name="ayantsDroits[${i}][nom]" class="border rounded w-full py-1">
+                                            </div>
+                                            <div class="mt-2">
+                                                <label class="block text-gray-700 text-sm font-bold mb-1">Prénom(s)</label>
+                                                <input type="text" name="ayantsDroits[${i}][prenom]" class="border rounded w-full py-1">
+                                            </div>
+                                        </div>
+                                        <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+                                            <div class="mt-2">
+                                                <label class="block text-gray-700 text-sm font-bold mb-1">Genre</label>
+                                                <select name="ayantsDroits[${i}][sexe]" class="border rounded w-full py-1">
+                                                    <option value="" disabled>Sélectionner</option>
+                                                    <option value="H">Homme</option>
+                                                    <option value="F">Femme</option>
+                                                </select>
+                                            </div>
+                                            <div class="mt-2">
+                                                <label class="block text-gray-700 text-sm font-bold mb-1">Date de Naissance</label>
+                                                <input type="date" name="ayantsDroits[${i}][date_naissance]" class="border rounded w-full py-1">
+                                            </div>
+                                            <div class="mt-2">
+                                                <label class="block text-gray-700 text-sm font-bold mb-1">Lien de Parenté</label>
+                                                <input type="text" name="ayantsDroits[${i}][lien_parenté]" class="border rounded w-full py-1">
+                                            </div>
+                                        </div>
+                                    `;
+                        
+                                    // Ajouter le div au conteneur
+                                    container.appendChild(div);
+                                }
+                            } else {
+                                // Masquer le conteneur si le nombre est 0
+                                container.style.display = 'none';
+                            }
+                        }
+                
+                        // Attacher la fonction au changement de sélection
+                        document.getElementById('nombreAyantsDroits').addEventListener('change', toggleAyantsDroits);
+                    });
+                </script>
+                
+               
+                    
+        
             </div>
         @endif
 
@@ -506,6 +524,7 @@
                 </button>
             @endif
         </div>
+        
 
         <!-- Message de succès -->
         @if (session()->has('message'))

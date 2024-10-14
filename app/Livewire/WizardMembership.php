@@ -170,6 +170,38 @@ class WizardMembership extends Component
         //     // Ajoutez les autres champs ici...
         // ]);
 
+        $data = [
+            'matricule' => $this->matricule,
+            'nip' => $this->nip,
+            'cnib' => $this->cnib,
+            'delivree' => $this->delivree,
+            'expire' => $this->expire,
+            'adresse' => $this->adresse,
+            'telephone' => $this->telephone,
+            'nom' => $this->nom,
+            'prenom' => $this->prenom,
+            'genre' => $this->genre,
+            'departement' => $this->departement,
+            'ville' => $this->ville,
+            'pays' => $this->pays,
+            'nom_pere' => $this->nom_pere,
+            'nom_mere' => $this->nom_mere,
+            'situation_matrimoniale' => $this->situation_matrimoniale,
+            'nom_prenom_personne_besoin' => $this->nom_prenom_personne_besoin,
+            'lieu_residence' => $this->lieu_residence,
+            'telephone_personne_prevenir' => $this->telephone_personne_prevenir,
+            'nombreAyantsDroits' => $this->nombreAyantsDroits,
+            'ayantsDroits' => $this->ayantsDroits,
+            'statut' => $this->statut,
+            'grade' => $this->grade,
+            'departARetraite' => $this->departARetraite,
+            'numeroCARFO' => $this->numeroCARFO,
+            'dateIntegration' => $this->dateIntegration,
+            'dateDepartARetraite' => $this->dateDepartARetraite,
+            'direction' => $this->direction,
+            'service' => $this->service,
+        ];
+        dd($data);
         session()->flash('message', 'Formulaire soumis avec succès !');
         
         // Réinitialisez le formulaire si nécessaire

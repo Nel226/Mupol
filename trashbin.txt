@@ -1,3 +1,5 @@
+'email', 'password'
+ 
 'email' => $this->email,
             'password' => bcrypt($this->password), // Assurez-vous de crypter le mot de passe
  

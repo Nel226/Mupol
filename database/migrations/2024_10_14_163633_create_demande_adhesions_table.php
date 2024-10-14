@@ -20,8 +20,6 @@ return new class extends Migration
             $table->date('expire');
             $table->string('adresse');
             $table->string('telephone');
-            $table->string('email');
-            $table->string('password');
             $table->string('nom');
             $table->string('prenom');
             $table->string('genre');

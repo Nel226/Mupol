@@ -11,7 +11,7 @@ class WizardMembership extends Component
     public $totalSteps = 4;   // Nombre total d'étapes  
 
     // Variables pour les données du formulaire
-    public $matricule, $nip, $cnib, $delivree, $expire, $adresse, $telephone;
+    public $matricule, $nip, $cnib, $delivree, $expire, $adresse_permanente, $telephone;
     public $email, $password, $nom, $prenom, $genre, $departement, $ville, $pays, $nom_pere, $nom_mere, $situation_matrimoniale;
     public $nom_prenom_personne_besoin, $lieu_residence, $telephone_personne_prevenir;
      // Propriétés pour les champs conditionnels
@@ -25,7 +25,7 @@ class WizardMembership extends Component
 
     public $nombreAyantsDroits = 0;
     public $ayantsDroits = [];
-   
+
 
     // Méthode pour mettre à jour les champs selon le statut
     public function updatedStatut($value)
@@ -97,7 +97,7 @@ class WizardMembership extends Component
                 'cnib' => 'required',
                 'delivree' => 'required|date',
                 'expire' => 'required|date|after:delivree', // Assurez-vous que 'expire' est après 'delivree'
-                'adresse' => 'required',
+                'adresse_permanente' => 'required',
                 'telephone' => 'required',
             ]);
         } elseif ($this->currentStep == 2) {
@@ -177,7 +177,7 @@ class WizardMembership extends Component
             'cnib' => $this->cnib,
             'delivree' => $this->delivree,
             'expire' => $this->expire,
-            'adresse' => $this->adresse,
+            'adresse' => $this->adresse_permanente,
             'telephone' => $this->telephone,
             'nom' => $this->nom,
             'prenom' => $this->prenom,
@@ -202,6 +202,7 @@ class WizardMembership extends Component
             'direction' => $this->direction,
             'service' => $this->service,
         ];
+        dd($data);
         $demandeAdhesion = DemandeAdhesion::create($data);
         dd($data);
         session()->flash('message', 'Formulaire soumis avec succès !');

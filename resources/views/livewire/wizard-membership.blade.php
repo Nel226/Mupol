@@ -121,11 +121,11 @@
 
                     <!-- Adresse permanente -->
                     <div>
-                        <label class="block text-gray-700 text-sm font-bold mb-2" for="adresse">Adresse
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="adresse_permanente">Adresse
                             permanente</label>
                         <input wire:model="adresse_permanente" id="adresse_permanente" type="text"
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                        @error('adresse')
+                        @error('adresse_permanente')
                             <span class="text-red-500 text-xs">{{ $message }}</span>
                         @enderror
                     </div>

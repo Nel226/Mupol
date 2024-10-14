@@ -32,6 +32,7 @@ use App\Http\Controllers\PrestationController;
 
 Route::get('/', [AccueilController::class, 'accueil'])->name(name: 'accueil');
 Route::get('/formulaire-adhesion', [AccueilController::class, 'newAdhesion'])->name(name: 'formulaire-adhesion');
+Route::get('/resume-adhesion', [AccueilController::class, 'resumeAdhesion'])->name(name: 'resume-adhesion');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/counter', Counter::class);

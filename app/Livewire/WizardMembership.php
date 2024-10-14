@@ -176,7 +176,7 @@ class WizardMembership extends Component
         $this->currentStep = 1; // Recommencer au début si souhaité
         
         // Redirection vers la vue souhaitée
-        return redirect()->route('accueil');
+        return redirect()->route('resume-adhesion');
     }
 
     public function render()

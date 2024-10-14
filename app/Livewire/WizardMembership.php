@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\DemandeAdhesion;
 use Livewire\Component;
 
 class WizardMembership extends Component
@@ -201,6 +202,7 @@ class WizardMembership extends Component
             'direction' => $this->direction,
             'service' => $this->service,
         ];
+        $demandeAdhesion = DemandeAdhesion::create($data);
         dd($data);
         session()->flash('message', 'Formulaire soumis avec succès !');
         
@@ -209,7 +211,7 @@ class WizardMembership extends Component
         $this->currentStep = 1; // Recommencer au début si souhaité
         
         // Redirection vers la vue souhaitée
-        return redirect()->route('resume-adhesion');
+        return redirect()->route('resume-adhesion', ['id' => $demandeAdhesion->id]);
     }
 
     public function mount()

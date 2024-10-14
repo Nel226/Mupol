@@ -1,24 +1,24 @@
-<div class="w-[90%] md:w-3/4 lg:w-2/3 mx-auto mt-10">
+<div class="w-[90%] md:w-5/6 lg:w-5/6 mx-auto mt-10">
     <h1 class="text-2xl font-bold mb-5 text-center">Formulaire d'adhésion</h1>
 
     <!-- Steper -->
     <div class="flex justify-between items-center mb-6">
         @for ($step = 1; $step <= $totalSteps; $step++)
-            <div class="flex flex-col items-center">
-                
-                <div class="flex w-24">
-
-                    <div class="w-10 h-10 flex items-center justify-center {{ $currentStep >= $step ? 'bg-blue-500' : 'bg-gray-300' }} rounded-full text-white">
-                        {{ $step }}
+            <div class="flex flex-col items-center flex-1"> <!-- Chaque étape prend une largeur égale -->
+                <div class="relative flex items-center w-full">
+                    <!-- Step Circle -->
+                    <div class="w-10 h-10 flex items-center justify-center {{ $currentStep >= $step ? 'bg-blue-500' : 'bg-gray-300' }} rounded-full text-white z-10">
+                        {{ $step }} <!-- Afficher toujours le numéro dans le cercle -->
                     </div>
-
+    
+                    <!-- Connecting Line -->
                     @if ($step < $totalSteps)
-                        <div class="flex-1 h-10 flex items-center">
-                            <div class="h-1 w-full {{ $currentStep >= $step ? 'bg-blue-500' : 'bg-gray-300' }}"></div>
-                        </div>
+                        <div class="flex-1 h-1 {{ $currentStep > $step ? 'bg-blue-500' : 'bg-gray-300' }}" style="height: 4px; margin-left: -1rem;"></div> 
                     @endif
                 </div>
-                <div class="text-sm mt-2">
+    
+                <!-- Step Label -->
+                <div class="text-sm mt-2 text-left w-full">
                     @if ($step == 1)
                         Références de l'adhérent
                     @elseif ($step == 2)
@@ -30,9 +30,9 @@
                     @endif
                 </div>
             </div>
-            
         @endfor
     </div>
+    
 
     <!-- Contenu des étapes -->
     <div class="bg-gray-200 shadow-md rounded px-8 pt-6 pb-8 mb-4">
@@ -55,7 +55,7 @@
         @if ($currentStep == 1)
             <div>
                 <!-- Grille pour Matricule et NIP -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4">
 
                     <!-- Matricule -->
                     <div>
@@ -117,7 +117,7 @@
 
 
                 <!-- Grille pour Adresse permanente et Téléphone -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4 mt-4">
 
                     <!-- Adresse permanente -->
                     <div>

@@ -202,7 +202,7 @@ class WizardMembership extends Component
             'service' => $this->service,
         ];
     
-
+        
         $demandeAdhesion = DemandeAdhesion::create($data);
         session()->flash('message', 'Formulaire soumis avec succès !');
         

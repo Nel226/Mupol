@@ -10,6 +10,12 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        
+        <link rel="stylesheet" href="{{ asset('css/tabulator.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/fontawesome.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/datatables.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/select2.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])

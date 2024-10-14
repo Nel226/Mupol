@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\DemandeAdhesion;
+
 
 class AccueilController extends Controller
 {
@@ -14,8 +16,10 @@ class AccueilController extends Controller
         return view('pages.frontend.adherents.formulaire_adhesion');
     }
 
-    public function resumeAdhesion (request $request){
-        dd($request->all());
-        return view('pages.frontend.adherents.resume_adhesion');
+
+    public function resumeAdhesion($id)
+    {
+        $demandeAdhesion = DemandeAdhesion::findOrFail($id);
+        return view('pages.frontend.adherents.resume_adhesion', compact('demandeAdhesion'));
     }
 }

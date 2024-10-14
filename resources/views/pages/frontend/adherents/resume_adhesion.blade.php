@@ -2,11 +2,26 @@
     <x-header-guest/>
     <x-section-guest>
         @if (session()->has('message'))
-            <div class="alert alert-success">
+            <x-succes-notification>
                 {{ session('message') }}
-            </div>
+            </x-succes-notification>
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const notification = document.getElementById('success-notification-content');
+                    const closeBtn = document.getElementById('close-notification');
+                    
+                    notification.classList.remove('hidden');
+                    
+                    {{--  setTimeout(() => {
+                        notification.classList.add('hidden');
+                    }, 5000);  --}}
+                    
+                    closeBtn.addEventListener('click', () => {
+                        notification.classList.add('hidden');
+                    });
+                });
+            </script>
         @endif
-
         <h1>Résumé de la Demande d'Adhésion</h1>
         
         <ul>

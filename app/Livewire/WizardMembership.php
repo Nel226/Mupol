@@ -24,6 +24,7 @@ class WizardMembership extends Component
 
     public $nombreAyantsDroits = 0;
     public $ayantsDroits = [];
+   
 
     // Méthode pour mettre à jour les champs selon le statut
     public function updatedStatut($value)
@@ -179,6 +180,10 @@ class WizardMembership extends Component
         return redirect()->route('accueil');
     }
 
+    public function mount()
+    {
+        $this->ayantsDroits = [];
+    }
     public function render()
     {
         return view('livewire.wizard-membership');

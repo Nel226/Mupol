@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ImageHelper;
+use App\Helpers\PDFHelper;
 use App\Models\Prestation;
 use App\Http\Requests\StorePrestationRequest;
 use App\Http\Requests\UpdatePrestationRequest;
@@ -236,28 +238,15 @@ class PrestationController extends Controller
         return "data:{$mime};base64," . base64_encode($raw_data);
     }
 
-    public function downloadReceipt($id) 
+    public function downloadReceipt($id)
     {
         $prestation = Prestation::findOrFail($id);
-    
-        if ($prestation->etat_paiement !== 1) {
-            return redirect()->back()->with('error', 'Le paiement n\'a pas encore été validé.');
-        }
-    
-        $options = new Options();
-        $options->set('chroot', public_path());
-    
-        $dompdf = new Dompdf($options);
-    
-        $logoPath = public_path('images/logofinal.png');
-        $logoDataUrl = $this->ImageToDataUrl($logoPath);
-    
-        $pdfView = view('pages.prestations.prestation', compact('prestation', 'logoDataUrl'))->render();
-        
-        $dompdf->loadHtml($pdfView);
-        $dompdf->render();
-    
-        return $dompdf->stream('Recu_paiement_' . $prestation->id . '.pdf');
+
+        $data = [
+            'prestation' => $prestation,
+            'logoPath' => public_path('images/logofinal.png'),
+        ];
+        return PDFHelper::downloadPDF('pages.backend.prestations.prestation', $data, 'Recu_paiement_' . $prestation->id);
     }
     
     public function suivi(Request $request)

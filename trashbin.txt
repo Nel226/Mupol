@@ -1,3 +1,3635 @@
+
+            <!-- Bouton pour imprimer uniquement l'iframe -->
+            <button onclick="printIframe('iframeId')" style="margin-top: 20px; padding: 10px 20px; background-color: #4CAF50; color: white; border: none; cursor: pointer;">
+                Imprimer le contenu de l'iframe
+            </button>
+ 
+le contenu de l'iframe
+ 
+argin-top: 20px; padding: 10px 20px; 
+ 
+w-11/12
+ 
+src="{{ route('showCessionVolontaire', ['id' => $demandeAdhesion->id]) }}"
+ 
+style
+ 
+        // Specify the path to your image file
+
+ 
+src="
+ 
+che_cession_volontaire
+ 
+        // Generate and download the PDF using your PDFHelper class
+
+ 
+        // Prepare the data to be passed to the PDF view
+
+ 
+        // Fetch the demandeAdhesion record based on the provided ID
+
+ 
+max-w-4xl 
+ 
+mx-auto
+ 
+<x-guest-layout>
+    <x-header-guest />
+    <x-section-guest>
+       
+    </x-section-guest>
+</x-guest-layout>
+ 
+<li class="flex w-full relative {{ $currentStep >= 5 ? 'text-indigo-600' : 'text-gray-900' }}">
+        <div class="block whitespace-nowrap z-10">
+            <span class="w-6 h-6 {{ $currentStep >= 5 ? 'bg-indigo-600' : 'bg-gray-50' }} border-2 border-gray-200 rounded-full flex justify-center items-center mx-auto mb-3 text-sm lg:w-10 lg:h-10">5</span> {{ $step5Label }}
+        </div>
+    </li>
+ 
+after:content-[''] after:w-full after:h-0.5 {{ $currentStep >= 1 ? 'after:bg-indigo-600' : 'after:bg-gray-200' }} after:inline-block after:absolute lg:after:top-5 after:top-3 after:left-4
+ 
+<li class="flex w-full relative {{ $currentStep >= 5 ? 'text-indigo-600' : 'text-gray-900' }}">
+        <div class="block whitespace-nowrap z-10">
+            <span class="w-6 h-6 {{ $currentStep >= 5 ? 'bg-indigo-600' : 'bg-gray-50' }} border-2 border-gray-200 rounded-full flex justify-center items-center mx-auto mb-3 text-sm lg:w-10 lg:h-10">5</span> {{ $step5Label }}
+        </div>
+    </li>
+ 
+    public $step5Label = 'Finalisation';
+
+ 
+ <ol class="flex items-center w-full text-xs text-gray-900 font-medium sm:text-base">
+        <li class="flex w-full relative text-indigo-600  after:content-['']  after:w-full after:h-0.5  after:bg-indigo-600 after:inline-block after:absolute lg:after:top-5 after:top-3 after:left-4">
+           <div class="block whitespace-nowrap z-10">
+               <span class="w-6 h-6 bg-indigo-600 border-2 border-transparent rounded-full flex justify-center items-center mx-auto mb-3 text-sm text-white lg:w-10 lg:h-10">1</span> Step 1
+           </div>
+        </li>
+        <li class="flex w-full relative text-gray-900  after:content-['']  after:w-full after:h-0.5  after:bg-gray-200 after:inline-block after:absolute lg:after:top-5 after:top-3 after:left-4">
+           <div class="block whitespace-nowrap z-10">
+               <span class="w-6 h-6 bg-indigo-50 border-2 border-indigo-600 rounded-full flex justify-center items-center mx-auto mb-3 text-sm text-indigo-600 lg:w-10 lg:h-10">2</span> Step 2
+           </div>
+        </li>
+        <li class="flex w-full relative text-gray-900  after:content-['']  after:w-full after:h-0.5  after:bg-gray-200 after:inline-block after:absolute lg:after:top-5  after:top-3 after:left-4">
+           <div class="block whitespace-nowrap z-10">
+               <span class="w-6 h-6 bg-gray-50 border-2 border-gray-200 rounded-full flex justify-center items-center mx-auto mb-3 text-sm  lg:w-10 lg:h-10">3</span> Step 3
+           </div>
+        </li>
+        <li class="flex w-full relative text-gray-900  after:content-['']  after:w-full after:h-0.5  after:bg-gray-200 after:inline-block after:absolute lg:after:top-5 after:top-3 after:left-4">
+           <div class="block whitespace-nowrap z-10">
+               <span class="w-6 h-6 bg-gray-50 border-2 border-gray-200 rounded-full flex justify-center items-center mx-auto mb-3 text-sm  lg:w-10 lg:h-10">4</span> Step 4
+           </div>
+        </li>
+        <li class="flex w-full relative text-gray-900  ">
+           <div class="block whitespace-nowrap z-10">
+               <span class="w-6 h-6 bg-gray-50 border-2 border-gray-200 rounded-full flex justify-center items-center mx-auto mb-3 text-sm  lg:w-10 lg:h-10">5</span> Step 5
+           </div>
+        </li>
+        <ol class="flex items-center w-full text-xs text-gray-900 font-medium sm:text-base">
+            @for ($step = 1; $step <= $totalSteps; $step++)
+                <li class="flex w-full relative {{ $currentStep >= $step ? 'text-[#4000FF]' : 'text-gray-900' }} {{ $step < $totalSteps ? 'after:content-[\"\"] after:w-full after:h-0.5 after:bg-gray-200 after:inline-block after:absolute lg:after:top-5 after:top-3 after:left-4' : '' }}">
+                    <div class="block whitespace-nowrap z-10 text-center">
+                        <!-- Step Circle -->
+                        <span class="w-6 h-6 {{ $currentStep >= $step ? 'bg-[#4000FF]' : 'bg-gray-300' }} border-2 border-transparent rounded-full flex justify-center items-center mx-auto mb-3 text-sm text-white lg:w-10 lg:h-10">{{ $step }}</span>
+                        
+                        <!-- Step Label -->
+                        @if ($step == 1)
+                            Références de l'adhérent
+                        @elseif ($step == 2)
+                            Etat civil
+                        @elseif ($step == 3)
+                            Informations personnelles
+                        @elseif ($step == 4)
+                            Formations professionnelles
+                        @elseif ($step == 5)
+                            Autres informations
+                        @endif
+                    </div>
+                </li>
+            @endfor
+        </ol>
+        
+    </ol>
+ 
+<ol class="flex items-center w-full mb-6 text-sm text-gray-900 font-medium sm:text-base">
+        @for ($step = 1; $step <= $totalSteps; $step++)
+            <li class="flex w-full relative {{ $currentStep >= $step ? 'text-[#4000FF]' : 'text-gray-900' }}">
+                <div class="block whitespace-nowrap z-10">
+                    <!-- Step Circle -->
+                    <span class="w-6 h-6 {{ $currentStep >= $step ? 'bg-[#4000FF]' : 'bg-gray-300' }} border-2 border-transparent rounded-full flex justify-center items-center mx-auto mb-3 text-sm text-white lg:w-10 lg:h-10">{{ $step }}</span>
+    
+                    <!-- Step Label -->
+                    @if ($step == 1)
+                        Références de l'adhérent
+                    @elseif ($step == 2)
+                        Etat civil
+                    @elseif ($step == 3)
+                        Informations personnelles
+                    @elseif ($step == 4)
+                        Formations professionnelles
+                    @endif
+                </div>
+    
+                <!-- Connecting Line -->
+                @if ($step < $totalSteps)
+                    <div class="absolute top-5 left-1/2 transform -translate-x-1/2 w-full h-0.5 {{ $currentStep > $step ? 'bg-[#4000FF]' : 'bg-gray-300' }}"></div>
+                @endif
+            </li>
+        @endfor
+    </ol>
+    
+ 
+// Met à jour le champ "Expire le"
+ 
+            // Ajoutez 10 ans à la date délivrée
+
+ 
+        // Vérifiez que la date "Délivré le" est définie
+
+ 
+  public function mount()
+    {
+        $this->ayantsDroits = [];
+    }
+ 
+flex-col
+ 
+pt-6 sm:pt-0
+ 
+<x-guest-layout>
+    <div class="relative">
+        <div class="absolute inset-0 bg-black opacity-50"></div> <!-- Overlay with opacity -->
+        <div style="background-image: url('{{ asset('images/caroussel/caroussel5.jpg') }}'); background-size: cover; background-position: center;">
+            <x-header-guest/>
+
+            <x-section-guest>
+                <div class="bg-gray-100 max-w-4xl p-3 mx-auto">
+                    <livewire:wizard-membership/>
+                </div>
+            </x-section-guest>
+        </div>
+    </div>
+</x-guest-layout>
+
+ 
+ height: 100vh;
+ 
+<x-guest-layout>
+  <div  style="background-image: url('{{ asset('images/caroussel/caroussel5.jpg') }}'); background-size: cover; background-position: center;">
+      <x-header-guest/>
+
+      <x-section-guest>
+          <div class="bg-gray-100 max-w-4xl p-3 mx-auto">
+
+              <livewire:wizard-membership/>
+          </div>
+      </x-section-guest>
+  </div>
+</x-guest-layout>
+ 
+rounded-m
+ 
+bg-gradient-to-b from-purple-500 to-white
+ 
+<x-guest-layout>
+  <div class="relative flex-1 bg-gradient-to-b from-purple-500 to-white">
+      <x-header-guest/>
+
+      <x-section-guest>
+          <div class="bg-gray-100 max-w-4xl p-3 mx-auto">
+
+              <livewire:wizard-membership/>
+          </div>
+      </x-section-guest>
+  </div>
+</x-guest-layout>
+ 
+style="background-image: url('{{ asset('images/caroussel/caroussel5.jpg') }}'); background-size: cover; background-position: center;"
+ 
+    <div >
+
+ 
+style="background-image: url('{{ asset('images/caroussel/caroussel5.jpg') }}'); background-size: cover; background-position: center; opacity: 0.3; position: absolute; top: 0; left: 0; right: 0; bottom: 0;"
+ 
+ w-full
+ 
+                    <!-- Optionnel : Vous pouvez ajouter d'autres éléments ici si nécessaire -->
+
+ 
+<x-guest-layout>
+    <div class="h-screen flex flex-col">
+        <div class="bg-purple-500 h-1/3">
+            <x-header-guest/>
+        </div>
+
+        <div class="bg-white h-2/3">
+            <x-section-guest>
+                <div class="bg-gray-100 max-w-4xl p-3 mx-auto h-full">
+                    <livewire:wizard-membership/>
+                </div>
+            </x-section-guest>
+        </div>
+    </div>
+</x-guest-layout>
+
+ 
+<x-guest-layout>
+    <div class="h-screen flex flex-col">
+        <div class="bg-purple-500 flex-1" >
+            <x-header-guest/>
+        </div>
+
+        <div class="bg-white flex-1">
+            <x-section-guest>
+                <div class="bg-gray-100 max-w-4xl p-3 mx-auto h-full">
+                    <livewire:wizard-membership/>
+                </div>
+            </x-section-guest>
+        </div>
+    </div>
+</x-guest-layout>
+
+ 
+style="background-image: url('{{ asset('images/caroussel/caroussel5.jpg') }}'); background-size: cover; background-position: center;"
+ 
+<x-guest-layout>
+    <div class="flex h-screen" style="background-image: url('{{ asset('images/caroussel/caroussel5.jpg') }}'); background-size: cover; background-position: center;">
+        <div class="bg-purple-500 w-1/3 hidden md:block"></div> <!-- Fond violet sur écran moyen et plus -->
+        
+        <x-header-guest/>
+
+        <x-section-guest class="flex-1">
+            <div class="bg-gray-100 max-w-4xl p-3 mx-auto h-full">
+
+                <livewire:wizard-membership/>
+            </div>
+        </x-section-guest>
+    </div>
+</x-guest-layout>
+
+ 
+height: 100vh;
+ 
+use App\Livewire\ChangeEvent;
+
+ 
+Route::get('/change-event', ChangeEvent::class);
+
+ 
+            <!-- Afficher les détails de la demande d'adhésion -->
+
+ 
+        <livewire:change-event/>
+
+ 
+style="background-image: url('{{ asset('images/caroussel/caroussel5.jpg') }}'); background-size: cover; background-position: center; height: 100vh;"
+ 
+<x-guest-layout>
+    <div style="background-image: url('{{ asset('images/caroussel/caroussel5.jpg') }}'); background-size: cover; background-position: center; height: 100vh;">
+        <x-header-guest/>
+
+        <x-section-guest>
+            <div class="bg-gray-100 max-w-4xl p-3 mx-auto">
+
+                <livewire:wizard-membership/>
+            </div>
+        </x-section-guest>
+    </div>
+</x-guest-layout>
+ 
+                <!-- Tableau des ayants droits -->
+
+ 
+            -webkit-box-pack: justify;
+
+ 
+            justify-content: space-between;
+
+ 
+src="{{ $logoDataUrl }}"
+ 
+* Colonne gauche à 25% */
+ 
+/* Colonne centrale à 50% */
+ 
+/* Colonne droite à 25% */
+ 
+        /* Style pour le tableau avec le contenu des montants */
+
+ 
+        /* Suppression des bordures inutiles et uniformisation de la taille des colonnes */
+
+ 
+                <td colspan="2" class="center"><strong>
+    
+                </strong></td>
+ 
+$fraisAdhesion +
+ 
+/ Cotisation pour les ayants droits
+ 
+        // Calcul de la cotisation totale
+
+ 
+ {{$demandeAdhesion->prenom}}
+ 
+..........................................................
+ 
+// Ex: 15 octobre 2024
+ 
+<x-guest-layout>
+    <x-header-guest/>
+    <x-section-guest>
+        @if (session()->has('message'))
+            <x-succes-notification>
+                {{ session('message') }}
+            </x-succes-notification>
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const notification = document.getElementById('success-notification-content');
+                    const closeBtn = document.getElementById('close-notification');
+                    
+                    notification.classList.remove('hidden');
+                    
+                    {{--  setTimeout(() => {
+                        notification.classList.add('hidden');
+                    }, 5000);  --}}
+                    
+                    closeBtn.addEventListener('click', () => {
+                        notification.classList.add('hidden');
+                    });
+                });
+            </script>
+        @endif
+        <div class="flex justify-end">
+            <a href="{{ route('download-fiche-cession-volontaire', ['id' => $demandeAdhesion->id]) }}" >
+                <x-primary-button>
+                    Télécharger cession volontaire
+                </x-primary-button>
+            </a>
+        </div>
+        <livewire:change-event/>
+        <div class="container mx-auto">
+            <h1 class="text-xl font-bold mb-4">Aperçu fiche de cession volontaire de salaire</h1>
+            <div class="relative max-w-3xl h-0 pb-[141.42%] shadow-lg">
+                <iframe 
+                    class="absolute inset-0 w-full h-full border-4 border-gray-500" 
+                    src="{{ asset('fiches/cession_volontaire.html') }}" 
+                    allowfullscreen 
+                    title="Fiche de cession volontaire de salaire"
+                    aria-hidden="false" 
+                    tabindex="0">
+                </iframe>
+            </div>
+        </div>
+        
+        
+        
+    </x-section-guest>
+</x-guest-layout>
+
+
+ 
+        <strong>Select City:</strong>
+
+ 
+    <h1>Laravel Livewire Change Event Example - raviyatechnical</h1>
+
+ 
+<h1>Résumé de la Demande d'Adhésion</h1>
+        
+        <ul>
+            <li><strong>Matricule:</strong> {{ $demandeAdhesion->matricule }}</li>
+            <li><strong>NIP:</strong> {{ $demandeAdhesion->nip }}</li>
+            <li><strong>CNIB:</strong> {{ $demandeAdhesion->cnib }}</li>
+            <li><strong>Date de délivrance:</strong> {{ $demandeAdhesion->delivree }}</li>
+            <li><strong>Date d'expiration:</strong> {{ $demandeAdhesion->expire }}</li>
+            <li><strong>Adresse:</strong> {{ $demandeAdhesion->adresse }}</li>
+            <li><strong>Téléphone:</strong> {{ $demandeAdhesion->telephone }}</li>
+            <li><strong>Nom:</strong> {{ $demandeAdhesion->nom }}</li>
+            <li><strong>Prénom:</strong> {{ $demandeAdhesion->prenom }}</li>
+            <li><strong>Genre:</strong> {{ $demandeAdhesion->genre }}</li>
+            <li><strong>Département:</strong> {{ $demandeAdhesion->departement }}</li>
+            <li><strong>Ville:</strong> {{ $demandeAdhesion->ville }}</li>
+            <li><strong>Pays:</strong> {{ $demandeAdhesion->pays }}</li>
+            <li><strong>Nom du père:</strong> {{ $demandeAdhesion->nom_pere }}</li>
+            <li><strong>Nom de la mère:</strong> {{ $demandeAdhesion->nom_mere }}</li>
+            <li><strong>Situation matrimoniale:</strong> {{ $demandeAdhesion->situation_matrimoniale }}</li>
+            <li><strong>Nom et prénom de la personne à prévenir:</strong> {{ $demandeAdhesion->nom_prenom_personne_besoin }}</li>
+            <li><strong>Lieu de résidence:</strong> {{ $demandeAdhesion->lieu_residence }}</li>
+            <li><strong>Téléphone de la personne à prévenir:</strong> {{ $demandeAdhesion->telephone_personne_prevenir }}</li>
+            <li><strong>Nombre d&apos;ayants droits:</strong> {{ $demandeAdhesion->nombreAyantsDroits }}</li>
+            <li><strong>Statut:</strong> {{ $demandeAdhesion->statut }}</li>
+            <li><strong>Grade:</strong> {{ $demandeAdhesion->grade }}</li>
+            <li><strong>Date de départ à la retraite:</strong> {{ $demandeAdhesion->departARetraite }}</li>
+            <li><strong>Numéro CARFO:</strong> {{ $demandeAdhesion->numeroCARFO }}</li>
+            <li><strong>Date d&apos;intégration:</strong> {{ $demandeAdhesion->dateIntegration }}</li>
+            <li><strong>Date de départ à la retraite:</strong> {{ $demandeAdhesion->dateDepartARetraite }}</li>
+            <li><strong>Direction:</strong> {{ $demandeAdhesion->direction }}</li>
+            <li><strong>Service:</strong> {{ $demandeAdhesion->service }}</li>
+        </ul>
+        
+ 
+ <!-- Ratio d'aspect A4 -->
+ 
+// Utilisation du helper ici
+ 
+ // Ajoutez cette ligne
+ 
+<strong>..........................................................</strong>
+ 
+<strong>..........................................................</strong>
+ 
+<strong>..........................................................</strong>
+ 
+<!-- Fond blanc et ombre -->
+ 
+ <div class="mt-4">
+                <a href="{{ asset('fiches/cession_volontaire.html') }}" class="inline-block bg-blue-500 text-white font-bold py-2 px-4 rounded">Télécharger le PDF</a>
+            </div>
+ 
+border-none
+ 
+style="position: absolute; bottom: 20px; left: 0; right: 0; text-align: center;"
+ 
+text-li
+ 
+ <div class=" rounded-lg shadow-md">
+                <iframe width="300px"
+                    src="{{ asset('fiches/cession_volontaire.html') }}" <!-- Remplacez par l'URL de votre page à afficher -->
+                    
+                ></iframe>
+            </div>
+ 
+frameborder="0" style="border:0;"
+ 
+class="w-full h-[600px] aspect-auto" <!-- Ajustez la hauteur selon vos besoins -->
+                    title="Aperçu Document"
+ 
+overflow-hidden
+ 
+max-w-xl
+ 
+style="border: none;"
+ 
+h-screen
+ 
+container
+ 
+h1>Aperçu de la Cession Volontaire de Salaire</h1>
+    <iframe src="{{ asset('fiches/cession_volontaire.html') }}" title="Aperçu de la cession volontaire de salaire"></iframe>
+    <a class="download-link" href="{{ asset('fiches/cession_volontaire.html') }}" download>Télécharger le document</a>
+ 
+_de_salaire
+ 
+_de_salaire
+ 
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cession Volontaire de Salaire</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.5;
+            font-size: 14px; /* Taille de police standard */
+        }
+        h4 {
+            text-align: center;
+            margin: 20px 0;
+            text-decoration: underline;
+        }
+        p {
+            margin-bottom: 15px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            line-height: 1.1 !important;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: left;
+        }
+        .center {
+            text-align: center;
+        }
+        
+        .signature {
+            display: flex;
+            margin-top: 50px;
+            justify-content: space-between; /* Équilibre l'espace entre les éléments */
+            margin-bottom: 80px; /* Ajustez la valeur pour plus ou moins d'espace en dessous */
+        }
+        
+        .signature p {
+            flex: 1; /* Permet aux paragraphes de s'étendre uniformément */
+            text-align: center; /* Centre le texte dans chaque élément */
+        }
+        
+        .note {
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+        .page-break {
+            page-break-after: always;
+        }
+        
+        
+        .p-center {
+            display: flex; /* Utilise Flexbox pour le conteneur principal */
+            flex-direction: column; /* Aligne les éléments verticalement */
+            align-items: center; /* Centre les éléments horizontalement */
+            text-align: right;
+        }
+        
+        .p-center p {
+            margin: 0; /* Supprime les marges par défaut des paragraphes */
+            display: flex; /* Utilise Flexbox pour les paragraphes */
+            align-items: baseline; /* Aligne le texte sur la ligne de base */
+        }
+        
+        .p-center p strong {
+            flex: 0; /* Ne permet pas au texte en gras de s'étendre */
+        }
+        
+        .p-center p::after {
+            content: ""; /* Ajoute un contenu vide après le texte */
+            flex: 1; /* Remplit l'espace restant pour aligner le contenu */
+        }
+        
+        .center-image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="center-image-container">
+        <img class="center-image" width="48px" height="48px" src="{{ $logoDataUrl }}" alt="Logo">
+    </div>
+    
+    <div class="mx-auto max-w-4xl">
+        <p><strong>REGION :</strong> .............................. <strong>PROVINCE :</strong> ......................................... <strong>LOCALITE :</strong> ....................................</p>
+        <p><strong>MUTUELLE DE LA POLICE (MU-POL)</strong><br>
+        Ouagadougou, secteur n°6<br>
+        Avenue Kadiogo, 01 BP 4546<br>
+        Ouagadougou 01, Burkina Faso<br>
+        Tel : +226 06 88 17 74 / 51 03 87 35</p>
+        <h4>CESSION VOLONTAIRE DE SALAIRE</h4>
+        <p class="center"><em>(Article 205 et suivants de l&apos;AUPSRVE)</em></p>
+
+        <div class="p-center">
+            <p><strong>CEDANT :</strong> ............................................................</p>
+            <p><strong>BENEFICIAIRE :</strong> MU-POL : IB BANK-BURKINA FASO<br>
+            CODE BANQUE : BF 139<br>
+            CODE GUICHET : 01002<br>
+            NUMERO COMPTE : 004631300395<br>
+            CLE RIB : 74</p>
+        </div>
+
+        <p>L&apos;an deux mille vingt quatre :</p>
+        <p>Devant nous, <strong>..........................................................</strong>, Président(e) du Tribunal de Grande Instance<br>
+        Assisté de <strong>..........................................................</strong>, Greffier audit Tribunal<br>
+        A comparu Mr/Mme <strong>..........................................................</strong>, Grade : <strong>......................</strong><br>
+        Matricule <strong>..........................................................</strong> en service <strong>..................................................</strong></p>
+
+        <p>Qui déclare qu'il/elle est employé(e) par le MATDS<br>
+        Qu'il/elle désire céder librement et de manière permanente ou non permanente par les présentes à la MU-POL les sommes indiquées dans le tableau ci-dessous :</p>
+
+        <table>
+            <tr>
+                <th rowspan="3">CATEGORIE</th>
+                <th>A prélever une seule fois le premier mois</th>
+                <th colspan="2">A prélever mensuellement pour compter du 2ème mois</th>
+                <th >Compte à créditer</th>
+            </tr>
+            <tr>
+                <td>Frais d&apos;adhésion</td>
+                <td colspan="1">Cotisation mensuelle adhérent</td>
+                <td colspan="1">Cotisation mensuelle des ayants droits</td>
+                <td rowspan="3">MU-POL :IB BANK-BURKINA FASO <br> CODE BANQUE : BF 139 <br> CODE GUICHET : 01002 <br> NUMERO COMPTE : 004631300395 <br> CLE RIB : 74</td>
+            </tr>
+            <tr>
+                <td rowspan="1">10 000</td>
+                <td rowspan="1">5 000</td>
+                <td rowspan="1">8 000</td>
+            </tr>
+            <tr>
+                <td class="center"><strong>SOUS TOTAUX</strong></td>
+                <td class="center"><strong>10 000</strong></td>
+                <td colspan="2" class="center"><strong>13 000</strong></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="page-break"></div>
+
+    <div class="mx-auto max-w-4xl">
+        <p>Qu’en conséquence, il/elle déclare autoriser dès à présent au payeur général du trésor à lui retenir le montant de la mensualité mentionnée dans le tableau sur son salaire ou revenu,</p>
+
+        <p>Nous avons donné acte à Mr/Mme <strong>..........................................................</strong><br>
+        De ses déclarations, lesquelles seront notifiées à son employeur.</p>
+
+        <p>Le cédant déclare décharger de toutes responsabilités quant aux paiements effectués dans ses conditions le payeur général du trésor. Cet engagement pourrait être révoqué par une demande écrite de sa part.</p>
+
+        <p>De ce qui dessus, nous avons, les jours, mois susdit, dressé le présent procès-verbal que le/la comparant(e) a signé avec nous après lecture.</p>
+
+        <div class="signature">
+            <p>Le cédant : <strong>..........................................................</strong></p>
+            <p>Le Président du tribunal : <strong>..........................................................</strong></p>
+            <p>Le Greffier : <strong>..........................................................</strong></p>
+        </div>
+
+        <p>Et nous MU-POL Ouagadougou, secteur n°6<br>
+        Avenue Kadiogo, 01 BP 4546<br>
+        Ouagadougou 01, Burkina Faso<br>
+        Tel : +226 06 88 17 74 / 51 03 87 35</p>
+
+        <p>Déclarons accepter la cession consentie par Mr/Mme <strong>..........................................................</strong></p>
+
+        <p>Signature MU-POL</p>
+        <p>Fait à Ouagadougou le ..........................................................</p>
+    </div>
+</body>
+</html>
+
+ 
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cession Volontaire de Salaire</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.5;
+            font-size: 14px; /* Taille de police standard */
+        }
+        h4 {
+            text-align: center;
+            margin: 20px 0;
+            text-decoration: underline;
+        }
+        p {
+            margin-bottom: 15px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            line-height: 1.1 !important;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: left;
+        }
+        .center {
+            text-align: center;
+        }
+        
+        .signature {
+            display: flex;
+            margin-top: 50px;
+            justify-content: space-between; /* Équilibre l'espace entre les éléments */
+            margin-bottom: 80px; /* Ajustez la valeur pour plus ou moins d'espace en dessous */
+        }
+        
+        .signature p {
+            flex: 1; /* Permet aux paragraphes de s'étendre uniformément */
+            text-align: center; /* Centre le texte dans chaque élément */
+        }
+        
+        .note {
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+        .page-break {
+            page-break-after: always;
+        }
+        
+        
+        .p-center {
+            display: flex; /* Utilise Flexbox pour le conteneur principal */
+            flex-direction: column; /* Aligne les éléments verticalement */
+            align-items: center; /* Centre les éléments horizontalement */
+            text-align: right;
+        }
+        
+        .p-center p {
+            margin: 0; /* Supprime les marges par défaut des paragraphes */
+            display: flex; /* Utilise Flexbox pour les paragraphes */
+            align-items: baseline; /* Aligne le texte sur la ligne de base */
+        }
+        
+        .p-center p strong {
+            flex: 0; /* Ne permet pas au texte en gras de s'étendre */
+        }
+        
+        .p-center p::after {
+            content: ""; /* Ajoute un contenu vide après le texte */
+            flex: 1; /* Remplit l'espace restant pour aligner le contenu */
+        }
+        
+        .center-image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="center-image-container">
+        <img class="center-image" width="48px" height="48px" src="{{ $logoDataUrl }}" alt="Logo">
+    </div>
+    
+    <div class="mx-auto max-w-4xl">
+        <p><strong>REGION :</strong> .............................. <strong>PROVINCE :</strong> ......................................... <strong>LOCALITE :</strong> ....................................</p>
+        <p><strong>MUTUELLE DE LA POLICE (MU-POL)</strong><br>
+        Ouagadougou, secteur n°6<br>
+        Avenue Kadiogo, 01 BP 4546<br>
+        Ouagadougou 01, Burkina Faso<br>
+        Tel : +226 06 88 17 74 / 51 03 87 35</p>
+        <h4>CESSION VOLONTAIRE DE SALAIRE</h4>
+        <p class="center"><em>(Article 205 et suivants de l&apos;AUPSRVE)</em></p>
+
+        <div class="p-center">
+            <p><strong>CEDANT :</strong> ............................................................</p>
+            <p><strong>BENEFICIAIRE :</strong> MU-POL : IB BANK-BURKINA FASO<br>
+            CODE BANQUE : BF 139<br>
+            CODE GUICHET : 01002<br>
+            NUMERO COMPTE : 004631300395<br>
+            CLE RIB : 74</p>
+        </div>
+
+        <p>L&apos;an deux mille vingt quatre :</p>
+        <p>Devant nous, <strong>..........................................................</strong>, Président(e) du Tribunal de Grande Instance<br>
+        Assisté de <strong>..........................................................</strong>, Greffier audit Tribunal<br>
+        A comparu Mr/Mme <strong>..........................................................</strong>, Grade : <strong>......................</strong><br>
+        Matricule <strong>..........................................................</strong> en service <strong>..................................................</strong></p>
+
+        <p>Qui déclare qu'il/elle est employé(e) par le MATDS<br>
+        Qu'il/elle désire céder librement et de manière permanente ou non permanente par les présentes à la MU-POL les sommes indiquées dans le tableau ci-dessous :</p>
+
+        <table>
+            <tr>
+                <th rowspan="3">CATEGORIE</th>
+                <th>A prélever une seule fois le premier mois</th>
+                <th colspan="2">A prélever mensuellement pour compter du 2ème mois</th>
+                <th >Compte à créditer</th>
+            </tr>
+            <tr>
+                <td>Frais d&apos;adhésion</td>
+                <td colspan="1">Cotisation mensuelle adhérent</td>
+                <td colspan="1">Cotisation mensuelle des ayants droits</td>
+                <td rowspan="3">MU-POL :IB BANK-BURKINA FASO <br> CODE BANQUE : BF 139 <br> CODE GUICHET : 01002 <br> NUMERO COMPTE : 004631300395 <br> CLE RIB : 74</td>
+            </tr>
+            <tr>
+                <td rowspan="1">10 000</td>
+                <td rowspan="1">5 000</td>
+                <td rowspan="1">8 000</td>
+            </tr>
+            <tr>
+                <td class="center"><strong>SOUS TOTAUX</strong></td>
+                <td class="center"><strong>10 000</strong></td>
+                <td colspan="2" class="center"><strong>13 000</strong></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="page-break"></div>
+
+    <div class="mx-auto max-w-4xl">
+        <p>Qu’en conséquence, il/elle déclare autoriser dès à présent au payeur général du trésor à lui retenir le montant de la mensualité mentionnée dans le tableau sur son salaire ou revenu,</p>
+
+        <p>Nous avons donné acte à Mr/Mme <strong>..........................................................</strong><br>
+        De ses déclarations, lesquelles seront notifiées à son employeur.</p>
+
+        <p>Le cédant déclare décharger de toutes responsabilités quant aux paiements effectués dans ses conditions le payeur général du trésor. Cet engagement pourrait être révoqué par une demande écrite de sa part.</p>
+
+        <p>De ce qui dessus, nous avons, les jours, mois susdit, dressé le présent procès-verbal que le/la comparant(e) a signé avec nous après lecture.</p>
+
+        <div class="signature">
+            <p>Le cédant : <strong>..........................................................</strong></p>
+            <p>Le Président du tribunal : <strong>..........................................................</strong></p>
+            <p>Le Greffier : <strong>..........................................................</strong></p>
+        </div>
+
+        <p>Et nous MU-POL Ouagadougou, secteur n°6<br>
+        Avenue Kadiogo, 01 BP 4546<br>
+        Ouagadougou 01, Burkina Faso<br>
+        Tel : +226 06 88 17 74 / 51 03 87 35</p>
+
+        <p>Déclarons accepter la cession consentie par Mr/Mme <strong>..........................................................</strong></p>
+
+        <p>Signature MU-POL</p>
+        <p>Fait à Ouagadougou le ..........................................................</p>
+    </div>
+</body>
+</html>
+
+ 
+/* Aligne le texte à gauche */
+ 
+ style=""
+ 
+style="margin-left: 5px;"
+ 
+display: flex; flex-direction: column; margin-top: 5px;
+ 
+-hidden
+ 
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cession Volontaire de Salaire</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.5;
+            font-size: 14px;
+        }
+        h4 {
+            margin: 20px 0;
+            text-decoration: underline;
+        }
+        p {
+            margin-bottom: 15px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table td, table th {
+            padding: 10px;
+            text-align: left;
+        }
+        table th {
+            border: 1px solid black;
+        }
+        .signature {
+            display: flex;
+            margin-top: 50px;
+            justify-content: space-between;
+            margin-bottom: 80px;
+        }
+        .signature p {
+            text-align: center;
+        }
+        .page-break {
+            page-break-after: always;
+        }
+        .center {
+            text-align: center;
+        }
+        .p-center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        /* Suppression des bordures inutiles et uniformisation de la taille des colonnes */
+        table.noborder tr td {
+            border: none;
+            width: 33.33%; /* Chaque colonne aura la même largeur */
+        }
+        table.noborder td {
+            border: none;
+            padding: 5px;
+            vertical-align: top;
+            text-align: left; /* Alignement à gauche */
+        }
+        /* Style pour le tableau avec le contenu des montants */
+        table.montants th, table.montants td {
+            border: 1px solid black;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="mx-auto max-w-xl">
+        <p><strong>REGION :</strong> .............................. <strong>PROVINCE :</strong> ......................................... <strong>LOCALITE :</strong> ....................................</p>
+        <p><strong>MUTUELLE DE LA POLICE (MU-POL)</strong><br>
+        Ouagadougou, secteur n°6<br>
+        Avenue Kadiogo, 01 BP 4546<br>
+        Ouagadougou 01, Burkina Faso<br>
+        Tel : +226 06 88 17 74 / 51 03 87 35</p>
+
+        <table class="noborder">
+            <tr>
+                <td></td>
+                <td>
+                    <h4>CESSION VOLONTAIRE DE SALAIRE</h4>
+                    <p ><em>(Article 205 et suivants de l&apos;AUPSRVE)</em></p>
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <p><strong>CEDANT :</strong> ............................................................</p>
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <p><strong>BENEFICIAIRE :</strong> MU-POL : IB BANK-BURKINA FASO<br>
+                        CODE BANQUE : BF 139<br>
+                        CODE GUICHET : 01002<br>
+                        NUMERO COMPTE : 004631300395<br>
+                        CLE RIB : 74</p>
+                </td>
+                <td></td>
+            </tr>
+        </table>
+
+        <p>L&apos;an deux mille vingt quatre :</p>
+        <p>Devant nous, <strong>..........................................................</strong>, Président(e) du Tribunal de Grande Instance<br>
+        Assisté de <strong>..........................................................</strong>, Greffier audit Tribunal<br>
+        A comparu Mr/Mme <strong>..........................................................</strong>, Grade : <strong>......................</strong><br>
+        Matricule <strong>..........................................................</strong> en service <strong>..................................................</strong></p>
+
+        <p>Qui déclare qu'il/elle est employé(e) par le MATDS<br>
+        Qu'il/elle désire céder librement et de manière permanente ou non permanente par les présentes à la MU-POL les sommes indiquées dans le tableau ci-dessous :</p>
+
+        <table class="montants">
+            <tr>
+                <th rowspan="3">CATEGORIE</th>
+                <th>A prélever une seule fois le premier mois</th>
+                <th colspan="2">A prélever mensuellement pour compter du 2ème mois</th>
+                <th>Compte à créditer</th>
+            </tr>
+            <tr>
+                <td>Frais d&apos;adhésion</td>
+                <td>Cotisation mensuelle adhérent</td>
+                <td>Cotisation mensuelle des ayants droits</td>
+                <td rowspan="3">MU-POL : IB BANK-BURKINA FASO<br>CODE BANQUE : BF 139<br>CODE GUICHET : 01002<br>NUMERO COMPTE : 004631300395<br>CLE RIB : 74</td>
+            </tr>
+            <tr>
+                <td>10 000</td>
+                <td>5 000</td>
+                <td>8 000</td>
+            </tr>
+            <tr>
+                <td class="center"><strong>SOUS TOTAUX</strong></td>
+                <td class="center"><strong>10 000</strong></td>
+                <td colspan="2" class="center"><strong>13 000</strong></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="page-break"></div>
+
+    <div class="mx-auto max-w-4xl">
+        <p>Qu’en conséquence, il/elle déclare autoriser dès à présent au payeur général du trésor à lui retenir le montant de la mensualité mentionnée dans le tableau sur son salaire ou revenu,</p>
+        <p>Nous avons donné acte à Mr/Mme <strong>..........................................................</strong><br>
+        De ses déclarations, lesquelles seront notifiées à son employeur.</p>
+        <p>Le cédant déclare décharger de toutes responsabilités quant aux paiements effectués dans ses conditions le payeur général du trésor. Cet engagement pourrait être révoqué par une demande écrite de sa part.</p>
+        <p>De ce qui dessus, nous avons, les jours, mois susdit, dressé le présent procès-verbal que le/la comparant(e) a signé avec nous après lecture.</p>
+
+        <div class="signature">
+            <p>Le cédant : <strong>..........................................................</strong></p>
+            <p>Le Président du tribunal : <strong>..........................................................</strong></p>
+            <p>Le Greffier : <strong>..........................................................</strong></p>
+        </div>
+
+        <p>Et nous MU-POL Ouagadougou, secteur n°6<br>
+        Avenue Kadiogo, 01 BP 4546<br>
+        Ouagadougou 01, Burkina Faso<br>
+        Tel : +226 06 88 17 74 / 51 03 87 35</p>
+
+        <p>Déclarons accepter la cession consentie par Mr/Mme <strong>..........................................................</strong></p>
+        <p>Signature MU-POL</p>
+        <p>Fait à Ouagadougou le ..........................................................</p>
+    </div>
+</body>
+</html>
+
+ 
+            text-align: center;
+
+ 
+class="center"
+ 
+class="noborder"
+ 
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cession Volontaire de Salaire</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.5;
+            font-size: 14px; /* Taille de police standard */
+        }
+        h4 {
+            text-align: center;
+            margin: 20px 0;
+            text-decoration: underline;
+        }
+        p {
+            margin-bottom: 15px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            line-height: 1.1 !important;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: left;
+        }
+        .center {
+            text-align: center;
+        }
+        
+        .signature {
+            display: flex;
+            margin-top: 50px;
+            justify-content: space-between; /* Équilibre l'espace entre les éléments */
+            margin-bottom: 80px; /* Ajustez la valeur pour plus ou moins d'espace en dessous */
+        }
+        
+        .signature p {
+            flex: 1; /* Permet aux paragraphes de s'étendre uniformément */
+            text-align: center; /* Centre le texte dans chaque élément */
+        }
+        
+        .note {
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+        .page-break {
+            page-break-after: always;
+        }
+        
+        
+        .p-center {
+            display: flex; /* Utilise Flexbox pour le conteneur principal */
+            flex-direction: column; /* Aligne les éléments verticalement */
+            align-items: center; /* Centre les éléments horizontalement */
+        }
+        
+        
+        
+        .p-center p strong {
+            flex: 0; /* Ne permet pas au texte en gras de s'étendre */
+        }
+        
+      
+        
+        .center-image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    {{--  <div class="center-image-container">
+        <img class="center-image" width="48px" height="48px" src="{{ $logoDataUrl }}" alt="Logo">
+    </div>  --}}
+    
+    <div class="mx-auto max-w-xl">
+        <p><strong>REGION :</strong> .............................. <strong>PROVINCE :</strong> ......................................... <strong>LOCALITE :</strong> ....................................</p>
+        <p><strong>MUTUELLE DE LA POLICE (MU-POL)</strong><br>
+        Ouagadougou, secteur n°6<br>
+        Avenue Kadiogo, 01 BP 4546<br>
+        Ouagadougou 01, Burkina Faso<br>
+        Tel : +226 06 88 17 74 / 51 03 87 35</p>
+
+        <table>
+            <tr>
+                <td></td>
+                <td>
+                    <h4>CESSION VOLONTAIRE DE SALAIRE</h4>
+                    <p class="center"><em>(Article 205 et suivants de l&apos;AUPSRVE)</em></p>
+                </td>
+                <td></td>
+
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <p><strong>CEDANT :</strong> ............................................................</p>
+
+                </td>
+                <td></td>
+
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <p><strong>BENEFICIAIRE :</strong> MU-POL : IB BANK-BURKINA FASO<br>
+                        CODE BANQUE : BF 139<br>
+                        CODE GUICHET : 01002<br>
+                        NUMERO COMPTE : 004631300395<br>
+                        CLE RIB : 74</p>
+                </td>
+                <td></td>
+
+            </tr>
+        </table>
+       
+
+
+
+        <p>L&apos;an deux mille vingt quatre :</p>
+        <p>Devant nous, <strong>..........................................................</strong>, Président(e) du Tribunal de Grande Instance<br>
+        Assisté de <strong>..........................................................</strong>, Greffier audit Tribunal<br>
+        A comparu Mr/Mme <strong>..........................................................</strong>, Grade : <strong>......................</strong><br>
+        Matricule <strong>..........................................................</strong> en service <strong>..................................................</strong></p>
+
+        <p>Qui déclare qu'il/elle est employé(e) par le MATDS<br>
+        Qu'il/elle désire céder librement et de manière permanente ou non permanente par les présentes à la MU-POL les sommes indiquées dans le tableau ci-dessous :</p>
+
+        <table>
+            <tr>
+                <th rowspan="3">CATEGORIE</th>
+                <th>A prélever une seule fois le premier mois</th>
+                <th colspan="2">A prélever mensuellement pour compter du 2ème mois</th>
+                <th >Compte à créditer</th>
+            </tr>
+            <tr>
+                <td>Frais d&apos;adhésion</td>
+                <td colspan="1">Cotisation mensuelle adhérent</td>
+                <td colspan="1">Cotisation mensuelle des ayants droits</td>
+                <td rowspan="3">MU-POL :IB BANK-BURKINA FASO <br> CODE BANQUE : BF 139 <br> CODE GUICHET : 01002 <br> NUMERO COMPTE : 004631300395 <br> CLE RIB : 74</td>
+            </tr>
+            <tr>
+                <td rowspan="1">10 000</td>
+                <td rowspan="1">5 000</td>
+                <td rowspan="1">8 000</td>
+            </tr>
+            <tr>
+                <td class="center"><strong>SOUS TOTAUX</strong></td>
+                <td class="center"><strong>10 000</strong></td>
+                <td colspan="2" class="center"><strong>13 000</strong></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="page-break"></div>
+
+    <div class="mx-auto max-w-4xl">
+        <p>Qu’en conséquence, il/elle déclare autoriser dès à présent au payeur général du trésor à lui retenir le montant de la mensualité mentionnée dans le tableau sur son salaire ou revenu,</p>
+
+        <p>Nous avons donné acte à Mr/Mme <strong>..........................................................</strong><br>
+        De ses déclarations, lesquelles seront notifiées à son employeur.</p>
+
+        <p>Le cédant déclare décharger de toutes responsabilités quant aux paiements effectués dans ses conditions le payeur général du trésor. Cet engagement pourrait être révoqué par une demande écrite de sa part.</p>
+
+        <p>De ce qui dessus, nous avons, les jours, mois susdit, dressé le présent procès-verbal que le/la comparant(e) a signé avec nous après lecture.</p>
+
+        <div class="signature">
+            <p>Le cédant : <strong>..........................................................</strong></p>
+            <p>Le Président du tribunal : <strong>..........................................................</strong></p>
+            <p>Le Greffier : <strong>..........................................................</strong></p>
+        </div>
+
+        <p>Et nous MU-POL Ouagadougou, secteur n°6<br>
+        Avenue Kadiogo, 01 BP 4546<br>
+        Ouagadougou 01, Burkina Faso<br>
+        Tel : +226 06 88 17 74 / 51 03 87 35</p>
+
+        <p>Déclarons accepter la cession consentie par Mr/Mme <strong>..........................................................</strong></p>
+
+        <p>Signature MU-POL</p>
+        <p>Fait à Ouagadougou le ..........................................................</p>
+    </div>
+</body>
+</html>
+
+ 
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cession Volontaire de Salaire</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.5;
+            font-size: 14px; /* Taille de police standard */
+        }
+        h4 {
+            text-align: center;
+            margin: 20px 0;
+            text-decoration: underline;
+        }
+        p {
+            margin-bottom: 15px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            line-height: 1.1 !important;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: left;
+        }
+        .center {
+            text-align: center;
+        }
+        
+        .signature {
+            display: flex;
+            margin-top: 50px;
+            justify-content: space-between; /* Équilibre l'espace entre les éléments */
+            margin-bottom: 80px; /* Ajustez la valeur pour plus ou moins d'espace en dessous */
+        }
+        
+        .signature p {
+            flex: 1; /* Permet aux paragraphes de s'étendre uniformément */
+            text-align: center; /* Centre le texte dans chaque élément */
+        }
+        
+        .note {
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+        .page-break {
+            page-break-after: always;
+        }
+        
+        
+        .p-center {
+            display: flex; /* Utilise Flexbox pour le conteneur principal */
+            flex-direction: column; /* Aligne les éléments verticalement */
+            align-items: center; /* Centre les éléments horizontalement */
+        }
+        
+        
+        
+        .p-center p strong {
+            flex: 0; /* Ne permet pas au texte en gras de s'étendre */
+        }
+        
+      
+        
+        .center-image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    {{--  <div class="center-image-container">
+        <img class="center-image" width="48px" height="48px" src="{{ $logoDataUrl }}" alt="Logo">
+    </div>  --}}
+    
+    <div class="mx-auto max-w-xl">
+        <p><strong>REGION :</strong> .............................. <strong>PROVINCE :</strong> ......................................... <strong>LOCALITE :</strong> ....................................</p>
+        <p><strong>MUTUELLE DE LA POLICE (MU-POL)</strong><br>
+        Ouagadougou, secteur n°6<br>
+        Avenue Kadiogo, 01 BP 4546<br>
+        Ouagadougou 01, Burkina Faso<br>
+        Tel : +226 06 88 17 74 / 51 03 87 35</p>
+
+        <table>
+            <tr>
+                <td></td>
+                <td>
+                    <h4>CESSION VOLONTAIRE DE SALAIRE</h4>
+                    <p class="center"><em>(Article 205 et suivants de l&apos;AUPSRVE)</em></p>
+                </td>
+                <td></td>
+
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <p><strong>CEDANT :</strong> ............................................................</p>
+
+                </td>
+                <td></td>
+
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <p><strong>BENEFICIAIRE :</strong> MU-POL : IB BANK-BURKINA FASO<br>
+                        CODE BANQUE : BF 139<br>
+                        CODE GUICHET : 01002<br>
+                        NUMERO COMPTE : 004631300395<br>
+                        CLE RIB : 74</p>
+                </td>
+                <td></td>
+
+            </tr>
+        </table>
+       
+
+
+
+        <p>L&apos;an deux mille vingt quatre :</p>
+        <p>Devant nous, <strong>..........................................................</strong>, Président(e) du Tribunal de Grande Instance<br>
+        Assisté de <strong>..........................................................</strong>, Greffier audit Tribunal<br>
+        A comparu Mr/Mme <strong>..........................................................</strong>, Grade : <strong>......................</strong><br>
+        Matricule <strong>..........................................................</strong> en service <strong>..................................................</strong></p>
+
+        <p>Qui déclare qu'il/elle est employé(e) par le MATDS<br>
+        Qu'il/elle désire céder librement et de manière permanente ou non permanente par les présentes à la MU-POL les sommes indiquées dans le tableau ci-dessous :</p>
+
+        <table>
+            <tr>
+                <th rowspan="3">CATEGORIE</th>
+                <th>A prélever une seule fois le premier mois</th>
+                <th colspan="2">A prélever mensuellement pour compter du 2ème mois</th>
+                <th >Compte à créditer</th>
+            </tr>
+            <tr>
+                <td>Frais d&apos;adhésion</td>
+                <td colspan="1">Cotisation mensuelle adhérent</td>
+                <td colspan="1">Cotisation mensuelle des ayants droits</td>
+                <td rowspan="3">MU-POL :IB BANK-BURKINA FASO <br> CODE BANQUE : BF 139 <br> CODE GUICHET : 01002 <br> NUMERO COMPTE : 004631300395 <br> CLE RIB : 74</td>
+            </tr>
+            <tr>
+                <td rowspan="1">10 000</td>
+                <td rowspan="1">5 000</td>
+                <td rowspan="1">8 000</td>
+            </tr>
+            <tr>
+                <td class="center"><strong>SOUS TOTAUX</strong></td>
+                <td class="center"><strong>10 000</strong></td>
+                <td colspan="2" class="center"><strong>13 000</strong></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="page-break"></div>
+
+    <div class="mx-auto max-w-4xl">
+        <p>Qu’en conséquence, il/elle déclare autoriser dès à présent au payeur général du trésor à lui retenir le montant de la mensualité mentionnée dans le tableau sur son salaire ou revenu,</p>
+
+        <p>Nous avons donné acte à Mr/Mme <strong>..........................................................</strong><br>
+        De ses déclarations, lesquelles seront notifiées à son employeur.</p>
+
+        <p>Le cédant déclare décharger de toutes responsabilités quant aux paiements effectués dans ses conditions le payeur général du trésor. Cet engagement pourrait être révoqué par une demande écrite de sa part.</p>
+
+        <p>De ce qui dessus, nous avons, les jours, mois susdit, dressé le présent procès-verbal que le/la comparant(e) a signé avec nous après lecture.</p>
+
+        <div class="signature">
+            <p>Le cédant : <strong>..........................................................</strong></p>
+            <p>Le Président du tribunal : <strong>..........................................................</strong></p>
+            <p>Le Greffier : <strong>..........................................................</strong></p>
+        </div>
+
+        <p>Et nous MU-POL Ouagadougou, secteur n°6<br>
+        Avenue Kadiogo, 01 BP 4546<br>
+        Ouagadougou 01, Burkina Faso<br>
+        Tel : +226 06 88 17 74 / 51 03 87 35</p>
+
+        <p>Déclarons accepter la cession consentie par Mr/Mme <strong>..........................................................</strong></p>
+
+        <p>Signature MU-POL</p>
+        <p>Fait à Ouagadougou le ..........................................................</p>
+    </div>
+</body>
+</html>
+
+ 
+<div class="" style="max-width: 70%; margin: 0 auto;">
+            
+        </div>
+ 
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cession Volontaire de Salaire</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.5;
+            font-size: 14px; /* Taille de police standard */
+        }
+        h4 {
+            text-align: center;
+            margin: 20px 0;
+            text-decoration: underline;
+        }
+        p {
+            margin-bottom: 15px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            line-height: 1.1 !important;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: left;
+        }
+        .center {
+            text-align: center;
+        }
+        
+        .signature {
+            display: flex;
+            margin-top: 50px;
+            justify-content: space-between; /* Équilibre l'espace entre les éléments */
+            margin-bottom: 80px; /* Ajustez la valeur pour plus ou moins d'espace en dessous */
+        }
+        
+        .signature p {
+            flex: 1; /* Permet aux paragraphes de s'étendre uniformément */
+            text-align: center; /* Centre le texte dans chaque élément */
+        }
+        
+        .note {
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+        .page-break {
+            page-break-after: always;
+        }
+        
+        
+        .p-center {
+            display: flex; /* Utilise Flexbox pour le conteneur principal */
+            flex-direction: column; /* Aligne les éléments verticalement */
+            align-items: center; /* Centre les éléments horizontalement */
+        }
+        
+        
+        
+        .p-center p strong {
+            flex: 0; /* Ne permet pas au texte en gras de s'étendre */
+        }
+        
+      
+        
+        .center-image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    {{--  <div class="center-image-container">
+        <img class="center-image" width="48px" height="48px" src="{{ $logoDataUrl }}" alt="Logo">
+    </div>  --}}
+    
+    <!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cession Volontaire de Salaire</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.5;
+            font-size: 14px;
+        }
+        h4 {
+            text-align: center;
+            margin: 20px 0;
+            text-decoration: underline;
+        }
+        p {
+            margin-bottom: 15px;
+        }
+        .center {
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        table tr td {
+            padding: 8px;
+            vertical-align: top;
+        }
+        table tr td:first-child {
+            width: 30%;
+        }
+        .signature {
+            display: flex;
+            margin-top: 50px;
+            justify-content: space-between;
+            margin-bottom: 80px;
+        }
+        .signature p {
+            flex: 1;
+            text-align: center;
+        }
+        .table-container {
+            margin-top: 20px;
+        }
+        .financial-table {
+            width: 100%;
+            border-collapse: collapse;
+            line-height: 1.1;
+        }
+        .financial-table th, .financial-table td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: left;
+        }
+        .center {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="mx-auto max-w-xl">
+        <p><strong>REGION :</strong> .............................. <strong>PROVINCE :</strong> ......................................... <strong>LOCALITE :</strong> ....................................</p>
+        <p><strong>MUTUELLE DE LA POLICE (MU-POL)</strong><br>
+        Ouagadougou, secteur n°6<br>
+        Avenue Kadiogo, 01 BP 4546<br>
+        Ouagadougou 01, Burkina Faso<br>
+        Tel : +226 06 88 17 74 / 51 03 87 35</p>
+
+        <h4>CESSION VOLONTAIRE DE SALAIRE</h4>
+        <p class="center"><em>(Article 205 et suivants de l&apos;AUPSRVE)</em></p>
+
+        <!-- Utilisation d'un tableau pour un alignement parfait -->
+        <table>
+            <tr>
+                <td><strong>CEDANT :</strong></td>
+                <td>............................................................</td>
+            </tr>
+            <tr>
+                <td><strong>BENEFICIAIRE :</strong></td>
+                <td>
+                    MU-POL : IB BANK-BURKINA FASO<br>
+                    CODE BANQUE : BF 139<br>
+                    CODE GUICHET : 01002<br>
+                    NUMERO COMPTE : 004631300395<br>
+                    CLE RIB : 74
+                </td>
+            </tr>
+        </table>
+
+        <p>L&apos;an deux mille vingt quatre :</p>
+        <p>Devant nous, <strong>..........................................................</strong>, Président(e) du Tribunal de Grande Instance<br>
+        Assisté de <strong>..........................................................</strong>, Greffier audit Tribunal<br>
+        A comparu Mr/Mme <strong>..........................................................</strong>, Grade : <strong>......................</strong><br>
+        Matricule <strong>..........................................................</strong> en service <strong>..................................................</strong></p>
+
+        <p>Qui déclare qu'il/elle est employé(e) par le MATDS<br>
+        Qu'il/elle désire céder librement et de manière permanente ou non permanente par les présentes à la MU-POL les sommes indiquées dans le tableau ci-dessous :</p>
+
+        <div class="table-container">
+            <table class="financial-table">
+                <tr>
+                    <th rowspan="3">CATEGORIE</th>
+                    <th>A prélever une seule fois le premier mois</th>
+                    <th colspan="2">A prélever mensuellement pour compter du 2ème mois</th>
+                    <th>Compte à créditer</th>
+                </tr>
+                <tr>
+                    <td>Frais d&apos;adhésion</td>
+                    <td>Cotisation mensuelle adhérent</td>
+                    <td>Cotisation mensuelle des ayants droits</td>
+                    <td rowspan="3">MU-POL : IB BANK-BURKINA FASO <br> CODE BANQUE : BF 139 <br> CODE GUICHET : 01002 <br> NUMERO COMPTE : 004631300395 <br> CLE RIB : 74</td>
+                </tr>
+                <tr>
+                    <td>10 000</td>
+                    <td>5 000</td>
+                    <td>8 000</td>
+                </tr>
+                <tr>
+                    <td class="center"><strong>SOUS TOTAUX</strong></td>
+                    <td class="center"><strong>10 000</strong></td>
+                    <td colspan="2" class="center"><strong>13 000</strong></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
+
+
+    <div class="page-break"></div>
+
+    <div class="mx-auto max-w-4xl">
+        <p>Qu’en conséquence, il/elle déclare autoriser dès à présent au payeur général du trésor à lui retenir le montant de la mensualité mentionnée dans le tableau sur son salaire ou revenu,</p>
+
+        <p>Nous avons donné acte à Mr/Mme <strong>..........................................................</strong><br>
+        De ses déclarations, lesquelles seront notifiées à son employeur.</p>
+
+        <p>Le cédant déclare décharger de toutes responsabilités quant aux paiements effectués dans ses conditions le payeur général du trésor. Cet engagement pourrait être révoqué par une demande écrite de sa part.</p>
+
+        <p>De ce qui dessus, nous avons, les jours, mois susdit, dressé le présent procès-verbal que le/la comparant(e) a signé avec nous après lecture.</p>
+
+        <div class="signature">
+            <p>Le cédant : <strong>..........................................................</strong></p>
+            <p>Le Président du tribunal : <strong>..........................................................</strong></p>
+            <p>Le Greffier : <strong>..........................................................</strong></p>
+        </div>
+
+        <p>Et nous MU-POL Ouagadougou, secteur n°6<br>
+        Avenue Kadiogo, 01 BP 4546<br>
+        Ouagadougou 01, Burkina Faso<br>
+        Tel : +226 06 88 17 74 / 51 03 87 35</p>
+
+        <p>Déclarons accepter la cession consentie par Mr/Mme <strong>..........................................................</strong></p>
+
+        <p>Signature MU-POL</p>
+        <p>Fait à Ouagadougou le ..........................................................</p>
+    </div>
+</body>
+</html>
+
+ 
+<div class="mx-auto max-w-xl">
+        <p><strong>REGION :</strong> .............................. <strong>PROVINCE :</strong> ......................................... <strong>LOCALITE :</strong> ....................................</p>
+        <p><strong>MUTUELLE DE LA POLICE (MU-POL)</strong><br>
+        Ouagadougou, secteur n°6<br>
+        Avenue Kadiogo, 01 BP 4546<br>
+        Ouagadougou 01, Burkina Faso<br>
+        Tel : +226 06 88 17 74 / 51 03 87 35</p>
+        <h4>CESSION VOLONTAIRE DE SALAIRE</h4>
+        <p class="center"><em>(Article 205 et suivants de l&apos;AUPSRVE)</em></p>
+
+        <div class="" style="max-width: 70%; margin: 0 auto;">
+            <p><strong>CEDANT :</strong> ............................................................</p>
+            <p><strong>BENEFICIAIRE :</strong> MU-POL : IB BANK-BURKINA FASO<br>
+            CODE BANQUE : BF 139<br>
+            CODE GUICHET : 01002<br>
+            NUMERO COMPTE : 004631300395<br>
+            CLE RIB : 74</p>
+        </div>
+
+        <p>L&apos;an deux mille vingt quatre :</p>
+        <p>Devant nous, <strong>..........................................................</strong>, Président(e) du Tribunal de Grande Instance<br>
+        Assisté de <strong>..........................................................</strong>, Greffier audit Tribunal<br>
+        A comparu Mr/Mme <strong>..........................................................</strong>, Grade : <strong>......................</strong><br>
+        Matricule <strong>..........................................................</strong> en service <strong>..................................................</strong></p>
+
+        <p>Qui déclare qu'il/elle est employé(e) par le MATDS<br>
+        Qu'il/elle désire céder librement et de manière permanente ou non permanente par les présentes à la MU-POL les sommes indiquées dans le tableau ci-dessous :</p>
+
+        <table>
+            <tr>
+                <th rowspan="3">CATEGORIE</th>
+                <th>A prélever une seule fois le premier mois</th>
+                <th colspan="2">A prélever mensuellement pour compter du 2ème mois</th>
+                <th >Compte à créditer</th>
+            </tr>
+            <tr>
+                <td>Frais d&apos;adhésion</td>
+                <td colspan="1">Cotisation mensuelle adhérent</td>
+                <td colspan="1">Cotisation mensuelle des ayants droits</td>
+                <td rowspan="3">MU-POL :IB BANK-BURKINA FASO <br> CODE BANQUE : BF 139 <br> CODE GUICHET : 01002 <br> NUMERO COMPTE : 004631300395 <br> CLE RIB : 74</td>
+            </tr>
+            <tr>
+                <td rowspan="1">10 000</td>
+                <td rowspan="1">5 000</td>
+                <td rowspan="1">8 000</td>
+            </tr>
+            <tr>
+                <td class="center"><strong>SOUS TOTAUX</strong></td>
+                <td class="center"><strong>10 000</strong></td>
+                <td colspan="2" class="center"><strong>13 000</strong></td>
+            </tr>
+        </table>
+    </div>
+ 
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cession Volontaire de Salaire</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.5;
+            font-size: 14px; /* Taille de police standard */
+        }
+        h4 {
+            text-align: center;
+            margin: 20px 0;
+            text-decoration: underline;
+        }
+        p {
+            margin-bottom: 15px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            line-height: 1.1 !important;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: left;
+        }
+        .center {
+            text-align: center;
+        }
+        
+        .signature {
+            display: flex;
+            margin-top: 50px;
+            justify-content: space-between; /* Équilibre l'espace entre les éléments */
+            margin-bottom: 80px; /* Ajustez la valeur pour plus ou moins d'espace en dessous */
+        }
+        
+        .signature p {
+            flex: 1; /* Permet aux paragraphes de s'étendre uniformément */
+            text-align: center; /* Centre le texte dans chaque élément */
+        }
+        
+        .note {
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+        .page-break {
+            page-break-after: always;
+        }
+        
+        
+        .p-center {
+            display: flex; /* Utilise Flexbox pour le conteneur principal */
+            flex-direction: column; /* Aligne les éléments verticalement */
+            align-items: center; /* Centre les éléments horizontalement */
+        }
+        
+        
+        
+        .p-center p strong {
+            flex: 0; /* Ne permet pas au texte en gras de s'étendre */
+        }
+        
+      
+        
+        .center-image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    {{--  <div class="center-image-container">
+        <img class="center-image" width="48px" height="48px" src="{{ $logoDataUrl }}" alt="Logo">
+    </div>  --}}
+    
+    <div class="mx-auto max-w-xl">
+        <p><strong>REGION :</strong> .............................. <strong>PROVINCE :</strong> ......................................... <strong>LOCALITE :</strong> ....................................</p>
+        <p><strong>MUTUELLE DE LA POLICE (MU-POL)</strong><br>
+        Ouagadougou, secteur n°6<br>
+        Avenue Kadiogo, 01 BP 4546<br>
+        Ouagadougou 01, Burkina Faso<br>
+        Tel : +226 06 88 17 74 / 51 03 87 35</p>
+        <h4>CESSION VOLONTAIRE DE SALAIRE</h4>
+        <p class="center"><em>(Article 205 et suivants de l&apos;AUPSRVE)</em></p>
+    
+        <!-- Conteneur Flexbox pour aligner CEDANT et BENEFICIAIRE verticalement avec CESSION VOLONTAIRE -->
+        <div style="display: flex; align-items: flex-start;">
+            <div style="margin-right: 20px;">
+                <p><strong>CEDANT :</strong> ............................................................</p>
+                <p><strong>BENEFICIAIRE :</strong> MU-POL : IB BANK-BURKINA FASO<br>
+                CODE BANQUE : BF 139<br>
+                CODE GUICHET : 01002<br>
+                NUMERO COMPTE : 004631300395<br>
+                CLE RIB : 74</p>
+            </div>
+            <!-- Ceci permet d'aligner verticalement avec la partie de gauche -->
+            <div>
+                <h4 style="margin: 0;">CESSION VOLONTAIRE DE SALAIRE</h4>
+            </div>
+        </div>
+    
+        <p>L&apos;an deux mille vingt quatre :</p>
+        <p>Devant nous, <strong>..........................................................</strong>, Président(e) du Tribunal de Grande Instance<br>
+        Assisté de <strong>..........................................................</strong>, Greffier audit Tribunal<br>
+        A comparu Mr/Mme <strong>..........................................................</strong>, Grade : <strong>......................</strong><br>
+        Matricule <strong>..........................................................</strong> en service <strong>..................................................</strong></p>
+    
+        <p>Qui déclare qu'il/elle est employé(e) par le MATDS<br>
+        Qu'il/elle désire céder librement et de manière permanente ou non permanente par les présentes à la MU-POL les sommes indiquées dans le tableau ci-dessous :</p>
+    
+        <table>
+            <tr>
+                <th rowspan="3">CATEGORIE</th>
+                <th>A prélever une seule fois le premier mois</th>
+                <th colspan="2">A prélever mensuellement pour compter du 2ème mois</th>
+                <th >Compte à créditer</th>
+            </tr>
+            <tr>
+                <td>Frais d&apos;adhésion</td>
+                <td colspan="1">Cotisation mensuelle adhérent</td>
+                <td colspan="1">Cotisation mensuelle des ayants droits</td>
+                <td rowspan="3">MU-POL :IB BANK-BURKINA FASO <br> CODE BANQUE : BF 139 <br> CODE GUICHET : 01002 <br> NUMERO COMPTE : 004631300395 <br> CLE RIB : 74</td>
+            </tr>
+            <tr>
+                <td rowspan="1">10 000</td>
+                <td rowspan="1">5 000</td>
+                <td rowspan="1">8 000</td>
+            </tr>
+            <tr>
+                <td class="center"><strong>SOUS TOTAUX</strong></td>
+                <td class="center"><strong>10 000</strong></td>
+                <td colspan="2" class="center"><strong>13 000</strong></td>
+            </tr>
+        </table>
+    </div>
+    
+
+    <div class="page-break"></div>
+
+    <div class="mx-auto max-w-4xl">
+        <p>Qu’en conséquence, il/elle déclare autoriser dès à présent au payeur général du trésor à lui retenir le montant de la mensualité mentionnée dans le tableau sur son salaire ou revenu,</p>
+
+        <p>Nous avons donné acte à Mr/Mme <strong>..........................................................</strong><br>
+        De ses déclarations, lesquelles seront notifiées à son employeur.</p>
+
+        <p>Le cédant déclare décharger de toutes responsabilités quant aux paiements effectués dans ses conditions le payeur général du trésor. Cet engagement pourrait être révoqué par une demande écrite de sa part.</p>
+
+        <p>De ce qui dessus, nous avons, les jours, mois susdit, dressé le présent procès-verbal que le/la comparant(e) a signé avec nous après lecture.</p>
+
+        <div class="signature">
+            <p>Le cédant : <strong>..........................................................</strong></p>
+            <p>Le Président du tribunal : <strong>..........................................................</strong></p>
+            <p>Le Greffier : <strong>..........................................................</strong></p>
+        </div>
+
+        <p>Et nous MU-POL Ouagadougou, secteur n°6<br>
+        Avenue Kadiogo, 01 BP 4546<br>
+        Ouagadougou 01, Burkina Faso<br>
+        Tel : +226 06 88 17 74 / 51 03 87 35</p>
+
+        <p>Déclarons accepter la cession consentie par Mr/Mme <strong>..........................................................</strong></p>
+
+        <p>Signature MU-POL</p>
+        <p>Fait à Ouagadougou le ..........................................................</p>
+    </div>
+</body>
+</html>
+
+ 
+p-center
+ 
+        !-- Conteneur pour aligner CEDANT et BENEFICIAIRE avec CESSION VOLONTAIRE DE SALAIRE -->
+
+ 
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cession Volontaire de Salaire</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.5;
+            font-size: 14px; /* Taille de police standard */
+        }
+        h4 {
+            text-align: center;
+            margin: 20px 0;
+            text-decoration: underline;
+        }
+        p {
+            margin-bottom: 15px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            line-height: 1.1 !important;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: left;
+        }
+        .center {
+            text-align: center;
+        }
+        
+        .signature {
+            display: flex;
+            margin-top: 50px;
+            justify-content: space-between; /* Équilibre l'espace entre les éléments */
+            margin-bottom: 80px; /* Ajustez la valeur pour plus ou moins d'espace en dessous */
+        }
+        
+        .signature p {
+            flex: 1; /* Permet aux paragraphes de s'étendre uniformément */
+            text-align: center; /* Centre le texte dans chaque élément */
+        }
+        
+        .note {
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+        .page-break {
+            page-break-after: always;
+        }
+        
+        
+        .p-center {
+            text-align: center;
+        }
+        
+        
+        
+        .p-center p strong {
+            flex: 0; /* Ne permet pas au texte en gras de s'étendre */
+        }
+        
+      
+        
+        .center-image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            text-align: center;
+        }
+        .container {
+            width: 70%;
+            margin: 0 auto;
+            text-align: left;
+            border: 1px solid transparent;
+        }
+
+        .title {
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .cedant,
+        .beneficiaire {
+            margin-bottom: 20px;
+        }
+
+        .cedant strong,
+        .beneficiaire strong {
+            display: inline-block;
+            width: 100px;
+        }
+
+        .beneficiaire {
+            line-height: 1.4;
+        }
+
+    </style>
+</head>
+<body>
+    {{--  <div class="center-image-container">
+        <img class="center-image" width="48px" height="48px" src="{{ $logoDataUrl }}" alt="Logo">
+    </div>  --}}
+    
+    <div class="mx-auto max-w-xl">
+        <p><strong>REGION :</strong> .............................. <strong>PROVINCE :</strong> ......................................... <strong>LOCALITE :</strong> ....................................</p>
+        <p><strong>MUTUELLE DE LA POLICE (MU-POL)</strong><br>
+        Ouagadougou, secteur n°6<br>
+        Avenue Kadiogo, 01 BP 4546<br>
+        Ouagadougou 01, Burkina Faso<br>
+        Tel : +226 06 88 17 74 / 51 03 87 35</p>
+        <h4>CESSION VOLONTAIRE DE SALAIRE</h4>
+        <p class="center"><em>(Article 205 et suivants de l&apos;AUPSRVE)</em></p>
+        <div class="p-center">
+            
+            <div class="container">
+                <p class="title">Cession Volontaire de Salaire</p>
+                <p class="subtitle">(Article 205 et suivants de l'AUPSRVE)</p>
+        
+                <div class="cedant">
+                    <p><strong>CEDANT :</strong> .............................................................................</p>
+                </div>
+        
+                <div class="beneficiaire">
+                    <p><strong>BENEFICIAIRE :</strong> MU-POL : IB BANK-BURKINA FASO</p>
+                    <p><strong>CODE BANQUE :</strong> BF 139</p>
+                    <p><strong>CODE GUICHET :</strong> 01002</p>
+                    <p><strong>NUMERO COMPTE :</strong> 004631300395</p>
+                    <p><strong>CLE RIB :</strong> 74</p>
+                </div>
+            </div>
+        </div>
+
+        <p>L&apos;an deux mille vingt quatre :</p>
+        <p>Devant nous, <strong>..........................................................</strong>, Président(e) du Tribunal de Grande Instance<br>
+        Assisté de <strong>..........................................................</strong>, Greffier audit Tribunal<br>
+        A comparu Mr/Mme <strong>..........................................................</strong>, Grade : <strong>......................</strong><br>
+        Matricule <strong>..........................................................</strong> en service <strong>..................................................</strong></p>
+
+        <p>Qui déclare qu'il/elle est employé(e) par le MATDS<br>
+        Qu'il/elle désire céder librement et de manière permanente ou non permanente par les présentes à la MU-POL les sommes indiquées dans le tableau ci-dessous :</p>
+
+        <table>
+            <tr>
+                <th rowspan="3">CATEGORIE</th>
+                <th>A prélever une seule fois le premier mois</th>
+                <th colspan="2">A prélever mensuellement pour compter du 2ème mois</th>
+                <th >Compte à créditer</th>
+            </tr>
+            <tr>
+                <td>Frais d&apos;adhésion</td>
+                <td colspan="1">Cotisation mensuelle adhérent</td>
+                <td colspan="1">Cotisation mensuelle des ayants droits</td>
+                <td rowspan="3">MU-POL :IB BANK-BURKINA FASO <br> CODE BANQUE : BF 139 <br> CODE GUICHET : 01002 <br> NUMERO COMPTE : 004631300395 <br> CLE RIB : 74</td>
+            </tr>
+            <tr>
+                <td rowspan="1">10 000</td>
+                <td rowspan="1">5 000</td>
+                <td rowspan="1">8 000</td>
+            </tr>
+            <tr>
+                <td class="center"><strong>SOUS TOTAUX</strong></td>
+                <td class="center"><strong>10 000</strong></td>
+                <td colspan="2" class="center"><strong>13 000</strong></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="page-break"></div>
+
+    <div class="mx-auto max-w-4xl">
+        <p>Qu’en conséquence, il/elle déclare autoriser dès à présent au payeur général du trésor à lui retenir le montant de la mensualité mentionnée dans le tableau sur son salaire ou revenu,</p>
+
+        <p>Nous avons donné acte à Mr/Mme <strong>..........................................................</strong><br>
+        De ses déclarations, lesquelles seront notifiées à son employeur.</p>
+
+        <p>Le cédant déclare décharger de toutes responsabilités quant aux paiements effectués dans ses conditions le payeur général du trésor. Cet engagement pourrait être révoqué par une demande écrite de sa part.</p>
+
+        <p>De ce qui dessus, nous avons, les jours, mois susdit, dressé le présent procès-verbal que le/la comparant(e) a signé avec nous après lecture.</p>
+
+        <div class="signature">
+            <p>Le cédant : <strong>..........................................................</strong></p>
+            <p>Le Président du tribunal : <strong>..........................................................</strong></p>
+            <p>Le Greffier : <strong>..........................................................</strong></p>
+        </div>
+
+        <p>Et nous MU-POL Ouagadougou, secteur n°6<br>
+        Avenue Kadiogo, 01 BP 4546<br>
+        Ouagadougou 01, Burkina Faso<br>
+        Tel : +226 06 88 17 74 / 51 03 87 35</p>
+
+        <p>Déclarons accepter la cession consentie par Mr/Mme <strong>..........................................................</strong></p>
+
+        <p>Signature MU-POL</p>
+        <p>Fait à Ouagadougou le ..........................................................</p>
+    </div>
+</body>
+</html>
+
+ 
+.p-center p {
+            margin: 0; /* Supprime les marges par défaut des paragraphes */
+            display: flex; /* Utilise Flexbox pour les paragraphes */
+            align-items: baseline; /* Aligne le texte sur la ligne de base */
+        }
+ 
+  .p-center p::after {
+            content: ""; /* Ajoute un contenu vide après le texte */
+            flex: 1; /* Remplit l'espace restant pour aligner le contenu */
+        }
+ 
+            text-align: right;
+
+ 
+<x-guest-layout>
+    <x-header-guest/>
+    <x-section-guest>
+        @if (session()->has('message'))
+            <x-succes-notification>
+                {{ session('message') }}
+            </x-succes-notification>
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const notification = document.getElementById('success-notification-content');
+                    const closeBtn = document.getElementById('close-notification');
+                    
+                    notification.classList.remove('hidden');
+                    
+                    {{--  setTimeout(() => {
+                        notification.classList.add('hidden');
+                    }, 5000);  --}}
+                    
+                    closeBtn.addEventListener('click', () => {
+                        notification.classList.add('hidden');
+                    });
+                });
+            </script>
+        @endif
+        <div class="flex justify-end">
+            <a href="{{ route('download-fiche-cession-volontaire', ['id' => $demandeAdhesion->id]) }}" >
+                <x-primary-button>
+                    Télécharger cession volontaire
+                </x-primary-button>
+            </a>
+        </div>
+        <livewire:change-event/>
+        <h1>Résumé de la Demande d'Adhésion</h1>
+        
+        <ul>
+            <li><strong>Matricule:</strong> {{ $demandeAdhesion->matricule }}</li>
+            <li><strong>NIP:</strong> {{ $demandeAdhesion->nip }}</li>
+            <li><strong>CNIB:</strong> {{ $demandeAdhesion->cnib }}</li>
+            <li><strong>Date de délivrance:</strong> {{ $demandeAdhesion->delivree }}</li>
+            <li><strong>Date d'expiration:</strong> {{ $demandeAdhesion->expire }}</li>
+            <li><strong>Adresse:</strong> {{ $demandeAdhesion->adresse }}</li>
+            <li><strong>Téléphone:</strong> {{ $demandeAdhesion->telephone }}</li>
+            <li><strong>Nom:</strong> {{ $demandeAdhesion->nom }}</li>
+            <li><strong>Prénom:</strong> {{ $demandeAdhesion->prenom }}</li>
+            <li><strong>Genre:</strong> {{ $demandeAdhesion->genre }}</li>
+            <li><strong>Département:</strong> {{ $demandeAdhesion->departement }}</li>
+            <li><strong>Ville:</strong> {{ $demandeAdhesion->ville }}</li>
+            <li><strong>Pays:</strong> {{ $demandeAdhesion->pays }}</li>
+            <li><strong>Nom du père:</strong> {{ $demandeAdhesion->nom_pere }}</li>
+            <li><strong>Nom de la mère:</strong> {{ $demandeAdhesion->nom_mere }}</li>
+            <li><strong>Situation matrimoniale:</strong> {{ $demandeAdhesion->situation_matrimoniale }}</li>
+            <li><strong>Nom et prénom de la personne à prévenir:</strong> {{ $demandeAdhesion->nom_prenom_personne_besoin }}</li>
+            <li><strong>Lieu de résidence:</strong> {{ $demandeAdhesion->lieu_residence }}</li>
+            <li><strong>Téléphone de la personne à prévenir:</strong> {{ $demandeAdhesion->telephone_personne_prevenir }}</li>
+            <li><strong>Nombre d&apos;ayants droits:</strong> {{ $demandeAdhesion->nombreAyantsDroits }}</li>
+            <li><strong>Statut:</strong> {{ $demandeAdhesion->statut }}</li>
+            <li><strong>Grade:</strong> {{ $demandeAdhesion->grade }}</li>
+            <li><strong>Date de départ à la retraite:</strong> {{ $demandeAdhesion->departARetraite }}</li>
+            <li><strong>Numéro CARFO:</strong> {{ $demandeAdhesion->numeroCARFO }}</li>
+            <li><strong>Date d&apos;intégration:</strong> {{ $demandeAdhesion->dateIntegration }}</li>
+            <li><strong>Date de départ à la retraite:</strong> {{ $demandeAdhesion->dateDepartARetraite }}</li>
+            <li><strong>Direction:</strong> {{ $demandeAdhesion->direction }}</li>
+            <li><strong>Service:</strong> {{ $demandeAdhesion->service }}</li>
+        </ul>
+    </x-section-guest>
+</x-guest-layout>
+
+
+ 
+.p-center {
+            display: flex; /* Utilise Flexbox pour aligner les éléments */
+            flex-direction: column; /* Aligne les éléments verticalement */
+            text-align: center;
+        }
+        
+        .p-center p {
+            margin: 0; /* Supprime les marges par défaut des paragraphes */
+            display: flex; /* Utilise Flexbox pour le contenu des paragraphes */
+            align-items: baseline; /* Aligne le texte sur la ligne de base */
+        }
+        
+        .p-center p strong {
+            flex: 0; /* Ne permet pas au texte en gras de s'étendre */
+        }
+ 
+->extends('layouts.app')
+ 
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire d'Adhésion</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #fff;
+        }
+
+        h2,
+        h4 {
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .section {
+            margin-bottom: 20px;
+            padding: 10px 0;
+        }
+
+        label {
+            display: block;
+            margin: 5px 0 2px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #000;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .ayants-droits-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .ayants-droits-table th,
+        .ayants-droits-table td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .signature {
+            margin-top: 40px;
+            text-align: center;
+            padding-top: 20px;
+        }
+
+        .signature p {
+            margin: 10px 0;
+        }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>FORMULAIRE D'ADHÉSION</h2>
+        <h4>BURKINA FASO</h4>
+
+        <div class="section">
+            <h4>RÉFÉRENCES DE L'ADHÉRENT</h4>
+            <label>Matricule :</label>
+            <input type="text" value="{{ $demandeAdhesion->matricule }}" readonly>
+            <label>NIP :</label>
+            <input type="text" value="{{ $demandeAdhesion->nip }}" readonly>
+            <label>CNIB :</label>
+            <input type="text" value="{{ $demandeAdhesion->cnib }}" readonly>
+            <label>Date de délivrance :</label>
+            <input type="text" value="{{ $demandeAdhesion->delivree }}" readonly>
+            <label>Date d'expiration :</label>
+            <input type="text" value="{{ $demandeAdhesion->expire }}" readonly>
+            <label>Adresse permanente :</label>
+            <input type="text" value="{{ $demandeAdhesion->adresse }}" readonly>
+            <label>Téléphone :</label>
+            <input type="text" value="{{ $demandeAdhesion->telephone }}" readonly>
+        </div>
+
+        <div class="section">
+            <h4>ÉTAT CIVIL</h4>
+            <label>Nom :</label>
+            <input type="text" value="{{ $demandeAdhesion->nom }}" readonly>
+            <label>Prénom :</label>
+            <input type="text" value="{{ $demandeAdhesion->prenom }}" readonly>
+            <label>Genre :</label>
+            <input type="text" value="{{ $demandeAdhesion->genre }}" readonly>
+            <label>Département :</label>
+            <input type="text" value="{{ $demandeAdhesion->departement }}" readonly>
+            <label>Ville :</label>
+            <input type="text" value="{{ $demandeAdhesion->ville }}" readonly>
+            <label>Pays :</label>
+            <input type="text" value="{{ $demandeAdhesion->pays }}" readonly>
+            <label>Nom du père :</label>
+            <input type="text" value="{{ $demandeAdhesion->nom_pere }}" readonly>
+            <label>Nom de la mère :</label>
+            <input type="text" value="{{ $demandeAdhesion->nom_mere }}" readonly>
+            <label>Situation matrimoniale :</label>
+            <input type="text" value="{{ $demandeAdhesion->situation_matrimoniale }}" readonly>
+        </div>
+
+        <div class="section">
+            <h4>INFORMATIONS À FOURNIR</h4>
+            <label>Nom et prénom de la personne à prévenir :</label>
+            <input type="text" value="{{ $demandeAdhesion->nom_prenom_personne_besoin }}" readonly>
+            <label>Lieu de résidence :</label>
+            <input type="text" value="{{ $demandeAdhesion->lieu_residence }}" readonly>
+            <label>Téléphone de la personne à prévenir :</label>
+            <input type="text" value="{{ $demandeAdhesion->telephone_personne_prevenir }}" readonly>
+        </div>
+
+        <div class="section">
+            <h4>LISTE DES AYANTS DROITS</h4>
+            <table class="ayants-droits-table">
+                <tr>
+                    <th>N°</th>
+                    <th>NOM</th>
+                    <th>PRÉNOM(S)</th>
+                    <th>SEXE</th>
+                    <th>DATE DE NAISSANCE</th>
+                    <th>LIEN DE PARENTE</th>
+                </tr>
+                @for($i = 1; $i <= $demandeAdhesion->nombreAyantsDroits; $i++)
+                <tr>
+                    <td>{{ $i }}</td>
+                    <td><input type="text" readonly></td>
+                    <td><input type="text" readonly></td>
+                    <td><input type="text" readonly></td>
+                    <td><input type="text" readonly></td>
+                    <td><input type="text" readonly></td>
+                </tr>
+                @endfor
+            </table>
+        </div>
+
+        <div class="section">
+            <h4>ORGANISATIONS PROFESSIONNELLES</h4>
+            <label>Personnel retraité :</label>
+            <input type="text" value="{{ $demandeAdhesion->statut }}" readonly>
+            <label>Grade :</label>
+            <input type="text" value="{{ $demandeAdhesion->grade }}" readonly>
+            <label>Date de départ à la retraite :</label>
+            <input type="text" value="{{ $demandeAdhesion->departARetraite }}" readonly>
+            <label>Numéro CARFO :</label>
+            <input type="text" value="{{ $demandeAdhesion->numeroCARFO }}" readonly>
+            <label>Date d’intégration :</label>
+            <input type="text" value="{{ $demandeAdhesion->dateIntegration }}" readonly>
+            <label>Date de départ à la retraite :</label>
+            <input type="text" value="{{ $demandeAdhesion->dateDepartARetraite }}" readonly>
+            <label>Direction :</label>
+            <input type="text" value="{{ $demandeAdhesion->direction }}" readonly>
+            <label>Service :</label>
+            <input type="text" value="{{ $demandeAdhesion->service }}" readonly>
+        </div>
+
+        <div class="signature">
+            <p>Le cédant : <strong>..........................................................</strong></p>
+            <p>Le Président du tribunal : <strong>..........................................................</strong></p>
+            <p>Le Greffier : <strong>..........................................................</strong></p>
+        </div>
+
+        <div class="footer-note">
+            <p>IDÉE DES PHOTOS RÉCENTES DE L'ADHÉRENT ET DES AYANTS DROITS</p>
+            <p>Joindre une copie de l'extrait de naissance de chaque enfant<br>
+                Joindre une copie de l'extrait de naissance de la CNIB pour le(s) conjoint(s)</p>
+        </div>
+    </div>
+
+</body>
+
+</html>
+
+ 
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire d'Adhésion</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #fff;
+        }
+        h2, h4 {
+            text-align: center;
+            margin: 0;
+        }
+        .section {
+            margin-bottom: 20px;
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 10px;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+        input {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #000;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .ayants-droits-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .ayants-droits-table th, .ayants-droits-table td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: left;
+        }
+        .signature {
+            margin-top: 40px;
+            text-align: center;
+        }
+        .signature p {
+            margin: 0;
+            padding: 10px 0;
+        }
+        .footer-note {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>FORMULAIRE D'ADHÉSION</h2>
+    <h4>BURKINA FASO</h4>
+
+    <div class="section">
+        <h4>RÉFÉRENCES DE L'ADHÉRENT</h4>
+        <label>Matricule :</label> <input type="text" value="{{ $demandeAdhesion->matricule }}" readonly>
+        <label>NIP :</label> <input type="text" value="{{ $demandeAdhesion->nip }}" readonly>
+        <label>CNIB :</label> <input type="text" value="{{ $demandeAdhesion->cnib }}" readonly>
+        <label>Date de délivrance :</label> <input type="text" value="{{ $demandeAdhesion->delivree }}" readonly>
+        <label>Date d'expiration :</label> <input type="text" value="{{ $demandeAdhesion->expire }}" readonly>
+        <label>Adresse permanente :</label> <input type="text" value="{{ $demandeAdhesion->adresse }}" readonly>
+        <label>Téléphone :</label> <input type="text" value="{{ $demandeAdhesion->telephone }}" readonly>
+    </div>
+
+    <div class="section">
+        <h4>ÉTAT CIVIL</h4>
+        <label>Nom :</label> <input type="text" value="{{ $demandeAdhesion->nom }}" readonly>
+        <label>Prénom :</label> <input type="text" value="{{ $demandeAdhesion->prenom }}" readonly>
+        <label>Genre :</label> <input type="text" value="{{ $demandeAdhesion->genre }}" readonly>
+        <label>Département :</label> <input type="text" value="{{ $demandeAdhesion->departement }}" readonly>
+        <label>Ville :</label> <input type="text" value="{{ $demandeAdhesion->ville }}" readonly>
+        <label>Pays :</label> <input type="text" value="{{ $demandeAdhesion->pays }}" readonly>
+        <label>Nom du père :</label> <input type="text" value="{{ $demandeAdhesion->nom_pere }}" readonly>
+        <label>Nom de la mère :</label> <input type="text" value="{{ $demandeAdhesion->nom_mere }}" readonly>
+        <label>Situation matrimoniale :</label> <input type="text" value="{{ $demandeAdhesion->situation_matrimoniale }}" readonly>
+    </div>
+
+    <div class="section">
+        <h4>INFORMATIONS À FOURNIR</h4>
+        <label>Nom et prénom de la personne à prévenir :</label> <input type="text" value="{{ $demandeAdhesion->nom_prenom_personne_besoin }}" readonly>
+        <label>Lieu de résidence :</label> <input type="text" value="{{ $demandeAdhesion->lieu_residence }}" readonly>
+        <label>Téléphone de la personne à prévenir :</label> <input type="text" value="{{ $demandeAdhesion->telephone_personne_prevenir }}" readonly>
+    </div>
+
+    <div class="section">
+        <h4>LISTE DES AYANTS DROITS</h4>
+        <table class="ayants-droits-table">
+            <tr>
+                <th>N°</th>
+                <th>NOM</th>
+                <th>PRÉNOM(S)</th>
+                <th>SEXE</th>
+                <th>DATE DE NAISSANCE</th>
+                <th>LIEN DE PARENTE</th>
+            </tr>
+            @for($i = 1; $i <= $demandeAdhesion->nombreAyantsDroits; $i++)
+            <tr>
+                <td>{{ $i }}</td>
+                <td><input type="text" readonly></td>
+                <td><input type="text" readonly></td>
+                <td><input type="text" readonly></td>
+                <td><input type="text" readonly></td>
+                <td><input type="text" readonly></td>
+            </tr>
+            @endfor
+        </table>
+    </div>
+
+    <div class="section">
+        <h4>ORGANISATIONS PROFESSIONNELLES</h4>
+        <label>Personnel retraité :</label> <input type="text" value="{{ $demandeAdhesion->statut }}" readonly>
+        <label>Grade :</label> <input type="text" value="{{ $demandeAdhesion->grade }}" readonly>
+        <label>Date de départ à la retraite :</label> <input type="text" value="{{ $demandeAdhesion->departARetraite }}" readonly>
+        <label>Numéro CARFO :</label> <input type="text" value="{{ $demandeAdhesion->numeroCARFO }}" readonly>
+        <label>Date d’intégration :</label> <input type="text" value="{{ $demandeAdhesion->dateIntegration }}" readonly>
+        <label>Date de départ à la retraite :</label> <input type="text" value="{{ $demandeAdhesion->dateDepartARetraite }}" readonly>
+        <label>Direction :</label> <input type="text" value="{{ $demandeAdhesion->direction }}" readonly>
+        <label>Service :</label> <input type="text" value="{{ $demandeAdhesion->service }}" readonly>
+    </div>
+
+    <div class="signature">
+        <p>Le cédant : <strong>..........................................................</strong></p>
+        <p>Le Président du tribunal : <strong>..........................................................</strong></p>
+        <p>Le Greffier : <strong>..........................................................</strong></p>
+    </div>
+
+    <div class="footer-note">
+        <p>IDÉE DES PHOTOS RÉCENTES DE L'ADHÉRENT ET DES AYANTS DROITS</p>
+        <p>Joindre une copie de l'extrait de naissance de chaque enfant<br>
+           Joindre une copie de l'extrait de naissance de la CNIB pour le(s) conjoint(s)</p>
+    </div>
+</div>
+
+</body>
+</html>
+
+ 
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire d'Adhésion</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #fff;
+        }
+        h2, h4 {
+            text-align: center;
+            margin: 0;
+        }
+        .section {
+            margin-bottom: 20px;
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 10px;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+        input {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #000;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .ayants-droits-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .ayants-droits-table th, .ayants-droits-table td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: left;
+        }
+        .signature {
+            margin-top: 40px;
+            text-align: center;
+        }
+        .signature p {
+            margin: 0;
+            padding: 10px 0;
+        }
+        .footer-note {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>FORMULAIRE D'ADHÉSION</h2>
+    <h4>BURKINA FASO</h4>
+
+    <div class="section">
+        <h4>RÉFÉRENCES DE L'ADHÉRENT</h4>
+        <label>Matricule :</label> <input type="text" value="{{ $demandeAdhesion->matricule }}" readonly>
+        <label>NIP :</label> <input type="text" value="{{ $demandeAdhesion->nip }}" readonly>
+        <label>CNIB :</label> <input type="text" value="{{ $demandeAdhesion->cnib }}" readonly>
+        <label>Date de délivrance :</label> <input type="text" value="{{ $demandeAdhesion->delivree }}" readonly>
+        <label>Date d'expiration :</label> <input type="text" value="{{ $demandeAdhesion->expire }}" readonly>
+        <label>Adresse permanente :</label> <input type="text" value="{{ $demandeAdhesion->adresse }}" readonly>
+        <label>Téléphone :</label> <input type="text" value="{{ $demandeAdhesion->telephone }}" readonly>
+    </div>
+
+    <div class="section">
+        <h4>ÉTAT CIVIL</h4>
+        <label>Nom :</label> <input type="text" value="{{ $demandeAdhesion->nom }}" readonly>
+        <label>Prénom :</label> <input type="text" value="{{ $demandeAdhesion->prenom }}" readonly>
+        <label>Genre :</label> <input type="text" value="{{ $demandeAdhesion->genre }}" readonly>
+        <label>Département :</label> <input type="text" value="{{ $demandeAdhesion->departement }}" readonly>
+        <label>Ville :</label> <input type="text" value="{{ $demandeAdhesion->ville }}" readonly>
+        <label>Pays :</label> <input type="text" value="{{ $demandeAdhesion->pays }}" readonly>
+        <label>Nom du père :</label> <input type="text" value="{{ $demandeAdhesion->nom_pere }}" readonly>
+        <label>Nom de la mère :</label> <input type="text" value="{{ $demandeAdhesion->nom_mere }}" readonly>
+        <label>Situation matrimoniale :</label> <input type="text" value="{{ $demandeAdhesion->situation_matrimoniale }}" readonly>
+    </div>
+
+    <div class="section">
+        <h4>INFORMATIONS À FOURNIR</h4>
+        <label>Nom et prénom de la personne à prévenir :</label> <input type="text" value="{{ $demandeAdhesion->nom_prenom_personne_besoin }}" readonly>
+        <label>Lieu de résidence :</label> <input type="text" value="{{ $demandeAdhesion->lieu_residence }}" readonly>
+        <label>Téléphone de la personne à prévenir :</label> <input type="text" value="{{ $demandeAdhesion->telephone_personne_prevenir }}" readonly>
+    </div>
+
+    <div class="section">
+        <h4>LISTE DES AYANTS DROITS</h4>
+        <table class="ayants-droits-table">
+            <tr>
+                <th>N°</th>
+                <th>NOM</th>
+                <th>PRÉNOM(S)</th>
+                <th>SEXE</th>
+                <th>DATE DE NAISSANCE</th>
+                <th>LIEN DE PARENTE</th>
+            </tr>
+            @for($i = 1; $i <= $demandeAdhesion->nombreAyantsDroits; $i++)
+            <tr>
+                <td>{{ $i }}</td>
+                <td><input type="text" readonly></td>
+                <td><input type="text" readonly></td>
+                <td><input type="text" readonly></td>
+                <td><input type="text" readonly></td>
+                <td><input type="text" readonly></td>
+            </tr>
+            @endfor
+        </table>
+    </div>
+
+    <div class="section">
+        <h4>ORGANISATIONS PROFESSIONNELLES</h4>
+        <label>Personnel retraité :</label> <input type="text" value="{{ $demandeAdhesion->statut }}" readonly>
+        <label>Grade :</label> <input type="text" value="{{ $demandeAdhesion->grade }}" readonly>
+        <label>Date de départ à la retraite :</label> <input type="text" value="{{ $demandeAdhesion->departARetraite }}" readonly>
+        <label>Numéro CARFO :</label> <input type="text" value="{{ $demandeAdhesion->numeroCARFO }}" readonly>
+        <label>Date d’intégration :</label> <input type="text" value="{{ $demandeAdhesion->dateIntegration }}" readonly>
+        <label>Date de départ à la retraite :</label> <input type="text" value="{{ $demandeAdhesion->dateDepartARetraite }}" readonly>
+        <label>Direction :</label> <input type="text" value="{{ $demandeAdhesion->direction }}" readonly>
+        <label>Service :</label> <input type="text" value="{{ $demandeAdhesion->service }}" readonly>
+    </div>
+
+    <div class="signature">
+        <p>Le cédant : <strong>..........................................................</strong></p>
+        <p>Le Président du tribunal : <strong>..........................................................</strong></p>
+        <p>Le Greffier : <strong>..........................................................</strong></p>
+    </div>
+
+    <div class="footer-note">
+        <p>IDÉE DES PHOTOS RÉCENTES DE L'ADHÉRENT ET DES AYANTS DROITS</p>
+        <p>Joindre une copie de l'extrait de naissance de chaque enfant<br>
+           Joindre une copie de l'extrait de naissance de la CNIB pour le(s) conjoint(s)</p>
+    </div>
+</div>
+
+</body>
+</html>
+
+ 
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire d'Adhésion</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .form-section {
+            margin-bottom: 20px;
+        }
+        .form-section label {
+            display: inline-block;
+            width: 250px;
+        }
+        .form-section input {
+            border: 1px solid #000;
+            padding: 5px;
+            width: 300px;
+        }
+        .ayants-droits-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .ayants-droits-table th, .ayants-droits-table td {
+            border: 1px solid #000;
+            padding: 5px;
+            text-align: left;
+        }
+        .signature {
+            margin-top: 40px;
+        }
+        .signature p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <h2 style="text-align: center;">FORMULAIRE D'ADHÉSION</h2>
+    <h4 style="text-align: center;">BURKINA FASO</h4>
+
+    <div class="form-section">
+        <h4>RÉFÉRENCES DE L'ADHÉRENT</h4>
+        <label>Matricule :</label> <input type="text" value="{{ $demandeAdhesion->matricule }}" readonly><br>
+        <label>NIP :</label> <input type="text" value="{{ $demandeAdhesion->nip }}" readonly><br>
+        <label>CNIB :</label> <input type="text" value="{{ $demandeAdhesion->cnib }}" readonly><br>
+        <label>Date de délivrance :</label> <input type="text" value="{{ $demandeAdhesion->delivree }}" readonly><br>
+        <label>Date d'expiration :</label> <input type="text" value="{{ $demandeAdhesion->expire }}" readonly><br>
+        <label>Adresse permanente :</label> <input type="text" value="{{ $demandeAdhesion->adresse }}" readonly><br>
+        <label>Téléphone :</label> <input type="text" value="{{ $demandeAdhesion->telephone }}" readonly><br>
+    </div>
+
+    <div class="form-section">
+        <h4>ÉTAT CIVIL</h4>
+        <label>Nom :</label> <input type="text" value="{{ $demandeAdhesion->nom }}" readonly><br>
+        <label>Prénom :</label> <input type="text" value="{{ $demandeAdhesion->prenom }}" readonly><br>
+        <label>Genre :</label> <input type="text" value="{{ $demandeAdhesion->genre }}" readonly><br>
+        <label>Département :</label> <input type="text" value="{{ $demandeAdhesion->departement }}" readonly><br>
+        <label>Ville :</label> <input type="text" value="{{ $demandeAdhesion->ville }}" readonly><br>
+        <label>Pays :</label> <input type="text" value="{{ $demandeAdhesion->pays }}" readonly><br>
+        <label>Nom du père :</label> <input type="text" value="{{ $demandeAdhesion->nom_pere }}" readonly><br>
+        <label>Nom de la mère :</label> <input type="text" value="{{ $demandeAdhesion->nom_mere }}" readonly><br>
+        <label>Situation matrimoniale :</label> <input type="text" value="{{ $demandeAdhesion->situation_matrimoniale }}" readonly><br>
+    </div>
+
+    <div class="form-section">
+        <h4>INFORMATIONS À FOURNIR</h4>
+        <label>Nom et prénom de la personne à prévenir :</label> <input type="text" value="{{ $demandeAdhesion->nom_prenom_personne_besoin }}" readonly><br>
+        <label>Lieu de résidence :</label> <input type="text" value="{{ $demandeAdhesion->lieu_residence }}" readonly><br>
+        <label>Téléphone de la personne à prévenir :</label> <input type="text" value="{{ $demandeAdhesion->telephone_personne_prevenir }}" readonly><br>
+    </div>
+
+    <h4>LISTE DES AYANTS DROITS</h4>
+    <table class="ayants-droits-table">
+        <tr>
+            <th>N°</th>
+            <th>NOM</th>
+            <th>PRÉNOM(S)</th>
+            <th>SEXE</th>
+            <th>DATE DE NAISSANCE</th>
+            <th>LIEN DE PARENTE</th>
+        </tr>
+        @for($i = 1; $i <= $demandeAdhesion->nombreAyantsDroits; $i++)
+        <tr>
+            <td>{{ $i }}</td>
+            <td><input type="text" readonly></td>
+            <td><input type="text" readonly></td>
+            <td><input type="text" readonly></td>
+            <td><input type="text" readonly></td>
+            <td><input type="text" readonly></td>
+        </tr>
+        @endfor
+    </table>
+
+    <h4>ORGANISATIONS PROFESSIONNELLES</h4>
+    <label>Personnel retraité :</label> <input type="text" value="{{ $demandeAdhesion->statut }}" readonly><br>
+    <label>Grade :</label> <input type="text" value="{{ $demandeAdhesion->grade }}" readonly><br>
+    <label>Date de départ à la retraite :</label> <input type="text" value="{{ $demandeAdhesion->departARetraite }}" readonly><br>
+    <label>Numéro CARFO :</label> <input type="text" value="{{ $demandeAdhesion->numeroCARFO }}" readonly><br>
+    <label>Date d’intégration :</label> <input type="text" value="{{ $demandeAdhesion->dateIntegration }}" readonly><br>
+    <label>Date de départ à la retraite :</label> <input type="text" value="{{ $demandeAdhesion->dateDepartARetraite }}" readonly><br>
+    <label>Direction :</label> <input type="text" value="{{ $demandeAdhesion->direction }}" readonly><br>
+    <label>Service :</label> <input type="text" value="{{ $demandeAdhesion->service }}" readonly><br>
+
+    <div class="signature">
+        <p>Le cédant : <strong>..........................................................</strong></p>
+        <p>Le Président du tribunal : <strong>..........................................................</strong></p>
+        <p>Le Greffier : <strong>..........................................................</strong></p>
+    </div>
+
+    <p style="text-align: center;">IDÉE DES PHOTOS RÉCENTES DE L'ADHÉRENT ET DES AYANTS DROITS</p>
+    <p>Joindre une copie de l'extrait de naissance de chaque enfant<br>
+       Joindre une copie de l'extrait de naissance de la CNIB pour le(s) conjoint(s)</p>
+    
+</body>
+</html>
+
+ 
+<x-guest-layout>
+    <x-header-guest/>
+    <x-section-guest>
+        @if (session()->has('message'))
+            <x-succes-notification>
+                {{ session('message') }}
+            </x-succes-notification>
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const notification = document.getElementById('success-notification-content');
+                    const closeBtn = document.getElementById('close-notification');
+                    
+                    notification.classList.remove('hidden');
+                    
+                    {{--  setTimeout(() => {
+                        notification.classList.add('hidden');
+                    }, 5000);  --}}
+                    
+                    closeBtn.addEventListener('click', () => {
+                        notification.classList.add('hidden');
+                    });
+                });
+            </script>
+        @endif
+        <div class="flex justify-end">
+            <a href="{{ route('download-fiche-cession-volontaire', ['id' => $demandeAdhesion->id]) }}" >
+                <x-primary-button>
+                    Télécharger cession volontaire
+                </x-primary-button>
+            </a>
+        </div>
+        <h1>Résumé de la Demande d'Adhésion</h1>
+        
+        <ul>
+            <li><strong>Matricule:</strong> {{ $demandeAdhesion->matricule }}</li>
+            <li><strong>NIP:</strong> {{ $demandeAdhesion->nip }}</li>
+            <li><strong>CNIB:</strong> {{ $demandeAdhesion->cnib }}</li>
+            <li><strong>Date de délivrance:</strong> {{ $demandeAdhesion->delivree }}</li>
+            <li><strong>Date d'expiration:</strong> {{ $demandeAdhesion->expire }}</li>
+            <li><strong>Adresse:</strong> {{ $demandeAdhesion->adresse }}</li>
+            <li><strong>Téléphone:</strong> {{ $demandeAdhesion->telephone }}</li>
+            <li><strong>Nom:</strong> {{ $demandeAdhesion->nom }}</li>
+            <li><strong>Prénom:</strong> {{ $demandeAdhesion->prenom }}</li>
+            <li><strong>Genre:</strong> {{ $demandeAdhesion->genre }}</li>
+            <li><strong>Département:</strong> {{ $demandeAdhesion->departement }}</li>
+            <li><strong>Ville:</strong> {{ $demandeAdhesion->ville }}</li>
+            <li><strong>Pays:</strong> {{ $demandeAdhesion->pays }}</li>
+            <li><strong>Nom du père:</strong> {{ $demandeAdhesion->nom_pere }}</li>
+            <li><strong>Nom de la mère:</strong> {{ $demandeAdhesion->nom_mere }}</li>
+            <li><strong>Situation matrimoniale:</strong> {{ $demandeAdhesion->situation_matrimoniale }}</li>
+            <li><strong>Nom et prénom de la personne à prévenir:</strong> {{ $demandeAdhesion->nom_prenom_personne_besoin }}</li>
+            <li><strong>Lieu de résidence:</strong> {{ $demandeAdhesion->lieu_residence }}</li>
+            <li><strong>Téléphone de la personne à prévenir:</strong> {{ $demandeAdhesion->telephone_personne_prevenir }}</li>
+            <li><strong>Nombre d&apos;ayants droits:</strong> {{ $demandeAdhesion->nombreAyantsDroits }}</li>
+            <li><strong>Statut:</strong> {{ $demandeAdhesion->statut }}</li>
+            <li><strong>Grade:</strong> {{ $demandeAdhesion->grade }}</li>
+            <li><strong>Date de départ à la retraite:</strong> {{ $demandeAdhesion->departARetraite }}</li>
+            <li><strong>Numéro CARFO:</strong> {{ $demandeAdhesion->numeroCARFO }}</li>
+            <li><strong>Date d&apos;intégration:</strong> {{ $demandeAdhesion->dateIntegration }}</li>
+            <li><strong>Date de départ à la retraite:</strong> {{ $demandeAdhesion->dateDepartARetraite }}</li>
+            <li><strong>Direction:</strong> {{ $demandeAdhesion->direction }}</li>
+            <li><strong>Service:</strong> {{ $demandeAdhesion->service }}</li>
+        </ul>
+    </x-section-guest>
+</x-guest-layout>
+
+
+ 
+class="flex items-center p-2 text-blue-700 rounded-md shadow-sm"
+ 
+line
+ 
+.signature {
+            margin-top: 50px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .signature p {
+            width: 30%;
+        }
+ 
+....
+ 
+........... 
+ 
+.................
+ 
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cession Volontaire de Salaire</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.5 !important; 
+        }
+        h2 {
+            text-align: center;
+            margin: 20px 0; 
+        }
+        p {
+            margin-bottom: 15px; 
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px; 
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 10px; 
+            text-align: left;
+        }
+        .center {
+            text-align: center;
+        }
+        .signature {
+            margin-top: 50px; 
+            display: flex;
+            justify-content: space-between;
+        }
+        .signature p {
+            width: 30%; 
+        }
+        .note {
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+        .page-break {
+            page-break-after: always;
+        }
+        .p-right{
+            text-align: center;
+        }
+        .center-image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="center-image-container">
+        <img style="text-align: center; align-items: center; margin: auto;" class="center-image" width="48px" height="48px" src="{{ $logoDataUrl }}" alt="Logo">
+    </div>
+    
+    <div class="mx-auto max-w-4xl">
+        <p><strong>REGION :</strong> ............................................... <strong>PROVINCE :</strong> ............................................... <strong>LOCALITE :</strong> ............................................... </p>
+        <p><strong>MUTUELLE DE LA POLICE (MU-POL)</strong><br>
+        Ouagadougou, secteur n°6<br>
+        Avenue Kadiogo, 01 BP 4546<br>
+        Ouagadougou 01, Burkina Faso<br>
+        Tel : +226 06 88 17 74 / 51 03 87 35</p>
+        <h2>CESSION VOLONTAIRE DE SALAIRE</h2>
+        <p class="center"><em>(Article 205 et suivants de l&apos;AUPSRVE)</em></p>
+
+        <div class="p-right">
+            <p><strong>CEDANT :</strong> ............................................................</p>
+    
+            <p ><strong>BENEFICIAIRE :</strong> MU-POL : IB BANK-BURKINA FASO<br>
+            CODE BANQUE : BF 139<br>
+            CODE GUICHET : 01002<br>
+            NUMERO COMPTE : 004631300395<br>
+            CLE RIB : 74</p>
+
+        </div>
+
+        <p>L&apos;an deux mille vingt quatre :</p>
+        <p>Devant nous, <strong>..........................................................</strong>, Président(e) du Tribunal de Grande Instance<br>
+        Assisté de <strong>..........................................................</strong>, Greffier audit Tribunal<br>
+        A comparu Mr/Mme <strong>..........................................................</strong>, Grade : <strong>......................</strong><br>
+        Matricule <strong>..........................................................</strong> en service <strong>..................................................</strong></p>
+
+        <p>Qui déclare qu'il/elle est employé(e) par le MATDS<br>
+        Qu'il/elle désire céder librement et de manière permanente ou non permanente par les présentes à la MU-POL les sommes indiquées dans le tableau ci-dessous :</p>
+
+        <table>
+            <tr>
+                <th rowspan="3">CATEGORIE</th>
+                <th>A prélever une seule fois le premier mois</th>
+                <th colspan="2">A prélever mensuellement pour compter du 2ème mois</th>
+                <th>Compte à créditer</th>
+            </tr>
+            <tr>
+                <td>Frais d&apos;adhésion</td>
+                <td colspan="1">Cotisation mensuelle adhérent</td>
+                <td colspan="1">Cotisation mensuelle des ayants droits </td>
+                <td rowspan="3">MU-POL :IB BANK-BURKINA FASO <br> CODE BANQUE : BF 139 <br> CODE GUICHET : 01002 <br> NUMERO COMPTE : 004631300395 <br> CLE RIB : 74</td>
+            </tr>
+            <tr>
+                <td>10 000</td>
+                <td>5 000</td>
+                <td>8 000</td>
+            </tr>
+            <tr>
+                <td class="center"><strong>Sous totaux :</strong></td>
+                <td class="center"><strong>10 000</strong></td>
+                <td colspan="2" class="center"><strong>13 000</strong></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="page-break"></div>
+
+    <div class="mx-auto max-w-4xl">
+        <p>Qu’en conséquence, il/elle déclare autoriser dès à présent au payeur général du trésor à lui retenir le montant de la mensualité mentionnée dans le tableau sur son salaire ou revenu,</p>
+
+        <p>Nous avons donné acte à Mr/Mme <strong>..........................................................</strong><br>
+        De ses déclarations, lesquelles seront notifiées à son employeur.</p>
+
+        <p>Le cédant déclare décharger de toutes responsabilités quant aux paiements effectués dans ses conditions le payeur général du trésor. Cet engagement pourrait être révoqué par une demande écrite de sa part.</p>
+
+        <p>De ce qui dessus, nous avons, les jours, mois susdit, dressé le présent procès-verbal que le/la comparant(e) a signé avec nous après lecture.</p>
+
+        <div class="signature">
+            <p>Le cédant : <strong>..........................................................</strong></p>
+            <p>Le Président du tribunal : <strong>..........................................................</strong></p>
+            <p>Le Greffier : <strong>..........................................................</strong></p>
+        </div>
+
+        <p>Et nous MU-POL Ouagadougou, secteur n°6<br>
+        Avenue Kadiogo, 01 BP 4546<br>
+        Ouagadougou 01, Burkina Faso<br>
+        Tel : +226 06 88 17 74 / 51 03 87 35</p>
+
+        <p>Déclarons accepter la cession consentie par Mr/Mme <strong>..........................................................</strong></p>
+
+        <p>Signature MU-POL</p>
+        <p>Fait à Ouagadougou le ..........................................................</p>
+    </div>
+</body>
+</html>
+
+ 
+Recu_paiement_
+ 
+/* Chaque signature prend 30% de la largeur de la ligne */
+ 
+<x-guest-layout>
+
+    </x-guest-layout>
+
+ 
+<a href="">
+ 
+action
+ 
+prestations.
+ 
+Receipt
+ 
+ : 10 000
+ 
+: 8 000
+ 
+: 5 000
+ 
+/* Plus d'espace avant les signatures */
+ 
+/* Augmenté pour plus d'espace dans les cellules */
+ 
+/* Espacement supplémentaire au-dessus des tables */
+ 
+/* Espacement ajouté après chaque paragraphe */
+ 
+/* Augmenté pour plus d'espace autour du titre */
+ 
+/* Augmenté pour plus de lisibilité */
+ 
+            "app/Helpers/ImageHelper.php"
+
+ 
+        // Call the helper to generate and download the receipt PDF
+
+ 
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cession Volontaire de Salaire</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.5;
+        }
+        h2 {
+            text-align: center;
+            margin: 10px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 5px;
+            text-align: left;
+        }
+        .center {
+            text-align: center;
+        }
+        .signature {
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .note {
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+        .page-break {
+            page-break-after: always;
+        }
+    </style>
+</head>
+<body>
+    <x-guest-layout>
+
+        <div class="mx-auto max-w-4xl">
+            <p><strong>REGION :</strong> ............................................... <strong>PROVINCE :</strong> ............................................... <strong>LOCALITE :</strong> ............................................... </p>
+            <p><strong>MUTUELLE DE LA POLICE (MU-POL)</strong><br>
+            Ouagadougou, secteur n°6<br>
+            Avenue Kadiogo, 01 BP 4546<br>
+            Ouagadougou 01, Burkina Faso<br>
+            Tel : +226 06 88 17 74 / 51 03 87 35</p>
+            <h2>CESSION VOLONTAIRE DE SALAIRE</h2>
+            <p class="center"><em>(Article 205 et suivants de l&apos;AUPSRVE)</em></p>
+    
+            <p><strong>CEDANT :</strong> ............................................................</p>
+    
+            <p><strong>BENEFICIAIRE :</strong> MU-POL : IB BANK-BURKINA FASO<br>
+            CODE BANQUE : BF 139<br>
+            CODE GUICHET : 01002<br>
+            NUMERO COMPTE : 004631300395<br>
+            CLE RIB : 74</p>
+    
+            <p>L&aposan deux mille vingt quatre :</p>
+            <p>Devant nous, <strong>..........................................................</strong>, Président(e) du Tribunal de Grande Instance<br>
+            Assisté de <strong>..........................................................</strong>, Greffier audit Tribunal<br>
+            A comparu Mr/Mme <strong>..........................................................</strong>, Grade : <strong>......................</strong><br>
+            Matricule <strong>..........................................................</strong> en service <strong>..................................................</strong></p>
+    
+            <p>Qui déclare qu'il/elle est employé(e) par le MATDS<br>
+            Qu'il/elle désire céder librement et de manière permanente ou non permanente par les présentes à la MU-POL les sommes indiquées dans le tableau ci-dessous :</p>
+    
+            <table >
+                <tr>
+                    <th rowspan="3">CATEGORIE</th>
+                    <th>A prélever une seule fois le premier mois</th>
+                    <th colspan="2">A prélever mensuellement pour compter du 2ème mois</th>
+                    <th>Compte à créditer</th>
+
+                </tr>
+                <tr>
+                    <td>Frais d&apos;adhésion : 10 000</td>
+                    <td colspan="1">Cotisation mensuelle adhérent : 5 000</td>
+                    <td colspan="1">
+                        Cotisation mensuelle des ayants droits : 8 000
+
+                    </td>
+                    <td rowspan="3">
+                        MU-POL :IB BANK-BURKINA FASO <br>
+                        CODE BANQUE : BF 139 <br>
+                        CODE GUICHET : 01002 <br>
+                        NUMERO COMPTE : 004631300395 <br>
+                        CLE RIB : 74
+                    </td>
+
+                </tr>
+                <tr>
+                    <td colspan="1">10 000</td>
+                    <td colspan="1"> 5 000</td>
+                    <td colspan="1">
+                        8 000
+                    </td>
+                    
+
+                </tr>
+                <tr>
+                    <td rowspan="1" class="center"><strong>Sous totaux :</strong></td>
+                    <td  colspan="1" class="center"><strong>10 000</td>
+                    <td  colspan="2" class="center"><strong>13 000</strong> </td>
+
+                </tr>
+            </table>
+        </div>
+    
+        <div class="page-break "></div>
+    
+        <div class="mx-auto max-w-4xl">
+            <p>Qu’en conséquence, il/elle déclare autoriser dès à présent au payeur général du trésor à lui retenir le montant de la mensualité mentionnée dans le tableau sur son salaire ou revenu,</p>
+    
+            <p>Nous avons donné acte à Mr/Mme <strong>..........................................................</strong><br>
+            De ses déclarations, lesquelles seront notifiées à son employeur.</p>
+    
+            <p>Le cédant déclare décharger de toutes responsabilités quant aux paiements effectués dans ses conditions le payeur général du trésor. Cet engagement pourrait être révoqué par une demande écrite de sa part.</p>
+    
+            <p>De ce qui dessus, nous avons, les jours, mois susdit, dressé le présent procès-verbal que le/la comparant(e) a signé avec nous après lecture.</p>
+    
+            <div class="signature">
+                <p>Le cédant : <strong>..........................................................</strong></p>
+                <p>le Président du tribunal : <strong>..........................................................</strong></p>
+                <p>le Greffier : <strong>..........................................................</strong></p>
+            </div>
+    
+            <p>Et nous MU-POL Ouagadougou, secteur n°6<br>
+            Avenue Kadiogo, 01 BP 4546<br>
+            Ouagadougou 01, Burkina Faso<br>
+            Tel : +226 06 88 17 74 / 51 03 87 35</p>
+    
+            <p>Déclarons accepter la cession consentie par Mr/Mme <strong>..........................................................</strong></p>
+    
+            <p>Signature MU-POL</p>
+            <p>Fait à Ouagadougou le ..........................................................</p>
+        </div>
+    </x-guest-layout>
+
+</body>
+</html>
+
+ 
+        // Charger la vue et générer le contenu PDF
+
+ 
+        // Utiliser le helper pour convertir l'image en Data URL
+
+ 
+pour le 1er mois<br><strong>13 000</strong> pour le 2ème mois
+ 
+<td rowspan="3">
+                        MU-POL :IB BANK-BURKINA FASO <br>
+                        CODE BANQUE : BF 139 <br>
+                        CODE GUICHET : 01002 <br>
+                        NUMERO COMPTE : 004631300395 <br>
+                        CLE RIB : 74
+                    </td>
+ 
+Cotisation mensuelle des ayants droits : 
+ 
+Cotisation mensuelle adhérent :
+ 
+                    <td>Frais d&apos;adhésion : 10 000</td>
+
+ 
+                    <td>V (04 ayant droit)</td>
+
+ 
+</strong> pour le 1er mois<br><strong>13 000</strong> pour le 2ème mois
+ 
+colspan="2"
+ 
+pour le 2ème mois
+ 
+<strong>10 000</strong> pour le 1er mois<br><strong>13 000</strong> 
+ 
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cession Volontaire de Salaire</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.5;
+        }
+        h2 {
+            text-align: center;
+            margin: 10px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 5px;
+            text-align: left;
+        }
+        .center {
+            text-align: center;
+        }
+        .signature {
+            margin-top: 40px;
+        }
+        .note {
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div>
+        <p><strong>REGION :</strong> ............................................... <strong>PROVINCE :</strong> ............................................... <strong>LOCALITE :</strong> ............................................... </p>
+        <p><strong>MUTUELLE DE LA POLICE (MU-POL)</strong><br>
+        Ouagadougou, secteur n°6<br>
+        Avenue Kadiogo, 01 BP 4546<br>
+        Ouagadougou 01, Burkina Faso<br>
+        Tel : +226 06 88 17 74 / 51 03 87 35</p>
+        <h2>CESSION VOLONTAIRE DE SALAIRE</h2>
+        <p class="center"><em>(Article 205 et suivants de l'AUPSRVE)</em></p>
+
+        <p><strong>CEDANT :</strong> ............................................................</p>
+
+        <p><strong>BENEFICIAIRE :</strong> MU-POL : IB BANK-BURKINA FASO<br>
+        CODE BANQUE : BF 139<br>
+        CODE GUICHET : 01002<br>
+        NUMERO COMPTE : 004631300395<br>
+        CLE RIB : 74</p>
+
+        <p>L'an deux mille vingt quatre :</p>
+        <p>Devant nous, <strong>..........................................................</strong>, Président(e) du Tribunal de Grande Instance<br>
+        Assisté de <strong>..........................................................</strong>, Greffier audit Tribunal<br>
+        A comparu Mr/Mme <strong>..........................................................</strong>, Grade : <strong>......................</strong><br>
+        Matricule <strong>..........................................................</strong> en service <strong>..................................................</strong></p>
+
+        <p>Qui déclare qu'il/elle est employé(e) par le MATDS<br>
+        Qu'il/elle désire céder librement et de manière permanente ou non permanente par les présentes à la MU-POL les sommes indiquées dans le tableau ci-dessous :</p>
+
+        <table>
+            <tr>
+                <th>CATEGORIE</th>
+                <th>A prélever une seule fois le premier mois</th>
+                <th>A prélever mensuellement pour compter du 2ème mois</th>
+            </tr>
+            <tr>
+                <td>V (04 ayant droit)</td>
+                <td>Frais d'adhésion : 10 000</td>
+                <td>Cotisation mensuelle adhérent : 5 000<br>Cotisation mensuelle des ayants droits : 8 000</td>
+            </tr>
+        </table>
+
+        <p><strong>Sous totaux :</strong><br>
+        10 000 pour le 1er mois<br>
+        13 000 pour le 2ème mois</p>
+    </div>
+
+    <div>
+        <p>Qu’en conséquence, il/elle déclare autoriser dès à présent au payeur général du trésor à lui retenir le montant de la mensualité mentionnée dans le tableau sur son salaire ou revenu,</p>
+
+        <p>Nous avons donné acte à Mr/Mme <strong>..........................................................</strong><br>
+        De ses déclarations, lesquelles seront notifiées à son employeur.</p>
+
+        <p>Le cédant déclare décharger de toutes responsabilités quant aux paiements effectués dans ses conditions le payeur général du trésor. Cet engagement pourrait être révoqué par une demande écrite de sa part.</p>
+
+        <p>De ce qui dessus, nous avons, les jours, mois susdit, dressé le présent procès-verbal que le/la comparant(e) a signé avec nous après lecture.</p>
+
+        <div class="signature">
+            <p>Le cédant : <strong>..........................................................</strong></p>
+            <p>le Président du tribunal : <strong>..........................................................</strong></p>
+            <p>le Greffier : <strong>..........................................................</strong></p>
+        </div>
+
+        <p>Et nous MU-POL Ouagadougou, secteur n°6<br>
+        Avenue Kadiogo, 01 BP 4546<br>
+        Ouagadougou 01, Burkina Faso<br>
+        Tel : +226 06 88 17 74 / 51 03 87 35</p>
+
+        <p>Déclarons accepter la cession consentie par Mr/Mme <strong>..........................................................</strong></p>
+
+        <p>Signature MU-POL</p>
+        <p>Fait à Ouagadougou le ..........................................................</p>
+    </div>
+
+</body>
+</html>
+
+ 
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cession Volontaire de Salaire</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.5;
+        }
+        h2 {
+            text-align: center;
+            margin: 10px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 5px;
+            text-align: left;
+        }
+        .center {
+            text-align: center;
+        }
+        .signature {
+            margin-top: 40px;
+        }
+        .note {
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div>
+        <p><strong>REGION :</strong> ............................................... <strong>PROVINCE :</strong> ............................................... <strong>LOCALITE :</strong> ............................................... </p>
+        <p><strong>MUTUELLE DE LA POLICE (MU-POL)</strong><br>
+        Ouagadougou, secteur n°6<br>
+        Avenue Kadiogo, 01 BP 4546<br>
+        Ouagadougou 01, Burkina Faso<br>
+        Tel : +226 06 88 17 74 / 51 03 87 35</p>
+        <h2>CESSION VOLONTAIRE DE SALAIRE</h2>
+        <p class="center"><em>(Article 205 et suivants de l'AUPSRVE)</em></p>
+
+        <p><strong>CEDANT :</strong> ............................................................</p>
+
+        <p><strong>BENEFICIAIRE :</strong> MU-POL : IB BANK-BURKINA FASO<br>
+        CODE BANQUE : BF 139<br>
+        CODE GUICHET : 01002<br>
+        NUMERO COMPTE : 004631300395<br>
+        CLE RIB : 74</p>
+
+        <p>L'an deux mille vingt quatre :</p>
+        <p>Devant nous, <strong>..........................................................</strong>, Président(e) du Tribunal de Grande Instance<br>
+        Assisté de <strong>..........................................................</strong>, Greffier audit Tribunal<br>
+        A comparu Mr/Mme <strong>..........................................................</strong>, Grade : <strong>......................</strong><br>
+        Matricule <strong>..........................................................</strong> en service <strong>..................................................</strong></p>
+
+        <p>Qui déclare qu'il/elle est employé(e) par le MATDS<br>
+        Qu'il/elle désire céder librement et de manière permanente ou non permanente par les présentes à la MU-POL les sommes indiquées dans le tableau ci-dessous :</p>
+
+        <table>
+            <tr>
+                <th>CATEGORIE</th>
+                <th>A prélever une seule fois le premier mois</th>
+                <th>A prélever mensuellement pour compter du 2ème mois</th>
+            </tr>
+            <tr>
+                <td>V (04 ayant droit)</td>
+                <td>Frais d'adhésion : 10 000</td>
+                <td>Cotisation mensuelle adhérent : 5 000<br>Cotisation mensuelle des ayants droits : 8 000</td>
+            </tr>
+        </table>
+
+        <p><strong>Sous totaux :</strong><br>
+        10 000 pour le 1er mois<br>
+        13 000 pour le 2ème mois</p>
+    </div>
+
+    <div>
+        <p>Qu’en conséquence, il/elle déclare autoriser dès à présent au payeur général du trésor à lui retenir le montant de la mensualité mentionnée dans le tableau sur son salaire ou revenu,</p>
+
+        <p>Nous avons donné acte à Mr/Mme <strong>..........................................................</strong><br>
+        De ses déclarations, lesquelles seront notifiées à son employeur.</p>
+
+        <p>Le cédant déclare décharger de toutes responsabilités quant aux paiements effectués dans ses conditions le payeur général du trésor. Cet engagement pourrait être révoqué par une demande écrite de sa part.</p>
+
+        <p>De ce qui dessus, nous avons, les jours, mois susdit, dressé le présent procès-verbal que le/la comparant(e) a signé avec nous après lecture.</p>
+
+        <div class="signature">
+            <p>Le cédant : <strong>..........................................................</strong></p>
+            <p>le Président du tribunal : <strong>..........................................................</strong></p>
+            <p>le Greffier : <strong>..........................................................</strong></p>
+        </div>
+
+        <p>Et nous MU-POL Ouagadougou, secteur n°6<br>
+        Avenue Kadiogo, 01 BP 4546<br>
+        Ouagadougou 01, Burkina Faso<br>
+        Tel : +226 06 88 17 74 / 51 03 87 35</p>
+
+        <p>Déclarons accepter la cession consentie par Mr/Mme <strong>..........................................................</strong></p>
+
+        <p>Signature MU-POL</p>
+        <p>Fait à Ouagadougou le ..........................................................</p>
+    </div>
+
+</body>
+</html>
+
+ 
+<x-guest-layout>
+    <x-header-guest/>
+    <x-section-guest>
+        @if (session()->has('message'))
+            <x-succes-notification>
+                {{ session('message') }}
+            </x-succes-notification>
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const notification = document.getElementById('success-notification-content');
+                    const closeBtn = document.getElementById('close-notification');
+                    
+                    notification.classList.remove('hidden');
+                    
+                    {{--  setTimeout(() => {
+                        notification.classList.add('hidden');
+                    }, 5000);  --}}
+                    
+                    closeBtn.addEventListener('click', () => {
+                        notification.classList.add('hidden');
+                    });
+                });
+            </script>
+        @endif
+        <div class="flex justify-end">
+            <x-primary-button>
+                Télécharger fiche de cession volontaire
+            </x-primary-button>
+        </div>
+        <h1>Résumé de la Demande d'Adhésion</h1>
+        
+        <ul>
+            <li><strong>Matricule:</strong> {{ $demandeAdhesion->matricule }}</li>
+            <li><strong>NIP:</strong> {{ $demandeAdhesion->nip }}</li>
+            <li><strong>CNIB:</strong> {{ $demandeAdhesion->cnib }}</li>
+            <li><strong>Date de délivrance:</strong> {{ $demandeAdhesion->delivree }}</li>
+            <li><strong>Date d'expiration:</strong> {{ $demandeAdhesion->expire }}</li>
+            <li><strong>Adresse:</strong> {{ $demandeAdhesion->adresse }}</li>
+            <li><strong>Téléphone:</strong> {{ $demandeAdhesion->telephone }}</li>
+            <li><strong>Nom:</strong> {{ $demandeAdhesion->nom }}</li>
+            <li><strong>Prénom:</strong> {{ $demandeAdhesion->prenom }}</li>
+            <li><strong>Genre:</strong> {{ $demandeAdhesion->genre }}</li>
+            <li><strong>Département:</strong> {{ $demandeAdhesion->departement }}</li>
+            <li><strong>Ville:</strong> {{ $demandeAdhesion->ville }}</li>
+            <li><strong>Pays:</strong> {{ $demandeAdhesion->pays }}</li>
+            <li><strong>Nom du père:</strong> {{ $demandeAdhesion->nom_pere }}</li>
+            <li><strong>Nom de la mère:</strong> {{ $demandeAdhesion->nom_mere }}</li>
+            <li><strong>Situation matrimoniale:</strong> {{ $demandeAdhesion->situation_matrimoniale }}</li>
+            <li><strong>Nom et prénom de la personne à prévenir:</strong> {{ $demandeAdhesion->nom_prenom_personne_besoin }}</li>
+            <li><strong>Lieu de résidence:</strong> {{ $demandeAdhesion->lieu_residence }}</li>
+            <li><strong>Téléphone de la personne à prévenir:</strong> {{ $demandeAdhesion->telephone_personne_prevenir }}</li>
+            <li><strong>Nombre d&apos;ayants droits:</strong> {{ $demandeAdhesion->nombreAyantsDroits }}</li>
+            <li><strong>Statut:</strong> {{ $demandeAdhesion->statut }}</li>
+            <li><strong>Grade:</strong> {{ $demandeAdhesion->grade }}</li>
+            <li><strong>Date de départ à la retraite:</strong> {{ $demandeAdhesion->departARetraite }}</li>
+            <li><strong>Numéro CARFO:</strong> {{ $demandeAdhesion->numeroCARFO }}</li>
+            <li><strong>Date d&apos;intégration:</strong> {{ $demandeAdhesion->dateIntegration }}</li>
+            <li><strong>Date de départ à la retraite:</strong> {{ $demandeAdhesion->dateDepartARetraite }}</li>
+            <li><strong>Direction:</strong> {{ $demandeAdhesion->direction }}</li>
+            <li><strong>Service:</strong> {{ $demandeAdhesion->service }}</li>
+        </ul>
+    </x-section-guest>
+</x-guest-layout>
+
+
+ 
   @if (session()->has('message'))
             <div class="alert alert-success">
             </div>

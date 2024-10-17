@@ -31,6 +31,8 @@
                         Informations personnelles
                     @elseif ($step == 4)
                         Formations professionnelles
+                    @elseif ($step == 5)
+                        Récapitulatif
                     @endif
                 </div>
             </div>
@@ -54,6 +56,9 @@
             @endif
             @if ($currentStep == 4)
                 FORMATIONS PROFESSIONELLES
+            @endif
+            @if ($currentStep == 5)
+                RECAPITULATIF
             @endif
         </h2>
 
@@ -382,10 +387,6 @@
                         @endfor
                     @endif
                 </div>
-                
-                
-
-
             </div>
         @endif
 
@@ -487,10 +488,12 @@
                 @endif
             </div>
         @endif
+
+        <!-- Étape 5 -->
+        @if ($currentStep == 5)
+            <x-formulaire-adhesion/>
+        @endif
         
-
-
-
         <!-- Boutons de navigation -->
         <div class="flex justify-between mt-5">
             @if ($currentStep > 1)
@@ -501,7 +504,6 @@
             @else
                 <div></div> <!-- Un div vide pour garder le bouton "Suivant" aligné à droite -->
             @endif
-
 
             <!-- Bouton "Suivant" ou "Soumettre", toujours aligné à droite -->
             @if ($currentStep < $totalSteps)

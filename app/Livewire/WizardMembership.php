@@ -9,7 +9,7 @@ use Livewire\Component;
 class WizardMembership extends Component
 {
     public $currentStep = 1; // Étape actuelle du wizard
-    public $totalSteps = 4;   // Nombre total d'étapes  
+    public $totalSteps = 5;   // Nombre total d'étapes  
 
     // Variables pour les données du formulaire
     public $matricule, $nip, $cnib, $delivree, $expire, $adresse_permanente, $telephone;

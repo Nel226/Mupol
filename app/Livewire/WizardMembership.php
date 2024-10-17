@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Helpers\DemandeCategorieHelper;
 use App\Models\DemandeAdhesion;
 use Livewire\Component;
 
@@ -17,6 +18,11 @@ class WizardMembership extends Component
      // Propriétés pour les champs conditionnels
     // Variables pour le personnel en activité
     public $dateIntegration, $dateDepartARetraite, $direction, $service, $statut;
+
+    public $step1Label = 'Références de l\'adhérent';
+    public $step2Label = 'État civil';
+    public $step3Label = 'Informations personnelles';
+    public $step4Label = 'Formations professionnelles';
 
     // Variables pour le personnel retraité
     public $grade, $departARetraite, $numeroCARFO;
@@ -169,7 +175,9 @@ class WizardMembership extends Component
         //     'cnib' => $this->cnib,
         //     // Ajoutez les autres champs ici...
         // ]);
-        
+
+        $categorie = DemandeCategorieHelper::determineCategorie($this->nombreAyantsDroits);
+
         $data = [
             'matricule' => $this->matricule,
             'nip' => $this->nip,
@@ -214,10 +222,23 @@ class WizardMembership extends Component
         return redirect()->route('resume-adhesion', ['id' => $demandeAdhesion->id]);
     }
 
-    public function mount()
+    public function updateExpire()
     {
-        $this->ayantsDroits = [];
+        if ($this->delivree) {
+            $delivreeDate = \Carbon\Carbon::parse($this->delivree);
+            $this->expire = $delivreeDate->addYears(10)->toDateString(); 
+        }
     }
+  
+    public function changeNombreAyantsDroits($value)
+    {
+        $this->nombreAyantsDroits = (int)$value;
+    }
+    public function changeStatut($value)
+    {
+        $this->statut = $value;
+    }
+
     public function render()
     {
         return view('livewire.wizard-membership');

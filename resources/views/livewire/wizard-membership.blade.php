@@ -1,24 +1,28 @@
 <div class="w-[90%] md:w-5/6 lg:w-5/6 mx-auto mt-10">
-    <h1 class="text-2xl font-bold mb-5 text-center">Formulaire d'adhésion</h1>
+    <h1 class="text-2xl font-bold mb-5 text-center">Formulaire d&apos;adhésion</h1>
 
-    <!-- Steper -->
+    <!-- Stepper -->
     <div class="flex justify-between items-center mb-6">
         @for ($step = 1; $step <= $totalSteps; $step++)
-            <div class="flex flex-col items-center flex-1"> <!-- Chaque étape prend une largeur égale -->
+            <div class="flex flex-col items-center flex-1"> <!-- Each step takes equal width -->
                 <div class="relative flex items-center w-full">
                     <!-- Step Circle -->
-                    <div class="w-10 h-10 flex items-center justify-center {{ $currentStep >= $step ? 'bg-blue-500' : 'bg-gray-300' }} rounded-full text-white z-10">
-                        {{ $step }} <!-- Afficher toujours le numéro dans le cercle -->
+                    <div class="w-10 h-10 flex items-center justify-center {{ $currentStep >= $step ? 'bg-[#4000FF]' : 'bg-gray-300' }} rounded-full text-white z-10">
+                        @if ($currentStep > $step)
+                            <i class="fa fa-check"></i> <!-- Display check icon for completed steps -->
+                        @else
+                            {{ $step }} <!-- Show step number for incomplete steps -->
+                        @endif
                     </div>
     
                     <!-- Connecting Line -->
                     @if ($step < $totalSteps)
-                        <div class="flex-1 h-1 {{ $currentStep > $step ? 'bg-blue-500' : 'bg-gray-300' }}" style="height: 4px; margin-left: -1rem;"></div> 
+                        <div class="flex-1 h-1 {{ $currentStep > $step ? 'bg-[#4000FF]' : 'bg-gray-300' }}" style="height: 4px; margin-left: -1rem;"></div> 
                     @endif
                 </div>
     
                 <!-- Step Label -->
-                <div class="text-sm mt-2 text-left w-full">
+                <div class="text-sm mt-2 text-center w-full"> <!-- Changed text-left to text-center -->
                     @if ($step == 1)
                         Références de l'adhérent
                     @elseif ($step == 2)
@@ -32,6 +36,8 @@
             </div>
         @endfor
     </div>
+    
+    
     
 
     <!-- Contenu des étapes -->
@@ -97,21 +103,23 @@
                     <div>
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="delivree">Délivré le</label>
                         <input wire:model="delivree" id="delivree" type="date"
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            wire:change="updateExpire">
                         @error('delivree')
                             <span class="text-red-500 text-xs">{{ $message }}</span>
                         @enderror
                     </div>
-
+                    
                     <!-- Expire le -->
                     <div>
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="expire">Expire le</label>
                         <input wire:model="expire" id="expire" type="date"
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" readonly>
                         @error('expire')
                             <span class="text-red-500 text-xs">{{ $message }}</span>
                         @enderror
                     </div>
+                    
 
                 </div>
 
@@ -323,10 +331,9 @@
                     </div>
                 </div>
 
-                <!-- Tableau des ayants droits -->
-                <!-- Tableau des ayants droits -->
                 <div class="mt-4 overflow-x-auto">
-                    <select wire:model.defer="nombreAyantsDroits" class="border rounded w-full sm:w-1/2 py-1">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="changeNombreAyantsDroits">Nombre d&apos;ayants-droits</label>
+                    <select class="border rounded w-full sm:w-1/2 py-1" wire:click="changeNombreAyantsDroits($event.target.value)">
                         <option value="" selected>Choisissez un nombre</option>
                         <option value="0">0</option>
                         <option value="1">1</option>
@@ -336,7 +343,7 @@
                         <option value="5">5</option>
                         <option value="6">6</option>
                     </select>
-
+                
                     @if ($nombreAyantsDroits > 0)
                         <!-- Affiche les champs uniquement si le nombre est supérieur à 0 -->
                         @for ($i = 0; $i < $nombreAyantsDroits; $i++)
@@ -345,46 +352,38 @@
                                 <div class="grid grid-cols-1 gap-4 md:grid-cols-2 ">
                                     <div class="mt-2">
                                         <label class="block text-gray-700 text-sm font-bold mb-1">Nom</label>
-                                        <input type="text" wire:model="ayantsDroits.{{ $i }}.nom"
-                                            class="border rounded w-full py-1">
+                                        <input type="text" wire:model="ayantsDroits.{{ $i }}.nom" class="border rounded w-full py-1">
                                     </div>
                                     <div class="mt-2">
                                         <label class="block text-gray-700 text-sm font-bold mb-1">Prénom(s)</label>
-                                        <input type="text" wire:model="ayantsDroits.{{ $i }}.prenom"
-                                            class="border rounded w-full py-1">
+                                        <input type="text" wire:model="ayantsDroits.{{ $i }}.prenom" class="border rounded w-full py-1">
                                     </div>
                                 </div>
-
+                
                                 <div class="grid grid-cols-1 gap-4 md:grid-cols-3 ">
-
                                     <div class="mt-2">
                                         <label class="block text-gray-700 text-sm font-bold mb-1">Genre</label>
-                                        <select wire:model="ayantsDroits.{{ $i }}.sexe"
-                                            class="border rounded w-full py-1">
+                                        <select wire:model="ayantsDroits.{{ $i }}.sexe" class="border rounded w-full py-1">
                                             <option value="" disabled>Sélectionner</option>
                                             <option value="H">Homme</option>
                                             <option value="F">Femme</option>
                                         </select>
                                     </div>
                                     <div class="mt-2">
-                                        <label class="block text-gray-700 text-sm font-bold mb-1">Date de
-                                            Naissance</label>
-                                        <input type="date"
-                                            wire:model="ayantsDroits.{{ $i }}.date_naissance"
-                                            class="border rounded w-full py-1">
+                                        <label class="block text-gray-700 text-sm font-bold mb-1">Date de Naissance</label>
+                                        <input type="date" wire:model="ayantsDroits.{{ $i }}.date_naissance" class="border rounded w-full py-1">
                                     </div>
                                     <div class="mt-2">
-                                        <label class="block text-gray-700 text-sm font-bold mb-1">Lien de
-                                            Parenté</label>
-                                        <input type="text"
-                                            wire:model="ayantsDroits.{{ $i }}.lien_parenté"
-                                            class="border rounded w-full py-1">
+                                        <label class="block text-gray-700 text-sm font-bold mb-1">Lien de Parenté</label>
+                                        <input type="text" wire:model="ayantsDroits.{{ $i }}.lien_parenté" class="border rounded w-full py-1">
                                     </div>
                                 </div>
                             </div>
                         @endfor
                     @endif
                 </div>
+                
+                
 
 
             </div>
@@ -393,54 +392,51 @@
         <!-- Étape 4 -->
         @if ($currentStep == 4)
             <div>
-                <!-- -->
                 <label class="block text-gray-700 text-sm font-bold mb-2">Statut</label>
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4">
-                    
-                    <div class="">
-                    
+                    <div>
                         <label class="inline-flex items-center mt-2">
-                            <input type="radio" wire:model="statut" value="personnel_retraite"
-                                class="form-radio text-indigo-600">
+                            <input type="radio" wire:click="changeStatut('personnel_retraite')" class="form-radio text-indigo-600">
                             <span class="ml-2">Personnel retraité</span>
                         </label>
                     </div>
                     <div>
-
                         <label class="inline-flex items-center mt-2">
-                            <input type="radio" wire:model="statut" value="personnel_active"
-                                class="form-radio text-indigo-600">
+                            <input type="radio" wire:click="changeStatut('personnel_active')" class="form-radio text-indigo-600">
                             <span class="ml-2">Personnel en activité</span>
                         </label>
                     </div>
-                        
-                        @error('situation_matrimoniale')
-                            <span class="text-red-500 text-xs">{{ $message }}</span>
-                        @enderror
-                    </div>
                 </div>
-
+        
                 <!-- Champs pour Personnel Retraité -->
                 @if ($statut === 'personnel_retraite')
                     <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                         <div>
                             <label class="block text-gray-700 text-sm font-bold mb-1">Grade</label>
                             <input type="text" wire:model="grade" class="border rounded w-full py-1">
+                            @error('grade') 
+                                <span class="text-red-500 text-xs">{{ $message }}</span> 
+                            @enderror
                         </div>
-                    
+        
                         <div>
                             <label class="block text-gray-700 text-sm font-bold mb-1">Départ à la retraite</label>
                             <input type="date" wire:model="departARetraite" class="border rounded w-full py-1">
+                            @error('departARetraite') 
+                                <span class="text-red-500 text-xs">{{ $message }}</span> 
+                            @enderror
                         </div>
-                    
+        
                         <div>
                             <label class="block text-gray-700 text-sm font-bold mb-1">Numéro CARFO</label>
                             <input type="text" wire:model="numeroCARFO" class="border rounded w-full py-1">
+                            @error('numeroCARFO') 
+                                <span class="text-red-500 text-xs">{{ $message }}</span> 
+                            @enderror
                         </div>
                     </div>
-                
                 @endif
-
+        
                 <!-- Champs pour Personnel en Activité -->
                 @if ($statut === 'personnel_active')
                     <div class="mt-4">
@@ -448,36 +444,50 @@
                             <div>
                                 <label class="block text-gray-700 text-sm font-bold mb-1">Grade</label>
                                 <input type="text" wire:model="grade" class="border rounded w-full py-1">
+                                @error('grade') 
+                                    <span class="text-red-500 text-xs">{{ $message }}</span> 
+                                @enderror
                             </div>
-                        
+        
                             <div>
                                 <label class="block text-gray-700 text-sm font-bold mb-1">Date d'intégration</label>
                                 <input type="date" wire:model="dateIntegration" class="border rounded w-full py-1">
+                                @error('dateIntegration') 
+                                    <span class="text-red-500 text-xs">{{ $message }}</span> 
+                                @enderror
                             </div>
-                        
+        
                             <div>
                                 <label class="block text-gray-700 text-sm font-bold mb-1">Date de départ à la retraite</label>
                                 <input type="date" wire:model="dateDepartARetraite" class="border rounded w-full py-1">
+                                @error('dateDepartARetraite') 
+                                    <span class="text-red-500 text-xs">{{ $message }}</span> 
+                                @enderror
                             </div>
                         </div>
-                        
-
+        
                         <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
                                 <label class="block text-gray-700 text-sm font-bold mb-1">Direction</label>
                                 <input type="text" wire:model="direction" class="border rounded w-full py-1">
+                                @error('direction') 
+                                    <span class="text-red-500 text-xs">{{ $message }}</span> 
+                                @enderror
                             </div>
-                        
+        
                             <div>
                                 <label class="block text-gray-700 text-sm font-bold mb-1">Service</label>
                                 <input type="text" wire:model="service" class="border rounded w-full py-1">
+                                @error('service') 
+                                    <span class="text-red-500 text-xs">{{ $message }}</span> 
+                                @enderror
                             </div>
                         </div>
-                        
                     </div>
                 @endif
             </div>
         @endif
+        
 
 
 
@@ -496,7 +506,7 @@
             <!-- Bouton "Suivant" ou "Soumettre", toujours aligné à droite -->
             @if ($currentStep < $totalSteps)
                 <button wire:click="nextStep"
-                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                    class="bg-[#4000FF] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                     Suivant
                 </button>
             @else

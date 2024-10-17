@@ -29,10 +29,13 @@ use App\Http\Controllers\PrestationController;
 // Route::get('/', function () {
 //     return redirect('/login');
 // });
-
 Route::get('/', [AccueilController::class, 'accueil'])->name(name: 'accueil');
 Route::get('/formulaire-adhesion', [AccueilController::class, 'newAdhesion'])->name(name: 'formulaire-adhesion');
 Route::get('/resume-adhesion/{id}', [AccueilController::class, 'resumeAdhesion'])->name('resume-adhesion');
+Route::get('/demande-adhesion/{id}/fiche-cession-volontaire',  [AccueilController::class, 'downloadCessionFiche'])->name('download-fiche-cession-volontaire');
+Route::get('download-form-adhesion/{id}', [AccueilController::class, 'downloadFormAdhesion'])->name('download-form-adhesion');
+
+Route::get('/cession-volontaire/{id}', [AccueilController::class, 'showCessionVolontaire'])->name('showCessionVolontaire');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/counter', Counter::class);
@@ -47,7 +50,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/import-csv', [CsvImportController::class, 'import'])->name('import-csv');
     Route::post('/ayantdroits/import', [AyantDroitController::class, 'import'])->name('ayantdroits.import');
 
-    Route::get('/prestations/{id}/recu', [PrestationController::class, 'downloadReceipt'])->name('prestations.downloadReceipt');
+    Route::get('/prestations/{id}/recu', action: [PrestationController::class, 'downloadReceipt'])->name('prestations.downloadReceipt');
     Route::get('/prestations/suivi', [PrestationController::class, 'suivi'])->name('suivi');
     Route::get('/consultation/suivi', [PrestationController::class, 'suiviConsultation'])->name('suivi-consultation');
     Route::get('/radio/suivi', [PrestationController::class, 'suiviRadio'])->name('suivi-radio');

@@ -33,6 +33,8 @@ return new class extends Migration
             $table->string('lieu_residence');
             $table->string('telephone_personne_prevenir');
             $table->integer('nombreAyantsDroits')->default(0);
+            $table->integer('categorie')->default(1);
+
             $table->json('ayantsDroits');
             $table->string('statut');
             $table->string('grade')->nullable();

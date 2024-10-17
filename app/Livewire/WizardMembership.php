@@ -18,8 +18,6 @@ class WizardMembership extends Component
     // Variables pour le personnel en activité
     public $dateIntegration, $dateDepartARetraite, $direction, $service, $statut;
 
-
-
     // Variables pour le personnel retraité
     public $grade, $departARetraite, $numeroCARFO;
 
@@ -123,11 +121,11 @@ class WizardMembership extends Component
             if ($this->nombreAyantsDroits > 0) {
                 foreach ($this->ayantsDroits as $index => $ayantDroit) {
                     $this->validate([
-                        "ayantsDroits.$index.nom" => 'required|string|max:255',
-                        "ayantsDroits.$index.prenom" => 'required|string|max:255',
-                        "ayantsDroits.$index.sexe" => 'required|string|in:H,F',
+                        "ayantsDroits.$index.nom" => 'required|string',
+                        "ayantsDroits.$index.prenom" => 'required|string',
+                        "ayantsDroits.$index.sexe" => 'required|string',
                         "ayantsDroits.$index.date_naissance" => 'required|date',
-                        "ayantsDroits.$index.lien_parenté" => 'required|string|max:255',
+                        "ayantsDroits.$index.lien_parenté" => 'required',
                     ]);
                 }
             }
@@ -161,8 +159,9 @@ class WizardMembership extends Component
     // Méthode de soumission finale du wizard
     public function submit()
     {
+        
         $this->validateStep(); // Valider la dernière étape
-
+        
         // Logique pour enregistrer les données, par exemple :
         // User::create([
         //     'matricule' => $this->matricule,
@@ -170,7 +169,7 @@ class WizardMembership extends Component
         //     'cnib' => $this->cnib,
         //     // Ajoutez les autres champs ici...
         // ]);
-
+        
         $data = [
             'matricule' => $this->matricule,
             'nip' => $this->nip,
@@ -192,6 +191,7 @@ class WizardMembership extends Component
             'lieu_residence' => $this->lieu_residence,
             'telephone_personne_prevenir' => $this->telephone_personne_prevenir,
             'nombreAyantsDroits' => $this->nombreAyantsDroits,
+            'ayantsDroits' => json_encode($this->ayantsDroits),
             'statut' => $this->statut,
             'grade' => $this->grade,
             'departARetraite' => $this->departARetraite,
@@ -201,9 +201,9 @@ class WizardMembership extends Component
             'direction' => $this->direction,
             'service' => $this->service,
         ];
-    
         
         $demandeAdhesion = DemandeAdhesion::create($data);
+        
         session()->flash('message', 'Formulaire soumis avec succès !');
         
         // Réinitialisez le formulaire si nécessaire

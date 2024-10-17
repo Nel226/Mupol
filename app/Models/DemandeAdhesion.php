@@ -19,8 +19,10 @@ class DemandeAdhesion extends Model
         'prenom', 'genre', 'departement', 'ville', 'pays',
         'nom_pere', 'nom_mere', 'situation_matrimoniale',
         'nom_prenom_personne_besoin', 'lieu_residence',
-        'telephone_personne_prevenir', 'nombreAyantsDroits',
+        'telephone_personne_prevenir', 'nombreAyantsDroits', 'ayantsDroits',
         'statut', 'grade', 'departARetraite', 'numeroCARFO',
         'dateIntegration', 'dateDepartARetraite', 'direction', 'service'
     ];
+
+    
 }

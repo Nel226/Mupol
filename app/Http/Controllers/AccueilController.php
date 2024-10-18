@@ -32,7 +32,8 @@ class AccueilController extends Controller
     public function resumeAdhesion($id)
     {
         $demandeAdhesion = DemandeAdhesion::findOrFail($id);
-        return view('pages.frontend.adherents.resume_adhesion', compact('demandeAdhesion'));
+        $ayantsDroits = json_decode($demandeAdhesion->ayantsDroits, true); 
+        return view('pages.frontend.adherents.resume_adhesion', compact('demandeAdhesion', 'ayantsDroits'));
     }
 
     public function showCessionVolontaire($id)

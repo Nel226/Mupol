@@ -35,6 +35,7 @@ return new class extends Migration
             $table->integer('nombreAyantsDroits')->default(0);
             $table->integer('categorie')->default(1);
 
+            $table->json('ayantsDroits');
             $table->string('statut');
             $table->string('grade')->nullable();
             $table->date('departARetraite')->nullable();

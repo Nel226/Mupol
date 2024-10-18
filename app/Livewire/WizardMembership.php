@@ -6,15 +6,18 @@ use App\Helpers\DemandeCategorieHelper;
 use App\Models\DemandeAdhesion;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class WizardMembership extends Component
 {
     public $currentStep = 1; // Étape actuelle du wizard
     public $totalSteps = 5;   // Nombre total d'étapes  
+    public $totalSteps = 5;   // Nombre total d'étapes  
 
     // Variables pour les données du formulaire
     public $matricule, $nip, $cnib, $delivree, $expire, $adresse_permanente, $telephone;
     public $email, $password, $nom, $prenom, $genre, $departement, $ville, $pays, $nom_pere, $nom_mere, $situation_matrimoniale;
+    // Variables info personnnelles
     public $nom_prenom_personne_besoin, $lieu_residence, $telephone_personne_prevenir;
      // Propriétés pour les champs conditionnels
     // Variables pour le personnel en activité
@@ -86,11 +89,11 @@ class WizardMembership extends Component
             if ($this->nombreAyantsDroits > 0) {
                 foreach ($this->ayantsDroits as $index => $ayantDroit) {
                     $this->validate([
-                        "ayantsDroits.$index.nom" => 'required|string|max:255',
-                        "ayantsDroits.$index.prenom" => 'required|string|max:255',
-                        "ayantsDroits.$index.sexe" => 'required|string|in:H,F',
+                        "ayantsDroits.$index.nom" => 'required|string',
+                        "ayantsDroits.$index.prenom" => 'required|string',
+                        "ayantsDroits.$index.sexe" => 'required|string',
                         "ayantsDroits.$index.date_naissance" => 'required|date',
-                        "ayantsDroits.$index.lien_parenté" => 'required|string|max:255',
+                        "ayantsDroits.$index.lien_parenté" => 'required',
                     ]);
                 }
             }
@@ -124,15 +127,8 @@ class WizardMembership extends Component
     // Méthode de soumission finale du wizard
     public function submit()
     {
+        
         $this->validateStep(); // Valider la dernière étape
-
-        // Logique pour enregistrer les données, par exemple :
-        // User::create([
-        //     'matricule' => $this->matricule,
-        //     'nip' => $this->nip,
-        //     'cnib' => $this->cnib,
-        //     // Ajoutez les autres champs ici...
-        // ]);
 
         $categorie = DemandeCategorieHelper::determineCategorie($this->nombreAyantsDroits);
 
@@ -156,8 +152,10 @@ class WizardMembership extends Component
             'nom_prenom_personne_besoin' => $this->nom_prenom_personne_besoin,
             'lieu_residence' => $this->lieu_residence,
             'telephone_personne_prevenir' => $this->telephone_personne_prevenir,
+            'photo' => $this->imageUrl, 
             'nombreAyantsDroits' => $this->nombreAyantsDroits,
-            'categorie' => $categorie, 
+            'ayantsDroits' => json_encode($this->ayantsDroits),
+            'categorie' => $categorie,
             'statut' => $this->statut,
             'grade' => $this->grade,
             'departARetraite' => $this->departARetraite,
@@ -167,9 +165,10 @@ class WizardMembership extends Component
             'direction' => $this->direction,
             'service' => $this->service,
         ];
-    
+        
         
         $demandeAdhesion = DemandeAdhesion::create($data);
+        
         session()->flash('message', 'Formulaire soumis avec succès !');
         
         // Réinitialisez le formulaire si nécessaire
@@ -205,7 +204,7 @@ class WizardMembership extends Component
             $this->expire = $delivreeDate->addYears(10)->toDateString(); 
         }
     }
-  
+
     public function changeNombreAyantsDroits($value)
     {
         $this->nombreAyantsDroits = (int)$value;

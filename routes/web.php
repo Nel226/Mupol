@@ -13,6 +13,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ParametreController;
 use App\Http\Controllers\AyantDroitController;
 use App\Http\Controllers\CotisationController;
+use App\Http\Controllers\MembershipController;
 use App\Http\Controllers\PrestationController;
 
 /*
@@ -34,6 +35,8 @@ Route::get('/formulaire-adhesion', [AccueilController::class, 'newAdhesion'])->n
 Route::get('/resume-adhesion/{id}', [AccueilController::class, 'resumeAdhesion'])->name('resume-adhesion');
 Route::get('/demande-adhesion/{id}/fiche-cession-volontaire',  [AccueilController::class, 'downloadCessionFiche'])->name('download-fiche-cession-volontaire');
 Route::get('download-form-adhesion/{id}', [AccueilController::class, 'downloadFormAdhesion'])->name('download-form-adhesion');
+Route::post('/recapitulatif-form', [AccueilController::class, 'recapitulatifForm'])->name('recapitulatif-form');
+Route::post('/submit-form', [MembershipController::class, 'submitForm'])->name('submit-demande-adhesion');
 
 Route::get('/cession-volontaire/{id}', [AccueilController::class, 'showCessionVolontaire'])->name('showCessionVolontaire');
 

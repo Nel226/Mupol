@@ -18,7 +18,17 @@ class AccueilController extends Controller
         return view('pages.frontend.adherents.formulaire_adhesion');
     }
 
+    public function recapitulatifForm( Request $request)
+    {
+        $data = $request->all();
+        $totalSteps = 5;
+        return view('components.wizard-membership', [
+            'step' => 5, 
+            'data' => $data, 
+            'totalSteps' => $totalSteps,
+        ]);
 
+    }
     public function resumeAdhesion($id)
     {
         $demandeAdhesion = DemandeAdhesion::findOrFail($id);

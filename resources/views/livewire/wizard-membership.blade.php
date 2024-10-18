@@ -31,6 +31,8 @@
                         Informations personnelles
                     @elseif ($step == 4)
                         Formations professionnelles
+                    @elseif ($step == 5)
+                        Récapitulatif
                     @endif
                 </div>
             </div>
@@ -54,6 +56,9 @@
             @endif
             @if ($currentStep == 4)
                 FORMATIONS PROFESSIONELLES
+            @endif
+            @if ($currentStep == 5)
+                RECAPITULATIF
             @endif
         </h2>
 
@@ -98,7 +103,7 @@
                             <span class="text-red-500 text-xs">{{ $message }}</span>
                         @enderror
                     </div>
-
+                
                     <!-- Délivré le -->
                     <div>
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="delivree">Délivré le</label>
@@ -120,8 +125,56 @@
                         @enderror
                     </div>
                     
-
+                    <div class="max-w-md mx-auto p-4">
+                        <h2 class="text-center text-xl font-semibold mb-4">Signature Pad</h2>
+                        <canvas class="border rounded-md bg-white w-full" id="signatureCanvas" width="400" height="200" style="border: 1px solid #000;"></canvas>
+                        <br>
+                        <div class="w-full flex justify-between mt-4">
+                            <x-primary-button wire:click="saveSignature" id="saveButton">Enregistrer</x-primary-button>
+                            <x-primary-button id="clearButton" class="bg-red-500">Effacer</x-primary-button>
+                        </div>
+                        
+                        @if (session()->has('message'))
+                            <div class="mt-4 text-green-600 text-center">
+                                {{ session('message') }}
+                            </div>
+                        @endif
+                    
+                        @if (session()->has('error'))
+                            <div class="mt-4 text-red-600 text-center">
+                                {{ session('error') }}
+                            </div>
+                        @endif
+                    
+                        @push('scripts')
+                            <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+                            <script>
+                                const canvas = document.getElementById('signatureCanvas');
+                                const signaturePad = new SignaturePad(canvas, {
+                                    penColor: "red" // Définir la couleur du stylo en rouge
+                                });
+                                
+                                // Bouton Enregistrer
+                                document.getElementById('saveButton').addEventListener('click', function () {
+                                    if (signaturePad.isEmpty()) {
+                                        alert("Veuillez signer avant de sauvegarder.");
+                                        return;
+                                    }
+                                    const signatureData = signaturePad.toDataURL();
+                                    // Envoyer les données de signature à Livewire
+                                    @this.set('signature', signatureData); // Ici, 'signature' est une propriété de votre composant Livewire
+                                    @this.call('saveSignature'); // Appelle la méthode saveSignature de Livewire
+                                });
+                
+                                // Bouton Effacer
+                                document.getElementById('clearButton').addEventListener('click', function () {
+                                    signaturePad.clear(); // Efface le contenu du canvas
+                                });
+                            </script>
+                        @endpush
+                    </div>
                 </div>
+                
 
 
                 <!-- Grille pour Adresse permanente et Téléphone -->
@@ -487,6 +540,14 @@
                 @endif
             </div>
         @endif
+
+        <!-- Étape 5 -->
+        @if ($currentStep == 5)
+        
+        x-re
+    
+        @endif
+
         
 
 

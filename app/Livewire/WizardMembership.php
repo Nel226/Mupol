@@ -4,12 +4,13 @@ namespace App\Livewire;
 
 use App\Helpers\DemandeCategorieHelper;
 use App\Models\DemandeAdhesion;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 
 class WizardMembership extends Component
 {
     public $currentStep = 1; // Étape actuelle du wizard
-    public $totalSteps = 4;   // Nombre total d'étapes  
+    public $totalSteps = 5;   // Nombre total d'étapes  
 
     // Variables pour les données du formulaire
     public $matricule, $nip, $cnib, $delivree, $expire, $adresse_permanente, $telephone;
@@ -19,10 +20,7 @@ class WizardMembership extends Component
     // Variables pour le personnel en activité
     public $dateIntegration, $dateDepartARetraite, $direction, $service, $statut;
 
-    public $step1Label = 'Références de l\'adhérent';
-    public $step2Label = 'État civil';
-    public $step3Label = 'Informations personnelles';
-    public $step4Label = 'Formations professionnelles';
+  
 
     // Variables pour le personnel retraité
     public $grade, $departARetraite, $numeroCARFO;
@@ -30,47 +28,8 @@ class WizardMembership extends Component
     public $nombreAyantsDroits = 0;
     public $ayantsDroits = [];
 
-
-    // Méthode pour mettre à jour les champs selon le statut
-    public function updatedStatut($value)
-    {
-        if ($value === 'personnel_retraite') {
-            // Réinitialiser les propriétés pour le personnel retraité
-            $this->grade = null;
-            $this->departARetraite = null;
-            $this->numeroCARFO = null;
-            // Réinitialiser les champs du personnel en activité
-            $this->dateIntegration = null;
-            $this->dateDepartARetraite = null;
-            $this->direction = null;
-            $this->service = null;
-        } elseif ($value === 'personnel_active') {
-            // Réinitialiser les propriétés pour le personnel en activité
-            $this->dateIntegration = null;
-            $this->dateDepartARetraite = null;
-            $this->direction = null;
-            $this->service = null;
-            // Réinitialiser les champs du personnel retraité
-            $this->grade = null;
-            $this->departARetraite = null;
-            $this->numeroCARFO = null;
-        }
-    }
-
-    public function updatedNombreAyantsDroits()
-    {
-        if ($this->nombreAyantsDroits > 0) {
-            $this->ayantsDroits = array_fill(0, $this->nombreAyantsDroits, [
-                'nom' => '',
-                'prenom' => '',
-                'sexe' => '',
-                'date_naissance' => '',
-                'lien_parenté' => ''
-            ]);
-        } else {
-            $this->ayantsDroits = []; // Réinitialise si le nombre est 0
-        }
-    }
+    public  $signature; 
+    protected $listeners = ['signatureDataUpdated' => 'updateSignatureData'];
 
 
     // Méthode pour passer à l'étape suivante
@@ -220,6 +179,24 @@ class WizardMembership extends Component
         // Redirection vers la vue souhaitée
         return redirect()->route('resume-adhesion', ['id' => $demandeAdhesion->id]);
     }
+    public function saveSignature()
+    {
+        if ($this->signature) {
+            // Remove the part before the base64 data
+            $signatureData = str_replace('data:image/png;base64,', '', $this->signature);
+            $signatureData = str_replace(' ', '+', $signatureData); // Handle spaces
+            $decodedData = base64_decode($signatureData);
+    
+            // Define the path where you want to save the signature
+            $filePath = 'signatures/' . uniqid() . '.png'; // Unique file name
+            Storage::put($filePath, $decodedData); // Save the file in the storage
+
+    
+            session()->flash('message', 'Signature enregistrée avec succès.');
+        } else {
+            session()->flash('error', 'Aucune signature à enregistrer.');
+        }
+    }
 
     public function updateExpire()
     {
@@ -238,6 +215,9 @@ class WizardMembership extends Component
         $this->statut = $value;
     }
 
+
+   
+    
     public function render()
     {
         return view('livewire.wizard-membership');

@@ -11,15 +11,15 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
         
-        <link rel="stylesheet" href="{{ asset('css/tabulator.min.css') }}">
         <link rel="stylesheet" href="{{ asset('css/fontawesome.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/datatables.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/select2.min.css') }}">
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         @livewireStyles
+        <script src= "https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js" ></script>
+        <script src="{{ asset('js/signature_pad.umd.min.js') }}" defer></script>
+
     </head>
     <body class="font-sans text-gray-900 antialiased">
         
@@ -29,7 +29,7 @@
                 {{ $slot }}
             </div>
         </div>
-
+        @stack('scripts')
         @livewireScripts
     </body>
 </html>

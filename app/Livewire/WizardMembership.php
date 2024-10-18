@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Helpers\DemandeCategorieHelper;
 use App\Models\DemandeAdhesion;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class WizardMembership extends Component
 {
@@ -14,10 +15,14 @@ class WizardMembership extends Component
     // Variables pour les données du formulaire
     public $matricule, $nip, $cnib, $delivree, $expire, $adresse_permanente, $telephone;
     public $email, $password, $nom, $prenom, $genre, $departement, $ville, $pays, $nom_pere, $nom_mere, $situation_matrimoniale;
+    // Variables info personnnelles
     public $nom_prenom_personne_besoin, $lieu_residence, $telephone_personne_prevenir;
      // Propriétés pour les champs conditionnels
     // Variables pour le personnel en activité
     public $dateIntegration, $dateDepartARetraite, $direction, $service, $statut;
+
+    public $imageUrl; // Photo URL
+    protected $listeners = ['imageUploaded' => 'setImageUrl'];
 
     public $step1Label = 'Références de l\'adhérent';
     public $step2Label = 'État civil';
@@ -30,6 +35,12 @@ class WizardMembership extends Component
     public $nombreAyantsDroits = 0;
     public $ayantsDroits = [];
 
+    use WithFileUploads; 
+
+    public function setImageUrl($imageUrl)
+    {
+        $this->imageUrl = $imageUrl; // Mettez à jour l'URL de l'image
+    }
 
     // Méthode pour mettre à jour les champs selon le statut
     public function updatedStatut($value)
@@ -167,14 +178,6 @@ class WizardMembership extends Component
     {
         
         $this->validateStep(); // Valider la dernière étape
-        
-        // Logique pour enregistrer les données, par exemple :
-        // User::create([
-        //     'matricule' => $this->matricule,
-        //     'nip' => $this->nip,
-        //     'cnib' => $this->cnib,
-        //     // Ajoutez les autres champs ici...
-        // ]);
 
         $categorie = DemandeCategorieHelper::determineCategorie($this->nombreAyantsDroits);
 
@@ -198,8 +201,10 @@ class WizardMembership extends Component
             'nom_prenom_personne_besoin' => $this->nom_prenom_personne_besoin,
             'lieu_residence' => $this->lieu_residence,
             'telephone_personne_prevenir' => $this->telephone_personne_prevenir,
+            'photo' => $this->imageUrl, 
             'nombreAyantsDroits' => $this->nombreAyantsDroits,
             'ayantsDroits' => json_encode($this->ayantsDroits),
+            'categorie' => $categorie,
             'statut' => $this->statut,
             'grade' => $this->grade,
             'departARetraite' => $this->departARetraite,
@@ -209,6 +214,7 @@ class WizardMembership extends Component
             'direction' => $this->direction,
             'service' => $this->service,
         ];
+        
         
         $demandeAdhesion = DemandeAdhesion::create($data);
         
@@ -229,7 +235,7 @@ class WizardMembership extends Component
             $this->expire = $delivreeDate->addYears(10)->toDateString(); 
         }
     }
-  
+
     public function changeNombreAyantsDroits($value)
     {
         $this->nombreAyantsDroits = (int)$value;

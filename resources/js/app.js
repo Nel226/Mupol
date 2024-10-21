@@ -13,7 +13,6 @@ import * as XLSX from 'xlsx';
 import SignaturePad from 'signature_pad';
 
 
-
 // Ensure jQuery is available globally
 window.$ = window.jQuery = $;
 
@@ -26,3 +25,6 @@ window.Alpine = Alpine;
 Alpine.start();
 window.XLSX = XLSX; 
 window.SignaturePad = SignaturePad;
+
+
+

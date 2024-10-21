@@ -17,15 +17,19 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         @livewireStyles
-        <script src= "https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js" ></script>
-        <script src="{{ asset('js/signature_pad.umd.min.js') }}" defer></script>
+        <script src="{{ asset('js/regions.js') }}" defer></script>
+        {{--  <script src="{{ asset('js/signature_pad.umd.min.js') }}" defer></script>  --}}
+        <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     </head>
     <body class="font-sans text-gray-900 antialiased">
         
-        <div  class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-white dark:bg-gray-900">
+        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-white dark:bg-gray-900" style="padding-top: 64px;">
 
             <div class="w-full   bg-white dark:bg-gray-800  overflow-y-auto sm:rounded-lg">
+                <x-header-guest/>
+
                 {{ $slot }}
             </div>
         </div>

@@ -107,8 +107,17 @@
         <img src="{{ $logoDataUrl }}" style="text-align: center; align-items: center; margin: auto;" class="center-image" width="48px" height="48px"  alt="Logo">
     </div>
     <div class="mx-auto">
-        <p><strong>REGION :</strong> .............................. <strong>PROVINCE :</strong> ......................................... <strong>LOCALITE :</strong> ....................................</p>
-        <p><strong>MUTUELLE DE LA POLICE (MU-POL)</strong><br>
+        <table style="border-collapse: collapse; width: 100%;">
+            <tr>
+                <td style="padding: 0px 0px 0px 0px; text-align: left;"><strong>REGION :</strong> {{ $demandeAdhesion->region }}</td>
+                <td style="padding: 0px 0px 0px 0px; text-align: left;"><strong>PROVINCE :</strong> {{ $demandeAdhesion->province }}</td>
+                <td style="padding: 0px 0px 0px 0px; text-align: left;"><strong>LOCALITE :</strong> {{ $demandeAdhesion->localite }}</td>
+            </tr>
+        </table>
+        
+        <p style="margin-top: 5px;"><strong>MUTUELLE DE LA POLICE (MU-POL)</strong><br>
+        
+        
         Ouagadougou, secteur n°6<br>
         Avenue Kadiogo, 01 BP 4546<br>
         Ouagadougou 01, Burkina Faso<br>
@@ -154,8 +163,14 @@
         </table>
         
         
+        @php
+            use App\Helpers\DateHelper;
 
-        <p>L&apos;an deux mille vingt quatre </p>
+            $dateActuelle = now()->format('Y-m-d'); 
+            $dateEnLettres = DateHelper::convertirDateEnLettres($dateActuelle);
+        @endphp
+
+        <p>{{ $dateEnLettres }},</p>
         <p>Devant nous, <strong>..........................................................</strong>, Président(e) du Tribunal de Grande Instance<br>
         Assisté de <strong>..........................................................</strong>, Greffier audit Tribunal<br>
         A comparu Mr/Mme <strong>{{$demandeAdhesion->nom}} {{$demandeAdhesion->prenom}}</strong>, Grade : <strong>{{$demandeAdhesion->grade}}</strong><br>
@@ -211,6 +226,9 @@
                 <tr>
                     <td style="text-align: center;">
                         <p>Le cédant</p>
+                        <p>
+                            <img src="{{$demandeAdhesion->signature}}" alt="signatureCedant">
+                        </p>
                     </td>
                     <td style="text-align: center;">
                         <p>Le Président du tribunal</p>

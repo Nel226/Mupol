@@ -1,3 +1,2747 @@
+demandeAdhesion->
+ 
+// Passer la signature à la vue
+ 
+'region' => $region,
+            'province' => $province,
+            'localite' => $localite,
+ 
+, $region, $province, $localite
+ 
+        dd($request->all());
+
+ 
+'region' => $lieu['region'], 
+                    'province' => $lieu['province'], 
+                    'localite' => $lieu['localite']
+ 
+// Réinitialiser le champ caché
+ 
+// Effacer le canvas
+ 
+// Enregistrer l'image dans le champ caché
+ 
+// Convertir le canvas en image
+ 
+// Cela stocke l'image en Base64
+ 
+                        // Convertir l'image en Base64 et l'enregistrer dans le champ caché
+
+ 
+const signatureImageInput = document.getElementById('signatureImage');
+            const previewImage = document.getElementById('previewImage');
+        
+            signatureImageInput.addEventListener('change', function() {
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        previewImage.src = e.target.result;
+                        previewImage.classList.remove('hidden');
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+ 
+// Ajouter la signature
+ 
+lieu
+ 
+        $lieu = $request->only(['region', 'province', 'localite']); 
+
+ 
+        dd($request->all());
+
+ 
+z-10
+ 
+z-20
+ 
+z-20
+ 
+ // Réinitialise le chemin pour éviter de relier les coups
+ 
+            // Gestion de l'image téléchargée
+
+ 
+            // Gérer l'effacement du canvas
+
+ 
+<!-- Ajout de la protection CSRF -->
+ 
+                <!-- Première ligne avec 3 colonnes -->
+
+ 
+4000FF
+ 
+// Couleur de la ligne
+ 
+// Forme de la fin de la ligne
+ 
+/ Épaisseur de la ligne
+ 
+            // Ajuster la taille du canvas
+
+ 
+            // Événements pour commencer et arrêter le dessin
+
+ 
+// Références au canvas et aux boutons
+            const canvas = document.getElementById('signatureCanvas');
+            const ctx = canvas.getContext('2d');
+            const signatureInput = document.getElementById('signatureInput');
+            const saveButton = document.getElementById('saveButton');
+            const clearButton = document.getElementById('clearButton');
+        
+            let drawing = false;
+        
+            // Démarrer le dessin
+            canvas.addEventListener('mousedown', () => {
+                drawing = true;
+            });
+        
+            // Arrêter le dessin
+            canvas.addEventListener('mouseup', () => {
+                drawing = false;
+                ctx.beginPath();
+            });
+        
+            // Dessiner sur le canvas
+            canvas.addEventListener('mousemove', (event) => {
+                if (!drawing) return;
+                ctx.lineWidth = 2;
+                ctx.lineCap = 'round';
+                ctx.strokeStyle = '#000';
+                ctx.lineTo(event.clientX - canvas.offsetLeft, event.clientY - canvas.offsetTop);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(event.clientX - canvas.offsetLeft, event.clientY - canvas.offsetTop);
+            });
+        
+            // Sauvegarder la signature dans le champ caché en base64
+            saveButton.addEventListener('click', () => {
+                const signatureDataUrl = canvas.toDataURL('image/png');
+                signatureInput.value = signatureDataUrl;
+                alert('Signature enregistrée!');
+            });
+        
+            // Effacer le canvas
+            clearButton.addEventListener('click', () => {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                signatureInput.value = '';
+            });
+        
+ 
+hover:bg-emerald-700
+ 
+hover:bg-red-600
+ 
+bg-blue-600 text-white px-6 py-2 rounded-md shadow-sm hover:bg-blue-700 transition duration-300
+ 
+
+                <script>
+                    // JavaScript pour gérer le glisseur
+                    const toggle = document.getElementById('signatureToggle');
+                    const drawSignature = document.getElementById('drawSignature');
+                    const uploadSignature = document.getElementById('uploadSignature');
+                
+                    toggle.addEventListener('change', () => {
+                        if (toggle.checked) {
+                            drawSignature.classList.add('hidden');
+                            uploadSignature.classList.remove('hidden');
+                        } else {
+                            drawSignature.classList.remove('hidden');
+                            uploadSignature.classList.add('hidden');
+                        }
+                    });
+                </script>
+ 
+<script>
+                    // JavaScript pour gérer le basculement entre dessiner et charger la signature
+                    const toggle = document.getElementById('signatureToggle');
+                    const drawSignature = document.getElementById('drawSignature');
+                    const uploadSignature = document.getElementById('uploadSignature');
+                
+                    toggle.addEventListener('change', () => {
+                        if (toggle.checked) {
+                            drawSignature.classList.add('hidden');
+                            uploadSignature.classList.remove('hidden');
+                        } else {
+                            drawSignature.classList.remove('hidden');
+                            uploadSignature.classList.add('hidden');
+                        }
+                    });
+                </script>        
+ 
+mb-6
+ 
+mt-4
+ 
+mt-4
+ 
+pencil
+ 
+w-full max-w-[400px]
+ 
+mx-auto
+ 
+ mx-auto
+ 
+h-[64px]
+ 
+
+                <div flex h-full items-center justify-center bg-white>
+                    <!--
+                    Fancy toggle component
+                    Made for u/Frederik_DiamonD from https://www.reddit.com/r/tailwindcss/comments/10qwnf8/can_i_make_this_toggle_button_with_tailwindcss/
+                    By Star from https://github.com/StarLederer
+                    Please follow me on GitHub if you find this useful
+                    -->
+                    <label class="group" w-60 h-15 bg-dark:10 relative rounded-full select-none cursor-pointer flex>
+                      <input class="peer" type="checkbox" appearance-none hidden>
+                      <div
+                        w-30 h-full bg-blue-500 rounded-full transition-all shadow-blue:50 absolute left-0
+                        group-hover:shadow-xl
+                        peer-checked="left-30"
+                      ></div>
+                      <span transition relative w-30 h-full flex items-center justify-center font-bold text-white peer-checked:text-black>Buying</span>
+                      <span transition relative w-30 h-full flex items-center justify-center font-bold text-black peer-checked:text-white>Selling</span>
+                    </label>
+                  </div>
+                  <style>
+                    /* layer: default */
+.absolute,
+[absolute=""]{position:absolute;}
+.relative,
+[relative=""]{position:relative;}
+.left-0,
+[left-0=""]{left:0;}
+.left-30,
+.peer:checked~[peer-checked~="left-30"]{left:7.5rem;}
+.me,
+[me=""]{margin-inline-end:1rem;}
+[hidden=""]{display:none;}
+.h-15,
+[h-15=""]{height:3.75rem;}
+.h-full,
+[h-full=""]{height:100%;}
+.w-30,
+[w-30=""]{width:7.5rem;}
+.w-60,
+[w-60=""]{width:15rem;}
+.flex,
+[flex=""]{display:flex;}
+.cursor-pointer,
+[cursor-pointer=""]{cursor:pointer;}
+.select-none,
+[select-none=""]{-webkit-user-select:none;user-select:none;}
+.appearance-none,
+[appearance-none=""]{-webkit-appearance:none;appearance:none;}
+.items-center,
+[items-center=""]{align-items:center;}
+.justify-center,
+[justify-center=""]{justify-content:center;}
+.rounded-full,
+[rounded-full=""]{border-radius:9999px;}
+.bg-blue-500,
+[bg-blue-500=""]{--un-bg-opacity:1;background-color:rgb(59 130 246 / var(--un-bg-opacity));}
+.bg-dark\:10,
+[bg-dark\:10=""]{background-color:rgb(34 34 34 / 0.1);}
+[bg-white=""]{--un-bg-opacity:1;background-color:rgb(255 255 255 / var(--un-bg-opacity));}
+.text-black,
+[text-black=""],
+.peer:checked~[peer-checked\:text-black=""]{--un-text-opacity:1;color:rgb(0 0 0 / var(--un-text-opacity));}
+.text-white,
+[text-white=""],
+.peer:checked~[peer-checked\:text-white=""]{--un-text-opacity:1;color:rgb(255 255 255 / var(--un-text-opacity));}
+.font-bold,
+[font-bold=""]{font-weight:700;}
+.shadow-blue\:50,
+[shadow-blue\:50=""]{--un-shadow-color:rgb(96 165 250 / 0.5);}
+.group:hover .group-hover\:shadow-xl,
+.group:hover [group-hover\:shadow-xl=""]{--un-shadow:var(--un-shadow-inset) 0 20px 25px -5px var(--un-shadow-color, rgb(0 0 0 / 0.1)),var(--un-shadow-inset) 0 8px 10px -6px var(--un-shadow-color, rgb(0 0 0 / 0.1));box-shadow:var(--un-ring-offset-shadow), var(--un-ring-shadow), var(--un-shadow);}
+.transition,
+[transition=""]{transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms;}
+.transition-all,
+[transition-all=""]{transition-property:all;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms;}
+                  </style>
+ 
+ <div flex h-full items-center justify-center bg-white>
+                    <!--
+                    Fancy toggle component
+                    Made for u/Frederik_DiamonD from https://www.reddit.com/r/tailwindcss/comments/10qwnf8/can_i_make_this_toggle_button_with_tailwindcss/
+                    By Star from https://github.com/StarLederer
+                    Please follow me on GitHub if you find this useful
+                    -->
+                    <label class="group" w-60 h-15 bg-dark:10 relative rounded-full select-none cursor-pointer flex>
+                      <input class="peer" type="checkbox" appearance-none hidden>
+                      <div
+                        w-30 h-full bg-blue-500 rounded-full transition-all shadow-blue:50 absolute left-0
+                        group-hover:shadow-xl
+                        peer-checked="left-30"
+                      ></div>
+                      <span transition relative w-30 h-full flex items-center justify-center font-bold text-white peer-checked:text-black>Buying</span>
+                      <span transition relative w-30 h-full flex items-center justify-center font-bold text-black peer-checked:text-white>Selling</span>
+                    </label>
+                  </div>
+                  <style>
+                    /* layer: default */
+.absolute,
+[absolute=""]{position:absolute;}
+.relative,
+[relative=""]{position:relative;}
+.left-0,
+[left-0=""]{left:0;}
+.left-30,
+.peer:checked~[peer-checked~="left-30"]{left:7.5rem;}
+.me,
+[me=""]{margin-inline-end:1rem;}
+[hidden=""]{display:none;}
+
+.w-30,
+[w-30=""]{width:7.5rem;}
+.w-60,
+[w-60=""]{width:15rem;}
+.flex,
+[flex=""]{display:flex;}
+.cursor-pointer,
+[cursor-pointer=""]{cursor:pointer;}
+.select-none,
+[select-none=""]{-webkit-user-select:none;user-select:none;}
+.appearance-none,
+[appearance-none=""]{-webkit-appearance:none;appearance:none;}
+.items-center,
+[items-center=""]{align-items:center;}
+.justify-center,
+[justify-center=""]{justify-content:center;}
+.rounded-full,
+[rounded-full=""]{border-radius:9999px;}
+.bg-blue-500,
+[bg-blue-500=""]{--un-bg-opacity:1;background-color:rgb(59 130 246 / var(--un-bg-opacity));}
+.bg-dark\:10,
+[bg-dark\:10=""]{background-color:rgb(34 34 34 / 0.1);}
+[bg-white=""]{--un-bg-opacity:1;background-color:rgb(255 255 255 / var(--un-bg-opacity));}
+.text-black,
+[text-black=""],
+.peer:checked~[peer-checked\:text-black=""]{--un-text-opacity:1;color:rgb(0 0 0 / var(--un-text-opacity));}
+.text-white,
+[text-white=""],
+.peer:checked~[peer-checked\:text-white=""]{--un-text-opacity:1;color:rgb(255 255 255 / var(--un-text-opacity));}
+.font-bold,
+[font-bold=""]{font-weight:700;}
+.shadow-blue\:50,
+[shadow-blue\:50=""]{--un-shadow-color:rgb(96 165 250 / 0.5);}
+.group:hover .group-hover\:shadow-xl,
+.group:hover [group-hover\:shadow-xl=""]{--un-shadow:var(--un-shadow-inset) 0 20px 25px -5px var(--un-shadow-color, rgb(0 0 0 / 0.1)),var(--un-shadow-inset) 0 8px 10px -6px var(--un-shadow-color, rgb(0 0 0 / 0.1));box-shadow:var(--un-ring-offset-shadow), var(--un-ring-shadow), var(--un-shadow);}
+.transition,
+[transition=""]{transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms;}
+.transition-all,
+[transition-all=""]{transition-property:all;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms;}
+                  </style>
+ 
+.w-30,
+[w-30=""]{width:7.5rem;}
+.w-60,
+[w-60=""]{width:15rem;}
+.flex,
+[flex=""]{display:flex;}
+ 
+.h-15,
+[h-15=""]{height:3.75rem;}
+.h-full,
+[h-full=""]{height:100%;}
+ 
+<div class="flex justify-center mb-4">
+                    <label class="group w-60 h-15 bg-gray-200 relative rounded-full select-none cursor-pointer flex">
+                        <input id="signatureToggle" class="peer hidden" type="checkbox">
+                        <div
+                            class="w-30 h-full bg-blue-500 rounded-full transition-all shadow-blue-50 absolute left-0 group-hover:shadow-xl peer-checked:left-30"
+                        ></div>
+                        <span class="transition relative w-30 h-full flex items-center justify-center font-bold text-white peer-checked:text-black">Dessiner</span>
+                        <span class="transition relative w-30 h-full flex items-center justify-center font-bold text-black peer-checked:text-white">Charger</span>
+                    </label>
+                </div>
+        
+ 
+<div flex h-full items-center justify-center bg-white>
+                    <!--
+                    Fancy toggle component
+                    Made for u/Frederik_DiamonD from https://www.reddit.com/r/tailwindcss/comments/10qwnf8/can_i_make_this_toggle_button_with_tailwindcss/
+                    By Star from https://github.com/StarLederer
+                    Please follow me on GitHub if you find this useful
+                    -->
+                    <label class="group" w-60 h-15 bg-dark:10 relative rounded-full select-none cursor-pointer flex>
+                      <input class="peer" type="checkbox" appearance-none hidden>
+                      <div
+                        w-30 h-full bg-blue-500 rounded-full transition-all shadow-blue:50 absolute left-0
+                        group-hover:shadow-xl
+                        peer-checked="left-30"
+                      ></div>
+                      <span transition relative w-30 h-full flex items-center justify-center font-bold text-white peer-checked:text-black>Buying</span>
+                      <span transition relative w-30 h-full flex items-center justify-center font-bold text-black peer-checked:text-white>Selling</span>
+                    </label>
+                  </div>
+ 
+    <x-header-guest/>
+
+ 
+style="padding-top: 64px;"
+ 
+pt-6
+ 
+                    // Remplir les options des provinces
+
+ 
+                    // Ajouter la première option
+
+ 
+                    // Vider les provinces précédentes
+
+ 
+                // Quand une région est sélectionnée, remplir les provinces correspondantes
+
+ 
+                // Remplir les options des régions
+
+ 
+     
+        <form action="{{ route('finalisation-adhesion') }}" method="POST">
+            @csrf
+            <input type="hidden" name="demande_adhesion_id" value="{{ $demandeAdhesion->id }}">
+
+            <h4 class="text-center text-xl font-semibold">1. Dessiner votre signature ou charger l&apos;image de votre signature</h4>
+            <div class="max-w-4xl mx-auto p-4 grid grid-cols-1 md:grid-cols-2 gap-4 h-full">
+                <!-- Dessiner la signature -->
+                <div class="flex flex-col p-4 border rounded-md bg-white h-full">
+                    <h2 class="text-center text-xl font-semibold mb-4">Dessiner la signature</h2>
+                    <canvas class="border rounded-md bg-white w-full flex-grow" id="signatureCanvas" width="400" height="200" style="border: 1px solid #000;"></canvas>
+                    <br>
+                    <input type="hidden" id="signatureInput" name="signature" />
+                    <div class="w-full flex justify-between mt-4">
+                        <button type="button" id="saveButton" class="bg-emerald-600 p-1 rounded-md text-white">Enregistrer</button>
+                        <button type="button" id="clearButton" class="bg-red-500 p-1 rounded-md text-white">Effacer</button>
+                    </div>
+                </div>
+                <!-- Charger une image de la signature -->
+                <div class="flex flex-col p-4 border rounded-md bg-white h-full">
+                    <h2 class="text-center text-xl font-semibold mb-4">Charger l&apos;image de la signature</h2>
+                    <div class="border-dashed border-2 border-gray-300 rounded-md p-4 flex-grow flex justify-center items-center" id="dropzone">
+                        <div class="text-center">
+                            <img id="previewImage" class="hidden w-full h-auto max-h-48 object-cover mb-4" />
+                            <p class="text-gray-500">Déposez votre image ici ou</p>
+                            <label for="signatureImage" class="cursor-pointer text-blue-500 hover:underline">cliquez pour choisir une image</label>
+                            <input type="file" id="signatureImage" class="hidden" accept="image/*" name="signatureImage">
+                        </div>
+                    </div>
+                </div>
+            </div>
+          
+            
+            <h4 class="text-center text-xl font-semibold">2.Compléter votre fiche le cession volontaire de salaire</h4>
+    
+            <div class="container max-w-4xl my-3  p-10 bg-white shadow-lg rounded-lg mx-auto">
+           
+                <h1 class="text-xl font-bold mb-4">Aperçu fiche de cession volontaire de salaire</h1>
+    
+                
+                <div class="center-image-container">
+                    <img src="{{ asset('images/logofinal.png') }}" style="text-align: center; align-items: center; margin: auto;" class="center-image" width="48px" height="48px"  alt="Logo">
+                </div>
+                <style>
+                   
+                    .center-image-container {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        width: 100%;
+                        text-align: center;
+                    }
+                    h4 {
+                        margin: 20px 0;
+                        text-decoration: underline;
+                    }
+                    p {
+                        margin-bottom: 15px;
+                    }
+                    table {
+                        width: 100%;
+                        border-collapse: collapse;
+                        margin-top: 20px;
+                    }
+                    table td, table th {
+                        padding: 10px;
+                        text-align: left;
+                    }
+                    table th {
+                        border: 1px solid black;
+                    }
+                    .signature {
+                        display: flex;
+                        display: -webkit-box;
+                        margin-top: 50px;
+                        margin-bottom: 80px;
+                        -webkit-align-self: flex-end;
+                        align-self: flex-end;
+                        webkit-justify-content: space-between;
+                        justify-content: space-between;
+                    }
+                    .signature p {
+                        text-align: center;
+                        text-decoration: underline;
+                    }
+                    .page-break {
+                        page-break-after: always;
+                    }
+                    .center {
+                        text-align: center;
+                    }
+                    .p-center {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                    }
+                    table.noborder {
+                        width: 100%;
+                    }
+                    table.noborder tr td {
+                        border: none;
+                    }
+                    table.noborder td:nth-child(1) {
+                        width: 25%; 
+                    }
+                    table.noborder td:nth-child(2) {
+                        width: 70%; 
+                    }
+                    table.noborder td:nth-child(3) {
+                        width: 5%; 
+                    }
+                    table.noborder td {
+                        border: none;
+                        padding: 5px;
+                        vertical-align: top;
+                        text-align: left; /* Alignement à gauche */
+                    }
+                    table.montants th, table.montants td {
+                        border: 1px solid black;
+                        text-align: center;
+                        line-height: 1.2 !important,
+                    }
+                    .beneficiaire-info {
+                        display: -webkit-box;
+                        flex-direction: column;
+                        align-items: flex-start; 
+                    }
+                    
+                </style>
+                <div class="mx-auto">
+                    <p class="flex gap-2"><strong>REGION</strong>
+                        <input name="region" id="region" type="text" class="shadow appearance-none border rounded w-full py-1 px-1 text-gray-700 leading-tight focus:outline-none focus:shadow-outline "><strong>
+                        PROVINCE</strong>                         <input name="province" id="province" type="text" class="shadow appearance-none border rounded w-full py-1 px-1 text-gray-700 leading-tight focus:outline-none focus:shadow-outline "><strong>
+                            LOCALITE</strong>                         <input name="localite" id="localite" type="text" class="shadow appearance-none border rounded w-full py-1 px-1 text-gray-700 leading-tight focus:outline-none focus:shadow-outline "><strong>
+                            </p>
+                    <p><strong>MUTUELLE DE LA POLICE (MU-POL)</strong><br>
+                    Ouagadougou, secteur n°6<br>
+                    Avenue Kadiogo, 01 BP 4546<br>
+                    Ouagadougou 01, Burkina Faso<br>
+                    Tel : +226 06 88 17 74 / 51 03 87 35</p>
+    
+                    <table class="noborder">
+                        <tr>
+                            <td></td>
+                            <td>
+                                <h4>CESSION VOLONTAIRE DE SALAIRE</h4>
+                                <p><em>(Article 205 et suivants de l&apos;AUPSRVE)</em></p>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <p><strong>CEDANT :</strong> {{$demandeAdhesion->nom}} {{$demandeAdhesion->prenom}}</p>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td style="vertical-align: middle;">
+                                <table style="width: 100%; border-collapse: collapse;">
+                                    <tr>
+                                        <td style="padding-right: 5px;">
+                                            <strong>BENEFICIAIRE:</strong>
+                                        </td>
+                                        <td>
+                                            <span>MU-POL : IB BANK-BURKINA FASO</span>
+                                            <p style="margin: 0;">CODE BANQUE : BF 139</p>
+                                            <p style="margin: 0;">CODE GUICHET : 01002</p>
+                                            <p style="margin: 0;">NUMERO COMPTE : 004631300395</p>
+                                            <p style="margin: 0;">CLE RIB : 74</p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            
+                            <td></td>
+                        </tr>
+                    </table>
+                    
+                    
+    
+                    <p>{{ $dateEnLettres }} </p>                    <p>Devant nous, <strong>..........................................................</strong>, Président(e) du Tribunal de Grande Instance<br>
+                    Assisté de <strong>..........................................................</strong>, Greffier audit Tribunal<br>
+                    A comparu Mr/Mme <strong>{{$demandeAdhesion->nom}} {{$demandeAdhesion->prenom}}</strong>, Grade : <strong>{{$demandeAdhesion->grade}}</strong><br>
+                    Matricule <strong>{{$demandeAdhesion->matricule}}</strong> en service <strong>{{$demandeAdhesion->matricule}}</strong>.</p>
+    
+                    <p>Qui déclare qu'il/elle est employé(e) par le MATDS<br>
+                    Qu'il/elle désire céder librement et de manière permanente ou non permanente par les présentes à la MU-POL les sommes indiquées dans le tableau ci-dessous :</p>
+                  
+                    <table class="montants">
+                        <tr>
+                            <th rowspan="3">CATEGORIE {{$demandeAdhesion->categorie}}</th>
+                            <th>A prélever une seule fois le premier mois</th>
+                            <th colspan="2">A prélever mensuellement pour compter du 2ème mois</th>
+                            <th>Compte à créditer</th>
+                        </tr>
+                        <tr>
+                            <td>Frais d&apos;adhésion</td>
+                            <td>Cotisation mensuelle adhérent</td>
+                            <td>Cotisation mensuelle des ayants droits</td>
+                            <td rowspan="3">MU-POL : IB BANK-BURKINA FASO<br>CODE BANQUE : BF 139<br>CODE GUICHET : 01002<br>NUMERO COMPTE : 004631300395<br>CLE RIB : 74</td>
+                        </tr>
+                        <tr>
+                            <td>{{ number_format($cotisations['fraisAdhesion'], 0, ',', ' ') }} FCFA</td>
+                            <td>{{ number_format($cotisations['cotisationAdherent'], 0, ',', ' ') }} FCFA</td>
+                            <td>{{ number_format($cotisations['cotisationAyantsDroits'], 0, ',', ' ') }} FCFA</td>
+                        </tr>
+                        <tr>
+                            <td class="center"><strong>SOUS TOTAUX</strong></td>
+                            <td class="center"><strong>10 000</strong></td>
+                            <td colspan="2" class="center"><strong>{{ number_format($cotisations['cotisationTotale'], 0, ',', ' ') }} FCFA</strong></td>
+    
+                        </tr>
+                    </table>
+                </div>
+    
+                <div class="page-break"></div>
+    
+                <div class="mx-auto max-w-4xl">
+                    <div class="center-image-container">
+                        <img src="{{ asset('images/logofinal.png') }}" style="text-align: center; align-items: center; margin: auto;" class="center-image" width="48px" height="48px"  alt="Logo">
+                    </div>
+                    <p>Qu’en conséquence, il/elle déclare autoriser dès à présent au payeur général du trésor à lui retenir le montant de la mensualité mentionnée dans le tableau sur son salaire ou revenu,</p>
+                    <p>Nous avons donné acte à Mr/Mme <strong>{{$demandeAdhesion->nom}} {{$demandeAdhesion->prenom}}</strong><br>
+                    De ses déclarations, lesquelles seront notifiées à son employeur.</p>
+                    <p>Le cédant déclare décharger de toutes responsabilités quant aux paiements effectués dans ses conditions le payeur général du trésor. Cet engagement pourrait être révoqué par une demande écrite de sa part.</p>
+                    <p>De ce qui dessus, nous avons, les jours, mois susdit, dressé le présent procès-verbal que le/la comparant(e) a signé avec nous après lecture.</p>
+    
+                    <div class="signature" style="width: 100%;">
+                        <table style="width: 100%;">
+                            <tr>
+                                <td style="text-align: center;">
+                                    <p>Le cédant</p>
+                                </td>
+                                <td style="text-align: center;">
+                                    <p>Le Président du tribunal</p>
+                                </td>
+                                <td style="text-align: center;">
+                                    <p>Le Greffier</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    
+    
+                    <p>Et nous MU-POL Ouagadougou, secteur n°6<br>
+                    Avenue Kadiogo, 01 BP 4546<br>
+                    Ouagadougou 01, Burkina Faso<br>
+                    Tel : +226 06 88 17 74 / 51 03 87 35</p>
+    
+                    <p>Déclarons accepter la cession consentie par Mr/Mme <strong>{{$demandeAdhesion->nom}} {{$demandeAdhesion->prenom}}</strong></p>
+                    <p style="text-decoration: underline;">Signature MU-POL</p>
+                    <p style="margin-top: 20%;">Fait à Ouagadougou le, <strong>{{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}</strong></p>
+                </div>
+            
+            </div>
+            <div class="flex justify-between my-3">
+
+                <x-primary-button  type="submit" >
+                    Valider
+                </x-primary-button>
+            </div>
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    const canvas = document.getElementById('signatureCanvas');
+                    const signaturePad = new SignaturePad(canvas, {
+                        penColor: "black" 
+                    });
+                
+                    document.getElementById('saveButton').addEventListener('click', function () {
+                        if (signaturePad.isEmpty()) {
+                            alert("Veuillez signer avant de sauvegarder.");
+                            return;
+                        }
+                        const signatureData = signaturePad.toDataURL();
+                
+                        // Appel AJAX pour sauvegarder la signature
+                        fetch('save_signature.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ signature: signatureData })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                document.getElementById('message').innerText = "Signature enregistrée avec succès.";
+                                document.getElementById('message').classList.remove('hidden');
+                            } else {
+                                document.getElementById('error').innerText = "Erreur lors de l'enregistrement de la signature.";
+                                document.getElementById('error').classList.remove('hidden');
+                            }
+                        })
+                        .catch(error => {
+                            document.getElementById('error').innerText = "Erreur: " + error;
+                            document.getElementById('error').classList.remove('hidden');
+                        });
+                    });
+                
+                    document.getElementById('clearButton').addEventListener('click', function () {
+                        signaturePad.clear(); 
+                    });
+                
+                    const dropzone = document.getElementById('dropzone');
+                    const fileInput = document.getElementById('signatureImage');
+                    const previewImage = document.getElementById('previewImage');
+                
+                    dropzone.addEventListener('dragover', (event) => {
+                        event.preventDefault();
+                        dropzone.classList.add('bg-gray-100');
+                    });
+                
+                    dropzone.addEventListener('dragleave', () => {
+                        dropzone.classList.remove('bg-gray-100');
+                    });
+                
+                    dropzone.addEventListener('drop', (event) => {
+                        event.preventDefault();
+                        dropzone.classList.remove('bg-gray-100');
+                        const files = event.dataTransfer.files;
+                        fileInput.files = files; 
+                        fileInput.dispatchEvent(new Event('change')); 
+                    });
+                
+                    fileInput.addEventListener('change', function () {
+                        const file = fileInput.files[0];
+                        if (file) {
+                            const imageUrl = URL.createObjectURL(file);
+                            previewImage.src = imageUrl;
+                            previewImage.classList.remove('hidden');
+                
+                            // Optionnel: pour montrer un message de succès
+                            document.getElementById('imageMessage').innerText = "Image chargée avec succès.";
+                            document.getElementById('imageMessage').classList.remove('hidden');
+                        }
+                    });
+                });
+                
+            </script>
+        </form>
+ 
+export default regions;
+
+ 
+document.addEventListener('DOMContentLoaded', () => {
+    console.log(regions); // Cela doit afficher les régions dans la console
+});
+ 
+import regions from './regions.js';
+
+ 
+                            <!-- Options générées par JavaScript -->
+
+ 
+                            <!-- Options générées par JavaScript -->
+
+ 
+        <div class=" -z-10 h-full w-full bg-white [background:radial-gradient(125%_125%_at_50%_10%,#fff_40%,#63e_100%)]">sss</div>ss
+
+ 
+absolute inset-0
+ 
+backdrop-blur-sm
+ 
+relative
+ 
+</div>
+ 
+    <div class="min-h-screen flex items-center justify-center pattern-wavy pattern-purple-500 pattern-bg-white 
+
+ 
+max-w-4xl
+ 
+{region}/{province}/{localite}
+ 
+/{region}/{province}/{localite}
+ 
+// Assurez-vous de la vue correcte ici aussi
+ 
+namespace App\Mail;
+
+ 
+        Mail::to(users: users: users: $demandeAdhesion->email)->send(new ConfirmationDemandeAdhesion($demandeAdhesion));
+
+ 
+    // Envoyer l'email avec le PDF en pièce jointe
+
+ 
+    // Enregistrer les modifications dans la base de données
+
+ 
+->nullable()
+ 
+->nullable()
+ 
+->nullable()
+ 
+ <ul>
+            <li><strong>ID de la demande :</strong> {{ $demandeAdhesion->id }}</li>
+            <li><strong>Nom :</strong> {{ $demandeAdhesion->nom }}</li>
+            <li><strong>Prénom :</strong> {{ $demandeAdhesion->prenom }}</li>
+            <li><strong>Email :</strong> {{ $demandeAdhesion->email }}</li>
+            <li><strong>Région :</strong> {{ $demandeAdhesion->region }}</li>
+            <li><strong>Province :</strong> {{ $demandeAdhesion->province }}</li>
+            <li><strong>Localité :</strong> {{ $demandeAdhesion->localite }}</li>
+            <li><strong>Date de la demande :</strong> {{ $demandeAdhesion->created_at->format('d/m/Y') }}</li>
+        </ul>
+ 
+Voici les détails de votre demande :
+ 
+        'PDF' => Barryvdh\DomPDF\Facade::class,
+
+ 
+        return [];
+
+ 
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=587
+MAIL_USERNAME=corneliesky@gmail.com
+MAIL_PASSWORD="qjqf hbzj eldm mbwy"
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS=cornelie.sky@gmail.com
+MAIL_FROM_NAME="BCLCC Centre d'assistance"
+ 
+hello@example.com"
+ 
+/ Importez la classe correcte
+ 
+<?php
+
+namespace App\Mail;
+
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Content;
+use Illuminate\Mail\Mailables\Envelope;
+use Illuminate\Queue\SerializesModels;
+
+class ConfirmationDemandeAdhesion extends Mailable
+{
+    use Queueable, SerializesModels;
+
+    /**
+     * Create a new message instance.
+     */
+    public function __construct()
+    {
+        //
+    }
+
+    /**
+     * Get the message envelope.
+     */
+    public function envelope(): Envelope
+    {
+        return new Envelope(
+            subject: 'Confirmation Demande Adhesion',
+        );
+    }
+
+    /**
+     * Get the message content definition.
+     */
+    public function content(): Content
+    {
+        return new Content(
+            view: 'view.name',
+        );
+    }
+
+    /**
+     * Get the attachments for the message.
+     *
+     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
+     */
+    public function attachments(): array
+    {
+        return [];
+    }
+}
+
+ 
+$password, 
+ 
+$email,
+ 
+<!-- Grille pour Adresse permanente et Téléphone -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4 mt-2">
+
+
+                </div>
+ 
+// Format 'YYYY-MM-DD'
+ 
+            // Date actuelle ou une date spécifique
+
+ 
+        <p>L&apos;an deux mille vingt quatre </p>
+
+ 
+et le {{ $formattedDate }}
+ 
+L&apos;an 
+ 
+// Ou une date spécifique
+ 
+/ Ou une autre date
+ 
+    // Remplacez ceci par la date que vous souhaitez utiliser
+
+ 
+                <dd>{{$yearInWords}}</dd>
+
+ 
+et le
+ 
+{id}/{region}/{province}/{localite}
+ 
+// Utilisez ici l'ID correct
+ 
+                // Optionnel : Écouter le chargement complet de l'iframe avant d'activer le bouton d'impression
+
+ 
+// Access to the iframe's window object
+ 
+// Trigger the print dialog for the iframe
+ 
+/ Focus the iframe
+ 
+<?php
+
+if (!function_exists('convertirNombreEnTexte')) {
+    function convertirNombreEnTexte($nombre) {
+        $unites = [
+            '', 'un', 'deux', 'trois', 'quatre', 'cinq', 'six', 'sept', 'huit', 'neuf'
+        ];
+
+        $dizaines = [
+            '', 'dix', 'vingt', 'trente', 'quarante', 'cinquante', 'soixante', 'soixante-dix', 'quatre-vingt', 'quatre-vingt-dix'
+        ];
+
+        if ($nombre < 10) {
+            return $unites[$nombre];
+        } elseif ($nombre < 100) {
+            $dizaine = intval($nombre / 10);
+            $unite = $nombre % 10;
+            return $dizaines[$dizaine] . ($unite ? '-' . $unites[$unite] : '');
+        } elseif ($nombre == 1000) {
+            return 'mille';
+        }
+
+        // Pour l'année complète
+        $centaines = intval($nombre / 100);
+        $reste = $nombre % 100;
+        $texte = ($centaines == 1 ? 'mille' : $unites[$centaines] . ' cent') . ($reste ? ' ' . convertirNombreEnTexte($reste) : '');
+
+        return $texte;
+    }
+}
+
+ 
+ border="1
+ 
+padding: 5px 5px 5px 10px; 
+ 
+padding: 5px 5px 5px 10px; 
+ 
+padding: 5px 5px 5px 10px; 
+ 
+        <p style="margin-top: 5px;"><strong>MUTUELLE DE LA POLICE (MU-POL)</strong><br></p>
+
+ 
+</p>
+ 
+        <p><strong>MUTUELLE DE LA POLICE (MU-POL)</strong><br></p>
+
+ 
+</p>
+ 
+left
+ 
+        <p></p>
+
+ 
+        dd(vars: $data);
+
+ 
+kd
+ 
+Request $request,
+ 
+Route::get('/demande-adhesion/{id}/fiche-cession-volontaire',  [AccueilController::class, 'downloadCessionFiche'])->name('download-fiche-cession-volontaire');
+
+ 
+'] ?? 'Non spécifiée'
+ 
+data['
+ 
+'] ?? 'Non spécifiée' 
+ 
+data['
+ 
+'] ?? 'Non spécifiée' 
+ 
+data['
+ 
+['id' => $demandeAdhesion->id]
+ 
+, ['id' => $demandeAdhesion->id]) 
+ 
+relative text-xl 
+ 
+pb-[141.42%] shadow-lg
+ 
+            <h1 class="text-xl font-bold mb-4">Aperçu fiche de cession volontaire de salaire</h1>
+
+ 
+     
+                <script>
+                    function printIframe(iframeId) {
+                        var iframe = document.getElementById(iframeId);
+                        if (iframe) {
+                            var iframeWindow = iframe.contentWindow || iframe; // Access to the iframe's window object
+                            iframeWindow.focus(); // Focus the iframe
+                            iframeWindow.print(); // Trigger the print dialog for the iframe
+                        } else {
+                            console.error("L'iframe avec l'ID '" + iframeId + "' est introuvable.");
+                        }
+                    }
+            
+                    // Optionnel : Écouter le chargement complet de l'iframe avant d'activer le bouton d'impression
+                    document.addEventListener("DOMContentLoaded", function() {
+                        var iframe = document.getElementById('iframeId'); // Utilisez ici l'ID correct
+                        iframe.onload = function() {
+                            console.log("Iframe chargé.");
+                        };
+                    });
+                </script>
+ 
+<div class="flex justify-between my-3">
+                    <a href="{{ route('download-fiche-cession-volontaire', ['id' => $demandeAdhesion->id]) }}" >
+                        <x-primary-button>
+                            Télécharger cession volontaire
+                        </x-primary-button>
+                    </a>
+                    <x-primary-button onclick="printIframe('iframeId')" style="background-color: #4CAF50; color: white; border: none; cursor: pointer;">
+                        Imprimer 
+                    </x-primary-button>
+                </div>
+ 
+        $date = Carbon::parse(now())->translatedFormat('d F Y'); 
+
+ 
+ public function final(Request $request)
+    {
+        
+        return view('pages.frontend.adherents.final', compact('data', 'cotisations', 'demandeAdhesion'));
+    }
+ 
+        dd($data);
+
+ 
+Route::get('/cession-volontaire/{id}', [AccueilController::class, 'showCessionVolontaire'])->name('showCessionVolontaire');
+
+ 
+ <h4>Dernière étape : Dessiner votre signature</h4>
+        <div class="max-w-4xl mx-auto p-4 grid grid-cols-1 md:grid-cols-2 gap-4 h-full">
+            <!-- Option pour Dessiner la Signature -->
+            <div class="flex flex-col p-4 border rounded-md bg-white h-full">
+                <h2 class="text-center text-xl font-semibold mb-4">Dessiner la signature</h2>
+                <canvas class="border rounded-md bg-white w-full flex-grow" id="signatureCanvas" width="400" height="200" style="border: 1px solid #000;"></canvas>
+                <br>
+                <div class="w-full flex justify-between mt-4">
+                    <button id="saveButton" class="bg-emerald-600 p-1 rounded-md text-white">Enregistrer</button>
+                    <button id="clearButton" class="bg-red-500 p-1 rounded-md text-white">Effacer</button>
+                </div>
+                
+                <div id="message" class="mt-4 text-green-600 text-center hidden"></div>
+                <div id="error" class="mt-4 text-red-600 text-center hidden"></div>
+            </div>
+        
+            <!-- Option pour Charger une Image de la Signature -->
+            <div class="flex flex-col p-4 border rounded-md bg-white h-full">
+                <h2 class="text-center text-xl font-semibold mb-4">Charger l&apos;image de la signature</h2>
+                <div class="border-dashed border-2 border-gray-300 rounded-md p-4 flex-grow flex justify-center items-center" id="dropzone">
+                    <div class="text-center">
+                        <img id="previewImage" class="hidden w-full h-auto max-h-48 object-cover mb-4" />
+                        <p class="text-gray-500">Déposez votre image ici ou</p>
+                        <label for="signatureImage" class="cursor-pointer text-blue-500 hover:underline">cliquez pour choisir une image</label>
+                        <input type="file" id="signatureImage" class="hidden" accept="image/*">
+                    </div>
+                </div>
+        
+                <div id="imageMessage" class="mt-4 text-green-600 text-center hidden"></div>
+                <div id="imageError" class="mt-4 text-red-600 text-center hidden"></div>
+            </div>
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const canvas = document.getElementById('signatureCanvas');
+                const signaturePad = new SignaturePad(canvas, {
+                    penColor: "black" 
+                });
+            
+                document.getElementById('saveButton').addEventListener('click', function () {
+                    if (signaturePad.isEmpty()) {
+                        alert("Veuillez signer avant de sauvegarder.");
+                        return;
+                    }
+                    const signatureData = signaturePad.toDataURL();
+            
+                    // Appel AJAX pour sauvegarder la signature
+                    fetch('save_signature.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ signature: signatureData })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            document.getElementById('message').innerText = "Signature enregistrée avec succès.";
+                            document.getElementById('message').classList.remove('hidden');
+                        } else {
+                            document.getElementById('error').innerText = "Erreur lors de l'enregistrement de la signature.";
+                            document.getElementById('error').classList.remove('hidden');
+                        }
+                    })
+                    .catch(error => {
+                        document.getElementById('error').innerText = "Erreur: " + error;
+                        document.getElementById('error').classList.remove('hidden');
+                    });
+                });
+            
+                document.getElementById('clearButton').addEventListener('click', function () {
+                    signaturePad.clear(); 
+                });
+            
+                const dropzone = document.getElementById('dropzone');
+                const fileInput = document.getElementById('signatureImage');
+                const previewImage = document.getElementById('previewImage');
+            
+                dropzone.addEventListener('dragover', (event) => {
+                    event.preventDefault();
+                    dropzone.classList.add('bg-gray-100');
+                });
+            
+                dropzone.addEventListener('dragleave', () => {
+                    dropzone.classList.remove('bg-gray-100');
+                });
+            
+                dropzone.addEventListener('drop', (event) => {
+                    event.preventDefault();
+                    dropzone.classList.remove('bg-gray-100');
+                    const files = event.dataTransfer.files;
+                    fileInput.files = files; 
+                    fileInput.dispatchEvent(new Event('change')); 
+                });
+            
+                fileInput.addEventListener('change', function () {
+                    const file = fileInput.files[0];
+                    if (file) {
+                        const imageUrl = URL.createObjectURL(file);
+                        previewImage.src = imageUrl;
+                        previewImage.classList.remove('hidden');
+            
+                        // Optionnel: pour montrer un message de succès
+                        document.getElementById('imageMessage').innerText = "Image chargée avec succès.";
+                        document.getElementById('imageMessage').classList.remove('hidden');
+                    }
+                });
+            });
+            
+        </script>
+        
+ 
+Route::post('/finalisation', action: [AccueilController::class, 'final'])->name('finalisation');
+
+ 
+-adhesion
+ 
+Adhesion
+ 
+-adhesion
+ 
+-demande-adhesion
+ 
+$date = Carbon::parse(now())->translatedFormat('d F Y'); 
+
+        $demandeAdhesion = DemandeAdhesion::findOrFail($request->input('demande_adhesion_id'));
+        $cotisations = DemandeCategorieHelper::calculerCotisationMensuelleTotale($demandeAdhesion->nombreAyantsDroits);
+        $data = $request->all();
+ 
+Adhesion
+ 
+$id
+ 
+dvars
+ 
+                            <strong>LOCALITE</strong><input name="localite" id="localite" type="text" class="shadow appearance-none border rounded w-full py-1 px-1 text-gray-700 leading-tight focus:outline-none focus:shadow-outline "><strong>
+
+ 
+ body {
+                        font-family: Arial, sans-serif;
+                        margin: 20px;
+                        line-height: 1.2;
+                        font-size: 14px;
+                    }
+ 
+mb-4
+ 
+mb-4
+ 
+mb-4
+ 
+                        
+ 
+h-a4
+ 
+var_names
+ 
+                
+ 
+        use App\Helpers\DemandeCategorieHelper;
+
+ 
+  @php
+                        
+                    @endphp
+ 
+ 
+ 
+@php
+                use App\Helpers\ImageHelper;
+                $logoDataUrl = ImageHelper::imageToDataUrl(public_path('images/logofinal.png'));
+    
+                @endphp
+    
+ 
+adhesionrm
+ 
+recapitulatifFofinalisation
+ 
+            
+              --}}
+ 
+   
+        
+        <div class="adhesion-form max-w-4xl mx-auto p-10 bg-white shadow-lg rounded-lg">
+            <div class="flex justify-between items-center mx-auto pb-2 w-11/12 mb-2">
+                <!-- Colonne 1 -->
+                <div class="flex flex-col space-y-1 items-center text-center leading-none self-start">
+                    <p>MUTUELLE DE LA POLICE NATIONALE</p>
+                    <div class="border-t-[2px] border-black  w-1/4"></div> <!-- Trait -->
+                    <p>CONSEIL D'ADMINISTRATION</p>
+                    <div class="border-t-[2px] border-black  w-1/4"></div> <!-- Trait -->
+                    <p>SECRÉTARIAT GÉNÉRAL</p>
+                </div>
+
+                <!-- Colonne 2 (Logo) -->
+                <div class="flex h-full items-center self-start">
+                    <img src="{{ asset('images/logofinal.png') }}" alt="Logo" class="h-full w-20 object-contain">
+                </div>
+
+                <!-- Colonne 3 -->
+                <div class="flex flex-col self-start text-center space-y-1 leading-none">
+                    <p>BURKINA FASO</p>
+                    <p>Unité - Progrès - Justice</p>
+                </div>
+            </div>
+
+            <!-- Titre principal -->
+            <div class="flex flex-col items-center space-y-0">
+                <h2 class="text-center text-3xl font-bold mt-0">FORMULAIRE D'ADHÉSION</h2>
+
+                <!-- Sous-titre avec surlignage -->
+                <h1 class="text-center text-1xl text-white font-bold bg-black px-3 inline-block">
+                    À REMPLIR EN CARACTÈRES D'IMPRIMERIE
+                </h1>
+            </div>
+
+
+            <!-- Section : Références de l'adhérent -->
+            <div class="section border-t border-gray-300 mt-6 pt-4">
+                <div class="flex">
+                    <!-- Colonne Références -->
+                    <div class="w-3/4">
+                        <h3 class="text-1xl font-semibold bg-gray-500 px-auto px-1">RÉFÉRENCES DE L'ADHÉRENT</h3>
+
+                        <div class="mt-2">
+                            <p><strong>Matricule :</strong> {{ $demandeAdhesion->matricule }}</p>
+                        </div>
+
+                        <!-- NIP et CNIB sur la même ligne -->
+                        <div class="flex space-x-0 mt-2">
+                            <p class="flex-1"><strong>NIP :</strong> {{ $demandeAdhesion->nip }}</p>
+                            <p class="flex-1"><strong>CNIB :</strong> {{ $demandeAdhesion->cnib }}</p>
+                        </div>
+
+                        <div class="flex space-x-4 mt-2">
+                            <!-- Colonne pour DÉLIVRÉE LE et la date -->
+                            <div class="flex-1 w-1/2 leading-none">
+                                <div class="flex">
+                                    <!-- Première colonne : DÉLIVRÉE LE et (JJ/MM/AAAA) -->
+                                    <div class="flex-shrink-0 ">
+                                        <p class="mr-1"><strong>DÉLIVRÉE LE :</strong></p>
+                                        <p class="text-xs"><small>(JJ/MM/AAAA)</small></p>
+                                    </div>
+                            
+                                    <!-- Deuxième colonne : valeur de la date de délivrance -->
+                                    <div class="flex-1">
+                                        <p>{{ $demandeAdhesion->delivree }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex  w-1/2 leading-none">
+                                <!-- Première colonne : EXPIRE LE et (JJ/MM/AAAA) -->
+                                <div class="flex-shrink-0 ">
+                                    <p class="mr-1"><strong>EXPIRE LE :</strong></p>
+                                    <p class="text-xs"><small>(JJ/MM/AAAA)</small></p>
+                                </div>
+                            
+                                <!-- Deuxième colonne : valeur de la date d'expiration -->
+                                <div class="flex-1">
+                                    <p>{{ $demandeAdhesion->expire }}</p>
+                                </div>
+                            </div>
+                            
+                        </div>
+        
+                    </div>
+
+                    <!-- Colonne Signature -->
+                    <div class="w-1/4 items-center px-2 justify-center flex flex-col">
+                        <h3 class="text-xs underline decoration-solid ">SIGNATURE DE L’ADHÉRENT</h3>
+                        <div class="w-full flex-grow border-2 border-black mt-2 flex items-center justify-center">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-2">
+                    <p><strong>Adresse :</strong> {{ $demandeAdhesion->adresse }}</p>
+                </div>
+
+                <div class="flex space-x-4 mt-2">
+                    <p class="flex-1"><strong>Téléphone :</strong> {{ $demandeAdhesion->telephone }}</p>
+                    <p class="flex-1"><strong>Email :</strong> {{ $demandeAdhesion->email }}</p>
+                </div>
+            </div>
+
+
+            <!-- Section : État civil -->
+            <div class="section border-t border-gray-300 mt-4 pt-4">
+
+                <h3 class="text-1xl font-semibold bg-gray-500 px-auto px-1">ÉTAT CIVIL</h3>
+
+                <div class="flex">
+                    <div class="w-3/4">
+                        <div class="mt-2">
+                            <p><strong>Nom :</strong> {{ $demandeAdhesion->nom }}</p>
+                            <p><strong>Prénom(s) :</strong> {{ $demandeAdhesion->prenom }}</p>
+                        </div>
+                        <div class="flex items-center space-x-2 mt-1">
+                            <!-- Colonne 1 : Lieu de naissance -->
+                            <div class="flex-shrink-0 ">
+                                <p><strong>Lieu de naissance </strong> {{ $demandeAdhesion->lieu_naissance }}</p>
+                            </div>
+                        
+                            <!-- Colonne 2 : Barre verticale -->
+                            <div class="border-l-2 border-gray-400 h-16 mx-2"></div>
+                        
+                            <!-- Colonne 3 : Infos supplémentaires -->
+                            <div class="flex-1">
+                                <div class="flex">
+                                    <p class="w-32"><strong>Département</strong></p>
+                                    <p> <strong class="text-right">:</strong> {{ $demandeAdhesion->departement }}</p>
+                                </div>
+                                <div class="flex">
+                                    <p class="w-32 "><strong>Ville / Village</strong></p>
+                                    <p> <strong class="text-right">:</strong> {{ $demandeAdhesion->ville }}</p>
+                                </div>
+                                <div class="flex">
+                                    <p class="w-32"><strong>Pays</strong></p>
+                                    <p> <strong class="text-right">:</strong> {{ $demandeAdhesion->pays }}</p>
+                                </div>
+                                <!-- Nouveau texte sous Pays -->
+                                {{-- <p><small>(Si vous êtes né(e) hors du pays)</small></p> --}}
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="w-1/4 flex items-center px-2 justify-center">
+                        <div class="w-full h-1/2 flex-grow border-2 border-black mt-2 flex items-center justify-center">
+                            <p class="mr-2"><strong class="mr-1">Genre :</strong>{{ $demandeAdhesion->genre == 'masculin' ? 'Masculin' : 'Féminin' }}</p>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                
+                <p><strong>Nom du père :</strong> {{ $demandeAdhesion->nom_pere }}</p>
+                <p><strong>Nom de la mère :</strong> {{ $demandeAdhesion->nom_mere }}</p>
+            </div>
+
+            <!-- Section : Personnes à prévenir -->
+            <div class="section border-t border-gray-300 mt-6 pt-4">
+                <h3 class="text-lg font-semibold">Personnes à prévenir en cas de besoin</h3>
+                <p class="mt-2"><strong>Nom et prénom:</strong> {{ $demandeAdhesion->nom_prenom_personne_besoin }}
+                </p>
+                <p><strong>Lieu de résidence:</strong> {{ $demandeAdhesion->lieu_residence }}</p>
+                <p><strong>Téléphone:</strong> {{ $demandeAdhesion->telephone_personne_prevenir }}</p>
+            </div>
+
+            <!-- Section : Ayants droits -->
+            <div class="section border-t border-gray-300 mt-6 pt-4">
+                <h3 class="text-lg font-semibold">Ayants droits</h3>
+                <p class="mt-2"><strong>Nombre d'ayants droits:</strong> {{ $demandeAdhesion->nombreAyantsDroits }}
+                </p>
+                <!-- Ajouter la liste des ayants droits ici si nécessaire -->
+            </div>
+
+            <!-- Section : Informations professionnelles -->
+            <div class="section border-t border-gray-300 mt-6 pt-4">
+                <h3 class="text-lg font-semibold">Informations professionnelles</h3>
+                <p class="mt-2"><strong>Statut:</strong>
+                    {{ $demandeAdhesion->statut == 'personnel_active' ? 'Personnel en activité' : 'Personnel retraité' }}
+                </p>
+                <p><strong>Grade:</strong> {{ $demandeAdhesion->grade }}</p>
+                <p><strong>Date d'intégration:</strong> {{ $demandeAdhesion->dateIntegration }}</p>
+                <p><strong>Date de départ à la retraite:</strong> {{ $demandeAdhesion->dateDepartARetraite }}</p>
+                <p><strong>Direction:</strong> {{ $demandeAdhesion->direction }}</p>
+                <p><strong>Service:</strong> {{ $demandeAdhesion->service }}</p>
+            </div>
+
+        </div>
+ 
+        dd($data);
+
+ 
+                const fileInput = document.getElementById('signatureImage');
+                    const previewImage = document.getElementById('previewImage');
+
+                    dropzone.addEventListener('dragover', (event) => {
+                        event.preventDefault();
+                        dropzone.classList.add('bg-gray-100');
+                    });
+
+                    dropzone.addEventListener('dragleave', () => {
+                        dropzone.classList.remove('bg-gray-100');
+                    });
+                    dropzone.addEventListener('drop', (event) => {
+                        event.preventDefault();
+                        dropzone.classList.remove('bg-gray-100');
+                        const files = event.dataTransfer.files;
+                        fileInput.files = files; 
+                        fileInput.dispatchEvent(new Event('change')); 
+                    });
+                    dropzone.addEventListener('click', () => {
+                        fileInput.click();
+                    });
+
+                    fileInput.addEventListener('change', function () {
+                        const file = fileInput.files[0];
+                        if (file) {
+                            const imageUrl = URL.createObjectURL(file);
+                            previewImage.src = imageUrl;
+                            previewImage.classList.remove('hidden'); // Afficher l'image
+
+                            // Envoyer le fichier à Livewire
+                            @this.upload('signatureImage', file); 
+                        }
+                    });
+ 
+            // Créer un URL de l'image pour l'aperçu
+
+ 
+    // Gérer le changement de fichier
+
+ 
+    // Gérer le clic pour ouvrir le sélecteur de fichiers
+
+ 
+    // Gérer l'état de survol du drag & drop
+
+ 
+    // Gérer le dépôt de fichier
+
+ 
+const dropzone = document.getElementById('dropzone');
+                    const fileInput = document.getElementById('signatureImage');
+                
+                    dropzone.addEventListener('dragover', (event) => {
+                        event.preventDefault();
+                        dropzone.classList.add('bg-gray-100');
+                    });
+                
+                    dropzone.addEventListener('dragleave', () => {
+                        dropzone.classList.remove('bg-gray-100');
+                    });
+                
+                    dropzone.addEventListener('drop', (event) => {
+                        event.preventDefault();
+                        dropzone.classList.remove('bg-gray-100');
+                        const files = event.dataTransfer.files;
+                        fileInput.files = files; 
+                        fileInput.dispatchEvent(new Event('change')); 
+                    });
+                
+                    fileInput.addEventListener('change', function () {
+                        const file = fileInput.files[0];
+                        if (file) {
+                            @this.upload('signatureImage', file); 
+                        }
+                    });
+ 
+emerauld
+ 
+        <script src= "https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js" ></script>
+
+ 
+// Utilisation de Livewire pour uploader
+ 
+// Déclencher l'événement 'change'
+ 
+// Assigner les fichiers déposés à l'input
+ 
+                    // Gérer la dropzone pour l'image
+
+ 
+// Effacer le contenu du canvas
+ 
+                    // Bouton Effacer
+
+ 
+// Appeler la méthode saveSignature
+ 
+// Envoyer les données à Livewire
+ 
+                    // Bouton Enregistrer
+
+ 
+// Couleur du stylo
+ 
+            // Initialisation du pad de signature
+
+ 
+            // Gérer la dropzone pour l'image
+
+ 
+$    public 
+ 
+                <!-- Affichage des messages de succès ou d'erreur -->
+
+ 
+
+    public  $signature; 
+
+ 
+x-primary
+ 
+x-primary-
+ 
+x-primary-
+ 
+<div class="max-w-4xl mx-auto p-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Section Dessin de la Signature -->
+            <div class="max-w-md p-4">
+                <h2 class="text-center text-xl font-semibold mb-4">Dessiner la signature</h2>
+                <canvas class="border rounded-md bg-white w-full" id="signatureCanvas" width="400" height="200" style="border: 1px solid #000;"></canvas>
+                <br>
+                <div class="w-full flex justify-between mt-4">
+                    <x-primary-button wire:click="saveSignature" id="saveButton">Enregistrer</x-primary-button>
+                    <x-primary-button id="clearButton" class="bg-red-500">Effacer</x-primary-button>
+                </div>
+                
+                @if (session()->has('message'))
+                    <div class="mt-4 text-green-600 text-center">
+                        {{ session('message') }}
+                    </div>
+                @endif
+        
+                @if (session()->has('error'))
+                    <div class="mt-4 text-red-600 text-center">
+                        {{ session('error') }}
+                    </div>
+                @endif
+            </div>
+        
+            <!-- Section Upload de l'image de la signature -->
+            <div class="max-w-md p-4">
+                <h2 class="text-center text-xl font-semibold mb-4">Charger l'image de la signature</h2>
+                <div class="border-dashed border-2 border-gray-300 rounded-md p-4 flex justify-center items-center" id="dropzone">
+                    <div class="text-center">
+                        <p class="text-gray-500">Déposez votre image ici ou</p>
+                        <label for="signatureImage" class="cursor-pointer text-blue-500 hover:underline">cliquez pour choisir une image</label>
+                        <input type="file" id="signatureImage" class="hidden" accept="image/*" wire:model="signatureImage">
+                    </div>
+                </div>
+                @if (session()->has('imageMessage'))
+                    <div class="mt-4 text-green-600 text-center">
+                        {{ session('imageMessage') }}
+                    </div>
+                @endif
+        
+                @if (session()->has('imageError'))
+                    <div class="mt-4 text-red-600 text-center">
+                        {{ session('imageError') }}
+                    </div>
+                @endif
+            </div>
+        </div>
+        
+        @push('scripts')
+        <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+        <script>
+            // Initialisation du pad de signature
+            const canvas = document.getElementById('signatureCanvas');
+            const signaturePad = new SignaturePad(canvas, {
+                penColor: "red" // Couleur du stylo
+            });
+            
+            // Bouton Enregistrer
+            document.getElementById('saveButton').addEventListener('click', function () {
+                if (signaturePad.isEmpty()) {
+                    alert("Veuillez signer avant de sauvegarder.");
+                    return;
+                }
+                const signatureData = signaturePad.toDataURL();
+                @this.set('signature', signatureData); // Envoyer les données à Livewire
+                @this.call('saveSignature'); // Appeler la méthode saveSignature
+            });
+        
+            // Bouton Effacer
+            document.getElementById('clearButton').addEventListener('click', function () {
+                signaturePad.clear(); // Effacer le contenu du canvas
+            });
+        
+            // Gérer la dropzone pour l'image
+            const dropzone = document.getElementById('dropzone');
+            const fileInput = document.getElementById('signatureImage');
+        
+            dropzone.addEventListener('dragover', (event) => {
+                event.preventDefault();
+                dropzone.classList.add('bg-gray-100');
+            });
+        
+            dropzone.addEventListener('dragleave', () => {
+                dropzone.classList.remove('bg-gray-100');
+            });
+        
+            dropzone.addEventListener('drop', (event) => {
+                event.preventDefault();
+                dropzone.classList.remove('bg-gray-100');
+                const files = event.dataTransfer.files;
+                fileInput.files = files; // Assigner les fichiers déposés à l'input
+                fileInput.dispatchEvent(new Event('change')); // Déclencher l'événement 'change'
+            });
+        
+            fileInput.addEventListener('change', function () {
+                const file = fileInput.files[0];
+                if (file) {
+                    @this.upload('signatureImage', file); // Utilisation de Livewire pour uploader
+                }
+            });
+        </script>
+        @endpush
+ 
+            // Initialisation du pad de signature
+
+ 
+<div class="max-w-4xl mx-auto p-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Section Dessin de la Signature -->
+            <div class="max-w-md p-4">
+                <h2 class="text-center text-xl font-semibold mb-4">Dessiner la signature</h2>
+                <canvas class="border rounded-md bg-white w-full" id="signatureCanvas" width="400" height="200" style="border: 1px solid #000;"></canvas>
+                <br>
+                <div class="w-full flex justify-between mt-4">
+                    <x-primary-button wire:click="saveSignature" id="saveButton">Enregistrer</x-primary-button>
+                    <x-primary-button id="clearButton" class="bg-red-500">Effacer</x-primary-button>
+                </div>
+                
+                @if (session()->has('message'))
+                    <div class="mt-4 text-green-600 text-center">
+                        {{ session('message') }}
+                    </div>
+                @endif
+        
+                @if (session()->has('error'))
+                    <div class="mt-4 text-red-600 text-center">
+                        {{ session('error') }}
+                    </div>
+                @endif
+            </div>
+        
+            <!-- Section Upload de l'image de la signature -->
+            <div class="max-w-md p-4">
+                <h2 class="text-center text-xl font-semibold mb-4">Charger l'image de la signature</h2>
+                <div class="border-dashed border-2 border-gray-300 rounded-md p-4 flex justify-center items-center" id="dropzone">
+                    <div class="text-center">
+                        <p class="text-gray-500">Déposez votre image ici ou</p>
+                        <label for="signatureImage" class="cursor-pointer text-blue-500 hover:underline">cliquez pour choisir une image</label>
+                        <input type="file" id="signatureImage" class="hidden" accept="image/*" wire:model="signatureImage">
+                    </div>
+                </div>
+                @if (session()->has('imageMessage'))
+                    <div class="mt-4 text-green-600 text-center">
+                        {{ session('imageMessage') }}
+                    </div>
+                @endif
+        
+                @if (session()->has('imageError'))
+                    <div class="mt-4 text-red-600 text-center">
+                        {{ session('imageError') }}
+                    </div>
+                @endif
+            </div>
+        </div>
+        
+        @push('scripts')
+        <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+        <script>
+            // Initialisation du pad de signature
+            const canvas = document.getElementById('signatureCanvas');
+            const signaturePad = new SignaturePad(canvas, {
+                penColor: "red" // Couleur du stylo
+            });
+            
+            // Bouton Enregistrer
+            document.getElementById('saveButton').addEventListener('click', function () {
+                if (signaturePad.isEmpty()) {
+                    alert("Veuillez signer avant de sauvegarder.");
+                    return;
+                }
+                const signatureData = signaturePad.toDataURL();
+                @this.set('signature', signatureData); // Envoyer les données à Livewire
+                @this.call('saveSignature'); // Appeler la méthode saveSignature
+            });
+        
+            // Bouton Effacer
+            document.getElementById('clearButton').addEventListener('click', function () {
+                signaturePad.clear(); // Effacer le contenu du canvas
+            });
+        
+            // Gérer la dropzone pour l'image
+            const dropzone = document.getElementById('dropzone');
+            const fileInput = document.getElementById('signatureImage');
+        
+            dropzone.addEventListener('dragover', (event) => {
+                event.preventDefault();
+                dropzone.classList.add('bg-gray-100');
+            });
+        
+            dropzone.addEventListener('dragleave', () => {
+                dropzone.classList.remove('bg-gray-100');
+            });
+        
+            dropzone.addEventListener('drop', (event) => {
+                event.preventDefault();
+                dropzone.classList.remove('bg-gray-100');
+                const files = event.dataTransfer.files;
+                fileInput.files = files; // Assigner les fichiers déposés à l'input
+                fileInput.dispatchEvent(new Event('change')); // Déclencher l'événement 'change'
+            });
+        
+            fileInput.addEventListener('change', function () {
+                const file = fileInput.files[0];
+                if (file) {
+                    @this.upload('signatureImage', file); // Utilisation de Livewire pour uploader
+                }
+            });
+        </script>
+        @endpush
+ 
+background: rgb(255,255,255); background: radial-gradient(circle, rgba(255,255,255,0.46559873949579833) 47%, rgba(96,45,251,0.6728816526610644) 100%);
+ 
+        @php
+
+ 
+$matricule = $matricule ?? null;
+        $nip = $nip ?? null;
+        $cnib = $cnib ?? null;
+        // Ajoutez d'autres variables si nécessaire
+    @endphp
+            <x-formulaire-adhesion 
+                :matricule="$matricule" 
+                :nip="$nip" 
+                :cnib="$cnib" 
+                :delivree="$delivree" 
+                :expire="$expire" 
+                :adresse_permanente="$adresse_permanente" 
+                :telephone="$telephone" 
+                :email="$email" 
+                :nom="$nom" 
+                :prenom="$prenom" 
+                :genre="$genre" 
+                :departement="$departement" 
+                :ville="$ville" 
+                :pays="$pays" 
+                :nom_pere="$nom_pere"  
+                :nom_mere="$nom_mere" 
+                :situation_matrimoniale="$situation_matrimoniale" 
+                :nom_prenom_personne_besoin="$nom_prenom_personne_besoin" 
+                :lieu_residence="$lieu_residence" 
+                :telephone_personne_prevenir="$telephone_personne_prevenir"  
+                :photo="$photo"  
+                :photo_path_adherent="$photo_path_adherent"  
+                :photo_path_ayantdroit="$photo_path_ayantdroit" 
+                :dateIntegration="$dateIntegration" 
+                :dateDepartARetraite="$dateDepartARetraite" 
+                :direction="$direction" 
+                :service="$service"  
+                :statut="$statut"  
+                :grade="$grade" 
+                :departARetraite="$departARetraite"  
+                :numeroCARFO="$numeroCARFO"  
+                :nombreAyantsDroits="$nombreAyantsDroits"   
+                :ayantsDroits="$ayantsDroits"  
+                :signature="$signature"
+            />    
+ 
+            @endif
+
+ 
+        @if ($currentStep == 5)
+
+ 
+namespace App\View\Components;
+
+use Closure;
+use Illuminate\Contracts\View\View;
+use Illuminate\View\Component;
+
+class formulaireAdhesion extends Component
+{
+    // Variables pour les données du formulaire
+    public $matricule, $nip, $cnib, $delivree, $expire, $adresse_permanente, $telephone;
+    public $email, $password, $nom, $prenom, $genre, $departement, $ville, $pays, $nom_pere, $nom_mere, $situation_matrimoniale;
+    // Variables info personnnelles
+    public $nom_prenom_personne_besoin, $lieu_residence, $telephone_personne_prevenir, $photo, $photo_path_adherent, $photo_path_ayantdroit; 
+    // Variables pour le personnel en activité
+    public $dateIntegration, $dateDepartARetraite, $direction, $service, $statut;
+
+  
+
+    // Variables pour le personnel retraité
+    public $grade, $departARetraite, $numeroCARFO;
+
+    public $nombreAyantsDroits = 0;
+    public $ayantsDroits = [];
+
+    public  $signature; 
+    /**
+     * Create a new component instance.
+     */
+    public function __construct()
+    {
+        //
+    }
+
+    /**
+     * Get the view / contents that represent the component.
+     */
+    public function render(): View|Closure|string
+    {
+        return view('components.formulaire-adhesion');
+    }
+}
+
+ 
+this->
+ 
+     
+ 
+      
+ 
+       
+ 
+      
+ 
+       
+ 
+       
+ 
+       
+ 
+       
+ 
+
+        
+ 
+:password="$password"
+ 
+:password="$password
+ 
+        
+ 
+        
+ 
+        
+ 
+        
+ 
+        
+ 
+      
+ 
+height
+ 
+width
+ 
+// Pour la hauteur A4
+ 
+// Pour la largeur A4
+ 
+use App\Http\Controllers\MembershipController;
+
+ 
+// Spécifiez le bon chemin pour votre composant
+ 
+Route::post('/submit-form', [MembershipController::class, 'submitForm'])->name('submit-demande-adhesion');
+
+ 
+image
+ 
+                        // Stocker le chemin relatif
+
+ 
+                        // Stocker le fichier avec un chemin relatif
+
+ 
+                    // Enregistrement du fichier si l'ayant droit a une photo
+
+ 
+if (isset($ayantDroit['photo'])) {
+                        $path = $ayantDroit['photo']->store('public/photos/ayants_droits', 'public');
+                        $this->ayantsDroits[$index]['photo'] = 'photos_ayants_droits/' . $ayantDroit['photo']->getClientOriginalName();
+                    }
+ 
+                    // Enregistrement du fichier si l'ayant droit a une photo
+
+ 
+                        // Stocker le chemin relatif
+
+ 
+                        // Stocker le fichier dans le répertoire approprié
+
+ 
+                                            <!-- Affichage des erreurs pour le champ "photo" -->
+
+ 
+                                    <!-- Photo de l'ayant droit -->
+
+ 
+<!-- Message d'erreur en cas de validation -->
+ 
+                            <!-- Affichage de l'aperçu de la photo -->
+
+ 
+            // Stocker uniquement le chemin relatif dans la base de données
+
+ 
+            // Stocker le fichier dans le répertoire public/photos/adherents
+
+ 
+   if ($this->photo) {
+                $path = $this->photo->storeAs('public/photos/adherents', $this->photo->getClientOriginalName());
+                $imageUrl = asset('storage/photos/adherents/' . $this->photo->getClientOriginalName());
+            }
+ 
+                // Générer l'URL publique pour l'image
+
+ 
+                // Stocker l'image dans 'public/photos/adherents'
+
+ 
+                // Effectuer d'autres actions avec l'image sauvegardée
+
+ 
+                // Vous pouvez utiliser l'URL publique si nécessaire
+
+ 
+                // Sauvegarder dans le dossier 'public/photos'
+
+ 
+    public function imageUploaded($photo)
+    {
+        $this->photo = $photo;
+    }
+ 
+    protected $listeners = ['imageUploaded'];
+ 
+_path
+ 
+            dd($path);
+
+ 
+    protected $listeners = ['signatureDataUpdated' => 'updateSignatureData'];
+
+ 
+$this->validate([
+                'situation_matrimoniale' => 'required|string',
+                'photo' => 'required|image|max:1024',
+                'nom_prenom_personne_besoin' => 'required|string|max:255',
+                'lieu_residence' => 'required|string|max:255',
+                'telephone' => 'required',
+                'nombreAyantsDroits' => 'nullable|integer|min:0|max:6',
+            ]);
+ 
+// Propriété pour stocker le chemin du fichier photo
+     // Propriétés pour les champs conditionnels
+ 
+/ Spécifiez le dossier de stockage
+ 
+// Assurez-vous que la propriété photo_path est définie pour stocker le chemin
+            }
+ 
+|in:H,F
+ 
+// Le statut doit être sélectionné
+ 
+                                    <!-- Identification de l'ayant droit -->
+
+ 
+                                    <!-- Identification de l'ayant droit -->
+
+ 
+index
+ 
+// Valide que chaque fichier est une image et ne dépasse pas 1 Mo
+ 
+// Inclure le trait dans votre classe
+ 
+<div class="col-span-3">
+                        @if ($nombreAyantsDroits > 0)
+                            <!-- Affiche les champs uniquement si le nombre est supérieur à 0 -->
+                            @for ($i = 0; $i < $nombreAyantsDroits; $i++)
+                                <div class="border bg-gray-100 p-4 rounded mb-2 col-span-3 shadow-lg mt-2">
+                                    <h3 class="font-bold mb-2">Ayant Droit {{ $i + 1 }}</h3>
+                                    <div class="grid grid-cols-1 gap-4 md:grid-cols-2 ">
+                                        <div class="mt-2">
+                                            <label class="block text-gray-700 text-sm font-bold mb-1">Nom</label>
+                                            <input type="text" wire:model="ayantsDroits.{{ $i }}.nom"
+                                                class="border rounded w-full py-1">
+                                        </div>
+                                        <div class="mt-2">
+                                            <label class="block text-gray-700 text-sm font-bold mb-1">Prénom(s)</label>
+                                            <input type="text"
+                                                wire:model="ayantsDroits.{{ $i }}.prenom"
+                                                class="border rounded w-full py-1">
+                                        </div>
+                                    </div>
+
+                                    <div class="grid grid-cols-1 gap-4 md:grid-cols-3 ">
+                                        <div class="mt-2">
+                                            <label class="block text-gray-700 text-sm font-bold mb-1">Genre</label>
+                                            <select wire:model="ayantsDroits.{{ $i }}.sexe"
+                                                class="border rounded w-full py-1">
+                                                <option value="" disabled selected>Sélectionner</option>
+                                                <option value="H">Homme</option>
+                                                <option value="F">Femme</option>
+                                            </select>
+                                        </div>
+                                        <div class="mt-2">
+                                            <label class="block text-gray-700 text-sm font-bold mb-1">Date de
+                                                Naissance</label>
+                                            <input type="date"
+                                                wire:model="ayantsDroits.{{ $i }}.date_naissance"
+                                                class="border rounded w-full py-1">
+                                        </div>
+                                        <div class="mt-2">
+                                            <label class="block text-gray-700 text-sm font-bold mb-1">Lien de
+                                                Parenté</label>
+                                            <input type="text"
+                                                wire:model="ayantsDroits.{{ $i }}.lien_parenté"
+                                                class="border rounded w-full py-1">
+                                        </div>
+                                    </div>
+                                </div>
+                            @endfor
+                        @endif
+                    </div>
+ 
+            </div>
+
+ 
+ </div>
+
+ 
+<div class="grid grid-cols-1 gap-4 md:grid-cols-2 ">
+                                        <div class="mt-2">
+                                            <label class="block text-gray-700 text-sm font-bold mb-1">Nom</label>
+                                            <input type="text" wire:model="ayantsDroits.{{ $i }}.nom"
+                                                class="border rounded w-full py-1">
+                                        </div>
+                                        <div class="mt-2">
+                                            <label class="block text-gray-700 text-sm font-bold mb-1">Prénom(s)</label>
+                                            <input type="text"
+                                                wire:model="ayantsDroits.{{ $i }}.prenom"
+                                                class="border rounded w-full py-1">
+                                        </div>
+                                    </div>
+
+                                    <div class="grid grid-cols-1 gap-4 md:grid-cols-3 ">
+                                        <div class="mt-2">
+                                            <label class="block text-gray-700 text-sm font-bold mb-1">Genre</label>
+                                            <select wire:model="ayantsDroits.{{ $i }}.sexe"
+                                                class="border rounded w-full py-1">
+                                                <option value="" disabled selected>Sélectionner</option>
+                                                <option value="H">Homme</option>
+                                                <option value="F">Femme</option>
+                                            </select>
+                                        </div>
+                                        <div class="mt-2">
+                                            <label class="block text-gray-700 text-sm font-bold mb-1">Date de
+                                                Naissance</label>
+                                            <input type="date"
+                                                wire:model="ayantsDroits.{{ $i }}.date_naissance"
+                                                class="border rounded w-full py-1">
+                                        </div>
+                                        <div class="mt-2">
+                                            <label class="block text-gray-700 text-sm font-bold mb-1">Lien de
+                                                Parenté</label>
+                                            <input type="text"
+                                                wire:model="ayantsDroits.{{ $i }}.lien_parenté"
+                                                class="border rounded w-full py-1">
+                                        </div>
+                                    </div>
+ 
+                </div>
+
+ 
+<div class=" col-span-2">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Situation matrimoniale</label>
+                        <div class="flex flex-wrap gap-3 items-center">
+                            <label class="inline-flex items-center mt-2">
+                                <input type="radio" wire:model="situation_matrimoniale" value="Célibataire"
+                                    class="form-radio text-indigo-600">
+                                <span class="ml-2">Célibataire</span>
+                            </label>
+                            <label class="inline-flex items-center mt-2">
+                                <input type="radio" wire:model="situation_matrimoniale" value="Marié(e)"
+                                    class="form-radio text-indigo-600">
+                                <span class="ml-2">Marié(e)</span>
+                            </label>
+                            <label class="inline-flex items-center mt-2">
+                                <input type="radio" wire:model="situation_matrimoniale" value="Divorcé(e)"
+                                    class="form-radio text-indigo-600">
+                                <span class="ml-2">Divorcé(e)</span>
+                            </label>
+                            <label class="inline-flex items-center mt-2">
+                                <input type="radio" wire:model="situation_matrimoniale" value="Veuf(ve)"
+                                    class="form-radio text-indigo-600">
+                                <span class="ml-2">Veuf(ve)</span>
+                            </label>
+                        </div>
+                        @error('situation_matrimoniale')
+                            <span class="text-red-500 text-xs">{{ $message }}</span>
+                        @enderror
+
+                        <!-- Personne à prévenir en cas de besoin -->
+                        <div class="mt-2">
+                            <label class="block text-gray-700 text-sm font-bold mb-1"
+                                for="nom_prenom_personne_besoin">Personne à prévenir en cas de besoin</label>
+                            <input wire:model="nom_prenom_personne_besoin" id="nom_prenom_personne_besoin" type="text"
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ">
+                            @error('nom_prenom_personne_besoin')
+                                <span class="text-red-500 text-xs">{{ $message }}</span>
+                            @enderror
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-2">
+
+                            <!-- Lieu de résidence -->
+                            <div>
+                                <label class="block text-gray-700 text-sm font-bold mb-1" for="lieu_residence">Lieu de
+                                    résidence</label>
+                                <input wire:model="lieu_residence" id="lieu_residence" type="text"
+                                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                                @error('lieu_residence')
+                                    <span class="text-red-500 text-xs">{{ $message }}</span>
+                                @enderror
+                            </div>
+    
+                            <!-- Téléphone -->
+                            <div>
+                                <label class="block text-gray-700 text-sm font-bold mb-1"
+                                    for="telephone_personne_prevenir">Téléphone</label>
+                                <input wire:model="telephone_personne_prevenir" id="telephone_personne_prevenir"
+                                    type="text"
+                                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                                @error('telephone')
+                                    <span class="text-red-500 text-xs">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-span-1 ">
+                        <label class="block text-gray-700 text-sm font-bold mb-1"for="photo">Photo</label>
+                        <div class="w-full justify-center border rounded-md p-1 border-gray-500 row-span-3">
+                            @livewire('image-upload')
+                        </div>
+                        
+                    </div>
+
+                    <div class="overflow-x-auto ">
+                        <label class="block text-gray-700 text-sm font-bold mb-1"
+                            for="changeNombreAyantsDroits">Nombre d&apos;ayants-droits</label>
+                        <select class="border rounded w-full py-1"
+                            wire:click="changeNombreAyantsDroits($event.target.value)">
+                            <option value="" selected>Choisissez un nombre</option>
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                        </select>
+
+                    </div>
+                    <div class="col-span-3">
+                        @if ($nombreAyantsDroits > 0)
+                            <!-- Affiche les champs uniquement si le nombre est supérieur à 0 -->
+                            @for ($i = 0; $i < $nombreAyantsDroits; $i++)
+                                <div class="border bg-gray-100 p-4 rounded mb-2 col-span-3 shadow-lg mt-2">
+                                    <h3 class="font-bold mb-2">Ayant Droit {{ $i + 1 }}</h3>
+                                    <div class="grid grid-cols-1 gap-4 md:grid-cols-2 ">
+                                        <div class="mt-2">
+                                            <label class="block text-gray-700 text-sm font-bold mb-1">Nom</label>
+                                            <input type="text" wire:model="ayantsDroits.{{ $i }}.nom"
+                                                class="border rounded w-full py-1">
+                                        </div>
+                                        <div class="mt-2">
+                                            <label class="block text-gray-700 text-sm font-bold mb-1">Prénom(s)</label>
+                                            <input type="text"
+                                                wire:model="ayantsDroits.{{ $i }}.prenom"
+                                                class="border rounded w-full py-1">
+                                        </div>
+                                    </div>
+
+                                    <div class="grid grid-cols-1 gap-4 md:grid-cols-3 ">
+                                        <div class="mt-2">
+                                            <label class="block text-gray-700 text-sm font-bold mb-1">Genre</label>
+                                            <select wire:model="ayantsDroits.{{ $i }}.sexe"
+                                                class="border rounded w-full py-1">
+                                                <option value="" disabled selected>Sélectionner</option>
+                                                <option value="H">Homme</option>
+                                                <option value="F">Femme</option>
+                                            </select>
+                                        </div>
+                                        <div class="mt-2">
+                                            <label class="block text-gray-700 text-sm font-bold mb-1">Date de
+                                                Naissance</label>
+                                            <input type="date"
+                                                wire:model="ayantsDroits.{{ $i }}.date_naissance"
+                                                class="border rounded w-full py-1">
+                                        </div>
+                                        <div class="mt-2">
+                                            <label class="block text-gray-700 text-sm font-bold mb-1">Lien de
+                                                Parenté</label>
+                                            <input type="text"
+                                                wire:model="ayantsDroits.{{ $i }}.lien_parenté"
+                                                class="border rounded w-full py-1">
+                                        </div>
+                                    </div>
+                                </div>
+                            @endfor
+                        @endif
+                    </div>
+ 
+                            <!-- Prévisualisation de l'image -->
+
+ 
+        <!-- Zone de prévisualisation de l'image -->
+
+ 
+                <label ></label>
+
+ 
+(Si vous êtes
+                            né(e) hors du Burkina)
+ 
+    <h4 class=" font-semibold text-center text-xl my-3 ">Formulaire de demande d&apos;adhésion MU-POL </h4>
+
+ 
+shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline
+ 
+shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline
+ 
+shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline
+ 
+rounded
+ 
+shadow-md 
+ 
+bg-gray-200
+ 
+overflow-y-auto
+ 
+full
+ 
+lg:w-[80%]
+ 
+<x-guest-layout>
+    <x-header-guest />
+
+    <div class="min-h-screen flex items-center justify-center" style="background: rgb(255,255,255); background: radial-gradient(circle, rgba(255,255,255,0.46559873949579833) 47%, rgba(96,45,251,0.6728816526610644) 100%); background-size: 100% 100%; position: relative;">
+        <!-- Container for the purple and white sections -->
+        <div class="relative backdrop-blur-sm w-[80%] lg:w-[80%] p-4 mx-auto">
+            <div class="mx-auto w-[70%] md:w-[70%] lg:w-[70%] !h-48 overflow-y-auto bg-white p-2 rounded-lg shadow-lg z-10">
+                <livewire:wizard-membership />
+            </div>
+        </div>
+    </div>
+</x-guest-layout>
+
+ 
+<x-guest-layout>
+    <x-header-guest />
+
+    <div class="min-h-screen" style="background: rgb(255,255,255); background: radial-gradient(circle, rgba(255,255,255,0.46559873949579833) 47%, rgba(96,45,251,0.6728816526610644) 100%);background-size: 100% 100%; position: relative;">
+        <!-- Container for the purple and white sections -->
+        <div class="relative backdrop-blur-sm w-[80%] lg:w-[80%] p-4 mx-auto">
+
+            <div class=" mx-auto w-[70%] md:w-[70%] lg:w-[70%] !h-48 overflow-y-auto bg-white p-2 rounded-lg shadow-lg z-10">
+                
+               
+                <livewire:wizard-membership />
+            </div>
+
+        </div>
+    </div>
+
+   
+</x-guest-layout>
+
+ 
+<div class=" w-full p-2    bg-blue-700">
+                    <h3 class="text-lg font-bold  text-white text-center">Formulaire d&apos;adhésion</h3>
+
+                </div>
+ 
+           
+ 
+ backdrop-blur-sm
+ 
+min-h-screen backdrop-blur-sm
+ 
+mt-8
+ 
+16
+ 
+[50%]
+ 
+ <style>
+        /* Ensure the background image covers the full viewport */
+        .bg-cover {
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh; /* Cover the entire viewport height */
+        }
+
+        
+    </style>
+ 
+/* The overlay section should overlap cleanly and stay centered */
+        .overlay {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Subtle shadow */
+            top: 30%; /* Adjust as needed */
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 1024px) {
+            .overlay {
+                width: 90%; /* Adjust width for tablets */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .overlay {
+                width: 90%; /* Adjust width for mobile screens */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .overlay {
+                width: 95%;
+                padding: 16px; /* Reduce padding for small screens */
+            }
+
+            h4 {
+                font-size: 1rem; /* Reduce font size on small screens */
+            }
+        }
+ 
+bg-blue-200
+ 
+background-repeat: no-repeat; 
+ 
+mb-5
+ 
+ <div class="justify-center mx-auto flex">
+                    <img src="{{ asset('images/logofinal.png') }}" alt="Logo" class="w-16">
+                </div>
+ 
+absolute
+ 
+top-0 left-1/2 transform -translate-x-1/2
+ 
+ <div class="bg-blue-800 px-8 justify-center rounded-t-lg shadow-md bg-opacity-70 h-[40%] w-full flex items-center">
+                <!-- Optional content for the purple section -->
+            </div>
+ 
+overlay
+ 
+<x-guest-layout>
+    <x-header-guest />
+
+    <div class="min-h-screen bg-slate-100" style="background-size: 100% 100%; background-repeat: no-repeat;">
+        <!-- Container for the purple and white sections -->
+        <div class="relative w-[80%] lg:w-[80%] mx-auto h-full">
+
+            <div class="bg-blue-800 px-8 justify-center rounded-t-lg shadow-md bg-opacity-70 h-[40%] w-full flex items-center">
+                <!-- Optional content for the purple section -->
+            </div>
+
+            <div class="overlay absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[70%] md:w-[70%] lg:w-[70%] bg-white p-6 rounded-lg shadow-lg z-10">
+                <div class="justify-center mx-auto flex">
+                    <img src="{{ asset('images/logofinal.png') }}" alt="Logo" class="w-16">
+                </div>
+                <livewire:wizard-membership />
+            </div>
+
+        </div>
+    </div>
+
+    <style>
+        /* Ensure the background image covers the full viewport */
+        .bg-cover {
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh; /* Cover the entire viewport height */
+        }
+
+        /* The overlay section should overlap cleanly and stay centered */
+        .overlay {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Subtle shadow */
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 1024px) {
+            .overlay {
+                width: 90%; /* Adjust width for tablets */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .overlay {
+                width: 90%; /* Adjust width for mobile screens */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .overlay {
+                width: 95%;
+                padding: 16px; /* Reduce padding for small screens */
+            }
+
+            h4 {
+                font-size: 1rem; /* Reduce font size on small screens */
+            }
+        }
+    </style>
+</x-guest-layout>
+
+ 
+<x-guest-layout>
+    <x-header-guest />
+
+    <div class="min-h-screen max-h-fit">
+        <div class="relative bg-slate-100" style="background-size: 100% 100%; background-repeat: no-repeat; height: 100vh;">
+            <!-- Container for the purple and white sections -->
+            <div class="relative w-[80%] lg:w-[80%] mx-auto h-full">
+
+                <div class="bg-blue-800 px-8 justify-center rounded-t-lg shadow-md bg-opacity-70 h-[40%] w-full flex items-center">
+                    <!-- Optional content for the purple section -->
+                </div>
+
+                <div class="overlay absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[70%] md:w-[70%] lg:w-[70%] bg-white p-6 rounded-lg shadow-lg z-10">
+                    <div class="justify-center mx-auto flex">
+                        <img src="{{ asset('images/logofinal.png') }}" alt="Logo" class="w-16">
+                    </div>
+                    <livewire:wizard-membership />
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* Ensure the background image covers the full viewport */
+        .bg-cover {
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh; /* Cover the entire viewport height */
+        }
+
+        /* The overlay section should overlap cleanly and stay centered */
+        .overlay {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Subtle shadow */
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 1024px) {
+            .overlay {
+                width: 90%; /* Adjust width for tablets */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .overlay {
+                width: 90%; /* Adjust width for mobile screens */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .overlay {
+                width: 95%;
+                padding: 16px; /* Reduce padding for small screens */
+            }
+
+            h4 {
+                font-size: 1rem; /* Reduce font size on small screens */
+            }
+        }
+    </style>
+</x-guest-layout>
+
+ 
+<x-guest-layout>
+    <x-header-guest />
+
+    <div class="min-h-screen max-h-fit">
+        <div class="relative bg-slate-100 " style="background-size:100% 100%; background-repeat: no-repeat; height: 100vh;">
+            <!-- Container for the purple and white sections -->
+            <div class="relative w-[80%] lg:w-[80%] mx-auto h-full">
+
+                <div class="bg-blue-800 px-8 justify-center rounded-t-lg shadow-md bg-opacity-70 h-[40%] w-full flex items-center">
+                    <!-- Optional content for the purple section -->
+                </div>
+
+                <div class="overlay absolute top-[35%] left-1/2 transform -translate-x-1/2 mt-[-80px] lg:mt-[-100px] w-[70%] md:w-[70%] lg:w-[70%] bg-white p-6 rounded-lg shadow-lg z-10">
+                    <div class="justify-center mx-auto flex">
+                        <img src="{{ asset('images/logofinal.png') }}" alt="Logo" class="w-16">
+                    </div>
+                    <livewire:wizard-membership />
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* Ensure the background image covers the full viewport */
+        .bg-cover {
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh; /* Cover the entire viewport height */
+        }
+
+        /* The overlay section should overlap cleanly and stay centered */
+        .overlay {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Subtle shadow */
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 1024px) {
+            .overlay {
+                width: 90%; /* Adjust width for tablets */
+                margin-top: -80px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .overlay {
+                width: 90%; /* Adjust width for mobile screens */
+                margin-top: -60px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .overlay {
+                width: 95%;
+                margin-top: -50px;
+                padding: 16px; /* Reduce padding for small screens */
+            }
+
+            h4 {
+                font-size: 1rem; /* Reduce font size on small screens */
+            }
+        }
+    </style>
+</x-guest-layout>
+
+ 
+left
+ 
+text-center
+ 
+<div class="flex justify-between items-center mb-6">
+        @for ($step = 1; $step <= $totalSteps; $step++)
+            <div class="flex justify-center flex-col items-center flex-1"> <!-- Each step takes equal width -->
+                <div class="relative flex items-center w-full">
+                    <!-- Connecting Line -->
+                    @if ($step > 1 && $step <= $totalSteps)
+                    <div class="flex-1 h-1 {{ $currentStep >= $step ? 'bg-[#4000FF]' : 'bg-gray-300' }}"
+                            style="height: 4px; margin-left: -1rem;">
+                    </div>
+                    @endif
+                    <!-- Step Circle -->
+                    <div
+                        class="w-6 h-6 lg:w-8 lg:h-8 flex items-center justify-center {{ $currentStep >= $step ? 'bg-[#4000FF]' : 'bg-gray-300' }} rounded-full text-white z-10">
+                        @if ($currentStep > $step)
+                            <i class="fa fa-check"></i> <!-- Display check icon for completed steps -->
+                        @else
+                            {{ $step }} <!-- Show step number for incomplete steps -->
+                        @endif
+                    </div>
+
+                    <!-- Connecting Line -->
+                    @if ($step < $totalSteps)
+                        <div class="flex-1 h-1 {{ $currentStep > $step ? 'bg-[#4000FF]' : 'bg-gray-300' }}"
+                            style="height: 4px; margin-left: -1rem;"></div>
+                    @endif
+                </div>
+
+                <!-- Step Label -->
+                <div class="text-xs mt-2 text-center w-full h-12 overflow-hidden"> <!-- Réserve 2 lignes pour le texte -->
+                    <p class="step-label whitespace-normal break-words">
+                        @if ($step == 1)
+                            Références de l&apos;adhérent
+                        @elseif ($step == 2)
+                            Etat civil
+                        @elseif ($step == 3)
+                            Informations personnelles
+                        @elseif ($step == 4)
+                            Formations professionnelles
+                        @elseif ($step == 5)
+                            Récapitulatif
+                        @endif
+                    </p>
+                </div>
+
+            </div>
+        @endfor
+    </div>
+ 
+        <ol class="flex w-full justify-between items-center">
+
+ 
+  <li class="relative flex flex-col items-center flex-1 step-item"> 
+            </li>
+ 
+stepItems.forEach((item, index) => {
+                const stepNumber = item.querySelector('.step-number');
+                const afterLine = item.querySelector('.after:content');
+                const beforeLine = item.querySelector('.before:content');
+    
+                if (index < step - 1) {
+                    // Étape complétée
+                    item.classList.add('text-indigo-600');
+                    item.classList.remove('text-gray-900');
+                    stepNumber.classList.add('bg-indigo-600', 'text-white');
+                    stepNumber.classList.remove('bg-gray-50', 'border-gray-200', 'text-indigo-600');
+    
+                    // Colorier la ligne avant et après l'étape
+                    item.style.setProperty('--tw-before-bg', '#4000FF');
+                    item.style.setProperty('--tw-after-bg', '#4000FF');
+                } else if (index === step - 1) {
+                    // Étape actuelle
+                    item.classList.add('text-indigo-600');
+                    stepNumber.classList.add('bg-indigo-600', 'text-white');
+                    stepNumber.classList.remove('bg-gray-50', 'border-gray-200', 'text-indigo-600');
+    
+                    // Colorier la ligne avant l'étape actuelle et laisser la suivante en gris
+                    item.style.setProperty('--tw-before-bg', '#4000FF');
+                    item.style.setProperty('--tw-after-bg', 'gray');
+                } else {
+                    // Étape non complétée
+                    item.classList.remove('text-indigo-600');
+                    item.classList.add('text-gray-900');
+                    stepNumber.classList.add('bg-gray-50', 'border-gray-200', 'text-indigo-600');
+                    stepNumber.classList.remove('bg-indigo-600', 'text-white');
+    
+                    // Réinitialiser les couleurs des lignes
+                    item.style.setProperty('--tw-before-bg', 'gray');
+                    item.style.setProperty('--tw-after-bg', 'gray');
+                }
+            });
+ 
+    public $totalSteps = 5;   // Nombre total d'étapes  
+
+ 
+  // Logique pour enregistrer les données, par exemple :
+        // User::create([
+        //     'matricule' => $this->matricule,
+        //     'nip' => $this->nip,
+        //     'cnib' => $this->cnib,
+        //     // Ajoutez les autres champs ici...
+        // ]);
+ 
+  // Logique pour enregistrer les données, par exemple :
+        // User::create([
+        //     'matricule' => $this->matricule,
+        //     'nip' => $this->nip,
+        //     'cnib' => $this->cnib,
+        //     // Ajoutez les autres champs ici...
+        // ]);
+ 
+    public $totalSteps = 5;   // Nombre total d'étapes  
+
+ 
+    public $totalSteps = 5;   // Nombre total d'étapes  
+
+ 
    // Optionally, you can save the file path in your database
             // Example: Signature::create(['path' => $filePath]);
  

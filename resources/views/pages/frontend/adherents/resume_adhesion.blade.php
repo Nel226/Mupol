@@ -1,5 +1,4 @@
 <x-guest-layout>
-    <x-header-guest/>
     <x-section-guest>
         @if (session()->has('message'))
             <x-succes-notification>
@@ -18,242 +17,212 @@
                 });
             </script>
         @endif
-
+        <div class="w-[80%] md:w-3/6 lg:w-3/6  max-w-4xl mx-auto p-6 bg-white shadow-lg border rounded-lg">
+            <h2 class="text-base font-bold text-center  bg-gray-200 rounded-md p-2 text-gray-800">Remplir la fiche de cession volontaire</h2>
         
-        
-        <div class="adhesion-form max-w-4xl mx-auto p-10 bg-white shadow-lg rounded-lg">
-            <div class="flex justify-between items-center mx-auto pb-2 w-11/12 mb-2">
-                <!-- Colonne 1 -->
-                <div class="flex flex-col space-y-1 items-center text-center leading-none self-start">
-                    <p>MUTUELLE DE LA POLICE NATIONALE</p>
-                    <div class="border-t-[2px] border-black  w-1/4"></div> <!-- Trait -->
-                    <p>CONSEIL D'ADMINISTRATION</p>
-                    <div class="border-t-[2px] border-black  w-1/4"></div> <!-- Trait -->
-                    <p>SECRÉTARIAT GÉNÉRAL</p>
-                </div>
-
-                <!-- Colonne 2 (Logo) -->
-                <div class="flex h-full items-center self-start">
-                    <img src="{{ asset('images/logofinal.png') }}" alt="Logo" class="h-full w-20 object-contain">
-                </div>
-
-                <!-- Colonne 3 -->
-                <div class="flex flex-col self-start text-center space-y-1 leading-none">
-                    <p>BURKINA FASO</p>
-                    <p>Unité - Progrès - Justice</p>
-                </div>
-            </div>
-
-            <!-- Titre principal -->
-            <div class="flex flex-col items-center space-y-0">
-                <h2 class="text-center text-3xl font-bold mt-0">FORMULAIRE D'ADHÉSION</h2>
-
-                <!-- Sous-titre avec surlignage -->
-                <h1 class="text-center text-1xl text-white font-bold bg-black px-3 inline-block">
-                    À REMPLIR EN CARACTÈRES D'IMPRIMERIE
-                </h1>
-            </div>
-
-
-            <!-- Section : Références de l'adhérent -->
-            <div class="section border-t border-gray-300 mt-6 pt-4">
-                <div class="flex">
-                    <!-- Colonne Références -->
-                    <div class="w-3/4">
-                        <h3 class="text-1xl font-semibold bg-gray-500 px-auto px-1">RÉFÉRENCES DE L'ADHÉRENT</h3>
-
-                        <div class="mt-2">
-                            <p><strong>Matricule :</strong> {{ $demandeAdhesion->matricule }}</p>
-                        </div>
-
-                        <!-- NIP et CNIB sur la même ligne -->
-                        <div class="flex space-x-0 mt-2">
-                            <p class="flex-1"><strong>NIP :</strong> {{ $demandeAdhesion->nip }}</p>
-                            <p class="flex-1"><strong>CNIB :</strong> {{ $demandeAdhesion->cnib }}</p>
-                        </div>
-
-                        <div class="flex space-x-4 mt-2">
-                            <!-- Colonne pour DÉLIVRÉE LE et la date -->
-                            <div class="flex-1 w-1/2 leading-none">
-                                <div class="flex">
-                                    <!-- Première colonne : DÉLIVRÉE LE et (JJ/MM/AAAA) -->
-                                    <div class="flex-shrink-0 ">
-                                        <p class="mr-1"><strong>DÉLIVRÉE LE :</strong></p>
-                                        <p class="text-xs"><small>(JJ/MM/AAAA)</small></p>
-                                    </div>
-                            
-                                    <!-- Deuxième colonne : valeur de la date de délivrance -->
-                                    <div class="flex-1">
-                                        <p>{{ $demandeAdhesion->delivree }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="flex  w-1/2 leading-none">
-                                <!-- Première colonne : EXPIRE LE et (JJ/MM/AAAA) -->
-                                <div class="flex-shrink-0 ">
-                                    <p class="mr-1"><strong>EXPIRE LE :</strong></p>
-                                    <p class="text-xs"><small>(JJ/MM/AAAA)</small></p>
-                                </div>
-                            
-                                <!-- Deuxième colonne : valeur de la date d'expiration -->
-                                <div class="flex-1">
-                                    <p>{{ $demandeAdhesion->expire }}</p>
-                                </div>
-                            </div>
-                            
-                        </div>
-        
+            <form action="{{ route('finalisation-adhesion') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
+                @csrf 
+                <input type="hidden" name="demande_adhesion_id" value="{{ $demandeAdhesion->id }}">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <!-- Région -->
+                    <div>
+                        <label for="region" class="block text-sm font-medium text-gray-700">Région</label>
+                        <select id="region" name="region" class="mt-1 bg-gray-100 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+                            <option value="" disabled selected>Choisissez votre région</option>
+                            <!-- Options à ajouter ici -->
+                        </select>
                     </div>
-
-                    <!-- Colonne Signature -->
-                    <div class="w-1/4 items-center px-2 justify-center flex flex-col">
-                        <h3 class="text-xs underline decoration-solid ">SIGNATURE DE L’ADHÉRENT</h3>
-                        <div class="w-full flex-grow border-2 border-black mt-2 flex items-center justify-center">
-                        </div>
+        
+                    <!-- Province -->
+                    <div>
+                        <label for="province" class="block text-sm font-medium text-gray-700">Province</label>
+                        <select id="province" name="province" class="mt-1 bg-gray-100 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required disabled>
+                            <option value="" disabled selected>Choisissez d&apos;abord votre région</option>
+                        </select>
+                    </div>
+        
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-1 gap-3">
+                    <!-- Localité -->
+                    <div>
+                        <label for="localite" class="block text-sm font-medium text-gray-700">Localité</label>
+                        <input type="text" id="localite" name="localite" class="mt-1 bg-gray-100 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required placeholder="Entrez votre localité">
                     </div>
                 </div>
-
-                <div class="mt-2">
-                    <p><strong>Adresse :</strong> {{ $demandeAdhesion->adresse }}</p>
-                </div>
-
-                <div class="flex space-x-4 mt-2">
-                    <p class="flex-1"><strong>Téléphone :</strong> {{ $demandeAdhesion->telephone }}</p>
-                    <p class="flex-1"><strong>Email :</strong> {{ $demandeAdhesion->email }}</p>
-                </div>
-            </div>
-
-
-            <!-- Section : État civil -->
-            <div class="section border-t border-gray-300 mt-4 pt-4">
-
-                <h3 class="text-1xl font-semibold bg-gray-500 px-auto px-1">ÉTAT CIVIL</h3>
-
-                <div class="flex">
-                    <div class="w-3/4">
-                        <div class="mt-2">
-                            <p><strong>Nom :</strong> {{ $demandeAdhesion->nom }}</p>
-                            <p><strong>Prénom(s) :</strong> {{ $demandeAdhesion->prenom }}</p>
-                        </div>
-                        <div class="flex items-center space-x-2 mt-1">
-                            <!-- Colonne 1 : Lieu de naissance -->
-                            <div class="flex-shrink-0 ">
-                                <p><strong>Lieu de naissance </strong> {{ $demandeAdhesion->lieu_naissance }}</p>
-                            </div>
-                        
-                            <!-- Colonne 2 : Barre verticale -->
-                            <div class="border-l-2 border-gray-400 h-16 mx-2"></div>
-                        
-                            <!-- Colonne 3 : Infos supplémentaires -->
-                            <div class="flex-1">
-                                <div class="flex">
-                                    <p class="w-32"><strong>Département</strong></p>
-                                    <p> <strong class="text-right">:</strong> {{ $demandeAdhesion->departement }}</p>
-                                </div>
-                                <div class="flex">
-                                    <p class="w-32 "><strong>Ville / Village</strong></p>
-                                    <p> <strong class="text-right">:</strong> {{ $demandeAdhesion->ville }}</p>
-                                </div>
-                                <div class="flex">
-                                    <p class="w-32"><strong>Pays</strong></p>
-                                    <p> <strong class="text-right">:</strong> {{ $demandeAdhesion->pays }}</p>
-                                </div>
-                                <!-- Nouveau texte sous Pays -->
-                                {{-- <p><small>(Si vous êtes né(e) hors du pays)</small></p> --}}
-                            </div>
+                <label for="signature" class="block text-sm font-medium text-gray-700">Signature</label>
+                <label for="switcher" class="flex justify-center cursor-pointer p-1">
+                    <div class="relative text-xs bg-gray-200 rounded-full flex gap-3 justify-between p-2 h-[32px]">
+                        <input id="switcher" type="checkbox" class="hidden peer" onchange="toggleSignatureOptions()">
+                        <span class="text-center flex-grow relative  z-10  self-center transition text-white peer-checked:text-black">
+                            <i class="fa fa-pencil"></i>
+                            Dessiner
+                        </span>
+                        <span class="text-center flex-grow relative  z-10 self-center transition peer-checked:text-white">
+                            <i class="fa fa-image "></i>
+                            Charger
+                        </span>
+                        <span class="absolute toggle  bg-[#4000FF] h-full w-[50%] rounded-full transition-all top-0 left-0 peer-checked:left-[50%]"></span>
+                    </div>
+                </label>
+                
+                <!-- Section pour choisir le mode de signature -->
+                <div id="signatureOptions" class="grid grid-cols-1 md:grid-cols-1 ">
+                    <!-- Dessiner la signature -->
+                    <div id="drawSignature" class="flex flex-col p-4 border rounded-md bg-white h-full shadow-sm">
+                        <h4 class="text-center text-sm font-semibold mb-4">Dessiner la signature</h4>
+                        <canvas id="signatureCanvas" class="border rounded-md bg-white w-full h-40" style="border: 1px solid #000;"></canvas>
+                        <input type="hidden" id="signatureInput" name="signature" />
+                        <div class="w-full !text-xs flex justify-between mt-2">
+                            <x-primary-button type="button" id="saveButton" class="!text-xs bg-emerald-600 p-2 rounded-md text-white  transition">Enregistrer</x-primary-button>
+                            <x-primary-button type="button" id="clearButton" class="!text-xs bg-gray-400 p-2 rounded-md text-white  transition">Effacer</x-primary-button>
                         </div>
                     </div>
-    
-                    <div class="w-1/4 flex items-center px-2 justify-center">
-                        <div class="w-full h-1/2 flex-grow border-2 border-black mt-2 flex items-center justify-center">
-                            <p class="mr-2"><strong class="mr-1">Genre :</strong>{{ $demandeAdhesion->genre == 'masculin' ? 'Masculin' : 'Féminin' }}</p>
+                
+                    <!-- Charger une image de la signature -->
+                    <div id="uploadSignature" class="hidden flex flex-col p-4 border rounded-md bg-white h-full shadow-sm">
+                        <h4 class="text-center text-sm font-semibold mb-4">Charger une image de signature</h4>
+                        <div class="border-dashed border-2 border-gray-300 rounded-md p-6 flex-grow flex justify-center items-center">
+                            <div class="text-center text-xs">
+                                <img id="previewImage" class="hidden w-full h-auto max-h-48 object-cover mb-4" />
+                                <p class="text-gray-500">Déposez votre image ici ou</p>
+                                <label for="signatureImage" class="cursor-pointer text-blue-500 hover:underline">cliquez pour choisir une image</label>
+                                <input type="file" id="signatureImage" class="hidden" accept="image/*" name="signatureImage">
+                            </div>
                         </div>
                     </div>
                 </div>
                 
+                <script>
+                    function toggleSignatureOptions() {
+                        const switcher = document.getElementById('switcher');
+                        const drawSignature = document.getElementById('drawSignature');
+                        const uploadSignature = document.getElementById('uploadSignature');
                 
-                
-                <p><strong>Nom du père :</strong> {{ $demandeAdhesion->nom_pere }}</p>
-                <p><strong>Nom de la mère :</strong> {{ $demandeAdhesion->nom_mere }}</p>
-            </div>
-
-            <!-- Section : Personnes à prévenir -->
-            <div class="section border-t border-gray-300 mt-6 pt-4">
-                <h3 class="text-lg font-semibold">Personnes à prévenir en cas de besoin</h3>
-                <p class="mt-2"><strong>Nom et prénom:</strong> {{ $demandeAdhesion->nom_prenom_personne_besoin }}
-                </p>
-                <p><strong>Lieu de résidence:</strong> {{ $demandeAdhesion->lieu_residence }}</p>
-                <p><strong>Téléphone:</strong> {{ $demandeAdhesion->telephone_personne_prevenir }}</p>
-            </div>
-
-            <!-- Section : Ayants droits -->
-            <div class="section border-t border-gray-300 mt-6 pt-4">
-                <h3 class="text-lg font-semibold">Ayants droits</h3>
-                <p class="mt-2"><strong>Nombre d'ayants droits:</strong> {{ $demandeAdhesion->nombreAyantsDroits }}
-                </p>
-                <!-- Ajouter la liste des ayants droits ici si nécessaire -->
-            </div>
-
-            <!-- Section : Informations professionnelles -->
-            <div class="section border-t border-gray-300 mt-6 pt-4">
-                <h3 class="text-lg font-semibold">Informations professionnelles</h3>
-                <p class="mt-2"><strong>Statut:</strong>
-                    {{ $demandeAdhesion->statut == 'personnel_active' ? 'Personnel en activité' : 'Personnel retraité' }}
-                </p>
-                <p><strong>Grade:</strong> {{ $demandeAdhesion->grade }}</p>
-                <p><strong>Date d'intégration:</strong> {{ $demandeAdhesion->dateIntegration }}</p>
-                <p><strong>Date de départ à la retraite:</strong> {{ $demandeAdhesion->dateDepartARetraite }}</p>
-                <p><strong>Direction:</strong> {{ $demandeAdhesion->direction }}</p>
-                <p><strong>Service:</strong> {{ $demandeAdhesion->service }}</p>
-            </div>
-
-        </div>
-        
-        <div class="container max-w-4xl my-3  p-10 bg-white shadow-lg rounded-lg mx-auto">
-            <div class="flex justify-between my-3">
-                <a href="{{ route('download-fiche-cession-volontaire', ['id' => $demandeAdhesion->id]) }}" >
-                    <x-primary-button>
-                        Télécharger cession volontaire
-                    </x-primary-button>
-                </a>
-                <x-primary-button onclick="printIframe('iframeId')" style="background-color: #4CAF50; color: white; border: none; cursor: pointer;">
-                    Imprimer 
-                </x-primary-button>
-            </div>
-            <script>
-                function printIframe(iframeId) {
-                    var iframe = document.getElementById(iframeId);
-                    if (iframe) {
-                        var iframeWindow = iframe.contentWindow || iframe; // Access to the iframe's window object
-                        iframeWindow.focus(); // Focus the iframe
-                        iframeWindow.print(); // Trigger the print dialog for the iframe
-                    } else {
-                        console.error("L'iframe avec l'ID '" + iframeId + "' est introuvable.");
+                        if (switcher.checked) {
+                            drawSignature.classList.add('hidden');
+                            uploadSignature.classList.remove('hidden');
+                        } else {
+                            drawSignature.classList.remove('hidden');
+                            uploadSignature.classList.add('hidden');
+                        }
                     }
-                }
+                </script>
+                
+                
         
-                // Optionnel : Écouter le chargement complet de l'iframe avant d'activer le bouton d'impression
-                document.addEventListener("DOMContentLoaded", function() {
-                    var iframe = document.getElementById('iframeId'); // Utilisez ici l'ID correct
-                    iframe.onload = function() {
-                        console.log("Iframe chargé.");
-                    };
-                });
-            </script>
-            <h1 class="text-xl font-bold mb-4">Aperçu fiche de cession volontaire de salaire</h1>
-
-            <div class="relative h-0 pb-[141.42%] shadow-lg">
-                <iframe id="iframeId"
-                    class="absolute inset-0 w-full h-full border-4 border-gray-500" 
-                    src="{{ route('showCessionVolontaire', ['id' => $demandeAdhesion->id]) }}" 
-                    allowfullscreen 
-                    title="Fiche de cession volontaire de salaire"
-                    aria-hidden="false" 
-                    tabindex="0">
-                </iframe>
-            </div>
-        
+                <!-- Bouton de soumission -->
+                <div class="flex justify-end">
+                    <x-primary-button type="submit" class="">Soumettre</x-primary-button>
+                </div>
+            </form>
         </div>
+        
+        
+        <script>
+            const canvas = document.getElementById('signatureCanvas');
+            const context = canvas.getContext('2d');
+            let drawing = false;
+        
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+        
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mouseup', stopDrawing);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseleave', stopDrawing);
+        
+            function startDrawing(event) {
+                drawing = true;
+                draw(event);
+            }
+        
+            function stopDrawing() {
+                drawing = false;
+                context.beginPath();
+            }
+        
+            function draw(event) {
+                if (!drawing) return;
+        
+                context.lineWidth = 2;
+                context.lineCap = 'round'; 
+                context.strokeStyle = 'black'; 
+        
+                context.lineTo(event.clientX - canvas.getBoundingClientRect().left, event.clientY - canvas.getBoundingClientRect().top);
+                context.stroke();
+                context.beginPath();
+                context.moveTo(event.clientX - canvas.getBoundingClientRect().left, event.clientY - canvas.getBoundingClientRect().top);
+            }
+        
+            // Gérer l'enregistrement de la signature
+            document.getElementById('saveButton').addEventListener('click', () => {
+                const dataURL = canvas.toDataURL(); 
+                document.getElementById('signatureInput').value = dataURL; 
+                alert("Signature enregistrée !");
+            });
+        
+            document.getElementById('clearButton').addEventListener('click', () => {
+                context.clearRect(0, 0, canvas.width, canvas.height); 
+                document.getElementById('signatureInput').value = ''; 
+            });
+        </script>
+        
+        <script>
+            const signatureImageInput = document.getElementById('signatureImage');
+            const previewImage = document.getElementById('previewImage');
+            const signatureInput = document.getElementById('signatureInput');
+        
+            signatureImageInput.addEventListener('change', function() {
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        previewImage.src = e.target.result;
+                        previewImage.classList.remove('hidden');
+        
+                        signatureInput.value = e.target.result; 
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        </script>
+        
+        <script>
+
+
+            document.addEventListener("DOMContentLoaded", function() {
+                const regionSelect = document.getElementById("region");
+                const provinceSelect = document.getElementById("province");
+            
+                for (const region in regions) {
+                    const option = document.createElement("option");
+                    option.value = region;
+                    option.textContent = region;
+                    regionSelect.appendChild(option);
+                }
+            
+                regionSelect.addEventListener("change", function() {
+                    const selectedRegion = regionSelect.value;
+            
+                    provinceSelect.innerHTML = "";
+                    provinceSelect.disabled = false;
+            
+                    const defaultOption = document.createElement("option");
+                    defaultOption.value = "";
+                    defaultOption.disabled = true;
+                    defaultOption.selected = true;
+                    defaultOption.textContent = "Choisissez votre province";
+                    provinceSelect.appendChild(defaultOption);
+            
+                    regions[selectedRegion].provinces.forEach(province => {
+                        const option = document.createElement("option");
+                        option.value = province;
+                        option.textContent = province;
+                        provinceSelect.appendChild(option);
+                    });
+                });
+            });
+            
+        </script>
     </x-section-guest>
 </x-guest-layout>

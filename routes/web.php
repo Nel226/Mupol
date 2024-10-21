@@ -13,7 +13,6 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ParametreController;
 use App\Http\Controllers\AyantDroitController;
 use App\Http\Controllers\CotisationController;
-use App\Http\Controllers\MembershipController;
 use App\Http\Controllers\PrestationController;
 
 /*
@@ -33,12 +32,17 @@ use App\Http\Controllers\PrestationController;
 Route::get('/', [AccueilController::class, 'accueil'])->name(name: 'accueil');
 Route::get('/formulaire-adhesion', [AccueilController::class, 'newAdhesion'])->name(name: 'formulaire-adhesion');
 Route::get('/resume-adhesion/{id}', [AccueilController::class, 'resumeAdhesion'])->name('resume-adhesion');
-Route::get('/demande-adhesion/{id}/fiche-cession-volontaire',  [AccueilController::class, 'downloadCessionFiche'])->name('download-fiche-cession-volontaire');
+Route::get('/demande-adhesion/{id}/fiche-cession-volontaire', [AccueilController::class, 'downloadCessionFiche'])
+    ->name('download-fiche-cession-volontaire');
 Route::get('download-form-adhesion/{id}', [AccueilController::class, 'downloadFormAdhesion'])->name('download-form-adhesion');
 Route::post('/recapitulatif-form', [AccueilController::class, 'recapitulatifForm'])->name('recapitulatif-form');
-Route::post('/submit-form', [MembershipController::class, 'submitForm'])->name('submit-demande-adhesion');
-
-Route::get('/cession-volontaire/{id}', [AccueilController::class, 'showCessionVolontaire'])->name('showCessionVolontaire');
+Route::get('/formulaire-adhesion-recapitulatif', function () {
+    return view('components.formulaire-adhesion'); 
+})->name('formulaire.adhesion.recapitulatif');
+Route::post('/finalisation-adhesion', [AccueilController::class, 'finalAdhesion'])->name('finalisation-adhesion');
+Route::get('/cession-volontaire/{id}', [AccueilController::class, 'showCessionVolontaire'])
+    ->name('showCessionVolontaire');
+// Route::get('/cession-volontaire/{id}', [AccueilController::class, 'showCessionVolontaire'])->name('showCessionVolontaire');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/counter', Counter::class);

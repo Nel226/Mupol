@@ -2,11 +2,10 @@
 
     <div class="image-upload shrink-0 rounded-full">
 
-        <!-- Zone de prévisualisation de l'image -->
         @if ($photo)
             <img src="{{ $photo->temporaryUrl() }}" alt="Preview" class="w-48 h-48 object-cover mx-auto rounded-full">
         @else
-            <img id="preview_img" src="{{ asset('images/user-90.png') }}" alt="Current profile photo" class="w-48 h-48 object-cover mx-auto rounded-full">
+            <img id="preview_img" src="{{ asset('images/user-90.png') }}" alt="Current profile photo" class="w-36 h-36 object-cover mx-auto rounded-full">
         @endif
     </div>
     <span class="sr-only">Choisir une image</span>

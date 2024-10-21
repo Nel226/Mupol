@@ -1,4 +1,4 @@
-<header>
+<header class="fixed top-0 left-0 w-full z-10">
     <nav class="bg-gray-100 border-b border-gray-200 px-6 py-2.5 dark:bg-gray-800">
       <div class="flex justify-between items-center max-w-screen-xl mx-auto">
         <!-- Logo and Title -->

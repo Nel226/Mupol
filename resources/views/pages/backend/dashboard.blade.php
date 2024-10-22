@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-sidebar/>
   
-    <div class="p-4 border-2 border-gray-200 rounded-lg sm:ml-64 dark:border-gray-700 mt-14">
+    <div class="p-4 border-2 border-gray-200  animate-spinnerGrow rounded-lg sm:ml-64 dark:border-gray-700 mt-14">
         <div class="min-h-screen flex flex-col">
            
     

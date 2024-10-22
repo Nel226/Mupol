@@ -48,7 +48,7 @@ return new class extends Migration
             $table->date('dateDepartARetraite')->nullable();
             $table->string('direction')->nullable();
             $table->string('service')->nullable();
-            $table->string('signature')->nullable();
+            $table->longText('signature')->nullable();
 
             $table->string('region')->nullable();
             $table->string('province')->nullable();

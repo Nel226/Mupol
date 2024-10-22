@@ -88,6 +88,14 @@ class AccueilController extends Controller
         
         return PDFHelper::downloadPDF('pages.frontend.adherents.fiches.cession_volontaire', $data, 'Fiche_cession_volontaire_' . $demandeAdhesion->id);
     }
+    
+    public function imprimerFicheCession($id)
+    {
+        $demandeAdhesion = DemandeAdhesion::findOrFail($id);
+
+        return view('pages.frontend.adherents.fiches.cession_volontaire', compact('demandeAdhesion'));
+    }
+
 
     public function downloadFormAdhesion($id)
     {

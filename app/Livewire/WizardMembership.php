@@ -234,6 +234,7 @@ class WizardMembership extends Component
     {
         $this->nombreAyantsDroits = (int)$value;
     }
+    
     public function changeStatut($value)
     {
         $this->statut = $value;

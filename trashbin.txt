@@ -1,3 +1,1889 @@
+            <!-- Étape 5 -->
+
+ 
+                                                <!-- Message d'erreur pour la validation -->
+
+ 
+ <li><a href="#"><i class="icofont-twitter"></i></a></li>
+                            <li><a href="#"><i class="icofont-linkedin"></i></a></li>
+ 
+                            <li class="day">Samedi <span>9h00 - 12h30</span></li>
+
+ 
+                            <li class="day">Dimanche <span>Fermé</span></li>
+
+ 
+ d'ouverture
+ 
+<!-- Footer Area -->
+		<footer id="footer" class="footer ">
+			<!-- Footer Top -->
+			<div class="footer-top">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-4 col-md-6 col-12">
+							<div class="single-footer">
+								<h2>About Us</h2>
+								<p>Lorem ipsum dolor sit am consectetur adipisicing elit do eiusmod tempor incididunt ut labore dolore magna.</p>
+								<!-- Social -->
+								<ul class="social">
+									<li><a href="#"><i class="icofont-facebook"></i></a></li>
+									<li><a href="#"><i class="icofont-google-plus"></i></a></li>
+									<li><a href="#"><i class="icofont-twitter"></i></a></li>
+									<li><a href="#"><i class="icofont-vimeo"></i></a></li>
+									<li><a href="#"><i class="icofont-pinterest"></i></a></li>
+								</ul>
+								<!-- End Social -->
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-6 col-12">
+							<div class="single-footer f-link">
+								<h2>Quick Links</h2>
+								<div class="row">
+									<div class="col-lg-6 col-md-6 col-12">
+										<ul>
+											<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Home</a></li>
+											<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>About Us</a></li>
+											<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Services</a></li>
+											<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Our Cases</a></li>
+											<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Other Links</a></li>	
+										</ul>
+									</div>
+									<div class="col-lg-6 col-md-6 col-12">
+										<ul>
+											<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Consuling</a></li>
+											<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Finance</a></li>
+											<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Testimonials</a></li>
+											<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>FAQ</a></li>
+											<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Contact Us</a></li>	
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-6 col-12">
+							<div class="single-footer">
+								<h2>Open Hours</h2>
+								<p>Lorem ipsum dolor sit ame consectetur adipisicing elit do eiusmod tempor incididunt.</p>
+								<ul class="time-sidual">
+									<li class="day">Monday - Fridayp <span>8.00-20.00</span></li>
+									<li class="day">Saturday <span>9.00-18.30</span></li>
+									<li class="day">Monday - Thusday <span>9.00-15.00</span></li>
+								</ul>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+			<!--/ End Footer Top -->
+			<!-- Copyright -->
+			<div class="copyright">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12 col-md-12 col-12">
+							<div class="copyright-content">
+								<p>© Copyright 2018  |  All Rights Reserved by <a href="/" target="_blank">MU-POL.com</a> </p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--/ End Copyright -->
+		</footer>
+		<!--/ End Footer Area -->
+ 
+<div class="col-lg-3 col-md-6 col-12">
+							<div class="single-footer">
+								<h2>Newsletter</h2>
+								<p>subscribe to our newsletter to get allour news in your inbox.. Lorem ipsum dolor sit amet, consectetur adipisicing elit,</p>
+								<form action="mail/mail.php" method="get" target="_blank" class="newsletter-inner">
+									<input name="email" placeholder="Email Address" class="common-input" onfocus="this.placeholder = ''"
+										onblur="this.placeholder = 'Your email address'" required="" type="email">
+									<button class="button"><i class="icofont icofont-paper-plane"></i></button>
+								</form>
+							</div>
+						</div>
+ 
+center
+ 
+mutuelle
+ 
+  <a href="/">
+
+                            </a>
+ 
+<img src="{{ asset('images/logo-mutuelle.png') }}" alt="Logo de la Mutuelle" class="h-16">
+ 
+{{ route('') }}
+ 
+{{ route('') }}
+ 
+{ route('') }}
+ 
+{{ route('') }}
+ 
+{{ route('') }}
+ 
+{{ route('') }}
+ 
+contact
+ 
+mutuelle.equipe
+ 
+mutuelle.presentation
+ 
+services.assistance
+ 
+services.prevoyance
+ 
+services.sante
+ 
+<!-- Header Area -->
+		<header class="header" >
+			
+			<!-- Header Inner -->
+			<div class="header-inner">
+				<div class="container">
+					<div class="inner">
+						<div class="row">
+							<div class="col-lg-3 col-md-3 col-12">
+								<!-- Start Logo -->
+								<div class=" !w-16">
+									<a href="/"><img src="{{ asset('images/logo-48.png') }} " alt="#" class="!h-16" ></a>
+								</div>
+								<!-- End Logo -->
+								<!-- Mobile Nav -->
+								<div class="mobile-nav"></div>
+								<!-- End Mobile Nav -->
+							</div>
+							<div class="col-lg-7 col-md-9 col-12">
+								<!-- Main Menu -->
+								<div class="main-menu">
+									<nav class="navigation">
+										<ul class="nav menu">
+											<li class="active"><a href="#">Home <i class="icofont-rounded-down"></i></a>
+												<ul class="dropdown">
+													<li><a href="index.html">Home Page 1</a></li>
+												</ul>
+											</li>
+											
+											<li><a href="#">Pages <i class="icofont-rounded-down"></i></a>
+												<ul class="dropdown">
+													<li><a href="404.html">404 Error</a></li>
+												</ul>
+											</li>
+											
+											<li><a href="contact.html">Contact Us</a></li>
+										</ul>
+									</nav>
+								</div>
+								<!--/ End Main Menu -->
+							</div>
+							<div class="col-lg-2 col-12">
+								<div class="get-quote">
+                                    <a class="btn " href="{{ route('formulaire-adhesion') }}">
+                                        Adhérer maintenant
+                                       
+                                    </a>
+                                </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--/ End Header Inner -->
+		</header>
+		<!-- End Header Area -->
+ 
+; color: white; border: none; cursor: pointer;
+ 
+   <x-primary-button>
+                                    </x-primary-button>
+ 
+                    </div>
+
+ 
+                           
+                                
+                            
+                            
+                            
+                            
+ 
+ <div class="w-[80%] md:w-3/6 lg:w-3/6  max-w-4xl mx-auto p-6 bg-white shadow-lg border rounded-lg">
+                              
+                        
+                                </div>
+ 
+ 
+ 
+<script>
+                                        function printIframe(iframeId) {
+                                            var iframe = document.getElementById(iframeId);
+                                            if (iframe) {
+                                                var iframeWindow = iframe.contentWindow || iframe; 
+                                                iframeWindow.focus(); 
+                                                iframeWindow.print(); 
+                                            } else {
+                                                console.error("L'iframe avec l'ID '" + iframeId + "' est introuvable.");
+                                            }
+                                        }
+                                
+                                        document.addEventListener("DOMContentLoaded", function() {
+                                            var iframe = document.getElementById('iframeId'); 
+                                            iframe.onload = function() {
+                                                console.log("Iframe chargé.");
+                                            };
+                                        });
+                                    </script>
+ 
+<x-guest-layout>
+    <x-header-guest/>
+    <x-section-guest>
+       
+       
+
+       
+    </x-section-guest>
+</x-guest-layout>
+ 
+    
+                            <script>
+                                const canvas = document.getElementById('signatureCanvas');
+                                const context = canvas.getContext('2d');
+                                let drawing = false;
+                            
+                                canvas.width = canvas.offsetWidth;
+                                canvas.height = canvas.offsetHeight;
+                            
+                                canvas.addEventListener('mousedown', startDrawing);
+                                canvas.addEventListener('mouseup', stopDrawing);
+                                canvas.addEventListener('mousemove', draw);
+                                canvas.addEventListener('mouseleave', stopDrawing);
+                            
+                                function startDrawing(event) {
+                                    drawing = true;
+                                    draw(event);
+                                }
+                            
+                                function stopDrawing() {
+                                    drawing = false;
+                                    context.beginPath();
+                                }
+                            
+                                function draw(event) {
+                                    if (!drawing) return;
+                            
+                                    context.lineWidth = 2;
+                                    context.lineCap = 'round'; 
+                                    context.strokeStyle = 'black'; 
+                            
+                                    context.lineTo(event.clientX - canvas.getBoundingClientRect().left, event.clientY - canvas.getBoundingClientRect().top);
+                                    context.stroke();
+                                    context.beginPath();
+                                    context.moveTo(event.clientX - canvas.getBoundingClientRect().left, event.clientY - canvas.getBoundingClientRect().top);
+                                }
+                            
+                                // Gérer l'enregistrement de la signature
+                                document.getElementById('saveButton').addEventListener('click', () => {
+                                    const dataURL = canvas.toDataURL(); 
+                                    document.getElementById('signatureInput').value = dataURL; 
+                                    alert("Signature enregistrée !");
+                                });
+                            
+                                document.getElementById('clearButton').addEventListener('click', () => {
+                                    context.clearRect(0, 0, canvas.width, canvas.height); 
+                                    document.getElementById('signatureInput').value = ''; 
+                                });
+                            </script>
+                            
+                            <script>
+                                const signatureImageInput = document.getElementById('signatureImage');
+                                const previewImage = document.getElementById('previewImage');
+                                const signatureInput = document.getElementById('signatureInput');
+                            
+                                signatureImageInput.addEventListener('change', function() {
+                                    const file = this.files[0];
+                                    if (file) {
+                                        const reader = new FileReader();
+                                        reader.onload = function(e) {
+                                            previewImage.src = e.target.result;
+                                            previewImage.classList.remove('hidden');
+                            
+                                            signatureInput.value = e.target.result; 
+                                        };
+                                        reader.readAsDataURL(file);
+                                    }
+                                });
+                            </script>
+ 
+   <h2 class="text-base font-bold text-center  bg-gray-200 rounded-md p-2 text-gray-800">Remplir la fiche de cession volontaire</h2>
+                            
+                                <form action="{{ route('finalisation-adhesion') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
+                                    @csrf 
+                                    <input type="hidden" name="demande_adhesion_id" value="{{ $demandeAdhesion->id }}">
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                        <!-- Région -->
+                                        <div>
+                                            <label for="region" class="block text-sm font-medium text-gray-700">Région</label>
+                                            <select id="region" name="region" class="mt-1 bg-gray-100 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+                                                <option value="" disabled selected>Choisissez votre région</option>
+                                                <!-- Options à ajouter ici -->
+                                            </select>
+                                        </div>
+                            
+                                        <!-- Province -->
+                                        <div>
+                                            <label for="province" class="block text-sm font-medium text-gray-700">Province</label>
+                                            <select id="province" name="province" class="mt-1 bg-gray-100 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required disabled>
+                                                <option value="" disabled selected>Choisissez d&apos;abord votre région</option>
+                                            </select>
+                                        </div>
+                            
+                                    </div>
+                                    <script>
+                        
+                        
+                                        document.addEventListener("DOMContentLoaded", function() {
+                                            const regionSelect = document.getElementById("region");
+                                            const provinceSelect = document.getElementById("province");
+                                        
+                                            for (const region in regions) {
+                                                const option = document.createElement("option");
+                                                option.value = region;
+                                                option.textContent = region;
+                                                regionSelect.appendChild(option);
+                                            }
+                                        
+                                            regionSelect.addEventListener("change", function() {
+                                                const selectedRegion = regionSelect.value;
+                                        
+                                                provinceSelect.innerHTML = "";
+                                                provinceSelect.disabled = false;
+                                        
+                                                const defaultOption = document.createElement("option");
+                                                defaultOption.value = "";
+                                                defaultOption.disabled = true;
+                                                defaultOption.selected = true;
+                                                defaultOption.textContent = "Choisissez votre province";
+                                                provinceSelect.appendChild(defaultOption);
+                                        
+                                                regions[selectedRegion].provinces.forEach(province => {
+                                                    const option = document.createElement("option");
+                                                    option.value = province;
+                                                    option.textContent = province;
+                                                    provinceSelect.appendChild(option);
+                                                });
+                                            });
+                                        });
+                                        
+                                    </script>
+                                    <div class="grid grid-cols-1 md:grid-cols-1 gap-3">
+                                        <!-- Localité -->
+                                        <div>
+                                            <label for="localite" class="block text-sm font-medium text-gray-700">Localité</label>
+                                            <input type="text" id="localite" name="localite" class="mt-1 bg-gray-100 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required placeholder="Entrez votre localité">
+                                        </div>
+                                    </div>
+                                    <label for="signature" class="block text-sm font-medium text-gray-700">Signature</label>
+                                    <label for="switcher" class="flex justify-center cursor-pointer p-1">
+                                        <div class="relative text-xs bg-gray-200 rounded-full flex gap-3 justify-between p-2 h-[32px]">
+                                            <input id="switcher" type="checkbox" class="hidden peer" onchange="toggleSignatureOptions()">
+                                            <span class="text-center flex-grow relative  z-10  self-center transition text-white peer-checked:text-black">
+                                                <i class="fa fa-pencil"></i>
+                                                Dessiner
+                                            </span>
+                                            <span class="text-center flex-grow relative  z-10 self-center transition peer-checked:text-white">
+                                                <i class="fa fa-image "></i>
+                                                Charger
+                                            </span>
+                                            <span class="absolute toggle  bg-[#4000FF] h-full w-[50%] rounded-full transition-all top-0 left-0 peer-checked:left-[50%]"></span>
+                                        </div>
+                                    </label>
+                                    
+                                    <!-- Section pour choisir le mode de signature -->
+                                    <div id="signatureOptions" class="grid grid-cols-1 md:grid-cols-1 ">
+                                        <!-- Dessiner la signature -->
+                                        <div id="drawSignature" class="flex flex-col p-4 border rounded-md bg-white h-full shadow-sm">
+                                            <h4 class="text-center text-sm font-semibold mb-4">Dessiner la signature</h4>
+                                            <canvas id="signatureCanvas" class="border rounded-md bg-white w-full h-40" style="border: 1px solid #000;"></canvas>
+                                            <input type="hidden" id="signatureInput" name="signature" />
+                                            <div class="w-full !text-xs flex justify-between mt-2">
+                                                <x-primary-button type="button" id="saveButton" class="!text-xs bg-emerald-600 p-2 rounded-md text-white  transition">Enregistrer</x-primary-button>
+                                                <x-primary-button type="button" id="clearButton" class="!text-xs bg-gray-400 p-2 rounded-md text-white  transition">Effacer</x-primary-button>
+                                            </div>
+                                        </div>
+                                    
+                                        <!-- Charger une image de la signature -->
+                                        <div id="uploadSignature" class="hidden flex flex-col p-4 border rounded-md bg-white h-full shadow-sm">
+                                            <h4 class="text-center text-sm font-semibold mb-4">Charger une image de signature</h4>
+                                            <div class="border-dashed border-2 border-gray-300 rounded-md p-6 flex-grow flex justify-center items-center">
+                                                <div class="text-center text-xs">
+                                                    <img id="previewImage" class="hidden w-full h-auto max-h-48 object-cover mb-4" />
+                                                    <p class="text-gray-500">Déposez votre image ici ou</p>
+                                                    <label for="signatureImage" class="cursor-pointer text-blue-500 hover:underline">cliquez pour choisir une image</label>
+                                                    <input type="file" id="signatureImage" class="hidden" accept="image/*" name="signatureImage">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <script>
+                                        function toggleSignatureOptions() {
+                                            const switcher = document.getElementById('switcher');
+                                            const drawSignature = document.getElementById('drawSignature');
+                                            const uploadSignature = document.getElementById('uploadSignature');
+                                    
+                                            if (switcher.checked) {
+                                                drawSignature.classList.add('hidden');
+                                                uploadSignature.classList.remove('hidden');
+                                            } else {
+                                                drawSignature.classList.remove('hidden');
+                                                uploadSignature.classList.add('hidden');
+                                            }
+                                        }
+                                    </script>
+                                    
+                                    
+                            
+                                    <!-- Bouton de soumission -->
+                                    <div class="flex justify-end">
+                                        <x-primary-button type="submit" class="">Soumettre</x-primary-button>
+                                    </div>
+                                </form>
+ 
+/*  jQuery Nice Select - v1.0
+    https://github.com/hernansartorio/jquery-nice-select
+    Made by HernÃƒÂ¡n Sartorio  */
+!function(e){e.fn.niceSelect=function(t){function s(t){t.after(e("<div></div>").addClass("nice-select").addClass(t.attr("class")||"").addClass(t.attr("disabled")?"disabled":"").attr("tabindex",t.attr("disabled")?null:"0").html('<span class="current"></span><ul class="list"></ul>'));var s=t.next(),n=t.find("option"),i=t.find("option:selected");s.find(".current").html(i.data("display")||i.text()),n.each(function(t){var n=e(this),i=n.data("display");s.find("ul").append(e("<li></li>").attr("data-value",n.val()).attr("data-display",i||null).addClass("option"+(n.is(":selected")?" selected":"")+(n.is(":disabled")?" disabled":"")).html(n.text()))})}if("string"==typeof t)return"update"==t?this.each(function(){var t=e(this),n=e(this).next(".nice-select"),i=n.hasClass("open");n.length&&(n.remove(),s(t),i&&t.next().trigger("click"))}):"destroy"==t?(this.each(function(){var t=e(this),s=e(this).next(".nice-select");s.length&&(s.remove(),t.css("display",""))}),0==e(".nice-select").length&&e(document).off(".nice_select")):console.log('Method "'+t+'" does not exist.'),this;this.hide(),this.each(function(){var t=e(this);t.next().hasClass("nice-select")||s(t)}),e(document).off(".nice_select"),e(document).on("click.nice_select",".nice-select",function(t){var s=e(this);e(".nice-select").not(s).removeClass("open"),s.toggleClass("open"),s.hasClass("open")?(s.find(".option"),s.find(".focus").removeClass("focus"),s.find(".selected").addClass("focus")):s.focus()}),e(document).on("click.nice_select",function(t){0===e(t.target).closest(".nice-select").length&&e(".nice-select").removeClass("open").find(".option")}),e(document).on("click.nice_select",".nice-select .option:not(.disabled)",function(t){var s=e(this),n=s.closest(".nice-select");n.find(".selected").removeClass("selected"),s.addClass("selected");var i=s.data("display")||s.text();n.find(".current").text(i),n.prev("select").val(s.data("value")).trigger("change")}),e(document).on("keydown.nice_select",".nice-select",function(t){var s=e(this),n=e(s.find(".focus")||s.find(".list .option.selected"));if(32==t.keyCode||13==t.keyCode)return s.hasClass("open")?n.trigger("click"):s.trigger("click"),!1;if(40==t.keyCode){if(s.hasClass("open")){var i=n.nextAll(".option:not(.disabled)").first();i.length>0&&(s.find(".focus").removeClass("focus"),i.addClass("focus"))}else s.trigger("click");return!1}if(38==t.keyCode){if(s.hasClass("open")){var l=n.prevAll(".option:not(.disabled)").first();l.length>0&&(s.find(".focus").removeClass("focus"),l.addClass("focus"))}else s.trigger("click");return!1}if(27==t.keyCode)s.hasClass("open")&&s.trigger("click");else if(9==t.keyCode&&s.hasClass("open"))return!1});var n=document.createElement("a").style;return n.cssText="pointer-events:auto","auto"!==n.pointerEvents&&e("html").addClass("no-csspointerevents"),this}}(jQuery);
+ 
+<x-guest-layout>
+    <x-preloader/>
+
+    <x-header-guest/>
+
+
+    <!-- Breadcrumbs -->
+    <div class="breadcrumbs overlay">
+        <div class="container">
+            <div class="bread-inner">
+                <div class="row">
+                    <div class="col-12">
+                        <h2>Demande d&apos;adhésion MU-POL</h2>
+                        <ul class="bread-list">
+                            <li><a href="index.html">Accueil</a></li>
+                            <li><i class="icofont-simple-right"></i></li>
+                            <li class="active">Adhérer</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Breadcrumbs -->
+            
+    <section class=" section">
+        <div class="container">
+            <div class="">
+                <div class="row "> 
+                    
+                    <div class="col-lg-12">
+                      
+                        
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+    
+    <x-footer/>
+
+</x-guest-layout>
+ 
+  <x-section-guest>
+                            @if (session()->has('message'))
+                                <x-succes-notification>
+                                    {{ session('message') }}
+                                </x-succes-notification>
+                                <script>
+                                    document.addEventListener('DOMContentLoaded', function () {
+                                        const notification = document.getElementById('success-notification-content');
+                                        const closeBtn = document.getElementById('close-notification');
+                        
+                                        notification.classList.remove('hidden');
+                        
+                                        closeBtn.addEventListener('click', () => {
+                                            notification.classList.add('hidden');
+                                        });
+                                    });
+                                </script>
+                            @endif
+                            <div class="w-[80%] md:w-3/6 lg:w-3/6  max-w-4xl mx-auto p-6 bg-white shadow-lg border rounded-lg">
+                                <h2 class="text-base font-bold text-center  bg-gray-200 rounded-md p-2 text-gray-800">Remplir la fiche de cession volontaire</h2>
+                            
+                                <form action="{{ route('finalisation-adhesion') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
+                                    @csrf 
+                                    <input type="hidden" name="demande_adhesion_id" value="{{ $demandeAdhesion->id }}">
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                        <!-- Région -->
+                                        <div>
+                                            <label for="region" class="block text-sm font-medium text-gray-700">Région</label>
+                                            <select id="region" name="region" class="mt-1 bg-gray-100 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+                                                <option value="" disabled selected>Choisissez votre région</option>
+                                                <!-- Options à ajouter ici -->
+                                            </select>
+                                        </div>
+                            
+                                        <!-- Province -->
+                                        <div>
+                                            <label for="province" class="block text-sm font-medium text-gray-700">Province</label>
+                                            <select id="province" name="province" class="mt-1 bg-gray-100 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required disabled>
+                                                <option value="" disabled selected>Choisissez d&apos;abord votre région</option>
+                                            </select>
+                                        </div>
+                            
+                                    </div>
+                                    <div class="grid grid-cols-1 md:grid-cols-1 gap-3">
+                                        <!-- Localité -->
+                                        <div>
+                                            <label for="localite" class="block text-sm font-medium text-gray-700">Localité</label>
+                                            <input type="text" id="localite" name="localite" class="mt-1 bg-gray-100 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required placeholder="Entrez votre localité">
+                                        </div>
+                                    </div>
+                                    <label for="signature" class="block text-sm font-medium text-gray-700">Signature</label>
+                                    <label for="switcher" class="flex justify-center cursor-pointer p-1">
+                                        <div class="relative text-xs bg-gray-200 rounded-full flex gap-3 justify-between p-2 h-[32px]">
+                                            <input id="switcher" type="checkbox" class="hidden peer" onchange="toggleSignatureOptions()">
+                                            <span class="text-center flex-grow relative  z-10  self-center transition text-white peer-checked:text-black">
+                                                <i class="fa fa-pencil"></i>
+                                                Dessiner
+                                            </span>
+                                            <span class="text-center flex-grow relative  z-10 self-center transition peer-checked:text-white">
+                                                <i class="fa fa-image "></i>
+                                                Charger
+                                            </span>
+                                            <span class="absolute toggle  bg-[#4000FF] h-full w-[50%] rounded-full transition-all top-0 left-0 peer-checked:left-[50%]"></span>
+                                        </div>
+                                    </label>
+                                    
+                                    <!-- Section pour choisir le mode de signature -->
+                                    <div id="signatureOptions" class="grid grid-cols-1 md:grid-cols-1 ">
+                                        <!-- Dessiner la signature -->
+                                        <div id="drawSignature" class="flex flex-col p-4 border rounded-md bg-white h-full shadow-sm">
+                                            <h4 class="text-center text-sm font-semibold mb-4">Dessiner la signature</h4>
+                                            <canvas id="signatureCanvas" class="border rounded-md bg-white w-full h-40" style="border: 1px solid #000;"></canvas>
+                                            <input type="hidden" id="signatureInput" name="signature" />
+                                            <div class="w-full !text-xs flex justify-between mt-2">
+                                                <x-primary-button type="button" id="saveButton" class="!text-xs bg-emerald-600 p-2 rounded-md text-white  transition">Enregistrer</x-primary-button>
+                                                <x-primary-button type="button" id="clearButton" class="!text-xs bg-gray-400 p-2 rounded-md text-white  transition">Effacer</x-primary-button>
+                                            </div>
+                                        </div>
+                                    
+                                        <!-- Charger une image de la signature -->
+                                        <div id="uploadSignature" class="hidden flex flex-col p-4 border rounded-md bg-white h-full shadow-sm">
+                                            <h4 class="text-center text-sm font-semibold mb-4">Charger une image de signature</h4>
+                                            <div class="border-dashed border-2 border-gray-300 rounded-md p-6 flex-grow flex justify-center items-center">
+                                                <div class="text-center text-xs">
+                                                    <img id="previewImage" class="hidden w-full h-auto max-h-48 object-cover mb-4" />
+                                                    <p class="text-gray-500">Déposez votre image ici ou</p>
+                                                    <label for="signatureImage" class="cursor-pointer text-blue-500 hover:underline">cliquez pour choisir une image</label>
+                                                    <input type="file" id="signatureImage" class="hidden" accept="image/*" name="signatureImage">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <script>
+                                        function toggleSignatureOptions() {
+                                            const switcher = document.getElementById('switcher');
+                                            const drawSignature = document.getElementById('drawSignature');
+                                            const uploadSignature = document.getElementById('uploadSignature');
+                                    
+                                            if (switcher.checked) {
+                                                drawSignature.classList.add('hidden');
+                                                uploadSignature.classList.remove('hidden');
+                                            } else {
+                                                drawSignature.classList.remove('hidden');
+                                                uploadSignature.classList.add('hidden');
+                                            }
+                                        }
+                                    </script>
+                                    
+                                    
+                            
+                                    <!-- Bouton de soumission -->
+                                    <div class="flex justify-end">
+                                        <x-primary-button type="submit" class="">Soumettre</x-primary-button>
+                                    </div>
+                                </form>
+                            </div>
+                            
+                            
+                            <script>
+                                const canvas = document.getElementById('signatureCanvas');
+                                const context = canvas.getContext('2d');
+                                let drawing = false;
+                            
+                                canvas.width = canvas.offsetWidth;
+                                canvas.height = canvas.offsetHeight;
+                            
+                                canvas.addEventListener('mousedown', startDrawing);
+                                canvas.addEventListener('mouseup', stopDrawing);
+                                canvas.addEventListener('mousemove', draw);
+                                canvas.addEventListener('mouseleave', stopDrawing);
+                            
+                                function startDrawing(event) {
+                                    drawing = true;
+                                    draw(event);
+                                }
+                            
+                                function stopDrawing() {
+                                    drawing = false;
+                                    context.beginPath();
+                                }
+                            
+                                function draw(event) {
+                                    if (!drawing) return;
+                            
+                                    context.lineWidth = 2;
+                                    context.lineCap = 'round'; 
+                                    context.strokeStyle = 'black'; 
+                            
+                                    context.lineTo(event.clientX - canvas.getBoundingClientRect().left, event.clientY - canvas.getBoundingClientRect().top);
+                                    context.stroke();
+                                    context.beginPath();
+                                    context.moveTo(event.clientX - canvas.getBoundingClientRect().left, event.clientY - canvas.getBoundingClientRect().top);
+                                }
+                            
+                                // Gérer l'enregistrement de la signature
+                                document.getElementById('saveButton').addEventListener('click', () => {
+                                    const dataURL = canvas.toDataURL(); 
+                                    document.getElementById('signatureInput').value = dataURL; 
+                                    alert("Signature enregistrée !");
+                                });
+                            
+                                document.getElementById('clearButton').addEventListener('click', () => {
+                                    context.clearRect(0, 0, canvas.width, canvas.height); 
+                                    document.getElementById('signatureInput').value = ''; 
+                                });
+                            </script>
+                            
+                            <script>
+                                const signatureImageInput = document.getElementById('signatureImage');
+                                const previewImage = document.getElementById('previewImage');
+                                const signatureInput = document.getElementById('signatureInput');
+                            
+                                signatureImageInput.addEventListener('change', function() {
+                                    const file = this.files[0];
+                                    if (file) {
+                                        const reader = new FileReader();
+                                        reader.onload = function(e) {
+                                            previewImage.src = e.target.result;
+                                            previewImage.classList.remove('hidden');
+                            
+                                            signatureInput.value = e.target.result; 
+                                        };
+                                        reader.readAsDataURL(file);
+                                    }
+                                });
+                            </script>
+                            
+                            <script>
+                        
+                        
+                                document.addEventListener("DOMContentLoaded", function() {
+                                    const regionSelect = document.getElementById("region");
+                                    const provinceSelect = document.getElementById("province");
+                                
+                                    for (const region in regions) {
+                                        const option = document.createElement("option");
+                                        option.value = region;
+                                        option.textContent = region;
+                                        regionSelect.appendChild(option);
+                                    }
+                                
+                                    regionSelect.addEventListener("change", function() {
+                                        const selectedRegion = regionSelect.value;
+                                
+                                        provinceSelect.innerHTML = "";
+                                        provinceSelect.disabled = false;
+                                
+                                        const defaultOption = document.createElement("option");
+                                        defaultOption.value = "";
+                                        defaultOption.disabled = true;
+                                        defaultOption.selected = true;
+                                        defaultOption.textContent = "Choisissez votre province";
+                                        provinceSelect.appendChild(defaultOption);
+                                
+                                        regions[selectedRegion].provinces.forEach(province => {
+                                            const option = document.createElement("option");
+                                            option.value = province;
+                                            option.textContent = province;
+                                            provinceSelect.appendChild(option);
+                                        });
+                                    });
+                                });
+                                
+                            </script>
+                        </x-section-guest>
+ 
+<x-guest-layout>
+    <x-header-guest/>
+
+</x-guest-layout>
+ 
+border-gray-500
+ 
+<!doctype html>
+<html class="no-js" lang="zxx">
+    
+    <body>
+	
+	
+		
+	
+		<x-header-guest/>
+		
+		
+		
+		<x-footer/>
+		
+		<!-- jquery Min JS -->
+        <script src="js/jquery.min.js"></script>
+		<!-- jquery Migrate JS -->
+		<script src="js/jquery-migrate-3.0.0.js"></script>
+		<!-- jquery Ui JS -->
+		<script src="js/jquery-ui.min.js"></script>
+		<!-- Easing JS -->
+        <script src="js/easing.js"></script>
+		<!-- Color JS -->
+		<script src="js/colors.js"></script>
+		<!-- Popper JS -->
+		<script src="js/popper.min.js"></script>
+		<!-- Bootstrap Datepicker JS -->
+		<script src="js/bootstrap-datepicker.js"></script>
+		<!-- Jquery Nav JS -->
+        <script src="js/jquery.nav.js"></script>
+		<!-- Slicknav JS -->
+		<script src="js/slicknav.min.js"></script>
+
+		<!-- Niceselect JS -->
+		<script src="js/niceselect.js"></script>
+		<!-- Tilt Jquery JS -->
+		<script src="js/tilt.jquery.min.js"></script>
+		<!-- Owl Carousel JS -->
+        <script src="js/owl-carousel.js"></script>
+		<!-- counterup JS -->
+		<script src="js/jquery.counterup.min.js"></script>
+		<!-- Steller JS -->
+		<script src="js/steller.js"></script>
+		<!-- Wow JS -->
+		<script src="js/wow.min.js"></script>
+		<!-- Magnific Popup JS -->
+		<script src="js/jquery.magnific-popup.min.js"></script>
+		<!-- Counter Up CDN JS -->
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
+		<!-- Bootstrap JS -->
+		<script src="js/bootstrap.min.js"></script>
+		<!-- Main JS -->
+		<script src="js/main.js"></script>
+    </body>
+</html
+ 
+	<!-- Preloader -->
+        <div class="preloader">
+            <div class="loader">
+                <div class="loader-outter"></div>
+                <div class="loader-inner"></div>
+
+                <div class="indicator"> 
+                    <svg width="16px" height="12px">
+                        <polyline id="back" points="1 6 4 6 6 11 10 1 12 6 15 6"></polyline>
+                        <polyline id="front" points="1 6 4 6 6 11 10 1 12 6 15 6"></polyline>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        <!-- End Preloader -->
+ 
+<head>
+        <!-- Meta Tags -->
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="keywords" content="Site keywords here">
+		<meta name="description" content="">
+		<meta name='copyright' content=''>
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		
+		<!-- Title -->
+        <title>Mediplus - Free Medical and Doctor Directory HTML Template.</title>
+		
+		<!-- Favicon -->
+        <link rel="icon" href="img/favicon.png">
+		
+		<!-- Google Fonts -->
+		<link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
+
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<!-- Nice Select CSS -->
+		<link rel="stylesheet" href="css/nice-select.css">
+		<!-- Font Awesome CSS -->
+        <link rel="stylesheet" href="css/font-awesome.min.css">
+		<!-- icofont CSS -->
+        <link rel="stylesheet" href="css/icofont.css">
+		<!-- Slicknav -->
+		<link rel="stylesheet" href="css/slicknav.min.css">
+		<!-- Owl Carousel CSS -->
+        <link rel="stylesheet" href="css/owl-carousel.css">
+		<!-- Datepicker CSS -->
+		<link rel="stylesheet" href="css/datepicker.css">
+		<!-- Animate CSS -->
+        <link rel="stylesheet" href="css/animate.min.css">
+		<!-- Magnific Popup CSS -->
+        <link rel="stylesheet" href="css/magnific-popup.css">
+		
+		<!-- Medipro CSS -->
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="css/responsive.css">
+		
+    </head>
+ 
+ <!-- Breadcrumbs -->
+    <div class="breadcrumbs overlay">
+        <div class="container">
+            <div class="bread-inner">
+                <div class="row">
+                    <div class="col-12">
+                        <h2>Demande d&apos;adhésion MU-POL</h2>
+                        <ul class="bread-list">
+                            <li><a href="index.html">Accueil</a></li>
+                            <li><i class="icofont-simple-right"></i></li>
+                            <li class="active">Adhérer</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Breadcrumbs -->
+            
+    <section class=" section">
+        <div class="container">
+            <div class="">
+                <div class="row "> 
+                    
+                    <div class="col-lg-12">
+                        <!-- Form -->
+                        <livewire:wizard-membership />
+                        <!--/ End Form -->
+                        
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+ 
+            
+            
+ 
+ leading-tight
+ 
+py-2 px-3
+ 
+appearance-none
+ 
+shadow
+ 
+rounded
+ 
+w-full
+ 
+text-gray-900 
+ 
+border
+ 
+<div>
+    <!-- Knowing is not enough; we must apply. Being willing is not enough; we must do. - Leonardo da Vinci -->
+</div>
+ 
+		
+		
+	
+ 
+<!-- Footer Area -->
+		<footer id="footer" class="footer ">
+			
+			<!-- Copyright -->
+			<div class="copyright">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12 col-md-12 col-12">
+							<div class="copyright-content">
+								<p>© Copyright 2018  |  All Rights Reserved by <a href="https://www.wpthemesgrid.com" target="_blank">wpthemesgrid.com</a> </p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--/ End Copyright -->
+		</footer>
+		<!--/ End Footer Area -->
+ 
+contact-us
+ 
+		<!--/ End Contact Us -->
+
+ 
+		<!-- Start Contact Us -->
+
+ 
+rounded
+ 
+        <hr class="h-2 w-full ">
+
+ 
+shadow-lg 
+ 
+inner
+ 
+bg-white
+ 
+<div class="inner">
+				</div>
+ 
+<div class="contact-us-form">
+							</div>
+ 
+								<h2>Contact With Us</h2>
+
+ 
+   <div class="mx-auto w-[80%] md:w-[80%] lg:w-[80%]  bg-white p-2 rounded-lg shadow-lg z-10">
+                                </div>
+ 
+								<p>If you have any questions please fell free to contact with us.</p>
+
+ 
+<div class="relative backdrop-blur-sm w-[80%] lg:w-[80%] p-4 mx-auto">
+                                </div>
+ 
+   <div class="min-h-screen flex items-center justify-center pattern-wavy pattern-purple-500 pattern-bg-white 
+    pattern-size-16 pattern-opacity-10" style=" background-size: 100% 100%; position: relative;">
+        <!-- Container for the purple and white sections -->
+        
+    </div>
+ 
+	<form class="form" method="post" action="mail/mail.php">
+									<div class="row">
+										<div class="col-lg-6">
+											<div class="form-group">
+												<input type="text" name="name" placeholder="Name" required="">
+											</div>
+										</div>
+										<div class="col-lg-6">
+											<div class="form-group">
+												<input type="email" name="email" placeholder="Email" required="">
+											</div>
+										</div>
+										<div class="col-lg-6">
+											<div class="form-group">
+												<input type="text" name="phone" placeholder="Phone" required="">
+											</div>
+										</div>
+										<div class="col-lg-6">
+											<div class="form-group">
+												<input type="text" name="subject" placeholder="Subject" required="">
+											</div>
+										</div>
+										<div class="col-lg-12">
+											<div class="form-group">
+												<textarea name="message" placeholder="Your Message" required=""></textarea>
+											</div>
+										</div>
+										<div class="col-12">
+											<div class="form-group login-btn">
+												<button class="btn" type="submit">Send</button>
+											</div>
+											<div class="checkbox">
+												<label class="checkbox-inline" for="2"><input name="news" id="2" type="checkbox">Do you want to subscribe our Newsletter ?</label>
+											</div>
+										</div>
+									</div>
+								</form>
+ 
+style="padding-top: 64px;"
+ 
+x-header-guest
+ 
+<header class="fixed top-0 left-0 w-full z-10">
+    <nav class="bg-gray-100 border-b border-gray-200 px-6 py-2.5 dark:bg-gray-800">
+      <div class="flex justify-between items-center max-w-screen-xl mx-auto">
+        <!-- Logo and Title -->
+        <a href="/" class="flex items-center">
+          <img src="{{ asset('images/logofinal.png') }}" class="h-16" alt="Logo MUPOL">
+          <span class="ml-3 text-lg font-semibold dark:text-white">Mutelle de la Police Nationale</span>
+        </a>
+  
+        <!-- Mobile Menu Button -->
+        <button id="menu-toggle" class="lg:hidden p-2 text-gray-500 rounded-lg hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+          </svg>
+        </button>
+  
+        <!-- Links -->
+        <div id="menu" class="hidden lg:flex space-x-6">
+          <a href="#" class="text-gray-700 hover:text-primary-600 dark:text-gray-400 dark:hover:text-white">Adhésions</a>
+          <a href="#" class="text-gray-700 hover:text-primary-600 dark:text-gray-400 dark:hover:text-white">Support</a>
+          <a href="#" class="text-gray-700 hover:text-primary-600 dark:text-gray-400 dark:hover:text-white">Contact</a>
+        </div>
+      </div>
+  
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="hidden flex-col space-y-4 mt-2 lg:hidden">
+        <a href="#" class="block text-gray-700 hover:text-primary-600 dark:text-gray-400 dark:hover:text-white">Adhésions</a>
+        <a href="#" class="block text-gray-700 hover:text-primary-600 dark:text-gray-400 dark:hover:text-white">Support</a>
+        <a href="#" class="block text-gray-700 hover:text-primary-600 dark:text-gray-400 dark:hover:text-white">Contact</a>
+      </div>
+    </nav>
+  </header>
+  
+  <script>
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    menuToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  </script>
+  
+ 
+<div class="contact-info">
+					<div class="row">
+						<!-- single-info -->
+						<div class="col-lg-4 col-12 ">
+							<div class="single-info">
+								<i class="icofont icofont-ui-call"></i>
+								<div class="content">
+									<h3>+(000) 1234 56789</h3>
+									<p>info@company.com</p>
+								</div>
+							</div>
+						</div>
+						<!--/End single-info -->
+						<!-- single-info -->
+						<div class="col-lg-4 col-12 ">
+							<div class="single-info">
+								<i class="icofont-google-map"></i>
+								<div class="content">
+									<h3>2 Fir e Brigade Road</h3>
+									<p>Chittagonj, Lakshmipur</p>
+								</div>
+							</div>
+						</div>
+						<!--/End single-info -->
+						<!-- single-info -->
+						<div class="col-lg-4 col-12 ">
+							<div class="single-info">
+								<i class="icofont icofont-wall-clock"></i>
+								<div class="content">
+									<h3>Mon - Sat: 8am - 5pm</h3>
+									<p>Sunday Closed</p>
+								</div>
+							</div>
+						</div>
+						<!--/End single-info -->
+					</div>
+				</div>
+ 
+    <x-header-guest />
+
+ 
+<!-- Topbar -->
+			<div class="topbar">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-6 col-md-5 col-12">
+							<!-- Contact -->
+							<ul class="top-link">
+								<li><a href="#">About</a></li>
+								<li><a href="#">Doctors</a></li>
+								<li><a href="#">Contact</a></li>
+								<li><a href="#">FAQ</a></li>
+							</ul>
+							<!-- End Contact -->
+						</div>
+						<div class="col-lg-6 col-md-7 col-12">
+							<!-- Top Contact -->
+							<ul class="top-contact">
+								<li><i class="fa fa-phone"></i>+880 1234 56789</li>
+								<li><i class="fa fa-envelope"></i><a href="mailto:support@yourmail.com">support@yourmail.com</a></li>
+							</ul>
+							<!-- End Top Contact -->
+						</div>
+					</div>
+				</div>
+			</div>
+ 
+<!-- Get Pro Button -->
+		<ul class="pro-features">
+			<a class="get-pro" href="#">Get Pro</a>
+			<li class="big-title">Pro Version Available on Themeforest</li>
+			<li class="title">Pro Version Features</li>
+			<li>2+ premade home pages</li>
+			<li>20+ html pages</li>
+			<li>Color Plate With 12+ Colors</li>
+			<li>Sticky Header / Sticky Filters</li>
+			<li>Working Contact Form With Google Map</li>
+			<div class="button">
+				<a href="http://preview.themeforest.net/item/mediplus-medical-and-doctor-html-template/full_screen_preview/26665910?_ga=2.145092285.888558928.1591971968-344530658.1588061879" target="_blank" class="btn">Pro Version Demo</a>
+				<a href="https://themeforest.net/item/mediplus-medical-and-doctor-html-template/26665910" target="_blank" class="btn">Buy Pro Version</a>
+			</div>
+		</ul>
+ 
+<div class="col-lg-6">
+							<div class="contact-us-left">
+								<!--Start Google-map -->
+								<div id="myMap"></div>
+								<!--/End Google-map -->
+							</div>
+						</div>
+ 
+<!-- Footer Top -->
+			<div class="footer-top">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-3 col-md-6 col-12">
+							<div class="single-footer">
+								<h2>About Us</h2>
+								<p>Lorem ipsum dolor sit am consectetur adipisicing elit do eiusmod tempor incididunt ut labore dolore magna.</p>
+								<!-- Social -->
+								<ul class="social">
+									<li><a href="#"><i class="icofont-facebook"></i></a></li>
+									<li><a href="#"><i class="icofont-google-plus"></i></a></li>
+									<li><a href="#"><i class="icofont-twitter"></i></a></li>
+									<li><a href="#"><i class="icofont-vimeo"></i></a></li>
+									<li><a href="#"><i class="icofont-pinterest"></i></a></li>
+								</ul>
+								<!-- End Social -->
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-6 col-12">
+							<div class="single-footer f-link">
+								<h2>Quick Links</h2>
+								<div class="row">
+									<div class="col-lg-6 col-md-6 col-12">
+										<ul>
+											<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Home</a></li>
+											<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>About Us</a></li>
+											<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Services</a></li>
+											<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Our Cases</a></li>
+											<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Other Links</a></li>	
+										</ul>
+									</div>
+									<div class="col-lg-6 col-md-6 col-12">
+										<ul>
+											<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Consuling</a></li>
+											<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Finance</a></li>
+											<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Testimonials</a></li>
+											<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>FAQ</a></li>
+											<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Contact Us</a></li>	
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-6 col-12">
+							<div class="single-footer">
+								<h2>Open Hours</h2>
+								<p>Lorem ipsum dolor sit ame consectetur adipisicing elit do eiusmod tempor incididunt.</p>
+								<ul class="time-sidual">
+									<li class="day">Monday - Fridayp <span>8.00-20.00</span></li>
+									<li class="day">Saturday <span>9.00-18.30</span></li>
+									<li class="day">Monday - Thusday <span>9.00-15.00</span></li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-6 col-12">
+							<div class="single-footer">
+								<h2>Newsletter</h2>
+								<p>subscribe to our newsletter to get allour news in your inbox.. Lorem ipsum dolor sit amet, consectetur adipisicing elit,</p>
+								<form action="mail/mail.php" method="get" target="_blank" class="newsletter-inner">
+									<input name="email" placeholder="Email Address" class="common-input" onfocus="this.placeholder = ''"
+										onblur="this.placeholder = 'Your email address'" required="" type="email">
+									<button class="button"><i class="icofont icofont-paper-plane"></i></button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--/ End Footer Top -->
+ 
+                        ['image' => 'images/caroussel/caroussel1.png', 'title' => 'MU-POl, la Mutuelle de la Police Nationale!']
+
+ 
+We Provide Medical Services That You Can Trust
+ 
+<section class="slider">
+			<div class="hero-slider">
+				<!-- Start Single Slider -->
+				<div class="single-slider" style="background-image:url('images/caroussel/caroussel1.jpg')">
+					<div class="container">
+						<div class="row">
+							<div class="col-lg-7">
+								<div class="text">
+									<h1>We Provide <span>Medical</span> Services That You Can <span>Trust!</span></h1>
+									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sed nisl pellentesque, faucibus libero eu, gravida quam. </p>
+									<div class="button">
+                                        <a class="btn " href="{{ route('formulaire-adhesion') }}">
+                                            Adhérer maintenant
+                                           
+                                        </a>
+										<a href="#" class="btn primary">A propos de nous</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- End Single Slider -->
+				<!-- Start Single Slider -->
+				<div class="single-slider" style="background-image:url('images/caroussel/caroussel5.jpg')">
+					<div class="container">
+						<div class="row">
+							<div class="col-lg-7">
+								<div class="text">
+									<h1>We Provide <span>Medical</span> Services That You Can <span>Trust!</span></h1>
+									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sed nisl pellentesque, faucibus libero eu, gravida quam. </p>
+									<div class="button">
+                                        <a class="btn" href="{{ route('formulaire-adhesion') }}">
+                                            Adhérer maintenant
+                                            
+                                        </a>
+                                        <a href="#" class="btn primary">A propos de nous</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Start End Slider -->
+				<!-- Start Single Slider -->
+				<div class="single-slider" style="background-image:url('images/caroussel/caroussel6.png')">
+					<div class="container">
+						<div class="row">
+							<div class="col-lg-7">
+								<div class="text">
+									<h1>We Provide <span>Medical</span> Services That You Can <span>Trust!</span></h1>
+									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sed nisl pellentesque, faucibus libero eu, gravida quam. </p>
+									<div class="button">
+                                        <a class="btn" href="{{ route('formulaire-adhesion') }}">
+                                            Adhérer maintenant
+                                        
+                                        </a>
+                                        <a href="#" class="btn primary">A propos de nous</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- End Single Slider -->
+			</div>
+		</section>
+ 
+9371fa
+ 
+		<!-- ScrollUp JS -->
+        <script src="js/jquery.scrollUp.min.js"></script>
+ 
+img/slider3.jpg
+ 
+img/section-img.png
+ 
+logo
+ 
+								
+ 
+    <x-primary-button >
+                                            </x-primary-button>
+ 
+<x-primary-button >
+                                            </x-primary-button>
+ 
+ <x-primary-button >
+                                            </x-primary-button>
+ 
+<!-- Start clients -->
+		<div class="clients overlay">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12 col-md-12 col-12">
+						<div class="owl-carousel clients-slider">
+							<div class="single-clients">
+								<img src="img/client1.png" alt="#">
+							</div>
+							<div class="single-clients">
+								<img src="img/client2.png" alt="#">
+							</div>
+							<div class="single-clients">
+								<img src="img/client3.png" alt="#">
+							</div>
+							<div class="single-clients">
+								<img src="img/client4.png" alt="#">
+							</div>
+							<div class="single-clients">
+								<img src="img/client5.png" alt="#">
+							</div>
+							<div class="single-clients">
+								<img src="img/client1.png" alt="#">
+							</div>
+							<div class="single-clients">
+								<img src="img/client2.png" alt="#">
+							</div>
+							<div class="single-clients">
+								<img src="img/client3.png" alt="#">
+							</div>
+							<div class="single-clients">
+								<img src="img/client4.png" alt="#">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--/Ens clients -->
+		
+ 
+<!-- Start Appointment -->
+		<section class="appointment">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="section-title">
+							<h2>We Are Always Ready to Help You. Book An Appointment</h2>
+							<img src="img/section-img.png" alt="#">
+							<p>Lorem ipsum dolor sit amet consectetur adipiscing elit praesent aliquet. pretiumts</p>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-6 col-md-12 col-12">
+						<form class="form" action="#">
+							<div class="row">
+								<div class="col-lg-6 col-md-6 col-12">
+									<div class="form-group">
+										<input name="name" type="text" placeholder="Name">
+									</div>
+								</div>
+								<div class="col-lg-6 col-md-6 col-12">
+									<div class="form-group">
+										<input name="email" type="email" placeholder="Email">
+									</div>
+								</div>
+								<div class="col-lg-6 col-md-6 col-12">
+									<div class="form-group">
+										<input name="phone" type="text" placeholder="Phone">
+									</div>
+								</div>
+								<div class="col-lg-6 col-md-6 col-12">
+									<div class="form-group">
+										<div class="nice-select form-control wide" tabindex="0"><span class="current">Department</span>
+											<ul class="list">
+												<li data-value="1" class="option selected ">Department</li>
+												<li data-value="2" class="option">Cardiac Clinic</li>
+												<li data-value="3" class="option">Neurology</li>
+												<li data-value="4" class="option">Dentistry</li>
+												<li data-value="5" class="option">Gastroenterology</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-6 col-md-6 col-12">
+									<div class="form-group">
+										<div class="nice-select form-control wide" tabindex="0"><span class="current">Doctor</span>
+											<ul class="list">
+												<li data-value="1" class="option selected ">Doctor</li>
+												<li data-value="2" class="option">Dr. Akther Hossain</li>
+												<li data-value="3" class="option">Dr. Dery Alex</li>
+												<li data-value="4" class="option">Dr. Jovis Karon</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-6 col-md-6 col-12">
+									<div class="form-group">
+										<input type="text" placeholder="Date" id="datepicker">
+									</div>
+								</div>
+								<div class="col-lg-12 col-md-12 col-12">
+									<div class="form-group">
+										<textarea name="message" placeholder="Write Your Message Here....."></textarea>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-lg-5 col-md-4 col-12">
+									<div class="form-group">
+										<div class="button">
+											<button type="submit" class="btn">Book An Appointment</button>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-7 col-md-8 col-12">
+									<p>( We will be confirm by an Text Message )</p>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="col-lg-6 col-md-12 ">
+						<div class="appointment-image">
+							<img src="img/contact-img.png" alt="#">
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- End Appointment -->
+		
+ 
+<!-- Pricing Table -->
+		<section class="pricing-table section">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="section-title">
+							<h2>We Provide You The Best Treatment In Resonable Price</h2>
+							<img src="img/section-img.png" alt="#">
+							<p>Lorem ipsum dolor sit amet consectetur adipiscing elit praesent aliquet. pretiumts</p>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<!-- Single Table -->
+					<div class="col-lg-4 col-md-12 col-12">
+						<div class="single-table">
+							<!-- Table Head -->
+							<div class="table-head">
+								<div class="icon">
+									<i class="icofont icofont-ui-cut"></i>
+								</div>
+								<h4 class="title">Plastic Suggery</h4>
+								<div class="price">
+									<p class="amount">$199<span>/ Per Visit</span></p>
+								</div>	
+							</div>
+							<!-- Table List -->
+							<ul class="table-list">
+								<li><i class="icofont icofont-ui-check"></i>Lorem ipsum dolor sit</li>
+								<li><i class="icofont icofont-ui-check"></i>Cubitur sollicitudin fentum</li>
+								<li class="cross"><i class="icofont icofont-ui-close"></i>Nullam interdum enim</li>
+								<li class="cross"><i class="icofont icofont-ui-close"></i>Donec ultricies metus</li>
+								<li class="cross"><i class="icofont icofont-ui-close"></i>Pellentesque eget nibh</li>
+							</ul>
+							<div class="table-bottom">
+								<a class="btn" href="#">Book Now</a>
+							</div>
+							<!-- Table Bottom -->
+						</div>
+					</div>
+					<!-- End Single Table-->
+					<!-- Single Table -->
+					<div class="col-lg-4 col-md-12 col-12">
+						<div class="single-table">
+							<!-- Table Head -->
+							<div class="table-head">
+								<div class="icon">
+									<i class="icofont icofont-tooth"></i>
+								</div>
+								<h4 class="title">Teeth Whitening</h4>
+								<div class="price">
+									<p class="amount">$299<span>/ Per Visit</span></p>
+								</div>	
+							</div>
+							<!-- Table List -->
+							<ul class="table-list">
+								<li><i class="icofont icofont-ui-check"></i>Lorem ipsum dolor sit</li>
+								<li><i class="icofont icofont-ui-check"></i>Cubitur sollicitudin fentum</li>
+								<li><i class="icofont icofont-ui-check"></i>Nullam interdum enim</li>
+								<li class="cross"><i class="icofont icofont-ui-close"></i>Donec ultricies metus</li>
+								<li class="cross"><i class="icofont icofont-ui-close"></i>Pellentesque eget nibh</li>
+							</ul>
+							<div class="table-bottom">
+								<a class="btn" href="#">Book Now</a>
+							</div>
+							<!-- Table Bottom -->
+						</div>
+					</div>
+					<!-- End Single Table-->
+					<!-- Single Table -->
+					<div class="col-lg-4 col-md-12 col-12">
+						<div class="single-table">
+							<!-- Table Head -->
+							<div class="table-head">
+								<div class="icon">
+									<i class="icofont-heart-beat"></i>
+								</div>
+								<h4 class="title">Heart Suggery</h4>
+								<div class="price">
+									<p class="amount">$399<span>/ Per Visit</span></p>
+								</div>	
+							</div>
+							<!-- Table List -->
+							<ul class="table-list">
+								<li><i class="icofont icofont-ui-check"></i>Lorem ipsum dolor sit</li>
+								<li><i class="icofont icofont-ui-check"></i>Cubitur sollicitudin fentum</li>
+								<li><i class="icofont icofont-ui-check"></i>Nullam interdum enim</li>
+								<li><i class="icofont icofont-ui-check"></i>Donec ultricies metus</li>
+								<li><i class="icofont icofont-ui-check"></i>Pellentesque eget nibh</li>
+							</ul>
+							<div class="table-bottom">
+								<a class="btn" href="#">Book Now</a>
+							</div>
+							<!-- Table Bottom -->
+						</div>
+					</div>
+					<!-- End Single Table-->
+				</div>	
+			</div>	
+		</section>	
+		<!--/ End Pricing Table -->
+		
+		
+		
+ 
+<!-- Start portfolio -->
+		<section class="portfolio section" >
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="section-title">
+							<h2>We Maintain Cleanliness Rules Inside Our Hospital</h2>
+							<img src="img/section-img.png" alt="#">
+							<p>Lorem ipsum dolor sit amet consectetur adipiscing elit praesent aliquet. pretiumts</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-lg-12 col-12">
+						<div class="owl-carousel portfolio-slider">
+							<div class="single-pf">
+								<img src="img/pf1.jpg" alt="#">
+								<a href="portfolio-details.html" class="btn">View Details</a>
+							</div>
+							<div class="single-pf">
+								<img src="img/pf2.jpg" alt="#">
+								<a href="portfolio-details.html" class="btn">View Details</a>
+							</div>
+							<div class="single-pf">
+								<img src="img/pf3.jpg" alt="#">
+								<a href="portfolio-details.html" class="btn">View Details</a>
+							</div>
+							<div class="single-pf">
+								<img src="img/pf4.jpg" alt="#">
+								<a href="portfolio-details.html" class="btn">View Details</a>
+							</div>
+							<div class="single-pf">
+								<img src="img/pf1.jpg" alt="#">
+								<a href="portfolio-details.html" class="btn">View Details</a>
+							</div>
+							<div class="single-pf">
+								<img src="img/pf2.jpg" alt="#">
+								<a href="portfolio-details.html" class="btn">View Details</a>
+							</div>
+							<div class="single-pf">
+								<img src="img/pf3.jpg" alt="#">
+								<a href="portfolio-details.html" class="btn">View Details</a>
+							</div>
+							<div class="single-pf">
+								<img src="img/pf4.jpg" alt="#">
+								<a href="portfolio-details.html" class="btn">View Details</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!--/ End portfolio -->
+		
+ 
+<li><a href="#">Blogs <i class="icofont-rounded-down"></i></a>
+												<ul class="dropdown">
+													<li><a href="blog-single.html">Blog Details</a></li>
+												</ul>
+											</li>
+ 
+<li><a href="#">Doctos </a></li>
+											<li><a href="#">Services </a></li>
+ 
+1A76D1
+ 
+/* =====================================
+Template Name: 	Mediplus.
+Author Name: Naimur Rahman
+Website: http://wpthemesgrid.com/
+Description: Mediplus - Doctor HTML Template.
+Version:	1.1
+========================================*/   
+/*======================================
+[ CSS Table of contents ]
+* Global CSS
+* Header CSS
+	+ Topbar
+	+ Logo
+	+ Widget
+	+ Main Menu
+	+ Search
+* Hero Slider CSS
+* Schedule CSS
+* Feautes CSS
+* Fun Facts CSS
+* Why Choose CSS
+* Call to Action CSS
+* Portfolio CSS
+	+ Portfolio Single CSS
+* Services CSS
+* Testimonials CSS
+* Departments CSS
+* Pricing Table CSS
+* Clients CSS
+* Team CSS
+	+ Single Team
+* Blog CSS
+	+ Latest Blog CSS
+	+ Blog Single CSS
+	+ Blog Sidebar CSS
+* Appointment CSS
+* Login CSS
+* Register CSS
+* Faq CSS
+* Contact Us CSS
+* Error 404 CSS
+* Mail Success CSS
+* Newsletter CSS
+* Doctor Calendar CSS
+* About Us CSS
+* Footer CSS
+========================================*/ 
+/*=============================
+	Global CSS 
+===============================*/
+body{
+    font-family: 'Poppins', sans-serif;
+	font-weight: 400;
+	font-size:14px;
+	color:#888;
+}
+.pro-features {
+	position: fixed;
+	right: -300px;
+	width: 300px;
+	height: auto;
+ 
+1A76D1
+ 
+	<!-- Get Pro Button -->
+		<ul class="pro-features">
+			<a class="get-pro" href="#">Get Pro</a>
+			<li class="big-title">Pro Version Available on Themeforest</li>
+			<li class="title">Pro Version Features</li>
+			<li>2+ premade home pages</li>
+			<li>20+ html pages</li>
+			<li>Color Plate With 12+ Colors</li>
+			<li>Sticky Header / Sticky Filters</li>
+			<li>Working Contact Form With Google Map</li>
+			<div class="button">
+				<a href="http://preview.themeforest.net/item/mediplus-medical-and-doctor-html-template/full_screen_preview/26665910?_ga=2.145092285.888558928.1591971968-344530658.1588061879" target="_blank" class="btn">Pro Version Demo</a>
+				<a href="https://themeforest.net/item/mediplus-medical-and-doctor-html-template/26665910" target="_blank" class="btn">Buy Pro Version</a>
+			</div>
+		</ul>
+ 
+<!-- Start Newsletter Area -->
+		<section class="newsletter section">
+			<div class="container">
+				<div class="row ">
+					<div class="col-lg-6  col-12">
+						<!-- Start Newsletter Form -->
+						<div class="subscribe-text ">
+							<h6>Sign up for newsletter</h6>
+							<p class="">Cu qui soleat partiendo urbanitas. Eum aperiri indoctum eu,<br> homero alterum.</p>
+						</div>
+						<!-- End Newsletter Form -->
+					</div>
+					<div class="col-lg-6  col-12">
+						<!-- Start Newsletter Form -->
+						<div class="subscribe-form ">
+							<form action="mail/mail.php" method="get" target="_blank" class="newsletter-inner">
+								<input name="EMAIL" placeholder="Your email address" class="common-input" onfocus="this.placeholder = ''"
+									onblur="this.placeholder = 'Your email address'" required="" type="email">
+								<button class="btn">Subscribe</button>
+							</form>
+						</div>
+						<!-- End Newsletter Form -->
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- /End Newsletter Area -->
+		
+ 
+New
+ 
+<!-- Topbar -->
+			<div class="topbar">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-6 col-md-5 col-12">
+							<!-- Contact -->
+							<ul class="top-link">
+								<li><a href="#">About</a></li>
+								<li><a href="#">Doctors</a></li>
+								<li><a href="#">Contact</a></li>
+								<li><a href="#">FAQ</a></li>
+							</ul>
+							<!-- End Contact -->
+						</div>
+						<div class="col-lg-6 col-md-7 col-12">
+							<!-- Top Contact -->
+							<ul class="top-contact">
+								<li><i class="fa fa-phone"></i>+880 1234 56789</li>
+								<li><i class="fa fa-envelope"></i><a href="mailto:support@yourmail.com">support@yourmail.com</a></li>
+							</ul>
+							<!-- End Top Contact -->
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- End Topbar -->
+ 
+										<a href="#" class="btn">Get Appointment</a>
+
+ 
+										
+ 
+										<a href="#" >Get Appointment</a>
+
+ 
+<x-guest-layout>
+
+    <x-header-guest/>
+    <x-caroussel/>
+</x-guest-layout>
+ 
+/* =====================================
+Template Name: 	Mediplus.
+Author Name: Naimur Rahman
+Website: http://wpthemesgrid.com/
+Description: Mediplus - Doctor HTML Template.
+Version:	1.1
+========================================*/   
+/*======================================
+[ CSS Table of contents ]
+* Global CSS
+* Header CSS
+	+ Topbar
+	+ Logo
+	+ Widget
+	+ Main Menu
+	+ Search
+* Hero Slider CSS
+* Schedule CSS
+* Feautes CSS
+* Fun Facts CSS
+* Why Choose CSS
+* Call to Action CSS
+* Portfolio CSS
+	+ Portfolio Single CSS
+* Services CSS
+* Testimonials CSS
+* Departments CSS
+* Pricing Table CSS
+* Clients CSS
+* Team CSS
+	+ Single Team
+* Blog CSS
+	+ Latest Blog CSS
+	+ Blog Single CSS
+	+ Blog Sidebar CSS
+* Appointment CSS
+* Login CSS
+* Register CSS
+* Faq CSS
+* Contact Us CSS
+* Error 404 CSS
+* Mail Success CSS
+* Newsletter CSS
+* Doctor Calendar CSS
+* About Us CSS
+* Footer CSS
+========================================*/ 
+/*=============================
+	Global CSS 
+===============================*/
+ 
+hover:
+ 
+ "15"": {
+                    opacity: 0.8,
+                    transform: "scale3d(1.1, 1.1, 1.1)",
+                  },
+ 
+// Déclencher l'impression
+ 
+ // Focaliser sur l'iframe
+ 
+<x-primary-button onclick="printIframe('iframeId')" style="background-color: #4CAF50; color: white; border: none; cursor: pointer;">
+                Imprimer 
+            </x-primary-button>
+ 
+        <!-- Ajout de l'iframe caché -->
+
+ 
+-webkit-align-self: flex-end;
+            webkit-justify-content: space-between;
+            justify-content: space-between;
+ 
+            align-self: flex-end;
+
+ 
+            padding: 3px;
+
+ 
+            text-align: center;
+
+ 
+/* Assure-toi que le footer prend toute la largeur */
+ 
+        @page { margin: 5px 5px 10px; }
+
+ 
+Arial
+ 
+                        <p>Le Greffier</p>
+
+ 
+                        
+ 
+                    
+ 
+                        <p>Le cédant</p>
+
+ 
+ <p >
+                        </p>
+ 
+height="48px"
+ 
+            <img src="{{ $demandeAdhesion->signature}}" alt="ddds">
+
+ 
 demandeAdhesion->
  
 // Passer la signature à la vue

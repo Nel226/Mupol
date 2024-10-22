@@ -41,8 +41,9 @@ Route::get('/formulaire-adhesion-recapitulatif', function () {
 })->name('formulaire.adhesion.recapitulatif');
 Route::post('/finalisation-adhesion', [AccueilController::class, 'finalAdhesion'])->name('finalisation-adhesion');
 Route::get('/cession-volontaire/{id}', [AccueilController::class, 'showCessionVolontaire'])
+
     ->name('showCessionVolontaire');
-// Route::get('/cession-volontaire/{id}', [AccueilController::class, 'showCessionVolontaire'])->name('showCessionVolontaire');
+Route::get('/impression-fiche-cession/{id}', [AccueilController::class, 'imprimerFicheCession'])->name('imprimer-fiche-cession');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/counter', Counter::class);

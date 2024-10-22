@@ -1,42 +1,57 @@
-<header class="fixed top-0 left-0 w-full z-10">
-    <nav class="bg-gray-100 border-b border-gray-200 px-6 py-2.5 dark:bg-gray-800">
-      <div class="flex justify-between items-center max-w-screen-xl mx-auto">
-        <!-- Logo and Title -->
-        <a href="/" class="flex items-center">
-          <img src="{{ asset('images/logofinal.png') }}" class="h-16" alt="Logo MUPOL">
-          <span class="ml-3 text-lg font-semibold dark:text-white">Mutelle de la Police Nationale</span>
-        </a>
-  
-        <!-- Mobile Menu Button -->
-        <button id="menu-toggle" class="lg:hidden p-2 text-gray-500 rounded-lg hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-          </svg>
-        </button>
-  
-        <!-- Links -->
-        <div id="menu" class="hidden lg:flex space-x-6">
-          <a href="#" class="text-gray-700 hover:text-primary-600 dark:text-gray-400 dark:hover:text-white">Adhésions</a>
-          <a href="#" class="text-gray-700 hover:text-primary-600 dark:text-gray-400 dark:hover:text-white">Support</a>
-          <a href="#" class="text-gray-700 hover:text-primary-600 dark:text-gray-400 dark:hover:text-white">Contact</a>
+<!-- Header Area -->
+<header class="header" >
+    <!-- Header Inner -->
+    <div class="header-inner">
+        <div class="container">
+            <div class="inner">
+                <div class="row align-items-center">
+                    <div class="col-lg-4 col-md-3 col-12">
+                        <!-- Start Logo -->
+                        <div class="logo flex gap-2 items-center">
+                          <a href="/"><img src="{{ asset('images/logo.png') }}" alt="Logo de la Mutuelle" class="h-16 w-auto"></a>
+                          <h3 class=" font-bold md:text-base lg:text-base">Mutuelle de la Police Nationale (MU-POL)</h3>
+                        </div>
+                        <!-- End Logo -->
+                        <!-- Mobile Nav -->
+                        <div class="mobile-nav"></div>
+                        <!-- End Mobile Nav -->
+                    </div>
+                    <div class="col-lg-6 col-md-9 col-12">
+                        <!-- Main Menu -->
+                        <div class="main-menu">
+                            <nav class="navigation">
+                                <ul class="nav menu">
+                                    <li class="active"><a href="/">Accueil</a></li>
+                                    <li><a href="#">Nos Services <i class="icofont-rounded-down"></i></a>
+                                        <ul class="dropdown">
+                                            <li><a href="">Santé</a></li>
+                                            <li><a href="">Prévoyance</a></li>
+                                            <li><a href="">Assistance</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">À propos <i class="icofont-rounded-down"></i></a>
+                                        <ul class="dropdown">
+                                            <li><a href="">Présentation</a></li>
+                                            <li><a href="">Notre Équipe</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="">Contact</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <!--/ End Main Menu -->
+                    </div>
+                    <div class="col-lg-2 col-12">
+                        <div class="get-quote">
+                            <a class="btn btn-primary" href="{{ route('formulaire-adhesion') }}">
+                                Adhérer maintenant
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-  
-      <!-- Mobile Menu -->
-      <div id="mobile-menu" class="hidden flex-col space-y-4 mt-2 lg:hidden">
-        <a href="#" class="block text-gray-700 hover:text-primary-600 dark:text-gray-400 dark:hover:text-white">Adhésions</a>
-        <a href="#" class="block text-gray-700 hover:text-primary-600 dark:text-gray-400 dark:hover:text-white">Support</a>
-        <a href="#" class="block text-gray-700 hover:text-primary-600 dark:text-gray-400 dark:hover:text-white">Contact</a>
-      </div>
-    </nav>
-  </header>
-  
-  <script>
-    const menuToggle = document.getElementById('menu-toggle');
-    const mobileMenu = document.getElementById('mobile-menu');
-    
-    menuToggle.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
-    });
-  </script>
-  
+    </div>
+    <!--/ End Header Inner -->
+</header>
+<!-- End Header Area -->

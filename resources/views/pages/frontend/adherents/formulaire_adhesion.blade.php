@@ -1,13 +1,45 @@
 <x-guest-layout>
-    <x-header-guest />
+        <x-preloader/>
 
-    <div class="min-h-screen flex items-center justify-center pattern-wavy pattern-purple-500 pattern-bg-white 
-    pattern-size-16 pattern-opacity-10" style=" background-size: 100% 100%; position: relative;">
-        <!-- Container for the purple and white sections -->
-        <div class="relative backdrop-blur-sm w-[80%] lg:w-[80%] p-4 mx-auto">
-            <div class="mx-auto w-[80%] md:w-[80%] lg:w-[80%]  bg-white p-2 rounded-lg shadow-lg z-10">
-                <livewire:wizard-membership />
-            </div>
-        </div>
-    </div>
+        <x-header-guest/>
+
+	
+		<!-- Breadcrumbs -->
+		<div class="breadcrumbs overlay">
+			<div class="container">
+				<div class="bread-inner">
+					<div class="row">
+						<div class="col-12">
+							<h2>Demande d&apos;adhésion MU-POL</h2>
+							<ul class="bread-list">
+								<li><a href="index.html">Accueil</a></li>
+								<li><i class="icofont-simple-right"></i></li>
+								<li class="active">Adhérer</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End Breadcrumbs -->
+				
+		<section class=" section">
+			<div class="container">
+				<div class="">
+					<div class="row "> 
+						
+						<div class="col-lg-12">
+                            <!-- Form -->
+                            <livewire:wizard-membership />
+                            <!--/ End Form -->
+							
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</section>
+		
+        <x-footer/>
+ 
 </x-guest-layout>

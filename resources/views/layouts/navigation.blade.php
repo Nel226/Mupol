@@ -1,4 +1,4 @@
-<nav x-data="{ open: false, dropdownOpen: false }" class="fixed top-0 z-50 w-full bg-[#DEE4EA] border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+<nav x-data="{ open: false, dropdownOpen: false }" class="    z-50 w-full  border-gray-400 dark:bg-gray-800 dark:border-gray-700">
     <!-- Primary Navigation Menu -->
     <div class="px-4 mx-auto sm:px-6 lg:px-8">
         <div class="flex justify-between">
@@ -9,17 +9,12 @@
                         <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
                     </svg>
                 </button>
-                <a href="/" class="flex">
-                    <img src="{{ asset('images/logofinal.png') }}" class="h-20 !w-20" alt="Logo" />
-                    <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">
-                        {{ config('app.name')}}
-                    </span>
-                </a>
+                
             </div>
 
             <div class="flex items-center justify-end">
                 <div class="hidden sm:flex sm:items-center sm:ms-6" @click.away="dropdownOpen = false">
-                    <button @click="dropdownOpen = !dropdownOpen" class="inline-flex items-center px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out bg-white border border-transparent rounded-md dark:text-gray-400 dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none">
+                    <button @click="dropdownOpen = !dropdownOpen" class="inline-flex items-center px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out bg-gray-200 border border-transparent rounded-md dark:text-gray-400 dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none">
                         <div>
                             <i class="fa fa-user-circle-o" aria-hidden="true"></i>
                             {{ Auth::user()->name }}

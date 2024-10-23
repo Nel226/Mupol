@@ -14,6 +14,8 @@ use App\Http\Controllers\ParametreController;
 use App\Http\Controllers\AyantDroitController;
 use App\Http\Controllers\CotisationController;
 use App\Http\Controllers\PrestationController;
+use App\Http\Controllers\DemandeController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -78,6 +80,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('parametres', ParametreController::class);
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
+    Route::resource('demandes', DemandeController ::class);
+
     Route::get('/test-ayantsdroits/{id}/edit', function ($id) {
         $ayantDroit =  AyantDroit::find(3);
         return view('pages.ayantsdroits.edit', compact('ayantDroit'));

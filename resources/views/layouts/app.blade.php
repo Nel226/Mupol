@@ -37,9 +37,9 @@
         <script src="{{ asset('js/select2.min.js') }}"></script>
         
     </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-            @include('layouts.navigation')
+    <body class="font-sans bg-gradient-to-r from-[#4E46E3] to-blue-900  antialiased">
+        <div class="min-h-screen  dark:bg-gray-900">
+            {{--  @include('layouts.navigation')  --}}
 
             <!-- Page Heading -->
             @if (isset($header))

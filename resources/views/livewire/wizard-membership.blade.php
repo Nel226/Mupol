@@ -444,8 +444,12 @@
                                                 </div>
                                                 <div class="mt-2">
                                                     <label class="block text-gray-700 text-sm font-bold mb-1">Lien de Parenté</label>
-                                                    <input type="text" wire:model="ayantsDroits.{{ $i }}.lien_parenté" class="border rounded w-full py-1">
-                                                    <!-- Affichage des erreurs pour le champ "lien_parenté" -->
+                                                    
+                                                    <select wire:model="ayantsDroits.{{ $i }}.lien_parenté" class="border rounded w-full py-1">
+                                                        <option value="" disabled selected>Sélectionner un lien</option>
+                                                        <option value="conjoint">Conjoint(e)</option>
+                                                        <option value="enfant">Enfant</option>
+                                                    </select>
                                                     @error('ayantsDroits.' . $i . '.lien_parenté')
                                                         <span class="text-red-500 text-xs">{{ $message }}</span>
                                                     @enderror

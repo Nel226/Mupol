@@ -102,8 +102,12 @@ class WizardMembership extends Component
                         "ayantsDroits.$index.prenom" => 'required|string|max:255',
                         "ayantsDroits.$index.sexe" => 'required',
                         "ayantsDroits.$index.date_naissance" => 'required|date',
-                        "ayantsDroits.$index.lien_parenté" => 'required|string|max:255',
+                        "ayantsDroits.$index.lien_parente" => 'required|string|max:255',
                         // "ayantsDroits.$index.photo" => 'required|image|max:1024',
+                        // "ayantsDroits.$index.cnib" => 'required|image|max:1024',
+                        // "ayantsDroits.$index.extrait" => 'required|image|max:1024',
+
+
                     ]);
                     
                     if (isset($ayantDroit['photo'])) {
@@ -198,6 +202,7 @@ class WizardMembership extends Component
         
         return redirect()->route('resume-adhesion', ['id' => $demandeAdhesion->id]);
     }
+    
     public function saveSignature()
     {
         if ($this->signature) {
@@ -242,12 +247,17 @@ class WizardMembership extends Component
                 'prenom' => '',
                 'sexe' => '',
                 'date_naissance' => '',
-                'lien_parenté' => '',
+                'lien_parente' => '',
             ]);
         } else {
             $this->ayantsDroits = [];
         }
     }
+    public function changeLienParente($value, $index)
+    {
+        $this->ayantsDroits[$index]['lien_parente'] = $value;
+    }
+
     
     public function changeStatut($value)
     {

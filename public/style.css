@@ -651,13 +651,13 @@ body{
 	margin-top:-25px;
 }
 .slider .owl-carousel .owl-nav div {
-	height: 50px;
-	width: 50px;
-	line-height: 50px;
+	height: 30px;
+	width: 30px;
+	line-height: 30px;
 	text-align: center;
 	background: #e7e5ed;
-	color: #fff;
-	font-size: 26px;
+	color: #4B45DC;
+	font-size: 20px;
 	position: absolute;
 	margin: 0;
 	-webkit-transition: all 0.4s ease;

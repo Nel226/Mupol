@@ -48,7 +48,7 @@
                         <x-section-guest>
                             
                             <div class="w-[80%] md:w-3/6 lg:w-3/6  max-w-4xl mx-auto p-6 bg-white shadow-lg border rounded-lg">
-                                <h2 class="text-base font-bold text-center  bg-gray-200 rounded-md p-2 text-gray-800">Remplir la fiche de cession volontaire</h2>
+                                <h2 class="text-base font-bold text-center  border-2 border-gray-300 rounded-md p-2 text-gray-800">Remplir la fiche de cession volontaire</h2>
                             
                                 <form action="{{ route('finalisation-adhesion') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
                                     @csrf 

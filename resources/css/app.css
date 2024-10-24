@@ -298,3 +298,16 @@ html {
     background: rgba(0, 0, 0, 0.1); /* Couleur de l'arrière-plan de la barre de défilement */
 }
 
+.container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1140px;
+    }
+}

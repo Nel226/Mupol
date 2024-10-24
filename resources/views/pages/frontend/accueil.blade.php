@@ -10,7 +10,7 @@
             @php
                 $slides = [
                     ['image' => 'images/caroussel/caroussel6.png', 'title' => 'MU-POl, la Mutuelle de la Police Nationale'],
-                    ['image' => 'images/caroussel/caroussel5.jpg', 'title' => 'MU-POl, la Mutuelle de la Police Nationale!'],
+                    ['image' => 'images/caroussel/caroussel5.jpg', 'title' => 'MU-POl, la Mutuelle de la Police Nationale'],
                 ];
             @endphp
     
@@ -109,7 +109,7 @@
                 <div class="col-lg-12">
                     <div class="section-title">
                         <h2>Nous sommes toujours prêts à vous aider, vous et votre famille</h2>
-                        <img src="img/section-img.png" alt="#">
+                        <img  class="mx-auto" src="img/section-img.png" alt="#">
                         <p>La Mutuelle de la Police Nationale vous soutient à chaque étape de votre vie.</p>
                     </div>
                 </div>
@@ -214,7 +214,7 @@
                 <div class="col-lg-12">
                     <div class="section-title">
                         <h2>Nous Offrons Divers Services Pour Améliorer Votre Santé</h2>
-                        <img src="img/section-img.png" alt="#" style="height: 150px;"> <!-- Hauteur fixe ajoutée -->
+                        <img class="mx-auto" src="img/section-img.png" alt="#" > <!-- Hauteur fixe ajoutée -->
                         <p>La Mutuelle de la Police Nationale propose des services variés pour votre bien-être et celui de votre famille.</p>
                     </div>
                 </div>
@@ -248,8 +248,8 @@
                 <div class="col-lg-6 col-12">
                     <!-- Start Choose Right -->
                     <div class="choose-right">
-                        <img src="{{ asset('images/accueil/accueil7.jpg') }}" alt="" style="height: 350px; width: 100%;"> <!-- Hauteur et largeur fixées -->
-                    </div>
+                        <img src="{{ asset('images/accueil/accueil7.jpg') }}" alt="" style="width: 100%; height: auto;">
+                    </div>                    
                     <!-- End Choose Right -->
                 </div>
             </div>

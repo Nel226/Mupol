@@ -16,7 +16,7 @@
             padding: 20px;
             border: 1px solid #e0e0e0;
             border-radius: 5px;
-            background-color: #f9f9f9;
+            background-color: #ffffff;
         }
         .header {
             text-align: center;
@@ -31,9 +31,14 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container justify-normal">
+
         <div class="header">
-            <img src="{{ $logoUrl }}" alt="Logo" style="width: 150px; height: auto;">
+            <div class="logo-email">
+                <img src="{{ $message->embed(public_path() . '/images/logofinal.png') }}" alt="Logo" style="width: 150px" />
+            </div>
+            
+
 
             <h2>Confirmation de votre demande d'adhésion</h2>
         </div>

@@ -1,3 +1,70 @@
+// Valider la dernière étape
+ 
+        // Redirection vers la vue souhaitée
+
+ 
+// Recommencer au début si souhaité
+ 
+// Réinitialisez en tableau vide
+ 
+ $this->reset([
+            'nip',
+            'cnib',
+            'delivree',
+            'expire',
+            'adresse_permanente',
+            'telephone',
+            'email',
+            'nom',
+            'prenom',
+            'genre',
+            'departement',
+            'ville',
+            'pays',
+            'nom_pere',
+            'nom_mere',
+            'situation_matrimoniale',
+            'nom_prenom_personne_besoin',
+            'lieu_residence',
+            'telephone_personne_prevenir',
+            'photo_path_adherent',
+            'nombreAyantsDroits',
+            'ayantsDroits',
+            'statut',
+            'grade',
+            'departARetraite',
+            'numeroCARFO',
+            'dateIntegration',
+            'dateDepartARetraite',
+            'direction',
+            'service',
+        ]);
+ 
+@media (min-width: 992px) {
+    .container {
+        max-width: 960px;
+    }
+}
+@media (min-width: 768px) {
+    .container {
+        max-width: 720px;
+    }
+}
+@media (min-width: 576px) {
+    .container {
+        max-width: 540px;
+    }
+}
+ 
+ py-4
+ 
+style="height: 150px;
+ 
+height: auto;
+ 
+            <img src="{{ $logoUrl }}" alt="Logo" style="width: 150px; height: auto;">
+
+ 
                                         <i class=" fa fa-pencil"></i>
 
  

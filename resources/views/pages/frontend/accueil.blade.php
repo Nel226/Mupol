@@ -109,7 +109,7 @@
                 <div class="col-lg-12">
                     <div class="section-title">
                         <h2>Nous sommes toujours prêts à vous aider, vous et votre famille</h2>
-                        <img  class="mx-auto" src="img/section-img.png" alt="#">
+                        <img  class="mx-auto" src="{{ asset('images/section-img.png') }}" alt="#">
                         <p>La Mutuelle de la Police Nationale vous soutient à chaque étape de votre vie.</p>
                     </div>
                 </div>
@@ -214,7 +214,7 @@
                 <div class="col-lg-12">
                     <div class="section-title">
                         <h2>Nous Offrons Divers Services Pour Améliorer Votre Santé</h2>
-                        <img class="mx-auto" src="img/section-img.png" alt="#" > <!-- Hauteur fixe ajoutée -->
+                        <img  class="mx-auto" src="{{ asset('images/section-img.png') }}" alt="#">
                         <p>La Mutuelle de la Police Nationale propose des services variés pour votre bien-être et celui de votre famille.</p>
                     </div>
                 </div>
@@ -285,7 +285,7 @@
                 <div class="col-lg-12">
                     <div class="section-title">
                         <h2>We Offer Different Services To Improve Your Health</h2>
-                        <img src="img/section-img.png" alt="#">
+                        <img  class="mx-auto" src="{{ asset('images/section-img.png') }}" alt="#">
                         <p>Lorem ipsum dolor sit amet consectetur adipiscing elit praesent aliquet. pretiumts</p>
                     </div>
                 </div>
@@ -357,7 +357,7 @@
                 <div class="col-lg-12">
                     <div class="section-title">
                         <h2>Keep up with Our Most Recent Medical News.</h2>
-                        <img src="img/section-img.png" alt="#">
+                        <img  class="mx-auto" src="{{ asset('images/section-img.png') }}" alt="#">
                         <p>Lorem ipsum dolor sit amet consectetur adipiscing elit praesent aliquet. pretiumts</p>
                     </div>
                 </div>

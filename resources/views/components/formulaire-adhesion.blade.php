@@ -277,7 +277,7 @@
                                 @endif
                             </td>
                             <td class="border border-gray-400">{{ $ayantDroit['date_naissance'] }}</td>
-                            <td class="border border-gray-400">{{ $ayantDroit['lien_parenté'] }}</td>
+                            <td class="border border-gray-400">{{ $ayantDroit['lien_parente'] }}</td>
                         </tr>
                     @endforeach
                 </tbody>

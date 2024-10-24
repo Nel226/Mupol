@@ -102,8 +102,12 @@ class WizardMembership extends Component
                         "ayantsDroits.$index.prenom" => 'required|string|max:255',
                         "ayantsDroits.$index.sexe" => 'required',
                         "ayantsDroits.$index.date_naissance" => 'required|date',
-                        "ayantsDroits.$index.lien_parenté" => 'required|string|max:255',
+                        "ayantsDroits.$index.lien_parente" => 'required|string|max:255',
                         // "ayantsDroits.$index.photo" => 'required|image|max:1024',
+                        // "ayantsDroits.$index.cnib" => 'required|image|max:1024',
+                        // "ayantsDroits.$index.extrait" => 'required|image|max:1024',
+
+
                     ]);
                     
                     if (isset($ayantDroit['photo'])) {
@@ -192,42 +196,13 @@ class WizardMembership extends Component
         
         // Réinitialisez le formulaire si nécessaire
         // $this->reset();
-        $this->matricule = null; 
-        $this->nip = null; 
-        $this->cnib = null; 
-        $this->delivree = null; 
-        $this->expire = null; 
-        $this->adresse_permanente = null; 
-        $this->telephone = null; 
-        $this->email = null; 
-        $this->nom = null; 
-        $this->prenom = null; 
-        $this->genre = null; 
-        $this->departement = null; 
-        $this->ville = null; 
-        $this->pays = null; 
-        $this->nom_pere = null; 
-        $this->nom_mere = null; 
-        $this->situation_matrimoniale = null; 
-        $this->nom_prenom_personne_besoin = null; 
-        $this->lieu_residence = null; 
-        $this->telephone_personne_prevenir = null; 
-        $this->photo_path_adherent = null; 
-        $this->nombreAyantsDroits = null; 
-        $this->ayantsDroits = []; 
-        $this->statut = null; 
-        $this->grade = null; 
-        $this->departARetraite = null; 
-        $this->numeroCARFO = null; 
-        $this->dateIntegration = null; 
-        $this->dateDepartARetraite = null; 
-        $this->direction = null; 
-        $this->service = null; 
+       
 
         $this->currentStep = 1; 
         
         return redirect()->route('resume-adhesion', ['id' => $demandeAdhesion->id]);
     }
+    
     public function saveSignature()
     {
         if ($this->signature) {
@@ -272,12 +247,17 @@ class WizardMembership extends Component
                 'prenom' => '',
                 'sexe' => '',
                 'date_naissance' => '',
-                'lien_parenté' => '',
+                'lien_parente' => '',
             ]);
         } else {
             $this->ayantsDroits = [];
         }
     }
+    public function changeLienParente($value, $index)
+    {
+        $this->ayantsDroits[$index]['lien_parente'] = $value;
+    }
+
     
     public function changeStatut($value)
     {

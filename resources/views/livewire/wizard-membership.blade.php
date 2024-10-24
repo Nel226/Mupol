@@ -444,33 +444,77 @@
                                                 <div class="mt-2">
                                                     <label class="block text-gray-700 text-sm font-bold mb-1">Lien de Parenté</label>
                                                     
-                                                    <select wire:model="ayantsDroits.{{ $i }}.lien_parenté" class="border rounded w-full py-1">
-                                                        <option value="" disabled selected>Sélectionner un lien</option>
-                                                        <option value="conjoint">Conjoint(e)</option>
-                                                        <option value="enfant">Enfant</option>
+                                                   
+                                                    <select wire:model="ayantsDroits.{{ $i }}.lien_parente" wire:change="changeLienParente($event.target.value, {{ $i }})" class="border-2 rounded w-full py-1">
+                                                        <option value="" disabled selected>Sélectionnez un lien</option>
+                                                        <option value="conjoint">Conjoint (e)</option>
+                                                        <option value="autre">Enfant</option>
                                                     </select>
-                                                    @error('ayantsDroits.' . $i . '.lien_parenté')
+                                                    @error('ayantsDroits.' . $i . '.lien_parente')
                                                         <span class="text-red-500 text-xs">{{ $message }}</span>
                                                     @enderror
                                                 </div>
                                             </div>
+
+                                            <!-- Champ pour la photo de la CNIB si le lien de parenté est "conjoint" -->
+                                            @if (isset($ayantsDroits[$i]['lien_parente']) && strtolower($ayantsDroits[$i]['lien_parente']) === 'conjoint')
+                                                <div class="mt-4">
+                                                    <label class="block text-gray-700 text-sm font-bold mb-1">Photo de la CNIB</label>
+                                                    <div class="w-full justify-center border-2 rounded-md p-1 border-gray-700">
+                                                        <input type="file" wire:model="ayantsDroits.{{ $i }}.cnib" class="w-full py-2">
+                                                        
+                                                        <!-- Afficher une prévisualisation de la photo de la CNIB si elle est uploadée -->
+                                                        @if (isset($ayantsDroits[$i]['cnib']))
+                                                            <img src="{{ $ayantsDroits[$i]['cnib']->temporaryUrl() }}" class="w-20 h-20">
+                                                        @endif
+                                                        
+                                                        @error('ayantsDroits.' . $i . '.cnib')
+                                                            <span class="text-red-500 text-xs">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            @endif
+
+
+
                             
-                                            <div class="mt-4" wire:key="ayantDroit-{{ $i }}">
-                                                <label class="block text-gray-700 text-sm font-bold mb-1">Photo de l&apos;ayant droit</label>
-                                                <div class="w-full justify-center border rounded-md p-1 border-gray-700">
-                                                    <!-- Upload photo -->
-                                                    <input type="file" wire:model="ayantsDroits.{{ $i }}.photo" class="w-full py-2">
-                                                    
-                                                    <!-- Afficher une prévisualisation de la photo si elle est uploadée -->
-                                                    @if (isset($ayantsDroits[$i]['photo']))
-                                                        <img src="{{ $ayantsDroits[$i]['photo']->temporaryUrl() }}" class="w-20 h-20">
-                                                    @endif
-                                                    
-                                                    @error('ayantsDroits.' . $i . '.photo')
-                                                        <span class="text-red-500 text-xs">{{ $message }}</span>
-                                                    @enderror
+                                            <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4" wire:key="ayantDroit-{{ $i }}">
+                                                <!-- Photo ayant droit -->
+                                                <div>
+                                                    <label class="block text-gray-700 text-sm font-bold mb-1">Photo de l&apos;ayant droit</label>
+                                                    <div class="w-full justify-center border-2 rounded-md p-1 border-gray-700">
+                                                        <!-- Upload photo -->
+                                                        <input type="file" wire:model="ayantsDroits.{{ $i }}.photo" class="w-full py-2">
+                                                        
+                                                        <!-- Afficher une prévisualisation de la photo si elle est uploadée -->
+                                                        @if (isset($ayantsDroits[$i]['photo']))
+                                                            <img src="{{ $ayantsDroits[$i]['photo']->temporaryUrl() }}" class="w-20 h-20">
+                                                        @endif
+                                                        
+                                                        @error('ayantsDroits.' . $i . '.photo')
+                                                            <span class="text-red-500 text-xs">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            
+                                                <!-- Photo de extrait acte de naissance -->
+                                                <div>
+                                                    <label class="block text-gray-700 text-sm font-bold mb-1">Extrait d&apos;acte de naissance</label>
+                                                    <div class="w-full justify-center border-2 rounded-md p-1 border-gray-700">
+                                                        <input type="file" wire:model="ayantsDroits.{{ $i }}.extrait" class="w-full py-2">
+                                                        
+                                                        <!-- Afficher une prévisualisation de l'extrait d'acte de naissance si uploadé -->
+                                                        @if (isset($ayantsDroits[$i]['extrait']))
+                                                            <img src="{{ $ayantsDroits[$i]['extrait']->temporaryUrl() }}" class="w-20 h-20">
+                                                        @endif
+                                                        
+                                                        @error('ayantsDroits.' . $i . '.extrait')
+                                                            <span class="text-red-500 text-xs">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
                                                 </div>
                                             </div>
+                                        
                                             
                                         </div>
                                     @endfor

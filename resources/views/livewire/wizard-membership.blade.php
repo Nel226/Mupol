@@ -312,7 +312,6 @@
                         </div>
 
                         <div class="grid grid-cols-2 gap-2">
-
                             <!-- Lieu de résidence -->
                             <div>
                                 <label class="block text-gray-700 text-sm font-bold mb-1" for="lieu_residence">Lieu de
@@ -336,7 +335,6 @@
                                 @enderror
                             </div>
                         </div>
-
                     </div>
 
                     <div class="col-span-1 ">
@@ -344,7 +342,6 @@
                             <!-- Prévisualisation de l'image -->
                             @livewire('image-upload')
                         </div>
-                        
                     </div>
 
                     <div class="overflow-x-auto ">
@@ -361,10 +358,10 @@
                             <option value="5">5</option>
                             <option value="6">6</option>
                         </select>
-
                     </div>
-                        <div class="col-span-3">
-                            @if ($nombreAyantsDroits > 0)
+
+                    <div class="col-span-3">
+                        @if ($nombreAyantsDroits > 0)
                             <!-- Affiche les champs uniquement si le nombre est supérieur à 0 -->
                             @for ($i = 0; $i < $nombreAyantsDroits; $i++)
                                 <div class="border bg-gray-100 p-4 rounded mb-2 col-span-3 shadow-lg mt-2">
@@ -427,6 +424,7 @@
                             <span class="ml-2">Personnel retraité</span>
                         </label>
                     </div>
+
                     <div>
                         <label class="inline-flex items-center mt-2">
                             <input type="radio" wire:click="changeStatut('personnel_active')"

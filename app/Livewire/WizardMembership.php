@@ -239,7 +239,21 @@ class WizardMembership extends Component
     public function changeNombreAyantsDroits($value)
     {
         $this->nombreAyantsDroits = (int)$value;
+
+        // Réinitialiser le tableau des ayants droits si le nombre change
+        if ($this->nombreAyantsDroits > 0) {
+            $this->ayantsDroits = array_fill(0, $this->nombreAyantsDroits, [
+                'nom' => '',
+                'prenom' => '',
+                'sexe' => '',
+                'date_naissance' => '',
+                'lien_parenté' => '',
+            ]);
+        } else {
+            $this->ayantsDroits = [];
+        }
     }
+
     public function changeStatut($value)
     {
         $this->statut = $value;

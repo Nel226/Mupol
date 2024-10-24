@@ -284,9 +284,6 @@ class WizardMembership extends Component
         $this->statut = $value;
     }
 
-
-   
-    
     public function render()
     {
         return view('livewire.wizard-membership');

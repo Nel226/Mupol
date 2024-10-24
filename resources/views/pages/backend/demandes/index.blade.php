@@ -59,8 +59,8 @@
                     <button id="excel-btn"  class="px-4 py-2 text-white bg-green-500 rounded btn">Exporter Excel</button>
                     <button id="pdf-btn" class="px-4 py-2 text-white bg-red-500 rounded btn">Exporter PDF</button>
                 </div>  --}}
-                <table id="table_demandes" class="w-full text-sm text-left text-gray-500 border rtl:text-right dark:text-gray-400 display" style="width:100%">
-                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <table id="table_demandes" class="w-full text-sm text-left text-gray-500 border rtl:text-right dark:text-gray-400 display" data-plugin-options='{"searchPlaceholder": "Suchen"}' style="width:100%">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
                             <th>ordre</th>
                             <th>Matricule</th>
@@ -91,13 +91,10 @@
                                 <td class="px-6 py-4">{{$demande->categorie}}</td>
                                 <td class="px-6 py-4">{{$demande->created_at}}</td>
     
-                                <td class="flex px-6 py-4 space-x-2">
-                                    <a href="{{ route('demandes.edit', ['demande' => $demande->id])}}" class="!text-blue-400 bg-zinc-200 p-2 rounded-md shadow-sm" >
-                                        <i class=" fa fa-pencil"></i>
+                                <td class="flex px-6 py-4 space-x-2 font-bold">
+                                    <a href="{{ route('demandes.edit', ['demande' => $demande->id])}}" class="!text-[#4644D4] bg-zinc-200 p-2 rounded-md shadow-sm" >
+                                        Accepter
                                     </a>
-                                    <button id="delete-button-{{ $demande->id }}" class="delete-button  !text-red-700 bg-zinc-200 p-2 rounded-md shadow-sm" >
-                                        <i class=" fa fa-trash-alt"></i>
-                                    </button>
                                 
                                 </td>
                             </tr>    
@@ -110,6 +107,7 @@
                 <script>
                     $('#table_demandes').DataTable( {
                         dom: 'Brtip',
+                        
                         buttons: [
                         { 
                             extend: 'print', 
@@ -117,18 +115,19 @@
                             text:'' 
                         },
                         
-                        { 
-                            extend: 'excel', 
-                            className: 'btn btn-sm btn-success fa fa-file-excel', 
-                            text:'' 
+                      
+                        {
+                            extend: 'excelHtml5',
+                            text: '<i class="fa fa-file-excel-o"></i>',
+                            titleAttr: 'Excel'
                         },
-                        { 
-                            extend: 'pdf', 
-                            className: 'btn btn-sm btn-danger fa fa-file-pdf', 
-                            text:'' 
+                        {
+                            extend: 'pdfHtml5',
+                            text: '<i class="fa fa-file-pdf-o"></i>',
+                            titleAttr: 'PDF'
                         }
                         ],
-                       
+                        
                        
                     
                         paging: true,
@@ -146,12 +145,7 @@
                                 searchable: false // Désactive la recherche sur cette colonne
                             }
                         ],            
-                        language: {
-                            paginate: {
-                                previous: '<span class="fas fa-add"></span>',
-                                next: `<iconify-icon icon="ic:round-keyboard-arrow-right"></iconify-icon>`,
-                            },
-                        },
+                       
                         language: {
                             processing:     "Traitement en cours...",
                             search:         "Rechercher&nbsp;:",
@@ -177,7 +171,7 @@
                         
                     } );
                     $(document).ready(function(){
-                        var table = $('#table_demande').DataTable();
+                        var table = $('#table_demandes').DataTable();
                         //DataTable custom search field
                         $('#table-search').keyup( function() {
                             table.search( this.value ).draw();

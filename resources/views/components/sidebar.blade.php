@@ -1,4 +1,4 @@
-<aside id="logo-sidebar" class="fixed left-0 z-40 w-64 h-screen transition-transform -translate-x-full top-0 sm:translate-x-0 shadow-lg bg-transparent " aria-label="Sidebar">
+<aside id="logo-sidebar" class="fixed left-0 z-40 w-64 h-screen transition-transform -translate-x-full top-0 sm:translate-x-0 bg-transparent  ">
     <div class="h-full px-4 py-6 overflow-y-auto bg-transparent dark:bg-gray-900">
         <a href="/" class="flex items-center">
             <img src="{{ asset('images/logofinal.png') }}" class="h-16 w-16 rounded-full border-2 border-white bg-white shadow-lg" alt="Logo" />
@@ -8,26 +8,137 @@
         </a>
  
         <div class="mt-8 text-gray-200 text-sm font-semibold uppercase tracking-wide">Menu</div>
-        <ul class="mt-2 space-y-2 text-sm font-medium">
+        <ul class="mt-2 space-y-2 text-sm font-medium" x-data="{ openMenu: null }">
             <li>
                 <a href="{{ route('dashboard') }}" class="@if(Request::is('dashboard')) active @endif flex items-center px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
                     <i class="fa fa-pie-chart w-5 h-5 dark:text-gray-400 group-hover:text-black"></i>
                     <span class="ml-3">Tableau de bord</span>
                 </a>
             </li>
+            @role('comptable')
+            <!-- Recettes Menu -->
+            <li>
+                <a href="#" @click.prevent="openMenu = openMenu === 'recettes' ? null : 'recettes'" class="flex items-center justify-between px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
+                    <div class="flex items-center">
+                        <i class="fa fa-share w-3 h-3 dark:text-gray-400 group-hover:text-black"></i>
+                        <span class="ml-3">Recettes</span>
+                    </div>
+                    <!-- Chevron icon -->
+                    <i :class="openMenu === 'recettes' ? 'fa fa-chevron-up' : 'fa fa-chevron-down'" class="text-white"></i>
+                </a>
+                <ul x-show="openMenu === 'recettes'" class="ml-5 shadow-lg border border-gray-50 rounded-lg" x-collapse>
+                    <li>
+                        <a href="" class="flex items-center px-3 py-2 text-gray-200 rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
+                            <span class="ml-3">Prêts</span>
+                        </a>
+                    </li>
+                    <li>
+                        
+              
+                        <a href="" class="flex items-center px-3 py-2 text-gray-200 rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
+                            <span class="ml-3">Recettes propres</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" class="flex items-center px-3 py-2 text-gray-200 rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
+                            <span class="ml-3">Produits</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" class="flex items-center px-3 py-2 text-gray-200 rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
+                            <span class="ml-3">Autres</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        
+            <!-- Dépenses Menu -->
+            <li>
+                <a href="#" @click.prevent="openMenu = openMenu === 'depenses' ? null : 'depenses'" class="flex items-center justify-between px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
+                    <div class="flex items-center">
+                        <i class="fa fa-reply w-3 h-3 dark:text-gray-400 group-hover:text-black"></i>
+                        <span class="ml-3">Dépenses</span>
+                    </div>
+                    <!-- Chevron icon -->
+                    <i :class="openMenu === 'depenses' ? 'fa fa-chevron-up' : 'fa fa-chevron-down'" class="text-white"></i>
+                </a>
+                <ul x-show="openMenu === 'depenses'" class="ml-5 shadow-lg border border-gray-50 rounded-lg" x-collapse>
+                    <li>
+                        <a href="" class="flex items-center px-3 py-2 text-gray-200 rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
+                            <span class="ml-3">Remboursements</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" class="flex items-center px-3 py-2 text-gray-200 rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
+                            <span class="ml-3">Prestations</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" class="flex items-center px-3 py-2 text-gray-200 rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
+                            <span class="ml-3">Fonctionnement</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" class="flex items-center px-3 py-2 text-gray-200 rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
+                            <span class="ml-3">Investissement</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            
+            <li>
+                <a href="{{ route('adherants.index') }}" class="@if(Request::is('adherants') || Request::is('adherants/*')) active @endif flex items-center px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
+                    <i class="fa  fa-bank w-5 h-5 dark:text-gray-400 group-hover:text-black"></i>
+                    <span class="ml-3">Caisse</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('adherants.index') }}" class="@if(Request::is('adherants') || Request::is('adherants/*')) active @endif flex items-center px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
+                    <i class="fa fa-eye w-5 h-5 dark:text-gray-400 group-hover:text-black"></i>
+                    <span class="ml-3">Suivi</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('adherants.index') }}" class="@if(Request::is('adherants') || Request::is('adherants/*')) active @endif flex items-center px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
+                    <i class="fa  fa-calculator w-5 h-5 dark:text-gray-400 group-hover:text-black"></i>
+                    <span class="ml-3">Estimations</span>
+                </a>
+            </li>
+          
+            <li>
+                <a href="{{ route('adherants.index') }}" class="@if(Request::is('adherants') || Request::is('adherants/*')) active @endif flex items-center px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
+                    <i class="fa  fa-book w-5 h-5 dark:text-gray-400 group-hover:text-black"></i>
+                    <span class="ml-3">Provisions</span>
+                </a>
+            </li>
+         
+            <li>
+                <a href="{{ route('adherants.index') }}" class="@if(Request::is('adherants') || Request::is('adherants/*')) active @endif flex items-center px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
+                    <i class="fa fa-line-chart w-5 h-5 dark:text-gray-400 group-hover:text-black"></i>
+                    <span class="ml-3">Statistiques</span>
+                </a>
+            </li>
+            @endrole
+            @role('agentsaisie|controleur')
             <li>
                 <a href="{{ route('demandes.index') }}" class="@if(Request::is('demandes') || Request::is('demandes/*')) active @endif flex items-center px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
                     <i class="fa  fa-file-text w-5 h-5 dark:text-gray-400 group-hover:text-black"></i>
                     <span class="ml-3">Demandes d&apos;adhésion</span>
                 </a>
             </li>
+            @endrole
+
+            @role('agentsaisie|controleur')
+
             <li>
                 <a href="{{ route('adherants.index') }}" class="@if(Request::is('adherants') || Request::is('adherants/*')) active @endif flex items-center px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
                     <i class="fa fa-user w-5 h-5 dark:text-gray-400 group-hover:text-black"></i>
                     <span class="ml-3">Gestion des adhésions</span>
                 </a>
             </li>
-            @role('comptable|controleur')
+            @endrole
+
+            @role('controleur')
             <li>
                 <a href="{{ route('cotisations.index') }}" class="@if(Request::is('cotisations') || Request::is('cotisations/*')) active @endif flex items-center px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
                     <i class="fa fa-money w-5 h-5 dark:text-gray-400 group-hover:text-black"></i>
@@ -35,12 +146,12 @@
                 </a>
             </li>
             @endrole
-            <li>
+            {{--  <li>
                 <a href="#" class="flex items-center px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
                     <i class="fa fa-calendar w-5 h-5 dark:text-gray-400 group-hover:text-black"></i>
                     <span class="ml-3">Gestion des évènements</span>
                 </a>
-            </li>
+            </li>  --}}
             <li>
                 <a href="{{ route('prestations.index') }}" class="@if(Request::is('prestations')) active @endif flex items-center px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
                     <i class="fa fa-file w-5 h-5 dark:text-gray-400 group-hover:text-black"></i>

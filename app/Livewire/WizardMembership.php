@@ -196,7 +196,7 @@ class WizardMembership extends Component
         
         // Réinitialisez le formulaire si nécessaire
         // $this->reset();
-       
+        
 
         $this->currentStep = 1; 
         

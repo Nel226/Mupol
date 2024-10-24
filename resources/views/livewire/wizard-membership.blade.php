@@ -216,7 +216,7 @@
         
         
                         <!-- Lieu de naissance (sous forme de grille) -->
-                        <fieldset class=" border-2 border-gray-600 shadow-lg p-2 mt-1 mb-3 rounded-md bg-gray-100">
+                        <fieldset class=" border-2 border-gray-300 shadow-sm p-2 mt-1 mb-3 rounded-md bg-gray-100">
                             <legend class="block text-gray-700 text-sm font-bold mb-2">Lieu de naissance</legend>
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                                 <!-- Département -->
@@ -316,7 +316,7 @@
                                     <span class="text-red-500 text-xs">{{ $message }}</span>
                                 @enderror
                                 <!-- Personne à prévenir en cas de besoin -->
-                                <fieldset class=" border-2 border-gray-600 shadow-lg p-2 mt-1 mb-3 rounded-md bg-gray-100">
+                                <fieldset class=" border-2 border-gray-300 shadow-sm p-2 mt-1 mb-3 rounded-md bg-gray-100">
                                     <legend class="block text-gray-700 text-sm font-bold mb-2">Personne à prévenir en cas de besoin</legend>
                                     <div class="">
                                         <label class="block text-gray-700 text-sm font-bold mb-1"

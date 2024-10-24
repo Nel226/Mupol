@@ -20,6 +20,8 @@ return new class extends Migration
             $table->date('expire');
             $table->string('adresse');
             $table->string('telephone');
+            $table->string(column: 'email');
+
             $table->string('nom');
             $table->string('prenom');
             $table->string('genre');
@@ -29,6 +31,8 @@ return new class extends Migration
             $table->string('nom_pere');
             $table->string('nom_mere');
             $table->string('situation_matrimoniale');
+            $table->string('photo')->nullable();
+
             $table->string('nom_prenom_personne_besoin');
             $table->string('lieu_residence');
             $table->string('telephone_personne_prevenir');
@@ -44,6 +48,13 @@ return new class extends Migration
             $table->date('dateDepartARetraite')->nullable();
             $table->string('direction')->nullable();
             $table->string('service')->nullable();
+            $table->longText('signature')->nullable();
+
+            $table->string('region')->nullable();
+            $table->string('province')->nullable();
+            $table->string('localite')->nullable();
+
+
             $table->timestamps();
         });
     }

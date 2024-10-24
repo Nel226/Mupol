@@ -10,6 +10,7 @@ import Chart from 'chart.js/auto';
 import $ from 'jquery';
 import {Tabulator} from 'tabulator-tables';
 import * as XLSX from 'xlsx';
+import SignaturePad from 'signature_pad';
 
 
 // Ensure jQuery is available globally
@@ -23,3 +24,7 @@ window.Alpine = Alpine;
 
 Alpine.start();
 window.XLSX = XLSX; 
+window.SignaturePad = SignaturePad;
+
+
+

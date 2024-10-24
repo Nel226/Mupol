@@ -14,14 +14,15 @@ class DemandeAdhesion extends Model
 
     // Allow mass assignment for these fields
     protected $fillable = [
-        'matricule', 'nip', 'cnib', 'delivree', 'expire',
+        'matricule', 'nip', 'cnib', 'delivree', 'expire','email',
         'adresse', 'telephone', 'nom',
         'prenom', 'genre', 'departement', 'ville', 'pays',
         'nom_pere', 'nom_mere', 'situation_matrimoniale',
-        'nom_prenom_personne_besoin', 'lieu_residence',
+        'photo', 'nom_prenom_personne_besoin', 'lieu_residence',
         'telephone_personne_prevenir', 'nombreAyantsDroits', 'ayantsDroits', 'categorie', 
         'statut', 'grade', 'departARetraite', 'numeroCARFO',
-        'dateIntegration', 'dateDepartARetraite', 'direction', 'service'
+        'dateIntegration', 'dateDepartARetraite', 'direction', 'service',
+        'region', 'province', 'localité',
     ];
 
     

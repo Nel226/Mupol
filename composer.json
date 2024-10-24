@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "barryvdh/laravel-dompdf": "^3.0",
         "dompdf/dompdf": "^3.0",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.10",
@@ -34,7 +35,9 @@
         "files": [
             "app/Helpers/PDFHelper.php",
             "app/Helpers/ImageHelper.php",
-            "app/Helpers/DemandeCategorieHelper.php"
+            "app/Helpers/DemandeCategorieHelper.php",
+            "app/Helpers/DateHelper.php"
+
 
         ]
     },

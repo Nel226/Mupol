@@ -17,8 +17,8 @@
         });
     </script>
     @endif
-    
-    <div class="p-4 border-2 border-gray-200 rounded-lg sm:ml-64 dark:border-gray-700 mt-14">
+    <x-content-page>
+
         <div class="flex-1 p-6">
             <div class="flex items-center px-4 py-2 text-gray-500 bg-[#fffe4a70] rounded-t-lg shadow-lg">
                 <h1 class="flex-1 text-2xl font-bold">Suivi des prestations</h1>
@@ -31,7 +31,7 @@
                    
                     <div class="flex items-center justify-between py-4 text-sm">
                         <div class="flex gap-3 ">
-
+    
                             <form method="GET" action="{{ route('suivi-consultation') }}"  onsubmit="showSpinner()">
                                 <label for="year">Sélectionner l&apos;année :</label>
                                 <select name="year" id="year" onchange="this.form.submit()" class="py-1 rounded-md">
@@ -42,7 +42,7 @@
                             </form>
                             <div id="spinner" class="hidden spinner"></div>
                         </div>
-
+    
                         <style>
                             /* Styles pour le spinner */
                             .spinner {
@@ -64,7 +64,7 @@
                     
                             
                         </style>
-
+    
                         
                     </div>
                     <!-- Graphiques -->
@@ -75,13 +75,13 @@
                             <span>Coût total des consultations</span>
                             <canvas id="beneficiairesChart"></canvas>
                         </div>
-
+    
                         <!-- Graphique Nombre des consultations -->
                         <div>
                             <span>Nombre de consultations (B)</span>
                             <canvas id="consultationsChart"></canvas>
                         </div>
-
+    
                         {{--  <!-- Graphique Coût total des consultations -->
                         <div>
                             <h3>Coût total des consultations (E)</h3>
@@ -94,17 +94,17 @@
                         const consultationsData = @json(array_values($data['Nombre de consultation (B)']));
                         const prestationsCostData = @json(array_values($data['Coût total des consultations (E)']));
                         const avgConsultationCostData = @json(array_values($data['Coût moyen mensuel d’une consultation (F)']));
-
+    
                         const ctx1 = document.getElementById('beneficiairesChart').getContext('2d');
                         const gradient1 = ctx1.createLinearGradient(0, 0, 0, 400);
                         gradient1.addColorStop(0, 'rgba(64, 0, 255, 1)');
                         gradient1.addColorStop(1, 'rgba(224, 192, 255, 0.2)');
-
+    
                         const ctx2 = document.getElementById('consultationsChart').getContext('2d');
                         const gradient2 = ctx2.createLinearGradient(0, 0, 0, 400);
                         gradient2.addColorStop(0, 'rgb(48, 0, 192)');
                         gradient2.addColorStop(1, 'rgb(240, 224, 255)');
-
+    
                         // Graphique Nombre de bénéficiaires
                         new Chart(ctx1, {
                             type: 'line',
@@ -147,7 +147,7 @@
                                 }
                             }
                         });
-
+    
                         // Graphique Nombre de consultations
                         new Chart(ctx2, {
                             type: 'bar',
@@ -187,7 +187,7 @@
                                 }
                             }
                         });
-
+    
                         {{--  // Graphique Coût total des prestations
                         const ctx3 = document.getElementById('prestationsCostChart').getContext('2d');
                         new Chart(ctx3, {
@@ -379,12 +379,13 @@
                     });    
                 </script>
                 
-
-
+    
+    
             </div>
             
         </div>
-    </div>
+    </x-content-page>
+   
     
   
  

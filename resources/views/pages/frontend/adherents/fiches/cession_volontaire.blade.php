@@ -6,7 +6,7 @@
     <title>Cession Volontaire de Salaire</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: "Calibri", Arial, sans-serif;
             margin: 20px;
             line-height: 1.2;
             font-size: 14px;
@@ -42,13 +42,9 @@
             display: -webkit-box;
             margin-top: 50px;
             margin-bottom: 80px;
-            -webkit-align-self: flex-end;
-            align-self: flex-end;
-            webkit-justify-content: space-between;
-            justify-content: space-between;
+            
         }
         .signature p {
-            text-align: center;
             text-decoration: underline;
         }
         .page-break {
@@ -86,12 +82,24 @@
         table.montants th, table.montants td {
             border: 1px solid black;
             text-align: center;
-            line-height: 1.2 !important,
+            line-height: 1.2 !important;
         }
         .beneficiaire-info {
             display: -webkit-box;
             flex-direction: column;
             align-items: flex-start; 
+        }
+
+        #footer {
+            position: fixed;
+            right: 20px;
+            bottom: 0;
+            text-align: right;
+            width: 100%; 
+
+        }
+        #footer .page:after {
+            content: counter(page);
         }
         
     </style>
@@ -107,8 +115,24 @@
         <img src="{{ $logoDataUrl }}" style="text-align: center; align-items: center; margin: auto;" class="center-image" width="48px" height="48px"  alt="Logo">
     </div>
     <div class="mx-auto">
-        <p><strong>REGION :</strong> .............................. <strong>PROVINCE :</strong> ......................................... <strong>LOCALITE :</strong> ....................................</p>
-        <p><strong>MUTUELLE DE LA POLICE (MU-POL)</strong><br>
+        <table style="border-collapse: collapse; width: 100%;">
+            <tr>
+                <td style="padding: 0px 0px 0px 0px; text-align: left; text-transform: uppercase;">
+                    <strong>REGION : {{ $demandeAdhesion->region }}</strong>
+                </td>
+                <td style="padding: 0px 0px 0px 0px; text-align: center; text-transform: uppercase;">
+                    <strong>PROVINCE : {{ $demandeAdhesion->province }}</strong>
+                </td>
+                <td style="padding: 0px 0px 0px 0px; text-align: right; text-transform: uppercase;">
+                    <strong>LOCALITE : {{ $demandeAdhesion->localite }}</strong>
+                </td>
+            </tr>
+        </table>
+        
+        
+        <p style="margin-top: 5px;"><strong>MUTUELLE DE LA POLICE (MU-POL)</strong><br>
+        
+        
         Ouagadougou, secteur n°6<br>
         Avenue Kadiogo, 01 BP 4546<br>
         Ouagadougou 01, Burkina Faso<br>
@@ -154,8 +178,14 @@
         </table>
         
         
+        @php
+            use App\Helpers\DateHelper;
 
-        <p>L&apos;an deux mille vingt quatre </p>
+            $dateActuelle = now()->format('Y-m-d'); 
+            $dateEnLettres = DateHelper::convertirDateEnLettres($dateActuelle);
+        @endphp
+
+        <p>{{ $dateEnLettres }},</p>
         <p>Devant nous, <strong>..........................................................</strong>, Président(e) du Tribunal de Grande Instance<br>
         Assisté de <strong>..........................................................</strong>, Greffier audit Tribunal<br>
         A comparu Mr/Mme <strong>{{$demandeAdhesion->nom}} {{$demandeAdhesion->prenom}}</strong>, Grade : <strong>{{$demandeAdhesion->grade}}</strong><br>
@@ -169,7 +199,9 @@
         @endphp
         <table class="montants">
             <tr>
-                <th rowspan="3">CATEGORIE {{$demandeAdhesion->categorie}}</th>
+                <th rowspan="3">CATEGORIE {{$demandeAdhesion->categorie}} 
+                    <p>({{$demandeAdhesion->nombreAyantsDroits}} ayant droit)</p>
+                </th>
                 <th>A prélever une seule fois le premier mois</th>
                 <th colspan="2">A prélever mensuellement pour compter du 2ème mois</th>
                 <th>Compte à créditer</th>
@@ -187,18 +219,20 @@
             </tr>
             <tr>
                 <td class="center"><strong>SOUS TOTAUX</strong></td>
-                <td class="center"><strong>10 000</strong></td>
+                <td class="center"><strong>10 000 FCFA</strong></td>
                 <td colspan="2" class="center"><strong>{{ number_format($cotisations['cotisationTotale'], 0, ',', ' ') }} FCFA</strong></td>
 
             </tr>
         </table>
     </div>
-
+    <div id="footer">
+        <p class="page"></p>
+    </div>
     <div class="page-break"></div>
 
     <div class="mx-auto max-w-4xl">
         <div class="center-image-container">
-            <img src="{{ $logoDataUrl }}" style="text-align: center; align-items: center; margin: auto;" class="center-image" width="48px" height="48px"  alt="Logo">
+            <img src="{{ $logoDataUrl }}" style="text-align: center; align-items: center; margin: auto; margin-top:5px; " class="center-image" width="48px" height="48px"  alt="Logo">
         </div>
         <p>Qu’en conséquence, il/elle déclare autoriser dès à présent au payeur général du trésor à lui retenir le montant de la mensualité mentionnée dans le tableau sur son salaire ou revenu,</p>
         <p>Nous avons donné acte à Mr/Mme <strong>{{$demandeAdhesion->nom}} {{$demandeAdhesion->prenom}}</strong><br>
@@ -209,14 +243,19 @@
         <div class="signature" style="width: 100%;">
             <table style="width: 100%;">
                 <tr>
-                    <td style="text-align: center;">
-                        <p>Le cédant</p>
+                    <td style="text-align: left"> <p>Le cédant</p></td>
+                    <td style="text-align: center"><p>Le Président du tribunal</p></td>
+                    <td style="text-align: right"><p>Le Greffier</p></td>
+                </tr>
+                <tr>
+
+                    <td style="text-align: left;">
+                        <img  width="96px"  src="{{$demandeAdhesion->signature}}" alt="signatureCedant">
+                       
                     </td>
                     <td style="text-align: center;">
-                        <p>Le Président du tribunal</p>
                     </td>
-                    <td style="text-align: center;">
-                        <p>Le Greffier</p>
+                    <td style="text-align: right;">
                     </td>
                 </tr>
             </table>
@@ -228,9 +267,14 @@
         Ouagadougou 01, Burkina Faso<br>
         Tel : +226 06 88 17 74 / 51 03 87 35</p>
 
-        <p>Déclarons accepter la cession consentie par Mr/Mme <strong>{{$demandeAdhesion->nom}} {{$demandeAdhesion->prenom}}</strong></p>
+        <p>Déclarons accepter la cession consentie par Mr/Mme <strong>{{$demandeAdhesion->nom}} {{$demandeAdhesion->prenom}}.</strong></p>
         <p style="text-decoration: underline;">Signature MU-POL</p>
-        <p style="margin-top: 20%;">Fait à Ouagadougou le, <strong>{{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}</strong></p>
+        <p style="position: fixed; bottom: 50px; width: 100%; text-align: left;">
+            Fait à Ouagadougou le, <strong>{{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}.</strong>
+        </p>
+    </div>
+    <div id="footer">
+        <p class="page"></p>
     </div>
 </body>
 </html>

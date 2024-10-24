@@ -4,30 +4,27 @@ namespace App\Livewire;
 
 use App\Helpers\DemandeCategorieHelper;
 use App\Models\DemandeAdhesion;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
 class WizardMembership extends Component
 {
+    use WithFileUploads; 
+
+
     public $currentStep = 1; // Étape actuelle du wizard
     public $totalSteps = 5;   // Nombre total d'étapes  
 
     // Variables pour les données du formulaire
-    public $matricule, $nip, $cnib, $delivree, $expire, $adresse_permanente, $telephone;
-    public $email, $password, $nom, $prenom, $genre, $departement, $ville, $pays, $nom_pere, $nom_mere, $situation_matrimoniale;
+    public $matricule, $nip, $cnib, $delivree, $expire, $adresse_permanente, $telephone, $email;
+    public  $nom, $prenom, $genre, $departement, $ville, $pays, $nom_pere, $nom_mere, $situation_matrimoniale;
     // Variables info personnnelles
-    public $nom_prenom_personne_besoin, $lieu_residence, $telephone_personne_prevenir;
-     // Propriétés pour les champs conditionnels
+    public $nom_prenom_personne_besoin, $lieu_residence, $telephone_personne_prevenir, $photo, $photo_path_adherent, $photo_path_ayantdroit; 
     // Variables pour le personnel en activité
     public $dateIntegration, $dateDepartARetraite, $direction, $service, $statut;
 
-    public $imageUrl; // Photo URL
-    protected $listeners = ['imageUploaded' => 'setImageUrl'];
-
-    public $step1Label = 'Références de l\'adhérent';
-    public $step2Label = 'État civil';
-    public $step3Label = 'Informations personnelles';
-    public $step4Label = 'Formations professionnelles';
+  
 
     // Variables pour le personnel retraité
     public $grade, $departARetraite, $numeroCARFO;
@@ -35,54 +32,8 @@ class WizardMembership extends Component
     public $nombreAyantsDroits = 0;
     public $ayantsDroits = [];
 
-    use WithFileUploads; 
-
-    public function setImageUrl($imageUrl)
-    {
-        $this->imageUrl = $imageUrl; // Mettez à jour l'URL de l'image
-    }
-
-    // Méthode pour mettre à jour les champs selon le statut
-    public function updatedStatut($value)
-    {
-        if ($value === 'personnel_retraite') {
-            // Réinitialiser les propriétés pour le personnel retraité
-            $this->grade = null;
-            $this->departARetraite = null;
-            $this->numeroCARFO = null;
-            // Réinitialiser les champs du personnel en activité
-            $this->dateIntegration = null;
-            $this->dateDepartARetraite = null;
-            $this->direction = null;
-            $this->service = null;
-        } elseif ($value === 'personnel_active') {
-            // Réinitialiser les propriétés pour le personnel en activité
-            $this->dateIntegration = null;
-            $this->dateDepartARetraite = null;
-            $this->direction = null;
-            $this->service = null;
-            // Réinitialiser les champs du personnel retraité
-            $this->grade = null;
-            $this->departARetraite = null;
-            $this->numeroCARFO = null;
-        }
-    }
-
-    public function updatedNombreAyantsDroits()
-    {
-        if ($this->nombreAyantsDroits > 0) {
-            $this->ayantsDroits = array_fill(0, $this->nombreAyantsDroits, [
-                'nom' => '',
-                'prenom' => '',
-                'sexe' => '',
-                'date_naissance' => '',
-                'lien_parenté' => ''
-            ]);
-        } else {
-            $this->ayantsDroits = []; // Réinitialise si le nombre est 0
-        }
-    }
-
+    public  $signature, $signatureImage; 
+    protected $listeners = ['signatureDataUpdated' => 'updateSignatureData'];
 
     // Méthode pour passer à l'étape suivante
     public function nextStep()
@@ -114,6 +65,8 @@ class WizardMembership extends Component
                 'expire' => 'required|date|after:delivree', // Assurez-vous que 'expire' est après 'delivree'
                 'adresse_permanente' => 'required',
                 'telephone' => 'required',
+                'email' => 'required|email',
+
             ]);
         } elseif ($this->currentStep == 2) {
             $this->validate([
@@ -129,26 +82,42 @@ class WizardMembership extends Component
         } elseif ($this->currentStep == 3) {
             $this->validate([
                 'situation_matrimoniale' => 'required|string',
+                'photo' => 'required|image|max:1024',
                 'nom_prenom_personne_besoin' => 'required|string|max:255',
                 'lieu_residence' => 'required|string|max:255',
                 'telephone' => 'required',
                 'nombreAyantsDroits' => 'nullable|integer|min:0|max:6',
             ]);
-    
+
+            if ($this->photo) {
+                $path = $this->photo->storeAs('public/photos/adherents', $this->photo->getClientOriginalName());
+                $this->photo_path_adherent = 'photos/adherents/' . $this->photo->getClientOriginalName();
+            }
+         
+        
             if ($this->nombreAyantsDroits > 0) {
                 foreach ($this->ayantsDroits as $index => $ayantDroit) {
                     $this->validate([
-                        "ayantsDroits.$index.nom" => 'required|string',
-                        "ayantsDroits.$index.prenom" => 'required|string',
-                        "ayantsDroits.$index.sexe" => 'required|string',
+                        "ayantsDroits.$index.nom" => 'required|string|max:255',
+                        "ayantsDroits.$index.prenom" => 'required|string|max:255',
+                        "ayantsDroits.$index.sexe" => 'required',
                         "ayantsDroits.$index.date_naissance" => 'required|date',
-                        "ayantsDroits.$index.lien_parenté" => 'required',
+                        "ayantsDroits.$index.lien_parenté" => 'required|string|max:255',
+                        // "ayantsDroits.$index.photo" => 'required|image|max:1024',
                     ]);
+                    
+                    if (isset($ayantDroit['photo'])) {
+                        $path = $ayantDroit['photo']->storeAs('public/photos/ayants_droits', $ayantDroit['photo']->getClientOriginalName());
+                        $this->photo_path_ayantdroit = 'photos/ayants_droits/' . $ayantDroit['photo']->getClientOriginalName();
+                    }
+
                 }
             }
+            
+            
         } elseif ($this->currentStep == 4) {
             $this->validate([
-                'statut' => 'required', // Le statut doit être sélectionné
+                'statut' => 'required', 
             ]);
         
             // Si l'utilisateur est un personnel retraité
@@ -189,6 +158,7 @@ class WizardMembership extends Component
             'expire' => $this->expire,
             'adresse' => $this->adresse_permanente,
             'telephone' => $this->telephone,
+            'email' => $this->email,
             'nom' => $this->nom,
             'prenom' => $this->prenom,
             'genre' => $this->genre,
@@ -201,7 +171,7 @@ class WizardMembership extends Component
             'nom_prenom_personne_besoin' => $this->nom_prenom_personne_besoin,
             'lieu_residence' => $this->lieu_residence,
             'telephone_personne_prevenir' => $this->telephone_personne_prevenir,
-            'photo' => $this->imageUrl, 
+            'photo' => $this->photo_path_adherent, 
             'nombreAyantsDroits' => $this->nombreAyantsDroits,
             'ayantsDroits' => json_encode($this->ayantsDroits),
             'categorie' => $categorie,
@@ -227,6 +197,30 @@ class WizardMembership extends Component
         // Redirection vers la vue souhaitée
         return redirect()->route('resume-adhesion', ['id' => $demandeAdhesion->id]);
     }
+    public function saveSignature()
+    {
+        if ($this->signature) {
+            // Supprimer la partie avant les données base64
+            $signatureData = str_replace('data:image/png;base64,', '', $this->signature);
+            $signatureData = str_replace(' ', '+', $signatureData); // Gérer les espaces
+            $decodedData = base64_decode($signatureData);
+        
+            // Définir le chemin où vous souhaitez enregistrer la signature
+            $fileName = uniqid() . '.png'; // Nom de fichier unique
+            $filePath = 'signatures/' . $fileName; // Chemin relatif dans le dossier storage/app/signatures
+            
+            // Enregistrer l'image décodée dans le storage
+            Storage::put($filePath, $decodedData);
+            
+            // Stocker le chemin relatif dans la variable signature_path
+            $this->signatureImage = $filePath;
+
+            session()->flash('message', 'Signature enregistrée avec succès.');
+        } else {
+            session()->flash('error', 'Aucune signature à enregistrer.');
+        }
+    }
+
 
     public function updateExpire()
     {
@@ -253,12 +247,15 @@ class WizardMembership extends Component
             $this->ayantsDroits = [];
         }
     }
-
+    
     public function changeStatut($value)
     {
         $this->statut = $value;
     }
 
+
+   
+    
     public function render()
     {
         return view('livewire.wizard-membership');

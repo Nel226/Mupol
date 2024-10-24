@@ -14,6 +14,8 @@ use App\Http\Controllers\ParametreController;
 use App\Http\Controllers\AyantDroitController;
 use App\Http\Controllers\CotisationController;
 use App\Http\Controllers\PrestationController;
+use App\Http\Controllers\DemandeController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -32,10 +34,18 @@ use App\Http\Controllers\PrestationController;
 Route::get('/', [AccueilController::class, 'accueil'])->name(name: 'accueil');
 Route::get('/formulaire-adhesion', [AccueilController::class, 'newAdhesion'])->name(name: 'formulaire-adhesion');
 Route::get('/resume-adhesion/{id}', [AccueilController::class, 'resumeAdhesion'])->name('resume-adhesion');
-Route::get('/demande-adhesion/{id}/fiche-cession-volontaire',  [AccueilController::class, 'downloadCessionFiche'])->name('download-fiche-cession-volontaire');
+Route::get('/demande-adhesion/{id}/fiche-cession-volontaire', [AccueilController::class, 'downloadCessionFiche'])
+    ->name('download-fiche-cession-volontaire');
 Route::get('download-form-adhesion/{id}', [AccueilController::class, 'downloadFormAdhesion'])->name('download-form-adhesion');
+Route::post('/recapitulatif-form', [AccueilController::class, 'recapitulatifForm'])->name('recapitulatif-form');
+Route::get('/formulaire-adhesion-recapitulatif', function () {
+    return view('components.formulaire-adhesion'); 
+})->name('formulaire.adhesion.recapitulatif');
+Route::post('/finalisation-adhesion', [AccueilController::class, 'finalAdhesion'])->name('finalisation-adhesion');
+Route::get('/cession-volontaire/{id}', [AccueilController::class, 'showCessionVolontaire'])
 
-Route::get('/cession-volontaire/{id}', [AccueilController::class, 'showCessionVolontaire'])->name('showCessionVolontaire');
+    ->name('showCessionVolontaire');
+Route::get('/impression-fiche-cession/{id}', [AccueilController::class, 'imprimerFicheCession'])->name('imprimer-fiche-cession');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/counter', Counter::class);
@@ -70,6 +80,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('parametres', ParametreController::class);
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
+    Route::resource('demandes', DemandeController ::class);
+
     Route::get('/test-ayantsdroits/{id}/edit', function ($id) {
         $ayantDroit =  AyantDroit::find(3);
         return view('pages.ayantsdroits.edit', compact('ayantDroit'));

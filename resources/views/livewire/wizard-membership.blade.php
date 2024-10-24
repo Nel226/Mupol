@@ -71,7 +71,6 @@
             </h2>
             <div class="overflow-y-auto max-h-[500px]">
 
-        
                 <!-- Étape 1 -->
                 @if ($currentStep == 1)
                     <div>

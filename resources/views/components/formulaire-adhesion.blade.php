@@ -1,6 +1,10 @@
 <style>
     body {
         font-family: Arial, sans-serif;
+        /* margin: 0;
+        padding: 0;
+        width: 210mm; /* Largeur A4 */
+        /*height: 297mm; Hauteur A4 */
     }
 
     .table {
@@ -19,6 +23,10 @@
         max-width: 800px;
         margin: auto;
         padding: 20px;
+        /* Pour centrer le contenu */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     fieldset {
@@ -37,9 +45,25 @@
     p {
         margin: 5px 0;
     }
+
+    @media print {
+        body {
+            width: 210mm; /* Largeur A4 */
+            height: 297mm; /* Hauteur A4 */
+            margin: 0;
+            padding: 0;
+            -webkit-print-color-adjust: exact; /* Pour une impression fidèle aux couleurs */
+        }
+
+        .adhesion-form {
+            margin: 0;
+            padding: 0;
+            box-shadow: none; /* Supprimer l'ombre lors de l'impression */
+        }
+    }
 </style>
 
-<div class="adhesion-form  w-a4  max-w-5xl mx-auto p-10 bg-white shadow-lg rounded-lg">
+<div class="adhesion-form document w-a4 max-w-5xl mx-auto p-10 bg-white shadow-lg rounded-lg">
     <div class="flex justify-between items-center mx-auto pb-2 w-11/12 mb-2">
         <!-- Colonne 1 -->
         <div class="flex flex-col space-y-1 items-center text-center leading-none self-start">
@@ -63,7 +87,7 @@
     </div>
 
     <!-- Titre principal -->
-    <div class="flex flex-col items-center space-y-0">
+    <div class="flex flex-col items-center space-y-0 w-11/12 mx-auto">
         <h2 class="text-center text-3xl font-bold mt-0">FORMULAIRE D'ADHÉSION</h2>
 
         <!-- Sous-titre avec surlignage -->
@@ -71,14 +95,9 @@
             À REMPLIR EN CARACTÈRES D'IMPRIMERIE
         </h1>
     </div>
-
-
-    <div>
-        <p><strong>Matricule :</strong> {{ $this->matricule }}</p>
-    </div>
     
     <!-- Section : Références adhérent -->
-    <div class="section border-t border-gray-300 mt-2 pt-3">
+    <div class="section border-t border-gray-300 mt-2 pt-3 w-11/12 mx-auto">
         <div class="flex">
             <!-- Colonne Références -->
             <div class="w-3/4">
@@ -148,7 +167,7 @@
 
 
     <!-- Section : État civil -->
-    <div class="section border-t border-gray-300 mt-1 pt-3">
+    <div class="section border-t border-gray-300 mt-1 pt-3 w-11/12 mx-auto">
 
         <h3 class="text-1xl font-semibold bg-gray-500 px-auto px-1">ÉTAT CIVIL</h3>
 
@@ -175,7 +194,7 @@
                                 <p class="mr-1"><strong>Ville / Village</strong></p>
                                 <div class="leading-none">
                                     <p class="mr-1"><strong>Pays</strong></p>
-                                    <p class="text-xs"><small>(Si vous êtes né(e) hors du pays)</small></p>
+                                    {{-- <p class="text-xs"><small>(Si vous êtes né(e) hors du pays)</small></p> --}}
                                 </div>
                             </div>
 
@@ -203,7 +222,7 @@
 
 
     <!-- Section : Informations Personnelles -->
-    <div class="section border-t border-gray-300 mt-2 pt-3">
+    <div class="section border-t border-gray-300 mt-2 pt-3 w-11/12 mx-auto">
         <h3 class="text-1xl font-semibold bg-gray-500 px-auto px-1">INFORMATIONS PERSONNELLES</h3>
 
         <div>
@@ -267,7 +286,7 @@
     </div>
 
     <!-- Section : Formations professionnelles -->
-    <div class="section border-t border-gray-300 mt-2 pt-4">
+    <div class="section border-t border-gray-300 mt-2 pt-4 w-11/12 mx-auto">
         <h3 class="text-1xl font-semibold mb-2 bg-gray-500 px-auto px-1">INFORMATIONS PROFESSIONELLES</h3>
         
         <!-- Personnel Retraité -->

@@ -29,7 +29,7 @@ class WizardMembership extends Component
     // Variables pour le personnel retraité
     public $grade, $departARetraite, $numeroCARFO;
 
-    public $nombreAyantsDroits = 0;
+    public $nombreAyantsDroits;
     public $ayantsDroits = [];
 
     public  $signature, $signatureImage; 
@@ -86,14 +86,13 @@ class WizardMembership extends Component
                 'nom_prenom_personne_besoin' => 'required|string|max:255',
                 'lieu_residence' => 'required|string|max:255',
                 'telephone' => 'required',
-                'nombreAyantsDroits' => 'nullable|integer|min:0|max:6',
+                'nombreAyantsDroits' => 'required|integer',
             ]);
 
             if ($this->photo) {
                 $path = $this->photo->storeAs('public/photos/adherents', $this->photo->getClientOriginalName());
                 $this->photo_path_adherent = 'photos/adherents/' . $this->photo->getClientOriginalName();
             }
-         
         
             if ($this->nombreAyantsDroits > 0) {
                 foreach ($this->ayantsDroits as $index => $ayantDroit) {

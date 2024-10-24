@@ -382,8 +382,8 @@
                                 <label class="block text-gray-700 text-sm font-bold mb-1"
                                     for="changeNombreAyantsDroits">Nombre d&apos;ayants-droits</label>
                                 <select class="border-2 bg-gray-50 rounded w-full py-1"
-                                    wire:click="changeNombreAyantsDroits($event.target.value)">
-                                    <option value="" selected>Choisissez un nombre</option>
+                                    wire:change="changeNombreAyantsDroits($event.target.value)">
+                                    <option value="" disabled selected>Choisissez un nombre</option>
                                     <option value="0">0</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
@@ -392,7 +392,9 @@
                                     <option value="5">5</option>
                                     <option value="6">6</option>
                                 </select>
-        
+                                @error('nombreAyantsDroits') 
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="col-span-3">
                                 @if ($nombreAyantsDroits > 0)
@@ -444,7 +446,6 @@
                                                 <div class="mt-2">
                                                     <label class="block text-gray-700 text-sm font-bold mb-1">Lien de Parenté</label>
                                                     
-                                                   
                                                     <select wire:model="ayantsDroits.{{ $i }}.lien_parente" wire:change="changeLienParente($event.target.value, {{ $i }})" class="border-2 rounded w-full py-1">
                                                         <option value="" disabled selected>Sélectionnez un lien</option>
                                                         <option value="conjoint">Conjoint (e)</option>

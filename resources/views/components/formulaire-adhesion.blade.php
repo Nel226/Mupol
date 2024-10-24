@@ -244,22 +244,22 @@
             </div>
         </fieldset>
 
-        @if ($this->nombreAyantsDroits > 0)
-            <div class="pt-4 text-center text-2xl font-bold">
-                <h2 class=" leading-none">LISTE DES AYANTS DROITS</h2>
-            </div>
-            <table class="table leading-none w-full border-collapse border-2 border-gray-400 text-left">
-                <thead class="bg-gray-200">
-                    <tr>
-                        <th class="border border-gray-400">N°</th>
-                        <th class="border border-gray-400">Nom</th>
-                        <th class="border border-gray-400">Prénom(s)</th>
-                        <th class="border border-gray-400">Sexe</th>
-                        <th class="border border-gray-400">Date de naissance</th>
-                        <th class="border border-gray-400">Lien de parenté</th>
-                    </tr>
-                </thead>
-                <tbody>
+        <div class="pt-4 text-center text-2xl font-bold">
+            <h2 class=" leading-none">LISTE DES AYANTS DROITS</h2>
+        </div>
+        <table class="table leading-none w-full border-collapse border-2 border-gray-400 text-left">
+            <thead class="bg-gray-200">
+                <tr>
+                    <th class="border border-gray-400">N°</th>
+                    <th class="border border-gray-400">Nom</th>
+                    <th class="border border-gray-400">Prénom(s)</th>
+                    <th class="border border-gray-400">Sexe</th>
+                    <th class="border border-gray-400">Date de naissance</th>
+                    <th class="border border-gray-400">Lien de parenté</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if ($this->nombreAyantsDroits > 0)
                     @foreach ($this->ayantsDroits as $index => $ayantDroit)
                         <tr>
                             <td class="border border-gray-400">{{ $index + 1 }}</td>
@@ -275,12 +275,24 @@
                                 @endif
                             </td>
                             <td class="border border-gray-400">{{ $ayantDroit['date_naissance'] }}</td>
-                            <td class="border border-gray-400">{{ $ayantDroit['lien_parenté'] }}</td>
+                            <td class="border border-gray-400">{{ $ayantDroit['lien_parente'] }}</td>
                         </tr>
                     @endforeach
-                </tbody>
-            </table>
-        @endif
+                @else
+                    @for ($i = 0; $i < 6; $i++)
+                        <tr>
+                            <td class="border border-gray-400">{{ $i + 1 }}</td>
+                            <td class="border border-gray-400">-</td>
+                            <td class="border border-gray-400">-</td>
+                            <td class="border border-gray-400">-</td>
+                            <td class="border border-gray-400">-</td>
+                            <td class="border border-gray-400">-</td>
+                        </tr>
+                    @endfor
+                @endif
+            </tbody>
+        </table>
+        
     </div>
 
     <!--  : Formations professionnelles -->

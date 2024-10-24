@@ -15,7 +15,7 @@
 
     .table th,
     .table td {
-        border: 2px solid gray;
+        border: 2px solid rgb(36, 36, 36);
         padding: 8px;
     }
 
@@ -63,7 +63,7 @@
     }
 </style>
 
-<div class="adhesion-form document w-a4 max-w-5xl mx-auto p-10 bg-white shadow-lg rounded-lg">
+<div class="adhesion-form w-a4 max-w-5xl mx-auto p-10 bg-white shadow-lg rounded-lg">
     <div class="flex justify-between items-center mx-auto pb-2 w-11/12 mb-2">
         <!-- Colonne 1 -->
         <div class="flex flex-col space-y-1 items-center text-center leading-none self-start">
@@ -91,17 +91,17 @@
         <h2 class="text-center text-3xl font-bold mt-0">FORMULAIRE D'ADHÉSION</h2>
 
         <!-- Sous-titre avec surlignage -->
-        <h1 class="text-center text-1xl text-white font-bold bg-black px-3 inline-block">
+        <h1 class="text-center text-1xl text-white font-bold bg-black px-3 py-1 inline-block">
             À REMPLIR EN CARACTÈRES D'IMPRIMERIE
         </h1>
     </div>
     
-    <!-- Section : Références adhérent -->
-    <div class="section border-t border-gray-300 mt-2 pt-3 w-11/12 mx-auto">
+    <!--  : Références adhérent -->
+    <div class=" border-t border-gray-300 mt-2 pt-3 w-11/12 mx-auto">
         <div class="flex">
             <!-- Colonne Références -->
             <div class="w-3/4">
-                <h3 class="text-1xl font-semibold bg-gray-500 px-auto px-1">RÉFÉRENCES DE L'ADHÉRENT</h3>
+                <h3 class="text-1xl font-semibold bg-gray-500 px-auto px-1 py-1">RÉFÉRENCES DE L'ADHÉRENT</h3>
 
                 <div>
                     <p><strong>Matricule :</strong> {{ $this->matricule }}</p>
@@ -115,36 +115,34 @@
 
                 <div class="flex space-x-4">
                     <!-- Colonne pour DÉLIVRÉE LE et la date -->
-                    <div class="flex-1 w-1/2 leading-none">
+                    <div class="flex-1 w-1/2">
                         <div class="flex">
                             <!-- Première colonne : DÉLIVRÉE LE et (JJ/MM/AAAA) -->
-                            <div class="flex-shrink-0 ">
-                                <p class="mr-1"><strong>DÉLIVRÉE LE :</strong></p>
-                                <p class="text-xs"><small>(JJ/MM/AAAA)</small></p>
+                            <div class="flex-shrink-0">
+                                <p class="mr-1 leading-none"><strong>DÉLIVRÉE LE :</strong></p>
+                                <p class="text-xs leading-none"><small>(JJ/MM/AAAA)</small></p>
                             </div>
 
                             <!-- Deuxième colonne : valeur de la date de délivrance -->
                             <div class="flex-1">
-                                <p>{{ $this->delivree }}</p>
+                                <p class="leading-none">{{ $this->delivree }}</p>
                             </div>
                         </div>
                     </div>
 
-                    <div class="flex  w-1/2 leading-none">
+                    <div class="flex  w-1/2">
                         <!-- Première colonne : EXPIRE LE et (JJ/MM/AAAA) -->
-                        <div class="flex-shrink-0 ">
-                            <p class="mr-1"><strong>EXPIRE LE :</strong></p>
-                            <p class="text-xs"><small>(JJ/MM/AAAA)</small></p>
+                        <div class="flex-shrink-0">
+                            <p class="mr-1 leading-none"><strong>EXPIRE LE :</strong></p>
+                            <p class="text-xs leading-none"><small>(JJ/MM/AAAA)</small></p>
                         </div>
 
                         <!-- Deuxième colonne : valeur de la date d'expiration -->
                         <div class="flex-1">
-                            <p>{{ $this->expire }}</p>
+                            <p class="leading-none">{{ $this->expire }}</p>
                         </div>
                     </div>
-
                 </div>
-
             </div>
 
             <!-- Colonne Signature -->
@@ -166,10 +164,10 @@
     </div>
 
 
-    <!-- Section : État civil -->
-    <div class="section border-t border-gray-300 mt-1 pt-3 w-11/12 mx-auto">
+    <!--  : État civil -->
+    <div class=" border-t border-gray-300 mt-1 pt-3 w-11/12 mx-auto">
 
-        <h3 class="text-1xl font-semibold bg-gray-500 px-auto px-1">ÉTAT CIVIL</h3>
+        <h3 class="text-1xl font-semibold bg-gray-500 py-1 px-auto px-1">ÉTAT CIVIL</h3>
 
         <div class="flex">
             <div class="w-3/4">
@@ -221,9 +219,9 @@
     </div>
 
 
-    <!-- Section : Informations Personnelles -->
-    <div class="section border-t border-gray-300 mt-2 pt-3 w-11/12 mx-auto">
-        <h3 class="text-1xl font-semibold bg-gray-500 px-auto px-1">INFORMATIONS PERSONNELLES</h3>
+    <!--  : Informations Personnelles -->
+    <div class=" border-t border-gray-300 mt-2 pt-3 w-11/12 mx-auto">
+        <h3 class="text-1xl font-semibold bg-gray-500 px-auto px-1 py-1">INFORMATIONS PERSONNELLES</h3>
 
         <div>
             <p><strong>Situation matrimoniale :</strong> {{ $this->situation_matrimoniale }} </p>
@@ -277,7 +275,7 @@
                                 @endif
                             </td>
                             <td class="border border-gray-400">{{ $ayantDroit['date_naissance'] }}</td>
-                            <td class="border border-gray-400">{{ $ayantDroit['lien_parenté'] }}</td>
+                            <td class="border border-gray-400">{{ $ayantDroit['lien_parente'] }}</td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -285,9 +283,9 @@
         @endif
     </div>
 
-    <!-- Section : Formations professionnelles -->
-    <div class="section border-t border-gray-300 mt-2 pt-4 w-11/12 mx-auto">
-        <h3 class="text-1xl font-semibold mb-2 bg-gray-500 px-auto px-1">INFORMATIONS PROFESSIONELLES</h3>
+    <!--  : Formations professionnelles -->
+    <div class=" border-t border-gray-300 mt-2 pt-4 w-11/12 mx-auto">
+        <h3 class="text-1xl font-semibold mb-2 bg-gray-500 px-auto px-1 py-1">INFORMATIONS PROFESSIONELLES</h3>
         
         <!-- Personnel Retraité -->
         @if ($this->statut === 'personnel_retraite')
@@ -302,19 +300,19 @@
 
                 </div>
                 <div class="flex space-x-4">
-                    <div class="flex-1 w-1/2 leading-none">
-                        <div class="flex leading-none">
-                            <div class="flex-shrink-0 leading-none">
+                    <div class="flex-1 w-1/2">
+                        <div class="flex">
+                            <div class="flex-shrink-0">
                                 <p class="mr-1 leading-none"><strong>Date depart à la retraite :</strong></p>
                                 <p class="text-xs leading-none"><small>(JJ/MM/AAAA)</small></p>
                             </div>
                             <div class="flex-1">
-                                <p>{{ $this->departARetraite }}</p>
+                                <p class="leading-none">{{ $this->departARetraite }}</p>
                             </div>
                         </div>
                     </div>
 
-                    <div class="flex  w-1/2 leading-none">
+                    <div class="flex  w-1/2">
                         <p><strong>N° CARFO :</strong> {{ $this->numeroCARFO }}</p>
                     </div>
 
@@ -334,14 +332,14 @@
                     </div>
 
                     <div class="flex space-x-4">
-                        <div class="flex-1 w-1/2 leading-none">
+                        <div class="flex-1 w-1/2">
                             <div class="flex">
-                                <div class="flex-shrink-0 leading-none">
+                                <div class="flex-shrink-0">
                                     <p class="mr-1 leading-none"><strong>Date d'intégration :</strong></p>
                                     <p class="text-xs leading-none"><small>(JJ/MM/AAAA)</small></p>
                                 </div>
                                 <div class="flex-1">
-                                    <p>{{ $this->dateIntegration }}</p>
+                                    <p class="leading-none">{{ $this->dateIntegration }}</p>
                                 </div>
                             </div>
                         </div>
@@ -354,7 +352,7 @@
 
                             <!-- Deuxième colonne : valeur de la date d'expiration -->
                             <div class="flex-1">
-                                <p>{{ $this->dateDepartARetraite }}</p>
+                                <p class=" leading-none">{{ $this->dateDepartARetraite }}</p>
                             </div>
                         </div>
 

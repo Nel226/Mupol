@@ -192,37 +192,7 @@ class WizardMembership extends Component
         
         // Réinitialisez le formulaire si nécessaire
         // $this->reset();
-        $this->matricule = null; 
-        $this->nip = null; 
-        $this->cnib = null; 
-        $this->delivree = null; 
-        $this->expire = null; 
-        $this->adresse_permanente = null; 
-        $this->telephone = null; 
-        $this->email = null; 
-        $this->nom = null; 
-        $this->prenom = null; 
-        $this->genre = null; 
-        $this->departement = null; 
-        $this->ville = null; 
-        $this->pays = null; 
-        $this->nom_pere = null; 
-        $this->nom_mere = null; 
-        $this->situation_matrimoniale = null; 
-        $this->nom_prenom_personne_besoin = null; 
-        $this->lieu_residence = null; 
-        $this->telephone_personne_prevenir = null; 
-        $this->photo_path_adherent = null; 
-        $this->nombreAyantsDroits = null; 
-        $this->ayantsDroits = []; 
-        $this->statut = null; 
-        $this->grade = null; 
-        $this->departARetraite = null; 
-        $this->numeroCARFO = null; 
-        $this->dateIntegration = null; 
-        $this->dateDepartARetraite = null; 
-        $this->direction = null; 
-        $this->service = null; 
+        
 
         $this->currentStep = 1; 
         

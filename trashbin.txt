@@ -1,3 +1,442 @@
+public function previousStep()
+    {
+        if ($this->currentStep > 1) {
+            $this->currentStep--;
+        }
+    }
+ 
+public function nextStep()
+    {
+        $this->validateStep(); // Valider l'étape avant de passer à la suivante
+
+        if ($this->currentStep < $this->totalSteps) {
+            $this->currentStep++;
+        }
+    }
+
+ 
+w-a4
+ 
+                        <!-- Deuxième colonne : valeur de la date d'expiration -->
+
+ 
+%
+ 
+
+
+ 
+            left: 0px; 
+
+ 
+</span>
+ 
+<span style="margin: 0;">
+ 
+   <p>
+
+                                </p>
+ 
+            line-height: 35px;
+
+ 
+            text-align: center;
+
+ 
+<div class="center-image-container">
+            <img src="{{ $logoDataUrl }}" style="text-align: center; align-items: center; margin: auto; margin-top:5px; " class="center-image" width="48px" height="48px"  alt="Logo">
+        </div>
+ 
+<tr>
+                <td></td>
+                <td style="padding: 0px 0px 0px 0px; text-align: center;">
+                    
+                </td>
+                <td></td>
+
+            </tr>
+ 
+            background-color: #03a9f4;
+
+ 
+            background-color: #03a9f4;
+
+ 
+#footer {
+            position: fixed;
+            right: 20px;
+            bottom: 0;
+            text-align: right;
+            width: 100%; 
+
+        }
+ 
+text-transform: uppercase;
+ 
+ <table>
+        <tr>
+            td
+        </tr>
+    </table>
+ 
+align-items:             
+ 
+public\fonts\open_sans_bold_46d77b2dbc09360e64323bd9bdf2309f.ttf
+ 
+            line-height: 1.2 !important;
+
+ 
+            padding: 3px;
+
+ 
+border-collapse: collapse;
+ 
+            justify-content: 
+
+ 
+center
+ 
+center
+ 
+            justify-content
+
+ 
+style="margin-top: 5px;"
+ 
+oboto
+ 
+            src: url({{ storage_path('fonts\open-sans\OpenSans-Regular.ttf') }}) format("truetype");
+
+ 
+            src: url({{ storage_path('fonts\open-sans\OpenSans-Regular.ttf') }}) format("truetype");
+
+ 
+            src: url('{{ asset('fonts\open-sans\OpenSans-Regular.ttf') }}') format('truetype');
+
+ 
+style="font-family: 'Open Sans', sans-serif !important;"
+ 
+<?php
+
+namespace App\Helpers;
+
+use Dompdf\Dompdf;
+use Dompdf\Options;
+
+class PDFHelper
+{
+    /**
+     * Generate and download a PDF file from a given view.
+     * 
+     * @param string $viewPath The view path that will be rendered into a PDF.
+     * @param array $data Data to be passed to the view.
+     * @param string $fileName The name of the PDF file to download.
+     * @param array $options Additional Dompdf options like paper size, orientation, etc.
+     * @return \Illuminate\Http\Response The PDF stream response.
+     */
+    public static function downloadPDF($viewPath, $data, $fileName, $options = [])
+    {
+        // Setup default options
+        $dompdfOptions = new Options();
+        $dompdfOptions->set('chroot', public_path());
+        
+        // If additional Dompdf options are passed, merge them
+        if (!empty($options)) {
+            foreach ($options as $key => $value) {
+                $dompdfOptions->set($key, $value);
+            }
+        }
+
+        // define fontDir/tmp directory
+        $fontDir = __DIR__ . '/fonts';
+        // Initialize Dompdf with the configured options
+        $dompdf = new Dompdf($dompdfOptions);
+
+// instantiate and use the dompdf class
+$dompdf = new Dompdf([
+    'fontDir' => $fontDir,
+    'fontCache' => $fontDir,
+    'tempDir' => $fontDir,
+    'chroot' => $fontDir,
+]);
+
+
+$OpenSans = 'fonts/Poppins-Regular.ttf';
+        // Handle logo or other image paths in the data (optional)
+        if (isset($data['logoPath'])) {
+            $data['logoDataUrl'] = ImageHelper::imageToDataUrl($data['logoPath']);
+        }
+
+        // Render the view to HTML and load it into Dompdf
+        $pdfView = view($viewPath, $data)->render();
+        $dompdf->loadHtml($pdfView);
+
+        // Optionally set paper size and orientation if provided
+        $dompdf->setPaper($options['paper'] ?? 'A4', $options['orientation'] ?? 'portrait');
+        
+        // Render the PDF
+        $dompdf->render();
+
+        // Stream or download the PDF
+        return $dompdf->stream($fileName . '.pdf');
+    }
+}
+
+ 
+$fontBlack = 'fonts/Poppins-Black.ttf';
+
+ 
+            src: url('{{ asset('fonts/open-sans/OpenSans-Bold.ttf') }}') format('truetype');
+
+ 
+            src: url('{{ asset('fonts\open-sans\OpenSans-Regular.ttf') }}') format('truetype');
+
+ 
+            font-family: " Open Sans" , Arial, sans-serif;
+
+ 
+Calibri
+ 
+                                                <i class="fa fa-file-image-o" aria-hidden="true"></i>
+
+ 
+bg-blue-700 hover:bg-blue-800 
+ 
+                                                Afficher 
+
+ 
+shadow-lg
+ 
+                            <th class="border border-gray-400">N°</th>
+
+ 
+                                <td class="border border-gray-400">{{ $index + 1 }}</td>
+
+ 
+emme
+ 
+    // Fermeture du modal en cliquant à l'extérieur (optionnel)
+
+ 
+    // Fermeture du modal
+
+ 
+    // Ouverture du modal avec l'URL spécifique
+
+ 
+    // Variables pour le modal et le iframe
+
+ 
+<div id="attachment-modal" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full h-full">
+
+ 
+            
+ 
+                                        <img  src="{{ $ayantDroit['photo_path'] ?? '/default/profile-picture.jpg' }}" alt="Photo de {{ $ayantDroit['nom'] }}">
+
+ 
+CNIB
+ 
+Extrait
+ 
+                            <th class="border border-gray-400">Date de naissance</th>
+
+ 
+                                <td class="border border-gray-400">{{ $ayantDroit['date_naissance'] }}</td>
+
+ 
+shadow-lg
+ 
+    // Fermeture du modal en cliquant à l'extérieur (optionnel)
+
+ 
+// Reset du src pour éviter de recharger
+ 
+    // Fermeture du modal
+
+ 
+    // Ouverture du modal avec l'URL spécifique
+
+ 
+    // Variables pour le modal et le iframe
+
+ 
+xl
+ 
+<div id="attachment-modal" tabindex="-1" class="hidden fixed inset-0 z-50 flex items-center justify-center">
+
+ 
+                <!-- Modal toggle -->
+<button id="modalButton" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+  Afficher les pièces jointes
+</button>
+
+<!-- Main modal -->
+<div id="default-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full h-full">
+    <div class="relative p-4 w-full max-w-2xl max-h-full">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <!-- Modal header -->
+            <div class="flex items-center justify-between p-4 border-b rounded-t dark:border-gray-600">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Pièces Jointes</h3>
+                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" id="closeModalButton">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    <span class="sr-only">Fermer modal</span>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <div class="p-4 space-y-4">
+                @if ($demande->nombreAyantsDroits > 0)
+                    <div class="pt-4 text-center text-2xl font-bold">
+                        <h2 class="leading-none">LISTE DES AYANTS DROITS</h2>
+                    </div>
+                    <table class="table leading-none w-full border-collapse border-2 border-gray-400 text-left">
+                        <thead class="bg-gray-200">
+                            <tr>
+                                <th class="border border-gray-400">N°</th>
+                                <th class="border border-gray-400">Nom</th>
+                                <th class="border border-gray-400">Prénom(s)</th>
+                                <th class="border border-gray-400">Sexe</th>
+                                <th class="border border-gray-400">Date de naissance</th>
+                                <th class="border border-gray-400">Lien de parenté</th>
+                                <th class="border border-gray-400">CNIB</th>
+                                <th class="border border-gray-400">Extrait</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($demande->ayantsDroits as $index => $ayantDroit)
+                                <tr>
+                                    <td class="border border-gray-400">{{ $index + 1 }}</td>
+                                    <td class="border border-gray-400">{{ $ayantDroit['nom'] }}</td>
+                                    <td class="border border-gray-400">{{ $ayantDroit['prenom'] }}</td>
+                                    <td class="border border-gray-400">
+                                        @if ($ayantDroit['sexe'] === 'H')
+                                            Homme
+                                        @elseif ($ayantDroit['sexe'] === 'F')
+                                            Femme
+                                        @else
+                                            Non spécifié
+                                        @endif
+                                    </td>
+                                    <td class="border border-gray-400">{{ $ayantDroit['date_naissance'] }}</td>
+                                    <td class="border border-gray-400">{{ $ayantDroit['lien_parente'] }}</td>
+                                    <td class="border border-gray-400">
+                                        @if (isset($ayantDroit['cnib_path']))
+                                            <a href="{{ asset('storage/' . $ayantDroit['cnib_path']) }}" target="_blank" class="text-blue-500 underline">Télécharger</a>
+                                        @else
+                                            Non disponible
+                                        @endif
+                                    </td>
+                                    <td class="border border-gray-400">
+                                        @if (isset($ayantDroit['extrait_path']))
+                                            <a href="{{ asset('storage/' . $ayantDroit['extrait_path']) }}" target="_blank" class="text-blue-500 underline">Télécharger</a>
+                                        @else
+                                            Non disponible
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                @else
+                    <p class="text-center text-gray-500">Aucune pièce jointe disponible.</p>
+                @endif
+            </div>
+            <!-- Modal footer -->
+            <div class="flex items-center p-4 border-t border-gray-200 rounded-b dark:border-gray-600">
+                <button id="closeModalButton" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    // Ouvrir le modal
+    document.getElementById('modalButton').addEventListener('click', function() {
+        document.getElementById('default-modal').classList.remove('hidden');
+    });
+
+    // Fermer le modal
+    document.getElementById('closeModalButton').addEventListener('click', function() {
+        document.getElementById('default-modal').classList.add('hidden');
+    });
+
+    // Fermer le modal en cliquant à l'extérieur (optionnel)
+    window.addEventListener('click', function(event) {
+        const modal = document.getElementById('default-modal');
+        if (event.target === modal) {
+            modal.classList.add('hidden');
+        }
+    });
+</script>
+
+ 
+                        <!-- Main modal -->
+<div id="default-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative p-4 w-full max-w-2xl max-h-full">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <!-- Modal header -->
+            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                <h3 id="modalTitle" class="text-xl font-semibold text-gray-900 dark:text-white">
+                    Pièce jointe
+                </h3>
+                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <div class="p-4 md:p-5 space-y-4">
+                <div id="modalContent">
+                    <!-- Le contenu sera mis à jour dynamiquement -->
+                </div>
+            </div>
+            <!-- Modal footer -->
+            <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
+                <button data-modal-hide="default-modal" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+ 
+<script>
+    function showPieceJointes(filePath, title) {
+        // Met à jour le titre du modal
+        document.getElementById('modalTitle').textContent = title;
+
+        // Met à jour le contenu du modal pour afficher le fichier
+        let modalContent = document.getElementById('modalContent');
+        modalContent.innerHTML = `<iframe src="${filePath}" class="w-full h-96" frameborder="0"></iframe>`;
+    }
+</script>
+ 
+        dd( $demande->ayantsDroits);
+
+ 
+                    // Gestion des pièces jointes
+
+ 
+                        // Ajoute la validation pour les fichiers s'ils sont requis
+
+ 
+// Convertit en tableau
+ 
+: center;
+            align-items: center;
+            width: 100%;
+            text-align: center;
+        }
+        h4 {
+            margin: 20px 0;
+            text-decoration: underline;
+        }
+ 
+    <link rel="stylesheet" href="print.css">
+
+ 
                         
  
                         

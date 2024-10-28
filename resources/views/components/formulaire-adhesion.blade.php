@@ -63,7 +63,7 @@
     }
 </style>
 
-<div class="adhesion-form w-a4 max-w-5xl mx-auto p-10 bg-white shadow-lg rounded-lg">
+<div class="adhesion-form  max-w-4xl border mx-auto p-10 bg-white shadow-lg rounded-lg">
     <div class="flex justify-between items-center mx-auto pb-2 w-11/12 mb-2">
         <!-- Colonne 1 -->
         <div class="flex flex-col space-y-1 items-center text-center leading-none self-start">
@@ -137,7 +137,6 @@
                             <p class="text-xs leading-none"><small>(JJ/MM/AAAA)</small></p>
                         </div>
 
-                        <!-- Deuxième colonne : valeur de la date d'expiration -->
                         <div class="flex-1">
                             <p class="leading-none">{{ $this->expire }}</p>
                         </div>

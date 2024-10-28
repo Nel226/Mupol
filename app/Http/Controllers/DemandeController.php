@@ -22,7 +22,7 @@ class DemandeController extends Controller
         ];
         $pageTitle = 'Liste des demandes d\'adhésions';
 
-        $demandes = DemandeAdhesion::all();
+        $demandes = DemandeAdhesion::orderBy('created_at', 'desc')->get();
         
         return view('pages.backend.demandes.index', compact('demandes', 'breadcrumbsItems', 'pageTitle'));
     }
@@ -50,6 +50,8 @@ class DemandeController extends Controller
             ],
         ];
         $pageTitle = 'Liste des demandes d\'adhésions';
+        $demande->ayantsDroits = json_decode($demande->ayantsDroits, true); 
+
         return view('pages.backend.demandes.show', compact('demande', 'breadcrumbsItems', 'pageTitle' ));
 
     }

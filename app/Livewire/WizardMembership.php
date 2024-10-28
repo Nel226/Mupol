@@ -36,22 +36,31 @@ class WizardMembership extends Component
     protected $listeners = ['signatureDataUpdated' => 'updateSignatureData'];
 
     // Méthode pour passer à l'étape suivante
+    public function mount()
+    {
+        $this->currentStep = session()->get('currentStep', 1);
+    }
+
     public function nextStep()
     {
         $this->validateStep(); // Valider l'étape avant de passer à la suivante
 
         if ($this->currentStep < $this->totalSteps) {
             $this->currentStep++;
+            session()->put('currentStep', $this->currentStep);
         }
     }
 
+    
     // Méthode pour revenir à l'étape précédente
     public function previousStep()
     {
         if ($this->currentStep > 1) {
             $this->currentStep--;
+            session()->put('currentStep', $this->currentStep);
         }
     }
+    
 
     // Méthode de validation par étape
     public function validateStep()
@@ -102,20 +111,29 @@ class WizardMembership extends Component
                         "ayantsDroits.$index.sexe" => 'required',
                         "ayantsDroits.$index.date_naissance" => 'required|date',
                         "ayantsDroits.$index.lien_parente" => 'required|string|max:255',
-                        // "ayantsDroits.$index.photo" => 'required|image|max:1024',
-                        // "ayantsDroits.$index.cnib" => 'required|image|max:1024',
-                        // "ayantsDroits.$index.extrait" => 'required|image|max:1024',
 
-
+                        "ayantsDroits.$index.photo" => 'nullable|image|max:1024',
+                        "ayantsDroits.$index.cnib" => 'nullable|image|max:1024',
+                        "ayantsDroits.$index.extrait" => 'nullable|image|max:1024',
                     ]);
-                    
+            
                     if (isset($ayantDroit['photo'])) {
-                        $path = $ayantDroit['photo']->storeAs('public/photos/ayants_droits', $ayantDroit['photo']->getClientOriginalName());
-                        $this->photo_path_ayantdroit = 'photos/ayants_droits/' . $ayantDroit['photo']->getClientOriginalName();
+                        $photoPath = $ayantDroit['photo']->storeAs('public/photos/ayants_droits', $ayantDroit['photo']->getClientOriginalName());
+                        $this->ayantsDroits[$index]['photo_path'] = 'photos/ayants_droits/' . $ayantDroit['photo']->getClientOriginalName();
                     }
-
+            
+                    if (isset($ayantDroit['cnib'])) {
+                        $cnibPath = $ayantDroit['cnib']->storeAs('public/photos/cnibs', $ayantDroit['cnib']->getClientOriginalName());
+                        $this->ayantsDroits[$index]['cnib_path'] = 'photos/cnibs/' . $ayantDroit['cnib']->getClientOriginalName();
+                    }
+            
+                    if (isset($ayantDroit['extrait'])) {
+                        $extraitPath = $ayantDroit['extrait']->storeAs('public/photos/extraits', $ayantDroit['extrait']->getClientOriginalName());
+                        $this->ayantsDroits[$index]['extrait_path'] = 'photos/extraits/' . $ayantDroit['extrait']->getClientOriginalName();
+                    }
                 }
             }
+            
             
             
         } elseif ($this->currentStep == 4) {

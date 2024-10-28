@@ -25,7 +25,7 @@
             </div>
             
             
-            <div class="p-6 mx-auto mt-4 bg-white rounded-lg shadow-lg ">
+            <div class="p-6 mx-auto mt-4 bg-white rounded-lg  ">
                 
                 <style>
                    
@@ -253,7 +253,7 @@
                                 </div>
                             </div>
                         </fieldset>
-{{--                  
+                
                         @if ($demande->nombreAyantsDroits > 0)
                             <div class="pt-4 text-center text-2xl font-bold">
                                 <h2 class=" leading-none">LISTE DES AYANTS DROITS</h2>
@@ -285,12 +285,12 @@
                                                 @endif
                                             </td>
                                             <td class="border border-gray-400">{{ $ayantDroit['date_naissance'] }}</td>
-                                            <td class="border border-gray-400">{{ $ayantDroit['lien_parenté'] }}</td>
+                                            <td class="border border-gray-400">{{ $ayantDroit['lien_parente'] }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
-                        @endif  --}}
+                        @endif
                     </div>
                 
                     <!-- Section : Formations professionnelles -->
@@ -345,7 +345,7 @@
                                         <div class="flex-1 w-1/2 leading-none">
                                             <div class="flex">
                                                 <div class="flex-shrink-0 leading-none">
-                                                    <p class="mr-1 leading-none"><strong>Date d'intégration :</strong></p>
+                                                    <p class="mr-1 leading-none"><strong>Date d&apos;intégration :</strong></p>
                                                     <p class="text-xs leading-none"><small>(JJ/MM/AAAA)</small></p>
                                                 </div>
                                                 <div class="flex-1">
@@ -403,6 +403,119 @@
                 
                 </div>
                 
+                @if ($demande->nombreAyantsDroits > 0)
+                <div class="pt-4 text-center text-lg font-bold">
+                    <h4 class="leading-none text-gray-700">Pièces jointes des Ayants Droits</h4>
+                </div>
+                <table class="w-full border-collapse bg-white shadow-md rounded-lg overflow-hidden mt-6">
+                    <thead>
+                        <tr class="bg-gray-100 text-gray-600 uppercase text-sm leading-normal">
+                            <th class="py-3 px-4 text-center">Photo</th>
+                            <th class="py-3 px-4">Nom</th>
+                            <th class="py-3 px-4">Prénom(s)</th>
+                            <th class="py-3 px-4">Sexe</th>
+                            <th class="py-3 px-4">Lien de parenté</th>
+                            <th class="py-3 px-4 text-center">CNIB</th>
+                            <th class="py-3 px-4 text-center">Extrait</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-gray-700 text-sm font-light">
+                        @foreach ($demande->ayantsDroits as $index => $ayantDroit)
+                            <tr class="border-b border-gray-200 hover:bg-gray-100">
+                                <!-- Colonne pour la photo -->
+                                <td class="py-3 px-4 text-center">
+                                    <div class="flex justify-center">
+                                        @if (isset($ayantDroit['photo_path']))
+                                            <button class="open-modal-button text-blue-500 hover:text-blue-700" 
+                                                    data-url="{{ asset('storage/' . $ayantDroit['photo_path']) }}" type="button">
+                                                    <img class="w-10 h-10 rounded-full cursor-pointer" src="{{ asset('storage/' . $ayantDroit['photo_path']) }}" 
+                                                        alt="Photo de {{ $ayantDroit['nom'] }}" 
+                                                        onclick="openModal('{{ asset('storage/' . $ayantDroit['photo_path']) }}')" />
+                                            </button>
+                                        @else
+                                            <span class="text-gray-500">N/A</span>
+                                        @endif
+                                    </div>
+                                </td>
+                                <td class="py-3 px-4">{{ $ayantDroit['nom'] }}</td>
+                                <td class="py-3 px-4">{{ $ayantDroit['prenom'] }}</td>
+                                <td class="py-3 px-4">
+                                    @if ($ayantDroit['sexe'] === 'H') M @elseif ($ayantDroit['sexe'] === 'F') F @else Non spécifié @endif
+                                </td>
+                                <td class="py-3 px-4">{{ $ayantDroit['lien_parente'] }}</td>
+                                <td class="py-3 px-4 text-center">
+                                    @if (isset($ayantDroit['cnib_path']))
+                                        <button class="open-modal-button text-blue-500 hover:text-blue-700" 
+                                                data-url="{{ asset('storage/' . $ayantDroit['cnib_path']) }}" type="button">
+                                            <i class="fa fa-file-image-o" aria-hidden="true"></i>
+                                        </button>
+                                    @else
+                                        <span class="text-gray-500">Non disponible</span>
+                                    @endif
+                                </td>
+                                <td class="py-3 px-4 text-center">
+                                    @if (isset($ayantDroit['extrait_path']))
+                                        <button class="open-modal-button text-red-500 hover:text-red-700" 
+                                                data-url="{{ asset('storage/' . $ayantDroit['extrait_path']) }}" type="button">
+                                            <i class="fa fa-file-image-o" aria-hidden="true"></i>
+                                        </button>
+                                    @else
+                                        <span class="text-gray-500">Non disponible</span>
+                                    @endif
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                @endif
+
+            
+            <!-- Modal -->
+            <div id="attachment-modal" tabindex="-1" class="hidden fixed inset-0 z-50 flex items-center bg-black bg-opacity-60 justify-center">
+                <div class="relative p-4 w-full max-w-[80%] max-h-full">
+                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                        <div class="flex items-center justify-between p-4 border-b rounded-t dark:border-gray-600">
+                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Pièce Jointe</h3>
+                            <button type="button" id="closeModalButton" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
+                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                </svg>
+                                <span class="sr-only">Fermer modal</span>
+                            </button>
+                        </div>
+                        <div class="p-4">
+                            <iframe id="attachmentFrame" class="w-full h-96" src="" frameborder="0"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                const attachmentModal = document.getElementById('attachment-modal');
+                const attachmentFrame = document.getElementById('attachmentFrame');
+                const closeModalButton = document.getElementById('closeModalButton');
+                
+                document.querySelectorAll('.open-modal-button').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const attachmentUrl = this.getAttribute('data-url');
+                        attachmentFrame.src = attachmentUrl;
+                        attachmentModal.classList.remove('hidden');
+                    });
+                });
+
+                closeModalButton.addEventListener('click', function() {
+                    attachmentModal.classList.add('hidden');
+                    attachmentFrame.src = ""; // Reset du src pour éviter de recharger
+                });
+
+                window.addEventListener('click', function(event) {
+                    if (event.target === attachmentModal) {
+                        attachmentModal.classList.add('hidden');
+                        attachmentFrame.src = "";
+                    }
+                });
+            </script>
+
+
                                
             </div>
             

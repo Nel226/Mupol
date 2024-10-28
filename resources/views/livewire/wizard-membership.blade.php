@@ -1,4 +1,4 @@
-<div class="mx-auto w-[80%] md:w-[80%] lg:w-[80%]    z-10">
+<div class="mx-auto w-[100] md:w-[100%] lg:w-[100%]    z-10">
 
     <div class="w-[90%] md:w-5/6 lg:w-5/6 mx-auto  mt-10">
         <!-- Stepper -->

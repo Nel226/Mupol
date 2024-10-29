@@ -216,6 +216,8 @@ class WizardMembership extends Component
         
 
         $this->currentStep = 1; 
+        session()->put('currentStep', 1);
+
         
         return redirect()->route('resume-adhesion', ['id' => $demandeAdhesion->id]);
     }

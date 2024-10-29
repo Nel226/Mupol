@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AccueilController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdherantController;
+use App\Http\Controllers\Auth\AdherantAuthenticatedSessionController;
 use App\Http\Controllers\CsvImportController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ParametreController;
@@ -42,10 +43,17 @@ Route::get('/formulaire-adhesion-recapitulatif', function () {
     return view('components.formulaire-adhesion'); 
 })->name('formulaire.adhesion.recapitulatif');
 Route::post('/finalisation-adhesion', [AccueilController::class, 'finalAdhesion'])->name('finalisation-adhesion');
-Route::get('/cession-volontaire/{id}', [AccueilController::class, 'showCessionVolontaire'])
-
-    ->name('showCessionVolontaire');
+Route::get('/cession-volontaire/{id}', [AccueilController::class, 'showCessionVolontaire'])->name('showCessionVolontaire');
 Route::get('/impression-fiche-cession/{id}', [AccueilController::class, 'imprimerFicheCession'])->name('imprimer-fiche-cession');
+
+Route::get('/login/adherant', [AdherantAuthenticatedSessionController::class, 'create'])->name('adherant.login');
+Route::post('/login/adherant', [AdherantAuthenticatedSessionController::class, 'store']);
+Route::get('/adherents/dashboard', [AdherantAuthenticatedSessionController::class, 'dashboard'])
+    ->name('adherents.dashboard')
+    ->middleware('auth:adherent');
+Route::post('/logout', [AdherantAuthenticatedSessionController::class, 'destroy'])
+    ->name('adherant.logout')
+    ->middleware('auth:adherent');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/counter', Counter::class);
@@ -81,6 +89,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
     Route::resource('demandes', DemandeController ::class);
+    Route::get('/edit-demande-adhesion/{id}', App\Livewire\EditMembership::class)->name('edit-demande-adhesion');
+
 
     Route::get('/test-ayantsdroits/{id}/edit', function ($id) {
         $ayantDroit =  AyantDroit::find(3);

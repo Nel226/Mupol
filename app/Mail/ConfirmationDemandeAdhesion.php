@@ -17,6 +17,7 @@ class ConfirmationDemandeAdhesion extends Mailable
 
     public $demandeAdhesion;
     protected $pdf;
+    protected  $generatedPassword;
 
     /**
      * Create a new message instance.
@@ -24,10 +25,12 @@ class ConfirmationDemandeAdhesion extends Mailable
      * @param  mixed  $demandeAdhesion
      * @param  mixed  $pdf
      */
-    public function __construct($demandeAdhesion, $pdf)
+  
+    public function __construct($demandeAdhesion, $pdf, $generatedPassword)
     {
         $this->demandeAdhesion = $demandeAdhesion;
         $this->pdf = $pdf;
+        $this->generatedPassword = $generatedPassword; // Ajoutez ce champ
     }
 
     /**
@@ -49,7 +52,9 @@ class ConfirmationDemandeAdhesion extends Mailable
             view: 'emails.confirmation', // Assurez-vous que la vue est correcte
             with: [
                 'demandeAdhesion' => $this->demandeAdhesion,
-                'logoUrl' => asset('images/logo.png'), // Chemin vers votre logo
+                'logoUrl' => asset('images/logo.png'), 
+                'generatedPassword' => $this->generatedPassword, 
+
             ],
         );
     }

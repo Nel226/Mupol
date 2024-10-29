@@ -23,7 +23,8 @@
 		</div>
 		<!-- End Breadcrumbs -->
 				
-		<section class=" section">
+		<section class=" section " style="background: rgb(219,218,246);
+		background: linear-gradient(110deg, rgba(219,218,246,1) 21%, rgba(252,252,255,1) 84%);">
 			<div class="container">
 				<div class="">
 					<div class="row "> 

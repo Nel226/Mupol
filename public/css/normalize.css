@@ -360,7 +360,7 @@ Preloader Area CSS
 
 .preloader.preloader-deactivate .loader {
   opacity: 0;
-  visibility: hidden;
+  visibility: hidden
 }
 
 @-webkit-keyframes loader-outter {
@@ -494,15 +494,16 @@ Preloader Area CSS
 .overlay{
 	position:relative;
 }
-.overlay:before{
-	position:absolute;
-	content:"";
-	left:0;
-	top:0;
-	height:100%;
-	width:100%;
-	background:#1a76d1;
-	opacity:0.8;
+
+.overlay:before {
+    position: absolute;
+    content: "";
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background: #7384f2;
+    opacity: 0.8;
 }
 /* Bread Crumbs */
 .breadcrumbs {

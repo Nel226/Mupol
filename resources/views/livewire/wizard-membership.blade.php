@@ -51,7 +51,7 @@
         </div>
     
         <!-- Contenu des étapes -->
-        <div class="  shadow-lg border rounded-lg border-gray-200  px-5 pt-6 pb-8 mb-4">
+        <div class="  shadow-lg border rounded-lg bg-white border-gray-200  px-5 pt-6 pb-8 mb-4">
             <h2 class="text-xl font-bold mb-5 text-gray-800 text-center">
                 @if ($currentStep == 1)
                     1. Références de l&apos;adhérent
@@ -475,9 +475,6 @@
                                                     </div>
                                                 </div>
                                             @endif
-
-
-
                             
                                             <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4" wire:key="ayantDroit-{{ $i }}">
                                                 <!-- Photo ayant droit -->

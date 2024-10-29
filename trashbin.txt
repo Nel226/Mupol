@@ -1,3 +1,1267 @@
+tyle="background: rgb(75,68,220);
+                            background: linear-gradient(90deg, rgba(75,68,220,1) 9%, rgba(230,223,84,1) 85%);"
+ 
+.overlay:before{
+	position:absolute;
+	content:"";
+	left:0;
+	top:0;
+	height:100%;
+	width:100%;
+	background:#1a76d1;
+	opacity:0.8;
+}
+ 
+rounded-md 
+ 
+hadow-lg 
+ 
+                                        <x-application-logo class=" mx-auto" />
+
+ 
+background: rgb(230,223,84);
+                            background: linear-gradient(120deg, rgba(230,223,84,1) 0%, rgba(75,68,220,1) 63%);
+ 
+background: rgb(255,255,255);
+                            background: linear-gradient(120deg, rgba(255,255,255,1) 0%, rgba(75,68,220,0.782125350140056) 52%)
+ 
+bg-[#4B44DC]
+ 
+-application-logo
+ 
+bg-gray-200
+ 
+ <div class="text-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="130" height="130" class="inline-block" viewBox="0 0 53 53">
+                                        <path fill="#e7eced" d="m18.613 41.552-7.907 4.313a7.106 7.106 0 0 0-1.269.903A26.377 26.377 0 0 0 26.5 53c6.454 0 12.367-2.31 16.964-6.144a7.015 7.015 0 0 0-1.394-.934l-8.467-4.233a3.229 3.229 0 0 1-1.785-2.888v-3.322c.238-.271.51-.619.801-1.03a19.482 19.482 0 0 0 2.632-5.304c1.086-.335 1.886-1.338 1.886-2.53v-3.546c0-.78-.347-1.477-.886-1.965v-5.126s1.053-7.977-9.75-7.977-9.75 7.977-9.75 7.977v5.126a2.644 2.644 0 0 0-.886 1.965v3.546c0 .934.491 1.756 1.226 2.231.886 3.857 3.206 6.633 3.206 6.633v3.24a3.232 3.232 0 0 1-1.684 2.833z" data-original="#e7eced" />
+                                        <path fill="#556080" d="M26.953.004C12.32-.246.254 11.414.004 26.047-.138 34.344 3.56 41.801 9.448 46.76a7.041 7.041 0 0 1 1.257-.894l7.907-4.313a3.23 3.23 0 0 0 1.683-2.835v-3.24s-2.321-2.776-3.206-6.633a2.66 2.66 0 0 1-1.226-2.231v-3.546c0-.78.347-1.477.886-1.965v-5.126S15.696 8 26.499 8s9.75 7.977 9.75 7.977v5.126c.54.488.886 1.185.886 1.965v3.546c0 1.192-.8 2.195-1.886 2.53a19.482 19.482 0 0 1-2.632 5.304c-.291.411-.563.759-.801 1.03V38.8c0 1.223.691 2.342 1.785 2.888l8.467 4.233a7.05 7.05 0 0 1 1.39.932c5.71-4.762 9.399-11.882 9.536-19.9C53.246 12.32 41.587.254 26.953.004z" data-original="#556080" />
+                                    </svg>
+                                </div>
+                                
+                                <!-- Error Display -->
+                                @if ($errors->any())
+                                    <div class="mb-4 justify-center mx-auto text-center text-red-600">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
+    
+                                <form method="POST" action="{{ route('adherant.login') }}" class="mt-12 space-y-4">
+                                    @csrf
+                                    <div class="relative flex items-center">
+                                        <input name="email" type="text" required
+                                            class="w-full text-sm text-gray-800 bg-white border-2 border-transparent focus:border-[#1E2772] px-4 py-3 rounded-md outline-none"
+                                            placeholder="Entrez votre email" />
+                                        <i class="fa fa-envelope absolute right-4 text-gray-400"></i>
+                                    </div>
+                                    <div class="relative flex items-center">
+                                        <input name="password" type="password" required
+                                            class="w-full text-sm text-gray-800 bg-white border-2 border-transparent focus:border-[#1E2772] px-4 py-3 rounded-md outline-none"
+                                            placeholder="Entrez votre mot de passe" />
+                                        <i class="fa fa-lock absolute right-4 text-gray-400 cursor-pointer"></i>
+                                    </div>
+                                    <div class="!mt-12 !text-center">
+                                        <x-primary-button type="submit"
+                                            class="w-full !justify-center px-4 !py-2.5 text-base font-semibold rounded-md !text-white  focus:outline-none">
+                                            Se connecter
+                                        </x-primary-button>
+                                    </div>
+                                </form>
+ 
+ <div class=" border  w-full">
+
+                        </div>
+ 
+shadow-lg justify-center rounded-lg
+ 
+x-auto
+ 
+<div class="max-w-md w-full mx-auto border p-8 rounded-md bg-gray-200">
+                                <div class="text-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="130" height="130" class="inline-block" viewBox="0 0 53 53">
+                                        <path fill="#e7eced" d="m18.613 41.552-7.907 4.313a7.106 7.106 0 0 0-1.269.903A26.377 26.377 0 0 0 26.5 53c6.454 0 12.367-2.31 16.964-6.144a7.015 7.015 0 0 0-1.394-.934l-8.467-4.233a3.229 3.229 0 0 1-1.785-2.888v-3.322c.238-.271.51-.619.801-1.03a19.482 19.482 0 0 0 2.632-5.304c1.086-.335 1.886-1.338 1.886-2.53v-3.546c0-.78-.347-1.477-.886-1.965v-5.126s1.053-7.977-9.75-7.977-9.75 7.977-9.75 7.977v5.126a2.644 2.644 0 0 0-.886 1.965v3.546c0 .934.491 1.756 1.226 2.231.886 3.857 3.206 6.633 3.206 6.633v3.24a3.232 3.232 0 0 1-1.684 2.833z" data-original="#e7eced" />
+                                        <path fill="#556080" d="M26.953.004C12.32-.246.254 11.414.004 26.047-.138 34.344 3.56 41.801 9.448 46.76a7.041 7.041 0 0 1 1.257-.894l7.907-4.313a3.23 3.23 0 0 0 1.683-2.835v-3.24s-2.321-2.776-3.206-6.633a2.66 2.66 0 0 1-1.226-2.231v-3.546c0-.78.347-1.477.886-1.965v-5.126S15.696 8 26.499 8s9.75 7.977 9.75 7.977v5.126c.54.488.886 1.185.886 1.965v3.546c0 1.192-.8 2.195-1.886 2.53a19.482 19.482 0 0 1-2.632 5.304c-.291.411-.563.759-.801 1.03V38.8c0 1.223.691 2.342 1.785 2.888l8.467 4.233a7.05 7.05 0 0 1 1.39.932c5.71-4.762 9.399-11.882 9.536-19.9C53.246 12.32 41.587.254 26.953.004z" data-original="#556080" />
+                                    </svg>
+                                </div>
+                                
+                                <!-- Error Display -->
+                                @if ($errors->any())
+                                    <div class="mb-4 justify-center mx-auto text-center text-red-600">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
+
+                                <form method="POST" action="{{ route('adherant.login') }}" class="mt-12 space-y-4">
+                                    @csrf
+                                    <div class="relative flex items-center">
+                                        <input name="email" type="text" required
+                                            class="w-full text-sm text-gray-800 bg-white border-2 border-transparent focus:border-[#1E2772] px-4 py-3 rounded-md outline-none"
+                                            placeholder="Entrez votre email" />
+                                        <i class="fa fa-envelope absolute right-4 text-gray-400"></i>
+                                    </div>
+                                    <div class="relative flex items-center">
+                                        <input name="password" type="password" required
+                                            class="w-full text-sm text-gray-800 bg-white border-2 border-transparent focus:border-[#1E2772] px-4 py-3 rounded-md outline-none"
+                                            placeholder="Entrez votre mot de passe" />
+                                        <i class="fa fa-lock absolute right-4 text-gray-400 cursor-pointer"></i>
+                                    </div>
+                                    <div class="!mt-12 !text-center">
+                                        <x-primary-button type="submit"
+                                            class="w-full !justify-center px-4 !py-2.5 text-base font-semibold rounded-md !text-white  focus:outline-none">
+                                            Se connecter
+                                        </x-primary-button>
+                                    </div>
+                                </form>
+                            </div>
+ 
+<!-- Header Area -->
+<header class="header  border-b" >
+    <!-- Header Inner -->
+    <div class="header-inner">
+        <div class="container">
+            <div class="inner">
+                <div class="row align-items-center">
+                    <div class="col-lg-5 col-md-3 col-12">
+                        <!-- Start Logo -->
+                        <div class="logo flex gap-2 items-center">
+                          <a href="/"><img src="{{ asset('images/logo.png') }}" alt="Logo de la Mutuelle" class="h-16 w-auto"></a>
+                          <h3 class=" font-bold md:text-base lg:text-base">Mutuelle de la Police Nationale (MU-POL)</h3>
+                        </div>
+                        <!-- End Logo -->
+                        <!-- Mobile Nav -->
+                        <div class="mobile-nav"></div>
+                        <!-- End Mobile Nav -->
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-12">
+                        <!-- Main Menu -->
+                        <div class="main-menu">
+                            <nav class="navigation">
+                                <ul class="nav menu">
+                                    <li class="active"><a href="/">Accueil</a></li>
+                                    <li><a href="#">Nos Services <i class="icofont-rounded-down"></i></a>
+                                        <ul class="dropdown">
+                                            <li><a href="">Santé</a></li>
+                                            <li><a href="">Prévoyance</a></li>
+                                            <li><a href="">Assistance</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">À propos <i class="icofont-rounded-down"></i></a>
+                                        <ul class="dropdown">
+                                            <li><a href="">Présentation</a></li>
+                                            <li><a href="">Notre Équipe</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <!--/ End Main Menu -->
+                    </div>
+                    <div class="col-lg-3 flex items-center justify-between col-12">
+                        <div class="get-quote">
+                            <a class="btn btn-primary" href="{{ route('formulaire-adhesion') }}">
+                                Adhérer maintenant
+                            </a>
+                        </div>
+                        <div class="">
+                            <a class=" text-[#4B45DC] " href="{{ route('adherant.login') }}">
+                                Connexion
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/ End Header Inner -->
+</header>
+<!-- End Header Area -->
+
+ 
+        // Si l'authentification échoue, retourner avec une erreur
+
+ 
+  <div class="max-w-md w-full mx-auto border p-8 rounded-md bg-gray-200">
+                                <div class="text-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="130" height="130" class="inline-block" viewBox="0 0 53 53">
+                                        <path fill="#e7eced" d="m18.613 41.552-7.907 4.313a7.106 7.106 0 0 0-1.269.903A26.377 26.377 0 0 0 26.5 53c6.454 0 12.367-2.31 16.964-6.144a7.015 7.015 0 0 0-1.394-.934l-8.467-4.233a3.229 3.229 0 0 1-1.785-2.888v-3.322c.238-.271.51-.619.801-1.03a19.482 19.482 0 0 0 2.632-5.304c1.086-.335 1.886-1.338 1.886-2.53v-3.546c0-.78-.347-1.477-.886-1.965v-5.126s1.053-7.977-9.75-7.977-9.75 7.977-9.75 7.977v5.126a2.644 2.644 0 0 0-.886 1.965v3.546c0 .934.491 1.756 1.226 2.231.886 3.857 3.206 6.633 3.206 6.633v3.24a3.232 3.232 0 0 1-1.684 2.833z" data-original="#e7eced" />
+                                        <path fill="#556080" d="M26.953.004C12.32-.246.254 11.414.004 26.047-.138 34.344 3.56 41.801 9.448 46.76a7.041 7.041 0 0 1 1.257-.894l7.907-4.313a3.23 3.23 0 0 0 1.683-2.835v-3.24s-2.321-2.776-3.206-6.633a2.66 2.66 0 0 1-1.226-2.231v-3.546c0-.78.347-1.477.886-1.965v-5.126S15.696 8 26.499 8s9.75 7.977 9.75 7.977v5.126c.54.488.886 1.185.886 1.965v3.546c0 1.192-.8 2.195-1.886 2.53a19.482 19.482 0 0 1-2.632 5.304c-.291.411-.563.759-.801 1.03V38.8c0 1.223.691 2.342 1.785 2.888l8.467 4.233a7.05 7.05 0 0 1 1.39.932c5.71-4.762 9.399-11.882 9.536-19.9C53.246 12.32 41.587.254 26.953.004z" data-original="#556080" />
+                                    </svg>
+                                </div>
+                                
+                                <!-- Error Display -->
+                                @if ($errors->any())
+                                    <div class="mb-4 justify-center mx-auto text-center text-red-600">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
+
+                                <form method="POST" action="{{ route('adherant.login') }}" class="mt-12 space-y-4">
+                                    @csrf
+                                    <div class="relative flex items-center">
+                                        <input name="email" type="text" required
+                                            class="w-full text-sm text-gray-800 bg-white border-2 border-transparent focus:border-[#1E2772] px-4 py-3 rounded-md outline-none"
+                                            placeholder="Entrez votre email" />
+                                        <i class="fa fa-envelope absolute right-4 text-gray-400"></i>
+                                    </div>
+                                    <div class="relative flex items-center">
+                                        <input name="password" type="password" required
+                                            class="w-full text-sm text-gray-800 bg-white border-2 border-transparent focus:border-[#1E2772] px-4 py-3 rounded-md outline-none"
+                                            placeholder="Entrez votre mot de passe" />
+                                        <i class="fa fa-lock absolute right-4 text-gray-400 cursor-pointer"></i>
+                                    </div>
+                                    <div class="!mt-12 !text-center">
+                                        <x-primary-button type="submit"
+                                            class="w-full !justify-center px-4 !py-2.5 text-base font-semibold rounded-md !text-white  focus:outline-none">
+                                            Se connecter
+                                        </x-primary-button>
+                                    </div>
+                                </form>
+                            </div>
+ 
+    protected $fillable = [
+        'ordre', 'date_enregistrement', 'nom', 'prenom', 'genre', 'service', 'no_matricule',
+        'cle', 'code_carte', 'telephone', 'charge', 'mensualite', 'adhesion', 'photo'
+    ];
+ 
+<!-- Bouton de fermeture -->
+ 
+/ 5000 millisecondes = 5 secondes
+ 
+                // Faire disparaître la notification après 5 secondes
+
+ 
+            return redirect()->intended(RouteServiceProvider::HOME);
+
+ 
+pas
+ 
+fournies
+ 
+<x-guest-layout>
+    <x-header-guest/>
+    <x-preloader/>
+    <div class="">
+
+        <section class="section">
+            <div class="container h-screen">
+                <div class="">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="max-w-md w-full mx-auto border p-8 rounded-md bg-gray-200">
+                                <div class="text-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="130" height="130" class="inline-block" viewBox="0 0 53 53">
+                                        <path fill="#e7eced" d="m18.613 41.552-7.907 4.313a7.106 7.106 0 0 0-1.269.903A26.377 26.377 0 0 0 26.5 53c6.454 0 12.367-2.31 16.964-6.144a7.015 7.015 0 0 0-1.394-.934l-8.467-4.233a3.229 3.229 0 0 1-1.785-2.888v-3.322c.238-.271.51-.619.801-1.03a19.482 19.482 0 0 0 2.632-5.304c1.086-.335 1.886-1.338 1.886-2.53v-3.546c0-.78-.347-1.477-.886-1.965v-5.126s1.053-7.977-9.75-7.977-9.75 7.977-9.75 7.977v5.126a2.644 2.644 0 0 0-.886 1.965v3.546c0 .934.491 1.756 1.226 2.231.886 3.857 3.206 6.633 3.206 6.633v3.24a3.232 3.232 0 0 1-1.684 2.833z" data-original="#e7eced" />
+                                        <path fill="#556080" d="M26.953.004C12.32-.246.254 11.414.004 26.047-.138 34.344 3.56 41.801 9.448 46.76a7.041 7.041 0 0 1 1.257-.894l7.907-4.313a3.23 3.23 0 0 0 1.683-2.835v-3.24s-2.321-2.776-3.206-6.633a2.66 2.66 0 0 1-1.226-2.231v-3.546c0-.78.347-1.477.886-1.965v-5.126S15.696 8 26.499 8s9.75 7.977 9.75 7.977v5.126c.54.488.886 1.185.886 1.965v3.546c0 1.192-.8 2.195-1.886 2.53a19.482 19.482 0 0 1-2.632 5.304c-.291.411-.563.759-.801 1.03V38.8c0 1.223.691 2.342 1.785 2.888l8.467 4.233a7.05 7.05 0 0 1 1.39.932c5.71-4.762 9.399-11.882 9.536-19.9C53.246 12.32 41.587.254 26.953.004z" data-original="#556080" />
+                                    </svg>
+                                </div>
+                                <form method="POST" action="{{ route('adherant.login') }}" class="mt-12 space-y-4">
+                                    @csrf
+                                    <div class="relative flex items-center">
+                                        <input name="email" type="text" required
+                                            class="w-full text-sm text-gray-800 bg-white border-2 border-transparent focus:border-[#1E2772] px-4 py-3 rounded-md outline-none"
+                                            placeholder="Entrez votre email" />
+                                        <i class="fa fa-envelope absolute right-4 text-gray-400"></i>
+                                    </div>
+                                    <div class="relative flex items-center">
+                                        <input name="password" type="password" required
+                                            class="w-full text-sm text-gray-800 bg-white border-2 border-transparent focus:border-[#1E2772] px-4 py-3 rounded-md outline-none"
+                                            placeholder="Entrez votre mot de passe" />
+                                        <i class="fa fa-lock absolute right-4 text-gray-400 cursor-pointer"></i>
+                                    </div>
+                                    <div class="!mt-12 !text-center">
+                                        <x-primary-button type="submit"
+                                            class="w-full !justify-center px-4 !py-2.5 text-base font-semibold rounded-md !text-white  focus:outline-none">
+                                            Se connecter
+                                        </x-primary-button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</x-guest-layout>
+
+ 
+// Utilisation de json pour stocker des données JSON
+ 
+// Pensez à utiliser un hash pour stocker le mot de passe
+ 
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('adherants', function (Blueprint $table) {
+            $table->id();
+            $table->string('ordre')->nullable();
+            $table->date('date_enregistrement')->nullable();
+            $table->string('nom')->nullable();
+            $table->string('prenom')->nullable();
+            $table->string('genre')->nullable();
+            $table->string('service')->nullable();
+            $table->string('no_matricule')->nullable();
+            $table->string('code_carte')->nullable();
+            $table->string('telephone')->nullable();
+            $table->string('charge')->nullable();
+            $table->string('mensualite')->nullable();
+            $table->string('adhesion')->nullable();
+            $table->string('photo')->nullable(); 
+            $table->string('password'); 
+            $table->string('email'); 
+
+
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('adherants');
+    }
+};
+
+ 
+// Assurez-vous que cela correspond à votre modèle Adherant
+ 
+// Ajoutez cette section
+ 
+// Assurez-vous que cela correspond à la clé du fournisseur que nous allons ajouter ci-dessous
+ 
+// Ajoutez cette section
+ 
+password
+ 
+   public function connexion()
+    {
+        return view('pages.frontend.adherents.connexion', );
+
+    }
+ 
+// Route pour traiter la demande de connexion
+
+ 
+Route::post('/login/adherant', [AuthContr::class, 'loginAdherant'])->name('login.adherant');
+
+ 
+<x-guest-layout>
+    <x-header-guest/>
+    <x-preloader/>
+    <div class="">
+
+        <section class="section">
+            <div class="container h-screen">
+                <div class="">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="max-w-md w-full mx-auto border p-8 rounded-md bg-gray-200">
+                                <div class="text-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="130" height="130" class="inline-block" viewBox="0 0 53 53">
+                                        <path fill="#e7eced" d="..."/>
+                                        <path fill="#556080" d="..."/>
+                                    </svg>
+                                </div>
+                                <form class="mt-12 space-y-4" method="POST" action="{{ route('login.adherant') }}">
+                                    @csrf
+                                    <div class="relative flex items-center">
+                                        <input name="email" type="text" required
+                                            class="w-full text-sm text-gray-800 bg-white border-2 border-transparent focus:border-[#1E2772] px-4 py-3 rounded-md outline-none"
+                                            placeholder="Entrez l'email" />
+                                        <i class="fa fa-envelope absolute right-4 text-gray-400"></i>
+                                    </div>
+
+                                    <div class="relative flex items-center">
+                                        <input name="password" type="password" required
+                                            class="w-full text-sm text-gray-800 bg-white border-2 border-transparent focus:border-[#1E2772] px-4 py-3 rounded-md outline-none"
+                                            placeholder="Entrez le mot de passe" />
+                                        <i class="fa fa-lock absolute right-4 text-gray-400 cursor-pointer"></i>
+                                    </div>
+
+                                    <div class="flex flex-wrap items-center justify-between gap-4 !mt-4">
+                                        <div class="flex items-center">
+                                            <input id="remember-me" name="remember-me" type="checkbox"
+                                                class="h-4 w-4 shrink-0 text-blue-600 focus:ring-blue-500 border-transparent rounded-md" />
+                                            <label for="remember-me" class="ml-3 block text-sm text-gray-800">
+                                                Se souvenir de moi
+                                            </label>
+                                        </div>
+                                        <div>
+                                            <a href="{{ route('password.request') }}" class="text-sm font-semibold text-[#1E2772] hover:underline">
+                                                Mot de passe oublié ?
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <div class="!mt-12 !text-center">
+                                        <x-primary-button type="submit"
+                                            class="w-full !justify-center px-4 !py-2.5 text-base font-semibold rounded-md !text-white focus:outline-none">
+                                            Se connecter
+                                        </x-primary-button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</x-guest-layout>
+
+ 
+        return view('auth.adherant-login'); // Créez une vue spécifique pour l'adhérent si nécessaire
+
+ 
+        // Authentifier l'adhérent
+
+ 
+ Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+ 
+<x-guest-layout>
+    <x-header-guest/>
+    <x-preloader/>
+    <div class=" ">
+
+        <section class=" section">
+            <div class="container h-screen">
+                <div class="">
+                    <div class="row "> 
+                        
+                        <div class="col-lg-12">
+                            <div class="max-w-md w-full mx-auto border p-8 rounded-md bg-gray-200">
+                              <div class="text-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="130" height="130" class="inline-block" viewBox="0 0 53 53">
+                                  <path fill="#e7eced" d="m18.613 41.552-7.907 4.313a7.106 7.106 0 0 0-1.269.903A26.377 26.377 0 0 0 26.5 53c6.454 0 12.367-2.31 16.964-6.144a7.015 7.015 0 0 0-1.394-.934l-8.467-4.233a3.229 3.229 0 0 1-1.785-2.888v-3.322c.238-.271.51-.619.801-1.03a19.482 19.482 0 0 0 2.632-5.304c1.086-.335 1.886-1.338 1.886-2.53v-3.546c0-.78-.347-1.477-.886-1.965v-5.126s1.053-7.977-9.75-7.977-9.75 7.977-9.75 7.977v5.126a2.644 2.644 0 0 0-.886 1.965v3.546c0 .934.491 1.756 1.226 2.231.886 3.857 3.206 6.633 3.206 6.633v3.24a3.232 3.232 0 0 1-1.684 2.833z" data-original="#e7eced" />
+                                  <path fill="#556080" d="M26.953.004C12.32-.246.254 11.414.004 26.047-.138 34.344 3.56 41.801 9.448 46.76a7.041 7.041 0 0 1 1.257-.894l7.907-4.313a3.23 3.23 0 0 0 1.683-2.835v-3.24s-2.321-2.776-3.206-6.633a2.66 2.66 0 0 1-1.226-2.231v-3.546c0-.78.347-1.477.886-1.965v-5.126S15.696 8 26.499 8s9.75 7.977 9.75 7.977v5.126c.54.488.886 1.185.886 1.965v3.546c0 1.192-.8 2.195-1.886 2.53a19.482 19.482 0 0 1-2.632 5.304c-.291.411-.563.759-.801 1.03V38.8c0 1.223.691 2.342 1.785 2.888l8.467 4.233a7.05 7.05 0 0 1 1.39.932c5.71-4.762 9.399-11.882 9.536-19.9C53.246 12.32 41.587.254 26.953.004z" data-original="#556080" />
+                                </svg>
+                              </div>
+                              <form class="mt-12 space-y-4">
+                                    <div class="relative flex items-center">
+                                        <input name="email" type="text" required
+                                            class="w-full text-sm text-gray-800 bg-white border-2 border-transparent focus:border-[#1E2772] px-4 py-3 rounded-md outline-none"
+                                            placeholder="Enter email" />
+                                        <i class="fa fa-envelope absolute right-4 text-gray-400"></i>
+                                    </div>
+        
+                                    <div class="relative flex items-center">
+                                        <input name="password" type="password" required
+                                            class="w-full text-sm text-gray-800 bg-white border-2 border-transparent focus:border-[#1E2772] px-4 py-3 rounded-md outline-none"
+                                            placeholder="Enter password" />
+                                        <i class="fa fa-lock absolute right-4 text-gray-400 cursor-pointer"></i>
+                                    </div>
+        
+                                    <div class="flex flex-wrap items-center justify-between gap-4 !mt-4">
+                                        <div class="flex items-center">
+                                            <input id="remember-me" name="remember-me" type="checkbox"
+                                                class="h-4 w-4 shrink-0 text-blue-600 focus:ring-blue-500 border-transparent rounded-md" />
+                                            <label for="remember-me" class="ml-3 block text-sm text-gray-800">
+                                                Se souvenir de moi
+                                            </label>
+                                        </div>
+                                        <div>
+                                            <a href="javascript:void(0);" class="text-sm font-semibold text-[#1E2772] hover:underline">
+                                                Mot de passe oublié ?
+                                            </a>
+                                        </div>
+                                    </div>
+        
+                                    <div class="!mt-12 !text-center">
+                                        <x-primary-button type="button"
+                                            class="w-full !justify-center px-4 !py-2.5 text-base font-semibold rounded-md !text-white  focus:outline-none">
+                                            Se connecter
+                                        </x-primary-button>
+                                    </div>
+        
+                                   
+                               </form>
+                      
+                          
+                            </div>
+                            
+                        </div>
+                            
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+    </div>
+</x-guest-layout>
+    
+
+ 
+text
+ 
+py-2.5
+ 
+bg-[#1E2772] hover:bg-[#1e4272]
+ 
+ <div class="!mt-12">
+                                        <button type="button"
+                                            class="w-full py-2.5 px-4 text-base font-semibold rounded-md text-white bg-[#1E2772] hover:bg-[#1e4272] focus:outline-none">
+                                            Log in
+                                        </button>
+                                    </div>
+ 
+    <form class="mt-12 space-y-4">
+                                <div class="relative flex items-center">
+                                  <input name="email" type="text" required class="w-full text-sm text-gray-800 bg-white border-2 border-transparent focus:border-[#1E2772] px-4 py-3 rounded-md outline-none" placeholder="Enter email" />
+                                  <svg xmlns="http://www.w3.org/2000/svg" fill="#bbb" stroke="#bbb" class="w-[18px] h-[18px] absolute right-4" viewBox="0 0 24 24">
+                                    <circle cx="10" cy="7" r="6" data-original="#000000"></circle>
+                                    <path d="M14 15H6a5 5 0 0 0-5 5 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 5 5 0 0 0-5-5zm8-4h-2.59l.3-.29a1 1 0 0 0-1.42-1.42l-2 2a1 1 0 0 0 0 1.42l2 2a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42l-.3-.29H22a1 1 0 0 0 0-2z" data-original="#000000"></path>
+                                  </svg>
+                                </div>
+                      
+                                <div class="relative flex items-center">
+                                  <input name="password" type="password" required class="w-full text-sm text-gray-800 bg-white border-2 border-transparent focus:border-[#1E2772] px-4 py-3 rounded-md outline-none" placeholder="Enter password" />
+                                  <svg xmlns="http://www.w3.org/2000/svg" fill="#bbb" stroke="#bbb" class="w-[18px] h-[18px] absolute right-4 cursor-pointer" viewBox="0 0 128 128">
+                                    <path d="M64 104C22.127 104 1.367 67.496.504 65.943a4 4 0 0 1 0-3.887C1.367 60.504 22.127 24 64 24s62.633 36.504 63.496 38.057a4 4 0 0 1 0 3.887C126.633 67.496 105.873 104 64 104zM8.707 63.994C13.465 71.205 32.146 96 64 96c31.955 0 50.553-24.775 55.293-31.994C114.535 56.795 95.854 32 64 32 32.045 32 13.447 56.775 8.707 63.994zM64 88c-13.234 0-24-10.766-24-24s10.766-24 24-24 24 10.766 24 24-10.766 24-24 24zm0-40c-8.822 0-16 7.178-16 16s7.178 16 16 16 16-7.178 16-16-7.178-16-16-16z" data-original="#000000"></path>
+                                  </svg>
+                                </div>
+                      
+                                <div class="flex flex-wrap items-center justify-between gap-4 !mt-4">
+                                  <div class="flex items-center">
+                                    <input id="remember-me" name="remember-me" type="checkbox" class="h-4 w-4 shrink-0 text-blue-600 focus:ring-blue-500 border-transparent rounded-md" />
+                                    <label for="remember-me" class="ml-3 block text-sm text-gray-800">
+                                      Remember me
+                                    </label>
+                                  </div>
+                                  <div>
+                                    <a href="jajvascript:void(0);" class="text-sm font-semibold text-[#1E2772] hover:underline">
+                                      Forgot Password?
+                                    </a>
+                                  </div>
+                                </div>
+                      
+                                <div class="!mt-12">
+                                  <button type="button" class="w-full py-2.5 px-4 text-base font-semibold rounded-md text-white bg-[#1E2772] hover:bg-[#1e4272] focus:outline-none">
+                                    Log in
+                                  </button>
+                                </div>
+                              </form>
+ 
+<x-guest-layout>
+    <x-header-guest/>
+    <x-preloader/>
+    <div class=" ">
+
+        <section class=" section">
+            <div class="container h-screen">
+                <div class="">
+                    <div class="row "> 
+                        
+                        <div class="col-lg-12">
+                            <div class="max-w-md w-full mx-auto border p-8 rounded-md bg-gray-200">
+                              <div class="text-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="130" height="130" class="inline-block" viewBox="0 0 53 53">
+                                  <path fill="#e7eced" d="m18.613 41.552-7.907 4.313a7.106 7.106 0 0 0-1.269.903A26.377 26.377 0 0 0 26.5 53c6.454 0 12.367-2.31 16.964-6.144a7.015 7.015 0 0 0-1.394-.934l-8.467-4.233a3.229 3.229 0 0 1-1.785-2.888v-3.322c.238-.271.51-.619.801-1.03a19.482 19.482 0 0 0 2.632-5.304c1.086-.335 1.886-1.338 1.886-2.53v-3.546c0-.78-.347-1.477-.886-1.965v-5.126s1.053-7.977-9.75-7.977-9.75 7.977-9.75 7.977v5.126a2.644 2.644 0 0 0-.886 1.965v3.546c0 .934.491 1.756 1.226 2.231.886 3.857 3.206 6.633 3.206 6.633v3.24a3.232 3.232 0 0 1-1.684 2.833z" data-original="#e7eced" />
+                                  <path fill="#556080" d="M26.953.004C12.32-.246.254 11.414.004 26.047-.138 34.344 3.56 41.801 9.448 46.76a7.041 7.041 0 0 1 1.257-.894l7.907-4.313a3.23 3.23 0 0 0 1.683-2.835v-3.24s-2.321-2.776-3.206-6.633a2.66 2.66 0 0 1-1.226-2.231v-3.546c0-.78.347-1.477.886-1.965v-5.126S15.696 8 26.499 8s9.75 7.977 9.75 7.977v5.126c.54.488.886 1.185.886 1.965v3.546c0 1.192-.8 2.195-1.886 2.53a19.482 19.482 0 0 1-2.632 5.304c-.291.411-.563.759-.801 1.03V38.8c0 1.223.691 2.342 1.785 2.888l8.467 4.233a7.05 7.05 0 0 1 1.39.932c5.71-4.762 9.399-11.882 9.536-19.9C53.246 12.32 41.587.254 26.953.004z" data-original="#556080" />
+                                </svg>
+                              </div>
+                      
+                              <form class="mt-12 space-y-4">
+                                <div class="relative flex items-center">
+                                  <input name="email" type="text" required class="w-full text-sm text-gray-800 bg-white border-2 border-transparent focus:border-[#1E2772] px-4 py-3 rounded-md outline-none" placeholder="Enter email" />
+                                  <svg xmlns="http://www.w3.org/2000/svg" fill="#bbb" stroke="#bbb" class="w-[18px] h-[18px] absolute right-4" viewBox="0 0 24 24">
+                                    <circle cx="10" cy="7" r="6" data-original="#000000"></circle>
+                                    <path d="M14 15H6a5 5 0 0 0-5 5 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 5 5 0 0 0-5-5zm8-4h-2.59l.3-.29a1 1 0 0 0-1.42-1.42l-2 2a1 1 0 0 0 0 1.42l2 2a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42l-.3-.29H22a1 1 0 0 0 0-2z" data-original="#000000"></path>
+                                  </svg>
+                                </div>
+                      
+                                <div class="relative flex items-center">
+                                  <input name="password" type="password" required class="w-full text-sm text-gray-800 bg-white border-2 border-transparent focus:border-[#1E2772] px-4 py-3 rounded-md outline-none" placeholder="Enter password" />
+                                  <svg xmlns="http://www.w3.org/2000/svg" fill="#bbb" stroke="#bbb" class="w-[18px] h-[18px] absolute right-4 cursor-pointer" viewBox="0 0 128 128">
+                                    <path d="M64 104C22.127 104 1.367 67.496.504 65.943a4 4 0 0 1 0-3.887C1.367 60.504 22.127 24 64 24s62.633 36.504 63.496 38.057a4 4 0 0 1 0 3.887C126.633 67.496 105.873 104 64 104zM8.707 63.994C13.465 71.205 32.146 96 64 96c31.955 0 50.553-24.775 55.293-31.994C114.535 56.795 95.854 32 64 32 32.045 32 13.447 56.775 8.707 63.994zM64 88c-13.234 0-24-10.766-24-24s10.766-24 24-24 24 10.766 24 24-10.766 24-24 24zm0-40c-8.822 0-16 7.178-16 16s7.178 16 16 16 16-7.178 16-16-7.178-16-16-16z" data-original="#000000"></path>
+                                  </svg>
+                                </div>
+                      
+                                <div class="flex flex-wrap items-center justify-between gap-4 !mt-4">
+                                  <div class="flex items-center">
+                                    <input id="remember-me" name="remember-me" type="checkbox" class="h-4 w-4 shrink-0 text-blue-600 focus:ring-blue-500 border-transparent rounded-md" />
+                                    <label for="remember-me" class="ml-3 block text-sm text-gray-800">
+                                      Remember me
+                                    </label>
+                                  </div>
+                                  <div>
+                                    <a href="jajvascript:void(0);" class="text-sm font-semibold text-[#1E2772] hover:underline">
+                                      Forgot Password?
+                                    </a>
+                                  </div>
+                                </div>
+                      
+                                <div class="!mt-12">
+                                  <button type="button" class="w-full py-2.5 px-4 text-base font-semibold rounded-md text-white bg-[#1E2772] hover:bg-[#1e4272] focus:outline-none">
+                                    Log in
+                                  </button>
+                                </div>
+                              </form>
+                            </div>
+                            
+                        </div>
+                            
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+    </div>
+</x-guest-layout>
+    
+
+ 
+bg-blue-200
+ 
+                                  <p class="text-sm mt-6 text-center text-gray-800">Don't have an account <a href="javascript:void(0);" class="text-[#1E2772] font-semibold hover:underline ml-1 whitespace-nowrap">Register here</a></p>
+
+ 
+<div class="bg-white font-[sans-serif] min-h-screen flex flex-col items-center justify-center py-6 px-4">
+                              </div>
+ 
+fixed w-full z-50 top-0
+ 
+        <x-preloader/>
+
+ 
+        <x-header-guest/>
+ 
+compact('header', 'mutualistes','ayantsDroitAll', 'sheets', 'sheetsAyantsDroits', 'ayantsDroit', 'ad','adherants', 'headerAyantDroit', 'breadcrumbsItems', 'pageTitle')
+ 
+
+    
+ 
+// Inclure le mot de passe
+ 
+// Chemin vers votre logo
+ 
+  public function __construct($demandeAdhesion, $pdf)
+    {
+        $this->demandeAdhesion = $demandeAdhesion;
+        $this->pdf = $pdf;
+    }
+ 
+use Illuminate\Support\Facades\Mail;
+
+ 
+            // Ajoutez d'autres champs nécessaires ici
+
+ 
+ // Date d'enregistrement actuelle
+ 
+/ Utiliser le mot de passe généré
+ 
+// Si applicable
+ 
+// Si applicable
+ 
+// Assurez-vous que ces champs existent
+ 
+        // Créer un nouvel adhérent
+
+ 
+    // Générer un mot de passe aléatoire
+
+ 
+->nullable()
+ 
+exion
+ 
+et-quote
+ 
+                                    <li><a href="">Contact</a></li>
+
+ 
+btn
+ 
+btn-primary
+ 
+           
+                 
+                    <!-- Prénom(s) -->
+                    <div class="w-full">
+                        <label for="prenom" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Prénom(s)</label>
+                        <input wire:model="prenom" id="prenom" type="text" 
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" 
+                            placeholder="Entrez le prénom">
+                        @error('prenom')<span class="text-red-500 text-xs">{{ $message }}</span>@enderror
+                    </div>
+        
+ 
+   <div class="overflow-x-auto">
+                        <label class="block text-gray-700 text-sm font-bold mb-1" for="changeNombreAyantsDroits">Nombre d&apos;ayants-droits</label>
+                        <select class="border-2 bg-gray-50 rounded w-full py-1" wire:change="changeNombreAyantsDroits($event.target.value)">
+                            <option value="" disabled selected>Choisissez un nombre</option>
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                        </select>
+                        @error('nombreAyantsDroits') 
+                            <span class="text-red-500 text-sm">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    
+                    <div class="col-span-3">
+                        @if ($nombreAyantsDroits > 0)
+                            @for ($i = 0; $i < $nombreAyantsDroits; $i++)
+                                <div class="border bg-gray-100 p-4 rounded mb-2 col-span-3 shadow-lg mt-2">
+                                    <h3 class="font-bold mb-2">Ayant Droit {{ $i + 1 }}</h3>
+                                    
+                                    <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+                                        <div class="mt-2">
+                                            <label class="block text-gray-700 text-sm font-bold mb-1">Nom</label>
+                                            <input type="text" wire:model="ayantsDroits.{{ $i }}.nom" class="border rounded w-full py-1">
+                                            @error('ayantsDroits.' . $i . '.nom')
+                                                <span class="text-red-500 text-xs">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                        <div class="mt-2">
+                                            <label class="block text-gray-700 text-sm font-bold mb-1">Prénom(s)</label>
+                                            <input type="text" wire:model="ayantsDroits.{{ $i }}.prenom" class="border rounded w-full py-1">
+                                            @error('ayantsDroits.' . $i . '.prenom')
+                                                <span class="text-red-500 text-xs">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+            
+                                    <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+                                        <div class="mt-2">
+                                            <label class="block text-gray-700 text-sm font-bold mb-1">Genre</label>
+                                            <select wire:model="ayantsDroits.{{ $i }}.sexe" class="border rounded w-full py-1">
+                                                <option value="" disabled selected>Sélectionner</option>
+                                                <option value="H">Homme</option>
+                                                <option value="F">Femme</option>
+                                            </select>
+                                            @error('ayantsDroits.' . $i . '.sexe')
+                                                <span class="text-red-500 text-xs">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                        <div class="mt-2">
+                                            <label class="block text-gray-700 text-sm font-bold mb-1">Date de Naissance</label>
+                                            <input type="date" wire:model="ayantsDroits.{{ $i }}.date_naissance" class="border rounded w-full py-1">
+                                            @error('ayantsDroits.' . $i . '.date_naissance')
+                                                <span class="text-red-500 text-xs">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                        <div class="mt-2">
+                                            <label class="block text-gray-700 text-sm font-bold mb-1">Lien de parenté</label>
+                                            <input type="text" wire:model="ayantsDroits.{{ $i }}.lien_parente" class="border rounded w-full py-1">
+                                            @error('ayantsDroits.' . $i . '.lien_parente')
+                                                <span class="text-red-500 text-xs">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                            @endfor
+                        @endif
+                    </div>
+ 
+   <div class="mt-4 grid grid-cols-3 gap-4">
+                    </div>
+ 
+
+                        <div class="col-span-1">
+                            <label class="block text-gray-700 text-sm font-bold mb-1" for="photo">Photo</label>
+                            <div class="w-full justify-center border rounded-md p-1 border-gray-500">
+                                @if ($photo)
+                                    <img src="{{ asset('storage/' . $photo) }}" alt="Preview" class="w-48 h-48 object-cover mx-auto rounded-full">
+                                @else
+                                    <img src="{{ asset('images/user-90.png') }}" alt="Default profile photo" class="w-36 h-36 object-cover mx-auto rounded-full">
+                                @endif
+                            </div>
+                            <input type="file" wire:model="photo" id="photo" accept="image/*" class="my-1 block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 
+                                file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 
+                                file:text-blue-700 hover:file:bg-violet-100"/>
+                
+                            @error('photo') 
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
+                        </div>
+ 
+<!-- Lieu de naissance (sous forme de grille) -->
+                <fieldset class="border-2 md:col-span-3 border-gray-300 shadow-sm p-2 mt-1 mb-3 rounded-md bg-gray-100">
+                    <legend class="block text-gray-700 text-sm font-bold mb-2">Lieu de naissance</legend>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <!-- Département -->
+                        <div>
+                            <label for="departement" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Département</label>
+                            <input wire:model="departement" id="departement" type="text" 
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" 
+                                placeholder="Entrez le département">
+                            @error('departement')<span class="text-red-500 text-xs">{{ $message }}</span>@enderror
+                        </div>
+        
+                        <!-- Ville / Village -->
+                        <div>
+                            <label for="ville" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ville / Village</label>
+                            <input wire:model="ville" id="ville" type="text" 
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" 
+                                placeholder="Entrez la ville ou le village">
+                            @error('ville')<span class="text-red-500 text-xs">{{ $message }}</span>@enderror
+                        </div>
+        
+                        <!-- Pays (Si hors Burkina) -->
+                        <div>
+                            <label for="pays" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pays</label>
+                            <input wire:model="pays" id="pays" type="text" 
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" 
+                                placeholder="Entrez le pays">
+                            @error('pays')<span class="text-red-500 text-xs">{{ $message }}</span>@enderror
+                        </div>
+                    </div>
+                </fieldset>
+ 
+    <div class="col-span-1">
+                    </div>
+ 
+demande->
+ 
+
+
+
+ 
+                            <!-- Personnes à prévenir en cas de besoin -->
+
+ 
+<div>
+    <form wire:submit.prevent="saveChanges">
+
+        <!-- Informations de base -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div class="w-full md:col-span-2 flex items-center space-x-4">
+
+                <div class="w-full">
+                    <label for="matricule" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Matricule</label>
+                    <input type="text" wire:model="matricule" id="matricule" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="Entrez le matricule">
+                    @error('matricule')<span class="text-red-500 text-xs">{{ $message }}</span>@enderror
+                </div>
+    
+                <div class="w-full">
+                    <label for="nip" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIP</label>
+                    <input type="text" wire:model="nip" id="nip" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="Entrez le NIP">
+                    @error('nip')<span class="text-red-500 text-xs">{{ $message }}</span>@enderror
+                </div>
+            </div>
+
+
+            <div class="w-full md:col-span-3 flex items-center space-x-4">
+                <div class="w-full">
+                    <label for="cnib" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">N° CNIB</label>
+                    <input type="text" wire:model="cnib" id="cnib" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="Entrez le numéro de CNIB">
+                    @error('cnib')<span class="text-red-500 text-xs">{{ $message }}</span>@enderror
+                </div>
+
+                <div class="w-full">
+                    <label for="delivree" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date de délivrance</label>
+                    <input type="date" wire:model="delivree" id="delivree" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
+                    @error('delivree')<span class="text-red-500 text-xs">{{ $message }}</span>@enderror
+                </div>
+
+                <div class="w-full">
+                    <label for="expire" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date d'expiration</label>
+                    <input type="date" wire:model="expire" id="expire" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
+                    @error('expire')<span class="text-red-500 text-xs">{{ $message }}</span>@enderror
+                </div>
+            </div>
+
+            <div class="w-full md:col-span-3 flex items-center space-x-4">
+                <div class="w-full">
+                    <label for="adresse_permanente" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Adresse Permanente</label>
+                    <input type="text" wire:model="adresse_permanente" id="adresse_permanente" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="Entrez l'adresse permanente">
+                    @error('adresse_permanente')<span class="text-red-500 text-xs">{{ $message }}</span>@enderror
+                </div>
+
+                <div class="w-full">
+                    <label for="telephone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Téléphone</label>
+                    <input type="text" wire:model="telephone" id="telephone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="Entrez le numéro de téléphone">
+                    @error('telephone')<span class="text-red-500 text-xs">{{ $message }}</span>@enderror
+                </div>
+
+                <div class="w-full">
+                    <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                    <input type="email" wire:model="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="Entrez l'email">
+                    @error('email')<span class="text-red-500 text-xs">{{ $message }}</span>@enderror
+                </div>
+            </div>
+
+            <div class="w-full">
+                <label for="nom" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nom</label>
+                <input type="text" wire:model="nom" id="nom" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="Entrez le nom">
+                @error('nom')<span class="text-red-500 text-xs">{{ $message }}</span>@enderror
+            </div>
+
+            <div class="w-full">
+                <label for="prenom" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Prénom</label>
+                <input type="text" wire:model="prenom" id="prenom" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="Entrez le prénom">
+                @error('prenom')<span class="text-red-500 text-xs">{{ $message }}</span>@enderror
+            </div>
+
+            <!-- Ajoutez des champs supplémentaires en suivant la même structure -->
+
+            <!-- Photo -->
+            <div class="w-full">
+                <label for="photo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Photo</label>
+                <input type="file" wire:model="photo" id="photo" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
+                @error('photo')<span class="text-red-500 text-xs">{{ $message }}</span>@enderror
+            </div>
+
+            <!-- Nombre d'ayants droits -->
+            <div class="w-full">
+                <label for="nombreAyantsDroits" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre d'Ayants Droits</label>
+                <select wire:model="nombreAyantsDroits" id="nombreAyantsDroits" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                </select>
+                @error('nombreAyantsDroits')<span class="text-red-500 text-xs">{{ $message }}</span>@enderror
+            </div>
+        </div>
+
+        <div class="flex items-center justify-end">
+            <button type="submit" class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Sauvegarder</button>
+        </div>
+    </form>
+</div>
+
+ 
+<div>
+    <form wire:submit.prevent="saveChanges">
+
+        <!-- Informations de base -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div class="w-full">
+                <label for="matricule" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Matricule</label>
+                <input type="text" wire:model="matricule" id="matricule" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="Entrez le matricule">
+                @error('matricule')<span class="text-red-500 text-xs">{{ $message }}</span>@enderror
+            </div>
+            
+            <div class="w-full">
+                <label for="nip" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIP</label>
+                <input type="text" wire:model="nip" id="nip" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="Entrez le NIP">
+                @error('nip')<span class="text-red-500 text-xs">{{ $message }}</span>@enderror
+            </div>
+
+            <div class="w-full">
+                <label for="cnib" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">N° CNIB</label>
+                <input type="text" wire:model="cnib" id="cnib" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="Entrez le numéro de CNIB">
+                @error('cnib')<span class="text-red-500 text-xs">{{ $message }}</span>@enderror
+            </div>
+
+            <div class="w-full">
+                <label for="delivree" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date de délivrance</label>
+                <input type="date" wire:model="delivree" id="delivree" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
+                @error('delivree')<span class="text-red-500 text-xs">{{ $message }}</span>@enderror
+            </div>
+
+            <div class="w-full">
+                <label for="expire" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date d'expiration</label>
+                <input type="date" wire:model="expire" id="expire" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
+                @error('expire')<span class="text-red-500 text-xs">{{ $message }}</span>@enderror
+            </div>
+
+            <div class="w-full">
+                <label for="adresse_permanente" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Adresse Permanente</label>
+                <input type="text" wire:model="adresse_permanente" id="adresse_permanente" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="Entrez l'adresse permanente">
+                @error('adresse_permanente')<span class="text-red-500 text-xs">{{ $message }}</span>@enderror
+            </div>
+
+            <div class="w-full">
+                <label for="telephone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Téléphone</label>
+                <input type="text" wire:model="telephone" id="telephone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="Entrez le numéro de téléphone">
+                @error('telephone')<span class="text-red-500 text-xs">{{ $message }}</span>@enderror
+            </div>
+
+            <div class="w-full">
+                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                <input type="email" wire:model="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="Entrez l'email">
+                @error('email')<span class="text-red-500 text-xs">{{ $message }}</span>@enderror
+            </div>
+
+            <div class="w-full">
+                <label for="nom" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nom</label>
+                <input type="text" wire:model="nom" id="nom" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="Entrez le nom">
+                @error('nom')<span class="text-red-500 text-xs">{{ $message }}</span>@enderror
+            </div>
+
+            <div class="w-full">
+                <label for="prenom" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Prénom</label>
+                <input type="text" wire:model="prenom" id="prenom" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="Entrez le prénom">
+                @error('prenom')<span class="text-red-500 text-xs">{{ $message }}</span>@enderror
+            </div>
+
+            <!-- Ajoutez des champs supplémentaires en suivant la même structure -->
+
+            <!-- Photo -->
+            <div class="w-full">
+                <label for="photo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Photo</label>
+                <input type="file" wire:model="photo" id="photo" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
+                @error('photo')<span class="text-red-500 text-xs">{{ $message }}</span>@enderror
+            </div>
+
+            <!-- Nombre d'ayants droits -->
+            <div class="w-full">
+                <label for="nombreAyantsDroits" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre d'Ayants Droits</label>
+                <input type="number" wire:model="nombreAyantsDroits" id="nombreAyantsDroits" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="Nombre d'ayants droits">
+                @error('nombreAyantsDroits')<span class="text-red-500 text-xs">{{ $message }}</span>@enderror
+            </div>
+        </div>
+
+        <!-- Soumettre -->
+        <button type="submit" class="mt-4 w-full text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Enregistrer</button>
+    </form>
+
+    @if (session()->has('message'))
+        <div class="mt-4 text-green-600">
+            {{ session('message') }}
+        </div>
+    @endif
+</div>
+
+ 
+        <h2 class="text-2xl font-semibold mb-4">Modification de l'Adhésion</h2>
+
+ 
+AdhesionId
+ 
+adhérent
+ 
+ <!-- Nom du composant -->
+ 
+    // Dans routes/web.php
+
+ 
+     <form>
+                            </form>
+ 
+                              
+                        
+ 
+ <div class="w-full">
+                                    <label for="code_carte" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Code de Carte</label>
+                                    <input type="text" name="code_carte" id="code_carte" value="{{ old('code_carte', $demande->nip) }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Entrez le code de carte" required>
+                                </div>
+                                
+                                <div class="w-full">
+                                    <label for="mensualite" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mensualité</label>
+                                    <input type="number" name="mensualite" readonly id="mensualite" value="{{ old('mensualite', $demande->adresse_permanente) }}" class="bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Entrez la mensualité" required>
+                                </div>
+ 
+<div class="w-full">
+                                    <label for="telephone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Téléphone</label>
+                                    <input type="text" name="telephone" id="telephone" value="{{ old('telephone', $demande->cnib) }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Entrez le numéro de téléphone" required>
+                                </div>
+                                <div class="w-full">
+                                    <label for="charge" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Charge</label>
+                                    <select name="charge" id="charge" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
+                                        <option value="{{ old('charge', $demande->email) }}">{{ old('charge', $demande->email) }}</option>
+        
+                                        @for ($i = 0; $i <= 6; $i++)
+                                        <option value="{{ $i }}">{{ $i }}</option>
+                                        @endfor
+                                    </select>
+                                </div>
+ 
+ <div class="w-full">
+                                    <label for="adhesion" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Adhésion</label>
+                                    <input type="text" name="adhesion" id="adhesion" readonly value="{{ old('adhesion', $demande->telephone) }}" class="bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Entrez le statut d'adhésion" required>
+                                </div>
+ 
+<div class="max-w-2xl px-4 py-8 mx-auto lg:py-16">
+                </div>
+ 
+<div class="p-4 border-2 border-gray-200 rounded-lg sm:ml-64 dark:border-gray-700 mt-14">
+    </div>
+ 
+[0]
+ 
+<script>
+                                document.addEventListener("DOMContentLoaded", function() {
+                                    const chargeSelect = document.getElementById('charge');
+                                    const mensualiteInput = document.getElementById('mensualite');
+                                    
+                                    function calculerMensualite(charge) {
+                                        return 5000 + 2000 * charge;
+                                    }
+                                    
+                                    mensualiteInput.value = calculerMensualite(parseInt(chargeSelect.value));
+                                    
+                                    // Écouter les changements de la sélection de charge
+                                    chargeSelect.addEventListener('change', function() {
+                                        mensualiteInput.value = calculerMensualite(parseInt(chargeSelect.value));
+                                    });
+                                });
+                            </script>
+ 
+->id
+ 
+{{ 
+ 
+shadow-lg 
+ 
+ p-4 md:p-10 bg-gray-100 min-h-screen
+ 
+bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600 transition duration-200
+ 
+   <div class="border p-4 rounded-lg mb-4 bg-gray-50">
+                                </div>
+ 
+ <div class="border p-4 rounded-lg mb-4 bg-gray-50">
+                                </div>
+ 
+                                    <h4 class="text-center font-bold text-gray-800 mb-2">Personnel Retraité</h4>
+
+ 
+                                    <h4 class="text-center font-bold text-gray-800 mb-2">Personnel en Activité</h4>
+
+ 
+<span class="text-xs">(JJ/MM/AAAA)</span>
+ 
+                            <p class="text-gray-600 text-sm"><strong>Situation matrimoniale :</strong> {{ $demande->situation_matrimoniale }}</p>
+
+ 
+  <style>
+                   
+                
+                    .table {
+                        width: 100%;
+                        border-collapse: collapse;
+                        margin-top: 10px;
+                    }
+                
+                    .table th,
+                    .table td {
+                        border: 2px solid gray;
+                        padding: 8px;
+                    }
+                
+                    .document {
+                        max-width: 800px;
+                        margin: auto;
+                        padding: 20px;
+                    }
+                
+                    fieldset {
+                        margin-top: 10px;
+                    }
+                
+                    legend {
+                        font-size: 1rem;
+                        padding: 0 10px;
+                    }
+                
+                    ul {
+                        margin-top: 10px;
+                    }
+                
+                    p {
+                        margin: 5px 0;
+                    }
+                </style>
+ 
+                        <!-- Références de l'adhérent avec la photo -->
+
+ 
+_url
+ 
+   <div class="pt-4 text-center text-lg font-bold">
+                                    <h4 class="leading-none text-gray-700">Pièces jointes des Ayants Droits</h4>
+                                </div>
+ 
+   
+                        
+                        <div class="flex">
+                            <!-- Colonne Références -->
+                            <div class="w-3/4 flex items-center justify-center">
+                                <div class="rounded-lg text-1xl border-2 border-black font-semibold px-1">
+                
+                                    <h3>JOINDRE DES PHOTOS RECENTES DE L’ADHERENT ET DES AYANTS DROITS</h3>
+                                    <h3 class=" text-1xl font-semibol px-auto px-1">
+                                        	joindre une copie de l’extrait de naissance de chaque enfant
+                                    </h3>
+                                    <h3>
+                                        	joindre une copie de l’extrait de naissance et de la CNIB pour la ou le(s) conjoint(es)
+                                    </h3>
+                                </div>
+                
+                            </div>
+                
+                            <!-- Colonne Signature -->
+                            <div class="w-[20%] items-center px-2 justify-end flex-col ml-auto">
+                                <h3 class="text-xs text-center underline decoration-solid ">VISA DU PRESIDENT DU CONSEIL D’ADMINISTRATION</h3>
+                                <div class="w-full h-32 flex-grow border-2 border-black flex items-center justify-center">
+                                </div>
+                            </div>
+                        </div>
+ 
+  <div class="flex justify-between items-center mx-auto pb-2 w-11/12 mb-2">
+                        <!-- Colonne 1 -->
+                        <div class="flex flex-col space-y-1 items-center text-center leading-none self-start">
+                            <p>MUTUELLE DE LA POLICE NATIONALE</p>
+                            <div class="border-t-[2px] border-black  w-1/4"></div> <!-- Trait -->
+                            <p>CONSEIL D'ADMINISTRATION</p>
+                            <div class="border-t-[2px] border-black  w-1/4"></div> <!-- Trait -->
+                            <p>SECRÉTARIAT GÉNÉRAL</p>
+                        </div>
+                
+                        <!-- Colonne 2 (Logo) -->
+                        <div class="flex h-full items-center self-start">
+                            <img src="{{ asset('images/logofinal.png') }}" alt="Logo" class="h-full w-20 object-contain">
+                        </div>
+                
+                        <!-- Colonne 3 -->
+                        <div class="flex flex-col self-start text-center space-y-1 leading-none">
+                            <p>BURKINA FASO</p>
+                            <p>Unité - Progrès - Justice</p>
+                        </div>
+                    </div>
+                
+                    <!-- Titre principal -->
+                    <div class="flex flex-col items-center space-y-0 w-11/12 mx-auto">
+                        <h2 class="text-center text-3xl font-bold mt-0">FORMULAIRE D'ADHÉSION</h2>
+                
+                        <!-- Sous-titre avec surlignage -->
+                        <h1 class="text-center text-1xl text-white font-bold bg-black px-3 py-1 inline-block">
+                            À REMPLIR EN CARACTÈRES D'IMPRIMERIE
+                        </h1>
+                    </div>
+ 
+    </div>
+
+ 
+div class="flex-1 p-6">        
+ 
 public function previousStep()
     {
         if ($this->currentStep > 1) {

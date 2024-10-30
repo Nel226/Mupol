@@ -2,15 +2,35 @@
     <x-header-guest/>
     <x-preloader/>
     <div class="">
+        <!-- Breadcrumbs -->
+		<div class="breadcrumbs overlay">
+			<div class="container">
+				<div class="bread-inner">
+					<div class="row">
+						<div class="col-12">
+							<h2>Demande d&apos;adhésion MU-POL</h2>
+							<ul class="bread-list">
+								<li><a href="index.html">Accueil</a></li>
+								<li><i class="icofont-simple-right"></i></li>
+								<li class="active">Adhérer</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End Breadcrumbs -->
+
         <section class="section">
             <div class="container h-screen">
                 <div class="">
                     <div class="row  mx-auto justify-center">
                         <div class="col-lg-10  flex justify-center rounded-lg">
                             <div class=" bg-[#4B45DC  max-w-md w-full mx-auto border p-8 shadow-lg rounded-tl-lg rounded-bl-lg " style="background: rgb(75,68,220);
-                            background: linear-gradient(90deg, rgba(75,68,220,1) 9%, #4B45DC 85%);">
+                            background: linear-gradient(90deg, #c9ccee 9%, #f2f2f9 85%);">
                                 <div class=" mx-auto justify-center flex h-full items-center ">
-                                    <div class="rounded-full bg-white">
+                                    <div class="rounded-full ">
+                                        <x-application-logo class=" mx-auto" />
 
                                     </div>
                                 </div>

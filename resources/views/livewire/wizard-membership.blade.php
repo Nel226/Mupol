@@ -1,4 +1,4 @@
-<div class="mx-auto w-[80%] md:w-[80%] lg:w-[80%]    z-10">
+<div class="mx-auto w-[100] md:w-[100%] lg:w-[100%]    z-10">
 
     <div class="w-[90%] md:w-5/6 lg:w-5/6 mx-auto  mt-10">
         <!-- Stepper -->
@@ -51,7 +51,7 @@
         </div>
     
         <!-- Contenu des étapes -->
-        <div class="  shadow-lg border rounded-lg border-gray-200  px-5 pt-6 pb-8 mb-4">
+        <div class="  shadow-lg border rounded-lg bg-white border-gray-200  px-5 pt-6 pb-8 mb-4">
             <h2 class="text-xl font-bold mb-5 text-gray-800 text-center">
                 @if ($currentStep == 1)
                     1. Références de l&apos;adhérent
@@ -475,9 +475,6 @@
                                                     </div>
                                                 </div>
                                             @endif
-
-
-
                             
                                             <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4" wire:key="ayantDroit-{{ $i }}">
                                                 <!-- Photo ayant droit -->

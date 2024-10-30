@@ -11,7 +11,10 @@ use App\Helpers\DateHelper;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ConfirmationDemandeAdhesion; 
 use Barryvdh\DomPDF\Facade\Pdf;
-
+use App\Models\Adherant;
+use Illuminate\Support\Facades\Hash;
+use App\Mail\AdherantRegistrationMail;
+use Illuminate\Support\Str;
 
 class AccueilController extends Controller
 {
@@ -66,7 +69,46 @@ class AccueilController extends Controller
         $cotisations = DemandeCategorieHelper::calculerCotisationMensuelleTotale($demandeAdhesion->nombreAyantsDroits);
         $pdf = Pdf::loadView('pages.frontend.adherents.fiches.cession_volontaire', ['demandeAdhesion' => $demandeAdhesion]);
 
-        Mail::to($demandeAdhesion->email)->send(new ConfirmationDemandeAdhesion($demandeAdhesion, $pdf));
+        $generatedPassword = Str::random(10);
+
+        $adherent = Adherant::create([
+            'matricule' => $demandeAdhesion->matricule, 
+            'nip' => $demandeAdhesion->nip,
+            'cnib' => $demandeAdhesion->cnib,
+            'delivree' => $demandeAdhesion->delivree,
+            'expire' => $demandeAdhesion->expire,
+            'adresse' => $demandeAdhesion->adresse_permanente,
+            'telephone' => $demandeAdhesion->telephone,
+            'email' => $demandeAdhesion->email,
+            'nom' => $demandeAdhesion->nom,
+            'prenom' => $demandeAdhesion->prenom,
+            'genre' => $demandeAdhesion->genre, 
+            'departement' => $demandeAdhesion->departement, 
+            'ville' => $demandeAdhesion->ville,
+            'pays' => $demandeAdhesion->pays,
+            'nom_pere' => $demandeAdhesion->nom_pere,
+            'nom_mere' => $demandeAdhesion->nom_mere,
+            'situation_matrimoniale' => $demandeAdhesion->situation_matrimoniale,
+            'nom_prenom_personne_besoin' => $demandeAdhesion->nom_prenom_personne_besoin,
+            'lieu_residence' => $demandeAdhesion->lieu_residence,
+            'telephone_personne_prevenir' => $demandeAdhesion->telephone_personne_prevenir,
+            'photo' => $demandeAdhesion->photo_path_adherent,
+            'nombreAyantsDroits' => $demandeAdhesion->nombreAyantsDroits,
+            'ayantsDroits' => json_encode($demandeAdhesion->ayantsDroits),
+            'categorie' => $demandeAdhesion->categorie,
+            'statut' => $demandeAdhesion->statut,
+            'grade' => $demandeAdhesion->grade,
+            'departARetraite' => $demandeAdhesion->departARetraite,
+            'numeroCARFO' => $demandeAdhesion->numeroCARFO,
+            'dateIntegration' => now(), // ou $demandeAdhesion->dateIntegration si disponible
+            'dateDepartARetraite' => $demandeAdhesion->dateDepartARetraite,
+            'direction' => $demandeAdhesion->direction,
+            'service' => $demandeAdhesion->service,
+            'password' => Hash::make($generatedPassword), 
+            'date_enregistrement' => now(),
+        ]);
+
+        Mail::to($demandeAdhesion->email)->send(new ConfirmationDemandeAdhesion($demandeAdhesion, $pdf, $generatedPassword));
 
         return view('pages.frontend.adherents.final-demande-adhesion', compact( 'cotisations', 'demandeAdhesion'));
     }

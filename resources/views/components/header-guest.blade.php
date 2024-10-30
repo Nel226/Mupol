@@ -1,11 +1,11 @@
 <!-- Header Area -->
-<header class="header" >
+<header class="header  border-b" >
     <!-- Header Inner -->
     <div class="header-inner">
         <div class="container">
             <div class="inner">
                 <div class="row align-items-center">
-                    <div class="col-lg-4 col-md-3 col-12">
+                    <div class="col-lg-5 col-md-3 col-12">
                         <!-- Start Logo -->
                         <div class="logo flex gap-2 items-center">
                           <a href="/"><img src="{{ asset('images/logo.png') }}" alt="Logo de la Mutuelle" class="h-16 w-auto"></a>
@@ -16,7 +16,7 @@
                         <div class="mobile-nav"></div>
                         <!-- End Mobile Nav -->
                     </div>
-                    <div class="col-lg-6 col-md-9 col-12">
+                    <div class="col-lg-4 col-md-6 col-12">
                         <!-- Main Menu -->
                         <div class="main-menu">
                             <nav class="navigation">
@@ -35,16 +35,20 @@
                                             <li><a href="">Notre Équipe</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="">Contact</a></li>
                                 </ul>
                             </nav>
                         </div>
                         <!--/ End Main Menu -->
                     </div>
-                    <div class="col-lg-2 col-12">
+                    <div class="col-lg-3 flex items-center justify-between col-12">
                         <div class="get-quote">
                             <a class="btn btn-primary" href="{{ route('formulaire-adhesion') }}">
                                 Adhérer maintenant
+                            </a>
+                        </div>
+                        <div class="">
+                            <a class=" text-[#4B45DC] " href="{{ route('adherant.login') }}">
+                                Connexion
                             </a>
                         </div>
                     </div>

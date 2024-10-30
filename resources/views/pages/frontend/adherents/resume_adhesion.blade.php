@@ -3,8 +3,11 @@
 
     <x-header-guest/>
     @if (session()->has('message'))
-        <x-succes-notification>
+        <x-succes-notification id="success-notification-content">
             {{ session('message') }}
+            <button id="close-notification" class="absolute top-0 right-0 p-2">
+                &times; 
+            </button>
         </x-succes-notification>
         <script>
             document.addEventListener('DOMContentLoaded', function () {
@@ -16,6 +19,9 @@
                 closeBtn.addEventListener('click', () => {
                     notification.classList.add('hidden');
                 });
+                setTimeout(() => {
+                    notification.classList.add('hidden');
+                }, 5000); 
             });
         </script>
     @endif

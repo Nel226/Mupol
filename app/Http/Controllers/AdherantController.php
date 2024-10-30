@@ -11,6 +11,8 @@ use Carbon\Carbon;
 
 class AdherantController extends Controller
 {
+ 
+
     /**
      * Display a listing of the resource.
      */

@@ -22,7 +22,7 @@ class DemandeController extends Controller
         ];
         $pageTitle = 'Liste des demandes d\'adhésions';
 
-        $demandes = DemandeAdhesion::all();
+        $demandes = DemandeAdhesion::orderBy('created_at', 'desc')->get();
         
         return view('pages.backend.demandes.index', compact('demandes', 'breadcrumbsItems', 'pageTitle'));
     }
@@ -44,12 +44,19 @@ class DemandeController extends Controller
     {
         $breadcrumbsItems = [
             [
+                'name' => 'Demandes',
+                'url' => route('demandes.index'),
+                'active' => false
+            ],
+            [
                 'name' => 'Adhésions',
-                'url' => route('adherants.index'),
+                'url' => route('demandes.index'),
                 'active' => true
             ],
         ];
-        $pageTitle = 'Liste des demandes d\'adhésions';
+        $pageTitle = 'Demande N°'.$demande->id;
+        $demande->ayantsDroits = json_decode($demande->ayantsDroits, true); 
+
         return view('pages.backend.demandes.show', compact('demande', 'breadcrumbsItems', 'pageTitle' ));
 
     }
@@ -60,8 +67,10 @@ class DemandeController extends Controller
     public function edit( $id)
     {
         $demande = DemandeAdhesion::findOrFail($id); 
+        $pageTitle = 'Modification demande N°'.$demande->id;
 
-        return view('pages.backend.demandes.edit',compact('demande'));
+
+        return view('pages.backend.demandes.edit',compact('demande', 'pageTitle'));
     }
 
 

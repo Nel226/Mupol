@@ -33,20 +33,20 @@
     @endif
 
     @role('agentsaisie|controleur')
-    <div class="p-4 border-2 border-gray-200 rounded-lg sm:ml-64 dark:border-gray-700 mt-14">
+    <x-content-page>
         <div class="flex-1 p-6">
             <x-breadcrumb :breadcrumbItems="$breadcrumbsItems" />
             <x-header>
                 {{$pageTitle}}
             </x-header>
             
-
+    
             <!-- Tabs Navigation -->
             <div class="flex mt-4">
                 <button id="tab-mutualistes" class="w-1/3 py-2 text-center text-gray-600 border-b-2 border-transparent focus:outline-none hover:text-gray-800 hover:border-gray-300 active-tab">Mutualistes</button>
                 <button id="tab-adherents" class="w-1/3 py-2 text-center text-gray-600 border-b-2 border-transparent focus:outline-none hover:text-gray-800 hover:border-gray-300 ">Adhérents</button>
                 <button id="tab-ayants-droit" class="w-1/3 py-2 text-center text-gray-600 border-b-2 border-transparent focus:outline-none hover:text-gray-800 hover:border-gray-300">Ayants Droit</button>
-
+    
             </div>
             <!-- Tabs Content -->
             <div id="tab-adherents-content" class="hidden mt-2 tab-content">
@@ -115,7 +115,7 @@
                         </x-primary-button>
                     </div>
                 </form>
-
+    
             </div>
             <!-- Modal de confirmation -->
             <div id="confirmationModal" class="hidden fixed z-10 inset-0 overflow-y-auto bg-black bg-opacity-60" aria-labelledby="modal-title" role="dialog" aria-modal="true">
@@ -126,13 +126,13 @@
                             <div class="mt-5 text-2xl">Etes-vous sûr?</div>
                             <div class="mt-2 text-slate-500">
                                 <p id="modalMessage" class="mt-2"></p>
-
+    
                                 Cette action est irreversible.
                             </div>
                         </div>
                         <div class="flex space-x-2 items-center mx-auto justify-center px-5 pb-8 text-center">
                             <button id="confirmDeleteBtn" class="bg-red-500 text-white px-4 py-2 rounded">Confirmer</button>
-
+    
                             <div>
                                 <button id="cancelDeleteBtn" class="transition duration-200 border shadow-sm inline-flex items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 dark:focus:ring-slate-700 dark:focus:ring-opacity-50 border-secondary text-slate-500 dark:border-darkmode-100/40 dark:text-slate-300 mr-1 w-24">
                                     Annuler
@@ -149,13 +149,13 @@
                     </div>
                 </div>
             </div>
-
+    
             
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
                     const tabulators = {};
                     const baseUrl = @json(route('adherants.edit', ['adherant' => ':id']));
-
+    
                     @foreach($sheets as $yearMonth => $data)
                         tabulators["{{ $yearMonth }}"] = new Tabulator("#tabulator-{{ $yearMonth }}", {
                             data: @json($data),
@@ -174,9 +174,9 @@
                                     title: "Actions", 
                                     formatter: function(cell) {
                                         const rowData = cell.getData();
-
+    
                                         const editUrl = baseUrl.replace(':id', rowData.id);
-
+    
                                         return `
                                             <a href="${editUrl}" class='border border-indigo-500 shadow-lg rounded-lg text-bold text-white p-1  bg-indigo-500 btn btn-primary'>Modifier</a>
                                             <button class='border border-red-500 rounded-lg bg-red-800 shadow-lg btn btn-danger text-bold text-white p-1' data-id="${rowData.id}">Supprimer</button>
@@ -187,7 +187,7 @@
                                     cellClick: function(e, cell) {
                                         const target = e.target;
                                         const rowData = cell.getData();
-
+    
                                         if (target.classList.contains('btn-danger')) {
                                             showModal(rowData.id); // Appelle la fonction pour afficher la modale de confirmation
                                         }
@@ -197,18 +197,18 @@
                             ],
                         });
                     @endforeach
-
+    
                     function showModal(id) {
                         const modal = document.getElementById('confirmationModal');
                         modal.classList.remove('hidden');
-
+    
                         // Mettez à jour le message de la modale
                         document.getElementById('modalMessage').innerText = `Êtes-vous sûr de vouloir supprimer l'adhérent avec l'ID: ${id} ?`;
-
+    
                         // Générer l'URL de suppression
                         const baseUrl = @json(route('adherants.destroy', ['adherant' => ':id']));
                         const deleteUrl = baseUrl.replace(':id', id);
-
+    
                         // Ajout de l'événement de suppression
                         document.getElementById('confirmDeleteBtn').onclick = function() {
                             fetch(deleteUrl, {
@@ -234,17 +234,17 @@
                                 console.error('Erreur lors de la requête de suppression:', error);
                             });
                         };
-
+    
                         // Gestion du bouton d'annulation
                         document.getElementById('cancelDeleteBtn').onclick = function() {
                             modal.classList.add('hidden');
                         };
                     }
-
-
+    
+    
                     
                     
-
+    
                     // Script pour gérer le changement d'onglet avec Tailwind CSS
                     const tabs = document.querySelectorAll('.nav-link');
                     tabs.forEach(tab => {
@@ -255,15 +255,15 @@
                                 link.classList.remove('bg-[#4000FF]', 'text-white');
                                 link.classList.add('bg-gray-200', 'text-gray-600');
                             });
-
+    
                             const targetPane = document.querySelector(this.getAttribute('data-bs-target'));
                             targetPane.classList.remove('hidden');
-
+    
                             this.classList.remove('bg-gray-200', 'text-gray-600');
                             this.classList.add('bg-[#4000FF]', 'text-white');
                         });
                     });
-
+    
                     // Script pour gérer la recherche
                     document.getElementById('fSearch').addEventListener('input', function() {
                         const searchValue = this.value.toLowerCase();
@@ -293,209 +293,209 @@
                     });
                 });
             </script>
-
+    
             
             <div id="tab-ayants-droit-content" class="hidden mt-2 tab-content">
                 <div class="">
-    <div class="flex items-center justify-end py-2 mb-6 space-x-2 text-sm">
-        <div class="flex items-center space-x-2">
-            <a href="{{ route('ayantsdroits.create') }}">
-                <x-primary-button class="">
-                    {{ __('Ajouter Ayant Droit') }}
-                </x-primary-button>
-            </a>
-        </div>
-        <!-- Custom search input -->
-        <div class="relative mt-1">
-            <input type="text" id="fSearchAyantDroit" name="fSearchAyantDroit" class="block pt-2 text-sm text-gray-900 border border-gray-300 rounded-lg ps-10 w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Rechercher">
-            <div class="absolute inset-y-0 flex items-center pointer-events-none rtl:inset-r-0 start-0 ps-3">
-                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                </svg>
-            </div>
-        </div>
-    </div>
-    
-    <div>
-        <ul class="flex overflow-x-auto border-b border-gray-900" id="myTabAyantDroit" role="tablist">
-            @foreach($sheetsAyantsDroits as $yearMonth => $data)
-                <li class="flex-none" role="presentation">
-                    <button class="nav-link-ayantdroit text-sm border-gray-300 border-2 px-4 py-2 rounded-t-lg {{ $loop->first ? 'bg-[#4000FF] text-white' : 'bg-gray-200 text-gray-600 hover:bg-gray-300' }}" id="tab-{{ $yearMonth }}-ayantdroit-tab" data-bs-toggle="tab" data-bs-target="#tab-{{ $yearMonth }}-ayantdroit" type="button" role="tab" aria-controls="tab-{{ $yearMonth }}-ayantdroit" aria-selected="{{ $loop->first ? 'true' : 'false' }}">
-                        {{ $yearMonth }}
-                    </button>
-                </li>
-            @endforeach
-        </ul>
-        <div class="tab-content" id="myTabAyantDroitContent">
-            @foreach($sheetsAyantsDroits as $yearMonth => $data)
-                <div class="tab-pane-ayantdroit {{ $loop->first ? 'block' : 'hidden' }}" id="tab-{{ $yearMonth }}-ayantdroit" role="tabpanel" aria-labelledby="tab-{{ $yearMonth }}-ayantdroit-tab">
-                    
-                    <div id="tabulator-{{ $yearMonth }}-ayantdroit" class="w-full p-2 overflow-x-auto bg-white rounded-b-lg shadow-lg">
-                        <!-- Tabulator table for Ayants Droit will be initialized here -->
+                    <div class="flex items-center justify-end py-2 mb-6 space-x-2 text-sm">
+                        <div class="flex items-center space-x-2">
+                            <a href="{{ route('ayantsdroits.create') }}">
+                                <x-primary-button class="">
+                                    {{ __('Ajouter Ayant Droit') }}
+                                </x-primary-button>
+                            </a>
+                        </div>
+                        <!-- Custom search input -->
+                        <div class="relative mt-1">
+                            <input type="text" id="fSearchAyantDroit" name="fSearchAyantDroit" class="block pt-2 text-sm text-gray-900 border border-gray-300 rounded-lg ps-10 w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Rechercher">
+                            <div class="absolute inset-y-0 flex items-center pointer-events-none rtl:inset-r-0 start-0 ps-3">
+                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                                </svg>
+                            </div>
+                        </div>
                     </div>
-                    <div class="flex justify-end mt-2 space-x-2">
-                        <x-primary-button class="export-btn-ayantdroit" data-year-month="{{ $yearMonth }}">
-                            {{ __('Exporter en XLSX') }}
-                        </x-primary-button>
+                    
+                    <div>
+                        <ul class="flex overflow-x-auto border-b border-gray-900" id="myTabAyantDroit" role="tablist">
+                            @foreach($sheetsAyantsDroits as $yearMonth => $data)
+                                <li class="flex-none" role="presentation">
+                                    <button class="nav-link-ayantdroit text-sm border-gray-300 border-2 px-4 py-2 rounded-t-lg {{ $loop->first ? 'bg-[#4000FF] text-white' : 'bg-gray-200 text-gray-600 hover:bg-gray-300' }}" id="tab-{{ $yearMonth }}-ayantdroit-tab" data-bs-toggle="tab" data-bs-target="#tab-{{ $yearMonth }}-ayantdroit" type="button" role="tab" aria-controls="tab-{{ $yearMonth }}-ayantdroit" aria-selected="{{ $loop->first ? 'true' : 'false' }}">
+                                        {{ $yearMonth }}
+                                    </button>
+                                </li>
+                            @endforeach
+                        </ul>
+                        <div class="tab-content" id="myTabAyantDroitContent">
+                            @foreach($sheetsAyantsDroits as $yearMonth => $data)
+                                <div class="tab-pane-ayantdroit {{ $loop->first ? 'block' : 'hidden' }}" id="tab-{{ $yearMonth }}-ayantdroit" role="tabpanel" aria-labelledby="tab-{{ $yearMonth }}-ayantdroit-tab">
+                                    
+                                    <div id="tabulator-{{ $yearMonth }}-ayantdroit" class="w-full p-2 overflow-x-auto bg-white rounded-b-lg shadow-lg">
+                                        <!-- Tabulator table for Ayants Droit will be initialized here -->
+                                    </div>
+                                    <div class="flex justify-end mt-2 space-x-2">
+                                        <x-primary-button class="export-btn-ayantdroit" data-year-month="{{ $yearMonth }}">
+                                            {{ __('Exporter en XLSX') }}
+                                        </x-primary-button>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
-            @endforeach
-        </div>
-    </div>
-</div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const tabulatorsAyantsDroits = {};
-        const baseUrl = @json(route('ayantsdroits.edit', ['ayantsdroit' => ':id'])); // URL de base
-        
-        @foreach($sheetsAyantsDroits as $yearMonth => $data)
-            tabulatorsAyantsDroits["{{ $yearMonth }}"] = new Tabulator("#tabulator-{{ $yearMonth }}-ayantdroit", {
-                data: @json($data),
-                layout: "fitDataStretch",
-                movableColumns: false,
-                placeholder: "Aucune donnée",
-                pagination: "local",
-                paginationSize: 20,
-                paginationSizeSelector: [20, 30, 40, 50],
-                printAsHtml: true,
-                columns: [
-                    { 
-                        title: "N° Ordre", 
-                        field: "numero_ordre", 
-                        formatter: "rownum",  
-                        hozAlign: "center", 
-                        headerSort: false 
-                    },
-                    @foreach($headerAyantDroit as $column)
-                        { title: "{{ ucfirst($column) }}", field: "{{ $column }}" },
-                    @endforeach
-                    {
-                        title: "Actions", 
+    
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const tabulatorsAyantsDroits = {};
+                        const baseUrl = @json(route('ayantsdroits.edit', ['ayantsdroit' => ':id'])); // URL de base
                         
-                        formatter: function(cell, formatterParams, onRendered) {
-                                const rowData = cell.getData();
+                        @foreach($sheetsAyantsDroits as $yearMonth => $data)
+                            tabulatorsAyantsDroits["{{ $yearMonth }}"] = new Tabulator("#tabulator-{{ $yearMonth }}-ayantdroit", {
+                                data: @json($data),
+                                layout: "fitDataStretch",
+                                movableColumns: false,
+                                placeholder: "Aucune donnée",
+                                pagination: "local",
+                                paginationSize: 20,
+                                paginationSizeSelector: [20, 30, 40, 50],
+                                printAsHtml: true,
+                                columns: [
+                                    { 
+                                        title: "N° Ordre", 
+                                        field: "numero_ordre", 
+                                        formatter: "rownum",  
+                                        hozAlign: "center", 
+                                        headerSort: false 
+                                    },
+                                    @foreach($headerAyantDroit as $column)
+                                        { title: "{{ ucfirst($column) }}", field: "{{ $column }}" },
+                                    @endforeach
+                                    {
+                                        title: "Actions", 
+                                        
+                                        formatter: function(cell, formatterParams, onRendered) {
+                                                const rowData = cell.getData();
+                                                
+                                                const editUrl = baseUrl.replace(':id', rowData.id); 
+    
+                                                return `
+                                                    <a href="${editUrl}" class='border border-indigo-500 shadow-lg rounded-lg text-bold text-white p-1  bg-indigo-500 btn btn-primary'>Modifier</a>
+                                                    <button class='border border-red-500 rounded-lg bg-red-800 shadow-lg btn btn-danger text-bold text-white p-1' data-id="${rowData.id}">Supprimer</button>
+                                                    `;
+                                        },
+                                        hozAlign: "center",
+                                        minWidth: 200,
+                                        cellClick: function(e, cell) {
+                                            const target = e.target;
+                    
+                                            if (target.classList.contains('btn-danger')) {
+                                                showModal(target.getAttribute('data-id'));
+                                            }
+                                        },
+                                        download: false 
+                                    }
+                                ],
+                            });
+                        @endforeach
+                    
+                        function showModal(id) {
+                            const modal = document.getElementById('confirmationModal');
+                            modal.classList.remove('hidden');
+                        
+                            document.getElementById('modalMessage').innerText = `Êtes-vous sûr de vouloir supprimer l'élément avec l'ID: ${id} ?`;
+                        
+                            const baseUrl = @json(route('ayantsdroits.destroy', ['ayantsdroit' => ':id']));
+                            const deleteUrl = baseUrl.replace(':id', id);
+                        
+                            // suppression
+                            document.getElementById('confirmDeleteBtn').onclick = function() {
+                                fetch(deleteUrl, {
+                                    method: 'DELETE',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') // Token CSRF
+                                    }
+                                })
+                                .then(response => {
+                                    if (response.ok) {
+                                        console.log('Suppression confirmée pour l\'ID:', id);
+                                        alert('Mutualiste supprimé avec succès.');
+    
+                                        modal.classList.add('hidden');
+                        
+                                        location.reload(); 
+                                    } else {
+                                        return response.json().then(data => {
+                                            console.error('Erreur lors de la suppression:', data.message);
+                                        });
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error('Erreur lors de la requête de suppression:', error);
+                                });
+                            };
+                        
+                            document.getElementById('cancelDeleteBtn').onclick = function() {
+                                modal.classList.add('hidden');
+                            };
+                        }
+                        
+                        const tabsAyantDroit = document.querySelectorAll('.nav-link-ayantdroit');
+                        tabsAyantDroit.forEach(tab => {
+                            tab.addEventListener('click', function() {
+                                document.querySelectorAll('.tab-pane-ayantdroit').forEach(pane => pane.classList.add('hidden'));
                                 
-                                const editUrl = baseUrl.replace(':id', rowData.id); 
-
-                                return `
-                                    <a href="${editUrl}" class='border border-indigo-500 shadow-lg rounded-lg text-bold text-white p-1  bg-indigo-500 btn btn-primary'>Modifier</a>
-                                    <button class='border border-red-500 rounded-lg bg-red-800 shadow-lg btn btn-danger text-bold text-white p-1' data-id="${rowData.id}">Supprimer</button>
-                                    `;
-                        },
-                        hozAlign: "center",
-                        minWidth: 200,
-                        cellClick: function(e, cell) {
-                            const target = e.target;
-    
-                            if (target.classList.contains('btn-danger')) {
-                                showModal(target.getAttribute('data-id'));
-                            }
-                        },
-                        download: false 
-                    }
-                ],
-            });
-        @endforeach
-    
-        function showModal(id) {
-            const modal = document.getElementById('confirmationModal');
-            modal.classList.remove('hidden');
-        
-            document.getElementById('modalMessage').innerText = `Êtes-vous sûr de vouloir supprimer l'élément avec l'ID: ${id} ?`;
-        
-            const baseUrl = @json(route('ayantsdroits.destroy', ['ayantsdroit' => ':id']));
-            const deleteUrl = baseUrl.replace(':id', id);
-        
-            // suppression
-            document.getElementById('confirmDeleteBtn').onclick = function() {
-                fetch(deleteUrl, {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') // Token CSRF
-                    }
-                })
-                .then(response => {
-                    if (response.ok) {
-                        console.log('Suppression confirmée pour l\'ID:', id);
-                        alert('Mutualiste supprimé avec succès.');
-
-                        modal.classList.add('hidden');
-        
-                        location.reload(); 
-                    } else {
-                        return response.json().then(data => {
-                            console.error('Erreur lors de la suppression:', data.message);
+                                tabsAyantDroit.forEach(link => {
+                                    link.classList.remove('bg-[#4000FF]', 'text-white');
+                                    link.classList.add('bg-gray-200', 'text-gray-600');
+                                });
+                    
+                                const targetPane = document.querySelector(this.getAttribute('data-bs-target'));
+                                targetPane.classList.remove('hidden');
+                    
+                                this.classList.remove('bg-gray-200', 'text-gray-600');
+                                this.classList.add('bg-[#4000FF]', 'text-white');
+                            });
                         });
-                    }
-                })
-                .catch(error => {
-                    console.error('Erreur lors de la requête de suppression:', error);
-                });
-            };
-        
-            document.getElementById('cancelDeleteBtn').onclick = function() {
-                modal.classList.add('hidden');
-            };
-        }
-        
-        const tabsAyantDroit = document.querySelectorAll('.nav-link-ayantdroit');
-        tabsAyantDroit.forEach(tab => {
-            tab.addEventListener('click', function() {
-                document.querySelectorAll('.tab-pane-ayantdroit').forEach(pane => pane.classList.add('hidden'));
-                
-                tabsAyantDroit.forEach(link => {
-                    link.classList.remove('bg-[#4000FF]', 'text-white');
-                    link.classList.add('bg-gray-200', 'text-gray-600');
-                });
+                    
+                        // recherche
+                        document.getElementById('fSearchAyantDroit').addEventListener('input', function() {
+                            const searchValue = this.value.toLowerCase();
+                            Object.values(tabulatorsAyantsDroits).forEach(tabulator => {
+                                tabulator.setFilter(function(data) {
+                                    return Object.values(data).some(value => 
+                                        String(value).toLowerCase().includes(searchValue)
+                                    );
+                                });
+                            });
+                        });
+                    
+                        // exportation
+                        document.querySelectorAll('.export-btn-ayantdroit').forEach(button => {
+                            button.addEventListener('click', function() {
+                                const yearMonth = this.getAttribute('data-year-month');
+                                const tabulator = tabulatorsAyantsDroits[yearMonth];
+                                tabulator.download("xlsx", `ayantsdroits_${yearMonth}.xlsx`);
+                            });
+                        });
+                    });
+                </script>
     
-                const targetPane = document.querySelector(this.getAttribute('data-bs-target'));
-                targetPane.classList.remove('hidden');
-    
-                this.classList.remove('bg-gray-200', 'text-gray-600');
-                this.classList.add('bg-[#4000FF]', 'text-white');
-            });
-        });
-    
-        // recherche
-        document.getElementById('fSearchAyantDroit').addEventListener('input', function() {
-            const searchValue = this.value.toLowerCase();
-            Object.values(tabulatorsAyantsDroits).forEach(tabulator => {
-                tabulator.setFilter(function(data) {
-                    return Object.values(data).some(value => 
-                        String(value).toLowerCase().includes(searchValue)
-                    );
-                });
-            });
-        });
-    
-        // exportation
-        document.querySelectorAll('.export-btn-ayantdroit').forEach(button => {
-            button.addEventListener('click', function() {
-                const yearMonth = this.getAttribute('data-year-month');
-                const tabulator = tabulatorsAyantsDroits[yearMonth];
-                tabulator.download("xlsx", `ayantsdroits_${yearMonth}.xlsx`);
-            });
-        });
-    });
-</script>
-
-<form action="{{route('ayantdroits.import')}}" method="POST" enctype="multipart/form-data">
-    @csrf
-    <div class="flex items-center justify-end my-4 space-x-2">
-        <input type="file" name="excel-file-ayant-droit"  class="block text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-green-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" accept=".csv, .xlsx" />
-        <x-primary-button type="submit" class="ms-3">
-            {{ __('Importer Excel') }}
-        </x-primary-button>
-    </div>
-</form>
+                <form action="{{route('ayantdroits.import')}}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="flex items-center justify-end my-4 space-x-2">
+                        <input type="file" name="excel-file-ayant-droit"  class="block text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-green-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" accept=".csv, .xlsx" />
+                        <x-primary-button type="submit" class="ms-3">
+                            {{ __('Importer Excel') }}
+                        </x-primary-button>
+                    </div>
+                </form>
             </div>
             <div id="tab-mutualistes-content" class="mt-2 tab-content">
                 <div class="">
                     
                     <div class="overflow-x-auto rounded-lg">
-
+    
                         <table id="table_mutualistes" class="w-full text-sm text-left text-gray-500 border rounded-lg shadow-lg cell-border hover rtl:text-right dark:text-gray-400 display">
                             <thead>
                                 <tr class="p-3 font-bold ">
@@ -584,7 +584,8 @@
             </div>
             
         </div>
-    </div>
+    </x-content-page>
+
     @endrole
     <script>
         document.getElementById('tab-adherents').addEventListener('click', function() {

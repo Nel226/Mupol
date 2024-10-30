@@ -46,6 +46,18 @@
                     
                     <div class="col-lg-12">
                         <x-section-guest>
+                            <div class="flex justify-start gap-2 my-3">
+                                <a class="btn" href="{{ route('download-form-adhesion', [
+                                        'id' => $demandeAdhesion->id, 
+                                    ]) }}">
+                                    Télécharger le formulaire d'adhésion
+                    
+                                </a>
+                                <x-primary-button onclick="printIframeContent()" class="btn" style="background-color: #4CAF50">
+                                    Imprimer 
+                                </x-primary-button>
+                            </div>
+
                             <div class="flex justify-end gap-2 my-3">
                                 <a class="btn" href="{{ route('download-fiche-cession-volontaire', [
                                         'id' => $demandeAdhesion->id, 
@@ -70,7 +82,7 @@
                             <div class="container  my-3 border border-gray-200  p-10 bg-white shadow-lg rounded-lg mx-auto">
                         
                                 <div class="font-bold mb-4 text-green-600 flex-col text-center justify-center space-y-2 ">
-                                   <i class="fa fa-check-circle w-16 h-16 text-5xl"></i>
+                                    <i class="fa fa-check-circle w-16 h-16 text-5xl"></i>
                                     <h4>Votre demande a bien été enregistrée</h4>
                                 </div>
                                 <p class=" text-center">Un email de confirmation vous a été transmis à l&apos;adresse : {{$demandeAdhesion->email}}, Veuillez le consulter.</p>

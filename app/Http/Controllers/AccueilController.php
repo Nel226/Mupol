@@ -71,8 +71,6 @@ class AccueilController extends Controller
         return view('pages.frontend.adherents.final-demande-adhesion', compact( 'cotisations', 'demandeAdhesion'));
     }
 
-   
-    
 
     public function downloadCessionFiche($id)
     {
@@ -83,7 +81,6 @@ class AccueilController extends Controller
             'logoPath' => public_path('images/logofinal.png'),
             'signature' => $demandeAdhesion->signature, 
 
-            
         ];
         
         return PDFHelper::downloadPDF('pages.frontend.adherents.fiches.cession_volontaire', $data, 'Fiche_cession_volontaire_' . $demandeAdhesion->id);

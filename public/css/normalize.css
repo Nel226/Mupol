@@ -470,20 +470,21 @@ Preloader Area CSS
 	transform: scaleX(1);
 }
 .section{
-	padding:50px 0;
+	padding-top:50px;
+	padding-bottom: 30px;
 }
 .section-title{
 	text-align: center;
-    margin-bottom: 60px;
+    margin-bottom: 15px;
     padding: 0 250px;
 }
 .section-title h2 {
-	font-size: 32px;
-	font-weight: 600;
-	text-transform: capitalize;
-	margin-bottom: 24px;
-	position: relative;
-	color: #2C2D3F;
+    font-size: 28px;
+    font-weight: 600;
+    text-transform: capitalize;
+    margin-bottom: 5px;
+    position: relative;
+    color: #2C2D3F;
 }
 .section-title p{
 	font-size:15px;

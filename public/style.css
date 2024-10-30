@@ -1316,10 +1316,10 @@ body{
 /*=========================
 	Srart service CSS
 ===========================*/
-.services .single-service{
-	margin:30px 0;
-	position:relative;
-	padding-left:70px;
+.services .single-service {
+    margin: 15px 0;
+    position: relative;
+    padding-left: 70px;
 }
 .services .single-service i{
 	font-size:45px;
@@ -3972,7 +3972,7 @@ body{
 	position:relative;
 }
 .footer .footer-top {
-    padding: 50px 0px;
+    padding: 30px 0px;
     position: relative;
     background: #4B45DC;
 }
@@ -4157,10 +4157,10 @@ body{
 .footer .single-footer .newsletter-inner .button:hover i{
 	color:#2C2D3F;
 }
-.footer .copyright{
-	background:#4B45DC;
-	padding:25px 0px 25px 0px;
-	text-align:center;
+.footer .copyright {
+    background: #4B45DC;
+    padding: 15px 0px 15px 0px;
+    text-align: center;
 }
 .footer .copyright .copyright-content p{
 	color:#fff;

@@ -1,3 +1,6 @@
+        fastcgi_pass unix:/var/run/php/php-fpm.sock; # Adjust if your socket path is different
+
+ 
 server {
     # Listen on port 80
     listen 80;

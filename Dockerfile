@@ -1,6 +1,35 @@
-FROM richarvey/nginx-php-fpm:1.7.2
+# Utiliser une image de base avec PHP et les extensions nécessaires
+FROM php:8.1-fpm
+# Installer les extensions nécessaires pour Laravel
+RUN apt-get update && apt-get install -y \
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    libonig-dev \
+    libxml2-dev \
+    zip \
+    unzip \
+    git \
+    curl \
+    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
 
+
+# Installer Composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+# Définir le répertoire de travail
+WORKDIR /var/www
+
+# Copier les fichiers du projet
 COPY . .
+
+# Installer les dépendances
+RUN composer install --optimize-autoloader --no-dev
+
+# Configurer les permissions
+RUN chown -R www-data:www-data /var/www \
+    && chmod -R 755 /var/www/storage
+
 
 # Image config
 ENV SKIP_COMPOSER 1
@@ -17,4 +46,7 @@ ENV LOG_CHANNEL stderr
 # Allow composer to run as root
 ENV COMPOSER_ALLOW_SUPERUSER 1
 
-CMD ["/start.sh"]
+# Exposer le port 80
+EXPOSE 80
+
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=80"]

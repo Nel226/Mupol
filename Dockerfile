@@ -49,4 +49,4 @@ ENV COMPOSER_ALLOW_SUPERUSER 1
 # Exposer le port 80
 EXPOSE 80
 
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=80001"]
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8001"]

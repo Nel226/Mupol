@@ -46,13 +46,13 @@ Route::post('/finalisation-adhesion', [AccueilController::class, 'finalAdhesion'
 Route::get('/cession-volontaire/{id}', [AccueilController::class, 'showCessionVolontaire'])->name('showCessionVolontaire');
 Route::get('/impression-fiche-cession/{id}', [AccueilController::class, 'imprimerFicheCession'])->name('imprimer-fiche-cession');
 
-Route::get('/login/adherant', [AdherantAuthenticatedSessionController::class, 'create'])->name('adherant.login');
-Route::post('/login/adherant', [AdherantAuthenticatedSessionController::class, 'store']);
+Route::get('/login/adherent', [AdherantAuthenticatedSessionController::class, 'create'])->name('adherent.login');
+Route::post('/login/adherent', [AdherantAuthenticatedSessionController::class, 'store']);
 Route::get('/adherents/dashboard', [AdherantAuthenticatedSessionController::class, 'dashboard'])
     ->name('adherents.dashboard')
     ->middleware('auth:adherent');
-Route::post('/logout', [AdherantAuthenticatedSessionController::class, 'destroy'])
-    ->name('adherant.logout')
+Route::post('/logout/adherent', [AdherantAuthenticatedSessionController::class, 'destroy'])
+    ->name('adherent.logout')
     ->middleware('auth:adherent');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');

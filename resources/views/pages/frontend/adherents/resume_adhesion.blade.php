@@ -45,7 +45,7 @@
     </div>
     <!-- End Breadcrumbs -->
             
-    <section class=" section">
+    <section class=" section bg-gray-100">
         <div class="container">
             <div class="">
                 <div class="row "> 

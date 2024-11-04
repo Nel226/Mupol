@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Providers\RouteServiceProvider;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Hash;
+
 
 class AdherantAuthenticatedSessionController extends Controller
 {
@@ -25,18 +27,32 @@ class AdherantAuthenticatedSessionController extends Controller
      * Gérer une demande d'authentification entrante.
      */
     public function store(LoginRequest $request): RedirectResponse
-    {
-        if (Auth::guard('adherent')->attempt($request->only('email', 'password'))) {
-            $request->session()->regenerate();
+{
+    if (Auth::guard('adherent')->attempt($request->only('email', 'password'))) {
+        // Succès de la connexion
+        $request->session()->regenerate();
+        return redirect()->route('adherents.dashboard');
+    } else {
+        // Débogage : vérifiez si l'utilisateur existe
+        $user = \App\Models\Adherant::where('email', $request->email)->first();
 
-            return redirect()->route('adherents.dashboard')->with('message', 'Connexion réussie !');
-
+        if ($user) {
+            // Utilisateur trouvé, vérifiez le mot de passe
+            if (Hash::check($request->password, $user->password)) {
+                dd("Le mot de passe correspond bien, problème avec l'authentification.");
+            } else {
+                dd("Utilisateur trouvé, mais le mot de passe ne correspond pas.");
+            }
+        } else {
+            dd("Aucun utilisateur trouvé avec cet email.");
         }
-
-        return back()->withErrors([
-            'email' => 'Les informations d\'identification  sont incorrectes.',
-        ]);
     }
+
+    return back()->withErrors([
+        'email' => 'Les informations d\'identification sont incorrectes.',
+    ]);
+}
+
 
     public function dashboard(): View
     {
@@ -55,6 +71,6 @@ class AdherantAuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/login');
+        return redirect('/login/adherent');
     }
 }

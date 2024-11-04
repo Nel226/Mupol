@@ -54,7 +54,7 @@
                                     </div>
                                 @endif
     
-                                <form method="POST" action="{{ route('adherant.login') }}" class="mt-12 space-y-4">
+                                <form method="POST" action="{{ route('adherent.login') }}" class="mt-12 space-y-4">
                                     @csrf
                                     <div class="relative flex items-center">
                                         <input name="email" type="text" required

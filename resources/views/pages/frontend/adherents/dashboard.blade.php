@@ -15,7 +15,8 @@
         </script>
     @endif
 
-    <x-preloader/>
+    {{--  <x-preloader/>  --}}
+    <x-sidebar-guest/>
     <div class="">
         <section class="section">
             <div class="container h-screen">

@@ -100,7 +100,7 @@ class AccueilController extends Controller
             'grade' => $demandeAdhesion->grade,
             'departARetraite' => $demandeAdhesion->departARetraite,
             'numeroCARFO' => $demandeAdhesion->numeroCARFO,
-            'dateIntegration' => now(), // ou $demandeAdhesion->dateIntegration si disponible
+            'dateIntegration' => $demandeAdhesion->dateIntegration,
             'dateDepartARetraite' => $demandeAdhesion->dateDepartARetraite,
             'direction' => $demandeAdhesion->direction,
             'service' => $demandeAdhesion->service,

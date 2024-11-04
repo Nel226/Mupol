@@ -1,3 +1,47 @@
+hover:shadow-2xl
+ 
+hover:scale-105
+ 
+@if ()
+    
+ 
+    /* CSS pour le header lorsque l'utilisateur est connecté */
+
+ 
+{{ route('adhesion.demande') }}
+ 
+{{ route('services') }}
+ 
+    <x-preloader/>
+
+ 
+{{ route('adhesion.demande') }}
+ 
+{{ route('services') }}
+ 
+<div>
+    <!-- Well begun is half done. - Aristotle -->
+</div>
+ 
+Bienvenue,
+ 
+password123
+ 
+generatedPassword
+ 
+RedirectResponse
+ 
+si disponible
+ 
+now(), // ou 
+ 
+        dd('kd');
+
+ 
+                                <a href="{{ route('adherents.dashboard') }}" class="text-[#4B45DC] ml-4">Tableau de bord</a>
+
+ 
+<<<<<<< Updated upstream
 bg-white
  
 shadow-lg
@@ -1841,6 +1885,16 @@ xl
     <link rel="stylesheet" href="print.css">
 
  
+=======
+ <div class="flex justify-end">
+                    <a href="">
+                        <x-primary-button>
+                            Pièces jointes
+                        </x-primary-button>
+                    </a>
+                </div>
+ 
+>>>>>>> Stashed changes
                         
  
                         

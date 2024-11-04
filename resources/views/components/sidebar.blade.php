@@ -179,7 +179,13 @@
  
                 <ol x-show="open" x-cloak @click.away="open = false" class="ml-6 mt-2 space-y-2 text-sm text-white rounded-lg dark:bg-gray-800">
                     <li><a href="{{ route('suivi-consultation') }}" class="block px-4 py-2 hover:bg-gray-100 hover:text-black dark:hover:bg-gray-700 rounded-lg">Consultation</a></li>
-                    <!-- Autres sous-menus -->
+                    <li><a href="{{ route('suivi') }}" class="block px-4 py-2 hover:bg-gray-100 hover:text-black dark:hover:bg-gray-700 rounded-lg">Hospitalisation</a></li>
+                    <li><a href="{{ route('suivi-maternite') }}" class="block px-4 py-2 hover:bg-gray-100 hover:text-black dark:hover:bg-gray-700 rounded-lg">Maternité</a></li>
+                    <li><a href="{{ route('suivi-pharmacie') }}" class="block px-4 py-2 hover:bg-gray-100 hover:text-black dark:hover:bg-gray-700 rounded-lg">Pharmacie</a></li>
+                    <li><a href="{{ route('suivi-optique') }}" class="block px-4 py-2 hover:bg-gray-100 hover:text-black dark:hover:bg-gray-700 rounded-lg">Optique</a></li>
+                    <li><a href="{{ route('suivi-allocation') }}" class="block px-4 py-2 hover:bg-gray-100 hover:text-black dark:hover:bg-gray-700 rounded-lg">Allocation</a></li>
+
+
                 </ol>
             </li>
             @endrole

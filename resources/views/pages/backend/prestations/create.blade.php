@@ -17,7 +17,8 @@
             });
         </script>
     @endif
-    <div class="p-4 border-2 border-gray-200 rounded-lg sm:ml-64 dark:border-gray-700 mt-14">
+    <x-content-page>
+        
         <div class="flex-1 p-6">
             <div class="flex items-center px-4 py-2 text-gray-500 bg-[#fffe4a70] rounded-t-lg shadow-lg">
                 <h1 class="flex-1 text-2xl font-bold">Gestion des prestations</h1>
@@ -33,7 +34,7 @@
                         </ul>
                     </div>
                 @endif
-
+    
                 <form   action="{{ route('prestations.store') }}" method="POST" enctype="multipart/form-data" id="formPrestation" class=" max-w-2xl mx-auto adherant-form">
                     @csrf
                     <div class=" ">
@@ -52,13 +53,13 @@
                                 <div class="form-content p-4">
                                     
                                     <hr class=" w-4/5  h-1 mx-auto mb-4 bg-[#4000FF] border-0 rounded md:mb-10 dark:bg-gray-700">
-
+    
                                     <label for="adherantCode" class="block mb-2 text-sm font-medium text-gray-900">Sélectionnez le code du mutualiste :</label>
                                     
-
+    
                                     <select id="adherantCode" name="adherantCode" class="adherantCode block w-full p-2 !mb-6 border border-gray-300 rounded-lg">
                                         <option value="">-- Choisir un code --</option>
-                                        @foreach ($adherantsValides as $adherant)
+                                        @foreach ($adherants as $adherant)
                                             <option value="{{ $adherant->code_carte }}">{{ $adherant->code_carte }}</option>
                                         @endforeach
                                         @foreach ($ayantsDroitValides as $ayantDroit)
@@ -123,7 +124,7 @@
                                                             <label for="contactPrestation" class="block mb-2 text-sm font-medium text-gray-900">Téléphone :</label>
                                                             <input id="contactPrestation" name="contactPrestation" type="number" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " placeholder="Entrez un numéro de téléphone pour le paiement" required>
                                                         </div>
-
+    
                                                     </div>
                                                 
                                                 </div>
@@ -134,7 +135,7 @@
                                                             <span id="toggle-icon" class="text-lg">+</span>
                                                         </div>
                                                         <div class="p-4 " id="accordion-content">
-
+    
                                                             <label for="acte" class="block mb-2 text-sm font-medium text-gray-900">Sélectionnez une option :</label>
                                                             <select id="acte" name="acte" class="acte-select block w-full p-2 mb-4 border border-gray-300 rounded-lg">
                                                                 <option value="">-- Choisir --</option>
@@ -540,7 +541,7 @@
                                 </div>
                             </div>
                         </div>
-
+    
                     </div>
                     <div class="flex items-end justify-end gap-4 mt-8">
                         
@@ -551,7 +552,7 @@
                 </form>
                 <script>
                     let formIndex = 1; 
-
+    
                     function initializeAccordion(form) {
                         const accordionHeader = form.querySelector('#accordion-header'); 
                         const accordionContent = form.querySelector('#accordion-content');
@@ -567,7 +568,7 @@
                         const firstForm = document.querySelector('.form-prestation');
                         initializeAccordion(firstForm); 
                     });
-
+    
                 
                     document.getElementById('add-form').addEventListener('click', function() {
                         const formContainer = document.getElementById('form-container');
@@ -575,13 +576,13 @@
                         
                         
                         formIndex++;
-
+    
                         // Réinitialiser les champs du nouveau formulaire
                         newForm.querySelectorAll('input, select').forEach(function(element) {
                             const name = element.getAttribute('name');
                             const id = element.getAttribute('id');
                             const label = newForm.querySelector('label'); 
-
+    
                             label.textContent = `Prestation #${formIndex}`;
                             if (name) {
                                 element.setAttribute('name', `${name}-${formIndex}`);
@@ -604,18 +605,18 @@
                         });
                         
                         initializeAccordion(newForm);
-
+    
                 
                         {{--  newForm.querySelector('.acteContainer').classList.remove('hidden');    --}}
                         formContainer.appendChild(newForm);
-
-   
+    
+    
                         {{--  let acteSelect = null;   --}}
                         hideAllOptions(newForm); 
-
+    
                         acteSelect = newForm.querySelector('.acte-select'); 
                         console.log('Acte sélectionné:', acteSelect);
-
+    
                         if (acteSelect) {
                             acteSelect.addEventListener('change', function() {
                                 {{--  if (acteTitle) {
@@ -634,9 +635,9 @@
                         }
                 
                     });
-
-
-
+    
+    
+    
                     function showSelectedOption(acteSelect) {
                         const form = acteSelect.closest('.form-prestation'); 
                         
@@ -673,7 +674,7 @@
                     document.addEventListener('DOMContentLoaded', () => {
                         const adherantCode = document.getElementById('adherantCode');
                         const acteContainer = document.getElementById('acteContainer');
-
+    
                         const consultationOptions = document.getElementById('consultationOptions');
                         const hospitalisationOptions = document.getElementById('hospitalisationOptions');
                         const analyseBiomedicaleOptions = document.getElementById('analyseBiomedicaleOptions');
@@ -693,7 +694,7 @@
                         const adherantInfo = document.getElementById('adherantInfo');
                         const beneficiaireIndicator = document.getElementById('beneficiaire');
                         const infosACompleter = document.getElementById('infosACompleter');
-
+    
                         
                         
                         $('#adherantCode').on('change', function() {
@@ -709,7 +710,7 @@
                                 acteContainer.classList.remove('hidden');
                                 adherantInfo.classList.remove('hidden');
                                 infosACompleter.classList.remove('hidden');
-
+    
                             } else {
                                 const selectedAyantDroit = ayantsDroit.find(ayantDroit => ayantDroit.code === selectedCode);
                     
@@ -722,7 +723,7 @@
                                     acteContainer.classList.remove('hidden');
                                     adherantInfo.classList.remove('hidden');
                                     infosACompleter.classList.remove('hidden');
-
+    
                                 } else {
                                     // Réinitialiser les champs si aucun adhérant ou ayant droit trouvé
                                     document.getElementById('adherantNom').value = '';
@@ -763,7 +764,7 @@
                     function validateForm(form) {
                         let isValid = true; 
                         const inputs = form.querySelectorAll('input, select, textarea'); 
-
+    
                         inputs.forEach((input) => {
                             if (input.name && input.name.startsWith('preuve')) {
                                 return; 
@@ -788,13 +789,13 @@
                                 }
                             }
                         });
-
+    
                         return isValid; 
                     }
-
+    
                     document.getElementById('formPrestation').addEventListener('submit', function(event) {
                         event.preventDefault(); 
-
+    
                         const form = this; 
                         if (validateForm(form)) {
                             form.submit(); 
@@ -802,7 +803,7 @@
                             alert('Veuillez remplir tous les champs requis.'); 
                         }
                     });
-
+    
                     $(document).ready(function() {
                         $('#adherantCode').select2({
                             placeholder: '-- Choisir un code --',
@@ -820,5 +821,6 @@
                 </script>              
             </div>
         </div>
-    </div>
+    </x-content-page>
+    
 </x-app-layout>

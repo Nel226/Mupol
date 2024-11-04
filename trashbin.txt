@@ -1,3 +1,53 @@
+  <div class="p-4 border-2 border-gray-200 rounded-lg sm:ml-64 dark:border-gray-700 mt-14">
+    </div>
+ 
+                                        @dd($adherant)
+
+ 
+Valides
+ 
+where('date_enregistrement', '<=', $sixMonthsAgo)->
+ 
+where('date_enregistrement', '<=', $sixMonthsAgo)
+ 
+=======
+ 
+>>>>>>> Stashed changes
+ 
+<<<<<<< Updated upstream
+ 
+=======
+ 
+bg-white
+ 
+-hospitalisation
+ 
+<div class="p-4 border-2 border-gray-200 rounded-lg sm:ml-64 dark:border-gray-700 mt-14">
+    </div>
+ 
+ <div class="p-4 border-2 border-gray-200 rounded-lg sm:ml-64 dark:border-gray-700 mt-14">
+    </div>
+ 
+ <div class="p-4 border-2 border-gray-200 rounded-lg sm:ml-64 dark:border-gray-700 mt-14">
+    </div>
+ 
+<div class="p-4 border-2 border-gray-200 rounded-lg sm:ml-64 dark:border-gray-700 mt-14">
+    </div>
+ 
+<div class="flex-1 p-6">
+
+        </div>
+ 
+<div class="p-4 border-2 border-gray-200 rounded-lg sm:ml-64 dark:border-gray-700 mt-14">
+    </div>
+ 
+    <div class="flex-1 p-6">
+
+ 
+            
+ 
+Str::random(10)
+ 
 hover:shadow-2xl
  
 hover:scale-105

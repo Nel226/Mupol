@@ -69,7 +69,7 @@ class AccueilController extends Controller
         $cotisations = DemandeCategorieHelper::calculerCotisationMensuelleTotale($demandeAdhesion->nombreAyantsDroits);
         $pdf = Pdf::loadView('pages.frontend.adherents.fiches.cession_volontaire', ['demandeAdhesion' => $demandeAdhesion]);
 
-        $generatedPassword = Str::random(10);
+        $generatedPassword = 'ggbvvhLJJn';
 
         $adherent = Adherant::create([
             'matricule' => $demandeAdhesion->matricule, 

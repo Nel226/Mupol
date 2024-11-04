@@ -1,6 +1,7 @@
 <x-app-layout>
     <x-sidebar/>
-    <div class="p-4 border-2 border-gray-200 rounded-lg sm:ml-64 dark:border-gray-700 mt-14">
+    <x-content-page>
+
         <div class="flex-1 p-6">
             <div class="py-5">
                 <h1 class="text-xl font-bold text-center text-[#4000FF]">Détails de la prestation</h1>
@@ -140,7 +141,7 @@
                
                 @role('controleur|agentsaisie')
                 <div class="mt-4">
-
+    
                     <span class="mt-4 text-sm font-medium text-gray-500">
                         Preuves
                     </span>
@@ -163,7 +164,7 @@
                     <div id="pdfModal" tabindex="-1" aria-hidden="true" class="fixed inset-0 z-50 flex items-center justify-center hidden w-full h-full bg-black bg-opacity-50">
                         <div class="relative w-full h-full max-w-4xl p-4">
                             <!-- Modal content -->
-
+    
                             <div class="relative flex flex-col h-full bg-white rounded-lg shadow dark:bg-gray-700">
                                 <!-- Modal header -->
                                 <div class="flex justify-end p-2">
@@ -203,7 +204,7 @@
                        
                 </div>
                 @endrole
-
+    
             </div>
             @role('controleur')
             <div class="flex justify-around mt-6">
@@ -266,7 +267,8 @@
             </div>
             
             @endrole
-
+    
         </div>  
-    </div>
+    </x-content-page>
+  
 </x-app-layout>

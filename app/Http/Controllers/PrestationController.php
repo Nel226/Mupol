@@ -60,7 +60,7 @@ class PrestationController extends Controller
         $sixMonthsAgo = Carbon::now()->subMonths(6);
 
         
-        $adherantsValides = Adherant::where('date_enregistrement', '<=', $sixMonthsAgo)->get();
+        $adherantsValides = Adherant::all();
 
     
 

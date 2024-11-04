@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-sidebar />
-    
-    <div class="p-4 border-2 border-gray-200 rounded-lg sm:ml-64 dark:border-gray-700 mt-14">
+    <x-content-page>
+        
         <div class="px-4 py-8 mx-auto lg:py-16">
             <div class="flex items-center px-4 py-2 text-gray-500 bg-[#fffe4a70] rounded-t-lg shadow-lg">
                 <h1 class="flex-1 text-2xl font-bold">Paramètres</h1>
@@ -58,7 +58,7 @@
                             </div>
                         </div>
                     </a>
-
+    
                     <!-- Carte des paramètres généraux -->
                     <div class="bg-white h-full rounded-lg shadow-md p-8">
                         <div class="flex items-center">
@@ -78,6 +78,7 @@
             </div>
             
         </div>
-    </div>
+    </x-content-page>
+    
     
 </x-app-layout>

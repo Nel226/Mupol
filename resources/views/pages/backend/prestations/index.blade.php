@@ -19,7 +19,8 @@
     @endif
     
     @role('agentsaisie|controleur')
-    <div class="p-4 border-2 border-gray-200 rounded-lg sm:ml-64 dark:border-gray-700 mt-14">
+    <x-content-page>
+        
         <div class="flex-1 p-6">
             <div class="flex items-center px-4 py-2 text-gray-500 bg-[#fffe4a70] rounded-t-lg shadow-lg">
                 <h1 class="flex-1 text-2xl font-bold">Gestion des prestations</h1>
@@ -29,7 +30,7 @@
                     <x-primary-button >
                         Nouvelle prestation
                     </x-primary-button>
-
+    
                 </a>
             </div>
             <div class="p-6 mx-auto mt-4 bg-white rounded-lg shadow-lg ">
@@ -68,7 +69,7 @@
     
                                 <th>Adhérant</th>
                                 <th>Contact</th>
-
+    
                                 <th>Date</th>
                                 <th>Acte</th>
                                 
@@ -158,7 +159,8 @@
                 </div>
             </div>
         </div>
-    </div>
+    </x-content-page>
+   
     
     
     </div>
@@ -166,7 +168,8 @@
     
 
     @role('comptable')
-    <div class="p-4 border-2 border-gray-200 rounded-lg sm:ml-64 dark:border-gray-700 mt-14">
+    <x-content-page>
+        
         <div class="flex-1 p-6">
             <div class="flex items-center px-4 py-2 text-gray-500 bg-[#fffe4a70] rounded-t-lg shadow-lg">
                 <h1 class="flex-1 text-2xl font-bold">Gestion des prestations</h1>
@@ -206,7 +209,7 @@
                                 <th>#</th>
                                 <th class="!text-right ">Adhérant</th>
                                 <th class="!text-right ">Contact</th>
-
+    
                                 <th class="!text-right ">Date</th>
                                 <th class="!text-right ">Acte</th>
                                 
@@ -215,7 +218,7 @@
                                 <th class="!text-right ">Centre</th>
                                 <th class="!text-right ">Montant</th>
                                 <th class="!text-right ">Paiement</th>
-
+    
                             </tr>
                         </thead>
                         <tbody>
@@ -289,7 +292,8 @@
                 </div>
             </div>
         </div>
-    </div>
+    </x-content-page>
+   
     @endrole
 
     <script>

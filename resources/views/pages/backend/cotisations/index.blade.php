@@ -17,9 +17,9 @@
         });
     </script>
     @endif
-    
     @role('comptable|controleur')
-    <div class="p-4 border-2 border-gray-200 rounded-lg sm:ml-64 dark:border-gray-700 mt-14">
+    <x-content-page>
+        
         <div class="flex-1 p-6">
             <div class="flex items-center px-4 py-2 text-gray-500 bg-[#fffe4a70] rounded-t-lg shadow-lg">
                 <h1 class="flex-1 text-2xl font-bold">Gestion des cotisations</h1>
@@ -31,7 +31,7 @@
                 <button id="tab-depenses" class="w-1/2 py-2 text-center text-gray-600 border-b-2 border-transparent focus:outline-none hover:border-gray-300">Dépenses</button>
             </div>
             <div class="p-6 mx-auto mt-4 bg-white rounded-lg shadow-lg ">
-
+    
                     <h1 class="pb-3 text-xl font-bold text-center underline ">Suivi des cotisations </h1>
                    
                     <div class="flex items-center justify-between py-4 w-full text-sm">
@@ -245,14 +245,14 @@
                             <span class="text-left">Total des mensualités:</span>
                             <span class="bg-blue-100 text-[#4000FF] text-xs font-medium inline-flex items-center  px-2.5 py-1 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">
                                 {{ number_format($sumTotalMensualites, 2, ',', ' ') }} FCFA
-
+    
                              </span>
                         </div>
                         <div class="flex items-center justify-between flex-1">
                             <span class="text-left">Caisse:</span>
                             <span class="bg-yellow-100 text-yellow-700 text-xs font-medium inline-flex items-center  px-2.5 py-1 rounded dark:bg-gray-700 dark:text-blue-400 border border-yellow-700">
                                 {{ number_format($sumTotalCotisations, 2, ',', ' ') }} FCFA
-
+    
                              </span>
                         </div>
                     </div>
@@ -275,8 +275,8 @@
                     </div>
                     
                     
-
-
+    
+    
                     <script>
                         const ctx = document.getElementById('prestationsPieChart').getContext('2d');
                         const prestationsCostsByAct = @json($prestationsCostsByAct);
@@ -299,8 +299,8 @@
                                         'rgb(6,114,19)', 
                                         'rgb(160,114,199)',
                                         'rgb(65,14,199)',
-
-  
+    
+    
                                     ],
                                     borderColor: [
                                         'rgb(5,92,157)', 
@@ -313,7 +313,7 @@
                                         'rgb(6,114,19)', 
                                         'rgb(160,114,199)',
                                         'rgb(65,14,199)',
-  
+    
                                     ],
                                     borderWidth: 1
                                 }]
@@ -438,14 +438,14 @@
                             <thead class="text-xs text-gray-700 uppercase rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                 <tr class="rounded-md" >
                                     <th>Identifiant prestation</th>
-
+    
                                     <th>Adhérent</th>
                                     <th>Montant </th>
-
+    
                                     <th>Numéro paiement</th>
-
+    
                                     <th>Montant modérateur</th>
-
+    
                                     <th>Montant Munapol</th>
                                 </tr>
                             </thead>
@@ -496,27 +496,28 @@
                             <span class="text-left">Total des dépenses:</span>
                             <span class="bg-blue-100 text-[#4000FF] text-xs font-medium inline-flex items-center  px-2.5 py-1 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">
                                 {{ number_format($sumTotalPrestations, 2, ',', ' ') }} FCFA
-
+    
                             </span>
                         </div>
                         <div class="flex items-center justify-between flex-1">
                             <span class="text-left">Reste dans la caisse:</span>
                             <span class="bg-blue-100 text-[#4000FF] text-xs font-medium inline-flex items-center  px-2.5 py-1 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">
                                 {{ number_format($sumTotalCotisations-$sumTotalPrestations, 2, ',', ' ') }} FCFA
-
+    
                             </span>
                         </div>
                     
                     </div>
                     
                 </div>
-
-
-
-
+    
+    
+    
+    
             </div>
         </div>
-    </div>
+    </x-content-page>
+    
     @endrole
     <script>
         document.getElementById('tab-entrees').addEventListener('click', function() {

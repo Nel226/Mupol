@@ -16,11 +16,13 @@ return new class extends Migration
             $table->decimal('montant', 15, 2);
             $table->string('description')->nullable();
             $table->uuid('categorie_id');
+            $table->uuid('sous_categorie_id');
             $table->date('date');
             // $table->uuid('user_id');
             $table->timestamps();
 
             $table->foreign('categorie_id')->references('uuid')->on('categories')->onDelete('cascade');
+            $table->foreign('sous_categorie_id')->references('uuid')->on('categories')->onDelete('cascade');
             // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }

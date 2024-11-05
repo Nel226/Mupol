@@ -28,9 +28,14 @@ class Categorie extends Model
     {
         return $this->belongsTo(Categorie::class, 'parent_id', 'uuid');
     }
+    public function children()
+    {
+        return $this->hasMany(Categorie::class, 'parent_id', 'uuid');
+    }
     public function getSubcategoriesCountAttribute()
     {
         return $this->sousCategories()->count();
     }
+    
 }
 

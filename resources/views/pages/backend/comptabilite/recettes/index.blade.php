@@ -47,6 +47,7 @@
                                     <th>Description</th>
                                     <th>Date</th>
                                     <th>Catégorie</th>
+                                    <th>Détails</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -54,14 +55,58 @@
                                     <tr>
                                         <td>{{ number_format($recette->montant, 2) }}</td>
                                         <td>{{ $recette->description }}</td>
-                                        <td>{{ $recette->date->format('d/m/Y') }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($recette->date)->format('d/m/Y') }}</td>
                                         <td>{{ $recette->categorie->nom }}</td>
+                                        <td>
+                                            <button onclick="showDetails({{ $recette->id }})" class="btn btn-info">Voir Détails</button>
+                                            
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
                     </div>
                 </div>
+
+                <!-- Modal pour afficher les détails -->
+                <!-- Modal pour afficher les détails -->
+                <div id="details-modal" class="modal hidden">
+                    <div class="modal-content">
+                        <span class="close" onclick="closeModal()">&times;</span>
+                        <h2>Détails de la Recette</h2>
+                        <div id="modal-body">
+                            <!-- Les détails de la recette seront insérés ici -->
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    function showDetails(recetteId) {
+                        fetch(`/recettes/${recetteId}`)
+                            .then(response => response.json())
+                            .then(data => {
+                                console.log(data); // Pour vérifier les données
+                                const modalBody = document.getElementById('modal-body');
+                                modalBody.innerHTML = `
+                                    <p>Montant: ${data.montant}</p>
+                                    <p>Description: ${data.description}</p>
+                                    <p>Date: ${data.date}</p>
+                                    <p>Catégorie: ${data.categorie.nom}</p>
+                                    <p>Autres informations: ${data.autres_informations || 'N/A'}</p>
+                                `;
+                                document.getElementById('details-modal').classList.remove('hidden');
+                            })
+                            .catch(error => console.error('Erreur:', error));
+                    }
+                    
+                    function closeModal() {
+                        document.getElementById('details-modal').classList.add('hidden');
+                    }
+                </script>
+                
+                
+                
+
         
                 <div id="tab-prets-content" class="hidden mt-2 tab-content">
                     <div>

@@ -17,6 +17,7 @@
             });
         </script>
     @endif
+    
     <x-content-page>
         
         <div class="flex-1 p-6">

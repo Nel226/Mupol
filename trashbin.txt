@@ -1,3 +1,1420 @@
+        $categories = Category::all();
+
+ 
+        // Récupérer les recettes pour chaque sous-type
+
+ 
+                                            <!-- Actions -->
+
+ 
+                                            <!-- Actions -->
+
+ 
+data
+ 
+$categoriesData = [
+            'all' => Categorie::all(),
+            'prets' => Categorie::where('type', 'Prêts')->get(),
+            'recettes_propres' => Categorie::where('type', 'Recettes propres')->get(),
+            'produits' => Categorie::where('type', 'Produits')->get(),
+            'autres' => Categorie::where('type', 'Autres')->get(),
+        ];
+ 
+// Null si c'est une catégorie principale
+ 
+                'autre_depense' 
+
+ 
+// Exemple pour ajouter un sous-type de dépense
+ 
+ <div class="mt-0.5 text-center text-xs text-slate-500">
+                                            {{ $subcategorie->subcategories_count ?? 'nombre sous-categorie' }} sous-catégories
+                                        </div>
+ 
+        dd(vars: $subcategories);
+
+ 
+->nom
+ 
+  $subcategoriesRaw = Categorie::where('parent_id', $uuid)->get();
+    dd($subcategoriesRaw);
+ 
+        dd($categorie);
+
+ 
+Categorie
+ 
+_count
+ 
+recettes
+ 
+Catégories
+ 
+<div class="p-6 mx-auto mt-4 bg-white min-h-screen rounded-b-lg shadow-lg ">
+                
+    
+                        
+            </div>
+ 
+
+                                            {{--  <button route="{{ route('categories.show', $categorie->id) }}" text="Détails" icon="fas fa-info"
+                                                class="cursor-pointer rounded-full border border-gray-900/5 bg-[#025E91] p-3 transition-colors hover:border-gray-900/10 hover:!text-black hover:bg-gray-900/10 hover:!opacity-100 dark:border-white/10 dark:hover:border-white/20" />  --}}
+ 
+// Only get main categories without a parent
+ 
+/ Only get categories of type 'recette'
+ 
+        // Insérer les catégories et sous-catégories de recettes
+
+ 
+  // Insérer les catégories et sous-catégories de dépenses
+        foreach ($depensesCategories as $categoryData) {
+            $this->createCategoryWithChildren($categoryData);
+        }
+ 
+        // Créer les catégories principales pour les dépenses
+
+ 
+        // Insérer les catégories et leurs sous-catégories
+
+ 
+        // Créer les sous-catégories si elles existent
+
+ 
+        // Créer la catégorie principale ou enfant
+
+ 
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+
+class CategorieSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
+    {
+        //
+    }
+}
+
+ 
+, 'user_id'
+ 
+ 'user_id'
+ 
+use Illuminate\Database\Eloquent\Model;
+
+ 
+|| Request::is('adherants/*')
+ 
+|| Request::is('adherants/*')
+ 
+return view('pages.backend.comptabilite.recettes.index',
+                    compact('pageTitle', 'breadcrumbsItems')
+        );
+ 
+.hover\:text-gray-800:hover {
+    --tw-text-opacity: 1;
+    color: white !important;
+}
+ 
+        /* color: rgb(31 41 55 / var(--tw-text-opacity)); */
+
+ 
+    color: var(--gray-dark); /* Police en gras pour l'onglet actif */
+
+ 
+  border-color: #6B7280; /* Modifier pour votre couleur d'onglet actif */
+    font-weight: bold;
+    background-color: #4644D5;
+ 
+border-gray-300
+ 
+recettes
+ 
+propres
+ 
+propres
+ 
+recettes
+ 
+  {{--  setTimeout(function() {
+                                if (tabName === 'adherents') {
+                                    tableAdherents.redraw(true); 
+                                } else if (tabName === 'ayants-droit') {
+                                    tableAyantsDroit.redraw(true); 
+                                }
+                            }, 10);   --}}
+ 
+Droit
+ 
+recettes-propres
+ 
+recettes-propres
+ 
+  <div class="overflow-x-auto rounded-lg">
+        
+                            <table id="table_mutualistes" class="w-full text-sm text-left text-gray-500 border rounded-lg shadow-lg cell-border hover rtl:text-right dark:text-gray-400 display">
+                                <thead>
+                                    <tr class="p-3 font-bold ">
+                                        <th class="p-3 uppercase">Nom</th>
+                                        <th class="p-3 uppercase">Prénom (s)</th>
+                                        <th class="p-3 uppercase">Genre</th>
+                                        <th class="p-3 uppercase">Code_carte</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($mutualistes as $person)
+                                    <tr class="font-semibold bg-white border-b cursor-pointer dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                        <td class="p-3 font-semibold border">
+                                            <a href="{{ route('adherants.show', ['adherant' => $person->id]) }}">
+                                                {{$person->nom}}
+                                            </a>
+                                        </td>
+                                        <td class="p-3 font-semibold border">
+                                            {{$person->prenom}}
+                                        </td>
+                                        <td class="p-3 font-semibold border">
+                                            {{$person->genre ?? $person->sexe}}
+                                        </td>
+                                        <td class="p-3 font-semibold border">
+                                            {{$person->code_carte ?? $person->code}}
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <script>
+                                $('#table_mutualistes').DataTable( {
+                                buttons: [  
+                                    {
+                                        extend: 'excelHtml5',
+                                        title: 'Liste Mutualistes'
+                                    },
+                                    {
+                                        extend: 'print',
+                                        title: 'Liste Mutualistes'
+                                    },
+                                ],
+                                layout: {
+                                    topStart: 'buttons'
+                                    
+                                },
+         
+                                paging: true,
+                                ordering: true,
+                                info: false,              
+                                searching: true,
+                                lengthChange: true,
+                                lengthMenu: [20, 25, 50, 100],
+                                pagingType: 'simple_numbers',
+                                language: {
+                                    processing:     "Traitement en cours...",
+                                    search:         "Rechercher&nbsp;:",
+                                    lengthMenu:    "Afficher _MENU_ &eacute;l&eacute;ments",
+                                    info:           "Affichage de l'&eacute;lement _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+                                    infoEmpty:      "Affichage de l'&eacute;lement 0 &agrave; 0 sur 0 &eacute;l&eacute;ments",
+                                    infoFiltered:   "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+                                    infoPostFix:    "",
+                                    loadingRecords: "Chargement en cours...",
+                                    zeroRecords:    "Aucun &eacute;l&eacute;ment &agrave; afficher",
+                                    emptyTable:     "Aucune donnée disponible dans le tableau",
+                                    paginate: {
+                                        first:      "Premier",
+                                        previous:   "Pr&eacute;c&eacute;dent",
+                                        next:       "Suivant",
+                                        last:       "Dernier"
+                                    },
+                                    aria: {
+                                        sortAscending:  ": activer pour trier la colonne par ordre croissant",
+                                        sortDescending: ": activer pour trier la colonne par ordre décroissant"
+                                    }
+                                }
+                                
+                            } );
+                        </script>
+ 
+
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            const tabulatorsAyantsDroits = {};
+                            const baseUrl = @json(route('ayantsdroits.edit', ['ayantsdroit' => ':id'])); // URL de base
+                            
+                            @foreach($sheetsAyantsDroits as $yearMonth => $data)
+                                tabulatorsAyantsDroits["{{ $yearMonth }}"] = new Tabulator("#tabulator-{{ $yearMonth }}-ayantdroit", {
+                                    data: @json($data),
+                                    layout: "fitDataStretch",
+                                    movableColumns: false,
+                                    placeholder: "Aucune donnée",
+                                    pagination: "local",
+                                    paginationSize: 20,
+                                    paginationSizeSelector: [20, 30, 40, 50],
+                                    printAsHtml: true,
+                                    columns: [
+                                        { 
+                                            title: "N° Ordre", 
+                                            field: "numero_ordre", 
+                                            formatter: "rownum",  
+                                            hozAlign: "center", 
+                                            headerSort: false 
+                                        },
+                                        @foreach($headerAyantDroit as $column)
+                                            { title: "{{ ucfirst($column) }}", field: "{{ $column }}" },
+                                        @endforeach
+                                        {
+                                            title: "Actions", 
+                                            
+                                            formatter: function(cell, formatterParams, onRendered) {
+                                                    const rowData = cell.getData();
+                                                    
+                                                    const editUrl = baseUrl.replace(':id', rowData.id); 
+        
+                                                    return `
+                                                        <a href="${editUrl}" class='border border-indigo-500 shadow-lg rounded-lg text-bold text-white p-1  bg-indigo-500 btn btn-primary'>Modifier</a>
+                                                        <button class='border border-red-500 rounded-lg bg-red-800 shadow-lg btn btn-danger text-bold text-white p-1' data-id="${rowData.id}">Supprimer</button>
+                                                        `;
+                                            },
+                                            hozAlign: "center",
+                                            minWidth: 200,
+                                            cellClick: function(e, cell) {
+                                                const target = e.target;
+                        
+                                                if (target.classList.contains('btn-danger')) {
+                                                    showModal(target.getAttribute('data-id'));
+                                                }
+                                            },
+                                            download: false 
+                                        }
+                                    ],
+                                });
+                            @endforeach
+                        
+                            function showModal(id) {
+                                const modal = document.getElementById('confirmationModal');
+                                modal.classList.remove('hidden');
+                            
+                                document.getElementById('modalMessage').innerText = `Êtes-vous sûr de vouloir supprimer l'élément avec l'ID: ${id} ?`;
+                            
+                                const baseUrl = @json(route('ayantsdroits.destroy', ['ayantsdroit' => ':id']));
+                                const deleteUrl = baseUrl.replace(':id', id);
+                            
+                                // suppression
+                                document.getElementById('confirmDeleteBtn').onclick = function() {
+                                    fetch(deleteUrl, {
+                                        method: 'DELETE',
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') // Token CSRF
+                                        }
+                                    })
+                                    .then(response => {
+                                        if (response.ok) {
+                                            console.log('Suppression confirmée pour l\'ID:', id);
+                                            alert('Mutualiste supprimé avec succès.');
+        
+                                            modal.classList.add('hidden');
+                            
+                                            location.reload(); 
+                                        } else {
+                                            return response.json().then(data => {
+                                                console.error('Erreur lors de la suppression:', data.message);
+                                            });
+                                        }
+                                    })
+                                    .catch(error => {
+                                        console.error('Erreur lors de la requête de suppression:', error);
+                                    });
+                                };
+                            
+                                document.getElementById('cancelDeleteBtn').onclick = function() {
+                                    modal.classList.add('hidden');
+                                };
+                            }
+                            
+                            const tabsAyantDroit = document.querySelectorAll('.nav-link-ayantdroit');
+                            tabsAyantDroit.forEach(tab => {
+                                tab.addEventListener('click', function() {
+                                    document.querySelectorAll('.tab-pane-ayantdroit').forEach(pane => pane.classList.add('hidden'));
+                                    
+                                    tabsAyantDroit.forEach(link => {
+                                        link.classList.remove('bg-[#4000FF]', 'text-white');
+                                        link.classList.add('bg-gray-200', 'text-gray-600');
+                                    });
+                        
+                                    const targetPane = document.querySelector(this.getAttribute('data-bs-target'));
+                                    targetPane.classList.remove('hidden');
+                        
+                                    this.classList.remove('bg-gray-200', 'text-gray-600');
+                                    this.classList.add('bg-[#4000FF]', 'text-white');
+                                });
+                            });
+                        
+                            // recherche
+                            document.getElementById('fSearchAyantDroit').addEventListener('input', function() {
+                                const searchValue = this.value.toLowerCase();
+                                Object.values(tabulatorsAyantsDroits).forEach(tabulator => {
+                                    tabulator.setFilter(function(data) {
+                                        return Object.values(data).some(value => 
+                                            String(value).toLowerCase().includes(searchValue)
+                                        );
+                                    });
+                                });
+                            });
+                        
+                            // exportation
+                            document.querySelectorAll('.export-btn-ayantdroit').forEach(button => {
+                                button.addEventListener('click', function() {
+                                    const yearMonth = this.getAttribute('data-year-month');
+                                    const tabulator = tabulatorsAyantsDroits[yearMonth];
+                                    tabulator.download("xlsx", `ayantsdroits_${yearMonth}.xlsx`);
+                                });
+                            });
+                        });
+                    </script>
+        
+                    <form action="{{route('ayantdroits.import')}}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="flex items-center justify-end my-4 space-x-2">
+                            <input type="file" name="excel-file-ayant-droit"  class="block text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-green-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" accept=".csv, .xlsx" />
+                            <x-primary-button type="submit" class="ms-3">
+                                {{ __('Importer Excel') }}
+                            </x-primary-button>
+                        </div>
+                    </form>
+ 
+<div class="flex items-center justify-end py-2 mb-6 space-x-2 text-sm">
+                            <div class="flex items-center space-x-2">
+                                <a href="{{ route('ayantsdroits.create') }}">
+                                    <x-primary-button class="">
+                                        {{ __('Ajouter Ayant Droit') }}
+                                    </x-primary-button>
+                                </a>
+                            </div>
+                            <!-- Custom search input -->
+                            <div class="relative mt-1">
+                                <input type="text" id="fSearchAyantDroit" name="fSearchAyantDroit" class="block pt-2 text-sm text-gray-900 border border-gray-300 rounded-lg ps-10 w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Rechercher">
+                                <div class="absolute inset-y-0 flex items-center pointer-events-none rtl:inset-r-0 start-0 ps-3">
+                                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <ul class="flex overflow-x-auto border-b border-gray-900" id="myTabAyantDroit" role="tablist">
+                                @foreach($sheetsAyantsDroits as $yearMonth => $data)
+                                    <li class="flex-none" role="presentation">
+                                        <button class="nav-link-ayantdroit text-sm border-gray-300 border-2 px-4 py-2 rounded-t-lg {{ $loop->first ? 'bg-[#4000FF] text-white' : 'bg-gray-200 text-gray-600 hover:bg-gray-300' }}" id="tab-{{ $yearMonth }}-ayantdroit-tab" data-bs-toggle="tab" data-bs-target="#tab-{{ $yearMonth }}-ayantdroit" type="button" role="tab" aria-controls="tab-{{ $yearMonth }}-ayantdroit" aria-selected="{{ $loop->first ? 'true' : 'false' }}">
+                                            {{ $yearMonth }}
+                                        </button>
+                                    </li>
+                                @endforeach
+                            </ul>
+                            <div class="tab-content" id="myTabAyantDroitContent">
+                                @foreach($sheetsAyantsDroits as $yearMonth => $data)
+                                    <div class="tab-pane-ayantdroit {{ $loop->first ? 'block' : 'hidden' }}" id="tab-{{ $yearMonth }}-ayantdroit" role="tabpanel" aria-labelledby="tab-{{ $yearMonth }}-ayantdroit-tab">
+                                        
+                                        <div id="tabulator-{{ $yearMonth }}-ayantdroit" class="w-full p-2 overflow-x-auto bg-white rounded-b-lg shadow-lg">
+                                            <!-- Tabulator table for Ayants Droit will be initialized here -->
+                                        </div>
+                                        <div class="flex justify-end mt-2 space-x-2">
+                                            <x-primary-button class="export-btn-ayantdroit" data-year-month="{{ $yearMonth }}">
+                                                {{ __('Exporter en XLSX') }}
+                                            </x-primary-button>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+ 
+ document.addEventListener('DOMContentLoaded', function() {
+                        var header = @json($header); 
+                        var headerAyantDroit = @json($headerAyantDroit); 
+                        
+                        const input = document.getElementById("fSearch");
+                        input.addEventListener("keyup", function() {
+                            tableAdherents.setFilter(matchAny, { value: input.value });
+                            if (input.value === "") {
+                                tableAdherents.clearFilter();
+                            }
+                        });
+            
+                        function matchAny(data, filterParams) {
+                            var match = false;
+                            const regex = RegExp(filterParams.value, 'i');
+                            for (var key in data) {
+                                if (regex.test(data[key])) {
+                                    match = true;
+                                }
+                            }
+                            return match;
+                        }
+                    });
+ 
+<form action="{{ route('import-csv') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="flex items-center justify-end my-4 space-x-2">
+                            <input type="file" name="excel-file" class="block text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-green-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" accept=".csv, .xlsx" />
+                            <x-primary-button type="submit" class="ms-3">
+                                {{ __('Importer en XLSX') }}
+                            </x-primary-button>
+                        </div>
+                    </form>
+ 
+   <div class="flex items-center justify-end py-2 mb-6 space-x-2 text-sm">
+                            <div class="flex items-center space-x-2">
+                                
+                                <a href="{{ route('adherants.create') }}">
+                                    <x-primary-button class="">
+                                        {{ __('Ajouter') }}
+                                    </x-primary-button>
+                                </a>
+                               
+                            </div>
+                            <!-- Custom search input -->
+                            <div class="relative mt-1">
+                                <input type="text" id="fSearch" name="fSearch" class="block pt-2 text-sm text-gray-900 border border-gray-300 rounded-lg ps-10 w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Rechercher">
+                                <div class="absolute inset-y-0 flex items-center pointer-events-none rtl:inset-r-0 start-0 ps-3">
+                                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <ul class="flex overflow-x-auto border-b border-gray-700" id="myTab" role="tablist">
+                                @foreach($sheets as $yearMonth => $data)
+                                    <li class="flex-none" role="presentation">
+                                        <button class="nav-link text-sm border-gray-300 border-2 px-4 py-2 rounded-t-lg {{ $loop->first ? 'bg-[#4000FF] text-white' : 'bg-gray-200 text-gray-600 hover:bg-gray-300' }}" id="tab-{{ $yearMonth }}-tab" data-bs-toggle="tab" data-bs-target="#tab-{{ $yearMonth }}" type="button" role="tab" aria-controls="tab-{{ $yearMonth }}" aria-selected="{{ $loop->first ? 'true' : 'false' }}">
+                                            {{ $yearMonth }}
+                                        </button>
+                                    </li>
+                                @endforeach
+                            </ul>
+                            <div class="tab-content " id="myTabContent">
+                                @foreach($sheets as $yearMonth => $data)
+                                    <div class="tab-pane {{ $loop->first ? 'block' : 'hidden' }}" id="tab-{{ $yearMonth }}" role="tabpanel" aria-labelledby="tab-{{ $yearMonth }}-tab">
+                                        
+                                        <div id="tabulator-{{ $yearMonth }}" class="w-full p-2 overflow-x-auto bg-white rounded-b-lg shadow-lg">
+                                            <!-- Tabulator table will be initialized here -->
+                                        </div>
+                                        <div class="flex justify-end mt-2 space-x-2">
+                                            {{--  <x-primary-button class="print-btn" data-year-month="{{ $yearMonth }}">
+                                                {{ __('Imprimer') }}
+                                            </x-primary-button>  --}}
+                                            <x-primary-button class="export-btn" data-year-month="{{ $yearMonth }}">
+                                                {{ __('Exporter en XLSX') }}
+                                            </x-primary-button>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+ 
+<x-app-layout>
+    <x-sidebar/>
+    @if (session('success'))
+        <x-succes-notification>
+            {{ session('success') }}
+        </x-succes-notification>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const notification = document.getElementById('success-notification-content');
+                const closeBtn = document.getElementById('close-notification');
+                
+                notification.classList.remove('hidden');
+                
+                closeBtn.addEventListener('click', () => {
+                    notification.classList.add('hidden');
+                });
+            });
+        </script>
+    @endif
+
+    <x-content-page>
+     @section('navigation-content')
+        <x-breadcrumb :breadcrumbItems="$breadcrumbsItems" :pageTitle="$pageTitle"/>
+        @endsection        
+        <div class="flex-1 p-6">
+            <x-header>
+                {{$pageTitle}}
+            </x-header>
+         
+            
+            <div class="p-6 mx-auto mt-4 bg-white rounded-b-lg shadow-lg ">
+                @if ($errors->any())
+                    <div class="px-6 py-3 mb-4 bg-red-200 border-red-700 rounded-md alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+    
+                        
+            </div>
+        </div>
+    </x-content-page>
+    
+</x-app-layout>
+
+ 
+  @if ($errors->any())
+                    <div class="px-6 py-3 mb-4 bg-red-200 border-red-700 rounded-md alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+ 
+        dd('ff');
+
+ 
+index
+ 
+bg-zinc-200 shadow-md
+ 
+justify-end
+ 
+x-breadcrumb
+ 
+:pageTitle="$pageTitle"
+ 
+[
+                'name' => 'Ajouter',
+                'url' => route('adherants.create'),
+                'active' => true
+            ],
+ 
+   <div class="flex items-center px-4 py-2 text-gray-500 bg-[#fffe4a70] rounded-t-lg shadow-lg">
+                <h1 class="flex-1 text-2xl font-bold">Gestion des prestations</h1>
+            </div>
+ 
+emande
+ 
+ <form   action="{{ route('prestations.store') }}" method="POST" enctype="multipart/form-data" id="formPrestation" class=" max-w-2xl mx-auto adherant-form">
+                    @csrf
+                    <div class=" ">
+                        <!-- Premier formulaire -->
+                        <div class=" mb-6 border-4 rounded-md border-[#4000FF] py-2">
+                            <div class="px-5">
+                                <div class="flex items-center gap-4">
+                                    <img src="{{ asset('images/medical.png') }}" alt="Image medical" class="h-40">
+                                    <div>
+                                        <h2 class="mb-6 text-2xl font-bold">Enregistrement de prestation </h2>
+                                        <span class="mb-4 italic">Ce formulaire est conçu pour faciliter la saisie des informations concernant les actes médicaux.</span>
+                                    </div>
+                                    
+                                </div>
+                                
+                                <div class="form-content p-4">
+                                    
+                                    <hr class=" w-4/5  h-1 mx-auto mb-4 bg-[#4000FF] border-0 rounded md:mb-10 dark:bg-gray-700">
+    
+                                    <label for="adherantCode" class="block mb-2 text-sm font-medium text-gray-900">Sélectionnez le code du mutualiste :</label>
+                                    
+    
+                                    <select id="adherantCode" name="adherantCode" class="adherantCode block w-full p-2 !mb-6 border border-gray-300 rounded-lg">
+                                        <option value="">-- Choisir un code --</option>
+                                        @foreach ($adherants as $adherant)
+                                            <option value="{{ $adherant->code_carte }}">{{ $adherant->code_carte }}</option>
+                                        @endforeach
+                                        @foreach ($ayantsDroitValides as $ayantDroit)
+                                            <option value="{{ $ayantDroit->code }}">{{ $ayantDroit->code }}</option>
+                                        @endforeach
+                                    </select>
+                                    
+                                    <div id="adherantInfo" class="adherantInfo mt-4 hidden">
+                                        <div class="flex space-x-6">
+                                            
+                                            <div class="w-1/2 ">
+                                                
+                                                <label for="adherantNom" class="block mb-2 text-sm font-medium text-gray-900">Nom :</label>
+                                                <input id="adherantNom" name="adherantNom" type="text" class="adherantNom block w-full p-2 mb-4 bg-gray-200 border border-gray-300 rounded-lg " readonly>
+                                            </div>
+                                            <div class="w-1/2 ">
+                                                <label for="adherantPrenom" class="block mb-2 text-sm font-medium text-gray-900">Prénom :</label>
+                                                <input id="adherantPrenom" name="adherantPrenom" type="text" class="adherantPrenom w-full p-2 mb-4 bg-gray-200 border border-gray-300 rounded-lg bg-gray-200block" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="flex space-x-6">
+                                            <div class="w-1/2 ">
+                                                <label for="adherantSexe" class="block mb-2 text-sm font-medium text-gray-900">Sexe :</label>
+                                                <input id="adherantSexe" name="adherantSexe" type="text" class="adherantSexe block w-full p-2 mb-4 bg-gray-200 border border-gray-300 rounded-lg " readonly>
+                                            </div>
+                                            <div class="w-1/2 ">
+                                                <label for="beneficiaire" class="block mb-2 text-sm font-medium text-gray-900">Statut du bénéficiaire :</label>
+                                                <input id="beneficiaire" name="beneficiaire" type="text" class="beneficiaire block w-full p-2 mb-4 bg-gray-200 border border-gray-300 rounded-lg " readonly>
+                                            </div>
+                                            
+                                        </div>
+                                   
+                                    </div>
+                                    
+                                
+                                    <!-- Sélection principale -->
+                                    <div  id="infosACompleter" class=" infosACompleter hidden" >
+                                        <fieldset class=" mt-2 ">
+                                            {{--  <legend class="px-3 py-1 font-semibold text-white bg-[#4000FF] border-b border-gray-300 rounded-t-lg">
+                                                Formulaire prestation #1
+                                            </legend>  --}}
+                                            {{--  <button class="toggle-form">
+                                                Afficher/Masquer
+                                            </button>  --}}
+                                            {{--  <div  class="p-2 border-2 border-[#4000FF] rounded-md">
+                                            </div>  --}}
+                                            
+                                                <div class="relative w-4/5 mx-auto flex py-5 items-center">
+                                                    <div class="flex-grow border-t  border-4 border-gray-400"></div>
+                                                    <span class="flex-shrink mx-4 text-[#4000FF] font-bold text-base"> A compléter</span>
+                                                    <div class="flex-grow border-t border-4 border-gray-400"></div>
+                                                </div>
+                                                
+                                                <div id="acteContainer" class="acteContainer hidden ">
+                                                    <div class="flex space-x-6">
+                                            
+                                                        <div class="w-1/2 ">
+                                                            <label for="idPrestation" class="block mb-2 text-sm font-medium text-gray-900">Identifiant prestation :</label>
+                                                            <input id="idPrestation" name="idPrestation" type="text" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " placeholder="Entrez l'identifiant de la prestation" required>
+                                                        </div>
+                                                        <div class="w-1/2 ">
+                                                            <label for="contactPrestation" class="block mb-2 text-sm font-medium text-gray-900">Téléphone :</label>
+                                                            <input id="contactPrestation" name="contactPrestation" type="number" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " placeholder="Entrez un numéro de téléphone pour le paiement" required>
+                                                        </div>
+    
+                                                    </div>
+                                                
+                                                </div>
+                                                <div id="form-container">
+                                                    <div class="form-prestation rounded-md  !mt-2 bg-gray-100 shadow-lg  border">
+                                                        <div class="w-full p-2 rounded-t-md bg-gray-300 flex items-center justify-between cursor-pointer" id="accordion-header">
+                                                            <label for="form" id="label" class="block text-bold text-sm font-medium text-gray-900">Prestation #1</label>
+                                                            <span id="toggle-icon" class="text-lg">+</span>
+                                                        </div>
+                                                        <div class="p-4 " id="accordion-content">
+    
+                                                            <label for="acte" class="block mb-2 text-sm font-medium text-gray-900">Sélectionnez une option :</label>
+                                                            <select id="acte" name="acte" class="acte-select block w-full p-2 mb-4 border border-gray-300 rounded-lg">
+                                                                <option value="">-- Choisir --</option>
+                                                                <option value="consultation">Consultation</option>
+                                                                <option value="hospitalisation">Hospitalisation</option>
+                                                                <option value="analyse_biomedicale">Analyse biomédicale</option>
+                                                                <option value="radio">Imagerie médicale</option>
+                                                                <option value="pharmacie">Pharmacie</option>
+                                                                <option value="maternite">Maternité</option>
+                                                                <option value="optique">Optique</option>
+                                                                <option value="dentaire_auditif">Dentaire et auditif</option>
+                                                                <option value="allocation">Allocation</option>
+                                                                <option value="autre">Autre</option>
+            
+                                                            </select>
+                                                            <!-- Options spécifiques -->
+                                                            <div id="consultationOptions" class="options consultation hidden">
+                                                                <h3 class="mb-2 text-xl font-semibold">Consultation</h3>
+                                                                <div class="flex space-x-6">
+                                                                    <div class="w-1/2">
+                                                                        <label for="date" class="block mb-2 text-sm font-medium text-gray-900">Date :</label>
+                                                                        <input id="date" name="date_consultation" type="date" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
+                                                                    </div>
+                                                                    
+                                                                    <div class="w-1/2">
+                                                                        <label for="centre" class="block mb-2 text-sm font-medium text-gray-900">Centre de santé :</label>
+                                                                        <input id="centre" name="centre_consultation" type="text" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
+                                                                    </div>
+                                                                    
+                                                                </div>
+                                                                <label class="block mb-2 text-sm font-medium text-gray-900">Type de consultation :</label>
+                                                                <select  id="typeConsultation" name="type_consultation" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg">
+                                                                    <option value="">-- Sélectionner le type de consultation --</option>
+                                                                    <option value="infirmier">Infirmier</option>
+                                                                    <option value="MG">Médecin généraliste</option>
+                                                                    <option value="kinetherapeutre">Kinéthérapeutre</option>
+                                                                    <option value="dentiste">Dentiste</option>
+                                                                    <option value="specialiste">Spécialiste</option>
+                                                                </select>
+                                                                <div id="specialiteContainer" class="hidden">
+                                                                    <label class="block mb-2 text-sm font-medium text-gray-900">Spécialiste :</label>
+                                                                    <select  name="sous_type_consultation" id="specialiteMedicale" name="specialiteMedicale" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg">
+                                                                        <option value="">-- Sélectionner la spécialité --</option>
+                                                                        <option value="Cardiologie">Cardiologie</option>
+                                                                        <option value="Chirurgie Pédiatrique">Chirurgie Pédiatrique</option>
+                                                                        <option value="Chirurgie Générale">Chirurgie Générale</option>
+                                                                        <option value="Dermatologie">Dermatologie</option>
+                                                                        <option value="Diabète et Endocrinologie">Diabète et Endocrinologie</option>
+                                                                        <option value="Gastro-entérologie">Gastro-entérologie</option>
+                                                                        <option value="Gynécologie">Gynécologie</option>
+                                                                        <option value="Urologie">Urologie</option>
+                                                                        <option value="médecine interne">Médecine Interne</option>
+                                                                        <option value="MPR">Médecine Physique et de Réadaptation (MPR)</option>
+                                                                        <option value="Nephrologie">Néphrologie</option>
+                                                                        <option value="Neurochirurgie">Neurochirurgie</option>
+                                                                        <option value="Neurologie">Neurologie</option>
+                                                                        <option value="Ophtalmologie">Ophtalmologie</option>
+                                                                        <option value="ORL">ORL</option>
+                                                                        <option value="Pédiatrie">Pédiatrie</option>
+                                                                        <option value="Pneumologie">Pneumologie</option>
+                                                                        <option value="Psychiatrie">Psychiatrie</option>
+                                                                        <option value="Rhumatologie">Rhumatologie</option>
+                                                                        <option value="Traumatologie">Traumatologie</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="flex space-x-6">
+                                                                    <div class="w-1/2">
+                                                                        <label for="montant"   class="block mb-2 text-sm font-medium text-gray-900">Montant :</label>
+                                                                        <input id="montant"  name="montant_consultation" type="number" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg "  >
+                                                                    </div>
+                                                                    
+                                                                    <div class="w-1/2">
+                                                                        <label for="preuve" class="block mb-2 text-sm font-medium text-gray-900">Preuve :</label>
+                                                                        <input id="preuve" name="preuve[]" type="file" multiple class="block w-full p-2 mb-4 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
+                                                                    </div>
+                                                                    
+                                                                </div>
+                                                            </div>
+                                                            
+                                                            <div id="hospitalisationOptions" class="hospitalisation options hidden">
+                                                                <h3 class="mb-2 text-xl font-semibold">Hospitalisation</h3>
+                                                                <div class="flex space-x-6">
+                                                                    <div class="w-1/2">
+                                                                        <label for="date" class="block mb-2 text-sm font-medium text-gray-900">Date :</label>
+                                                                        <input id="date" name="date_hospitalisation" type="date" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
+                                                                    </div>
+                                                                    
+                                                                    <div class="w-1/2">
+                                                                        <label for="centre" class="block mb-2 text-sm font-medium text-gray-900">Centre de santé :</label>
+                                                                        <input id="centre" name="centre_hospitalisation" type="text" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
+                                                                    </div>
+                                                                    
+                                                                </div>
+                                                                <label class="block mb-2 text-sm font-medium text-gray-900">Durée :</label>
+                                                                <select name="type_hospitalisation" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg">
+                                                                    <option value="">-- Sélectionner la durée --</option>
+                                                                    <option value="inf-2-jours">Inférieur à 2 jours</option>
+                                                                    <option value="2-7-jours">2 à 7 jours</option>
+                                                                    <option value="7-14-jours">7 à 14 jours</option>
+                                                                    <option value="15-plus-jours">15 jours et plus</option>
+                                                                </select>
+                                                                <div class="flex space-x-6">
+                                                                    <div class="w-1/2">
+                                                                        <label for="montant" class="block mb-2 text-sm font-medium text-gray-900">Montant :</label>
+                                                                        <input id="montant" name="montant_hospitalisation" type="number" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
+                                                                    </div>
+                                                                    
+                                                                    <div class="w-1/2">
+                                                                        <label for="preuve" class="block mb-2 text-sm font-medium text-gray-900">Preuve :</label>
+                                                                        <input id="preuve" name="preuve[]" type="file" multiple accept=".pdf" class="block w-full p-2 mb-4 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
+                                                                    </div>
+                                                                    
+                                                                </div>
+                                                                
+                                                            </div>
+                                
+                                                            <div id="analyseBiomedicaleOptions" class="options analyse_biomedicale hidden">
+                                                                
+                                                                <h3 class="mb-2 text-xl font-semibold">Analyse biomédicale</h3>
+                                                                <div class="flex space-x-6">
+                                                                    <div class="w-1/2">
+                                                                        <label for="date" class="block mb-2 text-sm font-medium text-gray-900">Date :</label>
+                                                                        <input id="date"  name="date_analyse_biomedicale" type="date" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
+                                                                    </div>
+                                                                    
+                                                                    <div class="w-1/2">
+                                                                        <label for="centre" class="block mb-2 text-sm font-medium text-gray-900">Centre de santé :</label>
+                                                                        <input id="centre" name="centre_analyse_biomedicale" type="text" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
+                                                                    </div>
+                                                                    
+                                                                </div>
+                                                                
+                                                                <div class="flex space-x-6">
+                                                                    <div class="w-1/2">
+                                                                        <label for="montant" class="block mb-2 text-sm font-medium text-gray-900">Montant :</label>
+                                                                        <input id="montant"  name="montant_analyse_biomedicale" type="number" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
+                                                                    </div>
+                                                                    
+                                                                    <div class="w-1/2">
+                                                                        <label for="preuve" class="block mb-2 text-sm font-medium text-gray-900">Preuve :</label>
+                                                                        <input id="preuve" name="preuve[]" type="file" multiple class="block w-full p-2 mb-4 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
+                                                                    </div>
+                                                                    
+                                                                </div>
+                                                            </div>
+                                                            
+                                                            <div id="radioOptions" class="options radio hidden">
+                                                                <h3 class="mb-2 text-xl font-semibold">Radio</h3>
+                                                                <div class="flex space-x-6">
+                                                                    <div class="w-1/2">
+                                                                        <label for="date" class="block mb-2 text-sm font-medium text-gray-900">Date :</label>
+                                                                        <input id="date" name="date_radio" type="date" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
+                                                                    </div>
+                                                                    
+                                                                    <div class="w-1/2">
+                                                                        <label for="centre" class="block mb-2 text-sm font-medium text-gray-900">Centre de santé :</label>
+                                                                        <input id="centre" name="centre_radio" type="text" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
+                                                                    </div>
+                                                                    
+                                                                </div>
+                                                                <label class="block mb-2 text-sm font-medium text-gray-900">Type :</label>
+                                                                <select name="type_radio" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg">
+                                                                    <option value="">-- Sélectionner le type de radiographie --</option>
+                                                                    <option value="radio-standard">Radio standard</option>
+                                                                    <option value="echo">Échographie</option>
+                                                                    <option value="echo-doppler">Échographie Doppler</option>
+                                                                    <option value="ecg">ECG</option>
+                                                                    <option value="endoscopie">Endoscopie</option>
+                                                                    <option value="irm">IRM</option>
+                                                                    <option value="scanner">Scanner</option>
+                                                                </select>
+                                                                <div class="flex space-x-6">
+                                                                    <div class="w-1/2">
+                                                                        <label for="montant" class="block mb-2 text-sm font-medium text-gray-900">Montant :</label>
+                                                                        <input id="montant" name="montant_radio" type="number" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
+                                                                    </div>
+                                                                    
+                                                                    <div class="w-1/2">
+                                                                        <label for="preuve" class="block mb-2 text-sm font-medium text-gray-900">Preuve :</label>
+                                                                        <input id="preuve" name="preuve[]" type="file" multiple class="block w-full p-2 mb-4 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
+                                                                    </div>
+                                                                    
+                                                                </div>
+                                                            </div>
+                                
+                                                            <div id="pharmacieOptions" class="options pharmacie hidden">
+                                                                
+                                                                <h3 class="mb-2 text-xl font-semibold">Pharmacie</h3>
+                                                                <div class="flex space-x-6">
+                                                                    <div class="w-1/2">
+                                                                        <label for="date" class="block mb-2 text-sm font-medium text-gray-900">Date :</label>
+                                                                        <input id="date"  name="date_pharmacie" type="date" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
+                                                                    </div>
+                                                                    
+                                                                    <div class="w-1/2">
+                                                                        <label for="centre" class="block mb-2 text-sm font-medium text-gray-900">Centre de santé :</label>
+                                                                        <input id="centre" name="centre_pharmacie" type="text" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
+                                                                    </div>
+                                                                    
+                                                                </div>
+                                                                
+                                                                <div class="flex space-x-6">
+                                                                    <div class="w-1/2">
+                                                                        <label for="montant" class="block mb-2 text-sm font-medium text-gray-900">Montant :</label>
+                                                                        <input id="montant"  name="montant_pharmacie" type="number" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
+                                                                    </div>
+                                                                    
+                                                                    <div class="w-1/2">
+                                                                        <label for="preuve" class="block mb-2 text-sm font-medium text-gray-900">Preuve :</label>
+                                                                        <input id="preuve" name="preuve[]" type="file" multiple class="block w-full p-2 mb-4 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
+                                                                    </div>
+                                                                    
+                                                                </div>
+                                                            </div>
+                                                            
+                                                            <div id="materniteOptions" class="options maternite hidden">
+                                                                
+                                                                <h3 class="mb-2 text-xl font-semibold">Maternité</h3>
+                                                                <div class="flex space-x-6">
+                                                                    <div class="w-1/2">
+                                                                        <label for="date" class="block mb-2 text-sm font-medium text-gray-900">Date :</label>
+                                                                        <input id="date"  name="date_maternite" type="date" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
+                                                                    </div>
+                                                                    
+                                                                    <div class="w-1/2">
+                                                                        <label for="centre" class="block mb-2 text-sm font-medium text-gray-900">Centre de santé :</label>
+                                                                        <input id="centre" name="centre_maternite" type="text" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
+                                                                    </div>
+                                                                    
+                                                                </div>
+                                                                <label class="block mb-2 text-sm font-medium text-gray-900">Type :</label>
+                                                                <select name="type_maternite" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg">
+                                                                    <option value="">-- Sélectionner le type de maternité --</option>
+                                                                    <option value="naissance-vivante">Naissance vivante</option>
+                                                                    <option value="deces">Décès</option>
+                                                                </select>
+                                                                <div class="flex space-x-6">
+                                                                    <div class="w-1/2">
+                                                                        <label for="montant" class="block mb-2 text-sm font-medium text-gray-900">Montant :</label>
+                                                                        <input id="montant"  name="montant_maternite" type="number" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
+                                                                    </div>
+                                                                    
+                                                                    <div class="w-1/2">
+                                                                        <label for="preuve" class="block mb-2 text-sm font-medium text-gray-900">Preuve :</label>
+                                                                        <input id="preuve" name="preuve[]" type="file" multiple class="block w-full p-2 mb-4 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
+                                                                    </div>
+                                                                    
+                                                                </div>
+                                                            </div>
+                                
+                                                            <div id="optiqueOptions" class="options optique hidden">
+                                                                
+                                                                <h3 class="mb-2 text-xl font-semibold">Optique</h3>
+                                                                <div class="flex space-x-6">
+                                                                    <div class="w-1/2">
+                                                                        <label for="date" class="block mb-2 text-sm font-medium text-gray-900">Date :</label>
+                                                                        <input id="date"  name="date_optique" type="date" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
+                                                                    </div>
+                                                                    
+                                                                    <div class="w-1/2">
+                                                                        <label for="centre" class="block mb-2 text-sm font-medium text-gray-900">Centre de santé :</label>
+                                                                        <input id="centre" name="centre_optique" type="text" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
+                                                                    </div>
+                                                                    
+                                                                </div>
+                                                                
+                                                                <div class="flex space-x-6">
+                                                                    <div class="w-1/2">
+                                                                        <label for="montant" class="block mb-2 text-sm font-medium text-gray-900">Montant :</label>
+                                                                        <input id="montant"  name="montant_optique" type="number" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
+                                                                    </div>
+                                                                    
+                                                                    <div class="w-1/2">
+                                                                        <label for="preuve" class="block mb-2 text-sm font-medium text-gray-900">Preuve :</label>
+                                                                        <input id="preuve" name="preuve[]" type="file" multiple class="block w-full p-2 mb-4 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
+                                                                    </div>
+                                                                    
+                                                                </div>
+                                                            </div>
+                                                            
+                                                            <div id="dentaireAuditifOptions" class="options dentaire_auditif hidden">
+                                                                
+                                                                <h3 class="mb-2 text-xl font-semibold">Dentaire et auditif</h3>
+                                                                <div class="flex space-x-6">
+                                                                    <div class="w-1/2">
+                                                                        <label for="date" class="block mb-2 text-sm font-medium text-gray-900">Date :</label>
+                                                                        <input id="date"  name="date_dentaire_auditif" type="date" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
+                                                                    </div>
+                                                                    
+                                                                    <div class="w-1/2">
+                                                                        <label for="centre" class="block mb-2 text-sm font-medium text-gray-900">Centre de santé :</label>
+                                                                        <input id="centre" name="centre_dentaire_auditif" type="text" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
+                                                                    </div>
+                                                                    
+                                                                </div>
+                                                                
+                                                                <div class="flex space-x-6">
+                                                                    <div class="w-1/2">
+                                                                        <label for="montant" class="block mb-2 text-sm font-medium text-gray-900">Montant :</label>
+                                                                        <input id="montant"  name="montant_dentaire_auditif" type="number" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
+                                                                    </div>
+                                                                    
+                                                                    <div class="w-1/2">
+                                                                        <label for="preuve" class="block mb-2 text-sm font-medium text-gray-900">Preuve :</label>
+                                                                        <input id="preuve" name="preuve[]" type="file" multiple class="block w-full p-2 mb-4 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
+                                                                    </div>
+                                                                    
+                                                                </div>
+                                                            </div>
+                                
+                                                            <div id="allocationOptions" class="options allocation hidden">
+                                                                <h3 class="mb-2 text-xl font-semibold">Allocation</h3>
+                                                                <div class="flex space-x-6">
+                                                                    <div class="w-1/2">
+                                                                        <label for="date" class="block mb-2 text-sm font-medium text-gray-900">Date :</label>
+                                                                        <input id="date"  name="date_allocation" type="date" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
+                                                                    </div>
+                                                                    
+                                                                    <div class="w-1/2">
+                                                                        <label for="centre" class="block mb-2 text-sm font-medium text-gray-900">Centre de santé :</label>
+                                                                        <input id="centre" name="centre_allocation" type="text" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
+                                                                    </div>
+                                                                    
+                                                                </div>
+                                                                <label class="block mb-2 text-sm font-medium text-gray-900">Type :</label>
+                                                                <select name="type_allocation" id="allocationType" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg">
+                                                                    <option value="">-- Sélectionner le type d&apos;allocation --</option>
+                                                                    <option value="invalidite">Invalidité</option>
+                                                                    <option value="deces-adherent">Décès adhérent</option>
+                                                                    <option value="deces-ayant-droit">Décès ayant droit</option>
+                                                                    <option value="secours-medical">Secours Médical</option>
+                                                                </select>
+                                                                
+                                                                <div id="secoursMedicalDetail" class="hidden mt-2">
+                                                                    <label class="block mb-2 text-sm font-medium text-gray-900">Détail :</label>
+                                                                    <select name="sous_type_allocation" id="secoursMedicalDetailSelect" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg">
+                                                                        <option value="">-- Sélectionner le sous-type d&apos;allocation --</option>
+                                                                        <option value="mld">Drainage lymphatique manuel (MLD)</option>
+                                                                        <option value="soin-exceptionnel">Soin exceptionnel</option>
+                                                                        <option value="soin-non-couvert">Soin non couvert</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="flex space-x-6">
+                                                                    <div class="w-1/2">
+                                                                        <label for="montant" class="block mb-2 text-sm font-medium text-gray-900">Montant :</label>
+                                                                        <input id="montant" name="montant_allocation" type="number" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
+                                                                    </div>
+                                                                    
+                                                                    <div class="w-1/2">
+                                                                        <label for="preuve" class="block mb-2 text-sm font-medium text-gray-900">Preuve :</label>
+                                                                        <input id="preuve" name="preuve[]" type="file" multiple accept=".pdf" class="block w-full p-2 mb-4 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
+                                                                    </div>
+                                                                    
+                                                                </div>
+                                                            </div>
+                                                            <div id="autreOptions" class="options autre hidden">
+                                                                
+                                                                <h3 class="mb-2 text-xl font-semibold">Autre</h3>
+                                                                <div class="flex space-x-6">
+                                                                    <div class="w-1/2">
+                                                                        <label for="date" class="block mb-2 text-sm font-medium text-gray-900">Date :</label>
+                                                                        <input id="date"  name="date_autre" type="date" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
+                                                                    </div>
+                                                                    
+                                                                    <div class="w-1/2">
+                                                                        <label for="centre" class="block mb-2 text-sm font-medium text-gray-900">Centre de santé :</label>
+                                                                        <input id="centre" name="centre_autre" type="text" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
+                                                                    </div>
+                                                                    
+                                                                </div>
+                                                                <div class="w-full">
+                                                                    <label for="type_autre" class="block mb-2 text-sm font-medium text-gray-900">Détails :</label>
+                                                                    <input id="type_autre" name="type_autre" type="text" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
+                                                                </div>
+                                                            
+                                                                
+                                                                <div class="flex space-x-6">
+                                                                    <div class="w-1/2">
+                                                                        <label for="montant" class="block mb-2 text-sm font-medium text-gray-900">Montant :</label>
+                                                                        <input id="montant"  name="montant_autre" type="number" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
+                                                                    </div>
+                                                                    
+                                                                    <div class="w-1/2">
+                                                                        <label for="preuve" class="block mb-2 text-sm font-medium text-gray-900">Preuve :</label>
+                                                                        <input id="preuve" name="preuve[]" type="file" multiple class="block w-full p-2 mb-4 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
+                                                                    </div>
+                                                                    
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        </fieldset>
+                                
+                                        
+                                    </div>
+                                    <div class=" flex justify-end">
+                                        <x-primary-button type="button" id="add-form" class="mt-4">
+                                            Ajouter une nouvelle prestation
+                                        </x-primary-button>
+                                    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    
+                    </div>
+                    <div class="flex items-end justify-end gap-4 mt-8">
+                        
+                        <x-primary-button type="submit" class="mt-4 ">
+                            Ajouter
+                        </x-primary-button>
+                    </div>
+                </form>
+                <script>
+                    let formIndex = 1; 
+    
+                    function initializeAccordion(form) {
+                        const accordionHeader = form.querySelector('#accordion-header'); 
+                        const accordionContent = form.querySelector('#accordion-content');
+                        const toggleIcon = form.querySelector('.toggle-icon');
+                
+                        accordionHeader.addEventListener('click', function() {
+                            accordionContent.classList.toggle('hidden');
+                            toggleIcon.textContent = accordionContent.classList.contains('hidden') ? '+' : '-';
+                        });
+                    }
+                
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const firstForm = document.querySelector('.form-prestation');
+                        initializeAccordion(firstForm); 
+                    });
+    
+                
+                    document.getElementById('add-form').addEventListener('click', function() {
+                        const formContainer = document.getElementById('form-container');
+                        const newForm = document.querySelector('.form-prestation').cloneNode(true);
+                        
+                        
+                        formIndex++;
+    
+                        // Réinitialiser les champs du nouveau formulaire
+                        newForm.querySelectorAll('input, select').forEach(function(element) {
+                            const name = element.getAttribute('name');
+                            const id = element.getAttribute('id');
+                            const label = newForm.querySelector('label'); 
+    
+                            label.textContent = `Prestation #${formIndex}`;
+                            if (name) {
+                                element.setAttribute('name', `${name}-${formIndex}`);
+                            }
+                            if (id) {
+                                element.setAttribute('id', `${id}-${formIndex}`);
+                            }
+                        
+                            if (element.tagName === 'SELECT') {
+                                element.selectedIndex = 0;
+                            } else if (element.type === 'text' || element.type === 'number' || element.type === 'file' || element.type === 'date') {
+                                element.value = ''; 
+                            } else if (element.type === 'checkbox' || element.type === 'radio') {
+                                element.checked = false; 
+                            }
+                        
+                            if (element.id === 'contactPrestation-1') {
+                                console.log("ID du champ contactPrestation:", element.id);
+                            }
+                        });
+                        
+                        initializeAccordion(newForm);
+    
+                
+                        {{--  newForm.querySelector('.acteContainer').classList.remove('hidden');    --}}
+                        formContainer.appendChild(newForm);
+    
+    
+                        {{--  let acteSelect = null;   --}}
+                        hideAllOptions(newForm); 
+    
+                        acteSelect = newForm.querySelector('.acte-select'); 
+                        console.log('Acte sélectionné:', acteSelect);
+    
+                        if (acteSelect) {
+                            acteSelect.addEventListener('change', function() {
+                                {{--  if (acteTitle) {
+                                    acteTitle.textContent = this.value || ''; // Mettre à jour le titre
+                                }  --}}
+                            });
+                        }
+                        if (acteSelect) {
+                            acteSelect.addEventListener('change', function() {
+                                showSelectedOption(acteSelect); 
+                            });
+                            console.log('Acte selectionné:', acteSelect);
+                            if (acteSelect.value) {
+                                showSelectedOption(acteSelect); 
+                            }
+                        }
+                
+                    });
+    
+    
+    
+                    function showSelectedOption(acteSelect) {
+                        const form = acteSelect.closest('.form-prestation'); 
+                        
+                        hideAllOptions(form); 
+                
+                        const selectedOption = acteSelect.value;
+                        if (selectedOption) {
+                            const optionToShow = form.querySelector('.' + selectedOption); 
+                            if (optionToShow) {
+                                optionToShow.classList.remove('hidden');
+                            } else {
+                                console.error('Option manquante pour:', selectedOption);
+                            }
+                        }
+                    }
+                
+                    function hideAllOptions(form) {
+                        form.querySelectorAll('.options').forEach(function(option) {
+                            option.classList.add('hidden'); 
+                        });
+                    }
+                
+                    document.querySelectorAll('.acte-select').forEach(function(acteSelect) {
+                        acteSelect.selectedIndex = 0;
+                        acteSelect.addEventListener('change', function() {
+                            showSelectedOption(acteSelect); 
+                        });
+                
+                    });
+                </script>
+                
+                
+                <script defer>
+                    document.addEventListener('DOMContentLoaded', () => {
+                        const adherantCode = document.getElementById('adherantCode');
+                        const acteContainer = document.getElementById('acteContainer');
+    
+                        const consultationOptions = document.getElementById('consultationOptions');
+                        const hospitalisationOptions = document.getElementById('hospitalisationOptions');
+                        const analyseBiomedicaleOptions = document.getElementById('analyseBiomedicaleOptions');
+            
+                        const radioOptions = document.getElementById('radioOptions');
+                        const pharmacieOptions = document.getElementById('pharmacieOptions');
+            
+                        const materniteOptions = document.getElementById('materniteOptions');
+                        const optiqueOptions = document.getElementById('optiqueOptions');
+                        const dentaireAuditifOptions = document.getElementById('dentaireAuditifOptions');
+            
+                        const allocationOptions = document.getElementById('allocationOptions');
+                        const secoursMedicalDetail = document.getElementById('secoursMedicalDetail');
+                        var adherants = @json($adherants); 
+                        var ayantsDroit = @json($ayantsDroit); 
+                        
+                        const adherantInfo = document.getElementById('adherantInfo');
+                        const beneficiaireIndicator = document.getElementById('beneficiaire');
+                        const infosACompleter = document.getElementById('infosACompleter');
+    
+                        
+                        
+                        $('#adherantCode').on('change', function() {
+                            const selectedCode = $(this).val(); // Récupérer la valeur sélectionnée
+                            const selectedAdherant = adherants.find(adherant => adherant.code_carte === selectedCode);
+                    
+                            if (selectedAdherant) {
+                                document.getElementById('adherantNom').value = selectedAdherant.nom;
+                                document.getElementById('adherantPrenom').value = selectedAdherant.prenom;
+                                document.getElementById('adherantSexe').value = selectedAdherant.genre;
+                                beneficiaireIndicator.value = 'Adhérant';
+                    
+                                acteContainer.classList.remove('hidden');
+                                adherantInfo.classList.remove('hidden');
+                                infosACompleter.classList.remove('hidden');
+    
+                            } else {
+                                const selectedAyantDroit = ayantsDroit.find(ayantDroit => ayantDroit.code === selectedCode);
+                    
+                                if (selectedAyantDroit) {
+                                    document.getElementById('adherantNom').value = selectedAyantDroit.nom;
+                                    document.getElementById('adherantPrenom').value = selectedAyantDroit.prenom;
+                                    document.getElementById('adherantSexe').value = selectedAyantDroit.genre;
+                                    beneficiaireIndicator.value = 'Ayant Droit';
+                    
+                                    acteContainer.classList.remove('hidden');
+                                    adherantInfo.classList.remove('hidden');
+                                    infosACompleter.classList.remove('hidden');
+    
+                                } else {
+                                    // Réinitialiser les champs si aucun adhérant ou ayant droit trouvé
+                                    document.getElementById('adherantNom').value = '';
+                                    document.getElementById('adherantPrenom').value = '';
+                                    document.getElementById('adherantSexe').value = '';
+                                    beneficiaireIndicator.value = 'Non trouvé';
+                    
+                                    acteContainer.classList.add('hidden');
+                                    acte.value = '';
+                                    hideAllOptions();
+                                }
+                            }
+                        });
+                        
+                        typeConsultation.addEventListener('change', () => {
+                            if (typeConsultation.value === 'specialiste') {
+                                specialiteContainer.classList.remove('hidden');
+                            } else {
+                                specialiteContainer.classList.add('hidden');
+                            }
+                        });
+                        
+                        allocationType.addEventListener('change', () => {
+                            const selectedValue = allocationType.value;
+                            
+                            secoursMedicalDetail.classList.add('hidden');
+                            
+                            if (selectedValue === 'secours-medical') {
+                                secoursMedicalDetail.classList.remove('hidden');
+                            }
+                        });
+                        
+                        
+                        
+                    });
+                </script>
+                <script>
+                    function validateForm(form) {
+                        let isValid = true; 
+                        const inputs = form.querySelectorAll('input, select, textarea'); 
+    
+                        inputs.forEach((input) => {
+                            if (input.name && input.name.startsWith('preuve')) {
+                                return; 
+                            }
+                            if (!input.closest('.hidden') && (input.type !== 'checkbox' && input.type !== 'radio')) {
+                                if (input.value.trim() === '') {
+                                    isValid = false; 
+                                    input.classList.add('border-red-500'); 
+                                } else {
+                                    input.classList.remove('border-red-500'); 
+                                }
+                            }
+                            
+                            if (input.type === 'checkbox' || input.type === 'radio') {
+                                const groupName = input.name; 
+                                const isChecked = form.querySelector(`input[name="${groupName}"]:checked`);
+                                if (!isChecked) {
+                                    isValid = false; 
+                                    input.classList.add('border-red-500'); 
+                                } else {
+                                    input.classList.remove('border-red-500'); 
+                                }
+                            }
+                        });
+    
+                        return isValid; 
+                    }
+    
+                    document.getElementById('formPrestation').addEventListener('submit', function(event) {
+                        event.preventDefault(); 
+    
+                        const form = this; 
+                        if (validateForm(form)) {
+                            form.submit(); 
+                        } else {
+                            alert('Veuillez remplir tous les champs requis.'); 
+                        }
+                    });
+    
+                    $(document).ready(function() {
+                        $('#adherantCode').select2({
+                            placeholder: '-- Choisir un code --',
+                            width: '100%',
+                            language: {
+                                noResults: function() {
+                                    return "Aucun résultat trouvé";
+                                }
+                            }
+                        });
+                    
+                        
+                    });
+                                         
+                </script>     
+ 
+150
+ 
+ecettes propres
+ 
+Prêts
+ 
+            
+ 
+            <
+ 
+</x-guest-layout>
+
+ 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>Salut</p>
+    Test
+</body>
+</html>
+ 
 # Utiliser une image de base avec PHP et les extensions nécessaires
 FROM php:8.1-fpm
 # Installer les extensions nécessaires pour Laravel

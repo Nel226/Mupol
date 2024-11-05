@@ -16,10 +16,36 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Exception;
-
+use Illuminate\Support\Facades\Log;
 
 class PrestationController extends Controller
 {
+    // Frontend
+
+    public function prestations()
+    {
+        $adherent = auth()->guard('adherent')->user();
+        
+        $prestations = $adherent->prestations;
+        return  view('pages.frontend.adherents.prestations.index',
+                compact('adherent', 'prestations')
+        );
+    }
+
+    public function newPrestationAdherent()
+    {
+        $adherent = auth()->guard('adherent')->user();
+    
+        $adherent->ayantsDroits = json_decode($adherent->ayantsDroits, true); 
+
+    
+        // Vérifiez ce que contient $ayantsDroits
+    
+        return view('pages.frontend.adherents.prestations.create', compact('adherent'));
+    }
+    
+
+    // Backend
     /**
      * Display a listing of the resource.
      */

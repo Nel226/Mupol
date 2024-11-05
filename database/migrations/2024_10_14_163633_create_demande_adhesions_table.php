@@ -50,6 +50,9 @@ return new class extends Migration
             $table->string('service')->nullable();
             $table->longText('signature')->nullable();
 
+            $table->string('code_carte')->nullable();
+
+
             $table->string('region')->nullable();
             $table->string('province')->nullable();
             $table->string('localite')->nullable();

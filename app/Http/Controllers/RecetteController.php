@@ -65,6 +65,15 @@ class RecetteController extends Controller
                 'active' => true
             ],
         ];
+        $sousTypes = Recette::with('categorie')
+        ->select('categorie_id') // Sélectionner uniquement l'id de la catégorie
+        ->distinct() // Pour obtenir des valeurs uniques
+        ->get()
+        ->map(function ($recette) {
+            return $recette->categorie->sous_type; // Retourne le sous_type de la catégorie associée
+        })
+        ->unique(); // Pour s'assurer qu'il n'y a pas de doublons
+        dd()
         $pageTitle = 'Nouvelle recette';
         $categories = Categorie::where('type', 'recette')
                                 ->whereNull('parent_id')

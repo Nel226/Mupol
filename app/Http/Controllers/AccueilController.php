@@ -92,9 +92,9 @@ class AccueilController extends Controller
             'nom_prenom_personne_besoin' => $demandeAdhesion->nom_prenom_personne_besoin,
             'lieu_residence' => $demandeAdhesion->lieu_residence,
             'telephone_personne_prevenir' => $demandeAdhesion->telephone_personne_prevenir,
-            'photo' => $demandeAdhesion->photo_path_adherent,
+            'photo' => $demandeAdhesion->photo,
             'nombreAyantsDroits' => $demandeAdhesion->nombreAyantsDroits,
-            'ayantsDroits' => json_encode($demandeAdhesion->ayantsDroits),
+            'ayantsDroits' => $demandeAdhesion->ayantsDroits,
             'categorie' => $demandeAdhesion->categorie,
             'statut' => $demandeAdhesion->statut,
             'grade' => $demandeAdhesion->grade,
@@ -106,6 +106,8 @@ class AccueilController extends Controller
             'service' => $demandeAdhesion->service,
             'password' => Hash::make($generatedPassword), 
             'date_enregistrement' => now(),
+            'code_carte' => $demandeAdhesion->matricule . '/00', 
+
         ]);
 
         Mail::to($demandeAdhesion->email)->send(new ConfirmationDemandeAdhesion($demandeAdhesion, $pdf, $generatedPassword));

@@ -50,14 +50,26 @@ Route::get('/impression-fiche-cession/{id}', [AccueilController::class, 'imprime
 
 Route::get('/login/adherent', [AdherantAuthenticatedSessionController::class, 'create'])->name('adherent.login');
 Route::post('/login/adherent', [AdherantAuthenticatedSessionController::class, 'store']);
-Route::get('/adherents/dashboard', [AdherantAuthenticatedSessionController::class, 'dashboard'])
-    ->name('adherents.dashboard')
-    ->middleware('auth:adherent');
+
+Route::middleware('auth:adherent')->group(function () {
+    Route::get('/adherents/dashboard', [AdherantAuthenticatedSessionController::class, 'dashboard'])
+        ->name('adherents.dashboard');
+
+    Route::get('/adherents/prestations', [PrestationController::class, 'prestations'])
+        ->name('adherents.prestations');
+
+    Route::get('/adherents/prestations/nouvelle', [PrestationController::class, 'newPrestationAdherent'])
+        ->name('adherents.nouvelle-prestation');
+});
+
 Route::post('/logout/adherent', [AdherantAuthenticatedSessionController::class, 'destroy'])
     ->name('adherent.logout')
     ->middleware('auth:adherent');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/adherents/prestations', [PrestationController::class, 'prestations'])->name('adherents.prestations');
+
 Route::get('/counter', Counter::class);
 
 

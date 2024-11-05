@@ -1,3 +1,702 @@
+<x-guest-layout>
+    <x-header-guest/>
+
+    @if (session()->has('message'))
+        <div id="success-notification" class="notification bg-green-500 text-white p-4 rounded mb-4 mx-6 mt-4 text-center shadow-lg">
+            {{ session('message') }}
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const notification = document.getElementById('success-notification');
+                setTimeout(() => {
+                    notification.classList.add('hidden');
+                }, 5000);
+            });
+        </script>
+    @endif
+
+    <x-sidebar-guest/>
+
+    <div class="min-h-screen ml-64 bg-gray-50 dark:bg-gray-900 py-3">
+        <section class="container mx-auto px-6">
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mx-auto max-w-4xl">
+                <div class="mb-6 text-center">
+                    <h2 class="text-2xl font-bold text-gray-800 dark:text-white">Ajouter une Prestation</h2>
+                    <p class="text-gray-600 dark:text-gray-300 mt-2">
+                        Code Carte : <span class="text-indigo-600 font-semibold">{{ $adherent->code_carte }}</span>
+                    </p>
+                </div>
+
+                <form action="{{ route('prestations.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+                    @csrf
+                    <!-- Selection bénéficiaire -->
+                    <div class="flex items-center space-x-4">
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="beneficiaire" value="moi" class="form-radio text-indigo-600" checked @change="isBeneficiarySelf = true">
+                            <span class="ml-2 text-gray-700 dark:text-gray-300">Moi</span>
+                        </label>
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="beneficiaire" value="ayant_droit" class="form-radio text-indigo-600" @change="isBeneficiarySelf = false">
+                            <span class="ml-2 text-gray-700 dark:text-gray-300">Ayant Droit</span>
+                        </label>
+                    </div>
+
+                    <!-- Selection ayant droit -->
+                    <div x-show="!isBeneficiarySelf" class="mt-4">
+                        <label for="ayantDroit" class="block text-gray-700 dark:text-gray-300">Sélectionnez l&apos;ayant droit :</label>
+                        <select name="ayantDroit" id="ayantDroit" class="form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                            @if ($adherent->nombreAyantsDroits > 0)
+                                @foreach($adherent->ayantsDroits as $ayantDroit)
+                                    <option value="{{ $ayantDroit['nom'] }}">{{ $ayantDroit['prenom'] }} {{ $ayantDroit['nom'] }}</option>
+                                @endforeach
+                            @endif
+
+                        </select>
+                    </div>
+
+                    <!-- Informations de prestation -->
+                    <div class="space-y-4">
+                        <div>
+                            <label for="idPrestation" class="block text-gray-700 dark:text-gray-300">ID Prestation</label>
+                            <input type="text" name="idPrestation" id="idPrestation" class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" required>
+                        </div>
+                        <div>
+                            <label for="contactPrestation" class="block text-gray-700 dark:text-gray-300">Contact</label>
+                            <input type="text" name="contactPrestation" id="contactPrestation" class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" required>
+                        </div>
+                        <div>
+                            <label for="acte" class="block text-gray-700 dark:text-gray-300">Acte</label>
+                            <input type="text" name="acte" id="acte" class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" required>
+                        </div>
+                        <div>
+                            <label for="date" class="block text-gray-700 dark:text-gray-300">Date de l'acte</label>
+                            <input type="date" name="date" id="date" class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" required>
+                        </div>
+                        <div>
+                            <label for="centre" class="block text-gray-700 dark:text-gray-300">Centre</label>
+                            <input type="text" name="centre" id="centre" class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" required>
+                        </div>
+                        <div>
+                            <label for="montant" class="block text-gray-700 dark:text-gray-300">Montant</label>
+                            <input type="number" name="montant" id="montant" step="0.01" class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" required>
+                        </div>
+                        <div>
+                            <label for="preuve" class="block text-gray-700 dark:text-gray-300">Preuve de l'acte</label>
+                            <input type="file" name="preuve[]" id="preuve" multiple class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="text-center">
+                        <button type="submit" class="bg-indigo-600 text-white px-6 py-2 rounded-md font-semibold shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Ajouter Prestation</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('prestationsForm', () => ({
+                isBeneficiarySelf: true,
+            }));
+        });
+    </script>
+</x-guest-layout>
+
+ 
+ayantsDroits
+ 
+        dd($ayantsDroits);
+
+ 
+
+    
+    
+ 
+adherent->
+ 
+        dd($adherent->ayantsDroits);
+
+ 
+        dd($adherent->ayantsDroits);
+
+ 
+prestations
+ 
+        $prestations = $adherent->prestations;
+
+ 
+        dd($adherent->ayantsDroits);
+
+ 
+/ Mettre un tableau vide s'il est nul
+ 
+->ayantsDroits
+ 
+->ayantDroits
+ 
+<x-guest-layout>
+    <x-header-guest/>
+
+    @if (session()->has('message'))
+        <div id="success-notification" class="notification bg-green-500 text-white p-4 rounded mb-4 mx-6 mt-4 text-center shadow-lg">
+            {{ session('message') }}
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const notification = document.getElementById('success-notification');
+                setTimeout(() => {
+                    notification.classList.add('hidden'); // Cache le message après 5 secondes
+                }, 5000);
+            });
+        </script>
+    @endif
+
+    <x-sidebar-guest/>
+
+    <div class="min-h-screen ml-64 bg-gray-50 dark:bg-gray-900 py-3">
+        <section class="container mx-auto ">
+            
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6  mx-auto">
+                <div class="mb-6 text-center">
+                    <h2 class="text-xl font-bold text-gray-800 dark:text-white">Liste des prestations</h2>
+                    <p class="text-gray-600 dark:text-gray-300 mt-2">Code Carte : <span class="text-indigo-600 font-semibold">{{ $adherent->code_carte }}</span></p>
+                </div>
+
+               
+            </div>
+        </section>
+    </div>
+</x-guest-layout>
+
+ 
+rounded-r-md 
+ 
+ <div class="overflow-x-auto">
+                    <table class="min-w-full bg-white dark:bg-gray-800 shadow-lg rounded-lg">
+                        <thead>
+                            <tr class="text-left text-gray-600 dark:text-gray-400 uppercase text-sm leading-normal bg-gray-100 dark:bg-gray-700">
+                                <th class="py-3 px-6">ID</th>
+                                <th class="py-3 px-6">Date</th>
+                                <th class="py-3 px-6">Acte</th>
+
+                                <th class="py-3 px-6">Montant</th>
+
+
+                                <th class="py-3 px-6">Validité</th>
+                                <th class="py-3 px-6 text-center">Etat paiement</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-gray-600 dark:text-gray-300 text-sm font-light">
+                            @foreach ($prestations as $prestation)
+                                <tr class="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800">
+                                    <td class="py-3 px-6">{{ $prestation->idPrestation }}</td>
+                                    
+                                    <td class="py-3 px-6">{{ $prestation->date }}</td>
+                                    <td class="py-3 px-6">{{ $prestation->acte }}</td>
+
+                                    <td class="py-3 px-6">{{ $prestation->montant }}</td>
+                                    <td class="py-3 px-6">{{ $prestation->validite }}</td>
+
+                                    <td class="py-3 px-6">
+                                        @if ($prestation->etat_paiement === 1)
+                                        <span class="p-2 text-green-600 bg-green-200 border border-green-600 rounded-md shadow-sm">
+                                            Payé
+                                        </span>                                             
+                                        @else
+                                        <span class="p-2 text-red-600 bg-red-200 border border-red-600 rounded-md shadow-sm">
+                                            Non payé
+                                            </span>  
+                                        @endif
+                                    </td>
+                                    
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="mt-8 text-center">
+                    <a href="{{ route('adherents.dashboard') }}" class="text-indigo-600 hover:text-indigo-800 underline">Retour au tableau de bord</a>
+                </div>
+ 
+<div class=" flex my-2 justify-end">
+                <x-primary-button >
+                    <a href=" {{route('adherents.nouvelle-prestation')}} ">
+
+                        Nouvelle prestation
+                    </a>
+                </x-primary-button>
+            </div>
+ 
+{{ 
+ 
+, ['id'=>1]
+ 
+Adherent
+ 
+Adherent
+ 
+ lg:w-3/4
+ 
+type="submit"
+ 
+class="bg-green-700"
+ 
+<td class="py-3 px-6 text-center">
+                                        {{--  <a href="{{ route('prestations.details', $prestation->id) }}" class="text-indigo-600 hover:underline">Voir Détails</a>  --}}
+                                    </td>
+ 
+<x-guest-layout>
+    <x-header-guest/>
+    @if (session()->has('message'))
+        <div id="success-notification" class="notification bg-green-500 text-white p-4 rounded mb-4">
+            {{ session('message') }}
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const notification = document.getElementById('success-notification');
+                
+                setTimeout(() => {
+                    notification.classList.add('hidden'); // Cache le message après 5 secondes
+                }, 5000);
+            });
+        </script>
+    @endif
+
+    {{--  <x-preloader/>  --}}
+    <x-sidebar-guest/>
+    <div class="">
+        <section class="section">
+            <div class="container h-screen">
+                <div class="">
+                    <div class="row">
+                        <div class="col-lg-12">
+                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</x-guest-layout>
+
+ 
+Prestation::where('adherantCode', $adherent->code_carte)->get()
+ 
+_id
+ 
+    // Récupère les prestations de l'adhérent
+
+ 
+// Ajout du code_carte
+ 
+ations
+ 
+prestations
+ 
+<!-- Sidebar Area -->
+<aside class="sidebar w-64 bg-white text-gray-800 shadow-lg rounded-r-md h-screen fixed inset-y-0 left-0 transform -translate-x-full md:translate-x-0 transition duration-300 ease-in-out z-40">
+    <div class="sidebar-inner p-4">
+        <div class="logo flex items-center mb-6">
+            <img src="{{ asset('images/logo.png') }}" alt="Logo de la Mutuelle" class="h-16 w-auto mr-2">
+            <h3 class="font-bold text-sm text-gray-800">Mutuelle de la Police Nationale (MU-POL)</h3>
+        </div>
+        
+        <!-- User Profile -->
+        <div class="user-profile flex items-center mb-4 p-2 bg-[#4644D5] rounded-md">
+            <img src="{{ asset('storage/' . Auth::guard('adherent')->user()->photo) }}" alt="User Profile" class="h-12 w-12 rounded-full mr-3">
+            <span class="font-semibold text-white">{{ Auth::guard('adherent')->user()->nom }}</span>
+        </div>
+        
+        <nav class="mt-4 font-semibold">
+            <ul class="space-y-2">
+                <li>
+                    <a href="/" class="flex items-center p-2 text-gray-800 hover:bg-gray-700 hover:text-white rounded-md">
+                        <i class="fa fa-user mr-3"></i>
+                        <span>Mon Profil</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="" class="flex items-center p-2 text-gray-800 hover:bg-gray-700 hover:text-white rounded-md">
+                        <i class="fa fa-cogs mr-3"></i>
+                        <span>Nos Services</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="" class="flex items-center p-2 text-gray-800 hover:bg-gray-700 hover:text-white rounded-md">
+                        <i class="fa fa-file mr-3"></i>
+                        <span>Prestations</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="" class="flex items-center p-2 text-gray-800 hover:bg-gray-700 hover:text-white rounded-md">
+                        <i class="fa fa-file-text mr-3"></i>
+                        <span>Ma Demande d'Adhésion</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('adherent.logout') }}" class="flex items-center p-2 text-red-500 hover:bg-red-700 hover:text-white rounded-md">
+                        <i class="fa fa-sign-out mr-3"></i>
+                        <span>Déconnexion</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</aside>
+<!-- End Sidebar Area -->
+
+<!-- Overlay for sidebar -->
+<div id="overlay" class="fixed inset-0 bg-black opacity-50 z-40 hidden"></div>
+
+<script>
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.getElementById('overlay');
+    const dropdownButton = document.getElementById('dropdownButton');
+
+    dropdownButton.addEventListener('click', () => {
+        sidebar.classList.toggle('-translate-x-full');
+        overlay.classList.toggle('hidden');
+    });
+
+    overlay.addEventListener('click', () => {
+        sidebar.classList.add('-translate-x-full');
+        overlay.classList.add('hidden');
+    });
+</script>
+
+ 
+{{  route('adherents.pr') }}
+ 
+prestations
+ 
+, ['id'=>1]
+ 
+    // Route pour les prestations
+
+ 
+    // Route pour le tableau de bord des adhérents
+
+ 
+->middleware(['auth', 'verified'])
+ 
+<div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10 hidden" id="dropdownMenu">
+                                    <div class="py-1">
+                                        <form id="logout-form" action="{{ route('adherent.logout') }}" method="POST" style="display: none;">
+                                            @csrf
+                                        </form>
+                                        <a href="#" class="block px-4 py-2 text-red-500 hover:bg-gray-100" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Déconnexion</a>
+                                    </div>
+                                </div>
+ 
+ <button class="flex items-center text-gray-700 focus:outline-none" id="dropdownButton" aria-haspopup="true" aria-expanded="false">
+                                    <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M10 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0 2c-5.52 0-10 2.686-10 4v2h20v-2c0-1.314-4.48-4-10-4z"/>
+                                    </svg> <!-- Icône utilisateur -->
+                                    <span>{{ Auth::guard('adherent')->user()->nom }} {{ Auth::guard('adherent')->user()->prenom }}</span>
+                                </button>
+ 
+                        // Fermer le dropdown si l'utilisateur clique en dehors
+
+ 
+                        // Script pour afficher/masquer le menu déroulant
+
+ 
+/* Tailwind CSS blue-500 color */
+ 
+    /* Ensure Tailwind CSS is loaded properly */
+
+ 
+/* Ajustez cette valeur en fonction de la largeur de votre sidebar */
+ 
+<!-- Header Area -->
+<header style="{{ Auth::guard('adherent')->check() ? 'background-color: #3B82F6;' : '' }}" class="header border-b {{ Auth::guard('adherent')->check() ? 'bg-blue-500' : '' }} {{ Auth::guard('adherent')->check() ? 'sidebar-open' : '' }}">
+    <!-- Header Inner -->
+    <div class="header-inner">
+        <div class="container">
+            <div class="inner">
+                <div class="row align-items-center">
+                    @if (!Auth::guard('adherent')->check())
+                    <div class="col-lg-5 col-md-3 col-12">
+                        <!-- Start Logo -->
+                        <div class="logo flex gap-2 items-center">
+                            <a href="/"><img src="{{ asset('images/logo.png') }}" alt="Logo de la Mutuelle" class="h-16 w-auto"></a>
+                            <h3 class="font-bold md:text-base lg:text-base">Mutuelle de la Police Nationale (MU-POL)</h3>
+                        </div>
+                        <!-- End Logo -->
+                        <!-- Mobile Nav -->
+                        <div class="mobile-nav"></div>
+                        <!-- End Mobile Nav -->
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-12">
+                        <!-- Main Menu -->
+                        <div class="main-menu">
+                            <nav class="navigation">
+                                <ul class="nav menu">
+                                    <li class="active"><a href="/">Accueil</a></li>
+                                    <li><a href="#">Nos Services <i class="icofont-rounded-down"></i></a>
+                                        <ul class="dropdown">
+                                            <li><a href="">Santé</a></li>
+                                            <li><a href="">Prévoyance</a></li>
+                                            <li><a href="">Assistance</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">À propos <i class="icofont-rounded-down"></i></a>
+                                        <ul class="dropdown">
+                                            <li><a href="">Présentation</a></li>
+                                            <li><a href="">Notre Équipe</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <!--/ End Main Menu -->
+                    </div>
+
+                    @endif
+                    <div class="col-lg-3 flex items-center justify-between col-12 ml-auto {{ Auth::guard('adherent')->check() ? 'order-last' : '' }}">
+                        @if (Auth::guard('adherent')->check())
+                            <!-- Adhérant connecté -->
+                            <div class="relative">
+                                <button class="flex items-center text-gray-700 focus:outline-none" id="dropdownButton" aria-haspopup="true" aria-expanded="false">
+                                    <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M10 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0 2c-5.52 0-10 2.686-10 4v2h20v-2c0-1.314-4.48-4-10-4z"/>
+                                    </svg> <!-- Icône utilisateur -->
+                                    <span>{{ Auth::guard('adherent')->user()->nom }} {{ Auth::guard('adherent')->user()->prenom }}</span>
+                                </button>
+                                <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10 hidden" id="dropdownMenu">
+                                    <div class="py-1">
+                                        <form id="logout-form" action="{{ route('adherent.logout') }}" method="POST" style="display: none;">
+                                            @csrf
+                                        </form>
+                                        <a href="#" class="block px-4 py-2 text-red-500 hover:bg-gray-100" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Déconnexion</a>
+                                    </div>
+                                </div>
+                            </div>
+                        @else
+                            <!-- Adhérant non connecté -->
+                            <div class="get-quote">
+                                <a class="btn btn-primary" href="{{ route('formulaire-adhesion') }}">
+                                    Adhérer maintenant
+                                </a>
+                            </div>
+                            <div>
+                                <a class="text-[#4B45DC]" href="{{ route('adherent.login') }}">
+                                    Connexion
+                                </a>
+                            </div>
+                        @endif
+                    </div>
+                    
+                    
+                    <script>
+                        // Script pour afficher/masquer le menu déroulant
+                        const dropdownButton = document.getElementById('dropdownButton');
+                        const dropdownMenu = document.getElementById('dropdownMenu');
+                    
+                        dropdownButton.addEventListener('click', () => {
+                            dropdownMenu.classList.toggle('hidden');
+                        });
+                    
+                        // Fermer le dropdown si l'utilisateur clique en dehors
+                        window.addEventListener('click', (event) => {
+                            if (!dropdownButton.contains(event.target)) {
+                                dropdownMenu.classList.add('hidden');
+                            }
+                        });
+                    </script>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/ End Header Inner -->
+</header>
+<!-- End Header Area -->
+<style>
+    .sidebar-open {
+        margin-left: 250px; /* Ajustez cette valeur en fonction de la largeur de votre sidebar */
+    }
+
+</style>
+ 
+<!-- Header Area -->
+<header class="header border-b {{ Auth::guard('adherent')->check() ? 'bg-blue-500' : '' }} {{ Auth::guard('adherent')->check() ? 'sidebar-open' : '' }}">
+    <!-- Header Inner -->
+    <div class="header-inner">
+        <div class="container">
+            <div class="inner">
+                <div class="row align-items-center">
+                    @if (!Auth::guard('adherent')->check())
+                    <div class="col-lg-5 col-md-3 col-12">
+                        <!-- Start Logo -->
+                        <div class="logo flex gap-2 items-center">
+                            <a href="/"><img src="{{ asset('images/logo.png') }}" alt="Logo de la Mutuelle" class="h-16 w-auto"></a>
+                            <h3 class="font-bold md:text-base lg:text-base">Mutuelle de la Police Nationale (MU-POL)</h3>
+                        </div>
+                        <!-- End Logo -->
+                        <!-- Mobile Nav -->
+                        <div class="mobile-nav"></div>
+                        <!-- End Mobile Nav -->
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-12">
+                        <!-- Main Menu -->
+                        <div class="main-menu">
+                            <nav class="navigation">
+                                <ul class="nav menu">
+                                    <li class="active"><a href="/">Accueil</a></li>
+                                    <li><a href="#">Nos Services <i class="icofont-rounded-down"></i></a>
+                                        <ul class="dropdown">
+                                            <li><a href="">Santé</a></li>
+                                            <li><a href="">Prévoyance</a></li>
+                                            <li><a href="">Assistance</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">À propos <i class="icofont-rounded-down"></i></a>
+                                        <ul class="dropdown">
+                                            <li><a href="">Présentation</a></li>
+                                            <li><a href="">Notre Équipe</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <!--/ End Main Menu -->
+                    </div>
+
+                    @endif
+                    <div class="col-lg-3 flex items-center justify-between col-12 ml-auto {{ Auth::guard('adherent')->check() ? 'order-last' : '' }}">
+                        @if (Auth::guard('adherent')->check())
+                            <!-- Adhérant connecté -->
+                            <div class="relative">
+                                <button class="flex items-center text-gray-700 focus:outline-none" id="dropdownButton" aria-haspopup="true" aria-expanded="false">
+                                    <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M10 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0 2c-5.52 0-10 2.686-10 4v2h20v-2c0-1.314-4.48-4-10-4z"/>
+                                    </svg> <!-- Icône utilisateur -->
+                                    <span>{{ Auth::guard('adherent')->user()->nom }} {{ Auth::guard('adherent')->user()->prenom }}</span>
+                                </button>
+                                <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10 hidden" id="dropdownMenu">
+                                    <div class="py-1">
+                                        <form id="logout-form" action="{{ route('adherent.logout') }}" method="POST" style="display: none;">
+                                            @csrf
+                                        </form>
+                                        <a href="#" class="block px-4 py-2 text-red-500 hover:bg-gray-100" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Déconnexion</a>
+                                    </div>
+                                </div>
+                            </div>
+                        @else
+                            <!-- Adhérant non connecté -->
+                            <div class="get-quote">
+                                <a class="btn btn-primary" href="{{ route('formulaire-adhesion') }}">
+                                    Adhérer maintenant
+                                </a>
+                            </div>
+                            <div>
+                                <a class="text-[#4B45DC]" href="{{ route('adherent.login') }}">
+                                    Connexion
+                                </a>
+                            </div>
+                        @endif
+                    </div>
+                    
+                    
+                    <script>
+                        // Script pour afficher/masquer le menu déroulant
+                        const dropdownButton = document.getElementById('dropdownButton');
+                        const dropdownMenu = document.getElementById('dropdownMenu');
+                    
+                        dropdownButton.addEventListener('click', () => {
+                            dropdownMenu.classList.toggle('hidden');
+                        });
+                    
+                        // Fermer le dropdown si l'utilisateur clique en dehors
+                        window.addEventListener('click', (event) => {
+                            if (!dropdownButton.contains(event.target)) {
+                                dropdownMenu.classList.add('hidden');
+                            }
+                        });
+                    </script>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/ End Header Inner -->
+</header>
+<!-- End Header Area -->
+<style>
+    .sidebar-open {
+        margin-left: 250px; /* Ajustez cette valeur en fonction de la largeur de votre sidebar */
+    }
+
+</style>
+ 
+user
+ 
+Profil
+ 
+_path_adherent
+ 
+<!-- Sidebar Area -->
+<aside class="sidebar w-64 bg-[#4000FF] text-white h-screen fixed inset-y-0 left-0 transform -translate-x-full md:translate-x-0 transition duration-300 ease-in-out z-40">
+    <div class="sidebar-inner p-4">
+        <div class="logo flex items-center mb-6">
+            <img src="{{ asset('images/logo.png') }}" alt="Logo de la Mutuelle" class="h-16 w-auto mr-2">
+            <h3 class="font-bold text-base text-white">Mutuelle de la Police Nationale (MU-POL)</h3>
+        </div>
+        <nav class="mt-4">
+            <ul class="space-y-2">
+                <li>
+                    <a href="/" class="flex items-center p-2 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md">
+                        <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a8 8 0 0 1 8 8v2a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-2a8 8 0 0 1 8-8z"/></svg>
+                        <span>Mon Profil</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="" class="flex items-center p-2 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md">
+                        <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a8 8 0 0 1 8 8v2a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-2a8 8 0 0 1 8-8z"/></svg>
+                        <span>Nos Services</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="" class="flex items-center p-2 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md">
+                        <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a8 8 0 0 1 8 8v2a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-2a8 8 0 0 1 8-8z"/></svg>
+                        <span>Ma Demande d'Adhésion</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('adherent.logout') }}" class="flex items-center p-2 text-red-500 hover:bg-red-700 hover:text-white rounded-md">
+                        <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20"><path d="M10 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0 2c-5.52 0-10 2.686-10 4v2h20v-2c0-1.314-4.48-4-10-4z"/></svg>
+                        <span>Déconnexion</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</aside>
+<!-- End Sidebar Area -->
+
+<!-- Overlay for sidebar -->
+<div id="overlay" class="fixed inset-0 bg-black opacity-50 z-40 hidden"></div>
+
+<script>
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.getElementById('overlay');
+    const dropdownButton = document.getElementById('dropdownButton');
+
+    dropdownButton.addEventListener('click', () => {
+        sidebar.classList.toggle('-translate-x-full');
+        overlay.classList.toggle('hidden');
+    });
+
+    overlay.addEventListener('click', () => {
+        sidebar.classList.add('-translate-x-full');
+        overlay.classList.add('hidden');
+    });
+</script>
+ 
         $categories = Category::all();
 
  

@@ -1,10 +1,10 @@
 <!-- Header Area -->
-<header class="header border-b {{ Auth::guard('adherent')->check() ? 'sidebar-open' : '' }}">
+<header  class="header border-b  {{ Auth::guard('adherent')->check() ? 'sidebar-open' : '' }}">
     <!-- Header Inner -->
-    <div class="header-inner">
+    <div class="header-inner !rounded-none ">
         <div class="container">
             <div class="inner">
-                <div class="row align-items-center">
+                <div class="row align-items-center {{ Auth::guard('adherent')->check() ? 'bg-[#4644D5]' : '' }}">
                     @if (!Auth::guard('adherent')->check())
                     <div class="col-lg-5 col-md-3 col-12">
                         <!-- Start Logo -->
@@ -46,22 +46,38 @@
                     <div class="col-lg-3 flex items-center justify-between col-12 ml-auto {{ Auth::guard('adherent')->check() ? 'order-last' : '' }}">
                         @if (Auth::guard('adherent')->check())
                             <!-- Adhérant connecté -->
-                            <div class="relative">
-                                <button class="flex items-center text-gray-700 focus:outline-none" id="dropdownButton" aria-haspopup="true" aria-expanded="false">
-                                    <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M10 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0 2c-5.52 0-10 2.686-10 4v2h20v-2c0-1.314-4.48-4-10-4z"/>
-                                    </svg> <!-- Icône utilisateur -->
-                                    <span>{{ Auth::guard('adherent')->user()->nom }} {{ Auth::guard('adherent')->user()->prenom }}</span>
-                                </button>
-                                <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10 hidden" id="dropdownMenu">
-                                    <div class="py-1">
-                                        <form id="logout-form" action="{{ route('adherent.logout') }}" method="POST" style="display: none;">
+                            <div class="relative m-2" @click.away="dropdownOpen = false" x-data="{ dropdownOpen: false }">
+                                <div class="hidden sm:flex sm:items-center sm:ms-6">
+                                    <button 
+                                        @click="dropdownOpen = !dropdownOpen" 
+                                        class="inline-flex items-center px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out bg-gray-200 border border-transparent rounded-md dark:text-gray-400 dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none"
+                                        aria-haspopup="true" 
+                                        aria-expanded="dropdownOpen"
+                                    >
+                                        <div class="flex items-center space-x-2">
+                                            <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                                            <div class="max-w-xs truncate">
+                                                {{ strtoupper(substr(Auth::guard('adherent')->user()->nom, 0, 1)) }}{{ strtoupper(substr(Auth::guard('adherent')->user()->prenom, 0, 1)) }}
+                                            </div>
+                                        </div>
+                                    
+                                        <div class="ms-1">
+                                            <svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                            </svg>
+                                        </div>
+                                    </button>
+                                    <div x-show="dropdownOpen" x-transition class="absolute right-5 w-48 mt-2 origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg dark:bg-gray-800 dark:border-gray-700 z-50" role="menu" aria-orientation="vertical" tabindex="-1">
+                                        <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">Profil</a>
+                                        <form method="POST" action="{{ route('adherent.logout') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">
                                             @csrf
+                                            <button type="submit" class="w-full text-left">Déconnexion</button>
                                         </form>
-                                        <a href="#" class="block px-4 py-2 text-red-500 hover:bg-gray-100" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Déconnexion</a>
                                     </div>
                                 </div>
                             </div>
+                            
+                            
                         @else
                             <!-- Adhérant non connecté -->
                             <div class="get-quote">

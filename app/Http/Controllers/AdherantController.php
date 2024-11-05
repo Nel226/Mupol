@@ -11,7 +11,7 @@ use Carbon\Carbon;
 
 class AdherantController extends Controller
 {
- 
+    // Backend
 
     /**
      * Display a listing of the resource.
@@ -260,5 +260,8 @@ class AdherantController extends Controller
             return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
         }
     }
+
+
+   
     
 }

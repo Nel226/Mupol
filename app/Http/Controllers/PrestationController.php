@@ -17,6 +17,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Exception;
 use Illuminate\Support\Facades\Log;
+use Ramsey\Uuid\Uuid;
 
 class PrestationController extends Controller
 {
@@ -32,6 +33,8 @@ class PrestationController extends Controller
         );
     }
 
+    
+
     public function newPrestationAdherent()
     {
         $adherent = auth()->guard('adherent')->user();
@@ -42,6 +45,82 @@ class PrestationController extends Controller
         // Vérifiez ce que contient $ayantsDroits
     
         return view('pages.frontend.adherents.prestations.create', compact('adherent'));
+    }
+    public function storePrestationAdherent(StorePrestationRequest $request)
+    {
+        $data = $request->all();
+        $adherantCode = $request->adherantCode;
+        $totalMontant = Prestation::where('adherantCode', $adherantCode)->sum('montant');
+        $types = ['consultation', 'hospitalisation', 'radio', 'maternite', 'allocation', 'analyse_biomedicale', 'pharmacie', 'optique', 'dentaire_auditif', 'autre'];
+        $prestationsToSave = [];
+
+        foreach ($types as $type) {
+          
+            for ($i = 0; $i <= 20; $i++) { 
+                $typeSuffix = $i > 0 ? "-$i" : ''; 
+                if (!empty($data["date_$type$typeSuffix"]) && !empty($data["centre_$type$typeSuffix"]) && !empty($data["montant_$type$typeSuffix"])) {
+
+                    $prestationsToSave[] = [
+                        'adherantCode' => $data['adherantCode'],
+                        'adherantNom' => $data['adherantNom'],
+                        'adherantPrenom' => $data['adherantPrenom'],
+                        'adherantSexe' => $data['adherantSexe'],
+                        'beneficiaire' => $data['beneficiaire'],
+                        'idPrestation' => Uuid::uuid4()->toString(),
+                        'contactPrestation' => $data['contactPrestation'],
+                        'acte' => $data["acte$typeSuffix"],
+                        'date' => $data["date_$type$typeSuffix"],
+                        'centre' => $data["centre_$type$typeSuffix"],
+                        'montant' => $data["montant_$type$typeSuffix"],
+                        'type' => $data["type_$type$typeSuffix"] ?? null,
+                        'sous_type' => $data["sous_type_$type$typeSuffix"] ?? null,
+                        'validite' => 'en attente',
+                        'etat_paiement' => false,
+                    ];
+                }
+            }
+        }
+
+        if (empty($prestationsToSave)) {
+            return back()->withErrors(['message' => 'Veuillez remplir tous les champs obligatoires pour chaque prestation visible.']);
+        }
+        
+
+        foreach ($prestationsToSave as $prestationData) {
+            $montant = $prestationData['montant'];
+            if ($totalMontant + $montant > 1500000) {
+                return back()->withErrors(['error' => 'Erreur : La somme totale des prestations de cet adhérent dépasse 1 500 000.']);
+            }
+
+            $prestation = new Prestation($prestationData);
+            
+            // if ($request->hasFile('preuve')) {
+            //     foreach ($request->file('preuve') as $file) {
+            //         $path = $file->store('preuves', 'public'); 
+            //         $prestation->preuve = json_encode([$path]); 
+            //     }
+            // }
+            if ($request->hasFile('preuve')) {
+                $files = [];
+                foreach ($request->file('preuve') as $file) {
+                    $path = $file->store('preuves', 'public');
+                    $files[] = $path; 
+                }
+                $prestation->preuve = json_encode($files); 
+            }
+            
+
+            $prestation->save(); 
+        }
+
+        $adherent = auth()->guard('adherent')->user();
+        
+        $adherent->ayantsDroits = json_decode($adherent->ayantsDroits, true); 
+
+    
+        // Vérifiez ce que contient $ayantsDroits
+        return redirect()->route('adherents.prestations')->with('success', 'Enregistrement réussi');
+
     }
     
 

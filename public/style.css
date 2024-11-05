@@ -302,9 +302,11 @@ body{
 	margin-right:8px;
 }
 .header .header-inner {
-	background:#fff;
 	z-index:999;
 	width:100%;
+}
+.header-inner-bg{
+	background: #4B45DC ;
 }
 .get-quote{
 	margin-top:12px;
@@ -576,7 +578,7 @@ body{
 }
 /* Header Sticky */
 .header.sticky .header-inner{
-	position:fixed;
+	/* position:fixed; */
 	z-index:999;
 	top:0;
 	left:0;

@@ -1,7 +1,7 @@
 <!-- Header Area -->
 <header  class="header border-b  {{ Auth::guard('adherent')->check() ? 'sidebar-open' : '' }}">
     <!-- Header Inner -->
-    <div class="header-inner !rounded-none ">
+    <div class="header-inner !rounded-none {{ Auth::guard('adherent')->check() ? 'header-inner-bg' : '' }} ">
         <div class="container">
             <div class="inner">
                 <div class="row align-items-center {{ Auth::guard('adherent')->check() ? 'bg-[#4644D5]' : '' }}">

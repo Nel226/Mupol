@@ -27,9 +27,15 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{  route('adherents.prestations') }}" class="flex items-center p-2 text-gray-800 hover:bg-gray-700 hover:text-white rounded-md">
+                    <a href="{{  route('adherents.prestations') }}" class="@if(Request::is('adherents/prestations') || Request::is('adherents/prestations/*')) active @endif flex items-center p-2 text-gray-800 hover:bg-gray-700 hover:text-white rounded-md">
                         <i class="fa fa-file mr-3"></i>
                         <span>Prestations</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{  route('adherents.ayantsdroits') }}" class="@if(Request::is('adherents/prestations') || Request::is('adherents/prestations/*')) active @endif flex items-center p-2 text-gray-800 hover:bg-gray-700 hover:text-white rounded-md">
+                        <i class="fa fa-users mr-3"></i>
+                        <span>Mes ayants droits</span>
                     </a>
                 </li>
                 <li>

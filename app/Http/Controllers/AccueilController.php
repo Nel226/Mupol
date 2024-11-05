@@ -14,6 +14,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Adherant;
 use Illuminate\Support\Facades\Hash;
 use App\Mail\AdherantRegistrationMail;
+use App\Models\AyantDroit;
 use Illuminate\Support\Str;
 
 class AccueilController extends Controller
@@ -109,6 +110,22 @@ class AccueilController extends Controller
             'code_carte' => $demandeAdhesion->matricule . '/00', 
 
         ]);
+
+        $ayantsDroitsArray = json_decode($demandeAdhesion->ayantsDroits, true);
+
+        if (is_array($ayantsDroitsArray)) {
+            foreach ($ayantsDroitsArray as $index => $ayantDroitData) {
+                AyantDroit::create([
+                    'nom' => $ayantDroitData['nom'],
+                    'prenom' => $ayantDroitData['prenom'],
+                    'sexe' => $ayantDroitData['sexe'],
+                    'date_naissance' => $ayantDroitData['date_naissance'],
+                    'relation' => $ayantDroitData['lien_parente'],
+                    'code' => $adherent->matricule . '/' . str_pad($index + 1, 2, '0', STR_PAD_LEFT), // Generates code like "matricule/01"
+                    'adherant_id' => $adherent->id,
+                ]);
+            }
+        }
 
         Mail::to($demandeAdhesion->email)->send(new ConfirmationDemandeAdhesion($demandeAdhesion, $pdf, $generatedPassword));
 

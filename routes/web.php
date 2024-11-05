@@ -55,12 +55,31 @@ Route::middleware('auth:adherent')->group(function () {
     Route::get('/adherents/dashboard', [AdherantAuthenticatedSessionController::class, 'dashboard'])
         ->name('adherents.dashboard');
 
+
     Route::get('/adherents/prestations', [PrestationController::class, 'prestations'])
         ->name('adherents.prestations');
 
+    Route::get('/adherents/ayantsdroits', [AyantDroitController::class, 'ayantsDroits'])
+        ->name('adherents.ayantsdroits');
+    
+    Route::get('/adherents/ayantsdroits/nouveau', [AyantDroitController::class, 'newAyantDroitAdherent'])
+        ->name('adherents.nouveau-ayantdroit');
+    
+    Route::post('/adherents/ayantsdroits/store', [AyantDroitController::class, 'storeAyantDroitAdherent'])
+        ->name('adherents.nouveau-ayantdroit.store');
+    Route::delete('/adherents/ayantsdroits/delete/{id}', [AyantDroitController::class, 'deleteAyantDroitAdherent'])
+        ->name('adherents.delete-ayantdroit');
+    
+
     Route::get('/adherents/prestations/nouvelle', [PrestationController::class, 'newPrestationAdherent'])
         ->name('adherents.nouvelle-prestation');
+
+    Route::post('/adherents/prestations/store', [PrestationController::class, 'storePrestationAdherent'])
+        ->name('adherents.nouvelle-prestation.store');
+    
 });
+Route::resource('prestations', PrestationController::class);
+
 
 Route::post('/logout/adherent', [AdherantAuthenticatedSessionController::class, 'destroy'])
     ->name('adherent.logout')
@@ -68,7 +87,6 @@ Route::post('/logout/adherent', [AdherantAuthenticatedSessionController::class, 
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/adherents/prestations', [PrestationController::class, 'prestations'])->name('adherents.prestations');
 
 Route::get('/counter', Counter::class);
 

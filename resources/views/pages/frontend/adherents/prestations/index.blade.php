@@ -1,20 +1,23 @@
 <x-guest-layout>
     <x-header-guest/>
 
-    @if (session()->has('message'))
-        <div id="success-notification" class="notification bg-green-500 text-white p-4 rounded mb-4 mx-6 mt-4 text-center shadow-lg">
-            {{ session('message') }}
-        </div>
+    @if (session('success'))
+        <x-succes-notification>
+            {{ session('success') }}
+        </x-succes-notification>
         <script>
             document.addEventListener('DOMContentLoaded', function () {
-                const notification = document.getElementById('success-notification');
-                setTimeout(() => {
-                    notification.classList.add('hidden'); // Cache le message après 5 secondes
-                }, 5000);
+                const notification = document.getElementById('success-notification-content');
+                const closeBtn = document.getElementById('close-notification');
+                
+                notification.classList.remove('hidden');
+                
+                closeBtn.addEventListener('click', () => {
+                    notification.classList.add('hidden');
+                });
             });
         </script>
     @endif
-
     <x-sidebar-guest/>
 
     <div class="min-h-screen ml-64 bg-gray-50 dark:bg-gray-900 py-3">
@@ -37,8 +40,9 @@
                     <table class="min-w-full bg-white dark:bg-gray-800 shadow-lg rounded-lg">
                         <thead>
                             <tr class="text-left text-gray-600 dark:text-gray-400 uppercase text-sm leading-normal bg-gray-100 dark:bg-gray-700">
-                                <th class="py-3 px-6">ID</th>
                                 <th class="py-3 px-6">Date</th>
+                                <th class="py-3 px-6">Bénéficiare</th>
+
                                 <th class="py-3 px-6">Acte</th>
 
                                 <th class="py-3 px-6">Montant</th>
@@ -51,9 +55,10 @@
                         <tbody class="text-gray-600 dark:text-gray-300 text-sm font-light">
                             @foreach ($prestations as $prestation)
                                 <tr class="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800">
-                                    <td class="py-3 px-6">{{ $prestation->idPrestation }}</td>
                                     
                                     <td class="py-3 px-6">{{ $prestation->date }}</td>
+                                    <td class="py-3 px-6">{{ $prestation->beneficiaire }}</td>
+
                                     <td class="py-3 px-6">{{ $prestation->acte }}</td>
 
                                     <td class="py-3 px-6">{{ $prestation->montant }}</td>

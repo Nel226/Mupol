@@ -25,7 +25,14 @@
             </div>
             
             
+<<<<<<< Updated upstream
             <div class="p-6 mx-auto mt-4 bg-gray-100 min-h-screen  rounded-lg  ">
+=======
+            <div class="p-6 mx-auto mt-4 bg-white rounded-lg shadow-lg ">
+               
+                
+                <style>
+>>>>>>> Stashed changes
                    
                 <div class="adhesion-form mx-auto">
                     <!-- Card container -->
@@ -109,6 +116,7 @@
                                             <th class="py-3 px-4 text-center">CNIB</th>
                                             <th class="py-3 px-4 text-center">Extrait</th>
                                         </tr>
+<<<<<<< Updated upstream
                                     </thead>
                                     <tbody class="text-gray-700 text-sm font-light">
                                         @foreach ($demande->ayantsDroits as $index => $ayantDroit)
@@ -159,6 +167,118 @@
                                     </tbody>
                                 </table>
                                 @endif
+=======
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        @endif  --}}
+                    </div>
+                
+                    <!-- Section : Formations professionnelles -->
+                    <div class="section border-t border-gray-300 mt-2 pt-4">
+                        <h3 class="text-1xl font-semibold mb-2 bg-gray-500 px-auto px-1">INFORMATIONS PROFESSIONELLES</h3>
+                        
+                        <!-- Personnel Retraité -->
+                        @if ($demande->statut === 'personnel_retraite')
+                            <div class="border p-2 rounded-lg mb-2 leading-none">
+                                <div class="text-center">
+                                    <p><strong>{{ $demande->statut == 'personnel_active' ? 'Personnel en activité' : 'Personnel retraité' }}</strong></p>
+                                </div>
+                                <div>
+                                    <div>
+                                        <p><strong>Grade :</strong> {{ $demande->grade }}</p>
+                                    </div>
+                
+                                </div>
+                                <div class="flex space-x-4">
+                                    <div class="flex-1 w-1/2 leading-none">
+                                        <div class="flex leading-none">
+                                            <div class="flex-shrink-0 leading-none">
+                                                <p class="mr-1 leading-none"><strong>Date depart à la retraite :</strong></p>
+                                                <p class="text-xs leading-none"><small>(JJ/MM/AAAA)</small></p>
+                                            </div>
+                                            <div class="flex-1">
+                                                <p>{{ $demande->departARetraite }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                
+                                    <div class="flex  w-1/2 leading-none">
+                                        <p><strong>N° CARFO :</strong> {{ $demande->numeroCARFO }}</p>
+                                    </div>
+                
+                                </div>
+                            </div>
+                        @endif
+                        
+                        <!-- Personnel en Activité -->
+                        @if ($demande->statut === 'personnel_active')
+                            <div class="border px-2 rounded-lg leading-none">
+                                <div class="text-center">
+                                    <p><strong>{{ $demande->statut == 'personnel_active' ? 'Personnel en activité' : 'Personnel retraité' }}</strong></p>
+                                </div>
+                                <div>
+                                    <div>
+                                        <p><strong>Grade :</strong> {{ $demande->grade }}</p>
+                                    </div>
+                
+                                    <div class="flex space-x-4">
+                                        <div class="flex-1 w-1/2 leading-none">
+                                            <div class="flex">
+                                                <div class="flex-shrink-0 leading-none">
+                                                    <p class="mr-1 leading-none"><strong>Date d&apos;intégration :</strong></p>
+                                                    <p class="text-xs leading-none"><small>(JJ/MM/AAAA)</small></p>
+                                                </div>
+                                                <div class="flex-1">
+                                                    <p>{{ $demande->dateIntegration }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                
+                                        <div class="flex  w-1/2 leading-none">
+                                            <div class="flex-shrink-0 leading-none">
+                                                <p class="mr-1 leading-none"><strong>Date de départ à la rétraite :</strong></p>
+                                                <p class="text-xs leading-none"><small>(JJ/MM/AAAA)</small></p>
+                                            </div>
+                
+                                            <div class="flex-1">
+                                                <p>{{ $demande->dateDepartARetraite }}</p>
+                                            </div>
+                                        </div>
+                
+                                    </div>
+                
+                                    <div class="flex space-x-0">
+                                        <p class="flex-1"><strong>Direction :</strong> {{ $demande->direction }}</p>
+                                        <p class="flex-1"><strong>Service :</strong> {{ $demande->service }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                        
+                        
+                        <div class="flex">
+                            <!-- Colonne Références -->
+                            <div class="w-3/4 flex items-center justify-center">
+                                <div class="rounded-lg text-1xl border-2 border-black font-semibold px-1">
+                
+                                    <h3>JOINDRE DES PHOTOS RECENTES DE L’ADHERENT ET DES AYANTS DROITS</h3>
+                                    <h3 class=" text-1xl font-semibol px-auto px-1">
+                                        	joindre une copie de l’extrait de naissance de chaque enfant
+                                    </h3>
+                                    <h3>
+                                        	joindre une copie de l’extrait de naissance et de la CNIB pour la ou le(s) conjoint(es)
+                                    </h3>
+                                </div>
+                
+                            </div>
+                
+                            <!-- Colonne Signature -->
+                            <div class="w-[20%] items-center px-2 justify-end flex-col ml-auto">
+                                <h3 class="text-xs text-center underline decoration-solid ">VISA DU PRESIDENT DU CONSEIL D’ADMINISTRATION</h3>
+                                <div class="w-full h-32 flex-grow border-2 border-black flex items-center justify-center">
+                                </div>
+>>>>>>> Stashed changes
                             </div>
                         </div>
 
@@ -258,6 +378,12 @@
 
                                
             </div>
+            <fieldset>
+                <legend>Pièces jointes</legend>
+                <div>
+                    
+                </div>
+            </fieldset>
             
         </div>
     </x-content-page>

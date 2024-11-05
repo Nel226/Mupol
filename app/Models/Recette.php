@@ -14,11 +14,16 @@ class Recette extends Model
     public $incrementing = false;
     protected $keyType = 'string';
 
-    protected $fillable = ['montant', 'description', 'categorie_id', 'date'];
+    protected $fillable = ['montant', 'description', 'categorie_id', 'sous_categorie_id', 'date'];
 
     public function categorie()
     {
         return $this->belongsTo(Categorie::class, 'categorie_id', 'uuid');
     }
+    public function sousCategorie()
+    {
+        return $this->belongsTo(Categorie::class, 'sous_categorie_id', 'uuid');
+    }
+
 }
 

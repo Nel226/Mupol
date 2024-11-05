@@ -66,8 +66,13 @@ class RecetteController extends Controller
             ],
         ];
         $pageTitle = 'Nouvelle recette';
+        $categories = Categorie::where('type', 'recette')
+                                ->whereNull('parent_id')
+                                ->with('sousCategories')
+                                ->get();
+
         return view('pages.backend.comptabilite.recettes.create',
-                    compact('breadcrumbsItems', 'pageTitle')
+                    compact('breadcrumbsItems', 'pageTitle', 'categories')
         );
     }
 
@@ -92,12 +97,10 @@ class RecetteController extends Controller
             ->whereNull('parent_id')   
             ->get();
 
-      
-
 
         return view('pages.backend.comptabilite.recettes.categories',
                     compact('pageTitle', 'breadcrumbsItems', 
-                     'categories')
+                    'categories')
         );
 
     }
@@ -107,7 +110,18 @@ class RecetteController extends Controller
      */
     public function store(StoreRecetteRequest $request)
     {
-        //
+        // Création d'une nouvelle recette avec les données validées
+        $recette = Recette::create([
+            // 'uuid' => \Illuminate\Support\Str::uuid(), // Génération d'un UUID pour la recette
+            'montant' => $request->input('montant'),
+            'description' => $request->input('description'),
+            'categorie_id' => $request->input('categorie_id'),
+            'sous_categorie_id' => $request->input('sous_categorie_id'),
+            'date' => $request->input('date'),
+        ]);
+
+        // Redirection vers la liste des recettes avec un message de succès
+        return redirect()->route('recettes.index')->with('success', 'Recette ajoutée avec succès !');
     }
 
     /**
@@ -115,7 +129,8 @@ class RecetteController extends Controller
      */
     public function show(Recette $recette)
     {
-        //
+        $recette->load('categorie');
+        return response()->json($recette);
     }
 
     /**

@@ -11,7 +11,7 @@ class StoreRecetteRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,21 @@ class StoreRecetteRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'montant' => 'required|numeric',
+            'description' => 'required|string',
+            'categorie_id' => 'required|exists:categories,uuid', // Vérifie que la catégorie existe
+            'sous_categorie_id' => 'nullable|uuid|exists:categories,uuid',
+            'date' => 'required|date',
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'montant.required' => 'Le montant est requis.',
+            'description.required' => 'La description est requise.',
+            'categorie_id.required' => 'La catégorie est requise.',
+            'date.required' => 'La date est requise.',
+            // Ajouter d'autres messages personnalisés si nécessaire
         ];
     }
 }

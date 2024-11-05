@@ -13,10 +13,12 @@ use App\Http\Controllers\CsvImportController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ParametreController;
 use App\Http\Controllers\AyantDroitController;
+use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\CotisationController;
 use App\Http\Controllers\PrestationController;
 use App\Http\Controllers\DemandeController;
-
+use App\Http\Controllers\DepenseController;
+use App\Http\Controllers\RecetteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -89,6 +91,13 @@ Route::middleware('auth')->group(function () {
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
     Route::resource('demandes', DemandeController ::class);
+    Route::resource('recettes', RecetteController ::class);
+    Route::get('recettes-categories', [RecetteController ::class, 'categories'])->name('recettes.categories');
+
+    Route::resource('depenses', DepenseController ::class);
+    Route::get('depenses-categories', [DepenseController ::class, 'categories'])->name('depenses.categories');
+    Route::resource('categories', CategorieController ::class);
+
     Route::get('/edit-demande-adhesion/{id}', App\Livewire\EditMembership::class)->name('edit-demande-adhesion');
 
 

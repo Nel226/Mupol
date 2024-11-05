@@ -42,13 +42,19 @@
 .active {
     background-color: #ffffff; /* Couleur de fond différente pour l'onglet actif */
     color: black !important; /* Police en gras pour l'onglet actif */
+    
 }
 .active-tab {
     border-color: #6B7280; /* Modifier pour votre couleur d'onglet actif */
     font-weight: bold;
-    background-color: #4000FF;
-    color: white;
+    background-color: #4644D5;
+    color: white !important;
 }
+.active-tab:hover {
+  
+    color: white !important;
+}
+
 .custom-select-wrapper {
     position: relative;
     width: 300px;

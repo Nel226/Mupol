@@ -3,6 +3,7 @@
     <div class="px-4 mx-auto sm:px-6 lg:px-8">
         <div class="flex justify-between">
             <div class="flex items-center justify-start rtl:justify-end">
+                
                 <button @click="open = !open" class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
                     <span class="sr-only">Open sidebar</span>
                     <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -12,7 +13,10 @@
                 
             </div>
 
-            <div class="flex items-center justify-end">
+            <div class="flex items-center justify-between w-full">
+                <div >
+                    @yield('navigation-content')
+                </div>
                 <div class="hidden sm:flex sm:items-center sm:ms-6" @click.away="dropdownOpen = false">
                     <button @click="dropdownOpen = !dropdownOpen" class="inline-flex items-center px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out bg-gray-200 border border-transparent rounded-md dark:text-gray-400 dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none">
                         <div>

@@ -35,7 +35,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{  route('adherents.ayantsdroits') }}" class="@if(Request::is('adherents/prestations') || Request::is('adherents/prestations/*')) active @endif flex items-center p-2 text-gray-800 hover:bg-gray-700 hover:text-white rounded-md">
+                    <a href="{{  route('adherents.ayantsdroits') }}" class="@if(Request::is('adherents/ayantsdroits') || Request::is('adherents/ayantsdroits/*')) active @endif flex items-center p-2 text-gray-800 hover:bg-gray-700 hover:text-white rounded-md">
                         <i class="fa fa-users mr-3"></i>
                         <span>Mes ayants droits</span>
                     </a>
@@ -52,15 +52,20 @@
                     <a href="#" 
                         class="@if(Request::is('adhesion*')) active @endif flex items-center p-2 text-gray-800 hover:bg-gray-700 hover:text-white rounded-md transition-all duration-300">
                         <i class="fa fa-file-text mr-3"></i>
-                        <span>Ma Demande d'Adhésion</span>
+                        <span>Ma Demande d&apos;Adhésion</span>
                     </a>
                 </li>
                 
                 <li>
-                    <a href="{{ route('adherent.logout') }}" class="flex items-center p-2 text-red-500 hover:bg-red-700 hover:text-white rounded-md">
-                        <i class="fa fa-sign-out mr-3"></i>
-                        <span>Déconnexion</span>
-                    </a>
+                    <form method="POST" action="{{ route('adherent.logout') }}" class="flex items-center p-2 text-red-500 hover:bg-red-700 hover:text-white rounded-md">
+                        @csrf
+                        <button type="submit" class="w-full text-left">
+                            <i class="fa  fa-sign-out mr-3"></i>
+
+                            Déconnexion
+                        </button>
+                    </form>
+                   
                 </li>
             </ul>
         </nav>

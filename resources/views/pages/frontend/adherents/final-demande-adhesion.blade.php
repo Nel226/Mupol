@@ -46,28 +46,27 @@
                     
                     <div class="col-lg-12">
                         <x-section-guest>
-                            <div class="flex justify-start gap-2 my-3">
+                           
+
+                            <div class="flex justify-between gap-2 my-3">
                                 <a class="btn" href="{{ route('download-form-adhesion', [
                                         'id' => $demandeAdhesion->id, 
                                     ]) }}">
                                     Télécharger le formulaire d'adhésion
                     
                                 </a>
-                                <x-primary-button onclick="printIframeContent()" class="btn" style="background-color: #4CAF50">
-                                    Imprimer 
-                                </x-primary-button>
-                            </div>
+                                <div>
 
-                            <div class="flex justify-end gap-2 my-3">
-                                <a class="btn" href="{{ route('download-fiche-cession-volontaire', [
-                                        'id' => $demandeAdhesion->id, 
-                                    ]) }}">
-                                    Télécharger la fiche de cession volontaire
-                    
-                                </a>
-                                <x-primary-button onclick="printIframeContent()" class="btn" style="background-color: #4CAF50">
-                                    Imprimer 
-                                </x-primary-button>
+                                    <a class="btn" href="{{ route('download-fiche-cession-volontaire', [
+                                            'id' => $demandeAdhesion->id, 
+                                        ]) }}">
+                                        Télécharger la fiche de cession volontaire
+                        
+                                    </a>
+                                    <button onclick="printIframeContent()" class="btn" style="background-color: #4CAF50">
+                                        Imprimer 
+                                    </button>
+                                </div>
                             </div>
                             
                             <iframe id="iframeId" src="{{ route('imprimer-fiche-cession', ['id' => $demandeAdhesion->id]) }}" style="display:none;"></iframe>

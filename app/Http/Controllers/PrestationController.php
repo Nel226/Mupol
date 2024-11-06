@@ -38,8 +38,8 @@ class PrestationController extends Controller
     public function newPrestationAdherent()
     {
         $adherent = auth()->guard('adherent')->user();
-    
-        $adherent->ayantsDroits = json_decode($adherent->ayantsDroits, true); 
+        $adherent->ayantsDroits = AyantDroit::where('adherant_id', $adherent->id)->get();
+
 
     
         // Vérifiez ce que contient $ayantsDroits

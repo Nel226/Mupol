@@ -63,7 +63,7 @@
                         <div class="w-full">
                            
                             <label for="relation" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Relation</label>
-                            <select id="relation" name="relation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus-ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                            <select id="relation" name="relation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus-ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
                                 <option value="">-- Choisir --</option>
                                 <option value="Enfant">Enfant</option>
                                 <option value="Epoux">Epoux</option>

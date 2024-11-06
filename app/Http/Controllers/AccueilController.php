@@ -119,7 +119,7 @@ class AccueilController extends Controller
                     'nom' => $ayantDroitData['nom'],
                     'prenom' => $ayantDroitData['prenom'],
                     'sexe' => $ayantDroitData['sexe'],
-                    'photo' => $ayantDroitData['photo'],
+                    'photo' => $ayantDroitData['photo'] ?? null,
                     'cnib' => $ayantDroitData['cnib'] ?? null,
                     'extrait' => $ayantDroitData['extrait'] ?? null,
                     'adherant_id' => $adherent->id ,

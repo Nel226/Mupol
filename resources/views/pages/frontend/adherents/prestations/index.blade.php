@@ -56,12 +56,12 @@
                             @foreach ($prestations as $prestation)
                                 <tr class="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800">
                                     
-                                    <td class="py-3 px-6">{{ $prestation->date }}</td>
+                                    <td class="py-3 px-6">{{ \Carbon\Carbon::parse($prestation->date)->format('d/m/Y') }}</td>
                                     <td class="py-3 px-6">{{ $prestation->beneficiaire }}</td>
 
                                     <td class="py-3 px-6">{{ $prestation->acte }}</td>
 
-                                    <td class="py-3 px-6">{{ $prestation->montant }}</td>
+                                    <td class="py-3 px-6 text-right">{{ $prestation->montant }}</td>
                                     <td class="py-3 px-6">{{ $prestation->validite }}</td>
 
                                     <td class="py-3 px-6">
@@ -80,9 +80,7 @@
                             @endforeach
                         </tbody>
                     </table>
-                    <p style="writing-mode: vertical-rl; text-orientation: mixed;">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos explicabo dolorem velit dolor nam voluptate perspiciatis debitis eum minima, magnam dicta doloremque labore consectetur est maiores, soluta, iure obcaecati molestias!
-                    </p>
+                    
                 </div>
 
                 <div class="mt-8 text-center">

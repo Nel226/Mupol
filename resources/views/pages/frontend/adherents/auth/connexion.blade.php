@@ -2,7 +2,7 @@
     <x-header-guest/>
     <x-preloader/>
     <div class="">
-        <!-- Breadcrumbs -->
+        {{--  <!-- Breadcrumbs -->
 		<div class="breadcrumbs overlay">
 			<div class="container">
 				<div class="bread-inner">
@@ -19,7 +19,7 @@
 				</div>
 			</div>
 		</div>
-		<!-- End Breadcrumbs -->
+		<!-- End Breadcrumbs -->  --}}
 
         <section class="section">
             <div class="container h-screen">

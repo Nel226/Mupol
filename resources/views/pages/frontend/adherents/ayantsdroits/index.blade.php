@@ -47,6 +47,7 @@
                                 <th class="py-3 px-6">Prénom</th>
 
                                 <th class="py-3 px-6">Lien de parenté</th>
+                                
                                 <th class="py-3 px-6">Actions</th>
 
 
@@ -76,10 +77,10 @@
                                     <td class="py-3 px-6">{{ $ayantDroit->prenom }}</td>
 
                                     <td class="py-3 px-6">{{ $ayantDroit->relation }}</td>
-                                    <th class="py-3 px-2 flex">
-                                        <x-primary-button class=" ">
+                                    <th class="py-3 px-2  text-center justify-center">
+                                        {{--  <x-primary-button class=" ">
                                             <i class=" fa fa-pencil-square"></i>
-                                        </x-primary-button>
+                                        </x-primary-button>  --}}
                                         <form action="{{ route('adherents.delete-ayantdroit', $ayantDroit->id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet ayant droit ?');">
                                             @csrf
                                             @method('DELETE')  <!-- This is correct and will indicate to Laravel that you want to treat this as a DELETE request -->

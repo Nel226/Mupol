@@ -1,35 +1,31 @@
 <!-- Header Area -->
-<header  class="header border-b  {{ Auth::guard('adherent')->check() ? 'sidebar-open' : '' }}">
+<header  class="header border-b  ">
     <!-- Header Inner -->
     <div class="header-inner !rounded-none {{ Auth::guard('adherent')->check() ? 'header-inner-bg' : '' }} ">
         <div class="container">
             <div class="inner">
                 <div class="row align-items-center ">
-                    @if (!Auth::guard('adherent')->check())
                     <div class="col-lg-5 col-md-3 col-12">
                         <!-- Start Logo -->
                         <div class="logo flex gap-2 items-center">
                             <a href="/"><img src="{{ asset('images/logofinal.png') }}" alt="Logo de la Mutuelle" class="h-16 w-auto"></a>
-                            <h3 class="font-bold md:text-base lg:text-base">Mutuelle de la Police Nationale (MU-POL)</h3>
+                            @if (!Auth::guard('adherent')->check())
+                                <h3 class="font-bold md:text-base lg:text-base">Mutuelle de la Police Nationale (MU-POL)</h3>
+                            @endif
                         </div>
                         <!-- End Logo -->
                         <!-- Mobile Nav -->
                         <div class="mobile-nav"></div>
                         <!-- End Mobile Nav -->
                     </div>
+                    @if (!Auth::guard('adherent')->check())
                     <div class="col-lg-4 col-md-6 col-12">
                         <!-- Main Menu -->
                         <div class="main-menu">
                             <nav class="navigation">
                                 <ul class="nav menu">
                                     <li class="active"><a href="/">Accueil</a></li>
-                                    <li><a href="#">Nos Services <i class="icofont-rounded-down"></i></a>
-                                        <ul class="dropdown">
-                                            <li><a href="">Santé</a></li>
-                                            <li><a href="">Prévoyance</a></li>
-                                            <li><a href="">Assistance</a></li>
-                                        </ul>
-                                    </li>
+                                    
                                     <li><a href="#">À propos <i class="icofont-rounded-down"></i></a>
                                         <ul class="dropdown">
                                             <li><a href="">Présentation</a></li>
@@ -43,7 +39,7 @@
                     </div>
 
                     @endif
-                    <div class="col-lg-3 flex items-center justify-between col-12 ml-auto {{ Auth::guard('adherent')->check() ? 'order-last' : '' }}">
+                    <div class="col-lg-3 flex items-center gap-2 justify-end col-12 ml-auto {{ Auth::guard('adherent')->check() ? 'order-last' : '' }}">
                         @if (Auth::guard('adherent')->check())
                             <!-- Adhérant connecté -->
                             <div class="relative m-2" @click.away="dropdownOpen = false" x-data="{ dropdownOpen: false }">
@@ -68,7 +64,7 @@
                                         </div>
                                     </button>
                                     <div x-show="dropdownOpen" x-transition class="absolute right-5 w-48 mt-2 origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg dark:bg-gray-800 dark:border-gray-700 z-50" role="menu" aria-orientation="vertical" tabindex="-1">
-                                        <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">Profil</a>
+                                        <a href="{{ route('adherents.dashboard') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">Tableau de bord</a>
                                         <form method="POST" action="{{ route('adherent.logout') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">
                                             @csrf
                                             <button type="submit" class="w-full text-left">Déconnexion</button>

@@ -82,7 +82,7 @@
 
                                 <label for="contactPrestation" class="block text-gray-700 dark:text-gray-300 font-semibold">Acte</label>
         
-                                <select id="acte" name="acte" class="acte-select block w-full p-2 mb-4 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
+                                <select id="acte" name="acte" class="acte-select block w-full p-2 mb-4 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" required>
                                     <option value="">-- Choisir --</option>
                                     <option value="consultation">Consultation</option>
                                     <option value="hospitalisation">Hospitalisation</option>
@@ -150,12 +150,12 @@
                             <div class="flex space-x-6">
                                 <div class="w-1/2">
                                     <label for="montant" class="block mb-2 text-sm font-medium text-gray-900">Montant :</label>
-                                    <input id="montant" name="montant_consultation" type="number" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg">
+                                    <input id="montant" name="montant_consultation" type="number" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg" >
                                 </div>
                                 
                                 <div class="w-1/2">
                                     <label for="preuve" class="block mb-2 text-sm font-medium text-gray-900">Preuve :</label>
-                                    <input id="preuve" name="preuve[]" type="file" multiple class="block w-full p-2 mb-4 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
+                                    <input id="preuve" name="preuve[]" type="file" multiple class="block w-full p-2 mb-4 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" >
                                 </div>
                             </div>
                         </div>
@@ -165,16 +165,16 @@
                             <div class="flex space-x-6">
                                 <div class="w-1/2">
                                     <label for="date_hospitalisation" class="block mb-2 text-sm font-medium text-gray-900">Date :</label>
-                                    <input id="date_hospitalisation" name="date_hospitalisation" type="date" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg">
+                                    <input id="date_hospitalisation" name="date_hospitalisation" type="date" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg" >
                                 </div>
                                 
                                 <div class="w-1/2">
                                     <label for="centre_hospitalisation" class="block mb-2 text-sm font-medium text-gray-900">Centre de santé :</label>
-                                    <input id="centre_hospitalisation" name="centre_hospitalisation" type="text" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg">
+                                    <input id="centre_hospitalisation" name="centre_hospitalisation" type="text" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg" >
                                 </div>
                             </div>
                             <label class="block mb-2 text-sm font-medium text-gray-900">Durée :</label>
-                            <select name="type_hospitalisation" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg">
+                            <select name="type_hospitalisation" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg" >
                                 <option value="">-- Sélectionner la durée --</option>
                                 <option value="inf-2-jours">Inférieur à 2 jours</option>
                                 <option value="2-7-jours">2 à 7 jours</option>
@@ -184,12 +184,12 @@
                             <div class="flex space-x-6">
                                 <div class="w-1/2">
                                     <label for="montant_hospitalisation" class="block mb-2 text-sm font-medium text-gray-900">Montant :</label>
-                                    <input id="montant_hospitalisation" name="montant_hospitalisation" type="number" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg">
+                                    <input id="montant_hospitalisation" name="montant_hospitalisation" type="number" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg" >
                                 </div>
                                 
                                 <div class="w-1/2">
                                     <label for="preuve_hospitalisation" class="block mb-2 text-sm font-medium text-gray-900">Preuve :</label>
-                                    <input id="preuve_hospitalisation" name="preuve[]" type="file" multiple accept=".pdf" class="block w-full p-2 mb-4 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
+                                    <input id="preuve_hospitalisation" name="preuve[]" type="file" multiple accept=".pdf" class="block w-full p-2 mb-4 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" >
                                 </div>
                             </div>
                         </div>
@@ -212,12 +212,12 @@
                             <div class="flex space-x-6">
                                 <div class="w-1/2">
                                     <label for="montant" class="block mb-2 text-sm font-medium text-gray-900">Montant :</label>
-                                    <input id="montant"  name="montant_analyse_biomedicale" type="number" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
+                                    <input id="montant"  name="montant_analyse_biomedicale" type="number" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg "  >
                                 </div>
                                 
                                 <div class="w-1/2">
-                                    <label for="preuve" class="block mb-2 text-sm font-medium text-gray-900">Preuve :</label>
-                                    <input id="preuve" name="preuve[]" type="file" multiple class="block w-full p-2 mb-4 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
+                                    <label for="preuve" class="block mb-2 text-sm font-medium text-gray-900">Preuve (Format PDF):</label>
+                                    <input id="preuve" name="preuve[]" type="file" multiple class="block w-full p-2 mb-4 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" >
                                 </div>
                                 
                             </div>
@@ -228,7 +228,7 @@
                             <div class="flex space-x-6">
                                 <div class="w-1/2">
                                     <label for="date" class="block mb-2 text-sm font-medium text-gray-900">Date :</label>
-                                    <input id="date" name="date_radio" type="date" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
+                                    <input id="date" name="date_radio" type="date" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg "  >
                                 </div>
                                 
                                 <div class="w-1/2">
@@ -238,7 +238,7 @@
                                 
                             </div>
                             <label class="block mb-2 text-sm font-medium text-gray-900">Type :</label>
-                            <select name="type_radio" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg">
+                            <select name="type_radio" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg" >
                                 <option value="">-- Sélectionner le type de radiographie --</option>
                                 <option value="radio-standard">Radio standard</option>
                                 <option value="echo">Échographie</option>
@@ -256,7 +256,7 @@
                                 
                                 <div class="w-1/2">
                                     <label for="preuve" class="block mb-2 text-sm font-medium text-gray-900">Preuve :</label>
-                                    <input id="preuve" name="preuve[]" type="file" multiple class="block w-full p-2 mb-4 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
+                                    <input id="preuve" name="preuve[]" type="file" multiple class="block w-full p-2 mb-4 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" >
                                 </div>
                                 
                             </div>
@@ -268,12 +268,12 @@
                             <div class="flex space-x-6">
                                 <div class="w-1/2">
                                     <label for="date" class="block mb-2 text-sm font-medium text-gray-900">Date :</label>
-                                    <input id="date"  name="date_pharmacie" type="date" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
+                                    <input id="date"  name="date_pharmacie" type="date" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg "  >
                                 </div>
                                 
                                 <div class="w-1/2">
                                     <label for="centre" class="block mb-2 text-sm font-medium text-gray-900">Centre de santé :</label>
-                                    <input id="centre" name="centre_pharmacie" type="text" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
+                                    <input id="centre" name="centre_pharmacie" type="text" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg "  >
                                 </div>
                                 
                             </div>
@@ -286,7 +286,7 @@
                                 
                                 <div class="w-1/2">
                                     <label for="preuve" class="block mb-2 text-sm font-medium text-gray-900">Preuve :</label>
-                                    <input id="preuve" name="preuve[]" type="file" multiple class="block w-full p-2 mb-4 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
+                                    <input id="preuve" name="preuve[]" type="file" multiple class="block w-full p-2 mb-4 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" >
                                 </div>
                                 
                             </div>
@@ -303,12 +303,12 @@
                                 
                                 <div class="w-1/2">
                                     <label for="centre" class="block mb-2 text-sm font-medium text-gray-900">Centre de santé :</label>
-                                    <input id="centre" name="centre_maternite" type="text" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
+                                    <input id="centre" name="centre_maternite" type="text" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg "  >
                                 </div>
                                 
                             </div>
                             <label class="block mb-2 text-sm font-medium text-gray-900">Type :</label>
-                            <select name="type_maternite" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg">
+                            <select name="type_maternite" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg" >
                                 <option value="">-- Sélectionner le type de maternité --</option>
                                 <option value="naissance-vivante">Naissance vivante</option>
                                 <option value="deces">Décès</option>
@@ -316,12 +316,12 @@
                             <div class="flex space-x-6">
                                 <div class="w-1/2">
                                     <label for="montant" class="block mb-2 text-sm font-medium text-gray-900">Montant :</label>
-                                    <input id="montant"  name="montant_maternite" type="number" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
+                                    <input id="montant"  name="montant_maternite" type="number" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg "  >
                                 </div>
                                 
                                 <div class="w-1/2">
                                     <label for="preuve" class="block mb-2 text-sm font-medium text-gray-900">Preuve :</label>
-                                    <input id="preuve" name="preuve[]" type="file" multiple class="block w-full p-2 mb-4 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
+                                    <input id="preuve" name="preuve[]" type="file" multiple class="block w-full p-2 mb-4 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" >
                                 </div>
                                 
                             </div>
@@ -482,6 +482,8 @@
                             const dentaireAuditifOptions = document.getElementById('dentaireAuditifOptions');
                 
                             const allocationOptions = document.getElementById('allocationOptions');
+                            const autreOptions = document.getElementById('autreOptions');
+
                             const secoursMedicalDetail = document.getElementById('secoursMedicalDetail');
 
                             acteSelect.addEventListener('change', function() {
@@ -497,6 +499,7 @@
                                 dentaireAuditifOptions.classList.add('hidden');
                                 allocationOptions.classList.add('hidden');
                                 secoursMedicalDetail.classList.add('hidden');
+                                autreOptions.classList.add('hidden');
 
                                 // Show specific options based on selection
                                 switch (this.value) {
@@ -509,7 +512,7 @@
                                     case 'specialite':
                                         specialiteContainer.classList.remove('hidden');
                                         break;
-                                    case 'analyseBiomedicale':
+                                    case 'analyse_biomedicale':
                                         analyseBiomedicaleOptions.classList.remove('hidden');
                                         break;
                                     case 'radio':
@@ -524,17 +527,19 @@
                                     case 'optique':
                                         optiqueOptions.classList.remove('hidden');
                                         break;
-                                    case 'dentaire':
+                                    case 'dentaire_auditif':
                                         dentaireAuditifOptions.classList.remove('hidden');
                                         break;
                                     case 'allocation':
                                         allocationOptions.classList.remove('hidden');
                                         break;
+                                    case 'autre':
+                                        autreOptions.classList.remove('hidden');
+                                        break;
                                     case 'secoursMedical':
                                         secoursMedicalDetail.classList.remove('hidden');
                                         break;
                                     default:
-                                        // Optionally handle default case if needed
                                         break;
                                 }
                             });

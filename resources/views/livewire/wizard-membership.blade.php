@@ -368,7 +368,7 @@
                                         <img src="{{ asset('images/user-90.png') }}" alt="Default profile photo" class="w-36 h-36 object-cover mx-auto rounded-full">
                                     @endif
                                 </div>
-                                <input type="file" wire:model="photo" id="photo" accept="image/*" class="my-1 block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 
+                                <input type="file" wire:model="photo" id="photo" accept="image/jpg, image/jpeg" class="my-1 block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 
                                     file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 
                                     file:text-blue-700 hover:file:bg-violet-100"/>
                                 
@@ -405,7 +405,7 @@
                                             <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
                                                 <div class="mt-2">
                                                     <label class="block text-gray-700 text-sm font-bold mb-1">Nom</label>
-                                                    <input type="text" wire:model="ayantsDroits.{{ $i }}.nom" class="border rounded w-full py-1">
+                                                    <input type="text" wire:model="ayantsDroits.{{ $i }}.nom" class="border rounded w-full py-1" >
                                                     <!-- Affichage des erreurs pour le champ "nom" -->
                                                     @error('ayantsDroits.' . $i . '.nom')
                                                         <span class="text-red-500 text-xs">{{ $message }}</span>
@@ -462,7 +462,7 @@
                                                 <div class="mt-4">
                                                     <label class="block text-gray-700 text-sm font-bold mb-1">Photo de la CNIB</label>
                                                     <div class="w-full justify-center border-2 rounded-md p-1 border-gray-700">
-                                                        <input type="file" wire:model="ayantsDroits.{{ $i }}.cnib" class="w-full py-2">
+                                                        <input type="file" wire:model="ayantsDroits.{{ $i }}.cnib" class="w-full py-2" accept="image/jpg, image/jpeg">
                                                         
                                                         <!-- Afficher une prévisualisation de la photo de la CNIB si elle est uploadée -->
                                                         @if (isset($ayantsDroits[$i]['cnib']))
@@ -485,7 +485,7 @@
                                                     <label class="block text-gray-700 text-sm font-bold mb-1">Photo de l&apos;ayant droit</label>
                                                     <div class="w-full justify-center border-2 rounded-md p-1 border-gray-700">
                                                         <!-- Upload photo -->
-                                                        <input type="file" wire:model="ayantsDroits.{{ $i }}.photo" class="w-full py-2">
+                                                        <input type="file" wire:model="ayantsDroits.{{ $i }}.photo" class="w-full py-2" accept="image/jpg, image/jpeg">
                                                         
                                                         <!-- Afficher une prévisualisation de la photo si elle est uploadée -->
                                                         @if (isset($ayantsDroits[$i]['photo']))
@@ -502,7 +502,7 @@
                                                 <div>
                                                     <label class="block text-gray-700 text-sm font-bold mb-1">Extrait d&apos;acte de naissance</label>
                                                     <div class="w-full justify-center border-2 rounded-md p-1 border-gray-700">
-                                                        <input type="file" wire:model="ayantsDroits.{{ $i }}.extrait" class="w-full py-2">
+                                                        <input type="file" wire:model="ayantsDroits.{{ $i }}.extrait" class="w-full py-2" accept="image/jpg, image/jpeg">
                                                         
                                                         <!-- Afficher une prévisualisation de l'extrait d'acte de naissance si uploadé -->
                                                         @if (isset($ayantsDroits[$i]['extrait']))

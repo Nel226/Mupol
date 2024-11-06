@@ -1,3 +1,14 @@
+<!-- Afficher une prévisualisation de la photo de la CNIB si elle est uploadée -->
+                                                        @if (isset($ayantsDroits[$i]['cnib']))
+                                                            <img src="{{ $ayantsDroits[$i]['cnib']->temporaryUrl() }}" class="w-20 h-20">
+                                                        @endif
+                                                        
+ 
+<!-- Afficher une prévisualisation de l'extrait d'acte de naissance si uploadé -->
+                                                        @if (isset($ayantsDroits[$i]['extrait']))
+                                                            <img src="{{ $ayantsDroits[$i]['extrait']->temporaryUrl() }}" class="w-20 h-20">
+                                                        @endif
+ 
 
     
  

@@ -243,7 +243,7 @@
 
         @php
             use App\Helpers\DemandeCategorieHelper;
-            $cotisations = DemandeCategorieHelper::calculerCotisationMensuelleTotale($demandeAdhesion->nombreAyantsDroits);
+            $cotisations = DemandeCategorieHelper::calculerCotisationMensuelleTotale($demandeAdhesion->nombreAyantsDroits, $demandeAdhesion->statut);
         @endphp
         <table class="montants">
             <tr>

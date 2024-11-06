@@ -13,10 +13,10 @@ class DemandeCategorieHelper
         return ($nombreAyantsDroits === 0) ? 1 : min($nombreAyantsDroits + 1, 7); // Limite à 7 pour 6 ayants droits
     }
 
-    public static function calculerCotisationMensuelleTotale($nombreAyantsDroits)
+    public static function calculerCotisationMensuelleTotale($nombreAyantsDroits , $statut)
     {
         $fraisAdhesion = 10000;
-        $cotisationAdherent = 5000;
+        $cotisationAdherent = ($statut === 'personnel_retraite') ? 3000 : 5000;
         $cotisationAyantsDroits = 2000 * $nombreAyantsDroits; 
 
         $cotisationTotale =  $cotisationAdherent + $cotisationAyantsDroits;

@@ -1,8 +1,8 @@
 <!-- Sidebar Area -->
-<aside class="sidebar w-64 bg-white text-gray-800 shadow-lg h-screen fixed inset-y-0 left-0 transform -translate-x-full md:translate-x-0 transition duration-300 ease-in-out z-40">
+<aside class="sidebar w-64 bg-[#cccccc] text-gray-800 shadow-lg h-screen fixed inset-y-0 left-0 transform -translate-x-full md:translate-x-0 transition duration-300 ease-in-out z-40">
     <div class="sidebar-inner p-4">
         <div class="logo flex items-center mb-6">
-            <img src="{{ asset('images/logo.png') }}" alt="Logo de la Mutuelle" class="h-16 w-auto mr-2">
+            <img src="{{ asset('images/logofinal.png') }}" alt="Logo de la Mutuelle" class="h-16 w-auto mr-2">
             <h3 class="font-bold text-sm text-gray-800">Mutuelle de la Police Nationale (MU-POL)</h3>
         </div>
         
@@ -26,8 +26,10 @@
                         <span>Nos Services</span>
                     </a>
                 </li>
+                
                 <li>
-                    <a href="{{  route('adherents.prestations') }}" class="@if(Request::is('adherents/prestations') || Request::is('adherents/prestations/*')) active @endif flex items-center p-2 text-gray-800 hover:bg-gray-700 hover:text-white rounded-md">
+                    <a href="{{ route('adherents.prestations') }}" 
+                        class="@if(Request::is('adherents/prestations*')) active @endif flex items-center p-2 text-gray-800 hover:bg-gray-700 hover:text-white rounded-md transition-all duration-300">
                         <i class="fa fa-file mr-3"></i>
                         <span>Prestations</span>
                     </a>
@@ -39,11 +41,21 @@
                     </a>
                 </li>
                 <li>
+                
+                {{-- <li>
                     <a href="" class="flex items-center p-2 text-gray-800 hover:bg-gray-700 hover:text-white rounded-md">
                         <i class="fa fa-file-text mr-3"></i>
                         <span>Ma Demande d'Adhésion</span>
                     </a>
+                </li> --}}
+                <li>
+                    <a href="#" 
+                        class="@if(Request::is('adhesion*')) active @endif flex items-center p-2 text-gray-800 hover:bg-gray-700 hover:text-white rounded-md transition-all duration-300">
+                        <i class="fa fa-file-text mr-3"></i>
+                        <span>Ma Demande d'Adhésion</span>
+                    </a>
                 </li>
+                
                 <li>
                     <a href="{{ route('adherent.logout') }}" class="flex items-center p-2 text-red-500 hover:bg-red-700 hover:text-white rounded-md">
                         <i class="fa fa-sign-out mr-3"></i>

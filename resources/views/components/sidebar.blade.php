@@ -68,11 +68,11 @@
                     <i :class="openMenu === 'depenses' ? 'fa fa-chevron-up' : 'fa fa-chevron-down'" class="text-white group-hover:text-black"></i>
                 </a>
                 <ul x-show="openMenu === 'depenses'" class="ml-5 mt-1 shadow-lg border border-gray-50 rounded-lg" x-collapse>
-                    <li>
-                        <a href="{{ route('depenses.index') }}" class="@if(Request::is('depenses') ) active @endif flex items-center px-3 py-2 text-gray-200 rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
-                            <span class="ml-3">Aperçu</span>
-                        </a>
-                    </li>
+                        <li>
+                            <a href="{{ route('depenses.index') }}" class="@if(Request::is('depenses') ) active @endif flex items-center px-3 py-2 text-gray-200 rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
+                                <span class="ml-3">Aperçu</span>
+                            </a>
+                        </li>
                     <li>
                         <a href="{{ route('depenses.categories') }}" class="@if(Request::is('depenses-categories')) active @endif flex items-center px-3 py-2 text-gray-200 rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
                             <span class="ml-3">Catégories</span>

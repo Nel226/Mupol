@@ -80,6 +80,9 @@
                             @endforeach
                         </tbody>
                     </table>
+                    <p style="writing-mode: vertical-rl; text-orientation: mixed;">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos explicabo dolorem velit dolor nam voluptate perspiciatis debitis eum minima, magnam dicta doloremque labore consectetur est maiores, soluta, iure obcaecati molestias!
+                    </p>
                 </div>
 
                 <div class="mt-8 text-center">

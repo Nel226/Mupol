@@ -4,12 +4,12 @@
     <div class="header-inner !rounded-none {{ Auth::guard('adherent')->check() ? 'header-inner-bg' : '' }} ">
         <div class="container">
             <div class="inner">
-                <div class="row align-items-center {{ Auth::guard('adherent')->check() ? 'bg-[#4644D5]' : '' }}">
+                <div class="row align-items-center ">
                     @if (!Auth::guard('adherent')->check())
                     <div class="col-lg-5 col-md-3 col-12">
                         <!-- Start Logo -->
                         <div class="logo flex gap-2 items-center">
-                            <a href="/"><img src="{{ asset('images/logo.png') }}" alt="Logo de la Mutuelle" class="h-16 w-auto"></a>
+                            <a href="/"><img src="{{ asset('images/logofinal.png') }}" alt="Logo de la Mutuelle" class="h-16 w-auto"></a>
                             <h3 class="font-bold md:text-base lg:text-base">Mutuelle de la Police Nationale (MU-POL)</h3>
                         </div>
                         <!-- End Logo -->

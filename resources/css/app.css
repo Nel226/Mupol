@@ -312,6 +312,13 @@ html {
     margin-left: auto;
 }
 
+/* Style pour le lien actif */
+a:active {
+    background-color: #4a5568; /* Couleur de fond personnalisée */
+    color: white; /* Couleur de texte */
+    font-weight: bold; /* Optionnel pour accentuer l'effet actif */
+}
+
 @media (min-width: 1200px) {
     .container {
         max-width: 1140px;

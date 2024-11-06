@@ -17,10 +17,17 @@
             });
         </script>
     @endif
-    
+
     <x-content-page>
-        
+        @section('navigation-content')
+            <x-breadcrumb :breadcrumbItems="$breadcrumbsItems" :pageTitle="$pageTitle"/>
+        @endsection   
+
         <div class="flex-1 p-6">
+            {{-- <x-header>
+                {{$pageTitle}}
+            </x-header> --}}
+
             <div class="flex items-center px-4 py-2 text-gray-500 bg-[#fffe4a70] rounded-t-lg shadow-lg">
                 <h1 class="flex-1 text-2xl font-bold">Gestion des prestations</h1>
             </div>

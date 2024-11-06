@@ -73,7 +73,7 @@ class RecetteController extends Controller
             return $recette->categorie->sous_type; // Retourne le sous_type de la catégorie associée
         })
         ->unique(); // Pour s'assurer qu'il n'y a pas de doublons
-        dd()
+        
         $pageTitle = 'Nouvelle recette';
         $categories = Categorie::where('type', 'recette')
                                 ->whereNull('parent_id')

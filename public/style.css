@@ -297,11 +297,18 @@ body{
 .header .top-contact li a:hover{
 	color:#4B45DC;
 }
+
 .header .top-contact li i{
 	color:#4B45DC;
 	margin-right:8px;
 }
+
+.header-inner-bg {
+	background:#4644D5;
+}
 .header .header-inner {
+	background: rgb(34,167,195);
+	background: linear-gradient(0deg, rgba(34,167,195,1) 0%, rgba(181,167,246,1) 100%);
 	z-index:999;
 	width:100%;
 }

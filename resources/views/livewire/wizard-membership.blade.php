@@ -39,7 +39,7 @@
                             @elseif ($step == 3)
                                 Informations personnelles
                             @elseif ($step == 4)
-                                Formations professionnelles
+                                Informations professionnelles
                             @elseif ($step == 5)
                                 Récapitulatif
                             @endif

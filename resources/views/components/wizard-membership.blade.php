@@ -28,7 +28,7 @@
             <li class="step-item flex w-full relative before:content-[''] before:w-full before:h-0.5 before:bg-gray-200 before:absolute before:right-1/2 lg:before:top-5 before:top-3 after:content-[''] after:w-full after:h-0.5 after:bg-gray-200 after:absolute after:left-1/2 lg:after:top-5 after:top-3">
                 <div class="block text-xs w-full whitespace-normal break-words text-center z-10">
                     <span class="step-number w-6 h-6 bg-gray-50 border border-gray-200 text-indigo-600 rounded-full flex justify-center items-center mx-auto mb-3 lg:w-10 lg:h-10">4</span>
-                    Formations professionnelles
+                    Informations professionnelles
                 </div>
             </li>
             <li class="step-item flex w-full relative text-gray-900 before:content-[''] before:w-full before:h-0.5 before:bg-gray-200 before:absolute lg:before:top-5 before:top-3 before:right-1/2">

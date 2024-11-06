@@ -1,3 +1,9 @@
+
+    
+ 
+        // Vérifiez ce que contient $ayantsDroits
+
+ 
         $adherent->ayantsDroits = json_decode($adherent->ayantsDroits, true); 
 
  

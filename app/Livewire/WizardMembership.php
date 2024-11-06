@@ -113,8 +113,9 @@ class WizardMembership extends Component
                         "ayantsDroits.$index.lien_parente" => 'required|string|max:255',
 
                         "ayantsDroits.$index.photo" => 'nullable|image|max:1024',
-                        "ayantsDroits.$index.cnib" => 'nullable|image|max:1024',
-                        "ayantsDroits.$index.extrait" => 'nullable|image|max:1024',
+                        "ayantsDroits.$index.cnib" => 'nullable|mimes:pdf|max:1024',
+                        "ayantsDroits.$index.extrait" => 'nullable|mimes:pdf|max:1024',
+                        
                     ]);
             
                     if (isset($ayantDroit['photo'])) {

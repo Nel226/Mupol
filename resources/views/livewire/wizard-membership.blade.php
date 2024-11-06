@@ -462,7 +462,7 @@
                                                 <div class="mt-4">
                                                     <label class="block text-gray-700 text-sm font-bold mb-1">Photo de la CNIB</label>
                                                     <div class="w-full justify-center border-2 rounded-md p-1 border-gray-700">
-                                                        <input type="file" wire:model="ayantsDroits.{{ $i }}.cnib" class="w-full py-2" accept="image/jpg, image/jpeg">
+                                                        <input type="file" wire:model="ayantsDroits.{{ $i }}.cnib" class="w-full py-2"  accept='.pdf'>
                                                         
                                                         <!-- Afficher une prévisualisation de la photo de la CNIB si elle est uploadée -->
                                                         @if (isset($ayantsDroits[$i]['cnib']))
@@ -502,7 +502,7 @@
                                                 <div>
                                                     <label class="block text-gray-700 text-sm font-bold mb-1">Extrait d&apos;acte de naissance</label>
                                                     <div class="w-full justify-center border-2 rounded-md p-1 border-gray-700">
-                                                        <input type="file" wire:model="ayantsDroits.{{ $i }}.extrait" class="w-full py-2" accept="image/jpg, image/jpeg">
+                                                        <input type="file" wire:model="ayantsDroits.{{ $i }}.extrait" class="w-full py-2"  accept='.pdf'>
                                                         
                                                         <!-- Afficher une prévisualisation de l'extrait d'acte de naissance si uploadé -->
                                                         @if (isset($ayantsDroits[$i]['extrait']))

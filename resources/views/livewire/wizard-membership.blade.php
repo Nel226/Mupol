@@ -526,14 +526,14 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4">
                             <div>
                                 <label class="inline-flex items-center mt-2">
-                                    <input type="radio" wire:click="changeStatut('personnel_retraite')"
+                                    <input name="statut" type="radio" wire:click="changeStatut('personnel_retraite')"
                                         class="form-radio text-indigo-600">
                                     <span class="ml-2">Personnel retraité</span>
                                 </label>
                             </div>
                             <div>
                                 <label class="inline-flex items-center mt-2">
-                                    <input type="radio" wire:click="changeStatut('personnel_active')"
+                                    <input name="statut" type="radio" wire:click="changeStatut('personnel_active')"
                                         class="form-radio text-indigo-600">
                                     <span class="ml-2">Personnel en activité</span>
                                 </label>

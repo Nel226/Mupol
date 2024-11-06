@@ -1,3 +1,21 @@
+        $generatedPassword = 'ggbvvhLJJn';
+
+ 
+        $generatedPassword = generateSecurePassword();
+
+ 
+function generateSecurePassword($length = 12) {
+            $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $charactersLength = strlen($characters);
+            $password = '';
+            
+            for ($i = 0; $i < $length; $i++) {
+                $password .= $characters[random_int(0, $charactersLength - 1)];
+            }
+            
+            return $password;
+        }
+ 
 <!-- Afficher une prévisualisation de la photo de la CNIB si elle est uploadée -->
                                                         @if (isset($ayantsDroits[$i]['cnib']))
                                                             <img src="{{ $ayantsDroits[$i]['cnib']->temporaryUrl() }}" class="w-20 h-20">

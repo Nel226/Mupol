@@ -460,15 +460,11 @@
                                             <!-- Champ pour la photo de la CNIB si le lien de parenté est "conjoint" -->
                                             @if (isset($ayantsDroits[$i]['lien_parente']) && strtolower($ayantsDroits[$i]['lien_parente']) === 'conjoint')
                                                 <div class="mt-4">
-                                                    <label class="block text-gray-700 text-sm font-bold mb-1">Photo de la CNIB</label>
+                                                    <label class="block text-gray-700 text-sm font-bold mb-1">CNIB (en PDF)</label>
                                                     <div class="w-full justify-center border-2 rounded-md p-1 border-gray-700">
-                                                        <input type="file" wire:model="ayantsDroits.{{ $i }}.cnib" class="w-full py-2" accept="image/jpg, image/jpeg">
+                                                        <input type="file" wire:model="ayantsDroits.{{ $i }}.cnib" class="w-full py-2"  accept='.pdf'>
                                                         
-                                                        <!-- Afficher une prévisualisation de la photo de la CNIB si elle est uploadée -->
-                                                        @if (isset($ayantsDroits[$i]['cnib']))
-                                                            <img src="{{ $ayantsDroits[$i]['cnib']->temporaryUrl() }}" class="w-20 h-20">
-                                                        @endif
-                                                        
+                                            
                                                         @error('ayantsDroits.' . $i . '.cnib')
                                                             <span class="text-red-500 text-xs">{{ $message }}</span>
                                                         @enderror
@@ -500,14 +496,11 @@
                                             
                                                 <!-- Photo de extrait acte de naissance -->
                                                 <div>
-                                                    <label class="block text-gray-700 text-sm font-bold mb-1">Extrait d&apos;acte de naissance</label>
+                                                    <label class="block text-gray-700 text-sm font-bold mb-1">Extrait d&apos;acte de naissance (en PDF)</label>
                                                     <div class="w-full justify-center border-2 rounded-md p-1 border-gray-700">
-                                                        <input type="file" wire:model="ayantsDroits.{{ $i }}.extrait" class="w-full py-2" accept="image/jpg, image/jpeg">
+                                                        <input type="file" wire:model="ayantsDroits.{{ $i }}.extrait" class="w-full py-2"  accept='.pdf'>
                                                         
-                                                        <!-- Afficher une prévisualisation de l'extrait d'acte de naissance si uploadé -->
-                                                        @if (isset($ayantsDroits[$i]['extrait']))
-                                                            <img src="{{ $ayantsDroits[$i]['extrait']->temporaryUrl() }}" class="w-20 h-20">
-                                                        @endif
+                                                        
                                                         
                                                         @error('ayantsDroits.' . $i . '.extrait')
                                                             <span class="text-red-500 text-xs">{{ $message }}</span>

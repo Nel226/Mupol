@@ -40,9 +40,6 @@ class PrestationController extends Controller
         $adherent = auth()->guard('adherent')->user();
         $adherent->ayantsDroits = AyantDroit::where('adherant_id', $adherent->id)->get();
 
-
-    
-        // Vérifiez ce que contient $ayantsDroits
     
         return view('pages.frontend.adherents.prestations.create', compact('adherent'));
     }

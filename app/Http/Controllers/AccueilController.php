@@ -41,7 +41,7 @@ class AccueilController extends Controller
     public function resumeAdhesion($id)
     {
         $demandeAdhesion = DemandeAdhesion::findOrFail($id);
-        $cotisations = DemandeCategorieHelper::calculerCotisationMensuelleTotale($demandeAdhesion->nombreAyantsDroits);
+        $cotisations = DemandeCategorieHelper::calculerCotisationMensuelleTotale($demandeAdhesion->nombreAyantsDroits, $demandeAdhesion->statut);
 
         $dateActuelle = now()->format('Y-m-d'); 
         $dateEnLettres = DateHelper::convertirDateEnLettres($dateActuelle);
@@ -54,7 +54,7 @@ class AccueilController extends Controller
         $date = Carbon::parse(now())->translatedFormat('d F Y'); 
 
         $demandeAdhesion = DemandeAdhesion::findOrFail($id);
-        $cotisations = DemandeCategorieHelper::calculerCotisationMensuelleTotale($demandeAdhesion->nombreAyantsDroits);
+        $cotisations = DemandeCategorieHelper::calculerCotisationMensuelleTotale($demandeAdhesion->nombreAyantsDroits, $demandeAdhesion->statut);
         return view('pages.frontend.adherents.fiches.cession_volontaire', compact('demandeAdhesion', 'cotisations'));
     }
     
@@ -67,7 +67,7 @@ class AccueilController extends Controller
         $demandeAdhesion->localite = $request->input('localite');
         $demandeAdhesion->signature = $request->input('signature'); 
         $demandeAdhesion->save();
-        $cotisations = DemandeCategorieHelper::calculerCotisationMensuelleTotale($demandeAdhesion->nombreAyantsDroits);
+        $cotisations = DemandeCategorieHelper::calculerCotisationMensuelleTotale($demandeAdhesion->nombreAyantsDroits, $demandeAdhesion->statut);
         $pdf = Pdf::loadView('pages.frontend.adherents.fiches.cession_volontaire', ['demandeAdhesion' => $demandeAdhesion]);
 
         $generatedPassword = 'ggbvvhLJJn';

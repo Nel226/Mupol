@@ -113,8 +113,9 @@ class WizardMembership extends Component
                         "ayantsDroits.$index.lien_parente" => 'required|string|max:255',
 
                         "ayantsDroits.$index.photo" => 'nullable|image|max:1024',
-                        "ayantsDroits.$index.cnib" => 'nullable|image|max:1024',
-                        "ayantsDroits.$index.extrait" => 'nullable|image|max:1024',
+                        "ayantsDroits.$index.cnib" => 'nullable|mimes:pdf|max:1024',
+                        "ayantsDroits.$index.extrait" => 'nullable|mimes:pdf|max:1024',
+                        
                     ]);
             
                     if (isset($ayantDroit['photo'])) {
@@ -123,13 +124,13 @@ class WizardMembership extends Component
                     }
             
                     if (isset($ayantDroit['cnib'])) {
-                        $cnibPath = $ayantDroit['cnib']->storeAs('public/photos/cnibs', $ayantDroit['cnib']->getClientOriginalName());
-                        $this->ayantsDroits[$index]['cnib_path'] = 'photos/cnibs/' . $ayantDroit['cnib']->getClientOriginalName();
+                        $cnibPath = $ayantDroit['cnib']->storeAs('public/pdf/cnibs', $ayantDroit['cnib']->getClientOriginalName());
+                        $this->ayantsDroits[$index]['cnib_path'] = 'pdf/cnibs/' . $ayantDroit['cnib']->getClientOriginalName();
                     }
             
                     if (isset($ayantDroit['extrait'])) {
-                        $extraitPath = $ayantDroit['extrait']->storeAs('public/photos/extraits', $ayantDroit['extrait']->getClientOriginalName());
-                        $this->ayantsDroits[$index]['extrait_path'] = 'photos/extraits/' . $ayantDroit['extrait']->getClientOriginalName();
+                        $extraitPath = $ayantDroit['extrait']->storeAs('public/pdf/extraits', $ayantDroit['extrait']->getClientOriginalName());
+                        $this->ayantsDroits[$index]['extrait_path'] = 'pdf/extraits/' . $ayantDroit['extrait']->getClientOriginalName();
                     }
                 }
             }

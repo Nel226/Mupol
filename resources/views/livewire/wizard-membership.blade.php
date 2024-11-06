@@ -543,25 +543,15 @@
                         <!-- Champs pour Personnel Retraité -->
                         @if ($statut === 'personnel_retraite')
                             <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+
+                                {{-- Grade --}}
                                 <div>
                                     <label class="block text-gray-700 text-sm font-bold mb-1">Grade</label>
                                     <select wire:model="grade" class="border-2 bg-gray-50 rounded w-full py-1">
-                                        <option value="">Sélectionnez un grade</option>
-                                        <option value="Commissaire de Police">Commissaire de Police</option>
-                                        <option value="Commissaire Principale de Police">Commissaire Principale de Police</option>
-                                        <option value="Commissaire Divisionnaire de Police">Commissaire Divisionnaire de Police</option>
-                                        <option value="Contrôleur Général de Police">Contrôleur Général de Police</option>
-                                        <option value="Inspecteur Général de Police">Inspecteur Général de Police</option>
-                                        <option value="Sous-Lieutenant de Police">Sous-Lieutenant de Police</option>
-                                        <option value="Lieutenant de Police">Lieutenant de Police</option>
-                                        <option value="Capitaine de Police">Capitaine de Police</option>
-                                        <option value="Commandant de Police">Commandant de Police</option>
-                                        <option value="Commandant Major de Police">Commandant Major de Police</option>
-                                        <option value="Sergent de Police">Sergent de Police</option>
-                                        <option value="Sergent-Chef de Police">Sergent-Chef de Police</option>
-                                        <option value="Adjudant de Police">Adjudant de Police</option>
-                                        <option value="Adjudant-Chef de Police">Adjudant-Chef de Police</option>
-                                        <option value="Adjudant-Chef Major de Police">Adjudant-Chef Major de Police</option>
+                                        <option value="" disabled selected>Sélectionnez un grade</option>
+                                        @foreach($grades as $gradeOption)
+                                            <option value="{{ $gradeOption }}">{{ $gradeOption }}</option>
+                                        @endforeach
                                     </select>
                                     @error('grade')
                                         <span class="text-red-500 text-xs">{{ $message }}</span>
@@ -569,7 +559,7 @@
                                 </div>
                                 
                                 
-        
+
                                 <div>
                                     <label class="block text-gray-700 text-sm font-bold mb-1">Départ à la retraite</label>
                                     <input type="date" wire:model="departARetraite" class="border-2 bg-gray-50 rounded w-full py-1">
@@ -595,22 +585,10 @@
                                     <div>
                                         <label class="block text-gray-700 text-sm font-bold mb-1">Grade</label>
                                         <select wire:model="grade" class="border-2 bg-gray-50 rounded w-full py-1">
-                                            <option value="">Sélectionnez un grade</option>
-                                            <option value="Commissaire de Police">Commissaire de Police</option>
-                                            <option value="Commissaire Principale de Police">Commissaire Principale de Police</option>
-                                            <option value="Commissaire Divisionnaire de Police">Commissaire Divisionnaire de Police</option>
-                                            <option value="Contrôleur Général de Police">Contrôleur Général de Police</option>
-                                            <option value="Inspecteur Général de Police">Inspecteur Général de Police</option>
-                                            <option value="Sous-Lieutenant de Police">Sous-Lieutenant de Police</option>
-                                            <option value="Lieutenant de Police">Lieutenant de Police</option>
-                                            <option value="Capitaine de Police">Capitaine de Police</option>
-                                            <option value="Commandant de Police">Commandant de Police</option>
-                                            <option value="Commandant Major de Police">Commandant Major de Police</option>
-                                            <option value="Sergent de Police">Sergent de Police</option>
-                                            <option value="Sergent-Chef de Police">Sergent-Chef de Police</option>
-                                            <option value="Adjudant de Police">Adjudant de Police</option>
-                                            <option value="Adjudant-Chef de Police">Adjudant-Chef de Police</option>
-                                            <option value="Adjudant-Chef Major de Police">Adjudant-Chef Major de Police</option>
+                                            <option value="" disabled selected>Sélectionnez un grade</option>
+                                            @foreach($grades as $gradeOption)
+                                                <option value="{{ $gradeOption }}">{{ $gradeOption }}</option>
+                                            @endforeach
                                         </select>
                                         @error('grade')
                                             <span class="text-red-500 text-xs">{{ $message }}</span>
@@ -628,8 +606,7 @@
                                     </div>
         
                                     <div>
-                                        <label class="block text-gray-700 text-sm font-bold mb-1">Date de départ à la
-                                            retraite</label>
+                                        <label class="block text-gray-700 text-sm font-bold mb-1">Date de départ à la retraite</label>
                                         <input type="date" wire:model="dateDepartARetraite"
                                             class="border-2 bg-gray-50 rounded w-full py-1">
                                         @error('dateDepartARetraite')

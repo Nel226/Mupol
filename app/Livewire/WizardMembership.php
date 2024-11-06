@@ -23,6 +23,24 @@ class WizardMembership extends Component
     public $nom_prenom_personne_besoin, $lieu_residence, $telephone_personne_prevenir, $photo, $photo_path_adherent, $photo_path_ayantdroit; 
     // Variables pour le personnel en activité
     public $dateIntegration, $dateDepartARetraite, $direction, $service, $statut;
+    // Select du grade
+    public $grades = [
+        "Commissaire de Police",
+        "Commissaire Principale de Police",
+        "Commissaire Divisionnaire de Police",
+        "Contrôleur Général de Police",
+        "Inspecteur Général de Police",
+        "Sous-Lieutenant de Police",
+        "Lieutenant de Police",
+        "Capitaine de Police",
+        "Commandant de Police",
+        "Commandant Major de Police",
+        "Sergent de Police",
+        "Sergent-Chef de Police",
+        "Adjudant de Police",
+        "Adjudant-Chef de Police",
+        "Adjudant-Chef Major de Police"
+    ];
 
   
 

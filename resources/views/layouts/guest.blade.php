@@ -43,6 +43,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         @livewireStyles
         <script src="{{ asset('js/regions.js') }}" defer></script>
+        <script src="{{ asset('js/grades.js') }}" defer></script>
         {{--  <script src="{{ asset('js/signature_pad.umd.min.js') }}" defer></script>  --}}
         <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

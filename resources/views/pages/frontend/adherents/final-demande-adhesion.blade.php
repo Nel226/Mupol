@@ -46,7 +46,6 @@
                     
                     <div class="col-lg-12">
                         <x-section-guest>
-                           
 
                             <div class="flex justify-between gap-2 my-3">
                                 <a class="btn" href="{{ route('download-form-adhesion', [

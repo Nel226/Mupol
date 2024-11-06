@@ -19,7 +19,11 @@ return new class extends Migration
             $table->date('date_naissance');
             $table->string('relation');
             $table->string('code');
-            
+            $table->string('photo')->nullable();
+            $table->string('cnib')->nullable();
+            $table->string('extrait')->nullable();
+            $table->unsignedInteger('position')->nullable();
+
             $table->unsignedBigInteger('adherant_id');
             $table->foreign('adherant_id')->references('id')->on('adherants')->onDelete('restrict');
             $table->timestamps();

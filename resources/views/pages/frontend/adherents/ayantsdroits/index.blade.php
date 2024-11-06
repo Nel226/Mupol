@@ -22,6 +22,8 @@
 
     <div class="min-h-screen ml-64 bg-gray-50 dark:bg-gray-900 py-3">
         <section class="container mx-auto ">
+            @if ($adherent->ayantsDroits()->count() < 6 )
+                
             <div class=" flex my-2 justify-end">
                 <x-primary-button >
                     <a href=" {{route('adherents.nouveau-ayantdroit')}} ">
@@ -30,6 +32,7 @@
                     </a>
                 </x-primary-button>
             </div>
+            @endif
             <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6  mx-auto">
                 <div class="mb-6 text-center">
                     <h2 class="text-xl font-bold text-gray-800 dark:text-white">Liste des ayants droits</h2>
@@ -75,14 +78,14 @@
                                     <td class="py-3 px-6">{{ $ayantDroit->relation }}</td>
                                     <th class="py-3 px-2 flex">
                                         <x-primary-button class=" ">
-                                            Modifier
+                                            <i class=" fa fa-pencil-square"></i>
                                         </x-primary-button>
                                         <form action="{{ route('adherents.delete-ayantdroit', $ayantDroit->id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet ayant droit ?');">
                                             @csrf
                                             @method('DELETE')  <!-- This is correct and will indicate to Laravel that you want to treat this as a DELETE request -->
                                             
                                             <x-primary-button type='submit' class="bg-red-600">
-                                                Supprimer
+                                                <i class=" fa fa-trash"></i>
                                             </x-primary-button>
                                         </form>
                                         

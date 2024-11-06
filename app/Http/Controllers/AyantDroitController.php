@@ -41,6 +41,10 @@ class AyantDroitController extends Controller
     public function storeAyantDroitAdherent(StoreAyantDroitRequest $request)
     {
         $adherent = auth()->guard('adherent')->user();
+        $nextPosition = AyantDroit::where('adherant_id', $adherent->id)->max('position') + 1;
+        if ($nextPosition > 6) {
+            return back()->withErrors(['message' => 'You cannot add more than 7 dependents.']);
+        }
         $adherent->ayantsDroits = json_decode($adherent->ayantsDroits, true); 
 
         $ayantsDroits = $adherent->ayantsDroits;
@@ -54,6 +58,7 @@ class AyantDroitController extends Controller
         $ayantDroit->relation = $request->relation;
         $ayantDroit->code = $adherent->matricule . '/01';
         $ayantDroit->adherant_id = $adherent->id;
+        $ayantDroit->position = $nextPosition;
 
         $ayantDroit->save();
         return redirect()->route('adherents.ayantsdroits')->with('success', 'Ayant droit ajouté avec succès.');

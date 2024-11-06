@@ -119,10 +119,16 @@ class AccueilController extends Controller
                     'nom' => $ayantDroitData['nom'],
                     'prenom' => $ayantDroitData['prenom'],
                     'sexe' => $ayantDroitData['sexe'],
+                    'photo' => $ayantDroitData['photo'],
+                    'cnib' => $ayantDroitData['cnib'] ?? null,
+                    'extrait' => $ayantDroitData['extrait'] ?? null,
+                    'adherant_id' => $adherent->id ,
+
                     'date_naissance' => $ayantDroitData['date_naissance'],
                     'relation' => $ayantDroitData['lien_parente'],
-                    'code' => $adherent->matricule . '/' . str_pad($index + 1, 2, '0', STR_PAD_LEFT), // Generates code like "matricule/01"
-                    'adherant_id' => $adherent->id,
+                    'code' => $adherent->matricule . '/0' .$index,
+                    'position' => $index, 
+
                 ]);
             }
         }

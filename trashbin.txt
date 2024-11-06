@@ -1,3 +1,21 @@
+sm:rounded-lg
+ 
+? null
+ 
+ayantDroitData['extrait']
+ 
+, // Generates code like "matricule/01"
+                    'adherant_id' => $adherent->id,
+ 
+str_pad($index + 1, 2, '0', STR_PAD_LEFT)
+ 
+// Assigns position based on array index (starting at 0)
+ 
+ // Tracks the order
+ 
+        $adherent = auth()->guard('adherent')->user();
+
+ 
 <<<<<<< Updated upstream
                                         @dd($ayantDroit->id)
 

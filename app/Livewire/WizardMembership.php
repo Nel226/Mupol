@@ -124,13 +124,13 @@ class WizardMembership extends Component
                     }
             
                     if (isset($ayantDroit['cnib'])) {
-                        $cnibPath = $ayantDroit['cnib']->storeAs('public/photos/cnibs', $ayantDroit['cnib']->getClientOriginalName());
-                        $this->ayantsDroits[$index]['cnib_path'] = 'photos/cnibs/' . $ayantDroit['cnib']->getClientOriginalName();
+                        $cnibPath = $ayantDroit['cnib']->storeAs('public/pdf/cnibs', $ayantDroit['cnib']->getClientOriginalName());
+                        $this->ayantsDroits[$index]['cnib_path'] = 'pdf/cnibs/' . $ayantDroit['cnib']->getClientOriginalName();
                     }
             
                     if (isset($ayantDroit['extrait'])) {
-                        $extraitPath = $ayantDroit['extrait']->storeAs('public/photos/extraits', $ayantDroit['extrait']->getClientOriginalName());
-                        $this->ayantsDroits[$index]['extrait_path'] = 'photos/extraits/' . $ayantDroit['extrait']->getClientOriginalName();
+                        $extraitPath = $ayantDroit['extrait']->storeAs('public/pdf/extraits', $ayantDroit['extrait']->getClientOriginalName());
+                        $this->ayantsDroits[$index]['extrait_path'] = 'pdf/extraits/' . $ayantDroit['extrait']->getClientOriginalName();
                     }
                 }
             }

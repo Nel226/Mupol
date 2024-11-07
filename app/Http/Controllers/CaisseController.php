@@ -19,7 +19,7 @@ class CaisseController extends Controller
             ],
             
         ];
-        $pageTitle = 'Ensembles des caisses';
+        $pageTitle = 'Ensembles des caisses de dépenses';
 
         $regionsPath = public_path('regions.json');
         $regions = json_decode(file_get_contents($regionsPath), true);

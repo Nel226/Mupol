@@ -28,30 +28,32 @@ class AdherantAuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
+        // Authentifier l'utilisateur avec le bon guard
         if (Auth::guard('adherent')->attempt($request->only('email', 'password'))) {
-            // Succès de la connexion
+            // Si l'utilisateur est authentifié, régénérer la session
             $request->session()->regenerate();
             return redirect()->route('adherents.dashboard');
         } else {
-            // Débogage : vérifiez si l'utilisateur existe
-            $user = \App\Models\Adherant::where('email', $request->email)->first();
-
+            // Débogage : vérifier si l'utilisateur existe
+            $user = Adherant::where('email', $request->email)->first();
+    
             if ($user) {
-                // Utilisateur trouvé, vérifiez le mot de passe
+                // Si l'utilisateur est trouvé, vérifier le mot de passe
                 if (Hash::check($request->password, $user->password)) {
-                    dd("Le mot de passe correspond bien, problème avec l'authentification.");
+                    dd("Le mot de passe correspond bien, mais il y a un problème avec l'authentification.");
                 } else {
-                    dd("Utilisateur trouvé, mais le mot de passe ne correspond pas.");
+                    dd("L'utilisateur existe, mais le mot de passe ne correspond pas.");
                 }
             } else {
                 dd("Aucun utilisateur trouvé avec cet email.");
             }
         }
-
-        return back()->withErrors([
+    
+return back()->withErrors([
             'email' => 'Les informations d\'identification sont incorrectes.',
         ]);
     }
+
 
 
     public function dashboard(): View

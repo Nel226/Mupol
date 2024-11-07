@@ -2,42 +2,46 @@
     <x-preloader/>
 
     <x-header-guest/>
-
+    <hr class=" w-full h-0.5 bg-white">
 
     <!-- Slider Area -->
     <section class="slider">
         <div class="hero-slider">
             @php
                 $slides = [
-                    ['image' => 'images/caroussel/caroussel6.png', 'title' => 'MU-POl, la Mutuelle de la Police Nationale'],
-                    ['image' => 'images/caroussel/caroussel5.jpg', 'title' => 'MU-POl, la Mutuelle de la Police Nationale'],
+                    ['image' => 'images/caroussel/caroussel6.png', 'title' => 'MU-POl, la Mutuelle de la Police Nationale', 'text_color' => 'black'],
+                    ['image' => 'images/caroussel/caroussel5.jpg', 'title' => 'MU-POl, la Mutuelle de la Police Nationale', 'text_color' => 'black'],
                 ];
             @endphp
+        
     
             @foreach ($slides as $slide)
-                <!-- Start Single Slider -->
-                <div class="single-slider" style="background-image:url('{{ $slide['image'] }}')">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-7">
-                                <div class="text">
-                                    <h1>{{ $slide['title'] }}</h1>
-                                    <p>Tous solidaires pour notre bien-être! </p>
-                                    <p>Je suis policier (ère), j&apos;adhère ! Pour le bien-être des membres de ma famille (conjoint, enfants), je les adhère ! </p>
-
-                                    <div class="button">
-                                        <a class="btn" href="{{ route('formulaire-adhesion') }}">
-                                            Adhérer maintenant
-                                        </a>
-                                        <a href="#" class="btn primary">A propos de nous</a>
-                                    </div>
+            <!-- Start Single Slider -->
+            <div class="container">
+                <div class="single-slider !p-4" style="background-image:url('{{ $slide['image'] }}')">
+                    <div class="row">
+                        <div class="col-lg-7">
+                            <div class="text">
+                                <h1 class="{{ $slide['text_color'] === 'white' ? 'text-white' : 'text-black' }}">
+                                    {{ $slide['title'] }}
+                                </h1>
+                                <p>Tous solidaires pour notre bien-être!</p>
+                                <p>Je suis policier (ère), j&apos;adhère ! Pour le bien-être des membres de ma famille (conjoint, enfants), je les adhère ! </p>
+        
+                                <div class="button">
+                                    <a class="btn" href="{{ route('formulaire-adhesion') }}">
+                                        Adhérer maintenant
+                                    </a>
+                                    <a href="#" class="btn primary">A propos de nous</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- End Single Slider -->
-            @endforeach
+            </div>
+            <!-- End Single Slider -->
+        @endforeach
+        
         </div>
     </section>
     
@@ -47,7 +51,7 @@
     <section class="schedule">
         <div class="container">
             <div class="schedule-inner">
-                <div class="row">
+                <div class="row  !-m-1">
                     @php
                         $services = [
                             [
@@ -248,7 +252,7 @@
                 <div class="col-lg-6 col-12">
                     <!-- Start Choose Right -->
                     <div class="choose-right">
-                        <img src="{{ asset('images/accueil/accueil7.jpg') }}" alt="" style="width: 100%; height: auto;">
+                        <img src="{{ asset('images/accueil/accueil8.jpg') }}" alt="" style="width: 100%; height: auto;">
                     </div>                    
                     <!-- End Choose Right -->
                 </div>

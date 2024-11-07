@@ -260,7 +260,7 @@ body{
 	border-bottom:1px solid #eee;
 }
 .header .topbar{
-	padding:15px 0;
+	padding:4px 0;
 }
 .header .top-link{
 	float:left;
@@ -316,10 +316,13 @@ body{
 	background: #4B45DC ;
 }
 .get-quote{
-	margin-top:12px;
+	margin-top:0px;
 }
 .get-quote .btn{
 	color:#fff;
+	margin-top: 3px;
+	margin-bottom: 3px;
+
 }
 .header .logo {
 	float: left;
@@ -342,11 +345,12 @@ body{
 	margin:0;
 }
 .header .nav li a {
-	color: #2C2D3F;
+	color: rgb(238, 239, 254);
 	font-size: 14px;
 	font-weight: 500;
 	text-transform: capitalize;
-	padding: 25px 12px;
+	padding: 8px 8px;
+	margin-top: 2px;
 	position: relative;
 	display: inline-block;
 	position:relative;
@@ -664,8 +668,8 @@ body{
 	width: 30px;
 	line-height: 30px;
 	text-align: center;
-	background: #e7e5ed;
-	color: #4B45DC;
+	background: #8058f7;
+	color: #ffffff;
 	font-size: 20px;
 	position: absolute;
 	margin: 0;

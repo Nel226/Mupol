@@ -108,6 +108,10 @@ class AccueilController extends Controller
             'password' => Hash::make($generatedPassword), 
             'date_enregistrement' => now(),
             'code_carte' => $demandeAdhesion->matricule . '/00', 
+            'region' => $demandeAdhesion->region,
+            'province' => $demandeAdhesion->province,
+            'localite' => $demandeAdhesion->localite,
+
 
         ]);
 

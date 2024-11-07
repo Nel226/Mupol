@@ -165,7 +165,34 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  padding: 10px;
+  /* Image de fond */
+  background-image: url('/images/background13.avif');
+  background-size: cover; /* Pour que l'image couvre tout l'élément */
+  background-position: center; /* Centrer l'image */
+  background-repeat: no-repeat; /* Pas de répétition de l'image */
 }
+.bg-li-header{
+  background-color: rgb(64 0 255  / 55%) !important;
+
+}
+.owl-carousel .owl-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* background-color: #FFFF53; */
+  z-index: 1;
+}
+
+/* Assurez-vous que le contenu reste au-dessus du voile */
+.owl-carousel .owl-item > * {
+  position: relative;
+  z-index: 2;
+}
+
 .owl-carousel .owl-item img {
   display: block;
   width: 100%;

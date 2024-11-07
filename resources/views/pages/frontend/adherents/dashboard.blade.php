@@ -1,4 +1,11 @@
-<x-guest-layout>
+<x-guest-layout class="main-container">
+    <style>
+        .main-container {
+            display: flex;
+            flex-direction: row;
+            min-height: 100vh; /* Assurez-vous que la page prend toute la hauteur */
+        }
+    </style>
     <x-header-guest/>
     @if (session()->has('message'))
         <div id="success-notification" class="notification bg-green-500 text-white p-4 rounded mb-4">
@@ -17,7 +24,12 @@
 
     {{--  <x-preloader/>  --}}
     <x-sidebar-guest/>
-    <div class="">
+    <div class=" content">
+        <style>
+            .content {
+                padding: 1rem;
+            }
+        </style>
         <section class="section">
             <div class="container h-screen">
                 <div class="">

@@ -1,122 +1,133 @@
 <!-- Header Area -->
-<header  class="header border-b  ">
-    <!-- Header Inner -->
-    <div class="header-inner !rounded-none {{ Auth::guard('adherent')->check() ? 'header-inner-bg' : '' }} ">
-        <div class="container">
-            <div class="inner">
-                <div class="row align-items-center ">
-                    <div class="col-lg-5 col-md-3 col-12">
+    <header class="header header-sous" >
+        <style>
+            .header-sous {
+                z-index: 50;
+                position: relative;
+                /* Ajoutez des styles pour la barre de navigation */
+            }
+        </style>
+        <!-- Topbar -->
+        <div class="topbar">
+            <div class="container">
+                <div class="row items-center">
+                    <div class="col-lg-3 col-md-3 col-12">
                         <!-- Start Logo -->
-                        <div class="logo flex gap-2 items-center">
+                        <div class="logo">
                             <a href="/"><img src="{{ asset('images/logofinal.png') }}" alt="Logo de la Mutuelle" class="h-16 w-auto"></a>
-                            @if (!Auth::guard('adherent')->check())
-                                <h3 class="font-bold md:text-base lg:text-base">Mutuelle de la Police Nationale (MU-POL)</h3>
-                            @endif
                         </div>
                         <!-- End Logo -->
                         <!-- Mobile Nav -->
                         <div class="mobile-nav"></div>
                         <!-- End Mobile Nav -->
                     </div>
-                    @if (!Auth::guard('adherent')->check())
-                    <div class="col-lg-4 col-md-6 col-12">
+                    <div class="col-lg-6 col-md-9 col-12">
                         <!-- Main Menu -->
                         <div class="main-menu">
-                            <nav class="navigation">
-                                <ul class="nav menu">
-                                    <li class="active"><a href="/">Accueil</a></li>
-                                    
-                                    <li><a href="#">À propos <i class="icofont-rounded-down"></i></a>
-                                        <ul class="dropdown">
-                                            <li><a href="">Présentation</a></li>
-                                            <li><a href="">Notre Équipe</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </nav>
+                            <div class="text-center ">
+                                <h1 class="text-xl uppercase  font-bold !text-[#4000FF]  tracking-tight  ">
+                                    Mutuelle de la Police
+                                </h1>
+                                <p class="text-sm  tracking-tighter !text-[#4000FF]   ">
+                                    Tous solidaires pour notre bien-être !
+                                </p>
+                            </div>                            
                         </div>
                         <!--/ End Main Menu -->
                     </div>
-
-                    @endif
-                    <div class="col-lg-3 flex items-center gap-2 justify-end col-12 ml-auto {{ Auth::guard('adherent')->check() ? 'order-last' : '' }}">
-                        @if (Auth::guard('adherent')->check())
-                            <!-- Adhérant connecté -->
-                            <div class="relative m-2" @click.away="dropdownOpen = false" x-data="{ dropdownOpen: false }">
-                                <div class="hidden sm:flex sm:items-center sm:ms-6">
-                                    <button 
-                                        @click="dropdownOpen = !dropdownOpen" 
-                                        class="inline-flex items-center px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out bg-gray-200 border border-transparent rounded-md dark:text-gray-400 dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none"
-                                        aria-haspopup="true" 
-                                        aria-expanded="dropdownOpen"
-                                    >
-                                        <div class="flex items-center space-x-2">
-                                            <i class="fa fa-user-circle-o" aria-hidden="true"></i>
-                                            <div class="max-w-xs truncate">
-                                                {{ strtoupper(substr(Auth::guard('adherent')->user()->nom, 0, 1)) }}{{ strtoupper(substr(Auth::guard('adherent')->user()->prenom, 0, 1)) }}
-                                            </div>
-                                        </div>
-                                    
-                                        <div class="ms-1">
-                                            <svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                            </svg>
-                                        </div>
-                                    </button>
-                                    <div x-show="dropdownOpen" x-transition class="absolute right-5 w-48 mt-2 origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg dark:bg-gray-800 dark:border-gray-700 z-50" role="menu" aria-orientation="vertical" tabindex="-1">
-                                        <a href="{{ route('adherents.dashboard') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">Tableau de bord</a>
-                                        <form method="POST" action="{{ route('adherent.logout') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">
-                                            @csrf
-                                            <button type="submit" class="w-full text-left">Déconnexion</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            
-                        @else
-                            <!-- Adhérant non connecté -->
-                            <div class="get-quote">
-                                <a class="btn btn-primary" href="{{ route('formulaire-adhesion') }}">
-                                    Adhérer maintenant
-                                </a>
-                            </div>
-                            <div>
-                                <a class="text-[#4B45DC]" href="{{ route('adherent.login') }}">
-                                    Connexion
-                                </a>
-                            </div>
-                        @endif
+                    <div class="col-lg-3 col-12 flex justify-end">
+                        <div class="get-quote">
+                            <a href="/">
+                                <img src="{{ asset('images/police_logo.jpg') }}" alt="Logo de la Police" class="h-16 w-auto">
+                            </a>
+                        </div>
                     </div>
-                    
-                    
-                    <script>
-                        // Script pour afficher/masquer le menu déroulant
-                        const dropdownButton = document.getElementById('dropdownButton');
-                        const dropdownMenu = document.getElementById('dropdownMenu');
-                    
-                        dropdownButton.addEventListener('click', () => {
-                            dropdownMenu.classList.toggle('hidden');
-                        });
-                    
-                        // Fermer le dropdown si l'utilisateur clique en dehors
-                        window.addEventListener('click', (event) => {
-                            if (!dropdownButton.contains(event.target)) {
-                                dropdownMenu.classList.add('hidden');
-                            }
-                        });
-                    </script>
                     
                 </div>
             </div>
         </div>
-    </div>
-    <!--/ End Header Inner -->
-</header>
+        <!-- End Topbar -->
+        <!-- Header Inner -->
+        <div class=" w-full !bg-[#4000FF]">
+            <div class="container">
+                <div class="inner">
+                    <div class="row">
+                        
+                        <div class="col-lg-7 col-md-9 col-12">
+                            <!-- Main Menu -->
+                            <div class="main-menu">
+                                <nav class="navigation">
+                                    <ul class="nav menu !text-white ">
+                                        <li class=" !bg-[#926FFB] !text-[#4000FF] "><a href="#" class="!text-white">Accueil <i class="icofont-rounded-down"></i></a>
+                                        
+                                        </li>
+                                        <li><a href="#">À Propos </a>
+                                            <ul class="dropdown">
+                                                <li><a href="">Présentation</a></li>
+                                                <li><a href="">Notre Équipe</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="#">Nos Services </a></li>
+                                        <li>                                
+                                            <a class="btn btn-primary" href="{{ route('formulaire-adhesion') }}">
+                                                Adhérer maintenant
+                                            </a>  
+                                        </li>
+                                        
+                                        <li><a href="contact.html">Nous contacter</a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                            <!--/ End Main Menu -->
+                        </div>
+                        <div class="col-lg-5 flex justify-end my-1 col-12">
+                            <div class="get-quote">
+                                <x-primary-button class=" !bg-white !text-[#4000FF] " href="{{ route('adherent.login') }}">
+                                <a href="{{ route('adherent.login') }}">
+                                        <i class=" fa fa-unlock-alt "></i>
+                                        Connexion
+                                    </a>
+                                </x-primary-button>                                
+                                <div class="relative inline-block text-left">
+                                    <x-primary-button class=" inline-flex items-center !text-gray-700 bg-white hover:bg-gray-50 " id="languageMenuButton" aria-expanded="true" aria-haspopup="true">
+                                        <span class="mr-2">Langue</span>
+                                        <svg class="-mr-1 ml-2 h-2 w-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                            <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                                        </svg>
+                                    </x-primary-button>
+                                
+                                    <!-- Dropdown Menu -->
+                                    <div class="origin-top-right absolute right-0 mt-2 w-40 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none hidden" role="menu" aria-orientation="vertical" aria-labelledby="languageMenuButton" id="dropdownMenu">
+                                        <div class="py-1" role="none">
+                                            <!-- French Option -->
+                                            <a href="?lang=fr" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">
+                                                <img src="{{ asset('images/flags/france.png') }}" alt="Français" class="w-5 h-5 mr-2">
+                                                Français
+                                            </a>
+                                            <!-- English Option -->
+                                            <a href="?lang=en" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">
+                                                <img src="{{ asset('images/flags/united-states.png') }}" alt="English" class="w-5 h-5 mr-2">
+                                                English
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <script>
+                                    // Toggle dropdown visibility
+                                    document.getElementById('languageMenuButton').addEventListener('click', function() {
+                                        const dropdownMenu = document.getElementById('dropdownMenu');
+                                        dropdownMenu.classList.toggle('hidden');
+                                    });
+                                </script>
+                                
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/ End Header Inner -->
+    </header>
 <!-- End Header Area -->
-<style>
-    .sidebar-open {
-        margin-left: 250px; /* Ajustez cette valeur en fonction de la largeur de votre sidebar */
-    }
-
-</style>

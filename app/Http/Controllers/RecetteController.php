@@ -23,27 +23,23 @@ class RecetteController extends Controller
             
         ];
         $pageTitle = 'Liste des recettes';
-        $all = Categorie::all();
 
-        $recettes = [
-            'all' => Recette::all(),
-            'prets' => Recette::whereHas('categorie', function ($query) {
-                $query->where('sous_type', 'prets');
-            })->get(),
-            'recettes_propres' => Recette::whereHas('categorie', function ($query) {
-                $query->where('sous_type', 'recettes_propres');
-            })->get(),
-            'produits' => Recette::whereHas('categorie', function ($query) {
-                $query->where('sous_type', 'produits');
-            })->get(),
-            'autres' => Recette::whereHas('categorie', function ($query) {
-                $query->where('sous_type', 'autres');
-            })->get(),
-        ];
-    
+        $categoriesPrincipales = Categorie::whereNull('parent_id')
+                                            ->where('type', 'recette') 
+                                            ->get();
+
+                                            $recettes = Recette::with('categorie')
+                                            ->whereIn('categorie_id', $categoriesPrincipales->pluck('uuid')) // Filtrer les recettes par categorie_id
+                                            ->get();
+                                        
+        // Groupement des recettes par catégorie
+        $recettesParCategorie = $recettes->groupBy(function($recette) {
+            return $recette->categorie->nom; 
+        });
+
 
         return view('pages.backend.comptabilite.recettes.index',
-                    compact('pageTitle', 'breadcrumbsItems', 'all', 'recettes')
+                    compact('pageTitle', 'breadcrumbsItems', 'recettesParCategorie', 'categoriesPrincipales', 'recettes')
         );
 
     }
@@ -102,11 +98,10 @@ class RecetteController extends Controller
         ];
         $pageTitle = 'Catégories recettes';
         $categories = Categorie::withCount('sousCategories')
-            ->where('type', 'recette') 
-            ->whereNull('parent_id')   
-            ->get();
-
-
+                                ->where('type', 'recette') 
+                                ->whereNull('parent_id')   
+                                ->get();
+        
         return view('pages.backend.comptabilite.recettes.categories',
                     compact('pageTitle', 'breadcrumbsItems', 
                     'categories')
@@ -121,7 +116,6 @@ class RecetteController extends Controller
     {
         // Création d'une nouvelle recette avec les données validées
         $recette = Recette::create([
-            // 'uuid' => \Illuminate\Support\Str::uuid(), // Génération d'un UUID pour la recette
             'montant' => $request->input('montant'),
             'description' => $request->input('description'),
             'categorie_id' => $request->input('categorie_id'),
@@ -129,7 +123,6 @@ class RecetteController extends Controller
             'date' => $request->input('date'),
         ]);
 
-        // Redirection vers la liste des recettes avec un message de succès
         return redirect()->route('recettes.index')->with('success', 'Recette ajoutée avec succès !');
     }
 

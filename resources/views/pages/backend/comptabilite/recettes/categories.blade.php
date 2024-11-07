@@ -27,8 +27,8 @@
                 {{$pageTitle}}
             </x-header>
          
-            
             <div id="categoryGrid" class="relative grid grid-cols-3 gap-6">
+                
                 @if($categories->isNotEmpty())
                     @foreach ($categories as $categorie)
                         <div class="transform duration-500 hover:scale-105 transition cursor-pointer hover:shadow-lg hover:shadow-gray-400 flex flex-col mt-6 text-gray-700 bg-white shadow-md bg-clip-border rounded-md">
@@ -45,8 +45,9 @@
                                                 <img src="{{ asset('images/folder.png') }}" alt="">
                                             </div>
                                         </div>
-                                        <a class="mt-2 block truncate text-center font-medium" href="#">{{ $categorie->nom }}</a>
-                                        <div class="mt-0.5 text-center text-xs text-slate-500">
+                                        <a class="mt-2 block text-sm truncate text-center font-medium" href="#" title="{{ $categorie->nom }}">
+                                            {{ $categorie->nom }}
+                                        </a>                                        <div class="mt-0.5 text-center text-xs text-slate-500">
                                             {{ $categorie->subcategories_count ?? 'nombre sous-categorie' }} sous-catégories
                                         </div>
                                         

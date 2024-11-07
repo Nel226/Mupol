@@ -52,6 +52,10 @@ return new class extends Migration
             $table->string('mensualite')->nullable();
             $table->string('adhesion')->nullable();
             $table->string('password'); 
+
+            $table->string('region')->nullable();
+            $table->string('province')->nullable();
+            $table->string('localite')->nullable();
             $table->timestamps();
         });
     }

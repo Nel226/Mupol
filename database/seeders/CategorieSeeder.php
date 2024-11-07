@@ -30,7 +30,7 @@ class CategorieSeeder extends Seeder
                 ]
             ],
             [
-                'nom' => 'Fonctionnement (10% des frais de cotisation)',
+                'nom' => 'Fonctionnement',
                 'type' => 'depense',
                 'children' => [
                     ['nom' => 'Carburant et déplacement'],

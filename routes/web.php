@@ -13,6 +13,7 @@ use App\Http\Controllers\CsvImportController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ParametreController;
 use App\Http\Controllers\AyantDroitController;
+use App\Http\Controllers\CaisseController;
 use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\CotisationController;
 use App\Http\Controllers\PrestationController;
@@ -127,6 +128,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('depenses', DepenseController ::class);
     Route::get('depenses-categories', [DepenseController ::class, 'categories'])->name('depenses.categories');
     Route::resource('categories', CategorieController ::class);
+
+    Route::resource('caisse', CaisseController ::class);
+
 
     Route::get('/edit-demande-adhesion/{id}', App\Livewire\EditMembership::class)->name('edit-demande-adhesion');
 

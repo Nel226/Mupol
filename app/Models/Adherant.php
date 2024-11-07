@@ -4,12 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Adherant extends Model implements AuthenticatableContract
+class Adherant extends Authenticatable
 {
-    use HasFactory, Authenticatable;
+    use HasFactory;
     protected $fillable = [
         'ordre',
         'date_enregistrement',
@@ -44,7 +44,8 @@ class Adherant extends Model implements AuthenticatableContract
         'numeroCARFO',
         'dateIntegration',
         'dateDepartARetraite',
-        'password', 'cle', 'code_carte', 'telephone', 'charge', 'mensualite', 'adhesion', 'photo'
+        'password', 'cle', 'code_carte', 'telephone', 'charge', 'mensualite', 'adhesion', 'photo',
+        'region', 'province', 'localite',
     ];
 
   

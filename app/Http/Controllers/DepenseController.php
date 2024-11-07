@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Depense;
 use App\Http\Requests\StoreDepenseRequest;
 use App\Http\Requests\UpdateDepenseRequest;
+use App\Models\Categorie;
 
 class DepenseController extends Controller
 {
@@ -19,21 +20,64 @@ class DepenseController extends Controller
                 'url' => route('depenses.index'),
                 'active' => true
             ],
-            
         ];
         $pageTitle = 'Liste des dépenses';
-        
+
+        $categoriesPrincipales = Categorie::whereNull('parent_id')
+                                        ->where('type', 'depense') 
+                                        ->get();
+
+        $depenses = Depense::with('categorie')
+                        ->whereIn('categorie_id', $categoriesPrincipales->pluck('uuid'))
+                        ->get();
+
+        // Grouper les dépenses par catégorie
+        $depensesParCategorie = $depenses->groupBy(function($depense) {
+            return $depense->categorie->nom; 
+        });
+
         return view('pages.backend.comptabilite.depenses.index',
-                    compact('pageTitle', 'breadcrumbsItems')
+                    compact('pageTitle', 'breadcrumbsItems', 'depensesParCategorie', 'categoriesPrincipales', 'depenses')
         );
     }
+
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        return view('pages.backend.comptabilite.depenses.create');
+        $breadcrumbsItems = [
+            [
+                'name' => 'Recettes',
+                'url' => route('recettes.index'),
+                'active' => false
+            ],
+            [
+                'name' => 'Ajouter',
+                'url' => route('recettes.create'),
+                'active' => true
+            ],
+        ];
+        $sousTypes = Depense::with('categorie')
+                            ->select('categorie_id') // Sélectionner uniquement l'id de la catégorie
+                            ->distinct() // Pour obtenir des valeurs uniques
+                            ->get()
+                            ->map(function ($depense) {
+
+        return $depense->categorie->sous_type; // Retourne le sous_type de la catégorie associée
+        })
+        ->unique(); 
+        
+        $pageTitle = 'Nouvelle dépense';
+        $categories = Categorie::where('type', 'depense')
+                                ->whereNull('parent_id')
+                                ->with('sousCategories')
+                                ->get();
+
+        return view('pages.backend.comptabilite.depenses.create',
+                    compact('breadcrumbsItems', 'pageTitle', 'categories')
+        );
     }
 
     public function categories()
@@ -41,15 +85,21 @@ class DepenseController extends Controller
         $breadcrumbsItems = [
             [
                 'name' => 'Catégories',
-                'url' => route('recettes.categories'),
+                'url' => route('depenses.categories'),
                 'active' => true
             ],
             
         ];
-        $pageTitle = 'Catégories recettes';
+        $pageTitle = 'Catégories dépenses';
+        $categories = Categorie::withCount('sousCategories')
+                ->where('type', 'depense') 
+                ->whereNull('parent_id')   
+                ->get();
         return view('pages.backend.comptabilite.depenses.categories',
-                    compact('pageTitle', 'breadcrumbsItems')
+        compact('pageTitle', 'breadcrumbsItems', 
+                                'categories')
         );
+        
 
     }
 
@@ -58,7 +108,16 @@ class DepenseController extends Controller
      */
     public function store(StoreDepenseRequest $request)
     {
-        //
+        // Création d'une nouvelle depense avec les données validées
+        $depense = Depense::create([
+            'montant' => $request->input('montant'),
+            'description' => $request->input('description'),
+            'categorie_id' => $request->input('categorie_id'),
+            'sous_categorie_id' => $request->input('sous_categorie_id'),
+            'date' => $request->input('date'),
+        ]);
+
+        return redirect()->route('depenses.index')->with('success', 'Dépense ajoutée avec succès !');
     }
 
     /**

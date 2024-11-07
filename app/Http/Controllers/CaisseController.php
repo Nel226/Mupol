@@ -1,0 +1,41 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Adherant;
+use App\Models\Categorie;
+use App\Models\Recette;
+use Illuminate\Http\Request;
+
+class CaisseController extends Controller
+{
+    public function index()
+    {
+        $breadcrumbsItems = [
+            [
+                'name' => 'Caisse',
+                'url' => route('caisse.index'),
+                'active' => true
+            ],
+            
+        ];
+        $pageTitle = 'Ensembles des caisses';
+
+        $regionsPath = public_path('regions.json');
+        $regions = json_decode(file_get_contents($regionsPath), true);
+
+        $adherents = Adherant::all();
+
+        $adherentsParRegion = $adherents->groupBy('region');
+
+        $adherentsCountPerRegion = [];
+
+        foreach ($regions as $regionName => $regionData) {
+            $adherentsCountPerRegion[$regionName] = $adherentsParRegion->get($regionName, collect())->count();
+        }
+
+        return view('pages.backend.comptabilite.caisse.index', compact('pageTitle', 'breadcrumbsItems', 'adherents', 'adherentsCountPerRegion', 'regions'));
+
+
+    }
+}

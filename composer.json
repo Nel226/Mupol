@@ -36,7 +36,8 @@
             "app/Helpers/PDFHelper.php",
             "app/Helpers/ImageHelper.php",
             "app/Helpers/DemandeCategorieHelper.php",
-            "app/Helpers/DateHelper.php"
+            "app/Helpers/DateHelper.php",
+            "app/Helpers/PasswordHelper.php"
 
 
         ]

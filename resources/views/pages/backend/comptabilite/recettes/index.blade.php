@@ -1,5 +1,6 @@
 <x-app-layout>
     <x-sidebar/>
+
     @if (session('success'))
         <x-succes-notification>
             {{ session('success') }}
@@ -26,240 +27,307 @@
             <x-header>
                 {{$pageTitle}}
             </x-header>
-        
+
             <div class="p-6 mx-auto mt-4 bg-white min-h-screen rounded-b-lg shadow-lg">
-                <!-- Tabs Navigation -->
-                <div class="flex mt-4 shadow-md border rounded-md">
-                    <button id="tab-all" class="w-1/5 py-2 text-center rounded-md text-gray-600 border-b-2 border-transparent focus:outline-none hover:text-gray-800 hover:scale-105 active-tab">Tous</button>
-                    <button id="tab-prets" class="w-1/5 py-2 text-center rounded-md text-gray-600 border-b-2 border-transparent focus:outline-none hover:text-gray-800 hover:scale-105">Prêts</button>
-                    <button id="tab-recettes-propres" class="w-1/5 py-2 text-center rounded-md text-gray-600 border-b-2 border-transparent focus:outline-none hover:text-gray-800 hover:scale-105">Recettes propres</button>
-                    <button id="tab-produits" class="w-1/5 py-2 text-center rounded-md text-gray-600 border-b-2 border-transparent focus:outline-none hover:text-gray-800 hover:scale-105">Produits</button>
-                    <button id="tab-autres" class="w-1/5 py-2 text-center rounded-md text-gray-600 border-b-2 border-transparent focus:outline-none hover:text-gray-800 hover:scale-105">Autres</button>
-                </div>
-        
-                <!-- Tabs Content -->
-                <div id="tab-all-content" class="hidden mt-2 tab-content">
-                    <div>
-                        <table id="data-table-all" class="display">
-                            <thead>
-                                <tr>
-                                    <th>Montant</th>
-                                    <th>Description</th>
-                                    <th>Date</th>
-                                    <th>Catégorie</th>
-                                    <th>Détails</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($recettes['all'] as $recette)
-                                    <tr>
-                                        <td>{{ number_format($recette->montant, 2) }}</td>
-                                        <td>{{ $recette->description }}</td>
-                                        <td>{{ \Carbon\Carbon::parse($recette->date)->format('d/m/Y') }}</td>
-                                        <td>{{ $recette->categorie->nom }}</td>
-                                        <td>
-                                            <button onclick="showDetails({{ $recette->id }})" class="btn btn-info">Voir Détails</button>
-                                            
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                <!-- Tabs -->
+                <div class="mb-4">
+                    <ul class="flex border-b">
+                        <li class="mr-1">
+                            <a href="#all" class="inline-block py-2 px-4 text-blue-600 hover:text-whit text-sm rounded-t-md focus:outline-none tab-link">
+                                Tous
+                            </a>
+                        </li>
+                        @foreach($categoriesPrincipales as $categorie)
+                            <li class="mr-1">
+                                <a href="#category-{{ $categorie->uuid }}" class="inline-block truncate py-2 px-4 text-blue-600 hover:text-whit text-sm rounded-t-md focus:outline-none tab-link" title="{{ $categorie->nom }}">
+                                    {{ $categorie->nom }}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
                 </div>
 
-                <!-- Modal pour afficher les détails -->
-                <!-- Modal pour afficher les détails -->
-                <div id="details-modal" class="modal hidden">
-                    <div class="modal-content">
-                        <span class="close" onclick="closeModal()">&times;</span>
-                        <h2>Détails de la Recette</h2>
-                        <div id="modal-body">
-                            <!-- Les détails de la recette seront insérés ici -->
-                        </div>
-                    </div>
+                <!-- Tous tab content -->
+                <div id="all" class="tab-content hidden">
+                    <table id="recettes-table-all" class="w-full text-sm text-left text-gray-500 border rtl:text-right dark:text-gray-400 display">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
+                            <tr>
+                                <th>Description</th>
+                                <th>Montant</th>
+                                <th>Catégorie</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($recettes as $recette)
+                                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                    <td class="px-6 py-4">{{ $recette->description }}</td>
+                                    <td class="px-6 py-4">{{ $recette->montant }}</td>
+                                    <td class="px-6 py-4">{{ $recette->categorie->nom }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
 
-                <script>
-                    function showDetails(recetteId) {
-                        fetch(`/recettes/${recetteId}`)
-                            .then(response => response.json())
-                            .then(data => {
-                                console.log(data); // Pour vérifier les données
-                                const modalBody = document.getElementById('modal-body');
-                                modalBody.innerHTML = `
-                                    <p>Montant: ${data.montant}</p>
-                                    <p>Description: ${data.description}</p>
-                                    <p>Date: ${data.date}</p>
-                                    <p>Catégorie: ${data.categorie.nom}</p>
-                                    <p>Autres informations: ${data.autres_informations || 'N/A'}</p>
-                                `;
-                                document.getElementById('details-modal').classList.remove('hidden');
-                            })
-                            .catch(error => console.error('Erreur:', error));
-                    }
-                    
-                    function closeModal() {
-                        document.getElementById('details-modal').classList.add('hidden');
-                    }
-                </script>
-                
-                
-                
-
-        
-                <div id="tab-prets-content" class="hidden mt-2 tab-content">
-                    <div>
-                        <table id="data-table-prets" class="display">
-                            <thead>
+                <!-- Categories tab content -->
+                    @foreach($categoriesPrincipales as $categorie)
+                    <div id="category-{{ $categorie->uuid }}" class="tab-content hidden">
+                        <table id="recettes-table-{{ $categorie->uuid }}" class=" w-full text-sm text-left text-gray-500 border rtl:text-right dark:text-gray-400 display">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
                                 <tr>
-                                    <th>Montant</th>
                                     <th>Description</th>
-                                    <th>Date</th>
+                                    <th>Montant</th>
                                     <th>Catégorie</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($recettes['prets'] as $recette)
-                                    <tr>
-                                        <td>{{ number_format($recette->montant, 2) }}</td>
-                                        <td>{{ $recette->description }}</td>
-                                        <td>{{ $recette->date->format('d/m/Y') }}</td>
-                                        <td>{{ $recette->categorie->nom }}</td>
+                                @foreach($recettes as $recette)
+                                    @if($recette->categorie->uuid == $categorie->uuid)
+                                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                        <td class="px-6 py-4">{{ $recette->description }}</td>
+                                        <td class="px-6 py-4">{{ $recette->montant }}</td>
+                                        <td class="px-6 py-4">{{ $recette->categorie->nom }}</td>
                                     </tr>
+                                    @endif
                                 @endforeach
                             </tbody>
                         </table>
                     </div>
-                </div>
-        
-                <div id="tab-recettes-propres-content" class="hidden mt-2 tab-content">
-                    <div>
-                        <table id="data-table-recettes-propres" class="display">
-                            <thead>
-                                <tr>
-                                    <th>Montant</th>
-                                    <th>Description</th>
-                                    <th>Date</th>
-                                    <th>Catégorie</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($recettes['recettes_propres'] as $recette)
-                                    <tr>
-                                        <td>{{ number_format($recette->montant, 2) }}</td>
-                                        <td>{{ $recette->description }}</td>
-                                        <td>{{ $recette->date->format('d/m/Y') }}</td>
-                                        <td>{{ $recette->categorie->nom }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-        
-                <div id="tab-produits-content" class="hidden mt-2 tab-content">
-                    <div>
-                        <table id="data-table-produits" class="display">
-                            <thead>
-                                <tr>
-                                    <th>Montant</th>
-                                    <th>Description</th>
-                                    <th>Date</th>
-                                    <th>Catégorie</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($recettes['produits'] as $recette)
-                                    <tr>
-                                        <td>{{ number_format($recette->montant, 2) }}</td>
-                                        <td>{{ $recette->description }}</td>
-                                        <td>{{ $recette->date->format('d/m/Y') }}</td>
-                                        <td>{{ $recette->categorie->nom }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-        
-                <div id="tab-autres-content" class="hidden mt-2 tab-content">
-                    <div>
-                        <table id="data-table-autres" class="display">
-                            <thead>
-                                <tr>
-                                    <th>Montant</th>
-                                    <th>Description</th>
-                                    <th>Date</th>
-                                    <th>Catégorie</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($recettes['autres'] as $recette)
-                                    <tr>
-                                        <td>{{ number_format($recette->montant, 2) }}</td>
-                                        <td>{{ $recette->description }}</td>
-                                        <td>{{ $recette->date->format('d/m/Y') }}</td>
-                                        <td>{{ $recette->categorie->nom }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                @endforeach
             </div>
-        </div>
-        
+        </div>    
     </x-content-page>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
     <script>
         $(document).ready(function() {
-            // Initialiser les DataTables
-            var tableAll = $('#data-table-all').DataTable();
-            var tablePrets = $('#data-table-prets').DataTable();
-            var tableRecettesPropres = $('#data-table-recettes-propres').DataTable();
-            var tableProduits = $('#data-table-produits').DataTable();
-            var tableAutres = $('#data-table-autres').DataTable();
-    
-            // Gérer le changement d'onglet pour réinitialiser les DataTables
-            function showTab(tabName) {
-                var tabs = ['all', 'prets', 'recettes-propres', 'produits', 'autres'];
-                tabs.forEach(function(tab) {
-                    var tabButton = $('#tab-' + tab);
-                    var content = $('#tab-' + tab + '-content');
-    
-                    if (tab === tabName) {
-                        tabButton.addClass('active-tab');
-                        content.removeClass('hidden');
-    
-                        // Réinitialiser la DataTable visible
-                        if (tab === 'all') {
-                            tableAll.columns.adjust().responsive.recalc();
-                        } else if (tab === 'prets') {
-                            tablePrets.columns.adjust().responsive.recalc();
-                        } else if (tab === 'recettes-propres') {
-                            tableRecettesPropres.columns.adjust().responsive.recalc();
-                        } else if (tab === 'produits') {
-                            tableProduits.columns.adjust().responsive.recalc();
-                        } else if (tab === 'autres') {
-                            tableAutres.columns.adjust().responsive.recalc();
+            // DataTable for "Tous"
+            $('#recettes-table-all').DataTable({
+                buttons: [
+                    { 
+                        extend: 'print', 
+                        className: 'btn btn-sm text-red-500 btn-primary fa fa-print', 
+                        text:'' 
+                    },
+                    
+                  
+                    {
+                        extend: 'excelHtml5',
+                        text: '<i class="fa fa-file-excel-o"></i>',
+                        titleAttr: 'Excel',
+                        filename: 'MUPOL_Recettes_{{ $categorie->nom }}',
+                        title: 'MUPOL Recettes {{ $categorie->nom }}', 
+
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        text: '<i class="fa fa-file-pdf-o"></i>',
+                        titleAttr: 'PDF',
+                        filename: 'MUPOL_Recettes_{{ $categorie->nom }}',
+                        title: function() {
+                            var date = new Date();
+                            var formattedDate = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear(); // Format DD/MM/YYYY
+                            return 'MUPOL Recettes {{ $categorie->nom }} - ' + formattedDate;
+                        },                            
+                        customize: function (doc) {
+                            // Personnalisation du titre
+                            doc.content[1].table.widths = 
+                            Array(doc.content[1].table.body[0].length + 1).join('*').split('');
                         }
-                    } else {
-                        tabButton.removeClass('active-tab');
-                        content.addClass('hidden');
                     }
+                ],
+         
+                paging: true,
+                ordering: true,
+                info: true,
+                searching: true,
+                lengthChange: true,
+                lengthMenu: [10, 25, 50, 100],
+                pagingType: 'simple_numbers',
+                
+
+                "language": {
+                    "search": "Rechercher:",
+                    "lengthMenu": "Afficher _MENU_ entrées par page",
+                    "info": "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
+                    "infoEmpty": "Aucune entrée disponible",
+                    "zeroRecords": "Aucun résultat trouvé",
+                    "paginate": {
+                        "previous": "Précédent",
+                        "next": "Suivant"
+                    }
+                },
+                "dom": '<"top"lBf>t<"bottom"p><"clear">',
+                "initComplete": function() {
+                    // Arrondir les coins de la barre de recherche
+                    $('.dataTables_filter input').css('border-radius', '10px');
+                    // Remplacer le label par un placeholder
+                    $('.dataTables_filter label').contents().filter(function() {
+                        return this.nodeType === 3;
+                    }).remove();                        
+                    $('.dataTables_filter input').attr('placeholder', 'Rechercher...'); 
+                    $('.dataTables_filter').css({
+                        'position': 'relative',
+                        
+                    });                        
+                    $('.dataTables_filter input').css({
+                        'padding-left': '30px',  // Espace pour l'icône
+                    }).before('<i class="fa fa-search absolute text-gray-300" style="position: absolute; top: 50%; left: 10px; transform: translateY(-50%);"></i>');
+
+                    $('.dataTables_length select').css({
+                        'padding': '6px 12px',
+                        'font-family': 'Arial, sans-serif',
+                        'font-size': '14px',                 // Change la taille de la police
+                        
+                    });
+                    $('.dataTables_length').css({
+                        'font-family': 'Arial, sans-serif',  // Change la police
+                        'font-size': '14px',
+                        'line-height': '1rem',
+                        'color' : 'gray'
+                    });
+                    $('.dataTables_wrapper .top').css({
+                        'display': 'flex',
+                        'justify-content': 'space-between',
+                        'align-items': 'center',
+                        'margin-top': '20px',   // Marge supérieure
+                        'margin-bottom': '20px'  // Marge inférieure
+                    });
+                    $('.dataTables_paginate .paginate_button').css({
+                        'margin': '8px 20px',
+                        'color' : 'gray',
+                        'font-size': '14px',
+                        'line-height': '1rem',
+                    });
+                },
+            });
+
+            @foreach($categoriesPrincipales as $categorie)
+                $('#recettes-table-{{ $categorie->uuid }}').DataTable({
+                   
+                     
+                        buttons: [
+                        { 
+                            extend: 'print', 
+                            className: 'btn btn-sm text-red-500 btn-primary fa fa-print', 
+                            text:'' 
+                        },
+                        
+                      
+                        {
+                            extend: 'excelHtml5',
+                            text: '<i class="fa fa-file-excel-o"></i>',
+                            titleAttr: 'Excel',
+                            filename: 'MUPOL_Recettes_{{ $categorie->nom }}',
+                            title: 'MUPOL Recettes {{ $categorie->nom }}', 
+
+                        },
+                        {
+                            extend: 'pdfHtml5',
+                            text: '<i class="fa fa-file-pdf-o"></i>',
+                            titleAttr: 'PDF',
+                            filename: 'MUPOL_Recettes_{{ $categorie->nom }}',
+                            title: function() {
+                                var date = new Date();
+                                var formattedDate = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear(); // Format DD/MM/YYYY
+                                return 'MUPOL Recettes {{ $categorie->nom }} - ' + formattedDate;
+                            },                            
+                            customize: function (doc) {
+                                // Personnalisation du titre
+                                doc.content[1].table.widths = 
+                                Array(doc.content[1].table.body[0].length + 1).join('*').split('');
+                            }
+                        }
+                        ],
+             
+                        paging: true,
+                        ordering: true,
+                        info: true,
+                        searching: true,
+                        lengthChange: true,
+                        lengthMenu: [10, 25, 50, 100],
+                        pagingType: 'simple_numbers',
+                        
+
+                        "language": {
+                            "search": "Rechercher:",
+                            "lengthMenu": "Afficher _MENU_ entrées par page",
+                            "info": "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
+                            "infoEmpty": "Aucune entrée disponible",
+                            "zeroRecords": "Aucun résultat trouvé",
+                            "paginate": {
+                                "previous": "Précédent",
+                                "next": "Suivant"
+                            }
+                        },
+                        "dom": '<"top"lBf>t<"bottom"p><"clear">',
+                        "initComplete": function() {
+                            // Arrondir les coins de la barre de recherche
+                            $('.dataTables_filter input').css('border-radius', '10px');
+                            // Remplacer le label par un placeholder
+                            $('.dataTables_filter label').contents().filter(function() {
+                                return this.nodeType === 3;
+                            }).remove();                        
+                            $('.dataTables_filter input').attr('placeholder', 'Rechercher...'); 
+                            $('.dataTables_filter').css({
+                                'position': 'relative',
+                                
+                            });                        
+                            $('.dataTables_filter input').css({
+                                'padding-left': '30px',  // Espace pour l'icône
+                            }).before('<i class="fa fa-search absolute text-gray-300" style="position: absolute; top: 50%; left: 10px; transform: translateY(-50%);"></i>');
+
+                            $('.dataTables_length select').css({
+                                'padding': '6px 12px',
+                                'font-family': 'Arial, sans-serif',
+                                'font-size': '14px',                 // Change la taille de la police
+                                
+                            });
+                            $('.dataTables_length').css({
+                                'font-family': 'Arial, sans-serif',  // Change la police
+                                'font-size': '14px',
+                                'line-height': '1rem',
+                                'color' : 'gray'
+                            });
+                            $('.dataTables_wrapper .top').css({
+                                'display': 'flex',
+                                'justify-content': 'space-between',
+                                'align-items': 'center',
+                                'margin-top': '20px',   // Marge supérieure
+                                'margin-bottom': '20px'  // Marge inférieure
+                            });
+                            $('.dataTables_paginate .paginate_button').css({
+                                'margin': '8px 20px',
+                                'color' : 'gray',
+                                'font-size': '14px',
+                                'line-height': '1rem',
+                            });
+                        },
                 });
-            }
-    
-            // Écoutez les clics sur les onglets
-            $('#tab-all').click(() => showTab('all'));
-            $('#tab-prets').click(() => showTab('prets'));
-            $('#tab-recettes-propres').click(() => showTab('recettes-propres'));
-            $('#tab-produits').click(() => showTab('produits'));
-            $('#tab-autres').click(() => showTab('autres'));
-    
-            // Initialiser par défaut le premier onglet
-            showTab('all');
+            @endforeach
+
+            // Afficher l'onglet actif et changer la couleur de fond de l'onglet sélectionné
+            $("a.tab-link").on("click", function (e) {
+                e.preventDefault();
+
+                // Retirer la couleur de fond de tous les onglets
+                $("a.tab-link").removeClass("bg-[#4845D8] text-white").addClass("text-blue-600");
+
+                // Ajouter la couleur de fond et changer la couleur du texte de l'onglet actif
+                $(this).removeClass("text-blue-600").addClass("bg-[#4845D8] text-white");
+
+                // Masquer tous les contenus d'onglets et afficher celui sélectionné
+                $(".tab-content").addClass("hidden");
+                var targetTab = $(this).attr("href");
+                $(targetTab).removeClass("hidden");
+            });
+
+            $("a.tab-link:first").addClass("bg-[#4845D8] text-white");
+            $(".tab-content:first").removeClass("hidden");
         });
     </script>
-    
 </x-app-layout>

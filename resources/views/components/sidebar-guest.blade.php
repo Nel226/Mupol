@@ -1,11 +1,18 @@
 <!-- Sidebar Area -->
-<aside class="sidebar w-64 bg-[#cccccc] text-gray-800 shadow-lg h-screen fixed inset-y-0 left-0 transform -translate-x-full md:translate-x-0 transition duration-300 ease-in-out z-40">
+<aside class="sidebar-sous  py-36 w-64 bg-[#cccccc] text-gray-800 shadow-lg h-screen fixed inset-y-0 left-0 transform -translate-x-full md:translate-x-0 transition duration-300 ease-in-out z-40">
     <div class="sidebar-inner p-4">
-        <div class="logo flex items-center mb-6">
-            <img src="{{ asset('images/logofinal.png') }}" alt="Logo de la Mutuelle" class="h-16 w-auto mr-2">
-            <h3 class="font-bold text-sm text-gray-800">Mutuelle de la Police Nationale (MU-POL)</h3>
-        </div>
-        
+    
+        <style>
+            .sidebar-sous {
+                
+                z-index: 40;
+                position: relative; /* Permet à la sidebar de suivre la structure flex */
+                height: 100vh; /* Fixe la hauteur à la hauteur de l'écran */
+                {{--  position: fixed; /* La sidebar doit rester fixée à gauche */  --}}
+
+            }
+
+        </style>
         <!-- User Profile -->
         <div class="user-profile flex items-center mb-4 p-2 bg-[#4644D5] rounded-md">
             <img src="{{ asset('storage/' . Auth::guard('adherent')->user()->photo) }}" alt="User Profile" class="h-12 w-12 rounded-full mr-3">

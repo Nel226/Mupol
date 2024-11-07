@@ -15,7 +15,7 @@ use App\Models\Adherant;
 use Illuminate\Support\Facades\Hash;
 use App\Mail\AdherantRegistrationMail;
 use App\Models\AyantDroit;
-use Illuminate\Support\Str;
+use App\Helpers\PasswordHelper;
 
 class AccueilController extends Controller
 {
@@ -70,8 +70,8 @@ class AccueilController extends Controller
         $cotisations = DemandeCategorieHelper::calculerCotisationMensuelleTotale($demandeAdhesion->nombreAyantsDroits, $demandeAdhesion->statut);
         $pdf = Pdf::loadView('pages.frontend.adherents.fiches.cession_volontaire', ['demandeAdhesion' => $demandeAdhesion]);
 
-        $generatedPassword = 'ggbvvhLJJn';
-
+        $generatedPassword = PasswordHelper::generateSecurePassword();
+        
         $adherent = Adherant::create([
             'matricule' => $demandeAdhesion->matricule, 
             'nip' => $demandeAdhesion->nip,
@@ -108,6 +108,10 @@ class AccueilController extends Controller
             'password' => Hash::make($generatedPassword), 
             'date_enregistrement' => now(),
             'code_carte' => $demandeAdhesion->matricule . '/00', 
+            'region' => $demandeAdhesion->region,
+            'province' => $demandeAdhesion->province,
+            'localite' => $demandeAdhesion->localite,
+
 
         ]);
 

@@ -1,3 +1,1681 @@
+s
+ 
+rounded-lg
+ 
+        // Regrouper les adhérents par région
+
+ 
+        // Initialiser un tableau pour compter les adhérents par région, en incluant les régions sans adhérents
+
+ 
+            // Si la région a des adhérents, on utilise leur nombre ; sinon, on met 0
+
+ 
+
+                
+                
+                
+                 
+ 
+        dd($adherentsParRegion);
+
+ 
+
+
+        return view('pages.backend.comptabilite.caisse.index',
+                    compact('pageTitle', 'breadcrumbsItems', 'recettesParCategorie', 'categoriesPrincipales', 'recettes')
+        );
+ 
+$categoriesPrincipales = Categorie::whereNull('parent_id')
+                                            ->where('type', 'recette') 
+                                            ->get();
+
+                                            $recettes = Recette::with('categorie')
+                                            ->whereIn('categorie_id', $categoriesPrincipales->pluck('uuid')) // Filtrer les recettes par categorie_id
+                                            ->get();
+                                        
+        // Groupement des recettes par catégorie
+        $recettesParCategorie = $recettes->groupBy(function($recette) {
+            return $recette->categorie->nom; 
+        });
+ 
+w-5 h-5 
+ 
+mr-4
+ 
+<div class="w-3/4 mx-auto">
+                    <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Ajouter une nouvelle dépense</h2>
+                
+                    <form method="POST" action="{{ route('depenses.store') }}" enctype="multipart/form-data">
+                        @csrf
+                        <div class="grid gap-3 sm:grid-cols-2 sm:gap-6">
+                
+                            <!-- Montant de la dépense -->
+                            <div class="w-full">
+                                <label for="montant" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Montant</label>
+                                <input type="number" name="montant" id="montant" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Montant de la dépense" required>
+                            </div>
+
+                            <!-- Date de la dépense -->
+                            <div class="w-full">
+                                <label for="date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date</label>
+                                <input type="date" name="date" id="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
+                            </div>
+                
+                            <!-- Description de la dépense -->
+                            <div class="w-full col-span-2">
+                                <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+                                <textarea name="description" id="description" rows="4" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Description de la recette" required></textarea>
+                            </div>
+                            
+                            <!-- Catégorie de la dépense -->
+                            <div class="w-full">
+                                <label for="categorie_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Catégorie</label>
+                                <select name="categorie_id" id="categorie_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
+                                    <option value="">Sélectionnez une catégorie</option>
+                                    @foreach ($categories as $categorie)
+                                        {{-- <option value="{{ $categorie->uuid  }}" data-children="{{ json_encode($categorie->children) }}">{{ $categorie->nom }}</option> --}}
+                                        <option value="{{ $categorie->uuid }}" data-children="{{ json_encode($categorie->children) }}" {{ old('categorie_id') == $categorie->uuid ? 'selected' : '' }}>{{ $categorie->nom }}</option>
+
+                                    @endforeach
+                                </select>
+                            </div>
+                            
+                            <div class="w-full " id="sous-categorie-container" style="display: none;">
+                                <label for="sous_categorie_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sous-catégorie</label>
+                                <select name="sous_categorie_id" id="sous_categorie_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                    <option value="">Sélectionnez une sous-catégorie</option>
+                                </select>
+                            </div>
+                            
+                            <script>
+                                document.getElementById('categorie_id').addEventListener('change', function() {
+                                    var selectedOption = this.options[this.selectedIndex];
+                                    var children = JSON.parse(selectedOption.getAttribute('data-children'));
+                                    var sousCategorieContainer = document.getElementById('sous-categorie-container');
+                                    var sousCategorieSelect = document.getElementById('sous_categorie_id');
+                            
+                                    // Réinitialiser le select des sous-catégories
+                                    sousCategorieSelect.innerHTML = '<option value="">Sélectionnez une sous-catégorie</option>';
+                            
+                                    if (children.length > 0) {
+                                        sousCategorieContainer.style.display = 'block'; // Afficher le conteneur des sous-catégories
+                                        children.forEach(function(child) {
+                                            var option = document.createElement('option');
+                                            option.value = child.uuid; // Assurez-vous que 'id' existe dans vos données enfants
+                                            option.textContent = child.nom; // Assurez-vous que 'nom' existe dans vos données enfants
+                                            sousCategorieSelect.appendChild(option);
+                                        });
+                                    } else {
+                                        sousCategorieContainer.style.display = 'none'; // Cacher le conteneur si pas d'enfants
+                                    }
+                                });
+                            </script>
+                
+                        </div>
+                
+                        <button type="submit" class="mt-5 text-white bg-[#4000FF] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                            Ajouter Dépense
+                        </button>
+                    </form>
+                </div>
+ 
+px-4
+ 
+px-4
+ 
+py-2
+ 
+px-2
+ 
+inline
+ 
+                                        
+ 
+        dd($categories);
+
+ 
+return view('pages.backend.comptabilite.depenses.categories',
+                    compact('pageTitle', 'breadcrumbsItems')
+        );
+ 
+rie_id') // Sélectionner uniquement l'id de la catégorie
+ 
+// Pour s'assurer qu'il n'y a pas de doublons
+ 
+        // Redirection vers la liste des recettes avec un message de succès
+
+ 
+            // 'uuid' => \Illuminate\Support\Str::uuid(), // Génération d'un UUID pour la recette
+
+ 
+<x-app-layout>
+    <x-sidebar/>
+    @if (session('success'))
+        <x-succes-notification>
+            {{ session('success') }}
+        </x-succes-notification>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const notification = document.getElementById('success-notification-content');
+                const closeBtn = document.getElementById('close-notification');
+                
+                notification.classList.remove('hidden');
+                
+                closeBtn.addEventListener('click', () => {
+                    notification.classList.add('hidden');
+                });
+            });
+        </script>
+    @endif
+
+    <x-content-page>
+        @section('navigation-content')
+            <x-breadcrumb :breadcrumbItems="$breadcrumbsItems" :pageTitle="$pageTitle"/>
+        @endsection   
+
+        <div class="flex-1 p-6">
+            {{-- <x-header>
+                {{$pageTitle}}
+            </x-header> --}}
+
+            <div class="flex items-center px-4 py-2 text-gray-500 bg-[#fffe4a70] rounded-t-lg shadow-lg">
+                <h1 class="flex-1 text-2xl font-bold">Gestion des prestations</h1>
+            </div>
+            
+            <div class="p-6 mx-auto mt-4 bg-white rounded-lg shadow-lg ">
+                @if ($errors->any())
+                    <div class="px-6 py-3 mb-4 bg-red-200 border-red-700 rounded-md alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+    
+                        
+            </div>
+        </div>
+    </x-content-page>
+    
+</x-app-layout>
+
+ 
+ (10% des frais de cotisation)
+ 
+        // Récupérer les dépenses associées aux catégories principales
+
+ 
+        // Récupérer les catégories principales de type "dépense"
+
+ 
+        dd($categories);
+
+ 
+ddd
+ 
+$categories
+ 
+            sddd
+
+ 
+           
+                       
+                    
+ 
+doc.content[1].text = 'MUPOL Recettes {{ $categorie->nom }}';
+                                doc.content[1].alignment = 'center';
+                                doc.content[1].fontSize = 16;
+                                doc.content[1].bold = true;
+                
+                                // Ajuster la largeur du tableau pour qu'il occupe toute la largeur du PDF
+                                doc.content[2].table.widths = Array(doc.content[2].table.body[0].length).fill('*'); // Étend les colonnes sur toute la largeur
+                
+                                // Personnalisation de la mise en page du tableau
+                                doc.content[2].layout = {
+                                    fillColor: function (rowIndex, node, columnIndex) {
+                                        return '#f1f1f1'; // Couleur de fond pour les lignes du tableau
+                                    },
+                                    hLineWidth: function (i) {
+                                        return 0.5; // Largeur des lignes horizontales
+                                    },
+                                    vLineWidth: function (i) {
+                                        return 0.5; // Largeur des lignes verticales
+                                    },
+                                    paddingLeft: function (i) {
+                                        return 5; // Padding gauche des cellules
+                                    },
+                                    paddingRight: function (i) {
+                                        return 5; // Padding droit des cellules
+                                    }
+                                };
+ 
+// Ajuster la largeur du tableau pour qu'il occupe toute la largeur du PDF
+                                doc.content[2].layout = {
+                                    fillColor: function (rowIndex, node, columnIndex) {
+                                        return '#f1f1f1'; // Couleur de fond pour les lignes du tableau
+                                    },
+                                    hLineWidth: function (i) {
+                                        return 0.5; // Largeur des lignes horizontales
+                                    },
+                                    vLineWidth: function (i) {
+                                        return 0.5; // Largeur des lignes verticales
+                                    },
+                                    paddingLeft: function (i) {
+                                        return 5; // Padding gauche des cellules
+                                    },
+                                    paddingRight: function (i) {
+                                        return 5; // Padding droit des cellules
+                                    }
+                                };
+ 
+// Personnalisation du titre dans le PDF
+                                doc.content[1].text = 'Rapport MUPOL'; // Le texte du titre
+                                doc.content[1].alignment = 'center'; // Centrer le titre
+                                doc.content[1].fontSize = 16; // Taille de la police
+                                doc.content[1].bold = true; // Titre en gras
+                
+ 
+// Titre du tableau dans le PDF
+ 
+    <!-- Buttons JS -->
+
+ 
+                            // Espace entre les boutons
+
+ 
+                    "dom": '<"top"lf>t<"bottom"<"d-flex justify-content-between"ip>><"clear">',
+
+ 
+                            'font-family': 'Arial, sans-serif'
+
+ 
+'margin-top': '20px',   // Marge supérieure
+                            'margin-bottom': '20px'  // Marge inférieure
+ 
+                        // Ajouter un peu de marge entre la barre de recherche et la table
+
+ 
+                        $('.dataTables_filter').css('margin-bottom', '20px');
+
+ 
+                            font-size:  /* 12px */;
+
+ 
+/ Ajouter un placeholder
+ 
+                        $('.dataTables_filter label').addClass('hidden');  // Cacher le label
+
+ 
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+
+ 
+                        info: true,
+
+ 
+dom: 'Brtip',
+ 
+                        scrollX: true,
+
+ 
+ paging: true,
+                        ordering: true,
+                        info: true,
+                        scrollX: true,
+                        searching: true,
+ 
+paging: true,
+                        ordering: true,
+                        info: false,
+                        scrollX: true,
+                        searching: true,
+                        lengthChange: true,
+ 
+columnDefs: [
+                            {
+                                targets: 0, // Indique que la première colonne (index 0) sera affectée
+                                visible: false, // Cache la première colonne
+                                searchable: false // Désactive la recherche sur cette colonne
+                            }
+                        ],            
+                       
+ 
+ buttons: [
+                        { 
+                            extend: 'print', 
+                            className: 'btn btn-sm text-red-500 btn-primary fa fa-print', 
+                            text:'' 
+                        },
+                        
+                      
+                        {
+                            extend: 'excelHtml5',
+                            text: '<i class="fa fa-file-excel-o"></i>',
+                            titleAttr: 'Excel'
+                        },
+                        {
+                            extend: 'pdfHtml5',
+                            text: '<i class="fa fa-file-pdf-o"></i>',
+                            titleAttr: 'PDF'
+                        }
+                        ],
+ 
+buttons: [
+                        { 
+                            extend: 'print', 
+                            className: 'btn btn-sm text-red-500 btn-primary fa fa-print', 
+                            text:'' 
+                        },
+                        
+                      
+                        {
+                            extend: 'excelHtml5',
+                            text: '<i class="fa fa-file-excel-o"></i>',
+                            titleAttr: 'Excel'
+                        },
+                        {
+                            extend: 'pdfHtml5',
+                            text: '<i class="fa fa-file-pdf-o"></i>',
+                            titleAttr: 'PDF'
+                        }
+                        ],
+                        
+                       
+                    
+                        paging: true,
+                        ordering: true,
+                        info: false,
+                        scrollX: true,
+                        searching: true,
+                        lengthChange: true,
+                        lengthMenu: [10, 25, 50, 100],
+                        pagingType: 'simple_numbers',
+                        columnDefs: [
+                            {
+                                targets: 0, // Indique que la première colonne (index 0) sera affectée
+                                visible: false, // Cache la première colonne
+                                searchable: false // Désactive la recherche sur cette colonne
+                            }
+                        ],            
+                       
+ 
+                    dom: 'Brtip',
+
+ 
+isplay table table-striped
+ 
+ "paging": true,
+                    "searching": true,
+                    "ordering": true,
+                    "info": true,
+ 
+blue
+ 
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+
+ 
+            // Initialisation des DataTables pour chaque catégorie
+
+ 
+800
+ 
+blue
+ 
+            // Initialisation de l'onglet actif par défaut
+
+ 
+blue
+ 
+<x-app-layout>
+    <x-sidebar/>
+
+    @if (session('success'))
+        <x-succes-notification>
+            {{ session('success') }}
+        </x-succes-notification>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const notification = document.getElementById('success-notification-content');
+                const closeBtn = document.getElementById('close-notification');
+                
+                notification.classList.remove('hidden');
+                
+                closeBtn.addEventListener('click', () => {
+                    notification.classList.add('hidden');
+                });
+            });
+        </script>
+    @endif
+
+    <x-content-page>
+        @section('navigation-content')
+            <x-breadcrumb :breadcrumbItems="$breadcrumbsItems" :pageTitle="$pageTitle"/>
+        @endsection        
+        <div class="flex-1 p-6">
+            <x-header>
+                {{$pageTitle}}
+            </x-header>
+
+            <div class="p-6 mx-auto mt-4 bg-white min-h-screen rounded-b-lg shadow-lg">
+                <!-- Tabs -->
+                <div class="mb-4">
+                    <ul class="flex border-b">
+                        @foreach($categoriesPrincipales as $categorie)
+                            <li class="mr-1">
+                                <a href="#category-{{ $categorie->uuid }}" class="inline-block py-2 px-4 text-blue-600 hover:text-blue-800 focus:outline-none">
+                                    {{ $categorie->nom }}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+
+                <!-- Tab content -->
+                @foreach($categoriesPrincipales as $categorie)
+                    <div id="category-{{ $categorie->uuid }}" class="tab-content hidden">
+                        <table id="recettes-table-{{ $categorie->uuid }}" class="display table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Description</th>
+                                    <th>Montant</th>
+                                    <th>Catégorie</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($recettes as $recette)
+                                    @if($recette->categorie->uuid == $categorie->uuid)
+                                        <tr>
+                                            <td>{{ $recette->description }}</td>
+                                            <td>{{ $recette->montant }}</td>
+                                            <td>{{ $recette->categorie->nom }}</td>
+                                        </tr>
+                                    @endif
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                @endforeach
+            </div>
+        </div>    
+    </x-content-page>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Initialisation des DataTables pour chaque catégorie
+            @foreach($categoriesPrincipales as $categorie)
+                $('#recettes-table-{{ $categorie->uuid }}').DataTable({
+                    "paging": true,
+                    "searching": true,
+                    "ordering": true,
+                    "info": true,
+                    "language": {
+                        "search": "Rechercher:",
+                        "lengthMenu": "Afficher _MENU_ entrées par page",
+                        "info": "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
+                        "infoEmpty": "Aucune entrée disponible",
+                        "zeroRecords": "Aucun résultat trouvé",
+                        "paginate": {
+                            "previous": "Précédent",
+                            "next": "Suivant"
+                        }
+                    }
+                });
+            @endforeach
+
+            // Afficher l'onglet actif
+            $("a").on("click", function (e) {
+                e.preventDefault();
+                $("a").removeClass("text-blue-800").addClass("text-blue-600");
+                $(this).removeClass("text-blue-600").addClass("text-blue-800");
+
+                $(".tab-content").addClass("hidden");
+                var targetTab = $(this).attr("href");
+                $(targetTab).removeClass("hidden");
+            });
+        });
+    </script>
+</x-app-layout>
+
+ 
+<x-app-layout>
+    <x-sidebar/>
+
+    @if (session('success'))
+        <x-succes-notification>
+            {{ session('success') }}
+        </x-succes-notification>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const notification = document.getElementById('success-notification-content');
+                const closeBtn = document.getElementById('close-notification');
+                
+                notification.classList.remove('hidden');
+                
+                closeBtn.addEventListener('click', () => {
+                    notification.classList.add('hidden');
+                });
+            });
+        </script>
+    @endif
+
+    <x-content-page>
+        @section('navigation-content')
+            <x-breadcrumb :breadcrumbItems="$breadcrumbsItems" :pageTitle="$pageTitle"/>
+        @endsection        
+
+        <div class="flex-1 p-6">
+            <x-header>
+                {{$pageTitle}}
+            </x-header>
+
+            <div class="p-6 mx-auto mt-4 bg-white min-h-screen rounded-b-lg shadow-lg">
+                <!-- Tabs -->
+                <div class="mb-4">
+                    <ul class="flex border-b" id="tabs">
+                        @foreach($categoriesPrincipales as $categorie)
+                            <li class="mr-1 tab-item">
+                                <a href="#category-{{ $categorie->uuid }}" 
+                                   class="inline-block py-2 px-4 text-blue-600 hover:text-blue-800 focus:outline-none tab-link">
+                                    {{ $categorie->nom }}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+
+                <!-- Tab content -->
+                @foreach($categoriesPrincipales as $categorie)
+                    <div id="category-{{ $categorie->uuid }}" class="tab-content hidden">
+                        <table id="recettes-table-{{ $categorie->uuid }}" class="display table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Description</th>
+                                    <th>Montant</th>
+                                    <th>Catégorie</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($recettes as $recette)
+                                    @if($recette->categorie->uuid == $categorie->uuid)
+                                        <tr>
+                                            <td>{{ $recette->description }}</td>
+                                            <td>{{ $recette->montant }}</td>
+                                            <td>{{ $recette->categorie->nom }}</td>
+                                        </tr>
+                                    @endif
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                @endforeach
+            </div>
+        </div>    
+    </x-content-page>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Fonction pour initialiser une DataTable si elle n'est pas déjà initialisée
+            function initializeDataTable(tableId) {
+                if (!$(tableId).hasClass('dataTable')) {
+                    $(tableId).DataTable({
+                        "paging": true,
+                        "searching": true,
+                        "ordering": true,
+                        "info": true,
+                        "language": {
+                            "search": "Rechercher:",
+                            "lengthMenu": "Afficher _MENU_ entrées par page",
+                            "info": "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
+                            "infoEmpty": "Aucune entrée disponible",
+                            "zeroRecords": "Aucun résultat trouvé",
+                            "paginate": {
+                                "previous": "Précédent",
+                                "next": "Suivant"
+                            }
+                        }
+                    });
+                }
+            }
+
+            // Initialiser le premier onglet visible
+            var activeTab = $(".tab-link:first").attr("href");
+            $(activeTab).removeClass("hidden"); // Afficher le premier onglet
+
+            // Initialisation des DataTables pour la première catégorie visible
+            var firstTableId = '#recettes-table-' + activeTab.split('-')[1];
+            initializeDataTable(firstTableId);
+
+            // Gestion des onglets avec ajout de fond sur l'onglet sélectionné
+            $("a.tab-link").on("click", function(e) {
+                e.preventDefault();
+                var targetTab = $(this).attr("href");
+
+                // Afficher le bon onglet et ajouter un fond à l'élément li sélectionné
+                $(".tab-content").addClass("hidden");
+                $(targetTab).removeClass("hidden");
+
+                // Initialiser la DataTable uniquement si elle n'est pas encore initialisée
+                var tableId = '#recettes-table-' + targetTab.split('-')[1];
+                initializeDataTable(tableId);
+
+                // Réinitialiser l'arrière-plan de tous les onglets
+                $(".tab-item").removeClass("bg-blue-100");
+                
+                // Ajouter un fond à l'onglet sélectionné
+                $(this).parent().addClass("bg-blue-100");
+            });
+
+            // Appliquer un fond à l'onglet actif au chargement de la page
+            $(".tab-item:first").addClass("bg-blue-100");
+        });
+    </script>
+</x-app-layout>
+
+ 
+<x-app-layout>
+    <x-sidebar/>
+
+    @if (session('success'))
+        <x-succes-notification>
+            {{ session('success') }}
+        </x-succes-notification>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const notification = document.getElementById('success-notification-content');
+                const closeBtn = document.getElementById('close-notification');
+                
+                notification.classList.remove('hidden');
+                
+                closeBtn.addEventListener('click', () => {
+                    notification.classList.add('hidden');
+                });
+            });
+        </script>
+    @endif
+
+    <x-content-page>
+        @section('navigation-content')
+            <x-breadcrumb :breadcrumbItems="$breadcrumbsItems" :pageTitle="$pageTitle"/>
+        @endsection        
+
+        <div class="flex-1 p-6">
+            <x-header>
+                {{$pageTitle}}
+            </x-header>
+
+            <div class="p-6 mx-auto mt-4 bg-white min-h-screen rounded-b-lg shadow-lg">
+                <!-- Tabs -->
+                <div class="mb-4">
+                    <ul class="flex border-b" id="tabs">
+                        @foreach($categoriesPrincipales as $categorie)
+                            <li class="mr-1 tab-item">
+                                <a href="#category-{{ $categorie->uuid }}" 
+                                   class="inline-block py-2 px-4 text-blue-600 hover:text-blue-800 focus:outline-none tab-link">
+                                    {{ $categorie->nom }}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+
+                <!-- Tab content -->
+                @foreach($categoriesPrincipales as $categorie)
+                    <div id="category-{{ $categorie->uuid }}" class="tab-content hidden">
+                        <table id="recettes-table-{{ $categorie->uuid }}" class="display table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Description</th>
+                                    <th>Montant</th>
+                                    <th>Catégorie</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($recettes as $recette)
+                                    @if($recette->categorie->uuid == $categorie->uuid)
+                                        <tr>
+                                            <td>{{ $recette->description }}</td>
+                                            <td>{{ $recette->montant }}</td>
+                                            <td>{{ $recette->categorie->nom }}</td>
+                                        </tr>
+                                    @endif
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                @endforeach
+            </div>
+        </div>    
+    </x-content-page>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Initialisation des DataTables pour la première catégorie visible
+            var activeTab = $(".tab-link:first").attr("href");
+            $(activeTab).removeClass("hidden"); // Affiche le premier onglet
+
+            // Initialisation des DataTables uniquement pour l'onglet actif
+            $('#recettes-table-' + activeTab.split('-')[1]).DataTable({
+                "paging": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "language": {
+                    "search": "Rechercher:",
+                    "lengthMenu": "Afficher _MENU_ entrées par page",
+                    "info": "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
+                    "infoEmpty": "Aucune entrée disponible",
+                    "zeroRecords": "Aucun résultat trouvé",
+                    "paginate": {
+                        "previous": "Précédent",
+                        "next": "Suivant"
+                    }
+                }
+            });
+
+            // Gestion des onglets avec ajout de fond sur l'onglet sélectionné
+            $("a.tab-link").on("click", function(e) {
+                e.preventDefault();
+                var targetTab = $(this).attr("href");
+
+                // Mettre à jour les DataTables uniquement pour l'onglet visible
+                var tableId = '#recettes-table-' + targetTab.split('-')[1];
+                if (!$(tableId).hasClass('dataTable')) {
+                    $(tableId).DataTable({
+                        "paging": true,
+                        "searching": true,
+                        "ordering": true,
+                        "info": true,
+                        "language": {
+                            "search": "Rechercher:",
+                            "lengthMenu": "Afficher _MENU_ entrées par page",
+                            "info": "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
+                            "infoEmpty": "Aucune entrée disponible",
+                            "zeroRecords": "Aucun résultat trouvé",
+                            "paginate": {
+                                "previous": "Précédent",
+                                "next": "Suivant"
+                            }
+                        }
+                    });
+                }
+
+                // Afficher le bon onglet et ajouter un fond à l'élément li sélectionné
+                $(".tab-content").addClass("hidden");
+                $(targetTab).removeClass("hidden");
+
+                // Réinitialiser l'arrière-plan de tous les onglets
+                $(".tab-item").removeClass("bg-blue-100");
+                
+                // Ajouter un fond à l'onglet sélectionné
+                $(this).parent().addClass("bg-blue-100");
+            });
+
+            // Appliquer un fond à l'onglet actif au chargement de la page
+            $(".tab-item:first").addClass("bg-blue-100");
+        });
+    </script>
+</x-app-layout>
+
+ 
+<x-app-layout>
+    <x-sidebar/>
+
+    @if (session('success'))
+        <x-succes-notification>
+            {{ session('success') }}
+        </x-succes-notification>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const notification = document.getElementById('success-notification-content');
+                const closeBtn = document.getElementById('close-notification');
+                
+                notification.classList.remove('hidden');
+                
+                closeBtn.addEventListener('click', () => {
+                    notification.classList.add('hidden');
+                });
+            });
+        </script>
+    @endif
+
+    <x-content-page>
+        @section('navigation-content')
+            <x-breadcrumb :breadcrumbItems="$breadcrumbsItems" :pageTitle="$pageTitle"/>
+        @endsection        
+        <div class="flex-1 p-6">
+            <x-header>
+                {{$pageTitle}}
+            </x-header>
+
+            <div class="p-6 mx-auto mt-4 bg-white min-h-screen rounded-b-lg shadow-lg">
+                <!-- Tabs -->
+                <div class="mb-4">
+                    <ul class="flex border-b">
+                        @foreach($categoriesPrincipales as $categorie)
+                            <li class="mr-1">
+                                <a href="#category-{{ $categorie->uuid }}" class="inline-block py-2 px-4 text-blue-600 hover:text-blue-800 focus:outline-none">
+                                    {{ $categorie->nom }}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+
+                <!-- Tab content -->
+                @foreach($categoriesPrincipales as $categorie)
+                    <div id="category-{{ $categorie->uuid }}" class="tab-content hidden">
+                        <table id="recettes-table-{{ $categorie->uuid }}" class="display table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Description</th>
+                                    <th>Montant</th>
+                                    <th>Catégorie</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($recettes as $recette)
+                                    @if($recette->categorie->uuid == $categorie->uuid)
+                                        <tr>
+                                            <td>{{ $recette->description }}</td>
+                                            <td>{{ $recette->montant }}</td>
+                                            <td>{{ $recette->categorie->nom }}</td>
+                                        </tr>
+                                    @endif
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                @endforeach
+            </div>
+        </div>    
+    </x-content-page>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Initialisation des DataTables pour chaque catégorie
+            @foreach($categoriesPrincipales as $categorie)
+                $('#recettes-table-{{ $categorie->uuid }}').DataTable({
+                    "paging": true,
+                    "searching": true,
+                    "ordering": true,
+                    "info": true,
+                    "language": {
+                        "search": "Rechercher:",
+                        "lengthMenu": "Afficher _MENU_ entrées par page",
+                        "info": "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
+                        "infoEmpty": "Aucune entrée disponible",
+                        "zeroRecords": "Aucun résultat trouvé",
+                        "paginate": {
+                            "previous": "Précédent",
+                            "next": "Suivant"
+                        }
+                    }
+                });
+            @endforeach
+
+            // Afficher l'onglet actif
+            $("a").on("click", function (e) {
+                e.preventDefault();
+                $("a").removeClass("text-blue-800").addClass("text-blue-600");
+                $(this).removeClass("text-blue-600").addClass("text-blue-800");
+
+                $(".tab-content").addClass("hidden");
+                var targetTab = $(this).attr("href");
+                $(targetTab).removeClass("hidden");
+            });
+        });
+    </script>
+</x-app-layout>
+
+ 
+<x-app-layout>
+    <x-sidebar/>
+
+    @if (session('success'))
+        <x-succes-notification>
+            {{ session('success') }}
+        </x-succes-notification>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const notification = document.getElementById('success-notification-content');
+                const closeBtn = document.getElementById('close-notification');
+                
+                notification.classList.remove('hidden');
+                
+                closeBtn.addEventListener('click', () => {
+                    notification.classList.add('hidden');
+                });
+            });
+        </script>
+    @endif
+
+    <x-content-page>
+        @section('navigation-content')
+            <x-breadcrumb :breadcrumbItems="$breadcrumbsItems" :pageTitle="$pageTitle"/>
+        @endsection        
+        <div class="flex-1 p-6">
+            <x-header>
+                {{$pageTitle}}
+            </x-header>
+
+            <div class="p-6 mx-auto mt-4 bg-white min-h-screen rounded-b-lg shadow-lg">
+                <!-- Tabs -->
+                <div class="mb-4">
+                    <ul class="flex border-b">
+                        @foreach($categoriesPrincipales as $categorie)
+                            <li class="mr-1">
+                                <a href="#category-{{ $categorie->uuid }}" class="inline-block py-2 px-4 text-blue-600 hover:text-blue-800 focus:outline-none">
+                                    {{ $categorie->nom }}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+
+                <!-- Tab content -->
+                @foreach($categoriesPrincipales as $categorie)
+                    <div id="category-{{ $categorie->uuid }}" class="tab-content hidden">
+                        <table id="recettes-table-{{ $categorie->uuid }}" class="display table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Description</th>
+                                    <th>Montant</th>
+                                    <th>Catégorie</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($recettes as $recette)
+                                    @if($recette->categorie->uuid == $categorie->uuid)
+                                        <tr>
+                                            <td>{{ $recette->description }}</td>
+                                            <td>{{ $recette->montant }}</td>
+                                            <td>{{ $recette->categorie->nom }}</td>
+                                        </tr>
+                                    @endif
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                @endforeach
+            </div>
+        </div>    
+    </x-content-page>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Initialisation des DataTables pour chaque catégorie
+            @foreach($categoriesPrincipales as $categorie)
+                $('#recettes-table-{{ $categorie->uuid }}').DataTable({
+                    "paging": true,
+                    "searching": true,
+                    "ordering": true,
+                    "info": true,
+                    "language": {
+                        "search": "Rechercher:",
+                        "lengthMenu": "Afficher _MENU_ entrées par page",
+                        "info": "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
+                        "infoEmpty": "Aucune entrée disponible",
+                        "zeroRecords": "Aucun résultat trouvé",
+                        "paginate": {
+                            "previous": "Précédent",
+                            "next": "Suivant"
+                        }
+                    }
+                });
+            @endforeach
+
+            // Afficher l'onglet actif
+            $("a").on("click", function (e) {
+                e.preventDefault();
+                $("a").removeClass("text-blue-800").addClass("text-blue-600");
+                $(this).removeClass("text-blue-600").addClass("text-blue-800");
+
+                $(".tab-content").addClass("hidden");
+                var targetTab = $(this).attr("href");
+                $(targetTab).removeClass("hidden");
+            });
+        });
+    </script>
+</x-app-layout>
+
+ 
+        dd($recettesParCategorie, $categoriesPrincipales);
+
+ 
+        dd($recettesParCategorie, $categoriesPrincipales);
+
+ 
+        dd($recettesParCategorie, $categoriesPrincipales);
+
+ 
+        dd($recettesParCategorie);
+
+ 
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Recette;
+use App\Http\Requests\StoreRecetteRequest;
+use App\Http\Requests\UpdateRecetteRequest;
+use App\Models\Categorie;
+
+class RecetteController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $breadcrumbsItems = [
+            [
+                'name' => 'Recettes',
+                'url' => route('recettes.index'),
+                'active' => true
+            ],
+            
+        ];
+        $pageTitle = 'Liste des recettes';
+
+        $categoriesPrincipales = Categorie::whereNull('parent_id')
+                                            ->where('type', 'recette') 
+                                            ->get();
+
+        $recettes = Recette::with('categorie')
+            ->whereIn('categorie_id', $categoriesPrincipales->pluck('uuid')) // Filtrer les recettes par categorie_id
+            ->get();
+        // Groupement des recettes par catégorie
+        $recettesParCategorie = $recettes->groupBy(function($recette) {
+            return $recette->categorie->nom; 
+        });
+         
+        dd($recettesParCategorie);
+
+        return view('pages.backend.comptabilite.recettes.index',
+                    compact('pageTitle', 'breadcrumbsItems', 'recettesParCategorie', 'categoriesPrincipales')
+        );
+
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        $breadcrumbsItems = [
+            [
+                'name' => 'Recettes',
+                'url' => route('recettes.index'),
+                'active' => false
+            ],
+            [
+                'name' => 'Ajouter',
+                'url' => route('recettes.create'),
+                'active' => true
+            ],
+        ];
+        $sousTypes = Recette::with('categorie')
+        ->select('categorie_id') // Sélectionner uniquement l'id de la catégorie
+        ->distinct() // Pour obtenir des valeurs uniques
+        ->get()
+        ->map(function ($recette) {
+            return $recette->categorie->sous_type; // Retourne le sous_type de la catégorie associée
+        })
+        ->unique(); // Pour s'assurer qu'il n'y a pas de doublons
+        
+        $pageTitle = 'Nouvelle recette';
+        $categories = Categorie::where('type', 'recette')
+                                ->whereNull('parent_id')
+                                ->with('sousCategories')
+                                ->get();
+
+        return view('pages.backend.comptabilite.recettes.create',
+                    compact('breadcrumbsItems', 'pageTitle', 'categories')
+        );
+    }
+
+    public function categories()
+    {
+        $breadcrumbsItems = [
+            [
+                'name' => 'Recettes',
+                'url' => route('recettes.index'),
+                'active' => false
+            ],
+            [
+                'name' => 'Catégories',
+                'url' => route('recettes.categories'),
+                'active' => true
+            ],
+            
+        ];
+        $pageTitle = 'Catégories recettes';
+        $categories = Categorie::withCount('sousCategories')
+            ->where('type', 'recette') 
+            ->whereNull('parent_id')   
+            ->get();
+
+
+        return view('pages.backend.comptabilite.recettes.categories',
+                    compact('pageTitle', 'breadcrumbsItems', 
+                    'categories')
+        );
+
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(StoreRecetteRequest $request)
+    {
+        // Création d'une nouvelle recette avec les données validées
+        $recette = Recette::create([
+            // 'uuid' => \Illuminate\Support\Str::uuid(), // Génération d'un UUID pour la recette
+            'montant' => $request->input('montant'),
+            'description' => $request->input('description'),
+            'categorie_id' => $request->input('categorie_id'),
+            'sous_categorie_id' => $request->input('sous_categorie_id'),
+            'date' => $request->input('date'),
+        ]);
+
+        // Redirection vers la liste des recettes avec un message de succès
+        return redirect()->route('recettes.index')->with('success', 'Recette ajoutée avec succès !');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(Recette $recette)
+    {
+        $recette->load('categorie');
+        return response()->json($recette);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Recette $recette)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(UpdateRecetteRequest $request, Recette $recette)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Recette $recette)
+    {
+        //
+    }
+}
+
+ 
+dd($recettes);    
+
+ 
+<x-app-layout>
+    <x-sidebar/>
+    @if (session('success'))
+        <x-succes-notification>
+            {{ session('success') }}
+        </x-succes-notification>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const notification = document.getElementById('success-notification-content');
+                const closeBtn = document.getElementById('close-notification');
+                
+                notification.classList.remove('hidden');
+                
+                closeBtn.addEventListener('click', () => {
+                    notification.classList.add('hidden');
+                });
+            });
+        </script>
+    @endif
+
+    <x-content-page>
+        @section('navigation-content')
+            <x-breadcrumb :breadcrumbItems="$breadcrumbsItems" :pageTitle="$pageTitle"/>
+        @endsection        
+        <div class="flex-1 p-6">
+            <x-header>
+                {{$pageTitle}}
+            </x-header>
+         
+            <div class="p-6 mx-auto mt-4 bg-white min-h-screen rounded-b-lg shadow-lg">
+                <!-- Tabs Navigation -->
+                <div class="flex mt-4 shadow-md border rounded-md">
+                    @foreach($categoriesPrincipales as $categorie)
+                        <button id="tab-{{ $categorie->nom }}" 
+                                class="w-1/5 py-2 text-center rounded-md text-gray-600 border-b-2 border-transparent focus:outline-none hover:text-gray-800 hover:scale-105">
+                            {{ $categorie->nom }}
+                        </button>
+                    @endforeach
+                </div>
+
+                <!-- Tabs Content -->
+                @foreach($recettesParCategorie as $categorie => $recettes)
+                    <div id="tab-{{ $categorie }}-content" class="hidden mt-2 tab-content">
+                        <table id="table-{{ $categorie }}" class="display">
+                            <thead>
+                                <tr>
+                                    <th>Description</th>
+                                    <th>Montant</th>
+                                    <th>Categorie</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($recettes as $recette)
+                                    <tr>
+                                        <td>{{ $recette->description }}</td>
+                                        <td>{{ $recette->montant }}</td>
+                                        <td>{{ $categorie }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                @endforeach
+                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        // Initialiser le premier onglet si disponible
+                        const firstTab = document.getElementById('tab-{{ $categoriesPrincipales->first()->nom }}');
+                        const firstTabContent = document.getElementById('tab-{{ $categoriesPrincipales->first()->nom }}-content');
+                        
+                        if (firstTab) {
+                            firstTab.classList.add('active-tab');
+                            firstTabContent.classList.remove('hidden');
+                        }
+                
+                        // Ajouter un événement de clic à chaque bouton d'onglet
+                        @foreach($categoriesPrincipales as $categorie)
+                            const tabButton = document.getElementById('tab-{{ $categorie->nom }}');
+                            const tabContent = document.getElementById('tab-{{ $categorie->nom }}-content');
+                            
+                            if (tabButton) {
+                                tabButton.addEventListener('click', function() {
+                                    // Cacher tous les contenus des onglets
+                                    document.querySelectorAll('.tab-content').forEach(function(tab) {
+                                        tab.classList.add('hidden');
+                                    });
+                
+                                    // Désactiver tous les onglets
+                                    document.querySelectorAll('.tab-button').forEach(function(tabButton) {
+                                        tabButton.classList.remove('active-tab');
+                                    });
+                
+                                    // Afficher le contenu de l'onglet sélectionné
+                                    tabContent.classList.remove('hidden');
+                                    tabButton.classList.add('active-tab');
+                                    
+                                    // Initialiser DataTable pour cet onglet
+                                    if ($.fn.dataTable.isDataTable('#table-{{ $categorie->nom }}')) {
+                                        $('#table-{{ $categorie->nom }}').DataTable().clear().destroy();
+                                    }
+                                    $('#table-{{ $categorie->nom }}').DataTable();
+                                });
+                            }
+                        @endforeach
+                    });
+                </script>
+                
+                
+
+            </div>
+        </div>    
+    </x-content-page>
+</x-app-layout>
+ 
+        dd(vars: $recettesParCategorie);
+
+ 
+// Récupérer les données pour chaque onglet (par exemple : prêts, recettes propres, produits, etc.)
+        $prets = Pret::all(); // Exemple pour les prêts
+        $recettesPropres = Recette::where('type', 'propre')->get(); // Filtrer les recettes propres
+        $produits = Produit::all(); // Exemple pour les produits
+        $autres = Autre::all(); // Exemple pour les autres
+ 
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+                <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+ 
+        dd($recettesParCategorie);
+
+ 
+all
+ 
+// Grouper par le nom de la catégorie, ou autre attribut
+ 
+        // Récupérer toutes les recettes qui correspondent à ces catégories principales
+
+ 
+        // Grouper les recettes par catégorie
+
+ 
+        $all = Categorie::all();
+
+ 
+                overflow-y: auto; /* Permet un défilement vertical si le contenu dépasse la hauteur */
+
+ 
+py
+ 
+                overflow-y: auto;  
+
+ 
+                bottom: 0; 
+
+ 
+                top: 0; /* Aligne la sidebar en haut de la page */
+
+ 
+                overflow-y: auto;  
+
+ 
+                flex: 1;
+
+ 
+                width: 16rem; /* Ajustez la largeur de votre sidebar */
+
+ 
+ <div class="logo flex items-center mb-6">
+            <img src="{{ asset('images/logofinal.png') }}" alt="Logo de la Mutuelle" class="h-16 w-auto mr-2">
+        <h3 class="font-bold text-sm text-gray-800">Mutuelle de la Police Nationale (MU-POL)</h3>
+        </div>
+ 
+Veuillez en choisir un autre.
+ 
+que vous avez saisi est
+ 
+/ Assurez-vous que 'adherants' est le bon nom de table
+ 
+le
+ 
+Sta
+ 
+ Authenticatable
+ 
+use Illuminate\Auth\Authenticatable;
+
+ 
+<x-app-layout>
+    <x-sidebar/>
+    @if (session('success'))
+        <x-succes-notification>
+            {{ session('success') }}
+        </x-succes-notification>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const notification = document.getElementById('success-notification-content');
+                const closeBtn = document.getElementById('close-notification');
+                
+                notification.classList.remove('hidden');
+                
+                closeBtn.addEventListener('click', () => {
+                    notification.classList.add('hidden');
+                });
+            });
+        </script>
+    @endif
+
+    <x-content-page>
+        @section('navigation-content')
+            <x-breadcrumb :breadcrumbItems="$breadcrumbsItems" :pageTitle="$pageTitle"/>
+        @endsection        
+        <div class="flex-1 p-6">
+            <x-header>
+                {{$pageTitle}}
+            </x-header>
+         
+            
+            <div class="p-6 mx-auto mt-4 bg-white min-h-screen rounded-b-lg shadow-lg ">
+                <!-- Tabs Navigation -->
+                <div class="flex mt-4 shadow-md border rounded-md">
+                    <button id="tab-all" class="w-1/5 py-2 text-center rounded-md text-gray-600 border-b-2 border-transparent focus:outline-none hover:text-gray-800 hover:scale-105 active-tab">Tous</button>
+                    <button id="tab-prets" class="w-1/5 py-2 text-center rounded-md text-gray-600 border-b-2 border-transparent focus:outline-none hover:text-gray-800 hover:scale-105 ">Prêts</button>
+                    <button id="tab-recettes-propres" class="w-1/5 py-2 text-center rounded-md text-gray-600 border-b-2 border-transparent focus:outline-none hover:text-gray-800 hover:scale-105">Recettes propres </button>
+                    <button id="tab-produits" class="w-1/5 py-2 text-center rounded-md text-gray-600 border-b-2 border-transparent focus:outline-none hover:text-gray-800 hover:scale-105">Produits</button>
+                    <button id="tab-autres" class="w-1/5 py-2 text-center rounded-md text-gray-600 border-b-2 border-transparent focus:outline-none hover:text-gray-800 hover:scale-105">Autres</button>
+
+                </div>
+                <!-- Tabs Content -->
+                <div id="tab-all-content" class="hidden mt-2 tab-content">
+                    <div class="">
+                     
+                    </div>
+                    
+        
+                </div>
+                <div id="tab-prets-content" class="hidden mt-2 tab-content">
+                    <div class="">
+                        hh
+                    </div>
+        
+                </div>
+                <div id="tab-recettes-propres-content" class="mt-2 tab-content">
+                    <div class="">
+                        
+                    jj
+                    </div>
+                    
+                    
+                   
+                </div>
+                <div id="tab-produits-content" class="mt-2 tab-content">
+                    <div class="">
+                        
+                    jj
+                    </div>
+                    
+                    
+                   
+                </div>
+                <div id="tab-autres-content" class="mt-2 tab-content">
+                    <div class="">
+                        
+                    jj
+                    </div>
+                    
+                    
+                   
+                </div>
+                <script>
+                    document.getElementById('tab-all').addEventListener('click', function() {
+                            showTab('all');
+                        });
+                    
+                        document.getElementById('tab-prets').addEventListener('click', function() {
+                            showTab('prets');
+                        });
+                        document.getElementById('tab-recettes-propres').addEventListener('click', function() {
+                            showTab('recettes-propres');
+                        });
+                        document.getElementById('tab-produits').addEventListener('click', function() {
+                            showTab('produits');
+                        });
+                        document.getElementById('tab-autres').addEventListener('click', function() {
+                            showTab('autres');
+                        });
+                        
+                        
+                        function showTab(tabName) {
+                            var tabs = ['all', 'prets','recettes-propres', 'produits', 'autres'];
+                            tabs.forEach(function(tab) {
+                                var tabButton = document.getElementById('tab-' + tab);
+                                var content = document.getElementById('tab-' + tab + '-content');
+                                if (tab === tabName) {
+                                    tabButton.classList.add('active-tab');
+                                    content.classList.remove('hidden');
+                                } else {
+                                    tabButton.classList.remove('active-tab');
+                                    content.classList.add('hidden');
+                                }
+                            });
+                    
+                          
+                        }
+                   
+                    
+                    
+                </script>
+                        
+            </div>
+        </div>    </x-content-page>
+    </script>
+    
+</x-app-layout>
+
+ 
+        dd(vars: $recettes);
+
+ 
+'recettes_propres' => Recette::whereHas('categorie', function ($query) {
+                $query->where('sous_type', 'recettes_propres');
+            })->get(),
+ 
+            'all' => Recette::all(),
+
+ 
+                        <!-- Bouton d'envoi -->
+
+ 
+bg-white hover:bg-gray-50
+ 
+btn
+ 
+btn
+ 
+md:text-sm
+ 
+mt-2
+ 
+md:text-3xl
+ 
+btn
+ 
+!text-white
+ 
+  background-color: rgb(157 156 171 / 55%); /* Couleur bleue avec transparence */
+
+ 
+  background-color: rgb(157 156 171 / 55%); /* Couleur bleue avec transparence */
+
+ 
+active
+ 
+  background: #869791 !important;
+
+ 
+!bg-[#4000FF]
+ 
+<ul class="dropdown">
+                                                <li><a href="index.html">Home Page 1</a></li>
+                                            </ul>
+ 
+focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo
+ 
+ px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md
+ 
+unlock
+ 
+<ul class="dropdown">
+                                                <li><a href="404.html">404 Error</a></li>
+                                            </ul>
+ 
+<li><a href="#">Blogs <i class="icofont-rounded-down"></i></a>
+                                            <ul class="dropdown">
+                                                <li><a href="blog-single.html">Blog Details</a></li>
+                                            </ul>
+                                        </li>
+ 
+ook Appointment
+ 
+<div class="get-quote">
+                            </div>
+ 
+<div class="col-lg-3 col-md-3 col-12">
+                            
+                            <!-- Mobile Nav -->
+                            <div class="mobile-nav"></div>
+                            <!-- End Mobile Nav -->
+                        </div>
+ 
+header-inner
+ 
+ter
+ 
+tracking-tight
+ 
+p-4
+ 
+text-gray-600
+ 
+<nav class="navigation">
+                                <ul class="nav menu">
+                                    <li class="active"><a href="#">Home <i class="icofont-rounded-down"></i></a>
+                                        <ul class="dropdown">
+                                            <li><a href="index.html">Home Page 1</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">Doctos </a></li>
+                                    <li><a href="#">Services </a></li>
+                                    <li><a href="#">Pages <i class="icofont-rounded-down"></i></a>
+                                        <ul class="dropdown">
+                                            <li><a href="404.html">404 Error</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">Blogs <i class="icofont-rounded-down"></i></a>
+                                        <ul class="dropdown">
+                                            <li><a href="blog-single.html">Blog Details</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="contact.html">Contact Us</a></li>
+                                </ul>
+                            </nav>
+ 
+<!-- Start Logo -->
+                            <div class="logo">
+                                <a href="index.html"><img src="img/logo.png" alt="#"></a>
+                            </div>
+                            <!-- End Logo -->
+ 
+        $generatedPassword = 'ggbvvhLJJn';
+
+ 
+        $generatedPassword = generateSecurePassword();
+
+ 
+function generateSecurePassword($length = 12) {
+            $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $charactersLength = strlen($characters);
+            $password = '';
+            
+            for ($i = 0; $i < $length; $i++) {
+                $password .= $characters[random_int(0, $charactersLength - 1)];
+            }
+            
+            return $password;
+        }
+ 
 <!-- Afficher une prévisualisation de la photo de la CNIB si elle est uploadée -->
                                                         @if (isset($ayantsDroits[$i]['cnib']))
                                                             <img src="{{ $ayantsDroits[$i]['cnib']->temporaryUrl() }}" class="w-20 h-20">

@@ -92,8 +92,11 @@ class WizardMembership extends Component
                 'expire' => 'required|date|after:delivree', // Assurez-vous que 'expire' est après 'delivree'
                 'adresse_permanente' => 'required',
                 'telephone' => 'required',
-                'email' => 'required|email',
+                'email' => 'required|email|unique:adherants,email',  
 
+            ],
+            [
+                'email.unique' => 'L\'email est  déjà utilisé',
             ]);
         } elseif ($this->currentStep == 2) {
             $this->validate([

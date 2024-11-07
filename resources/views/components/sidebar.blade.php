@@ -97,7 +97,7 @@
             </li>
             
             <li>
-                <a href="{{ route('adherants.index') }}" class="@if(Request::is('adherants') || Request::is('adherants/*')) active @endif flex items-center px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300 hover:scale-105">
+                <a href="{{ route('caisse.index') }}" class="@if(Request::is('adherants') || Request::is('adherants/*')) active @endif flex items-center px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300 hover:scale-105">
                     <i class="fa  fa-bank w-5 h-5 dark:text-gray-400 group-hover:text-black"></i>
                     <span class="ml-3">Caisse</span>
                 </a>

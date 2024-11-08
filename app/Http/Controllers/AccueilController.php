@@ -117,25 +117,29 @@ class AccueilController extends Controller
 
         $ayantsDroitsArray = json_decode($demandeAdhesion->ayantsDroits, true);
 
-        if (is_array($ayantsDroitsArray)) {
-            foreach ($ayantsDroitsArray as $index => $ayantDroitData) {
-                AyantDroit::create([
-                    'nom' => $ayantDroitData['nom'],
-                    'prenom' => $ayantDroitData['prenom'],
-                    'sexe' => $ayantDroitData['sexe'],
-                    'photo' => $ayantDroitData['photo'] ?? null,
-                    'cnib' => $ayantDroitData['cnib'] ?? null,
-                    'extrait' => $ayantDroitData['extrait'] ?? null,
-                    'adherant_id' => $adherent->id ,
-
-                    'date_naissance' => $ayantDroitData['date_naissance'],
-                    'relation' => $ayantDroitData['lien_parente'],
-                    'code' => $adherent->matricule . '/0' .$index,
-                    'position' => $index, 
-
-                ]);
+        if ($demandeAdhesion->nombreAyantsDroits > 0) {
+            if (is_array($ayantsDroitsArray)) {
+                foreach ($ayantsDroitsArray as $index => $ayantDroitData) {
+                    AyantDroit::create([
+                        'nom' => $ayantDroitData['nom'],
+                        'prenom' => $ayantDroitData['prenom'],
+                        'sexe' => $ayantDroitData['sexe'],
+                        'photo' => $ayantDroitData['photo'] ?? null,
+                        'cnib' => $ayantDroitData['cnib'] ?? null,
+                        'extrait' => $ayantDroitData['extrait'] ?? null,
+                        'adherant_id' => $adherent->id ,
+    
+                        'date_naissance' => $ayantDroitData['date_naissance'],
+                        'relation' => $ayantDroitData['lien_parente'],
+                        'code' => $adherent->matricule . '/0' .$index,
+                        'position' => $index, 
+    
+                    ]);
+                }
             }
         }
+
+
 
         Mail::to($demandeAdhesion->email)->send(new ConfirmationDemandeAdhesion($demandeAdhesion, $pdf, $generatedPassword));
 

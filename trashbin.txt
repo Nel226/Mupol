@@ -1,3 +1,25 @@
+// Utiliser l'ID de la catégorie trouvé
+ 
+. $prestation->id
+ 
+Paiement validé pour la prestation
+ 
+// Date actuelle
+ 
+/ ID de la sous-catégorie
+ 
+// ID de la catégorie, assurez-vous qu'elle existe dans `Prestation`
+ 
+// Description facultative
+ 
+ // Montant de la prestation
+ 
+use Str;
+
+ 
+        dd($data);
+
+ 
                         @csrf
 
  

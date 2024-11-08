@@ -1,3 +1,532 @@
+        // Récupère les recettes pour l'année sélectionnée
+
+ 
+            // Enregistre le total dans le tableau des données
+
+ 
+            // Ajoute les montants des recettes pour chaque sous-catégorie
+
+ 
+            // Calcule le montant total des recettes pour la catégorie principale
+
+ 
+        // Parcourt chaque catégorie principale
+
+ 
+->whereNull('parent_id')->get()
+ 
+// Année par défaut à l'année en cours
+ 
+// Couleur des bordures
+ 
+// Couleur des barres
+ 
+ // Montants des recettes pour chaque catégorie
+ 
+// Catégories récupérées dynamiquement
+ 
+ // Légende
+ 
+<form method="GET" action="{{ route('budget-suivi.index') }}" class="mb-6 flex items-center space-x-4" id="year-form">
+                            <label for="year" class="text-base font-medium">Sélectionnez l&apos;année:</label>
+                            <select name="year" id="year" class="form-select block w-[15%] border border-gray-300 rounded-md px-2 py-2">
+                                @foreach(range(date('Y'), 2000) as $year)
+                                    <option value="{{ $year }}" {{ request('year', date('Y')) == $year ? 'selected' : '' }}>{{ $year }}</option>
+                                @endforeach
+                            </select>
+                            <x-primary-button type="submit" class="">Valider</x-primary-button>
+                        </form>
+ 
+/ Type de graphique (barres)
+ 
+                                <!-- Ajouter d'autres années ici -->
+
+ 
+    return view('ton-vue', compact('data', 'year', 'categories'));
+
+ 
+            // Calculer le total des recettes pour chaque catégorie
+
+ 
+        // Organiser les données par catégorie
+
+ 
+        // Récupérer les recettes pour l'année et les catégories
+
+ 
+        // Organiser les données par catégorie
+
+ 
+        // Récupérer les recettes pour l'année et les catégories
+
+ 
+de dépenses
+ 
+<table id="depenses-table-all" class="w-full text-sm text-left text-gray-500 border rtl:text-right dark:text-gray-400 display">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
+                            <tr>
+                                <th>Description</th>
+                                <th>Montant</th>
+                                <th>Catégorie</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($depenses as $depense)
+                                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                    <td class="px-6 py-4">{{ $depense->description }}</td>
+                                    <td class="px-6 py-4">{{ $depense->montant }}</td>
+                                    <td class="px-6 py-4">{{ $depense->categorie->nom }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+ 
+<!-- Tous tab content -->
+                <div id="all" class="tab-content hidden">
+                    <table id="depenses-table-all" class="w-full text-sm text-left text-gray-500 border rtl:text-right dark:text-gray-400 display">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
+                            <tr>
+                                <th>Description</th>
+                                <th>Montant</th>
+                                <th>Catégorie</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($depenses as $depense)
+                                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                    <td class="px-6 py-4">{{ $depense->description }}</td>
+                                    <td class="px-6 py-4">{{ $depense->montant }}</td>
+                                    <td class="px-6 py-4">{{ $depense->categorie->nom }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+ 
+ @foreach($categoriesPrincipales as $categorie)
+                            <li class="mr-1">
+                                <a href="#category-{{ $categorie->uuid }}" class="inline-block truncate py-2 px-3 text-blue-600 hover:text-whit text-sm rounded-t-md focus:outline-none tab-link" title="{{ $categorie->nom }}">
+                                    {{ $categorie->nom }}
+                                </a>
+                            </li>
+                        @endforeach
+ 
+{{--  <li>
+                        <a href="{{ route('estimations.categories') }}" class="@if(Request::is('depenses-categories')) active @endif flex items-center px-3 py-2 text-gray-200  hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
+                            <span class="ml-3">Catégories</span>
+                        </a>
+                    </li>  --}}
+ 
+@if @endif
+ 
+40
+ 
+btn btn-primary bg-blue-500 text-white px-6 py-2 rounded-md
+ 
+                    <!-- Sélecteur d'année -->
+
+ 
+                                    <!-- Ligne du titre de type en gras -->
+
+ 
+        // Récupérer les recettes ou dépenses en fonction du type et de l'année
+
+ 
+    {
+        $breadcrumbsItems = [
+            [
+                'name' => 'Suivi',
+                'url' => route('budget-suivi.index'),
+                'active' => true
+            ],
+        ];
+        $pageTitle = 'Suivi du budget';
+
+        // Année sélectionnée par défaut (année en cours si non spécifiée)
+        $year = $request->get('year', date('Y'));
+
+        // Récupération des catégories
+        $categories = Categorie::with(['children'])->whereIn('type', ['recette', 'depense'])->get();
+
+        // Récupération des estimations pour l'année en cours
+        $estimations = Estimatione::where('annee', $year)->get();
+
+        // Calculer les montants prévus par catégorie et sous-catégorie
+        $categories = $categories->map(function ($categorie) use ($estimations) {
+            $categorie->montant_prevu = $estimations->where('categorie_id', $categorie->uuid)->sum('montant');
+
+            // Calculer pour les sous-catégories
+            $categorie->children = $categorie->children->map(function ($sousCategorie) use ($estimations) {
+                $sousCategorie->montant_prevu = $estimations->where('sous_categorie_id', $sousCategorie->uuid)->sum('montant');
+                return $sousCategorie;
+            });
+
+            return $categorie;
+        });
+
+        // Filtrer les recettes et dépenses par année
+        $recettes = Recette::whereYear('date', $year)->get();
+        $depenses = Depense::whereYear('date', $year)->get();
+
+        // Calcul des montants réalisés par trimestre pour chaque catégorie
+        $montantsParTrimestre = $this->getMontantsParTrimestre($recettes, $depenses, $year);
+
+        // Calculer le total réalisé pour chaque catégorie
+        $categories = $categories->map(function ($categorie) use ($recettes, $depenses, $year) {
+            // Total des recettes ou dépenses pour la catégorie (en fonction de son type)
+            if ($categorie->type === 'recette') {
+                $categorie->total_realise = $recettes->where('categorie_id', $categorie->uuid)->whereYear('date', $year)->sum('montant');
+            } elseif ($categorie->type === 'depense') {
+                $categorie->total_realise = $depenses->where('categorie_id', $categorie->uuid)->whereYear('date', $year)->sum('montant');
+            }
+
+            // Calculer pour les sous-catégories
+            $categorie->children = $categorie->children->map(function ($sousCategorie) use ($recettes, $depenses, $year) {
+                if ($sousCategorie->type === 'recette') {
+                    $sousCategorie->total_realise = $recettes->where('sous_categorie_id', $sousCategorie->uuid)->whereYear('date', $year)->sum('montant');
+                } elseif ($sousCategorie->type === 'depense') {
+                    $sousCategorie->total_realise = $depenses->where('sous_categorie_id', $sousCategorie->uuid)->whereYear('date', $year)->sum('montant');
+                }
+
+                return $sousCategorie;
+            });
+
+            return $categorie;
+        });
+
+        return view('pages.backend.comptabilite.budget-suivi.index', compact(
+            'breadcrumbsItems', 'pageTitle', 'recettes', 'depenses', 'year', 'categories', 'montantsParTrimestre'
+        ));
+    }
+ 
+                                    $year = $request->get('year', date('Y'))?? 2024;  // Récupère l'année choisie dans la requête
+
+ 
+                                    $year = $request->get('year', date('Y'));  // Récupère l'année choisie dans la requête
+
+ 
+/ Fusionner recettes et dépenses
+ 
+ // Calcul des montants par trimestre
+        $recettesTrimestres = $this->getMontantsParTrimestre($recettes);
+        $depensesTrimestres = $this->getMontantsParTrimestre($depenses);
+ 
+// Calcul des montants par trimestre
+        $recettesTrimestres = $this->getMontantsParTrimestre($recettes);
+        $depensesTrimestres = $this->getMontantsParTrimestre($depenses);
+ 
+// Filtrer les recettes et dépenses par année
+        $recettes = Recette::whereYear('date', $year)->get();
+        $depenses = Depense::whereYear('date', $year)->get();
+ 
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
+use App\Models\Categorie;
+
+class CategorieSeeder extends Seeder
+{
+public function run()
+{
+    $depensesCategories = [
+        [
+            'nom' => 'Service / Remboursement de la dette',
+            'type' => 'depense',
+            'children' => []
+        ],
+        [
+            'nom' => 'Prestations et dépenses de personnels',
+            'type' => 'depense',
+            'children' => [
+                ['nom' => 'Couverture des risques maladies ou accidents'],
+                ['nom' => 'Maternité'],
+                ['nom' => 'Secours médical'],
+                ['nom' => 'Allocation de décès'],
+                ['nom' => 'Allocation de décès d’un ayant droit'],
+                ['nom' => 'Allocation d\'invalidité de l’adhérent'],
+                ['nom' => 'Salaires ou indemnités du personnel (5% des frais de cotisation)']
+            ]
+        ],
+        [
+            'nom' => 'Fonctionnement',
+            'type' => 'depense',
+            'children' => [
+                ['nom' => 'Carburant et déplacement'],
+                ['nom' => 'Mission à l’intérieur pays'],
+                ['nom' => 'Mission à l’extérieur du pays'],
+                ['nom' => 'Restauration'],
+                ['nom' => 'Loyers'],
+                ['nom' => 'Gardiennage'],
+                ['nom' => 'Fournitures'],
+                ['nom' => 'Entretien courant'],
+                ['nom' => 'Réparation'],
+                ['nom' => 'Consommation d’eau, d’électricité, de téléphone, de la connexion à internet'],
+                ['nom' => 'Consultation'],
+                ['nom' => 'Autres frais non encore ventilé']
+            ]
+        ],
+        [
+            'nom' => 'Investissement',
+            'type' => 'depense',
+            'children' => [
+                ['nom' => 'Acquisitions'],
+                ['nom' => 'Constructions'],
+                ['nom' => 'Réhabilitations/Réfections']
+            ]
+        ]
+    ];
+
+    $recettesCategories = [
+        [
+            'nom' => 'Prêts',
+            'type' => 'recette',
+            'children' => []
+        ],
+        [
+            'nom' => 'Recettes propres',
+            'type' => 'recette',
+            'children' => [
+                ['nom' => 'Cotisations des membres (Adhésions et cotisations)'],
+                ['nom' => 'Contributions des membres honoraires']
+            ]
+        ],
+        [
+            'nom' => 'Produits',
+            'type' => 'recette',
+            'children' => [
+                ['nom' => 'Financier de placement'],
+                ['nom' => 'Patrimoine mobilier ou immobilier'],
+                ['nom' => 'Œuvres sanitaires et sociales'],
+                ['nom' => 'Activités génératrices de revenus']
+            ]
+        ],
+        [
+            'nom' => 'Autres',
+            'type' => 'recette',
+            'children' => [
+                ['nom' => 'Dons et legs'],
+                ['nom' => 'Frais de dossiers'],
+                ['nom' => 'Autres ressources non interdites par la loi']
+            ]
+        ]
+    ];
+
+    
+
+    foreach ($recettesCategories as $categoryData) {
+        $this->createCategoryWithChildren($categoryData);
+    }
+
+    foreach ($depensesCategories as $categoryData) {
+        $this->createCategoryWithChildren($categoryData);
+    }
+}
+
+private function createCategoryWithChildren(array $data, $parent_id = null)
+{
+    $category = Categorie::create([
+        'uuid' => (string) Str::uuid(),
+        'nom' => $data['nom'],
+        'type' => $data['type'] ,
+        'parent_id' => $parent_id,
+    ]);
+
+    if (!empty($data['children'])) {
+        foreach ($data['children'] as $childData) {
+            $this->createCategoryWithChildren($childData, $category->uuid);
+        }
+    }
+}
+}
+
+ 
+?? 'depense'
+ 
+, [
+                'prets', 
+                'recettes_propres', 
+                'produits', 
+                'autres',
+            ]
+ 
+, ['recette', 'depense']
+ 
+<div class="overflow-x-auto">
+                        <table class="min-w-full table-auto bg-white border-collapse border border-gray-300 rounded-lg">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-sm font-medium text-gray-700 border-b">Libellé</th>
+                                    <th class="px-6 py-3 text-center text-sm font-medium text-gray-700 border-b">Prévu</th>
+                                    <th class="px-6 py-3 text-center text-sm font-medium text-gray-700 border-b">Trimestre 1</th>
+                                    <th class="px-6 py-3 text-center text-sm font-medium text-gray-700 border-b">Trimestre 2</th>
+                                    <th class="px-6 py-3 text-center text-sm font-medium text-gray-700 border-b">Trimestre 3</th>
+                                    <th class="px-6 py-3 text-center text-sm font-medium text-gray-700 border-b">Trimestre 4</th>
+                                    <th class="px-6 py-3 text-center text-sm font-medium text-gray-700 border-b">Total Réalisé</th>
+                                    <th class="px-6 py-3 text-center text-sm font-medium text-gray-700 border-b">Écart</th>
+                                    <th class="px-6 py-3 text-center text-sm font-medium text-gray-700 border-b">Taux de Réalisation</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($categories as $categorie)
+                                <tr>
+                                    <td class="px-6 py-3 text-left border-b">{{ $categorie->nom }}</td>
+                                    <td class="px-6 py-3 text-center border-b">0</td> <!-- Par défaut, valeur '0' -->
+                                    <td class="px-6 py-3 text-center border-b">0</td> <!-- Trimestre 1 -->
+                                    <td class="px-6 py-3 text-center border-b">0</td> <!-- Trimestre 2 -->
+                                    <td class="px-6 py-3 text-center border-b">0</td> <!-- Trimestre 3 -->
+                                    <td class="px-6 py-3 text-center border-b">0</td> <!-- Trimestre 4 -->
+                                    <td class="px-6 py-3 text-center border-b">0</td> <!-- Total Réalisé -->
+                                    <td class="px-6 py-3 text-center border-b">0</td> <!-- Écart -->
+                                    <td class="px-6 py-3 text-center border-b">0%</td> <!-- Taux de Réalisation -->
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+ 
+                    <h2 class="text-3xl font-semibold mb-6">Suivi Budgétaire</h2>
+
+ 
+recette
+ 
+        // Création d'une nouvelle depense avec les données validées
+
+ 
+where('type', 'depense')
+                                ->
+ 
+// Retourne le sous_type de la catégorie associée
+ 
+// Sélectionner uniquement l'id de la catégorie
+ 
+// Pour obtenir des valeurs uniques
+ 
+recette
+ 
+use App\Http\Controllers\EstimationPController;
+
+ 
+// Colonne pour le trimestre
+ 
+date
+ 
+date
+ 
+            // $table->uuid('user_id');
+
+ 
+            $table->timestamps();
+
+ 
+            $table->id();
+
+ 
+    Route::resource(name: 'estimations', EstimationController ::class);
+
+ 
+use App\Http\Controllers\EstimationController;
+
+ 
+|| Request::is('adherants/*')
+ 
+-suivi
+ 
+    
+ 
+ <span class="text-sm my-3">
+                    Caisse nationale
+                </span>
+                @if(isset($adherentsCountPerRegion['Centre']))
+                    <div class="flex items-center p-4 bg-gray-200 border shadow-lg mb-6">
+                        <div class="w-10 h-10 p-3 mr-4 text-[#4000FF] bg-purple-100 rounded-full flex items-center justify-center">
+                            <i class="fa fa-bank"></i>
+                        </div>
+                        <div>
+                            <p class="mb-2 text-base font-medium text-gray-600">
+                                Centre
+                            </p>
+                            <p class="text-xs font-semibold text-gray-700">
+                                {{ $adherentsCountPerRegion['Centre'] }} adhérents
+                            </p>
+                        </div>
+                    </div>
+                @endif
+
+                <span class="text-sm my-3">
+                    Caisse régionales
+                </span>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-3 border-gray-300 divide-y divide-gray-300 lg:divide-y-0 lg:divide-x">
+                    @foreach($adherentsCountPerRegion as $region => $count)
+                        @if($region !== 'Centre') <!-- S'assurer que la région Centre n'est pas incluse ici -->
+                            <div class="flex items-center p-4 bg-white border shadow-lg">
+                                <div class="w-10 h-10 p-3 mr-4 text-[#4000FF] bg-purple-100 rounded-full flex items-center justify-center">
+                                    <i class="fa fa-bank"></i>
+                                </div>
+                                <div>
+                                    <p class="mb-2 text-base font-medium text-gray-600">
+                                        {{ $region }}
+                                    </p>
+                                    <p class="text-xs font-semibold text-gray-700">
+                                        {{ $count }} adhérents
+                                    </p>
+                                </div>
+                            </div>
+                        @endif
+                    @endforeach
+                </div>  
+ 
+        // Récupérer l'année sélectionnée, sinon utiliser l'année en cours
+
+ 
+rounded-lg
+ 
+rounded-lg
+ 
+rounded-lg
+ 
+rounded-lg
+ 
+@click.away="open = true"
+ 
+categories
+ 
+            <script src="//unpkg.com/alpinejs" defer></script>
+
+ 
+transition-all
+ 
+li x-data="{ open: true }" class="relative">
+                <a href="#" @click.prevent="open = !open" class="flex items-center px-4 py-3 text-white transition-transform transform rounded-lg hover:bg-indigo-700 group">
+                    <i class="w-6 h-6 fa fa-table transition duration-200 group-hover:scale-110"></i>
+                    <span class="ml-3">Suivi des prestations</span>
+                    <svg class="w-4 h-4 ml-auto transition-transform transform" :class="open ? 'rotate-180' : ''" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </a>
+ 
+                <ol x-show="open" x-cloak @click.away="open = false" class="ml-6 mt-2 space-y-2 text-sm text-white rounded-lg dark:bg-gray-800">
+                    <li><a href="{{ route('suivi-consultation') }}" class="block px-4 py-2 hover:bg-gray-100 hover:text-black dark:hover:bg-gray-700 rounded-lg">Consultation</a></li>
+                    <li><a href="{{ route('suivi') }}" class="block px-4 py-2 hover:bg-gray-100 hover:text-black dark:hover:bg-gray-700 rounded-lg">Hospitalisation</a></li>
+                    <li><a href="{{ route('suivi-maternite') }}" class="block px-4 py-2 hover:bg-gray-100 hover:text-black dark:hover:bg-gray-700 rounded-lg">Maternité</a></li>
+                  
+
+
+                </ol>
+            </li>
+ 
+x-collapse
+ 
+-show="openMenu === 'recettes'
+ 
+  <li><a href="{{ route('suivi-pharmacie') }}" class="block px-4 py-2 hover:bg-gray-100 hover:text-black dark:hover:bg-gray-700 rounded-lg">Pharmacie</a></li>
+                    <li><a href="{{ route('suivi-optique') }}" class="block px-4 py-2 hover:bg-gray-100 hover:text-black dark:hover:bg-gray-700 rounded-lg">Optique</a></li>
+                    <li><a href="{{ route('suivi-allocation') }}" class="block px-4 py-2 hover:bg-gray-100 hover:text-black dark:hover:bg-gray-700 rounded-lg">Allocation</a></li>
+ 
+x-data="{ openMenu: null }
+ 
                 <!-- Affichage séparé de la région "Centre" -->
 
  

@@ -17,110 +17,115 @@
             </li>
             @role('comptable')
             <!-- Recettes Menu -->
-            <li>
-                <a href="#" @click.prevent="openMenu = openMenu === 'recettes' ? null : 'recettes'" class="flex items-center justify-between px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300 hover:scale-105">
+
+            <li x-data="{ open: {{ Request::is('recettes*') ? 'true' : 'false' }} }" class="relative">
+                <a href="#" @click.prevent="open = !open" class="flex transition-transform transform items-center justify-between px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 duration-300 hover:scale-105">
                     <div class="flex items-center">
-                        <i class="fa fa-share w-3 h-3 dark:text-gray-400 group-hover:text-black"></i>
+                        <i class="fa fa-share w-3 h-3 dark:text-gray-400 group-hover:text-black transition-transform transform"></i>
                         <span class="ml-3">Recettes</span>
                     </div>
                     <!-- Chevron icon -->
-                    <i :class="openMenu === 'recettes' ? 'fa fa-chevron-up' : 'fa fa-chevron-down'" class="text-white group-hover:text-black"></i>
+                    <i :class="open ? 'rotate-180' : ''" class="fa fa-chevron-down text-white group-hover:text-black transition-transform duration-200"></i>
                 </a>
-                <ul x-show="openMenu === 'recettes'" class="ml-5 mt-1 shadow-lg border border-gray-50 rounded-lg" x-collapse>
+                <ul x-show="open" x-cloak x-transition class="ml-5 mt-1 shadow-lg border border-gray-50 rounded-lg">
                     <li>
-                        <a href="{{ route('recettes.index') }}" class="flex items-center px-3 py-2 text-gray-200 rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
+                        <a href="{{ route('recettes.index') }}" class="@if(Request::is('recettes')) active @endif flex items-center px-3 py-2 text-gray-200 rounded-t-lg  hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
                             <span class="ml-3">Aperçu</span>
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('recettes.categories') }}" class="flex items-center px-3 py-2 text-gray-200 rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
+                        <a href="{{ route('recettes.categories') }}" class="@if(Request::is('recettes-categories')) active @endif flex items-center px-3 py-2 text-gray-200  hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
                             <span class="ml-3">Catégories</span>
                         </a>
                     </li>
                     <li>
-                        
-              
-                        <a href="{{ route('recettes.create') }}" class="flex items-center px-3 py-2 text-gray-200 rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
+                        <a href="{{ route('recettes.create') }}" class="@if(Request::is('recettes/create')) active @endif flex items-center px-3 py-2 text-gray-200 rounded-b-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
                             <span class="ml-3">Ajouter</span>
                         </a>
                     </li>
-                    {{--  <li>
-                        <a href="" class="flex items-center px-3 py-2 text-gray-200 rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
-                            <span class="ml-3">Produits</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="" class="flex items-center px-3 py-2 text-gray-200 rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
-                            <span class="ml-3">Autres</span>
-                        </a>
-                    </li>  --}}
-                </ul>
-            </li>
-        
-            <!-- Dépenses Menu -->
-            <li  >
-                <a href="#" @click.prevent="openMenu = openMenu === 'depenses' ? null : 'depenses'" class="flex items-center justify-between px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300 hover:scale-105">
-                    <div class="flex items-center">
-                        <i class="fa fa-reply w-3 h-3 dark:text-gray-400 group-hover:text-black"></i>
-                        <span class="ml-3">Dépenses</span>
-                    </div>
-                    <!-- Chevron icon -->
-                    <i :class="openMenu === 'depenses' ? 'fa fa-chevron-up' : 'fa fa-chevron-down'" class="text-white group-hover:text-black"></i>
-                </a>
-                <ul x-show="openMenu === 'depenses'" class="ml-5 mt-1 shadow-lg border border-gray-50 rounded-lg" x-collapse>
-                        <li>
-                            <a href="{{ route('depenses.index') }}" class="@if(Request::is('depenses') ) active @endif flex items-center px-3 py-2 text-gray-200 rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
-                                <span class="ml-3">Aperçu</span>
-                            </a>
-                        </li>
-                    <li>
-                        <a href="{{ route('depenses.categories') }}" class="@if(Request::is('depenses-categories')) active @endif flex items-center px-3 py-2 text-gray-200 rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
-                            <span class="ml-3">Catégories</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('depenses.create') }}" class="flex items-center px-3 py-2 text-gray-200 rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
-                            <span class="ml-3">Ajouter</span>
-                        </a>
-                    </li>
-                    {{--  <li>
-                        <a href="" class="flex items-center px-3 py-2 text-gray-200 rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
-                            <span class="ml-3">Fonctionnement</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="" class="flex items-center px-3 py-2 text-gray-200 rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
-                            <span class="ml-3">Investissement</span>
-                        </a>
-                    </li>  --}}
                 </ul>
             </li>
             
+            
+            
+            <!-- Dépenses Menu -->
+            <li  x-data="{ open: {{ Request::is('depenses*') ? 'true' : 'false' }} }"  class="relative">
+                <a href="#" @click.prevent="open = !open" class="flex transition-transform transform items-center justify-between px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 duration-300 hover:scale-105">
+                   
+                    <div class="flex items-center">
+                        <i class="fa fa-reply w-3 h-3 dark:text-gray-400 group-hover:text-black transition-transform transform"></i>
+                        <span class="ml-3">Dépenses</span>
+                    </div>
+                    <!-- Chevron icon -->
+                    <i :class="open ? 'rotate-180' : ''" class="fa fa-chevron-down text-white group-hover:text-black transition-transform duration-200"></i>
+                </a>
+                <ul x-show="open" x-cloak  x-transition class="ml-5 mt-1 shadow-lg border border-gray-50 rounded-lg">
+                    <li>
+                        <a href="{{ route('depenses.index') }}" class="@if(Request::is('depenses')) active @endif flex items-center px-3 py-2 text-gray-200 rounded-t-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
+                            <span class="ml-3">Aperçu</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('depenses.categories') }}" class="@if(Request::is('depenses-categories')) active @endif flex items-center px-3 py-2 text-gray-200  hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
+                            <span class="ml-3">Catégories</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('depenses.create') }}" class="@if(Request::is('depenses/create')) active @endif flex items-center px-3 py-2 text-gray-200 rounded-b-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
+                            <span class="ml-3">Ajouter</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            
+            
             <li>
-                <a href="{{ route('caisse.index') }}" class="@if(Request::is('adherants') || Request::is('adherants/*')) active @endif flex items-center px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300 hover:scale-105">
+                <a href="{{ route('caisse.index') }}" class="@if(Request::is('caisse') || Request::is('caisse/*')) active @endif flex items-center px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300 hover:scale-105">
                     <i class="fa  fa-bank w-5 h-5 dark:text-gray-400 group-hover:text-black"></i>
                     <span class="ml-3">Caisse</span>
                 </a>
             </li>
             <li>
-                <a href="{{ route('adherants.index') }}" class="@if(Request::is('adherants') || Request::is('adherants/*')) active @endif flex items-center px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300 hover:scale-105">
+                <a href="{{ route('budget-suivi.index') }}" class="@if(Request::is('budget-suivi') ) active @endif flex items-center px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300 hover:scale-105">
                     <i class="fa fa-eye w-5 h-5 dark:text-gray-400 group-hover:text-black"></i>
                     <span class="ml-3">Suivi</span>
                 </a>
             </li>
-            <li>
-                <a href="{{ route('adherants.index') }}" class="@if(Request::is('adherants') || Request::is('adherants/*')) active @endif flex items-center px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300 hover:scale-105">
-                    <i class="fa  fa-calculator w-5 h-5 dark:text-gray-400 group-hover:text-black"></i>
-                    <span class="ml-3">Estimations</span>
+            <li  x-data="{ open: {{ Request::is('estimations*') ? 'true' : 'false' }} }"  class="relative">
+                <a href="#" @click.prevent="open = !open" class="flex transition-transform transform items-center justify-between px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 duration-300 hover:scale-105">
+                   
+                    <div class="flex items-center">
+                        <i class="fa fa-calculator w-3 h-3 dark:text-gray-400 group-hover:text-black transition-transform transform"></i>
+                        <span class="ml-3">Estimations</span>
+                    </div>
+                    <!-- Chevron icon -->
+                    <i :class="open ? 'rotate-180' : ''" class="fa fa-chevron-down text-white group-hover:text-black transition-transform duration-200"></i>
                 </a>
+                <ul x-show="open" x-cloak  x-transition class="ml-5 mt-1 shadow-lg border border-gray-50 rounded-lg">
+                    <li>
+                        <a href="{{ route('estimations.index') }}" class="@if(Request::is('estimations')) active @endif flex items-center px-3 py-2 text-gray-200 rounded-t-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
+                            <span class="ml-3">Aperçu</span>
+                        </a>
+                    </li>
+                    {{--  <li>
+                        <a href="{{ route('estimations.categories') }}" class="@if(Request::is('depenses-categories')) active @endif flex items-center px-3 py-2 text-gray-200  hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
+                            <span class="ml-3">Catégories</span>
+                        </a>
+                    </li>  --}}
+                    <li>
+                        <a href="{{ route('estimations.create') }}" class="@if(Request::is('estimations/create')) active @endif flex items-center px-3 py-2 text-gray-200 rounded-b-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
+                            <span class="ml-3">Ajouter</span>
+                        </a>
+                    </li>
+                </ul>
             </li>
           
-            <li>
+            {{--  <li>
                 <a href="{{ route('adherants.index') }}" class="@if(Request::is('adherants') || Request::is('adherants/*')) active @endif flex items-center px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300 hover:scale-105">
                     <i class="fa  fa-book w-5 h-5 dark:text-gray-400 group-hover:text-black"></i>
                     <span class="ml-3">Provisions</span>
                 </a>
-            </li>
+            </li>  --}}
          
             <li>
                 <a href="{{ route('adherants.index') }}" class="@if(Request::is('adherants') || Request::is('adherants/*')) active @endif flex items-center px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">

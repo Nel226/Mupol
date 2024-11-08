@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class CaisseController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $breadcrumbsItems = [
             [
@@ -19,7 +19,28 @@ class CaisseController extends Controller
             ],
             
         ];
-        $pageTitle = 'Ensembles des caisses de dépenses';
+        $pageTitle = 'Ensembles des caisses ';
+
+        $year = $request->input('year', date('Y')); 
+
+        $categories = Categorie::where('type', 'recette')->whereNull('parent_id')->get();
+
+        $recettes = Recette::whereYear('date', $year)->get();
+
+        $data = [];
+        dd($categories , $recettes)
+        foreach ($categories as $categorie) {
+            $total = $recettes->where('categorie_id', $categorie->id)->sum('montant');
+
+            foreach ($categorie->children as $child) {
+                $total += $recettes->where('categorie_id', $child->id)->sum('montant');
+            }
+
+            $data[$categorie->nom] = $total;
+        }
+
+    
+        dd($data);
 
         $regionsPath = public_path('regions.json');
         $regions = json_decode(file_get_contents($regionsPath), true);
@@ -34,7 +55,7 @@ class CaisseController extends Controller
             $adherentsCountPerRegion[$regionName] = $adherentsParRegion->get($regionName, collect())->count();
         }
 
-        return view('pages.backend.comptabilite.caisse.index', compact('pageTitle', 'breadcrumbsItems', 'adherents', 'adherentsCountPerRegion', 'regions'));
+        return view('pages.backend.comptabilite.caisse.index', compact('pageTitle', 'breadcrumbsItems', 'data', 'year', 'categories' , 'adherents', 'adherentsCountPerRegion', 'regions'));
 
 
     }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EstimationController;
 use App\Livewire\Counter;
 use App\Models\AyantDroit;
 use Illuminate\Support\Facades\Route;
@@ -13,12 +14,15 @@ use App\Http\Controllers\CsvImportController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ParametreController;
 use App\Http\Controllers\AyantDroitController;
+use App\Http\Controllers\BudgetController;
+
 use App\Http\Controllers\CaisseController;
 use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\CotisationController;
 use App\Http\Controllers\PrestationController;
 use App\Http\Controllers\DemandeController;
 use App\Http\Controllers\DepenseController;
+use App\Http\Controllers\EstimationeController;
 use App\Http\Controllers\RecetteController;
 
 /*
@@ -121,6 +125,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('parametres', ParametreController::class);
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
+
+    //DEBUT COMPTABILITE
     Route::resource('demandes', DemandeController ::class);
     Route::resource('recettes', RecetteController ::class);
     Route::get('recettes-categories', [RecetteController ::class, 'categories'])->name('recettes.categories');
@@ -130,6 +136,12 @@ Route::middleware('auth')->group(function () {
     Route::resource('categories', CategorieController ::class);
 
     Route::resource('caisse', CaisseController ::class);
+
+    Route::resource('budget-suivi', BudgetController ::class);
+    Route::resource('estimations', EstimationeController ::class);
+
+
+    //FIN COMPTABILITE
 
 
     Route::get('/edit-demande-adhesion/{id}', App\Livewire\EditMembership::class)->name('edit-demande-adhesion');

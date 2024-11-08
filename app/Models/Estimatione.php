@@ -6,15 +6,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 
-class Depense extends Model
+class Estimatione extends Model
 {
-    use HasUuids;
+    use HasFactory, HasUuids;
 
     protected $primaryKey = 'uuid';
     public $incrementing = false;
     protected $keyType = 'string';
 
-    protected $fillable = ['montant', 'description', 'categorie_id','sous_categorie_id', 'date'];
+protected $fillable = ['montant', 'description', 'categorie_id','sous_categorie_id', 'periode' , 'annee'];
 
     public function categorie()
     {

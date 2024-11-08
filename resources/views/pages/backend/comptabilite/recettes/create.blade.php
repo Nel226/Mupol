@@ -36,29 +36,11 @@
                         @csrf
                         <div class="grid gap-3 sm:grid-cols-2 sm:gap-6">
                 
-                            <!-- Montant de la recette -->
-                            <div class="w-full">
-                                <label for="montant" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Montant</label>
-                                <input type="number" name="montant" id="montant" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Montant de la recette" required>
-                            </div>
-
-                            <!-- Date de la recette -->
-                            <div class="w-full">
-                                <label for="date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date</label>
-                                <input type="date" name="date" id="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
-                            </div>
-                
-                            <!-- Description de la recette -->
-                            <div class="w-full col-span-2">
-                                <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
-                                <textarea name="description" id="description" rows="4" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Description de la recette" required></textarea>
-                            </div>
-                            
                             <!-- Catégorie de la recette -->
                             <div class="w-full">
                                 <label for="categorie_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Catégorie</label>
                                 <select name="categorie_id" id="categorie_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
-                                    <option value="">Sélectionnez une catégorie</option>
+                                    <option value="" disabled selected>Sélectionnez une catégorie</option>
                                     @foreach ($categories as $categorie)
                                         {{-- <option value="{{ $categorie->uuid  }}" data-children="{{ json_encode($categorie->children) }}">{{ $categorie->nom }}</option> --}}
                                         <option value="{{ $categorie->uuid }}" data-children="{{ json_encode($categorie->children) }}" {{ old('categorie_id') == $categorie->uuid ? 'selected' : '' }}>{{ $categorie->nom }}</option>
@@ -97,7 +79,26 @@
                                     }
                                 });
                             </script>
+
+                        </div>
+                        <div class="grid gap-3 sm:grid-cols-2 sm:gap-6">
+                            <!-- Montant de la recette -->
+                            <div class="w-full">
+                                <label for="montant" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Montant</label>
+                                <input type="number" name="montant" id="montant" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Montant de la recette" required>
+                            </div>
+
+                            <!-- Date de la recette -->
+                            <div class="w-full">
+                                <label for="date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date</label>
+                                <input type="date" name="date" id="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
+                            </div>
                 
+                            <!-- Description de la recette -->
+                            <div class="w-full col-span-2">
+                                <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+                                <textarea name="description" id="description" rows="4" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Description de la recette" required></textarea>
+                            </div>
                         </div>
                 
                         <button type="submit" class="mt-5 text-white bg-[#4000FF] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">

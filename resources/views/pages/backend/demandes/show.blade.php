@@ -25,14 +25,8 @@
             </div>
             
             
-<<<<<<< Updated upstream
-            <div class="p-6 mx-auto mt-4 bg-gray-100 min-h-screen  rounded-lg  ">
-=======
             <div class="p-6 mx-auto mt-4 bg-white rounded-lg shadow-lg ">
-               
-                
-                <style>
->>>>>>> Stashed changes
+
                    
                 <div class="adhesion-form mx-auto">
                     <!-- Card container -->
@@ -104,7 +98,6 @@
                             <h3 class="text-xl font-semibold text-gray-800 mb-4">Liste des ayants droits</h3>
                             <div class="overflow-x-auto">
                                 @if ($demande->nombreAyantsDroits > 0)
-                             
                                 <table class="w-full border-collapse bg-white shadow-md rounded-lg overflow-hidden mt-6">
                                     <thead>
                                         <tr class="bg-gray-100 text-gray-600 uppercase text-sm leading-normal">
@@ -116,62 +109,10 @@
                                             <th class="py-3 px-4 text-center">CNIB</th>
                                             <th class="py-3 px-4 text-center">Extrait</th>
                                         </tr>
-<<<<<<< Updated upstream
-                                    </thead>
-                                    <tbody class="text-gray-700 text-sm font-light">
-                                        @foreach ($demande->ayantsDroits as $index => $ayantDroit)
-                                            <tr class="border-b border-gray-200 hover:bg-gray-100">
-                                                <!-- Colonne pour la photo -->
-                                                <td class="py-3 px-4 text-center">
-                                                    <div class="flex justify-center">
-                                                        @if (isset($ayantDroit['photo_path']))
-                                                            <button class="open-modal-button text-blue-500 hover:text-blue-700" 
-                                                                    data-url="{{ asset('storage/' . $ayantDroit['photo_path']) }}" type="button">
-                                                                    <img class="w-10 h-10 rounded-full cursor-pointer" src="{{ asset('storage/' . $ayantDroit['photo_path']) }}" 
-                                                                        alt="Photo de {{ $ayantDroit['nom'] }}" 
-                                                                        onclick="openModal('{{ asset('storage/' . $ayantDroit['photo_path']) }}')" />
-                                                            </button>
-                                                        @else
-                                                            <span class="text-gray-500">N/A</span>
-                                                        @endif
-                                                    </div>
-                                                </td>
-                                                <td class="py-3 px-4">{{ $ayantDroit['nom'] }}</td>
-                                                <td class="py-3 px-4">{{ $ayantDroit['prenom'] }}</td>
-                                                <td class="py-3 px-4">
-                                                    @if ($ayantDroit['sexe'] === 'H') M @elseif ($ayantDroit['sexe'] === 'F') F @else Non spécifié @endif
-                                                </td>
-                                                <td class="py-3 px-4">{{ $ayantDroit['lien_parente'] }}</td>
-                                                <td class="py-3 px-4 text-center">
-                                                    @if (isset($ayantDroit['cnib_path']))
-                                                        <button class="open-modal-button text-blue-500 hover:text-blue-700" 
-                                                                data-url="{{ asset('storage/' . $ayantDroit['cnib_path']) }}" type="button">
-                                                            <i class="fa fa-file-image-o" aria-hidden="true"></i>
-                                                        </button>
-                                                    @else
-                                                        <span class="text-gray-500">Non disponible</span>
-                                                    @endif
-                                                </td>
-                                                <td class="py-3 px-4 text-center">
-                                                    @if (isset($ayantDroit['extrait_path']))
-                                                        <button class="open-modal-button text-red-500 hover:text-red-700" 
-                                                                data-url="{{ asset('storage/' . $ayantDroit['extrait_path']) }}" type="button">
-                                                            <i class="fa fa-file-image-o" aria-hidden="true"></i>
-                                                        </button>
-                                                    @else
-                                                        <span class="text-gray-500">Non disponible</span>
-                                                    @endif
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                                @endif
-=======
                                     @endforeach
                                 </tbody>
                             </table>
-                        @endif  --}}
+                        @endif
                     </div>
                 
                     <!-- Section : Formations professionnelles -->
@@ -278,7 +219,6 @@
                                 <h3 class="text-xs text-center underline decoration-solid ">VISA DU PRESIDENT DU CONSEIL D’ADMINISTRATION</h3>
                                 <div class="w-full h-32 flex-grow border-2 border-black flex items-center justify-center">
                                 </div>
->>>>>>> Stashed changes
                             </div>
                         </div>
 

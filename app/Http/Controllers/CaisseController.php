@@ -28,9 +28,9 @@ class CaisseController extends Controller
         $recettes = Recette::whereYear('date', $year)->get();
 
         $data = [];
-        dd($categories , $recettes)
         foreach ($categories as $categorie) {
             $total = $recettes->where('categorie_id', $categorie->id)->sum('montant');
+          
 
             foreach ($categorie->children as $child) {
                 $total += $recettes->where('categorie_id', $child->id)->sum('montant');

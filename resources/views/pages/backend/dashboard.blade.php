@@ -98,7 +98,7 @@
                         <div class="relative z-10 text-white  p-6">
                             
                             <div class="flex items-center space-x-2 w-full text-lg">
-                                <img src="{{ asset('images/welcome-48.png') }}" alt="Icône calendrier" class="w-12 h-12">
+                                {{--  <img src="{{ asset('images/welcome-48.png') }}" alt="Icône calendrier" class="w-12 h-12">  --}}
                                 <div class=" flex-none">
                                     <div>
                                         <h1 class="font-bold">
@@ -124,7 +124,7 @@
                     
                 </div>
                 <div class=" col-span-2 row-span-3 bg-white p-6 shadow-lg rounded-lg">
-                    <h3 class="text-lg font-semibold text-gray-900">Sommes dépensées par mois</h3>
+                    <h3 class="text-lg font-semibold text-gray-900">Sommes dépensées  pour prestations</h3>
                     <div style="height: 400px" class="flex justify-center items-center">
                         <canvas id="prestationsPieChart" class=" "></canvas>  
                     </div>                        

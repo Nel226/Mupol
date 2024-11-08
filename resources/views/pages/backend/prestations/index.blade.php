@@ -67,15 +67,12 @@
                                 <th>#</th>
                                 <th>Identifiant</th>
     
-                                <th>Adhérant</th>
                                 <th>Contact</th>
     
                                 <th>Date</th>
                                 <th>Acte</th>
                                 
-                                <th>Type</th>
-                                <th>Sous-type</th>
-                                <th>Centre</th>
+                               
                                 <th>Montant</th>
                                 <th>Etat</th>
                             </tr>
@@ -93,11 +90,7 @@
                                         {{ $prestation->idPrestation }}
                                     </a>
                                 </td>
-                                <td class="px-6 py-4">
-                                    <a href="{{ route('prestations.show', ['prestation' => $prestation->id]) }}">
-                                        {{ $prestation->adherantNom }} {{ $prestation->adherantPrenom }}
-                                    </a>
-                                </td>
+                               
                                 <td class="px-6 py-4">
                                     <a href="{{ route('prestations.show', ['prestation' => $prestation->id]) }}">
                                         {{ $prestation->contactPrestation }}
@@ -113,21 +106,7 @@
                                         {{ $prestation->acte }}
                                     </a>
                                 </td>
-                                <td class="px-6 py-4">
-                                    <a href="{{ route('prestations.show', ['prestation' => $prestation->id]) }}">
-                                        {{ $prestation->type }}
-                                    </a>
-                                </td>
-                                <td class="px-6 py-4">
-                                    <a href="{{ route('prestations.show', ['prestation' => $prestation->id]) }}">
-                                        {{ $prestation->sous_type }}
-                                    </a>
-                                </td>
-                                <td class="px-6 py-4">
-                                    <a href="{{ route('prestations.show', ['prestation' => $prestation->id]) }}">
-                                        {{ $prestation->centre }}
-                                    </a>
-                                </td>
+                                
                                 <td class="px-6 py-4">
                                     <a href="{{ route('prestations.show', ['prestation' => $prestation->id]) }}">
                                         {{ $prestation->montant }}
@@ -207,15 +186,12 @@
                         <thead class="text-xs !text-right text-gray-700 uppercase rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr class="rounded-md !text-right ">
                                 <th>#</th>
-                                <th class="!text-right ">Adhérant</th>
                                 <th class="!text-right ">Contact</th>
     
                                 <th class="!text-right ">Date</th>
                                 <th class="!text-right ">Acte</th>
                                 
-                                <th class="!text-right ">Type</th>
-                                <th class="!text-right ">Sous-type</th>
-                                <th class="!text-right ">Centre</th>
+                               
                                 <th class="!text-right ">Montant</th>
                                 <th class="!text-right ">Paiement</th>
     
@@ -229,11 +205,7 @@
                                         {{ $loop->iteration }}
                                     </a>
                                 </td>
-                                <td class="px-6 py-4">
-                                    <a href="{{ route('prestations.show', ['prestation' => $prestation->id]) }}">
-                                        {{ $prestation->adherantNom }} {{ $prestation->adherantPrenom }}
-                                    </a>
-                                </td>
+                                
                                 <td class="px-6 py-4">
                                     <a href="{{ route('prestations.show', ['prestation' => $prestation->id]) }}">
                                         {{ $prestation->contactPrestation }} 
@@ -249,21 +221,7 @@
                                         {{ $prestation->acte }}
                                     </a>
                                 </td>
-                                <td class="px-6 py-4">
-                                    <a href="{{ route('prestations.show', ['prestation' => $prestation->id]) }}">
-                                        {{ $prestation->type }}
-                                    </a>
-                                </td>
-                                <td class="px-6 py-4">
-                                    <a href="{{ route('prestations.show', ['prestation' => $prestation->id]) }}">
-                                        {{ $prestation->sous_type }}
-                                    </a>
-                                </td>
-                                <td class="px-6 py-4">
-                                    <a href="{{ route('prestations.show', ['prestation' => $prestation->id]) }}">
-                                        {{ $prestation->centre }}
-                                    </a>
-                                </td>
+                               
                                 <td class="px-6 py-4">
                                     <a href="{{ route('prestations.show', ['prestation' => $prestation->id]) }}">
                                         {{ $prestation->montant }}

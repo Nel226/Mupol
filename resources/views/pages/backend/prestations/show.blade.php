@@ -57,83 +57,68 @@
                 <div class="grid grid-cols-2 gap-5 mt-3 md:grid-cols-2">
                     <div>
                         <x-card title="Informations prestation">
-                            <dt class="text-sm font-medium text-gray-500">
-                                Date
-                            </dt>
-                            <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                {{ $prestation->date }}
-                            </dd>
-                            <dt class="text-sm font-medium text-gray-500">
-                                Acte
-                            </dt>
-                            <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                {{ $prestation->acte }}
-                            </dd>
-                            <dt class="text-sm font-medium text-gray-500">
-                                Type
-                            </dt>
-                            <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                {{ $prestation->type }}
-                            </dd>
-                            
-                            <dt class="text-sm font-medium text-gray-500">
-                                Sous-Type
-                            </dt>
-                            <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                {{ $prestation->sous_type ?? 'N/A' }}
-                            </dd>
-                            
-                            <dt class="text-sm font-medium text-gray-500">
-                                Centre de santé :
-                            </dt>
-                            <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                {{ $prestation->centre }}
-                            </dd>  
-                           
+                            <div class="flex justify-between text-sm font-medium text-gray-500">
+                                <span>Date</span>
+                                <span class="text-gray-900">{{ $prestation->date }}</span>
+                            </div>
+                        
+                            <div class="flex justify-between text-sm font-medium text-gray-500 mt-4">
+                                <span>Acte</span>
+                                <span class="text-gray-900">{{ $prestation->acte }}</span>
+                            </div>
+                        
+                            <div class="flex justify-between text-sm font-medium text-gray-500 mt-4">
+                                <span>Type</span>
+                                <span class="text-gray-900">{{ $prestation->type }}</span>
+                            </div>
+                        
+                            <div class="flex justify-between text-sm font-medium text-gray-500 mt-4">
+                                <span>Sous-Type</span>
+                                <span class="text-gray-900">{{ $prestation->sous_type ?? 'N/A' }}</span>
+                            </div>
+                        
+                            <div class="flex justify-between text-sm font-medium text-gray-500 mt-4">
+                                <span>Centre de santé</span>
+                                <span class="text-gray-900">{{ $prestation->centre }}</span>
+                            </div>
                         </x-card>
+                        
                     </div>
                     <div>
-                        <x-card title="Montants" >
-                            <dt class="text-sm font-medium text-gray-500">
-                                Montant total
-                            </dt>
-                            <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                {{ $prestation->montant}}
-                            </dd>
-                            <dt class="text-sm font-medium text-gray-500">
-                                Montant modérateur
-                            </dt>
-                            <dd class="flex gap-4 mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                {{ ($prestation->montant*20)/100}}
-                                <div class="flex justify-end">
-                                    <span class="bg-blue-100 text-[#4000FF] text-xs font-medium inline-flex items-center  px-2.5 py-1 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">
-                                        20%
-                                    </span>
+                        <x-card title="Montants">
+                            <div class="flex justify-between text-sm font-medium text-gray-500">
+                                <span>Montant total</span>
+                                <span class="text-gray-900">{{ $prestation->montant }}</span>
+                            </div>
+                            
+                            <div class="flex justify-between items-center text-sm font-medium text-gray-500 mt-4">
+                                <span>Montant modérateur</span>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-gray-900">{{ ($prestation->montant * 20) / 100 }}</span>
+                                    <span class="bg-blue-100 text-[#4000FF] text-xs font-medium px-2.5 py-1 rounded border border-blue-400">20%</span>
                                 </div>
-                            </dd>
-                            <dt class="text-sm font-medium text-gray-500">
-                                Montant mutuelle
-                            </dt>
-                            <dd class="flex gap-4 mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                {{ ($prestation->montant*80)/100}}
-                                <div class=" -end">
-                                    <span class="bg-blue-100 text-[#4000FF] text-xs font-medium inline-flex items-center  px-2.5 py-1 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">
-                                        80%
-                                    </span>
+                            </div>
+                            
+                            <div class="flex justify-between items-center text-sm font-medium text-gray-500 mt-4">
+                                <span>Montant mutuelle</span>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-gray-900">{{ ($prestation->montant * 80) / 100 }}</span>
+                                    <span class="bg-blue-100 text-[#4000FF] text-xs font-medium px-2.5 py-1 rounded border border-blue-400">80%</span>
                                 </div>
-                                <div>
+                            </div>
+                            
+                            <div class="flex justify-between items-center text-sm font-medium text-gray-500 mt-4">
+                                <span>État de paiement</span>
+                                <div class="text-sm">
                                     @if ($prestation->etat_paiement === 1)
-                                    <span class="p-2 text-green-600 bg-green-200 border border-green-600 rounded-md shadow-sm">
-                                        Payé
-                                    </span>                                             
+                                        <span class="p-2 text-green-600 bg-green-200 border border-green-600 rounded-md shadow-sm">Payé</span>
                                     @else
-                                    <span class="p-2 text-red-600 bg-red-200 border border-red-600 rounded-md shadow-sm">
-                                        Non payé
-                                        </span>  
+                                        <span class="p-2 text-red-600 bg-red-200 border border-red-600 rounded-md shadow-sm">Non payé</span>
                                     @endif
                                 </div>
-                            </dd>
-                        </x-card> 
+                            </div>
+                        </x-card>
+                        
                     </div>    
                     
                 </div>
@@ -235,13 +220,14 @@
             @role('comptable')
             <div x-data="{ open: false }">
                 <div class="flex justify-around mt-6">
-                    <form @submit.prevent="open = true" class="flex items-center p-2 text-green-700 rounded-md shadow-sm">
+                    <form action="{{ route('prestations.validerpaiement', ['id' => $prestation->id]) }}" method="POST" class="flex items-center p-2 text-green-700 rounded-md shadow-sm">
                         @csrf
-                        <x-primary-button type="submit">
+                        <x-primary-button @click="open = true" type="submit">
                             <i class="fa fa-check"></i>
                             <span class="ml-2">{{ __('Valider le paiement') }}</span>
                         </x-primary-button>
                     </form>
+
                     @if ($prestation->etat_paiement == 1)
                         <a href="{{ route('prestations.downloadReceipt', ['id' => $prestation->id]) }}" class="flex items-center p-2 text-blue-700 rounded-md shadow-sm">
                             <x-primary-button>

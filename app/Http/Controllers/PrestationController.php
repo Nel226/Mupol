@@ -9,6 +9,8 @@ use App\Http\Requests\StorePrestationRequest;
 use App\Http\Requests\UpdatePrestationRequest;
 use App\Models\Adherant;
 use App\Models\AyantDroit;
+use App\Models\Categorie;
+use App\Models\Depense;
 use Illuminate\Support\Facades\Auth;
 use Dompdf\Dompdf;
 use Dompdf\Options;
@@ -18,6 +20,7 @@ use Illuminate\Support\Facades\DB;
 use Exception;
 use Illuminate\Support\Facades\Log;
 use Ramsey\Uuid\Uuid;
+use Illuminate\Support\Str;
 
 class PrestationController extends Controller
 {
@@ -317,6 +320,18 @@ class PrestationController extends Controller
         $prestation = Prestation::findOrFail($id);
         $prestation->etat_paiement = 1; 
         $prestation->save();
+
+        $categorie = Categorie::where('nom', 'Prestations et dépenses de personnels')->first();
+        $sousCategorie = Categorie::where('nom', 'Couverture des risques maladies ou accidents')->first();
+
+        Depense::create([
+            'uuid' => (string) Str::uuid(),
+            'montant' => $prestation->montant,
+            'description' => 'Dépense pour prestation' , 
+            'categorie_id' => $categorie->uuid, 
+            'sous_categorie_id' => $sousCategorie->uuid, 
+            'date' => $prestation->created_at->format('Y-m-d')
+        ]);
 
         return redirect()->route('prestations.index')->with('success', 'Le paiement a été validé avec succès.');
     }

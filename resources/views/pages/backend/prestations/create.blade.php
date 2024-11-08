@@ -534,7 +534,7 @@
                                     </div>
                                     <div class=" flex justify-end">
                                         <x-primary-button type="button" id="add-form" class="mt-4">
-                                            Ajouter une nouvelle prestation
+                                            Ajouter une autre prestation
                                         </x-primary-button>
                                     
                                     </div>
@@ -546,7 +546,7 @@
                     <div class="flex items-end justify-end gap-4 mt-8">
                         
                         <x-primary-button type="submit" class="mt-4 ">
-                            Ajouter
+                            Valider
                         </x-primary-button>
                     </div>
                 </form>
@@ -574,6 +574,10 @@
                         const formContainer = document.getElementById('form-container');
                         const newForm = document.querySelector('.form-prestation').cloneNode(true);
                         
+                        // Créer un bouton "Supprimer" pour le nouveau formulaire
+                        const deleteButton = document.createElement('button');
+                        deleteButton.className = 'bg-red-500 text-white p-2 text-xs rounded delete-form-btn';
+                        deleteButton.textContent = 'Supprimer';
                         
                         formIndex++;
     
@@ -633,6 +637,12 @@
                                 showSelectedOption(acteSelect); 
                             }
                         }
+
+                        deleteButton.addEventListener('click', function() {
+                            formContainer.removeChild(newForm);
+                            updateFormIndices(formContainer);
+
+                        });
                 
                     });
     

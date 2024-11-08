@@ -40,7 +40,6 @@ class CaisseController extends Controller
         }
 
     
-        dd($data);
 
         $regionsPath = public_path('regions.json');
         $regions = json_decode(file_get_contents($regionsPath), true);

@@ -154,32 +154,32 @@ class AdherantController extends Controller
             ];
         });
         $validatedData = $request->validate([
-        'nom' => 'required',
-        'prenom' => 'required',
-        'genre' => 'required',
-        'service' => 'required',
-        'no_matricule' => 'required',
-        'code_carte' => 'required',
-        'telephone' => 'required',
-        'charge' => 'required',
-        'mensualite' => 'required',
-        'adhesion' => 'required',
-        'photo' => 'image', 
-        'date_enregistrement'=>'required',
-    ]);
+            'nom' => 'required',
+            'prenom' => 'required',
+            'genre' => 'required',
+            'service' => 'required',
+            'no_matricule' => 'required',
+            'code_carte' => 'required',
+            'telephone' => 'required',
+            'charge' => 'required',
+            'mensualite' => 'required',
+            'adhesion' => 'required',
+            'photo' => 'image', 
+            'date_enregistrement'=>'required',
+        ]);
 
-    if ($request->hasFile('photo')) {
-        $photoPath = $request->file('photo')->store('photos', 'public');
-        $validatedData['photo'] = $photoPath;
-    }
+        if ($request->hasFile('photo')) {
+            $photoPath = $request->file('photo')->store('photos', 'public');
+            $validatedData['photo'] = $photoPath;
+        }
 
-    $validatedData['ordre'] = $validatedData['ordre'] ?? 0; 
+        $validatedData['ordre'] = $validatedData['ordre'] ?? 0; 
 
-    $adherant = Adherant::create($validatedData);
-    session()->flash('header', $header);
-    session()->flash('adherants', $adherants);
-    return redirect()->route('adherants.index')->with('success', 'Adhérent ajouté avec succès.');
-   
+        $adherant = Adherant::create($validatedData);
+        session()->flash('header', $header);
+        session()->flash('adherants', $adherants);
+        return redirect()->route('adherants.index')->with('success', 'Adhérent ajouté avec succès.');
+    
     
     }
 

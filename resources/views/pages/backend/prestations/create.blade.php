@@ -646,8 +646,6 @@
                 
                     });
     
-    
-    
                     function showSelectedOption(acteSelect) {
                         const form = acteSelect.closest('.form-prestation'); 
                         

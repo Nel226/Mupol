@@ -324,3 +324,40 @@ a:active {
         max-width: 1140px;
     }
 }
+
+.hightlightClass {
+
+    background-color:yellow;
+}
+
+.img-polaroid {
+    float: left; /* Positionne l'image à gauche */
+    margin: 5px 25px 15px 0; /* Marge autour de l'image pour l'espacement */
+    width: 50%; /* Ajuste la largeur de l'image pour la rendre responsive */
+    height: auto;
+}
+
+.choose-content {
+    text-align: justify;
+}
+.signature {
+    text-align: center; 
+    margin-top: 30px; 
+    font-family: "Times New Roman", Times, serif; 
+    font-size: 14px; 
+}
+
+.signature p {
+    margin: 5px 0; 
+}
+
+.signature strong {
+    font-size: 18px; 
+}
+.photo-caption {
+    text-align: center; 
+    font-style: italic; 
+    margin-top: 10px; 
+    font-size: 14px; 
+    color: #555; 
+}

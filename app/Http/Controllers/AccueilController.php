@@ -20,7 +20,19 @@ use App\Helpers\PasswordHelper;
 class AccueilController extends Controller
 {
     public function accueil (){
-        return view('pages.frontend.accueil');
+        $types = ['consultation', 'hospitalisation', 'radio', 'maternite', 'allocation', 'analyse_biomedicale', 'pharmacie', 'optique', 'dentaire_auditif', 'autre'];
+        $descriptions = [
+            'consultation' => 'Nous proposons des consultations médicales pour évaluer vos besoins en santé et recommander un traitement adapté.',
+            'hospitalisation' => 'Notre établissement dispose d\'installations modernes pour un séjour hospitalier sécurisé et confortable.',
+            'radio' => 'Nos services de radiologie offrent une large gamme de tests pour diagnostiquer et traiter divers problèmes médicaux.',
+            'maternite' => 'Nous offrons des soins de maternité complets pour assurer le bien-être de la mère et de l\'enfant tout au long de la grossesse.',
+            'allocation' => 'Des allocations pour soutenir financièrement les patients dans leurs soins médicaux sont disponibles sur demande.',
+            'analyse_biomedicale' => 'Nos analyses biomédicales permettent un diagnostic précis, contribuant à la prise en charge rapide de vos problèmes de santé.',
+            'pharmacie' => 'La pharmacie propose une large gamme de médicaments et de produits de santé pour répondre à vos besoins médicaux quotidiens.',
+            'optique' => 'Nos services d\'optique incluent des examens de la vue et des solutions pour améliorer votre confort visuel.',
+            'dentaire_auditif' => 'Soins dentaires et auditifs personnalisés pour garantir une santé bucco-dentaire et auditive optimale.',
+        ];
+        return view('pages.frontend.accueil', compact('types', 'descriptions'));
     }
 
     public function newAdhesion(){
@@ -70,50 +82,56 @@ class AccueilController extends Controller
         $cotisations = DemandeCategorieHelper::calculerCotisationMensuelleTotale($demandeAdhesion->nombreAyantsDroits, $demandeAdhesion->statut);
         $pdf = Pdf::loadView('pages.frontend.adherents.fiches.cession_volontaire', ['demandeAdhesion' => $demandeAdhesion]);
 
-        $generatedPassword = PasswordHelper::generateSecurePassword();
-        
-        $adherent = Adherant::create([
-            'matricule' => $demandeAdhesion->matricule, 
-            'nip' => $demandeAdhesion->nip,
-            'cnib' => $demandeAdhesion->cnib,
-            'delivree' => $demandeAdhesion->delivree,
-            'expire' => $demandeAdhesion->expire,
-            'adresse' => $demandeAdhesion->adresse_permanente,
-            'telephone' => $demandeAdhesion->telephone,
-            'email' => $demandeAdhesion->email,
-            'nom' => $demandeAdhesion->nom,
-            'prenom' => $demandeAdhesion->prenom,
-            'genre' => $demandeAdhesion->genre, 
-            'departement' => $demandeAdhesion->departement, 
-            'ville' => $demandeAdhesion->ville,
-            'pays' => $demandeAdhesion->pays,
-            'nom_pere' => $demandeAdhesion->nom_pere,
-            'nom_mere' => $demandeAdhesion->nom_mere,
-            'situation_matrimoniale' => $demandeAdhesion->situation_matrimoniale,
-            'nom_prenom_personne_besoin' => $demandeAdhesion->nom_prenom_personne_besoin,
-            'lieu_residence' => $demandeAdhesion->lieu_residence,
-            'telephone_personne_prevenir' => $demandeAdhesion->telephone_personne_prevenir,
-            'photo' => $demandeAdhesion->photo,
-            'nombreAyantsDroits' => $demandeAdhesion->nombreAyantsDroits,
-            'ayantsDroits' => $demandeAdhesion->ayantsDroits,
-            'categorie' => $demandeAdhesion->categorie,
-            'statut' => $demandeAdhesion->statut,
-            'grade' => $demandeAdhesion->grade,
-            'departARetraite' => $demandeAdhesion->departARetraite,
-            'numeroCARFO' => $demandeAdhesion->numeroCARFO,
-            'dateIntegration' => $demandeAdhesion->dateIntegration,
-            'dateDepartARetraite' => $demandeAdhesion->dateDepartARetraite,
-            'direction' => $demandeAdhesion->direction,
-            'service' => $demandeAdhesion->service,
-            'password' => Hash::make($generatedPassword), 
-            'date_enregistrement' => now(),
-            'code_carte' => $demandeAdhesion->matricule . '/00', 
-            'region' => $demandeAdhesion->region,
-            'province' => $demandeAdhesion->province,
-            'localite' => $demandeAdhesion->localite,
+        $adherent = Adherant::where('matricule', $demandeAdhesion->matricule)->first();
+    
+        if (!$adherent) {
+            $generatedPassword = PasswordHelper::generateSecurePassword();
+            
+            $adherent = Adherant::create([
+                'matricule' => $demandeAdhesion->matricule, 
+                'nip' => $demandeAdhesion->nip,
+                'cnib' => $demandeAdhesion->cnib,
+                'delivree' => $demandeAdhesion->delivree,
+                'expire' => $demandeAdhesion->expire,
+                'adresse' => $demandeAdhesion->adresse_permanente,
+                'telephone' => $demandeAdhesion->telephone,
+                'email' => $demandeAdhesion->email,
+                'nom' => $demandeAdhesion->nom,
+                'prenom' => $demandeAdhesion->prenom,
+                'genre' => $demandeAdhesion->genre, 
+                'departement' => $demandeAdhesion->departement, 
+                'ville' => $demandeAdhesion->ville,
+                'pays' => $demandeAdhesion->pays,
+                'nom_pere' => $demandeAdhesion->nom_pere,
+                'nom_mere' => $demandeAdhesion->nom_mere,
+                'situation_matrimoniale' => $demandeAdhesion->situation_matrimoniale,
+                'nom_prenom_personne_besoin' => $demandeAdhesion->nom_prenom_personne_besoin,
+                'lieu_residence' => $demandeAdhesion->lieu_residence,
+                'telephone_personne_prevenir' => $demandeAdhesion->telephone_personne_prevenir,
+                'photo' => $demandeAdhesion->photo,
+                'nombreAyantsDroits' => $demandeAdhesion->nombreAyantsDroits,
+                'ayantsDroits' => $demandeAdhesion->ayantsDroits,
+                'categorie' => $demandeAdhesion->categorie,
+                'statut' => $demandeAdhesion->statut,
+                'grade' => $demandeAdhesion->grade,
+                'departARetraite' => $demandeAdhesion->departARetraite,
+                'numeroCARFO' => $demandeAdhesion->numeroCARFO,
+                'dateIntegration' => $demandeAdhesion->dateIntegration,
+                'dateDepartARetraite' => $demandeAdhesion->dateDepartARetraite,
+                'direction' => $demandeAdhesion->direction,
+                'service' => $demandeAdhesion->service,
+                'password' => Hash::make($generatedPassword), 
+                'date_enregistrement' => now(),
+                'code_carte' => $demandeAdhesion->matricule . '/00', 
+                'region' => $demandeAdhesion->region,
+                'province' => $demandeAdhesion->province,
+                'localite' => $demandeAdhesion->localite,
+                'must_change_password' => true,
+                'is_adherent' => false,
 
 
-        ]);
+            ]);
+        }
 
         $ayantsDroitsArray = json_decode($demandeAdhesion->ayantsDroits, true);
 
@@ -177,5 +195,20 @@ class AccueilController extends Controller
         return PDFHelper::downloadPDF('pages.frontend.adherents.fiches.formulaire_adhesion', $data, 'Formulaire_adhesion' . $demandeAdhesion->id . '.pdf');
     }
 
+
+    public function contacts()
+    {
+        return view('pages.frontend.contacts.contacts');
+    }
+
+    public function services()
+    {
+        return view('pages.frontend.services.services');
+    }
+
+    public function enConstruction()
+    {
+        return view('pages.frontend.under-construction');
+    }
 
 }

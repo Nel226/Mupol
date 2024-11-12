@@ -19,10 +19,12 @@
         "chart.js": "^4.4.4",
         "chartjs-plugin-datalabels": "^2.2.0",
         "datatables.net": "^2.1.7",
+        "flag-icons": "^7.2.3",
         "jquery": "^3.7.1",
         "select2": "^4.1.0-rc.0",
         "signature_pad": "^5.0.3",
         "tabulator-tables": "^6.2.5",
+        "tailwindcss-text-stroke": "^0.0.5",
         "xlsx": "^0.18.5"
     }
 }

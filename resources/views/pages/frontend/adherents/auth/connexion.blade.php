@@ -63,11 +63,29 @@
                                         <i class="fa fa-envelope absolute right-4 text-gray-400"></i>
                                     </div>
                                     <div class="relative flex items-center">
-                                        <input name="password" type="password" required
+                                        <input id="password" name="password" type="password" required
                                             class="w-full text-sm text-gray-800 bg-white border-2 border-transparent focus:border-[#1E2772] px-4 py-3 rounded-md outline-none"
                                             placeholder="Entrez votre mot de passe" />
-                                        <i class="fa fa-lock absolute right-4 text-gray-400 cursor-pointer"></i>
+                                        <i class="fa fa-eye absolute right-4 text-gray-400 cursor-pointer" onclick="togglePasswordVisibility()"></i>
                                     </div>
+                                    
+                                    <script>
+                                    function togglePasswordVisibility() {
+                                        const passwordInput = document.getElementById("password");
+                                        const icon = passwordInput.nextElementSibling;
+                                    
+                                        if (passwordInput.type === "password") {
+                                            passwordInput.type = "text";
+                                            icon.classList.remove("fa-eye");
+                                            icon.classList.add("fa-eye-slash");
+                                        } else {
+                                            passwordInput.type = "password";
+                                            icon.classList.remove("fa-eye-slash");
+                                            icon.classList.add("fa-eye");
+                                        }
+                                    }
+                                    </script>
+                                    
                                     <div class="!mt-12 !text-center">
                                         <x-primary-button type="submit"
                                             class="w-full !justify-center px-4 !py-2.5 text-base font-semibold rounded-md !text-white  focus:outline-none">

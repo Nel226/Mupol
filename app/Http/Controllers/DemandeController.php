@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Adherant;
 use App\Models\DemandeAdhesion;
 use Illuminate\Http\Request;
 
@@ -22,7 +23,7 @@ class DemandeController extends Controller
         ];
         $pageTitle = 'Liste des demandes d\'adhésions';
 
-        $demandes = DemandeAdhesion::orderBy('created_at', 'desc')->get();
+        $demandes = Adherant::orderBy('created_at', 'desc')->get();
         
         return view('pages.backend.demandes.index', compact('demandes', 'breadcrumbsItems', 'pageTitle'));
     }
@@ -72,6 +73,20 @@ class DemandeController extends Controller
 
         return view('pages.backend.demandes.edit',compact('demande', 'pageTitle'));
     }
+
+    public function accept($id)
+    {
+        $adherent = Adherant::where('id', $id)->first();
+        if ($adherent) {
+            $adherent->is_adherent = true;
+            $adherent->save();
+
+            return redirect()->back()->with('status', 'La demande a été acceptée avec succès.');
+        }
+
+        return redirect()->back()->withErrors(['error' => 'Adhérent non trouvé.']);
+    }
+
 
 
 }

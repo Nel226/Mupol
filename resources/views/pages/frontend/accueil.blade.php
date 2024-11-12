@@ -9,8 +9,9 @@
         <div class="hero-slider">
             @php
                 $slides = [
-                    ['image' => 'images/caroussel/caroussel6.png', 'title' => 'MU-POl, la Mutuelle de la Police Nationale', 'text_color' => 'black'],
-                    ['image' => 'images/caroussel/caroussel5.jpg', 'title' => 'MU-POl, la Mutuelle de la Police Nationale', 'text_color' => 'black'],
+                    ['image' => 'images/caroussel/caroussel5.jpg', 'title' => 'MU-POl, la Mutuelle de la Police Nationale', 'text_color' => 'white'],
+                    ['image' => 'images/caroussel/caroussel8.jpg', 'title' => 'MU-POl, la Mutuelle de la Police Nationale', 'text_color' => 'white'],
+
                 ];
             @endphp
         
@@ -20,13 +21,13 @@
             <div class="container">
                 <div class="single-slider !p-4" style="background-image:url('{{ $slide['image'] }}')">
                     <div class="row">
-                        <div class="col-lg-7">
-                            <div class="text">
+                        <div class="col-lg-7 !p-2">
+                            <div class="text text-stroke-200 bg-gray-700 bg-opacity-50 ">
                                 <h1 class="{{ $slide['text_color'] === 'white' ? 'text-white' : 'text-black' }}">
                                     {{ $slide['title'] }}
                                 </h1>
-                                <p>Tous solidaires pour notre bien-être!</p>
-                                <p>Je suis policier (ère), j&apos;adhère ! Pour le bien-être des membres de ma famille (conjoint, enfants), je les adhère ! </p>
+                                <p class="{{ $slide['text_color'] === 'white' ? 'text-white' : 'text-black' }}" >Tous solidaires pour notre bien-être!</p>
+                                <p class="{{ $slide['text_color'] === 'white' ? 'text-white' : 'text-black' }}">Je suis policier (ère), j&apos;adhère ! Pour le bien-être des membres de ma famille (conjoint, enfants), je les adhère ! </p>
         
                                 <div class="button">
                                     <a class="btn" href="{{ route('formulaire-adhesion') }}">
@@ -51,34 +52,37 @@
     <section class="schedule">
         <div class="container">
             <div class="schedule-inner">
-                <div class="row  !-m-1">
+                <div class="row  !-m-1"> 
                     @php
                         $services = [
-                            [
-                                'icon' => 'fa fa-ambulance',
-                                'title' => 'Assistance d\'Urgence',
-                                'subtitle' => 'Lorem Amet',
-                                'description' => 'La mutuelle offre une assistance rapide en cas d\'urgence pour ses adhérents, avec un service de soutien 24/7.',
-                                'link' => '#',
-                                'link_text' => 'EN SAVOIR PLUS'
-                            ],
-                            [
-                                'icon' => 'icofont-prescription',
-                                'title' => 'Consultations Médicales',
-                                'subtitle' => 'Fusce Porttitor',
-                                'description' => 'Nos médecins partenaires sont disponibles pour des consultations médicales générales et spécialisées.',
+                           
+                       
+                        [
+                            'icon' => 'icofont-hospital',
+                            'title' => 'Hôpitaux Partenaires',
+                            'subtitle' => 'Soins spécialisés',
+                            'description' => 'Nos hôpitaux partenaires offrent une gamme de soins spécialisés pour nos adhérents, avec une couverture partielle des frais hospitaliers.',
                             'link' => '#',
                             'link_text' => 'EN SAVOIR PLUS'
                         ],
                         [
-                            'icon' => 'icofont-ui-hospital',
-                            'title' => 'Soins Hospitaliers',
-                                'subtitle' => 'Donec Luctus',
-                                'description' => 'La mutuelle couvre une partie des frais hospitaliers pour garantir un accès abordable aux soins.',
-                                'link' => '#',
-                                'link_text' => 'EN SAVOIR PLUS'
-                            ]
+                            'icon' => 'icofont-hospital',
+                            'title' => 'Cliniques Partenaires',
+                            'subtitle' => 'Soins de proximité',
+                            'description' => 'Nos cliniques partenaires offrent des soins de proximité, y compris des consultations et des traitements de courte durée, accessibles à nos adhérents.',
+                            'link' => '#',
+                            'link_text' => 'EN SAVOIR PLUS'
+                        ],
+                        [
+                            'icon' => 'icofont-medical-sign',
+                            'title' => 'Pharmacies Partenaires',
+                            'subtitle' => 'Médicaments à prix réduits',
+                            'description' => 'Nous avons des partenariats avec des pharmacies locales qui offrent des médicaments à prix réduits pour nos adhérents.',
+                            'link' => '#',
+                            'link_text' => 'EN SAVOIR PLUS'
+                        ],
                         ];
+                        
                     @endphp
                 
                     @foreach ($services as $service)
@@ -106,7 +110,7 @@
     </section>
     <!--/End Start schedule Area -->
 
-    <!-- Start Feautes -->
+    {{--  <!-- Start Feautes -->
     <section class="Feautes section">
         <div class="container">
             <div class="row">
@@ -154,11 +158,11 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section>  --}}
     
     <!--/ End Feautes -->
     
-    <!-- Start Fun-facts -->
+    {{--  <!-- Start Fun-facts -->
     <div id="fun-facts" class="fun-facts section overlay">
         <div class="container">
             <div class="row">
@@ -209,60 +213,56 @@
             </div>
         </div>
     </div>
-    <!--/ End Fun-facts -->
+    <!--/ End Fun-facts -->  --}}
     
     <!-- Start Why choose -->
-    <section class="why-choose section">
+    <section class="why-choose section" id="apropos">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="section-title">
-                        <h2>Nous Offrons Divers Services Pour Améliorer Votre Santé</h2>
+                    <div class="section-title who">
+                        <h2>Le mot du Président du Conseil d&apos;administration</h2>
                         <img  class="mx-auto" src="{{ asset('images/section-img.png') }}" alt="#">
                         <p>La Mutuelle de la Police Nationale propose des services variés pour votre bien-être et celui de votre famille.</p>
                     </div>
                 </div>
             </div>
+            
+        
             <div class="row">
-                <div class="col-lg-6 col-12">
-                    <!-- Start Choose Left -->
-                    <div class="choose-left">
-                        <h3>Qui sommes-nous ?</h3>
-                        <p>Nous sommes une mutuelle engagée à offrir des services de santé accessibles et de qualité à nos membres. Notre mission est de vous accompagner au quotidien.</p>
-                        <p>Forte de son expérience, la Mutuelle de la Police Nationale met à votre disposition des prestations adaptées à vos besoins spécifiques.</p>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <ul class="list">
-                                    <li><i class="fa fa-caret-right"></i>Accès aux soins de qualité.</li>
-                                    <li><i class="fa fa-caret-right"></i>Assistance en cas d&apos;urgence.</li>
-                                    <li><i class="fa fa-caret-right"></i>Réductions sur les médicaments.</li>
-                                </ul>
-                            </div>
-                            <div class="col-lg-6">
-                                <ul class="list">
-                                    <li><i class="fa fa-caret-right"></i>Des médecins partenaires.</li>
-                                    <li><i class="fa fa-caret-right"></i>Suivi personnalisé.</li>
-                                    <li><i class="fa fa-caret-right"></i>Des services adaptés à vos besoins.</li>
-                                </ul>
-                            </div>
+                <div class="col-lg-12 col-12">
+                    <div class="choose-content">
+                        <div class="img-polaroid">
+
+                            <img src="{{ asset('images/accueil/accueil8.jpg') }}" class="" alt="Photo PCA">
+                            <figcaption class="photo-caption">Président du Conseil d&apos;Administration</figcaption>
+                        </div>
+
+                        <h3 class=" font-bold text-lg my-2">Qui sommes-nous ?</h3>
+                        <p>
+                            La Mutuelle de la Police Nationale (MU-POL) qui a été portée sur les fonts baptismaux lors d’une Assemblée Générale constitutive le 19 novembre 2022 et lancée officiellement le 28 juillet 2023, constitue la plus vaste entreprise sociale portée par la Police Nationale. Je voudrais, à l’occasion du lancement de la présente page Facebook de la MU-POL, remercier les plus hautes autorités, le Ministre en charge de la sécurité, les Directeurs généraux de la Police Nationale, tout le Commandement de la Police Nationale et l’UNAPOL dont les efforts conjugués nous ont permis d’avoir ce bel instrument de solidarité permettant d’offrir une assurance santé et diverses prestations sociales aux policiers, au personnel civil de la Police Nationale et aux policiers à la retraite.
+                        </p>
+                        <p>
+                            Ma reconnaissance s’adresse particulièrement aux 4000 policiers et leurs familles qui ont adhéré à la Mutuelle, lesquels sont devenus nos premiers mutualistes et je les félicite pour leur esprit de solidarité. Je remercie aussi notre équipe, notamment les membres du Conseil d’Administration et son Secrétaire général, le Directeur général de la MU-POL et ses collaborateurs pour leur dévouement et leurs sacrifices pour assurer la bonne gouvernance de la Mutuelle et l’administration diligente des prestations. Nous sommes au service des policiers pour faciliter l’accès à des soins médicaux de qualité à coût social. La Mutuelle prend en charge vos soins médicaux à hauteur de 80% et développera d’autres types de prestations sociales qui participent au bien-être du policier. Le remboursement des frais médicaux a effectivement commencé le 1er juin 2024. La Mutuelle appartient à chaque policier et je vous invite à prendre possession de votre instrument en y adhérant massivement. Cette page Facebook a été créée afin de faire mieux connaitre la MU-POL et d’offrir aux mutualistes un espace de communication et de dialogue interactifs. Il ne nous reste plus qu’à souhaiter plein succès à la MU-POL avec la participation et la contribution de tout un chacun.
+                            Tous solidaires pour notre bien-être !
+                        </p>
+                        <!-- Signature -->
+                        <div class="signature">
+                            <p><strong>Le Président du Conseil d’Administration</strong></p>
+                            <p><strong>Thierry Dofizouho TUINA</strong></p>
+                            <p>Inspecteur Général de Police</p>
+                            <p>Chevalier de l’Ordre de l’Etalon</p>
                         </div>
                     </div>
-                    <!-- End Choose Left -->
-                </div>
-                <div class="col-lg-6 col-12">
-                    <!-- Start Choose Right -->
-                    <div class="choose-right">
-                        <img src="{{ asset('images/accueil/accueil8.jpg') }}" alt="" style="width: 100%; height: auto;">
-                    </div>                    
-                    <!-- End Choose Right -->
                 </div>
             </div>
+            
         </div>
     </section>
     <!--/ End Why choose -->
 
     
-    <!-- Start Call to action -->
+    {{--  <!-- Start Call to action -->
     <section class="call-action overlay" data-stellar-background-ratio="0.5">
         <div class="container">
             <div class="row">
@@ -279,7 +279,7 @@
             </div>
         </div>
     </section>
-    <!--/ End Call to action -->
+    <!--/ End Call to action -->  --}}
     
 
     <!-- Start service -->
@@ -288,81 +288,87 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title">
-                        <h2>We Offer Different Services To Improve Your Health</h2>
+                        <h2>Nous offrons différentes services de rembousements </h2>
                         <img  class="mx-auto" src="{{ asset('images/section-img.png') }}" alt="#">
-                        <p>Lorem ipsum dolor sit amet consectetur adipiscing elit praesent aliquet. pretiumts</p>
+                        <p>La Mutuelle vous accompagne dans le remboursement de différentes prestations.</p>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-4 col-md-6 col-12">
-                    <!-- Start Single Service -->
-                    <div class="single-service">
-                        <i class="icofont icofont-prescription"></i>
-                        <h4><a href="service-details.html">General Treatment</a></h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus dictum eros ut imperdiet. </p>	
+              
+
+                @foreach ($types as $type)
+                    <div class="col-lg-4 col-md-6 col-12">
+                        <!-- Start Single Service -->
+                        <div class="single-service">
+                            @switch($type)
+                                @case('consultation')
+                                    <i class="icofont icofont-stethoscope"></i>
+                                    <h4><a href="service-details.html">Consultation</a></h4>
+                                    <p>{{ $descriptions['consultation'] }}</p>
+                                    @break
+                                @case('hospitalisation')
+                                    <i class="icofont icofont-hospital"></i>
+                                    <h4><a href="service-details.html">Hospitalisation</a></h4>
+                                    <p>{{ $descriptions['hospitalisation'] }}</p>
+                                    @break
+                                @case('radio')
+                                    <i class="icofont icofont-heart-alt"></i>
+                                    <h4><a href="service-details.html">Radiologie</a></h4>
+                                    <p>{{ $descriptions['radio'] }}</p>
+                                    @break
+                                @case('maternite')
+                                    <i class="icofont icofont-baby"></i>
+                                    <h4><a href="service-details.html">Maternité</a></h4>
+                                    <p>{{ $descriptions['maternite'] }}</p>
+                                    @break
+                                @case('allocation')
+                                    <i class="icofont icofont-money"></i>
+                                    <h4><a href="service-details.html">Allocations</a></h4>
+                                    <p>{{ $descriptions['allocation'] }}</p>
+                                    @break
+                                @case('analyse_biomedicale')
+                                    <i class="icofont icofont-test-tube"></i>
+                                    <h4><a href="service-details.html"> Analyses Biomedicales</a></h4>
+                                    <p>{{ $descriptions['analyse_biomedicale'] }}</p>
+                                    @break
+                                @case('pharmacie')
+                                    <i class="icofont icofont-medical-sign"></i>
+                                    <h4><a href="service-details.html">Pharmacie</a></h4>
+                                    <p>{{ $descriptions['pharmacie'] }}</p>
+                                    @break
+                                @case('optique')
+                                    <i class="icofont icofont-eye-alt"></i>
+                                    <h4><a href="service-details.html">Optique</a></h4>
+                                    <p>{{ $descriptions['optique'] }}</p>
+                                    @break
+                                @case('dentaire_auditif')
+                                    <i class="icofont icofont-tooth"></i>
+                                    <h4><a href="service-details.html">Soins dentaires et auditifs</a></h4>
+                                    <p>{{ $descriptions['dentaire_auditif'] }}</p>
+                                    @break
+                                
+                            @endswitch
+                        </div>
+                        <!-- End Single Service -->
                     </div>
-                    <!-- End Single Service -->
-                </div>
-                <div class="col-lg-4 col-md-6 col-12">
-                    <!-- Start Single Service -->
-                    <div class="single-service">
-                        <i class="icofont icofont-tooth"></i>
-                        <h4><a href="service-details.html">Teeth Whitening</a></h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus dictum eros ut imperdiet. </p>	
-                    </div>
-                    <!-- End Single Service -->
-                </div>
-                <div class="col-lg-4 col-md-6 col-12">
-                    <!-- Start Single Service -->
-                    <div class="single-service">
-                        <i class="icofont icofont-heart-alt"></i>
-                        <h4><a href="service-details.html">Heart Surgery</a></h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus dictum eros ut imperdiet. </p>	
-                    </div>
-                    <!-- End Single Service -->
-                </div>
-                <div class="col-lg-4 col-md-6 col-12">
-                    <!-- Start Single Service -->
-                    <div class="single-service">
-                        <i class="icofont icofont-listening"></i>
-                        <h4><a href="service-details.html">Ear Treatment</a></h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus dictum eros ut imperdiet. </p>	
-                    </div>
-                    <!-- End Single Service -->
-                </div>
-                <div class="col-lg-4 col-md-6 col-12">
-                    <!-- Start Single Service -->
-                    <div class="single-service">
-                        <i class="icofont icofont-eye-alt"></i>
-                        <h4><a href="service-details.html">Vision Problems</a></h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus dictum eros ut imperdiet. </p>	
-                    </div>
-                    <!-- End Single Service -->
-                </div>
-                <div class="col-lg-4 col-md-6 col-12">
-                    <!-- Start Single Service -->
-                    <div class="single-service">
-                        <i class="icofont icofont-blood"></i>
-                        <h4><a href="service-details.html">Blood Transfusion</a></h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus dictum eros ut imperdiet. </p>	
-                    </div>
-                    <!-- End Single Service -->
-                </div>
+                @endforeach
+
+
             </div>
         </div>
     </section>
     <!--/ End service -->
     
     <!-- Start Blog Area -->
-    <section class="blog section" id="blog">
+    <section class="blog section" id="actualites">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title">
-                        <h2>Keep up with Our Most Recent Medical News.</h2>
+                        <h2>La vie de la mutuelle.</h2>
                         <img  class="mx-auto" src="{{ asset('images/section-img.png') }}" alt="#">
-                        <p>Lorem ipsum dolor sit amet consectetur adipiscing elit praesent aliquet. pretiumts</p>
+                        <p>Evènements récents organisés par la mutuelle.</p>
                     </div>
                 </div>
             </div>

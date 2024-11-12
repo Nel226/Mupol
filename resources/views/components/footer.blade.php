@@ -25,18 +25,18 @@
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-12">
                                 <ul>
-                                    <li><a href="#"><i class="fa fa-caret-right"></i>Accueil</a></li>
-                                    <li><a href="#"><i class="fa fa-caret-right"></i>À propos</a></li>
-                                    <li><a href="#"><i class="fa fa-caret-right"></i>Nos Services</a></li>
-                                    <li><a href="#"><i class="fa fa-caret-right"></i>Actualités</a></li>
+                                    <li><a href="/"><i class="fa fa-caret-right"></i>Accueil</a></li>
+                                    <li><a href="{{ route('en-construction') }}"><i class="fa fa-caret-right"></i>À propos</a></li>
+                                    <li><a href="{{ route('services') }}"><i class="fa fa-caret-right"></i>Nos Services</a></li>
+                                    <li><a href="{{ route('en-construction') }}"><i class="fa fa-caret-right"></i>Actualités</a></li>
                                 </ul>
                             </div>
                             <div class="col-lg-6 col-md-6 col-12">
                                 <ul>
-                                    <li><a href="#"><i class="fa fa-caret-right"></i>FAQ</a></li>
-                                    <li><a href="#"><i class="fa fa-caret-right"></i>Adhérer</a></li>
-                                    <li><a href="#"><i class="fa fa-caret-right"></i>Nous contacter</a></li>
-                                    <li><a href="#"><i class="fa fa-caret-right"></i>Témoignages</a></li>
+                                    <li><a href="{{ route('en-construction') }}"><i class="fa fa-caret-right"></i>FAQ</a></li>
+                                    <li><a href="{{ route('formulaire-adhesion') }}"><i class="fa fa-caret-right"></i>Adhérer</a></li>
+                                    <li><a href="{{ route('contacts') }}"><i class="fa fa-caret-right"></i>Nous contacter</a></li>
+                                    {{--  <li><a href="#"><i class="fa fa-caret-right"></i>Témoignages</a></li>  --}}
                                 </ul>
                             </div>
                         </div>
@@ -48,7 +48,7 @@
                     <div class="single-footer">
                         <h2>Horaires</h2>
                         <ul class="time-sidual">
-                            <li class="day">Lundi - Vendredi <span>8h00 - 17h00</span></li>
+                            <li class="day">Lundi - Vendredi <span>8h00 - 16h00</span></li>
                         </ul>
                     </div>
                 </div>

@@ -45,14 +45,9 @@
 
         <p>Bonjour,</p>
 
-        <p>Nous vous remercions d'avoir soumis votre demande d'adhésion.</p>
+        <p>Votre demande d&apos; à la MU-POL a été acceptée.</p>
 
-        <p>Nous vous informerons dès que votre demande sera traitée.</p>
-        <p>Télécharger votre fiche de cession volontaire de salaire en pièce jointe en dessous..</p>
-        <p>Voici vos informations de connexion :</p>
-        <p><strong>Email :</strong> {{ $demandeAdhesion->email }}</p>
-        <p><strong>Mot de passe :</strong> {{ $generatedPassword }}</p>
-        <p>Vous pouvez maintenant vous connecter à votre compte.</p>
+        <p>Veuillez vous connectez à votre compte par le lien : <strong>LIEN DE CONNEXION</strong>.</p>
         <p>Si vous avez des questions, n'hésitez pas à nous contacter.</p>
 
         <div class="footer">

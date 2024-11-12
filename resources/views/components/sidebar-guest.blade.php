@@ -1,5 +1,5 @@
 <!-- Sidebar Area -->
-<aside class="sidebar-sous  py-24  w-64 bg-[#cccccc] text-gray-800 shadow-lg h-screen fixed inset-y-0 left-0 transform -translate-x-full md:translate-x-0 transition duration-300 ease-in-out z-40">
+<aside class="sidebar-sous  py-8  w-64 bg-[#cccccc] text-gray-800 shadow-lg h-screen fixed inset-y-0 left-0 transform -translate-x-full md:translate-x-0 transition duration-300 ease-in-out z-40">
     <div class="sidebar-inner p-4">
     
         <style>

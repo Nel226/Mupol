@@ -362,7 +362,7 @@ body{
 	bottom: 0;
 	height: 3px;
 	width:0%;
-	background: #4B45DC;
+	background: #ffffff;
 	border-radius: 5px 5px 0 0;
 	opacity:0;
 	visibility:hidden;
@@ -376,7 +376,8 @@ body{
 	width: 100%;
 }
 .header .nav li.active a{
-	color:#4B45DC;
+	color:#010101;
+	background: rgb(225, 222, 222);
 }
 .header .nav li:hover a:before{
 	opacity:1;
@@ -384,7 +385,7 @@ body{
 	visibility:visible;
 }
 .header .nav li:hover a{
-	color:#4B45DC;
+	color:#dadade;
 }
 .header .nav li a i {
 	display: inline-block;
@@ -3278,6 +3279,16 @@ body{
 	text-align: left;
 }
 .contact-us .contact-us-form h2:before{
+	position:absolute;
+	content:"";
+	left:0;
+	bottom:0;
+	height:2px;
+	width:50px;
+	background:#4B45DC;
+}
+
+.who h2:before{
 	position:absolute;
 	content:"";
 	left:0;

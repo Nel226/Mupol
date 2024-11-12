@@ -39,7 +39,7 @@ class ConfirmationDemandeAdhesion extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Confirmation de votre demande d\'adhésion',
+            subject: 'Accusé de réception de votre demande d\'adhésion',
         );
     }
 
@@ -49,7 +49,7 @@ class ConfirmationDemandeAdhesion extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.confirmation', // Assurez-vous que la vue est correcte
+            view: 'emails.accuse-reception-demande-adhesion', 
             with: [
                 'demandeAdhesion' => $this->demandeAdhesion,
                 'logoUrl' => asset('images/logo.png'), 
@@ -64,7 +64,7 @@ class ConfirmationDemandeAdhesion extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.confirmation') 
+        return $this->view('emails.accuse-reception-demande-adhesion') 
                     ->subject('Confirmation de votre demande d\'adhésion')
                     ->attachData($this->pdf->output(), 'Fiche-cession-volontaire-de-salaire.pdf', [
                         'mime' => 'application/pdf',

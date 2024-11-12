@@ -1,3 +1,25 @@
+/* Met en valeur le nom du Président avec une taille de police plus grande */
+ 
+/* Marge entre les lignes pour espacer un peu le texte */
+ 
+/* Taille de la police de la signature */
+ 
+* Police plus formelle pour la signature */
+ 
+/* Marge au-dessus de la signature pour l'espacement */
+ 
+/* Centre le texte de la signature */
+ 
+/* Choix de couleur pour le texte */
+ 
+/* Ajuste la taille du texte */
+ 
+/* Marge au-dessus du titre pour l'espacement */
+ 
+/* Optionnel : rend le texte en italique */
+ 
+/* Centre le texte sous l'image */
+ 
 <style>
                 
                 

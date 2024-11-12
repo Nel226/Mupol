@@ -4,7 +4,7 @@
         <x-header-guest/>
 
 	
-		<!-- Breadcrumbs -->
+		{{--  <!-- Breadcrumbs -->
 		<div class="breadcrumbs overlay">
 			<div class="container">
 				<div class="bread-inner">
@@ -21,7 +21,7 @@
 				</div>
 			</div>
 		</div>
-		<!-- End Breadcrumbs -->
+		<!-- End Breadcrumbs -->  --}}
 				
 		<section class="section bg-gray-100">
 			<div class="container mx-auto px-4 lg:px-8">

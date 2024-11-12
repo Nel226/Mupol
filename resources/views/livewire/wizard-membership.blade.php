@@ -51,7 +51,7 @@
         </div>
     
         <!-- Contenu des étapes -->
-        <div class="  shadow-lg border rounded-lg border-gray-200  px-5 pt-6 pb-8 mb-4">
+        <div id="wizard-top" class="  shadow-lg border rounded-lg border-gray-200  px-5 pt-6 pb-8 mb-4">
             <h2 class="text-xl font-bold mb-5 text-gray-800 text-center">
                 @if ($currentStep == 1)
                     1. Références de l&apos;adhérent
@@ -684,7 +684,7 @@
             <!-- Boutons de navigation -->
             <div class="flex justify-between mt-5">
                 @if ($currentStep > 1)
-                    <button wire:click="previousStep"
+                    <button wire:click="previousStep" onclick="scrollToTop()"
                         class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                         Précédent
                     </button>
@@ -694,16 +694,21 @@
     
                 <!-- Bouton "Suivant" ou "Soumettre", toujours aligné à droite -->
                 @if ($currentStep < $totalSteps)
-                    <button wire:click="nextStep"
+                    <button wire:click="nextStep" onclick="scrollToTop()"
                         class="bg-[#4000FF] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                         Suivant
                     </button>
                 @else
-                    <button wire:click="submit"
+                    <button wire:click="submit" onclick="scrollToTop()"
                         class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                         Soumettre
                     </button>
                 @endif
+                <script>
+                    function scrollToTop() {
+                        document.getElementById('wizard-top').scrollIntoView({ behavior: 'smooth' });
+                    }
+                </script>
             </div>
     
             <!-- Message de succès -->

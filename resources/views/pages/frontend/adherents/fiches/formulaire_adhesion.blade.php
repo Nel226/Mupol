@@ -47,6 +47,12 @@
             /* margin-bottom: 20px; */
         }
 
+        .main-title h1,
+        .main-title h4 {
+            margin: 0px;
+            padding: 0px;
+        }
+
         .title-form {
             
         }
@@ -198,12 +204,6 @@
 
 
         /* --------------------------- Footer ------------------------ */
-        .flex-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            width: 100%;
-        }
 
         .text-photo {
             width: 100%;
@@ -216,24 +216,24 @@
         .text-photo-content {
             border: 2px solid black;
             border-radius: 10px;
-            padding: 10px;
+            padding: 10px 5px;
             font-weight: 600;
             text-align: center;
             width: 100%; /* S'assure que l'élément prend toute la largeur disponible */
         }
 
         .text-photo h3 {
-            margin: 5px 0;
+            margin: 0;
             font-size: 12px;
         }
 
         .instructions {
             font-weight: 500;
-            margin: 5px 0;
+            margin: 0;
         }
 
         .signature-conseil-admin {
-            width: 100%;
+            width: 90%;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -257,7 +257,11 @@
             align-items: center;
         }
 
-        .footer-table
+        .footer-table tr,
+        .footer-table {
+            border: 1px solid black; 
+
+        }
 
         
     </style>
@@ -609,7 +613,7 @@
                 <td style="width: 60%;">
                     <div class="text-photo">
                         <div class="text-photo-content">
-                            <h3>JOINDRE DES PHOTOS RÉCENTES DE L'ADHÉRENT ET DES AYANTS DROITS</h3>
+                            <h3> <strong>JOINDRE DES PHOTOS RÉCENTES DE L'ADHÉRENT ET DES AYANTS DROITS</strong></h3>
                             <ul style="list-style-type:disc;" class="instructions">
                                 <li>Joindre une copie de l’extrait de naissance de chaque enfant</li>
                                 <li>Joindre une copie de l’extrait de naissance et de la CNIB pour la ou le(s) conjoint(es)</li>
@@ -625,7 +629,7 @@
                     </div>
                 </td>
                 
-                <td style="width: 15%;"></td>
+                <td style="width: 10%;"></td>
 
                 <td style="width: 25%;">
                     <!-- Colonne Signature -->

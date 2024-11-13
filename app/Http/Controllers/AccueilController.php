@@ -176,6 +176,7 @@ class AccueilController extends Controller
         $data = [
             'demandeAdhesion' => $demandeAdhesion,
             'logoPath' => public_path('images/logofinal.png'), // Path to your logo image
+            'ayantsDroits' => json_decode($demandeAdhesion->ayantsDroits, true),
         ];
 
         return PDFHelper::downloadPDF('pages.frontend.adherents.fiches.formulaire_adhesion', $data, 'Formulaire_adhesion' . $demandeAdhesion->id . '.pdf');

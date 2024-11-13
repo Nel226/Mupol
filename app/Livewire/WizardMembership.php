@@ -42,8 +42,6 @@ class WizardMembership extends Component
         "Adjudant-Chef Major de Police"
     ];
 
-  
-
     // Variables pour le personnel retraité
     public $grade, $departARetraite, $numeroCARFO;
 

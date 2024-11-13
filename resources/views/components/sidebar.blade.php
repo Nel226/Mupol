@@ -85,12 +85,7 @@
                     <span class="ml-3">Caisse</span>
                 </a>
             </li>
-            <li>
-                <a href="{{ route('budget-suivi.index') }}" class="@if(Request::is('budget-suivi') ) active @endif flex items-center px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300 hover:scale-105">
-                    <i class="fa fa-eye w-5 h-5 dark:text-gray-400 group-hover:text-black"></i>
-                    <span class="ml-3">Suivi</span>
-                </a>
-            </li>
+            
             <li  x-data="{ open: {{ Request::is('estimations*') ? 'true' : 'false' }} }"  class="relative">
                 <a href="#" @click.prevent="open = !open" class="flex transition-transform transform items-center justify-between px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 duration-300 hover:scale-105">
                    
@@ -118,6 +113,13 @@
                         </a>
                     </li>
                 </ul>
+            </li>
+
+            <li>
+                <a href="{{ route('budget-suivi.index') }}" class="@if(Request::is('budget-suivi') ) active @endif flex items-center px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300 hover:scale-105">
+                    <i class="fa fa-eye w-5 h-5 dark:text-gray-400 group-hover:text-black"></i>
+                    <span class="ml-3">Suivi</span>
+                </a>
             </li>
           
             {{--  <li>

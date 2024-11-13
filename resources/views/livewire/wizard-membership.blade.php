@@ -472,9 +472,6 @@
                                                 </div>
                                             @endif
 
-
-
-                            
                                             <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4" wire:key="ayantDroit-{{ $i }}">
                                                 <!-- Photo ayant droit -->
                                                 <div>
@@ -499,9 +496,7 @@
                                                     <label class="block text-gray-700 text-sm font-bold mb-1">Extrait d&apos;acte de naissance (en PDF)</label>
                                                     <div class="w-full justify-center border-2 rounded-md p-1 border-gray-700">
                                                         <input type="file" wire:model="ayantsDroits.{{ $i }}.extrait" class="w-full py-2"  accept='.pdf'>
-                                                        
-                                                        
-                                                        
+        
                                                         @error('ayantsDroits.' . $i . '.extrait')
                                                             <span class="text-red-500 text-xs">{{ $message }}</span>
                                                         @enderror

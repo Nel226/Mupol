@@ -75,6 +75,50 @@ class Categorie extends Model
         ];
     }
 
+
+    // public function totalParTrimestre($type, $year)
+    // {
+    //     $model = $type === 'recette' ? Recette::class : Depense::class;
+
+    //     // Obtenez les montants totaux par trimestre pour cette catégorie en fonction de l'année
+    //     return [
+    //         'trimestre_1' => $model::where('categorie_id', $this->uuid)
+    //             ->whereYear('date', $year)
+    //             ->whereMonth('date', '<=', 3)
+    //             ->when($this->sous_categorie_id, function ($query) {
+    //                 $query->where('sous_categorie_id', $this->sous_categorie_id);
+    //             })
+    //             ->sum('montant'),
+
+    //         'trimestre_2' => $model::where('categorie_id', $this->uuid)
+    //             ->whereYear('date', $year)
+    //             ->whereMonth('date', '>', 3)
+    //             ->whereMonth('date', '<=', 6)
+    //             ->when($this->sous_categorie_id, function ($query) {
+    //                 $query->where('sous_categorie_id', $this->sous_categorie_id);
+    //             })
+    //             ->sum('montant'),
+
+    //         'trimestre_3' => $model::where('categorie_id', $this->uuid)
+    //             ->whereYear('date', $year)
+    //             ->whereMonth('date', '>', 6)
+    //             ->whereMonth('date', '<=', 9)
+    //             ->when($this->sous_categorie_id, function ($query) {
+    //                 $query->where('sous_categorie_id', $this->sous_categorie_id);
+    //             })
+    //             ->sum('montant'),
+
+    //         'trimestre_4' => $model::where('categorie_id', $this->uuid)
+    //             ->whereYear('date', $year)
+    //             ->whereMonth('date', '>', 9)
+    //             ->when($this->sous_categorie_id, function ($query) {
+    //                 $query->where('sous_categorie_id', $this->sous_categorie_id);
+    //             })
+    //             ->sum('montant'),
+    //     ];
+    // }
+
+
     public function getTotalRealise($type, $year)
     {
         if ($type == 'recette') {
@@ -100,12 +144,17 @@ class Categorie extends Model
     {
         $totalPrevu = $this->montant_prevu;
         $totalRealise = $this->getTotalRealise($type, $year);
-        
+        $ecart = $this->getEcart($type, $year);
+
+
         if ($totalPrevu == 0) {
             return 0;
         }
+        if ($ecart < 0) {
+            return -($totalRealise * 100) / $totalPrevu;
+        }
 
-        return ($totalRealise / $totalPrevu) * 100;
+        return ($totalRealise * 100) / $totalPrevu;
     }
 
 

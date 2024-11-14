@@ -110,12 +110,16 @@
                                                 <td class="px-6 py-2 text-center border-b">{{ $totauxSousCategorie['trimestre_2'] }}</td>
                                                 <td class="px-6 py-2 text-center border-b">{{ $totauxSousCategorie['trimestre_3'] }}</td>
                                                 <td class="px-6 py-2 text-center border-b">{{ $totauxSousCategorie['trimestre_4'] }}</td>
-                                                <td class="px-6 py-2 text-center border-b">{{ $totalSousCategorie }}</td>
+                                                <td class="px-6 py-2 text-center border-b">{{ number_format($sousCategorie->montant_realise, 2, ',', ' ') }}</td>
                                                 <td class="px-6 py-2 text-center border-b  ">{{ $ecartSousCategorie }}</td>
                                                 <td class="px-6 py-2 text-center border-b">{{ number_format($tauxSousCategorie, 2) }}%</td>
                                             </tr>
                                         @endforeach
                                     @endforeach
+
+                                    @php
+                                    dd($sousCategorie->montant_realise, $totalSousCategorie, $ecartSousCategorie, $tauxSousCategorie);
+                                @endphp
                                 @endforeach
                             </tbody>
                             

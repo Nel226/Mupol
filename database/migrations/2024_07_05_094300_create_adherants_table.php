@@ -45,17 +45,21 @@ return new class extends Migration
             $table->date('dateDepartARetraite')->nullable();
             $table->string('direction')->nullable();
             $table->string('service')->nullable();
+            $table->string('region')->nullable();
+            $table->string('province')->nullable();
+            $table->string('localite')->nullable();
+
             $table->string('ordre')->nullable();
             $table->date('date_enregistrement')->nullable();
             $table->string('code_carte')->nullable();
             $table->string('charge')->nullable();
             $table->string('mensualite')->nullable();
-            $table->string('adhesion')->nullable();
-            $table->string('password'); 
+            $table->string('adhesion')->default(10000);
+            $table->string('password');
+            $table->boolean('must_change_password')->default(true);
+            $table->boolean('is_adherent')->default(false);
 
-            $table->string('region')->nullable();
-            $table->string('province')->nullable();
-            $table->string('localite')->nullable();
+
             $table->timestamps();
         });
     }

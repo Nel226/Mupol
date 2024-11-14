@@ -1,3 +1,1768 @@
+/* Met en valeur le nom du Président avec une taille de police plus grande */
+ 
+/* Marge entre les lignes pour espacer un peu le texte */
+ 
+/* Taille de la police de la signature */
+ 
+* Police plus formelle pour la signature */
+ 
+/* Marge au-dessus de la signature pour l'espacement */
+ 
+/* Centre le texte de la signature */
+ 
+/* Choix de couleur pour le texte */
+ 
+/* Ajuste la taille du texte */
+ 
+/* Marge au-dessus du titre pour l'espacement */
+ 
+/* Optionnel : rend le texte en italique */
+ 
+/* Centre le texte sous l'image */
+ 
+<style>
+                
+                
+            </style>
+ 
+                               
+								
+                               
+                              
+ 
+ <style>
+                         
+                                </style>
+ 
+                        
+ 
+
+
+ 
+    
+ 
+class="!text-white"
+ 
+min-h-screen
+ 
+, ['id'=>1]
+ 
+ }} 
+ 
+{{ 
+ 
+_('')
+ 
+                    
+ 
+<div class="row">
+                             
+                                
+                                
+                            </div>
+ 
+   <div class="col-4 justify-center mx-auto text-center shadow-lg rounded-md">
+                                   <style>
+                                    .en-construction {
+                                        font-size: 2rem;
+                                        line-height: 1.1;
+                                        margin: 0;
+                                      }
+                                      @media screen and (max-width: 480px) {
+                                        .en-construction {
+                                          font-size: 1rem;
+                                        }
+                                      }
+                                      .en-construction::after {
+                                        content: "";
+                                        background-color: #ffe800;
+                                        background: repeating-linear-gradient(45deg, #ffe800, #ffe800 0.5rem, #222 0.5rem, #222 1.0rem);
+                                        display: block;
+                                        height: 0.5rem;
+                                        margin-top: 1rem;
+                                      }
+                                   </style>
+                                   <i class=" w-6 fa fa-cogs my-2"></i>
+                                   <h1 class="en-construction">{{__('Bientôt disponible') }}</h1>
+                                    <p>{{__('Notre site est en construction.') }}</p>
+                                </div>
+ 
+  <body class="">
+                              </body>
+ 
+<i class="icofont-rounded-down"></i>
+ 
+class="row"
+ 
+<section class="contact-us section">
+        <div class="container">
+ 
+contact-us-form
+ 
+	margin-top: 10px;
+
+ 
+                            // Ajout de la classe active au menu sélectionné
+
+ 
+#actualites
+ 
+xample.com
+ 
+<div class="col-lg-4 col-12">
+						<div class="main-sidebar">
+							<!-- Single Widget -->
+							<div class="single-widget search">
+								<div class="form">
+									<input type="text" id="findField" placeholder="Rechercher...">
+									<button class="button bg-[#4000FF]" href="#" onclick="search();"><i class="fa fa-search"></i></button>
+								</div>
+                                
+                                {{--  <button onclick="removeHightlight();">removeHightlight</button>  --}}  
+                                <script>
+                                    function findNext(str) {
+
+                                        if (str == "") {
+                                            alert("Entrez un mot !");
+                                            return;
+                                        }
+                                        return window.find(str);
+                                    }
+                                    
+                                    function search() {
+                                        console.clear();    
+                                        removeHightlight();
+                                        var sel = window.getSelection();
+                                        sel.removeAllRanges();
+                                        var str = document.getElementById("findField").value;
+                                        document.getElementById("findField").value = "";
+                                        console.log("Début de la recherche du mot : ", str);
+                                    
+                                        while (findNext(str)) {
+                                    
+                                            var range = sel.getRangeAt(0);        
+                                            var hightlightSpan = document.createElement("span");
+                                            hightlightSpan.className = "hightlightClass";
+                                            hightlightSpan.appendChild(range.extractContents());
+                                            range.insertNode(hightlightSpan);
+                                        }
+                                        console.log("Fin de la recherche");
+                                        sel.removeAllRanges();
+                                        document.getElementById("findField").value = str;
+                                    }
+                                    
+                                    function removeHightlight() {
+                                    
+                                        var hightlightSpanTab = document.getElementsByClassName("hightlightClass");
+                                        
+                                        while(hightlightSpanTab.length) {
+                                            var parent = hightlightSpanTab[0].parentNode;
+                                            while( hightlightSpanTab[0].firstChild ) {
+                                                parent.insertBefore(  hightlightSpanTab[0].firstChild, hightlightSpanTab[0] );
+                                            }
+                                             parent.removeChild( hightlightSpanTab[0] );
+                                        }    
+                                    }
+                                    
+                                </script>
+                                <style>
+                                    .hightlightClass {
+
+                                        background-color:yellow;
+                                    }
+                                </style>
+							</div>
+							<!--/ End Single Widget -->
+							<!-- Single Widget -->
+							<!-- Catégories des services -->
+                            <div class="single-widget category">
+                                <h3 class="title">Catégories de services</h3>
+                                <ul class="category-list">
+                                    <li><a href="#">Consultation</a></li>
+                                    <li><a href="#">Hospitalisation</a></li>
+                                    <li><a href="#">Radio</a></li>
+                                    <li><a href="#">Maternité</a></li>
+                                    <li><a href="#">Pharmacie</a></li>
+                                    <li><a href="#">Optique</a></li>
+                                    <li><a href="#">Dentaire & Auditif</a></li>
+                                    
+                                </ul>
+                            </div>
+							<!--/ End Single Widget -->
+							<!-- Single Widget -->
+							<div class="single-widget recent-post">
+								<h3 class="title">Actualités récentes</h3>
+								<!-- Single Post -->
+								<div class="single-post">
+									<div class="image">
+                                        <img src="{{ asset('images/accueil/accueil6.jpg') }}" alt="Service Image 1">
+									</div>
+									<div class="content">
+										<h5><a href="#">We have annnocuced our new product.</a></h5>
+										<ul class="comment">
+											<li><i class="fa fa-calendar" aria-hidden="true"></i>Jan 11, 2020</li>
+											<li><i class="fa fa-commenting-o" aria-hidden="true"></i>35</li>
+										</ul>
+									</div>
+								</div>
+								<!-- End Single Post -->
+								<!-- Single Post -->
+								<div class="single-post">
+									<div class="image">
+                                        <img src="{{ asset('images/accueil/accueil6.jpg') }}" alt="Service Image 1">
+									</div>
+									<div class="content">
+										<h5><a href="#">Top five way for solving teeth problems.</a></h5>
+										<ul class="comment">
+											<li><i class="fa fa-calendar" aria-hidden="true"></i>Mar 05, 2019</li>
+											<li><i class="fa fa-commenting-o" aria-hidden="true"></i>59</li>
+										</ul>
+									</div>
+								</div>
+								<!-- End Single Post -->
+								<!-- Single Post -->
+								<div class="single-post">
+									<div class="image">
+                                        <img src="{{ asset('images/accueil/accueil4.jpg') }}" alt="Service Image 1">
+									</div>
+									<div class="content">
+										<h5><a href="#">We provide highly business soliutions.</a></h5>
+										<ul class="comment">
+											<li><i class="fa fa-calendar" aria-hidden="true"></i>June 09, 2019</li>
+											<li><i class="fa fa-commenting-o" aria-hidden="true"></i>44</li>
+										</ul>
+									</div>
+								</div>
+								<!-- End Single Post -->
+							</div>
+							<!--/ End Single Widget -->
+							<!-- Single Widget -->
+							<!--/ End Single Widget -->
+							<!-- Single Widget -->
+							<div class="single-widget side-tags">
+                                <h3 class="title">Tags</h3>
+                                <ul class="tag">
+                                    <li><a href="#">santé</a></li>
+                                    <li><a href="#">consultation</a></li>
+                                    <li><a href="#">hospitalisation</a></li>
+                                    <li><a href="#">analyse biomédicale</a></li>
+                                    <li><a href="#">pharmacie</a></li>
+                                    <li><a href="#">optique</a></li>
+                                </ul>
+                            </div>
+							<!--/ End Single Widget -->
+						</div>
+					</div>
+ 
+#apropos
+ 
+btn btn-primary
+ 
+<div class="main-sidebar">
+							<!-- Single Widget -->
+							<div class="single-widget search">
+								<div class="form">
+									<input type="text" id="findField" placeholder="Rechercher...">
+									<button class="button bg-[#4000FF]" href="#" onclick="search();"><i class="fa fa-search"></i></button>
+								</div>
+                                
+                                {{--  <button onclick="removeHightlight();">removeHightlight</button>  --}}  
+                                <script>
+                                    function findNext(str) {
+
+                                        if (str == "") {
+                                            alert("Entrez un mot !");
+                                            return;
+                                        }
+                                        return window.find(str);
+                                    }
+                                    
+                                    function search() {
+                                        console.clear();    
+                                        removeHightlight();
+                                        var sel = window.getSelection();
+                                        sel.removeAllRanges();
+                                        var str = document.getElementById("findField").value;
+                                        document.getElementById("findField").value = "";
+                                        console.log("Début de la recherche du mot : ", str);
+                                    
+                                        while (findNext(str)) {
+                                    
+                                            var range = sel.getRangeAt(0);        
+                                            var hightlightSpan = document.createElement("span");
+                                            hightlightSpan.className = "hightlightClass";
+                                            hightlightSpan.appendChild(range.extractContents());
+                                            range.insertNode(hightlightSpan);
+                                        }
+                                        console.log("Fin de la recherche");
+                                        sel.removeAllRanges();
+                                        document.getElementById("findField").value = str;
+                                    }
+                                    
+                                    function removeHightlight() {
+                                    
+                                        var hightlightSpanTab = document.getElementsByClassName("hightlightClass");
+                                        
+                                        while(hightlightSpanTab.length) {
+                                            var parent = hightlightSpanTab[0].parentNode;
+                                            while( hightlightSpanTab[0].firstChild ) {
+                                                parent.insertBefore(  hightlightSpanTab[0].firstChild, hightlightSpanTab[0] );
+                                            }
+                                             parent.removeChild( hightlightSpanTab[0] );
+                                        }    
+                                    }
+                                    
+                                </script>
+                                <style>
+                                    .hightlightClass {
+
+                                        background-color:yellow;
+                                    }
+                                </style>
+							</div>
+							<!--/ End Single Widget -->
+							<!-- Single Widget -->
+							<!-- Catégories des services -->
+                            <div class="single-widget category">
+                                <h3 class="title">Catégories de services</h3>
+                                <ul class="category-list">
+                                    <li><a href="#">Consultation</a></li>
+                                    <li><a href="#">Hospitalisation</a></li>
+                                    <li><a href="#">Radio</a></li>
+                                    <li><a href="#">Maternité</a></li>
+                                    <li><a href="#">Pharmacie</a></li>
+                                    <li><a href="#">Optique</a></li>
+                                    <li><a href="#">Dentaire & Auditif</a></li>
+                                    
+                                </ul>
+                            </div>
+							<!--/ End Single Widget -->
+							<!-- Single Widget -->
+							<div class="single-widget recent-post">
+								<h3 class="title">Actualités récentes</h3>
+								<!-- Single Post -->
+								<div class="single-post">
+									<div class="image">
+                                        <img src="{{ asset('images/accueil/accueil6.jpg') }}" alt="Service Image 1">
+									</div>
+									<div class="content">
+										<h5><a href="#">We have annnocuced our new product.</a></h5>
+										<ul class="comment">
+											<li><i class="fa fa-calendar" aria-hidden="true"></i>Jan 11, 2020</li>
+											<li><i class="fa fa-commenting-o" aria-hidden="true"></i>35</li>
+										</ul>
+									</div>
+								</div>
+								<!-- End Single Post -->
+								<!-- Single Post -->
+								<div class="single-post">
+									<div class="image">
+                                        <img src="{{ asset('images/accueil/accueil6.jpg') }}" alt="Service Image 1">
+									</div>
+									<div class="content">
+										<h5><a href="#">Top five way for solving teeth problems.</a></h5>
+										<ul class="comment">
+											<li><i class="fa fa-calendar" aria-hidden="true"></i>Mar 05, 2019</li>
+											<li><i class="fa fa-commenting-o" aria-hidden="true"></i>59</li>
+										</ul>
+									</div>
+								</div>
+								<!-- End Single Post -->
+								<!-- Single Post -->
+								<div class="single-post">
+									<div class="image">
+                                        <img src="{{ asset('images/accueil/accueil4.jpg') }}" alt="Service Image 1">
+									</div>
+									<div class="content">
+										<h5><a href="#">We provide highly business soliutions.</a></h5>
+										<ul class="comment">
+											<li><i class="fa fa-calendar" aria-hidden="true"></i>June 09, 2019</li>
+											<li><i class="fa fa-commenting-o" aria-hidden="true"></i>44</li>
+										</ul>
+									</div>
+								</div>
+								<!-- End Single Post -->
+							</div>
+							<!--/ End Single Widget -->
+							<!-- Single Widget -->
+							<!--/ End Single Widget -->
+							<!-- Single Widget -->
+							<div class="single-widget side-tags">
+                                <h3 class="title">Tags</h3>
+                                <ul class="tag">
+                                    <li><a href="#">santé</a></li>
+                                    <li><a href="#">consultation</a></li>
+                                    <li><a href="#">hospitalisation</a></li>
+                                    <li><a href="#">analyse biomédicale</a></li>
+                                    <li><a href="#">pharmacie</a></li>
+                                    <li><a href="#">optique</a></li>
+                                </ul>
+                            </div>
+							<!--/ End Single Widget -->
+						</div>
+ 
+ <div class="single-main " contenteditable="true">
+                                    <!-- News Head -->
+                                    <div class="news-head">
+                                        <img src="{{ asset('images/services/service1.jpg') }}" alt="Mutuelle Services Image">
+                                    </div>
+                                    <!-- News Title -->
+                                    <h1 class="news-title !text-[#652E92]">
+                                        Adhérer à la MU-POL : Bénéficiez d&apos;une Large Gamme de Prestations
+                                    </h1>
+                                    <!-- News Text -->
+
+                                    <div class="news-text">
+                                        <p>En tant que membre de la MU-POL, vous avez accès à une gamme variée de prestations qui couvrent les principaux besoins en santé et bien-être. Découvrez ci-dessous les différents services remboursés :</p>
+                                    
+                                        <!-- Consultation -->
+                                        <h3 class="font-bold text-lg mt-4 mb-1 flex items-center">
+                                            <i class="icofont icofont-stethoscope mr-2 p-2 bg-[#4000FF] text-white font-bold rounded-md"></i>
+                                            Consultation
+                                        </h3>
+                                        <p class=" text-justify">
+                                            {{__('La MU-POL propose un remboursement des frais de consultation médicale, permettant aux adhérents de se faire soigner par divers professionnels de santé, allant des généralistes aux spécialistes. Que vous ayez besoin d’un suivi médical régulier ou de soins pour une condition spécifique, vous pouvez consulter un médecin en toute tranquillité. En plus des consultations générales, la MU-POL couvre également les consultations spécialisées en cardiologie, dermatologie, pédiatrie, et bien d’autres, garantissant ainsi un accès étendu aux soins.')}}                                    </p>
+                                    
+                                        <!-- Hospitalization -->
+                                        <h3 class="font-bold text-lg mt-4 mb-1 flex items-center">
+                                            <i class="icofont icofont-hospital mr-2 p-2 bg-[#4000FF] text-white font-bold rounded-md"></i>
+                                            Hospitalisation
+                                        </h3>
+                                        <p class=" text-justify">
+                                            {{__(' En cas d’hospitalisation, que ce soit pour une intervention chirurgicale, des soins intensifs ou un suivi post-opératoire, la MU-POL prend en charge une partie des frais, en fonction de la durée de votre séjour et de la nature des soins. Ce soutien financier couvre les frais de chambre, de soins infirmiers, et les traitements nécessaires. Que l’hospitalisation soit courte (moins de deux jours) ou prolongée (plus de deux semaines), la MU-POL accompagne les adhérents pour réduire les coûts liés aux soins hospitaliers.') }}
+                                        </p>
+                                    
+                                        <!-- Radiology -->
+                                        <h3 class="font-bold text-lg mt-4 mb-1 flex items-center">
+                                            <i class="icofont icofont-heart-alt mr-2 p-2 bg-[#4000FF] text-white font-bold rounded-md"></i>
+                                            Radiologie
+                                        </h3>
+                                        <p>
+                                            {{__('La radiologie est essentielle pour le diagnostic de nombreuses affections. La MU-POL couvre une gamme complète d\'examens d\'imagerie médicale, y compris les radiographies, les échographies, les IRM et les scanners. Ces examens sont pris en charge pour détecter des problèmes de santé spécifiques, permettant un diagnostic et un suivi rapide des pathologies. Que ce soit pour des examens de routine ou des tests plus approfondis, la couverture radiologique est conçue pour vous offrir une tranquillité d\'esprit.') }}
+                                        </p>
+                                    
+                                        <!-- Maternity -->
+                                        <h3 class="font-bold text-lg mt-4 mb-1 flex items-center">
+                                            <i class="icofont icofont-baby mr-2 p-2 bg-[#4000FF] text-white font-bold rounded-md"></i>
+                                            Maternité
+                                        </h3>
+                                        <p class=" text-justify">
+                                            {{__('La MU-POL offre un soutien accru aux futures mamans, prenant en charge les frais de suivi prénatal, des échographies de contrôle, et des frais liés à l’accouchement. Les adhérentes bénéficient d’un accompagnement complet pendant toute la période de grossesse, assurant la sécurité de la mère et de l’enfant. La couverture inclut également les frais en cas de complications médicales, garantissant un accès à des soins de qualité pour le bien-être de la mère et du bébé.') }}
+                                        </p>
+                                    
+                                        <!-- Pharmacy -->
+                                        <h3 class="font-bold text-lg mt-4 mb-1 flex items-center">
+                                            <i class="icofont icofont-money mr-2 p-2 bg-[#4000FF] text-white font-bold rounded-md"></i>
+                                            Pharmacie
+                                        </h3>
+                                        <p class=" text-justify">
+                                            {{__('Les dépenses en médicaments peuvent rapidement s\'accumuler, notamment en cas de traitement prolongé. La MU-POL prend en charge une partie des frais pharmaceutiques pour des médicaments prescrits, garantissant ainsi un accès facilité aux traitements nécessaires pour les adhérents et leurs ayants droit. Ce soutien s’applique aussi bien pour les traitements temporaires que pour les traitements de longue durée, allégeant le coût des soins au quotidien.') }}
+                                        </p>
+                                        
+                                        <!-- Biomedical Analysis -->
+                                        <h3 class="font-bold text-lg mt-4 mb-1 flex items-center">
+                                            <i class="icofont icofont-laboratory mr-2 p-2 bg-[#4000FF] text-white font-bold rounded-md"></i>
+                                            Analyse Biomédicale
+                                        </h3>
+                                        <p class=" text-justify">
+                                            {{__('La MU-POL prend en charge les frais liés aux analyses biomédicales, essentielles pour le diagnostic et le suivi médical de nombreuses pathologies. Ces analyses comprennent les tests sanguins, les examens urinaires, les cultures microbiologiques, ainsi que d\'autres examens spécialisés comme les bilans de santé réguliers, les dosages hormonaux ou les tests génétiques. Ces analyses sont cruciales pour identifier de manière précoce les maladies et affections, permettant une prise en charge rapide et adaptée.') }}
+                                        </p>
+
+                                        <!-- Optical Services -->
+                                        <h3 class="font-bold text-lg mt-4 mb-1 flex items-center">
+                                            <i class="icofont icofont-eye-alt mr-2 p-2 bg-[#4000FF] text-white font-bold rounded-md"></i>
+                                            Optique
+                                        </h3>
+                                        <p class=" text-justify">
+                                            {{__('La santé visuelle est primordiale, et la MU-POL s’engage à rembourser une partie des frais liés aux soins optiques. Que ce soit pour des examens de la vue, des lunettes de correction, ou des lentilles, les adhérents peuvent bénéficier d’un soutien financier pour leurs dépenses en optique. Ce remboursement permet de maintenir une bonne vision, essentielle pour la qualité de vie au quotidien.') }}
+                                        </p>
+                                    
+                                        <!-- Dental & Auditory Services -->
+                                        <h3 class="font-bold text-lg mt-4 mb-1 flex items-center">
+                                            <i class="icofont icofont-tooth mr-2 p-2 bg-[#4000FF] text-white font-bold rounded-md"></i>
+                                            Soins Dentaires & Auditifs
+                                        </h3>
+                                        <p class=" text-justify">
+                                            {{__('La MU-POL prend en charge les soins dentaires et auditifs, des contrôles de routine aux soins plus spécifiques, tels que les prothèses dentaires et auditives. Ces services incluent des consultations de suivi, des soins de prévention, et des traitements en cas de problèmes dentaires ou auditifs. Ainsi, les adhérents peuvent maintenir une bonne hygiène bucco-dentaire et auditive, indispensable pour la santé générale.') }}
+                                        </p>
+                                    
+                                        <!-- Allocation -->
+                                        <h3 class="font-bold text-lg mt-4 mb-1 flex items-center">
+                                            <i class="icofont icofont-money mr-2 p-2 bg-[#4000FF] text-white font-bold rounded-md"></i>
+                                            Allocation
+                                        </h3>
+                                        <p class=" text-justify">
+                                            {{__('En cas de situation particulière (invalidité, décès d\'un adhérent ou d\'un ayant droit), la MU-POL offre des allocations spécifiques pour aider financièrement les familles dans ces moments difficiles. Cette allocation peut aussi inclure un secours médical pour des traitements exceptionnels ou non couverts. Les adhérents peuvent compter sur cette assistance pour alléger les coûts imprévus liés à des conditions particulières.') }}
+                                        </p>
+
+                                        <blockquote class=" mt-4 !bg-[#4000FF]">
+                                            <p>« Adhérer à la MU-POL, c&apos;est assurer sa santé et celle de ses proches avec des prestations diversifiées et adaptées à tous les besoins. »</p>
+                                        </blockquote>
+                                    
+                                        {{--  <div class="image-gallery mt-4">
+                                            <div class="row">
+                                                <div class="col-lg-6 col-md-6 col-12">
+                                                    <div class="single-image">
+                                                        <img src="{{ asset('images/accueil/accueil6.jpg') }}" alt="Service Image 1">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-12">
+                                                    <div class="single-image">
+                                                        <img src="{{ asset('images/accueil/accueil4.jpg') }}" alt="Service Image 2">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>  --}}
+                                    </div>
+                                    
+                                </div>
+ 
+La MU-POL prend en charge les frais liés aux analyses biomédicales, telles que les tests sanguins, urinaires, et autres examens de laboratoire, permettant un suivi précis de votre état de santé.
+ 
+Optique
+ 
+                                          
+ 
+                                            
+ 
+Les examens d'imagerie médicale, tels que les radiographies, échographies et IRM, sont également pris en charge. Cette couverture permet de diagnostiquer et de traiter efficacement de nombreuses conditions de santé.
+ 
+--}}
+ 
+{{--  <input type="text" id="findField" value="C" size="20" />
+                                <button onclick="search();">Find!</button>
+ 
+
+                                
+                                
+                                   
+ 
+<div contenteditable="true">Ceci est un texte (il est editable) <span style="font-weight: bold;">pour faire</span> des tests de <span style="font-style: italic;">recherche</span>...
+                                        Il <span style="font-weight: bold;">contient</span> plusieurs balises de formatage...
+                                        <div><span style="background-color: rgba(157, 255, 0, 0.9);">Ce test</span> utilise la fonction <span style="color: blue;"><span style="font-style: italic;">find()</span>...</span><br>Tapez
+                                            un mot à <span style="text-decoration-line: underline;">chercher puis</span> cliquez <span style="color: red;">sur le bouton</span>            "find!"... Les mots trouvés sont mis en <span style="color: green; font-weight: bold; text-decoration-line: underline;">surbrillance</span>...&nbsp;</div>
+                                        <div>Vous pouvez définir le style CSS avec la class "hightlightClass"...</div>
+                                    </div>
+                                    <br />
+ 
+</a>
+ 
+<a href="news-single.html">
+ 
+test-tube
+ 
+-icofont-
+ 
+overlay
+ 
+icon-left
+ 
+                                        <!-- Additional Gallery (if applicable) -->
+
+ 
+prestations
+ 
+                                            <a href="https://maps.app.goo.gl/pSGfdxcayY9y6fcCA">Lien Google Maps</a>
+
+ 
+ <div class="flex  ">
+                                    <div class="p-3 bg-[#FEFF3D] mr-4">
+                                        <i class="icofont icofont-ui-call "></i>
+                                    </div>
+                                    <div class="content">
+                                        <h3 class=" font-bold text-lg">TELEPHONE</h3>
+                                        <p>info@company.com</p>
+                                    </div>
+                                </div>
+                                <div class="flex  ">
+                                    <div class="p-3 bg-[#FEFF3D] mr-4">
+                                        <i class="icofont icofont-mail "></i>
+                                    </div>
+                                    <div class="content">
+                                        <h3 class=" font-bold text-lg">NOUS CONTACTER</h3>
+                                        <p>info@company.com</p>
+                                    </div>
+                                </div>
+ 
+icofont-
+ 
+<div class="blog-bottom">
+										<!-- Social Share -->
+										<ul class="social-share">
+											<li class="facebook"><a href="#"><i class="fa fa-facebook"></i><span>Facebook</span></a></li>
+											<li class="twitter"><a href="#"><i class="fa fa-twitter"></i><span>Twitter</span></a></li>
+											<li class="google-plus"><a href="#"><i class="fa fa-google-plus"></i></a></li>
+											<li class="linkedin"><a href="#"><i class="fa fa-linkedin"></i></a></li>
+											<li class="pinterest"><a href="#"><i class="fa fa-pinterest"></i></a></li>
+										</ul>
+										<!-- Next Prev -->
+										<ul class="prev-next">
+											<li class="prev"><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
+											<li class="next"><a href="#"><i class="fa fa-angle-double-right"></i></a></li>
+										</ul>
+										<!--/ End Next Prev -->
+									</div>
+ 
+<div class="meta-left">
+											<span class="author"><a href="#"><img src="img/author1.jpg" alt="#">Naimur Rahman</a></span>
+											<span class="date"><i class="fa fa-clock-o"></i>03 Feb 2019</span>
+										</div>
+										<div class="meta-right">
+											<span class="comments"><a href="#"><i class="fa fa-comments"></i>05 Comments</a></span>
+											<span class="views"><i class="fa fa-eye"></i>33K Views</span>
+										</div>
+ 
+<div class="col-12">
+								<div class="blog-comments">
+									<h2>All Comments</h2>
+									<div class="comments-body">
+										<!-- Single Comments -->
+										<div class="single-comments">
+											<div class="main">
+												<div class="head">
+													<img src="img/author1.jpg" alt="#"/>
+												</div>
+												<div class="body">
+													<h4>Afsana Mimi</h4>
+													<div class="comment-meta"><span class="meta"><i class="fa fa-calendar"></i>March 05, 2019</span><span class="meta"><i class="fa fa-clock-o"></i>03:38 AM</span></div>
+													<p>Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas</p>
+													<a href="#"><i class="fa fa-reply"></i>replay</a>
+												</div>
+											</div>
+										</div>		
+										<!--/ End Single Comments -->
+										<!-- Single Comments -->
+										<div class="single-comments left">
+											<div class="main">
+												<div class="head">
+													<img src="img/author2.jpg" alt="#"/>
+												</div>
+												<div class="body">
+													<h4>Naimur Rahman</h4>
+													<div class="comment-meta"><span class="meta"><i class="fa fa-calendar"></i>March 05, 2019</span><span class="meta"><i class="fa fa-clock-o"></i>03:38 AM</span></div>
+													<p>Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas</p>
+													<a href="#"><i class="fa fa-reply"></i>replay</a>
+												</div>
+											</div>
+										</div>		
+										<!--/ End Single Comments -->
+										<!-- Single Comments -->
+										<div class="single-comments">
+											<div class="main">
+												<div class="head">
+													<img src="img/author3.jpg" alt="#"/>
+												</div>
+												<div class="body">
+													<h4>Suriya Molharta</h4>
+													<div class="comment-meta"><span class="meta"><i class="fa fa-calendar"></i>March 05, 2019</span><span class="meta"><i class="fa fa-clock-o"></i>03:38 AM</span></div>
+													<p>Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas</p>
+													<a href="#"><i class="fa fa-reply"></i>replay</a>
+												</div>
+											</div>
+										</div>		
+										<!--/ End Single Comments -->											
+									</div>
+								</div>
+							</div>
+							<div class="col-12">
+								<div class="comments-form">
+									<h2>Leave Comments</h2>
+									<!-- Contact Form -->
+									<form class="form" method="post" action="mail/mail.php">
+										<div class="row">
+											<div class="col-lg-4 col-md-4 col-12">
+												<div class="form-group">
+													<i class="fa fa-user"></i>
+													<input type="text" name="first-name" placeholder="First name" required="required">
+												</div>
+											</div>
+											<div class="col-lg-4 col-md-4 col-12">
+												<div class="form-group">
+													<i class="fa fa-envelope"></i>
+													<input type="text" name="last-name" placeholder="Last name" required="required">
+												</div>
+											</div>
+											<div class="col-lg-4 col-md-4 col-12">
+												<div class="form-group">
+													<i class="fa fa-envelope"></i>
+													<input type="email" name="email" placeholder="Your Email" required="required">
+												</div>
+											</div>
+											<div class="col-12">
+												<div class="form-group message">
+													<i class="fa fa-pencil"></i>
+													<textarea name="message" rows="7" placeholder="Type Your Message Here" ></textarea>
+												</div>
+											</div>
+											<div class="col-12">
+												<div class="form-group button">	
+													<button type="submit" class="btn primary"><i class="fa fa-send"></i>Submit Comment</button>
+												</div>
+											</div>
+										</div>
+									</form>
+									<!--/ End Contact Form -->
+								</div>
+							</div>
+ 
+p-3 bg-[#FEFF3D] mr-4
+ 
+-3 bg-[#FEFF3D] mr-4
+ 
+                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3897.151876538479!2d-1.5186340265947809!3d12.372757127727914!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xe2ebe243a27b89d%3A0x7971ed42132a38f6!2sDirection%20G%C3%A9n%C3%A9rale%20de%20la%20Police%20Nationale%20du%20Burkina!5e0!3m2!1sfr!2sbf!4v1731350753543!5m2!1sfr!2sbf" width="800" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+ 
+Photo 
+ 
+ambria, Cochin, Georgia, Times,
+ 
+serif
+ 
+sans
+ 
+myMap
+ 
+ [
+                            'icon' => 'icofont-ui-hospital',
+                            'title' => 'Soins Hospitaliers',
+                                'subtitle' => 'Donec Luctus',
+                                'description' => 'La mutuelle couvre une partie des frais hospitaliers pour garantir un accès abordable aux soins.',
+                                'link' => '#',
+                                'link_text' => 'EN SAVOIR PLUS'
+                        ],
+ 
+ [
+                                'icon' => 'fa fa-ambulance',
+                                'title' => 'Assistance d\'Urgence',
+                                'subtitle' => 'Lorem Amet',
+                                'description' => 'La mutuelle offre une assistance rapide en cas d\'urgence pour ses adhérents, avec un service de soutien 24/7.',
+                                'link' => '#',
+                                'link_text' => 'EN SAVOIR PLUS'
+                            ],
+                            [
+                                'icon' => 'icofont-prescription',
+                                'title' => 'Consultations Médicales',
+                                'subtitle' => 'Fusce Porttitor',
+                                'description' => 'Nos médecins partenaires sont disponibles pour des consultations médicales générales et spécialisées.',
+                            'link' => '#',
+                            'link_text' => 'EN SAVOIR PLUS'
+                        ],
+ 
+                        // Section pour Cliniques Partenaires
+
+ 
+ics
+ 
+@case('autre')
+                                    <i class="icofont icofont-others"></i>
+                                    <h4><a href="service-details.html">Other Services</a></h4>
+                                    <p>{{ $descriptions['autre'] }}</p>
+                                    @break
+ 
+            'autre' => 'Nous proposons une variété d\'autres services médicaux adaptés aux besoins particuliers de chaque patient.'
+
+ 
+items-start 
+ 
+                                        <i class="icofont icofont-google-map bg-[#FEFF3D] mr-4"></i>
+
+ 
+000) 1234 56789
+ 
+  <div class="">
+                                    <i class="icofont icofont-mail"></i>
+                                    <div class="content">
+                                        <h3>Mon - Sat: 8am - 5pm</h3>
+                                        <p>Sunday Closed</p>
+                                    </div>
+                                </div>
+                                
+ 
+ <div class="">
+                                    <i class="icofont-google-map"></i>
+                                    <div class="content">
+                                        <h3>2 Fir e Brigade Road</h3>
+                                        <p>Chittagonj, Lakshmipur</p>
+                                    </div>
+                                </div>
+                                
+ 
+ui-call
+ 
+content
+ 
+<div class="">
+                                </div>
+                                <!--/End single-info -->
+                                <!-- single-info -->
+                                <div class="">
+                                </div>
+                                <!--/End single-info -->
+ 
+<!-- single-info -->
+                                <div class="">
+                                </div>
+                                <!--/End single-info -->
+                                <!-- single-info -->
+ 
+single-info
+ 
+single-info
+ 
+single-info
+ 
+col-lg-4 col-12 
+ 
+col-lg-4 col-12 
+ 
+col-lg-4 col-12 
+ 
+ <div class="contact-info">
+                                    <div class="row">
+                                    </div>
+                                </div>
+ 
+<!-- Form -->
+								<form class="form" method="post" action="mail/mail.php">
+									<div class="row">
+										<div class="col-lg-6">
+											<div class="form-group">
+												<input type="text" name="name" placeholder="Name" required="">
+											</div>
+										</div>
+										<div class="col-lg-6">
+											<div class="form-group">
+												<input type="email" name="email" placeholder="Email" required="">
+											</div>
+										</div>
+										<div class="col-lg-6">
+											<div class="form-group">
+												<input type="text" name="phone" placeholder="Phone" required="">
+											</div>
+										</div>
+										<div class="col-lg-6">
+											<div class="form-group">
+												<input type="text" name="subject" placeholder="Subject" required="">
+											</div>
+										</div>
+										<div class="col-lg-12">
+											<div class="form-group">
+												<textarea name="message" placeholder="Your Message" required=""></textarea>
+											</div>
+										</div>
+										<div class="col-12">
+											<div class="form-group login-btn">
+												<button class="btn" type="submit">Send</button>
+											</div>
+											<div class="checkbox">
+												<label class="checkbox-inline" for="2"><input name="news" id="2" type="checkbox">Do you want to subscribe our Newsletter ?</label>
+											</div>
+										</div>
+									</div>
+								</form>
+								<!--/ End Form -->
+ 
+<!-- Breadcrumbs -->
+    <div class="breadcrumbs overlay">
+        <div class="container">
+            <div class="bread-inner">
+                <div class="row">
+                    <div class="col-12">
+                        <h2>Demande d&apos;adhésion MU-POL</h2>
+                        <ul class="bread-list">
+                            <li><a href="index.html">Accueil</a></li>
+                            <li><i class="icofont-simple-right"></i></li>
+                            <li class="active">Adhérer</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Breadcrumbs -->
+ 
+<div class="col-lg-3 col-md-6 col-12">
+                    <!-- Start Single Fun -->
+                    <div class="single-fun">
+                        <i class="icofont-simple-smile"></i>
+                        <div class="content">
+                            <span class="counter">4379</span>
+                            <p>Happy Patients</p>
+                        </div>
+                    </div>
+                    <!-- End Single Fun -->
+                </div>
+                <div class="col-lg-3 col-md-6 col-12">
+                    <!-- Start Single Fun -->
+                    <div class="single-fun">
+                        <i class="icofont icofont-table"></i>
+                        <div class="content">
+                            <span class="counter">32</span>
+                            <p>Years of Experience</p>
+                        </div>
+                    </div>
+                    <!-- End Single Fun -->
+                </div>
+ 
+<div class="bg-white  rounded-lg overflow-hidden transform transition duration-500">
+                <!-- Image de fond atténuée avec Overlay translucide -->
+                <div class="relative h-64 bg-cover bg-center rounded-t-lg" style="background-image: url('{{ asset('images/caroussel/caroussel7.jpeg') }}');">
+                    <div class="absolute inset-0 bg-gradient-to-r from-white to-transparent opacity-70"></div>
+                </div>
+
+                <!-- Contenu Principal -->
+                <div class="px-8 py-12 text-gray-700">
+                    <h3 class="text-2xl font-semibold text-center text-gray-800 mb-6">Formulaire d'adhésion</h3>
+                    
+                    <!-- Formulaire d'Adhésion -->
+                    <div class="relative z-10">
+                        <livewire:wizard-membership />
+                    </div>
+                </div>
+            </div>
+ 
+<div class="flex justify-between gap-2 my-3">
+                                <a class="btn" href="{{ route('download-form-adhesion', [
+                                        'id' => $demandeAdhesion->id, 
+                                    ]) }}">
+                                    Télécharger le formulaire d'adhésion
+                    
+                                </a>
+                                <div>
+
+                                    <a class="btn" href="{{ route('download-fiche-cession-volontaire', [
+                                            'id' => $demandeAdhesion->id, 
+                                        ]) }}">
+                                        Télécharger la fiche de cession volontaire
+                        
+                                    </a>
+                                    <button onclick="printIframeContent()" class="btn" style="background-color: #4CAF50">
+                                        Imprimer 
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <iframe id="iframeId" src="{{ route('imprimer-fiche-cession', ['id' => $demandeAdhesion->id]) }}" style="display:none;"></iframe>
+                            
+                            <script>
+                                function printIframeContent() {
+                                    const iframe = document.getElementById('iframeId');
+                                    iframe.contentWindow.focus(); 
+                                    iframe.contentWindow.print();  
+                                }
+                            </script>
+                            <div class="container  my-3 border border-gray-200  p-10 bg-white shadow-lg rounded-lg mx-auto">
+                        
+                                <div class="font-bold mb-4 text-green-600 flex-col text-center justify-center space-y-2 ">
+                                    <i class="fa fa-check-circle w-16 h-16 text-5xl"></i>
+                                    <h4>Votre demande a bien été enregistrée</h4>
+                                </div>
+                                <p class=" text-center">Un email de confirmation vous a été transmis à l&apos;adresse : {{$demandeAdhesion->email}}, Veuillez le consulter.</p>
+                            
+                            </div>
+ 
+}} 
+ 
+ {{
+ 
+, ['id'=>1]
+ 
+contact.html
+ 
+, compact('demandeAdhesion')
+ 
+iches.cession_volontaire
+ 
+        $demandeAdhesion = DemandeAdhesion::findOrFail($id);
+
+ 
+id
+ 
+choose-right
+ 
+choose-left
+ 
+<div class="">               
+               
+                <img src="{{ asset('images/accueil/accueil8.jpg') }}" class="img-polaroid  w-1/2" style="margin:5px 0px 15px;" alt=""> 
+                <p>{__('La Mutuelle de la Police Nationale (MU-POL) qui a été portée sur les fonts baptismaux lors d’une Assemblée Générale constitutive le 19 novembre 2022 et lancée officiellement le 28 juillet 2023, constitue la plus vaste entreprise sociale portée par la Police Nationale. Je voudrais, à l’occasion du lancement de la présente page Facebook de la MU-POL, remercier les plus hautes autorités, le Ministre en charge de la sécurité, les Directeurs généraux de la Police Nationale, tout le Commandement de la Police Nationale et l’UNAPOL dont les efforts conjugués nous ont permis d’avoir ce bel instrument de solidarité permettant d’offrir une assurance santé et diverses prestations sociales aux policiers, au personnel civil de la Police Nationale et aux policiers à la retraite. Ma reconnaissance s’adresse particulièrement aux 4000 policiers et leurs familles qui ont adhéré à la Mutuelle, lesquels sont devenus nos premiers mutualistes et je les félicite pour leur esprit de solidarité. Je remercie aussi notre équipe, notamment les membres du Conseil d’Administration et son Secrétaire général, le Directeur général de la MU-POL et ses collaborateurs pour leur dévouement et leurs sacrifices pour assurer la bonne gouvernance de la Mutuelle et l’administration diligente des prestations. Nous sommes au service des policiers pour faciliter l’accès à des soins médicaux de qualité à coût social. La Mutuelle prend en charge vos soins médicaux à hauteur de 80% et développera d’autres types de prestations sociales qui participent au bien-être du policier. Le remboursement des frais médicaux a effectivement commencé le 1er juin 2024. La Mutuelle appartient à chaque policier et je vous invite à prendre possession de votre instrument en y adhérant massivement. Cette page Facebook a été créée afin de faire mieux connaitre la MU-POL et d’offrir aux mutualistes un espace de communication et de dialogue interactifs. Il ne nous reste plus qu’à souhaiter plein succès à la MU-POL avec la participation et la contribution de tout un chacun.
+                            Tous solidaires pour notre bien-être !      
+                            ')} <br />
+                </p>
+                 
+            </div>
+ 
+ <div class="col-lg-6 col-12">
+                </div>
+ 
+ <div class="">               
+               
+                <img src="{{ asset('images/accueil/accueil8.jpg') }}" class="img-polaroid  w-1/2" style="margin:5px 0px 15px;" alt=""> 
+                <p>{__('La Mutuelle de la Police Nationale (MU-POL) qui a été portée sur les fonts baptismaux lors d’une Assemblée Générale constitutive le 19 novembre 2022 et lancée officiellement le 28 juillet 2023, constitue la plus vaste entreprise sociale portée par la Police Nationale. Je voudrais, à l’occasion du lancement de la présente page Facebook de la MU-POL, remercier les plus hautes autorités, le Ministre en charge de la sécurité, les Directeurs généraux de la Police Nationale, tout le Commandement de la Police Nationale et l’UNAPOL dont les efforts conjugués nous ont permis d’avoir ce bel instrument de solidarité permettant d’offrir une assurance santé et diverses prestations sociales aux policiers, au personnel civil de la Police Nationale et aux policiers à la retraite. Ma reconnaissance s’adresse particulièrement aux 4000 policiers et leurs familles qui ont adhéré à la Mutuelle, lesquels sont devenus nos premiers mutualistes et je les félicite pour leur esprit de solidarité. Je remercie aussi notre équipe, notamment les membres du Conseil d’Administration et son Secrétaire général, le Directeur général de la MU-POL et ses collaborateurs pour leur dévouement et leurs sacrifices pour assurer la bonne gouvernance de la Mutuelle et l’administration diligente des prestations. Nous sommes au service des policiers pour faciliter l’accès à des soins médicaux de qualité à coût social. La Mutuelle prend en charge vos soins médicaux à hauteur de 80% et développera d’autres types de prestations sociales qui participent au bien-être du policier. Le remboursement des frais médicaux a effectivement commencé le 1er juin 2024. La Mutuelle appartient à chaque policier et je vous invite à prendre possession de votre instrument en y adhérant massivement. Cette page Facebook a été créée afin de faire mieux connaitre la MU-POL et d’offrir aux mutualistes un espace de communication et de dialogue interactifs. Il ne nous reste plus qu’à souhaiter plein succès à la MU-POL avec la participation et la contribution de tout un chacun.
+                            Tous solidaires pour notre bien-être !      
+                            ')} <br />
+                </p>
+                 
+            </div>
+ 
+  .img-polaroid
+                {
+                text-align: center;
+                float: left;
+
+                }
+ 
+span4
+ 
+ <h4>Travaux</h4>
+ 
+padding:4px;-webkit-box-shadow:0 1px 3px rgba(0,0,0,0.1);-moz-box-shadow:0 1px 3px rgba(0,0,0,0.1);box-shadow:0 1px 3px rgba(0,0,0,0.1);
+ 
+background-color:#fff;
+ 
+border:1px solid #ccc;border:1px solid rgba(0,0,0,0.2);
+ 
+row
+ 
+                            
+ 
+                        <p>Forte de son expérience, la Mutuelle de la Police Nationale met à votre disposition des prestations adaptées à vos besoins spécifiques.</p>
+
+ 
+Nous sommes une mutuelle engagée à offrir des services de santé accessibles et de qualité à nos membres. Notre mission est de vous accompagner au quotidien
+ 
+ <div class="row">
+                            <div class="col-lg-6">
+                                <ul class="list">
+                                    <li><i class="fa fa-caret-right"></i>Accès aux soins de qualité.</li>
+                                    <li><i class="fa fa-caret-right"></i>Assistance en cas d&apos;urgence.</li>
+                                    <li><i class="fa fa-caret-right"></i>Réductions sur les médicaments.</li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-6">
+                                <ul class="list">
+                                    <li><i class="fa fa-caret-right"></i>Des médecins partenaires.</li>
+                                    <li><i class="fa fa-caret-right"></i>Suivi personnalisé.</li>
+                                    <li><i class="fa fa-caret-right"></i>Des services adaptés à vos besoins.</li>
+                                </ul>
+                            </div>
+                        </div>
+ 
+container
+ 
+-50
+ 
+2
+ 
+                    ['image' => 'images/caroussel/caroussel6.png', 'title' => 'MU-POl, la Mutuelle de la Police Nationale', 'text_color' => 'black'],
+
+ 
+                'generatedPassword' => $this->generatedPassword, 
+
+ 
+                'demandeAdhesion' => $this->demandeAdhesion,
+
+ 
+// Assurez-vous que la vue est correcte
+ 
+<p>Télécharger votre fiche de cession volontaire de salaire en pièce jointe en dessous..</p>
+        <p>Voici vos informations de connexion :</p>
+        <p><strong>Email :</strong> {{ $demandeAdhesion->email }}</p>
+        <p><strong>Mot de passe :</strong> {{ $generatedPassword }}</p>
+        <p>Vous pouvez maintenant vous connecter à votre compte.</p>
+ 
+                                                
+
+ 
+        return new Content(
+
+ 
+     view: 'view.name',
+        );
+ 
+                'demandeAdhesion' => $this->email,
+
+ 
+'generatedPassword' => $this->generatedPassword,
+ 
+        Mail::to($adherent->email)->send(new \App\Mail\OtpMail($otp));
+
+ 
+<form action="{{ route('adherents.verify-otp') }}" method="POST">
+    @csrf
+    <label for="otp">Entrez votre code OTP</label>
+    <input type="text" name="otp" id="otp" required>
+    
+    @error('otp')
+        <div class="error">{{ $message }}</div>
+    @enderror
+
+    <button type="submit">Vérifier</button>
+</form>
+ 
+ <a href="">
+                                            </a>
+ 
+    
+ 
+@if ()
+ 
+@php
+                                        $adherent = App\Models\Adherant::where('matricule', $demande->matricule)->first();
+
+                                    @endphp
+ 
+                                             
+ 
+
+                                                   
+ 
+
+                                                  
+ 
+
+                                                 
+ 
+
+                                                   
+ 
+
+                                                   
+ 
+                                                    
+ 
+                                                    minlength="8"
+
+ 
+  <style>
+                                    .requirement {
+                                        color: #d9534f; /* Rouge par défaut */
+                                    }
+                                    .requirement.valid {
+                                        color: #5cb85c; /* Vert lorsqu'il est valide */
+                                        font-weight: bold;
+                                    }
+                                    #password-match.valid {
+                                        color: #5cb85c; /* Vert pour valide */
+                                    }
+                                    #password-match.invalid {
+                                        color: #d9534f; /* Rouge pour non-valide */
+                                    }
+
+                                    
+                                </style>  
+                                <script>
+                                    document.getElementById('password').addEventListener('input', function() {
+                                        const password = this.value;
+                                        
+                                        // Sélecteurs des éléments de la liste des critères
+                                        const minCharacters = document.getElementById('min-characters');
+                                        const uppercase = document.getElementById('uppercase');
+                                        const lowercase = document.getElementById('lowercase');
+                                        const number = document.getElementById('number');
+                                        const specialChar = document.getElementById('special-char');
+                                        
+                                        // Vérifier chaque critère et appliquer la classe 'valid' si le critère est rempli
+                                        password.length >= 8 ? minCharacters.classList.add('valid') : minCharacters.classList.remove('valid');
+                                        /[A-Z]/.test(password) ? uppercase.classList.add('valid') : uppercase.classList.remove('valid');
+                                        /[a-z]/.test(password) ? lowercase.classList.add('valid') : lowercase.classList.remove('valid');
+                                        /\d/.test(password) ? number.classList.add('valid') : number.classList.remove('valid');
+                                        /[@$!%*?&]/.test(password) ? specialChar.classList.add('valid') : specialChar.classList.remove('valid');
+                                    });
+                                </script>
+                                <script>
+                                    // Sélecteurs pour le champ mot de passe, confirmation et message de correspondance
+                                    const passwordField = document.getElementById('password');
+                                    const passwordConfirmationField = document.getElementById('password_confirmation');
+                                    const passwordMatchMessage = document.getElementById('password-match');
+                                    
+                                    // Fonction de vérification de la correspondance des mots de passe
+                                    function checkPasswordMatch() {
+                                        const password = passwordField.value;
+                                        const confirmation = passwordConfirmationField.value;
+                                        
+                                        // Vérifier si les deux champs correspondent
+                                        if (password === confirmation && password.length >= 8) {
+                                            passwordMatchMessage.textContent = "✔️ Les mots de passe correspondent";
+                                            passwordMatchMessage.classList.add('valid');
+                                            passwordMatchMessage.classList.remove('invalid');
+                                        } else {
+                                            passwordMatchMessage.textContent = "❌ Les mots de passe ne correspondent pas";
+                                            passwordMatchMessage.classList.add('invalid');
+                                            passwordMatchMessage.classList.remove('valid');
+                                        }
+                                    }
+                                
+                                    // Attacher l'événement 'input' aux deux champs pour la vérification en temps réel
+                                    passwordField.addEventListener('input', checkPasswordMatch);
+                                    passwordConfirmationField.addEventListener('input', checkPasswordMatch);
+                                </script>
+ 
+<!-- Liste des critères -->
+                                                <ul id="password-requirements" class="mt-2 text-gray-600">
+                                                    <li id="min-characters" class="requirement">✔️ Au moins 8 caractères</li>
+                                                    <li id="uppercase" class="requirement">✔️ Au moins une lettre majuscule</li>
+                                                    <li id="lowercase" class="requirement">✔️ Au moins une lettre minuscule</li>
+                                                    <li id="number" class="requirement">✔️ Au moins un chiffre</li>
+                                                    <li id="special-char" class="requirement">✔️ Au moins un caractère spécial (@, $, !, %, *, ?, &)</li>
+                                                </ul>
+ 
+<div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="password_confirmation" class="block font-medium text-gray-700">Confirmer le mot de passe</label>
+                                                <input 
+                                                    class="bg-gray-50 border" 
+                                                    type="password" 
+                                                    name="password_confirmation" 
+                                                    id="password_confirmation" 
+                                                    placeholder="Confirmez votre mot de passe" 
+                                                    required 
+                                                    minlength="8"
+                                                >
+                                                <div id="password-match" class="text-sm mt-1"></div>
+                                            </div>
+
+                                        </div>
+ 
+            // Effacer l'OTP de la session pour des raisons de sécurité
+
+ 
+adherents
+ 
+        <p>Bonjour,</p>
+
+ 
+<p>Cordialement,</p>
+<p>L'équipe de sécurité</p>
+ 
+ <p>Nous vous remercions d'avoir soumis votre demande d'adhésion.</p>
+
+        <p>Nous vous informerons dès que votre demande sera traitée.</p>
+        <p>Télécharger votre fiche de cession volontaire de salaire en pièce jointe en dessous..</p>
+        <p>Voici vos informations de connexion :</p>
+        <p><strong>Email :</strong> {{ $demandeAdhesion->email }}</p>
+        <p><strong>Mot de passe :</strong> {{ $generatedPassword }}</p>
+        <p>Vous pouvez maintenant vous connecter à votre compte.</p>
+        <p>Si vous avez des questions, n'hésitez pas à nous contacter.</p>
+ 
+ return $this->subject('Votre code OTP')
+                    ->view('emails.otp');
+ 
+        // Envoyer l'OTP par email
+
+ 
+        // Stocker l'OTP dans la session
+
+ 
+        // Générer un code OTP de 6 chiffres
+
+ 
+        dd($id);
+
+ 
+        dd($id);
+
+ 
+            dd('ff');
+
+ 
+                           @php
+                                        $adherent = App\Models\Adherant::where('matricule', $demande->matricule)->first();
+
+                                    @endphp
+ 
+                                    @endif
+
+ 
+                                    @if ($adherent->is_adherent === false)
+
+ 
+            dd('ff');
+
+ 
+    // Si l'adhérent n'existe pas, retournez un message d'erreur
+
+ 
+        // Message de confirmation
+
+ 
+        // Mettre à jour l'attribut `is_adherent` à 1 (ou true)
+
+ 
+    // Vérifier si l'adhérent existe
+
+ 
+    // Rechercher l'adhérent par ID
+
+ 
+   
+                               
+                                                         
+                                
+ 
+@if (session('status'))
+                                    <div class="bg-green-100 text-green-700 p-4 mb-4 rounded">
+                                        {{ session('status') }}
+                                    </div>
+                                @endif
+
+                                @if ($errors->any())
+                                    <div class="bg-red-100 text-red-700 p-4 mb-4 rounded">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
+ 
+ <form class="form" action="{{ route('adherents.change-password') }}" method="POST">
+                                    @csrf
+                                    <div class="row justify-center mx-auto">
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="password" class="block font-medium text-gray-700">Nouveau mot de passe</label>
+                                                <input 
+                                                    class="bg-gray-50 border" 
+                                                    type="password" 
+                                                    name="password" 
+                                                    id="password" 
+                                                    placeholder="Mot de passe" 
+                                                    required 
+                                                    minlength="8"
+                                                >
+                                                
+                                                <!-- Liste des critères -->
+                                                <ul id="password-requirements" class="mt-2 text-gray-600">
+                                                    <li id="min-characters" class="requirement">✔️ Au moins 8 caractères</li>
+                                                    <li id="uppercase" class="requirement">✔️ Au moins une lettre majuscule</li>
+                                                    <li id="lowercase" class="requirement">✔️ Au moins une lettre minuscule</li>
+                                                    <li id="number" class="requirement">✔️ Au moins un chiffre</li>
+                                                    <li id="special-char" class="requirement">✔️ Au moins un caractère spécial (@, $, !, %, *, ?, &)</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="password_confirmation" class="block font-medium text-gray-700">Confirmer le mot de passe</label>
+                                                <input 
+                                                    class="bg-gray-50 border" 
+                                                    type="password" 
+                                                    name="password_confirmation" 
+                                                    id="password_confirmation" 
+                                                    placeholder="Confirmez votre mot de passe" 
+                                                    required 
+                                                    minlength="8"
+                                                >
+                                                <div id="password-match" class="text-sm mt-1"></div>
+                                            </div>
+
+                                        </div>
+                                        
+                                        <div class="col-12">
+                                            <div class="form-group login-btn">
+                                                <button class="btn" type="submit">
+                                                    Mettre à jour le mot de passe
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <style>
+                                    .requirement {
+                                        color: #d9534f; /* Rouge par défaut */
+                                    }
+                                    .requirement.valid {
+                                        color: #5cb85c; /* Vert lorsqu'il est valide */
+                                        font-weight: bold;
+                                    }
+                                    #password-match.valid {
+                                        color: #5cb85c; /* Vert pour valide */
+                                    }
+                                    #password-match.invalid {
+                                        color: #d9534f; /* Rouge pour non-valide */
+                                    }
+
+                                    
+                                </style>  
+                                <script>
+                                    document.getElementById('password').addEventListener('input', function() {
+                                        const password = this.value;
+                                        
+                                        // Sélecteurs des éléments de la liste des critères
+                                        const minCharacters = document.getElementById('min-characters');
+                                        const uppercase = document.getElementById('uppercase');
+                                        const lowercase = document.getElementById('lowercase');
+                                        const number = document.getElementById('number');
+                                        const specialChar = document.getElementById('special-char');
+                                        
+                                        // Vérifier chaque critère et appliquer la classe 'valid' si le critère est rempli
+                                        password.length >= 8 ? minCharacters.classList.add('valid') : minCharacters.classList.remove('valid');
+                                        /[A-Z]/.test(password) ? uppercase.classList.add('valid') : uppercase.classList.remove('valid');
+                                        /[a-z]/.test(password) ? lowercase.classList.add('valid') : lowercase.classList.remove('valid');
+                                        /\d/.test(password) ? number.classList.add('valid') : number.classList.remove('valid');
+                                        /[@$!%*?&]/.test(password) ? specialChar.classList.add('valid') : specialChar.classList.remove('valid');
+                                    });
+                                </script>
+                                <script>
+                                    // Sélecteurs pour le champ mot de passe, confirmation et message de correspondance
+                                    const passwordField = document.getElementById('password');
+                                    const passwordConfirmationField = document.getElementById('password_confirmation');
+                                    const passwordMatchMessage = document.getElementById('password-match');
+                                    
+                                    // Fonction de vérification de la correspondance des mots de passe
+                                    function checkPasswordMatch() {
+                                        const password = passwordField.value;
+                                        const confirmation = passwordConfirmationField.value;
+                                        
+                                        // Vérifier si les deux champs correspondent
+                                        if (password === confirmation && password.length >= 8) {
+                                            passwordMatchMessage.textContent = "✔️ Les mots de passe correspondent";
+                                            passwordMatchMessage.classList.add('valid');
+                                            passwordMatchMessage.classList.remove('invalid');
+                                        } else {
+                                            passwordMatchMessage.textContent = "❌ Les mots de passe ne correspondent pas";
+                                            passwordMatchMessage.classList.add('invalid');
+                                            passwordMatchMessage.classList.remove('valid');
+                                        }
+                                    }
+                                
+                                    // Attacher l'événement 'input' aux deux champs pour la vérification en temps réel
+                                    passwordField.addEventListener('input', checkPasswordMatch);
+                                    passwordConfirmationField.addEventListener('input', checkPasswordMatch);
+                                </script>
+ 
+                /* Ajoutez des styles pour la barre de navigation */
+
+ 
+// Confirmation du mot de passe
+ 
+// Au moins un caractère spécial
+ 
+// Au moins un chiffre
+ 
+// Au moins une lettre majuscule
+ 
+// Au moins une lettre minuscule
+ 
+// Longueur minimale de 8 caractères
+ 
+        // Mise à jour du mot de passe de l'utilisateur
+
+ 
+        // Redirige vers le tableau de bord avec un message de succès
+
+ 
+// Marque l'utilisateur comme ayant changé son mot de passe
+ 
+        
+ 
+  public function changePassword(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'password' => 'required|string|confirmed|min:8',
+        ]);
+
+        $adherent = Auth::guard('adherent')->user();
+
+        $adherent->password = Hash::make($request->password);
+        $adherent->must_change_password = false;
+
+        $adherent->save();
+
+        return redirect()->route('adherents.dashboard')->with('status', 'Mot de passe mis à jour avec succès.');
+    }
+
+ 
+base
+ 
+ol-lg-6
+ 
+If you have any questions please fell free to contact with us.
+ 
+        <!-- Start Contact Us -->
+
+ 
+	<!--/ End Contact Us -->
+        <section class="section">
+            <div class="container h-screen">
+                <div class="">
+                    <div class="row  mx-auto justify-center">
+                        <div class="col-lg-10  flex justify-center rounded-lg">
+                            <h2 class="text-2xl font-bold mb-4 text-center">Changer le mot de passe</h2>
+
+            
+
+                            <form action="{{ route('adherents.change-password') }}" method="POST">
+                                @csrf
+                                <div class="mb-4">
+                                    <label for="password" class="block font-medium text-gray-700">Nouveau mot de passe</label>
+                                    <input type="password" name="password" id="password" required
+                                        class="mt-1 p-2 border border-gray-300 rounded w-full" >
+                                </div>
+
+                                <div class="mb-4">
+                                    <label for="password_confirmation" class="block font-medium text-gray-700">Confirmer le mot de passe</label>
+                                    <input type="password" name="password_confirmation" id="password_confirmation" required
+                                        class="mt-1 p-2 border border-gray-300 rounded w-full" minlength="8">
+                                </div>
+
+                                <div class="text-center">
+                                    <button type="submit"
+                                            class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-200">
+                                        Mettre à jour le mot de passe
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        
+                       
+                    </div>
+                </div>
+            </div>
+        </section>
+ 
+=""
+ 
+=""
+ 
+required
+ 
+      @if (session('status'))
+                                <div class="bg-green-100 text-green-700 p-4 mb-4 rounded">
+                                    {{ session('status') }}
+                                </div>
+                            @endif
+
+                            @if ($errors->any())
+                                <div class="bg-red-100 text-red-700 p-4 mb-4 rounded">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+ 
+<div class="checkbox">
+												<label class="checkbox-inline" for="2"><input name="news" id="2" type="checkbox">Do you want to subscribe our Newsletter ?</label>
+											</div>
+ 
+        <!-- Breadcrumbs -->
+		<div class="breadcrumbs overlay">
+			<div class="container">
+				<div class="bread-inner">
+					<div class="row">
+						<div class="col-12">
+							<h2>Demande d&apos;adhésion MU-POL</h2>
+							<ul class="bread-list">
+								<li><a href="index.html">Accueil</a></li>
+								<li><i class="icofont-simple-right"></i></li>
+								<li class="active">Adhérer</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End Breadcrumbs -->
+ 
+<div class="col-lg-6">
+											<div class="form-group">
+												<input type="text" name="phone" placeholder="Phone" required="">
+											</div>
+										</div>
+										<div class="col-lg-6">
+											<div class="form-group">
+												<input type="text" name="subject" placeholder="Subject" required="">
+											</div>
+										</div>
+										<div class="col-lg-12">
+											<div class="form-group">
+												<textarea name="message" placeholder="Your Message" required=""></textarea>
+											</div>
+										</div>
+ 
+<div class="col-lg-6">
+							<div class="contact-us-left">
+								<!--Start Google-map -->
+								<div id="myMap"></div>
+								<!--/End Google-map -->
+							</div>
+						</div>
+ 
+	<div class="contact-info">
+					<div class="row">
+						<!-- single-info -->
+						<div class="col-lg-4 col-12 ">
+							<div class="single-info">
+								<i class="icofont icofont-ui-call"></i>
+								<div class="content">
+									<h3>+(000) 1234 56789</h3>
+									<p>info@company.com</p>
+								</div>
+							</div>
+						</div>
+						<!--/End single-info -->
+						<!-- single-info -->
+						<div class="col-lg-4 col-12 ">
+							<div class="single-info">
+								<i class="icofont-google-map"></i>
+								<div class="content">
+									<h3>2 Fir e Brigade Road</h3>
+									<p>Chittagonj, Lakshmipur</p>
+								</div>
+							</div>
+						</div>
+						<!--/End single-info -->
+						<!-- single-info -->
+						<div class="col-lg-4 col-12 ">
+							<div class="single-info">
+								<i class="icofont icofont-wall-clock"></i>
+								<div class="content">
+									<h3>Mon - Sat: 8am - 5pm</h3>
+									<p>Sunday Closed</p>
+								</div>
+							</div>
+						</div>
+						<!--/End single-info -->
+					</div>
+				</div>
+ 
+Route::get('/adherents/change-password', [AdherantAuthenticatedSessionController::class, 'changePassword'])->name('adherents.change-password');
+
+ 
+ $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ], [
+            'email.required' => 'Le champ email est requis.',
+            'email.email' => 'Veuillez fournir une adresse email valide.',
+            'password.required' => 'Le champ mot de passe est requis.',
+        ]);
+    
+ 
+            dd(vars: $request->all());
+
+ 
+// Validation des champs requis
+         $request->validate([
+             'email' => 'required|email',
+             'password' => 'required',
+         ], [
+             'email.required' => 'Le champ email est requis.',
+             'email.email' => 'Veuillez fournir une adresse email valide.',
+             'password.required' => 'Le champ mot de passe est requis.',
+         ]);
+     
+ 
+         // Retourne une erreur d'authentification si les informations sont incorrectes
+
+ 
+         // Tentative de connexion
+
+ 
+            dd(vars: $request->all());
+
+ 
+<div class="col-lg-5">
+                        </div>
+ 
+        // Récupération de l'utilisateur authentifié
+
+ 
+different:old_password
+ 
+        // Validation des données
+
+ 
+<div class=" bg-[#4B45DC  max-w-md w-full mx-auto border p-8 shadow-lg rounded-tl-lg rounded-bl-lg " style="background: rgb(75,68,220);
+                            background: linear-gradient(90deg, #c9ccee 9%, #f2f2f9 85%);">
+                                <div class=" mx-auto justify-center flex h-full items-center ">
+                                    <div class="rounded-full ">
+                                        <x-application-logo class=" mx-auto" />
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="max-w-md w-full mx-auto border p-8 rounded-tr-lg rounded-br-lg bg-gray-200">
+                                <div class="text-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="130" height="130" class="inline-block" viewBox="0 0 53 53">
+                                        <path fill="#e7eced" d="m18.613 41.552-7.907 4.313a7.106 7.106 0 0 0-1.269.903A26.377 26.377 0 0 0 26.5 53c6.454 0 12.367-2.31 16.964-6.144a7.015 7.015 0 0 0-1.394-.934l-8.467-4.233a3.229 3.229 0 0 1-1.785-2.888v-3.322c.238-.271.51-.619.801-1.03a19.482 19.482 0 0 0 2.632-5.304c1.086-.335 1.886-1.338 1.886-2.53v-3.546c0-.78-.347-1.477-.886-1.965v-5.126s1.053-7.977-9.75-7.977-9.75 7.977-9.75 7.977v5.126a2.644 2.644 0 0 0-.886 1.965v3.546c0 .934.491 1.756 1.226 2.231.886 3.857 3.206 6.633 3.206 6.633v3.24a3.232 3.232 0 0 1-1.684 2.833z" data-original="#e7eced" />
+                                        <path fill="#556080" d="M26.953.004C12.32-.246.254 11.414.004 26.047-.138 34.344 3.56 41.801 9.448 46.76a7.041 7.041 0 0 1 1.257-.894l7.907-4.313a3.23 3.23 0 0 0 1.683-2.835v-3.24s-2.321-2.776-3.206-6.633a2.66 2.66 0 0 1-1.226-2.231v-3.546c0-.78.347-1.477.886-1.965v-5.126S15.696 8 26.499 8s9.75 7.977 9.75 7.977v5.126c.54.488.886 1.185.886 1.965v3.546c0 1.192-.8 2.195-1.886 2.53a19.482 19.482 0 0 1-2.632 5.304c-.291.411-.563.759-.801 1.03V38.8c0 1.223.691 2.342 1.785 2.888l8.467 4.233a7.05 7.05 0 0 1 1.39.932c5.71-4.762 9.399-11.882 9.536-19.9C53.246 12.32 41.587.254 26.953.004z" data-original="#556080" />
+                                    </svg>
+                                </div>
+                                
+                                <!-- Error Display -->
+                                @if ($errors->any())
+                                    <div class="mb-4 justify-center mx-auto text-center text-red-600">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
+    
+                                <form method="POST" action="{{ route('adherent.login') }}" class="mt-12 space-y-4">
+                                    @csrf
+                                    <div class="relative flex items-center">
+                                        <input name="email" type="text" required
+                                            class="w-full text-sm text-gray-800 bg-white border-2 border-transparent focus:border-[#1E2772] px-4 py-3 rounded-md outline-none"
+                                            placeholder="Entrez votre email" />
+                                        <i class="fa fa-envelope absolute right-4 text-gray-400"></i>
+                                    </div>
+                                    <div class="relative flex items-center">
+                                        <input name="password" type="password" required
+                                            class="w-full text-sm text-gray-800 bg-white border-2 border-transparent focus:border-[#1E2772] px-4 py-3 rounded-md outline-none"
+                                            placeholder="Entrez votre mot de passe" />
+                                        <i class="fa fa-lock absolute right-4 text-gray-400 cursor-pointer"></i>
+                                    </div>
+                                    <div class="!mt-12 !text-center">
+                                        <x-primary-button type="submit"
+                                            class="w-full !justify-center px-4 !py-2.5 text-base font-semibold rounded-md !text-white  focus:outline-none">
+                                            Se connecter
+                                        </x-primary-button>
+                                    </div>
+                                </form>
+                            </div>
+ 
+    // Mise à jour du mot de passe et de l'état de changement obligatoire
+
+ 
+    // Redirection avec un message de succès
+
+ 
+    // Sauvegarde des modifications
+
+ 
+/ Modèle d'adhérent
+ 
+    public function changePassword(Request $request): RedirectResponse
+
+ 
+    public function changePassword(Request $request): RedirectResponse
+
+ 
+    use Illuminate\Support\Facades\Hash;
+
+ 
+use App\Models\Adherant;
+
+ 
+    // Mettre à jour le mot de passe et définir `must_change_password` sur `false`
+
+ 
+    use Illuminate\Support\Facades\Hash;
+
+ 
+$tauxSousCategorie
+ 
+totauxSousCategorie, $totalSousCategorie, $ecartSousCategorie, 
+ 
+    
+    
+ 
 // Utiliser l'ID de la catégorie trouvé
  
 . $prestation->id

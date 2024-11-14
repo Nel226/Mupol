@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class Adherant extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
     protected $fillable = [
         'ordre',
         'date_enregistrement',
@@ -46,6 +47,7 @@ class Adherant extends Authenticatable
         'dateDepartARetraite',
         'password', 'cle', 'code_carte', 'telephone', 'charge', 'mensualite', 'adhesion', 'photo',
         'region', 'province', 'localite',
+        'must_change_password', 'is_adherent',
     ];
 
   

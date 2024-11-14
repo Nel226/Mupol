@@ -40,6 +40,10 @@ use App\Http\Controllers\RecetteController;
 //     return redirect('/login');
 // });
 Route::get('/', [AccueilController::class, 'accueil'])->name(name: 'accueil');
+Route::get('/contacts', [AccueilController::class, 'contacts'])->name(name: 'contacts');
+Route::get('/services', [AccueilController::class, 'services'])->name(name: 'services');
+Route::get('/en-construction', [AccueilController::class, 'enConstruction'])->name(name: 'en-construction');
+
 Route::get('/formulaire-adhesion', [AccueilController::class, 'newAdhesion'])->name(name: 'formulaire-adhesion');
 Route::get('/resume-adhesion/{id}', [AccueilController::class, 'resumeAdhesion'])->name('resume-adhesion');
 Route::get('/demande-adhesion/{id}/fiche-cession-volontaire', [AccueilController::class, 'downloadCessionFiche'])
@@ -57,6 +61,13 @@ Route::get('/login/adherent', [AdherantAuthenticatedSessionController::class, 'c
 Route::post('/login/adherent', [AdherantAuthenticatedSessionController::class, 'store']);
 
 Route::middleware('auth:adherent')->group(function () {
+    Route::get('/adherents/change-password', [AdherantAuthenticatedSessionController::class, 'showChangePasswordForm'])->name('adherents.change-password');
+    Route::post('/adherents/change-password', [AdherantAuthenticatedSessionController::class, 'updatePassword'])->name('adherents.update-password');
+
+    Route::get('/adherents/verify-otp', [AdherantAuthenticatedSessionController::class, 'showVerifyOtpForm'])->name('adherents.verify-otp');
+    Route::post('/adherents/verify-otp', [AdherantAuthenticatedSessionController::class, 'verifyOtp']);
+
+
     Route::get('/adherents/dashboard', [AdherantAuthenticatedSessionController::class, 'dashboard'])
         ->name('adherents.dashboard');
 
@@ -128,6 +139,8 @@ Route::middleware('auth')->group(function () {
 
     //DEBUT COMPTABILITE
     Route::resource('demandes', DemandeController ::class);
+    Route::post('/adherents/{id}/accept', [DemandeController::class, 'accept'])->name('adherents.accept');
+
     Route::resource('recettes', RecetteController ::class);
     Route::get('recettes-categories', [RecetteController ::class, 'categories'])->name('recettes.categories');
 

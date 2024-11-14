@@ -92,9 +92,16 @@
                                 <td class="px-6 py-4">{{$demande->created_at}}</td>
     
                                 <td class="flex px-6 py-4 space-x-2 font-bold">
-                                    <a href="{{ route('demandes.edit', ['demande' => $demande->id])}}" class="!text-[#4644D4] bg-zinc-200 p-2 rounded-md shadow-sm" >
-                                        Accepter
-                                    </a>
+                                    
+                                    @if ($demande->is_adherent === 0)
+                                        
+                                    <form action="{{ route('adherents.accept', ['id' => $demande->id])}}" method="post">
+                                        @csrf
+                                        <x-primary-button type="submit" class="!text-[#4644D4] bg-zinc-200 p-2 rounded-md shadow-sm" >
+                                            Accepter
+                                        </x-primary-button>
+                                    </form>
+                                    @endif    
                                 
                                 </td>
                             </tr>    

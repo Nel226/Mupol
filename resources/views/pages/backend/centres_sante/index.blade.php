@@ -59,7 +59,7 @@
 
                 <!-- Tous tab content -->
                 <div id="all" class="tab-content hidden">
-                    <table id="depenses-table-all" class="w-full text-sm text-left text-gray-500 border rtl:text-right dark:text-gray-400 display">
+                    <table id="centres-table-all" class="w-full text-sm text-left text-gray-500 border rtl:text-right dark:text-gray-400 display">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th>Nom</th>
@@ -74,7 +74,7 @@
                         </thead>
                         <tbody>
                             @foreach ($centres as $centre)
-                                <tr>
+                                <tr class="cursor-pointer" onclick="window.location='{{ route('centres-sante.show', $centre->id) }}'">
                                     <td>{{ $centre->nom }}</td>
                                     <td>{{ $centre->type }}</td>
                                     <td>{{ $centre->adresse }}</td>
@@ -105,7 +105,7 @@
                         </thead>
                         <tbody>
                             @foreach ($hopitaux as $hopital)
-                                <tr>
+                                <tr class="cursor-pointer" onclick="window.location='{{ route('centres-sante.show', $hopital->id) }}'">
                                     <td>{{ $hopital->nom }}</td>
                                     <td>{{ $hopital->adresse }}</td>
                                     <td>{{ $hopital->telephone }}</td>
@@ -135,7 +135,7 @@
                         </thead>
                         <tbody>
                             @foreach ($cliniques as $clinique)
-                                <tr>
+                                <tr class="cursor-pointer" onclick="window.location='{{ route('centres-sante.show', $clinique->id) }}'">
                                     <td>{{ $clinique->nom }}</td>
                                     <td>{{ $clinique->adresse }}</td>
                                     <td>{{ $clinique->telephone }}</td>
@@ -159,16 +159,14 @@
     <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('#depenses-table-all, #depenses-table-hopitaux, #depenses-table-cliniques').DataTable({
+            $('#centres-table-all, #depenses-table-hopitaux, #depenses-table-cliniques').DataTable({
                 buttons: [
                     { 
                         extend: 'print', 
                         className: 'btn btn-sm text-red-500 btn-primary fa fa-print', 
                         text:'' 
                     },
-                    
-                  
-                   
+                                       
                 ],
          
                 paging: true,

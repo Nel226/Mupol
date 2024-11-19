@@ -20,6 +20,7 @@
 
         <script src="https://cdn.tailwindcss.com"></script>
         <script src="{{ asset('js/cdn.min.js') }}" defer></script>
+        <script src="{{ asset('js/regions.js') }}" defer></script>
 
         <script src="{{ asset('js/jquery.min.js') }}"></script>
 

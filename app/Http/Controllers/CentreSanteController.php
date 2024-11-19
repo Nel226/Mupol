@@ -67,8 +67,13 @@ class CentreSanteController extends Controller
      */
     public function store(StoreCentreSanteRequest $request)
     {
+        if ($request->hasFile('photo')) {
+            $photoPath = $request->file('photo')->store('photos/centres-sante', 'public');
+        } else {
+            $photoPath = null;  
+        }
         CentreSante::create($request->validated());
-        return redirect()->route('centres_sante.index')->with('success', 'Centre de santé ajouté avec succès.');
+        return redirect()->route('centres-sante.index')->with('success', 'Centre de santé ajouté avec succès.');
     }
 
     /**

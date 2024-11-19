@@ -60,12 +60,12 @@ class DepenseController extends Controller
             ],
         ];
         $sousTypes = Depense::with('categorie')
-                            ->select('categorie_id') // Sélectionner uniquement l'id de la catégorie
-                            ->distinct() // Pour obtenir des valeurs uniques
+                            ->select('categorie_id') 
+                            ->distinct() 
                             ->get()
                             ->map(function ($depense) {
 
-        return $depense->categorie->sous_type; // Retourne le sous_type de la catégorie associée
+        return $depense->categorie->sous_type; 
         })
         ->unique(); 
         

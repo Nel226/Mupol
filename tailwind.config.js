@@ -1226,6 +1226,6 @@ export default {
 
     plugins: [
       forms,
-      require('tailwindcss-text-stroke'),
+      
     ],
 };

@@ -1,3 +1,53 @@
+<!-- Categories tab content -->
+                    @foreach($categoriesPrincipales as $categorie)
+                    <div id="category-{{ $categorie->uuid }}" class="tab-content hidden">
+                        <table id="depenses-table-{{ $categorie->uuid }}" class=" w-full text-sm text-left text-gray-500 border rtl:text-right dark:text-gray-400 display">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
+                                <tr>
+                                    <th>Description</th>
+                                    <th>Montant</th>
+                                    <th>Catégorie</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($depenses as $depense)
+                                    @if($depense->categorie->uuid == $categorie->uuid)
+                                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                        <td class="px-6 py-4">{{ $depense->description }}</td>
+                                        <td class="px-6 py-4">{{ $depense->montant }}</td>
+                                        <td class="px-6 py-4">{{ $depense->categorie->nom }}</td>
+                                    </tr>
+                                    @endif
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                @endforeach
+ 
+@foreach($depenses as $depense)
+                                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                    <td class="px-6 py-4">{{ $depense->description }}</td>
+                                    <td class="px-6 py-4">{{ $depense->montant }}</td>
+                                    <td class="px-6 py-4">{{ $depense->categorie->nom }}</td>
+                                </tr>
+                            @endforeach
+ 
+@foreach($categoriesPrincipales as $categorie)
+                            <li class="mr-1">
+                                <a href="#category-{{ $categorie->uuid }}" class="inline-block truncate py-2 px-3 text-blue-600 hover:text-whit text-sm rounded-t-md focus:outline-none tab-link" title="{{ $categorie->nom }}">
+                                    {{ $categorie->nom }}
+                                </a>
+                            </li>
+                        @endforeach
+ 
+@foreach($categoriesPrincipales as $categorie)
+                            <li class="mr-1">
+                                <a href="#category-{{ $categorie->uuid }}" class="inline-block truncate py-2 px-3 text-blue-600 hover:text-whit text-sm rounded-t-md focus:outline-none tab-link" title="{{ $categorie->nom }}">
+                                    {{ $categorie->nom }}
+                                </a>
+                            </li>
+                        @endforeach
+ 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>

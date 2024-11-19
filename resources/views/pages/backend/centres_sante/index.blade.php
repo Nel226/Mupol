@@ -29,10 +29,278 @@
             </x-header>
 
             <div class="p-6 mx-auto mt-4 bg-white min-h-screen rounded-b-lg shadow-lg">
-             
+                <!-- Tabs -->
+                <div class="mb-4">
+                    <ul class="flex border-b">
+                        <li class="mr-1">
+                            <a href="#all" class="inline-block py-2 px-3 text-blue-600 hover:text-whit text-sm rounded-t-md focus:outline-none tab-link">
+                                Tous
+                            </a>
+                        </li>
+                        <li class="mr-1">
+                            <a href="#hopitaux" class="inline-block py-2 px-3 text-blue-600 hover:text-whit text-sm rounded-t-md focus:outline-none tab-link">
+                                Hopitaux
+                            </a>
+                        </li><li class="mr-1">
+                            <a href="#cliniques" class="inline-block py-2 px-3 text-blue-600 hover:text-whit text-sm rounded-t-md focus:outline-none tab-link">
+                                Cliniques
+                            </a>
+                        </li>
+                        
+                    </ul>
+                </div>
 
+                <!-- Tous tab content -->
+                <div id="all" class="tab-content hidden">
+                    <table id="depenses-table-all" class="w-full text-sm text-left text-gray-500 border rtl:text-right dark:text-gray-400 display">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
+                            <tr>
+                                <th>Description</th>
+                                <th>Montant</th>
+                                <th>Catégorie</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                        </tbody>
+                    </table>
+                </div>
+
+                
             </div>
         </div>    
     </x-content-page>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // DataTable for "Tous"
+            $('#depenses-table-all').DataTable({
+                buttons: [
+                    { 
+                        extend: 'print', 
+                        className: 'btn btn-sm text-red-500 btn-primary fa fa-print', 
+                        text:'' 
+                    },
+                    
+                  
+                    {
+                        extend: 'excelHtml5',
+                        text: '<i class="fa fa-file-excel-o"></i>',
+                        titleAttr: 'Excel',
+                        filename: 'MUPOL_depenses_{{ $categorie->nom }}',
+                        title: 'MUPOL depenses {{ $categorie->nom }}', 
+
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        text: '<i class="fa fa-file-pdf-o"></i>',
+                        titleAttr: 'PDF',
+                        filename: 'MUPOL_depenses_{{ $categorie->nom }}',
+                        title: function() {
+                            var date = new Date();
+                            var formattedDate = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear(); // Format DD/MM/YYYY
+                            return 'MUPOL depenses {{ $categorie->nom }} - ' + formattedDate;
+                        },                            
+                        customize: function (doc) {
+                            // Personnalisation du titre
+                            doc.content[1].table.widths = 
+                            Array(doc.content[1].table.body[0].length + 1).join('*').split('');
+                        }
+                    }
+                ],
+         
+                paging: true,
+                ordering: true,
+                info: true,
+                searching: true,
+                lengthChange: true,
+                lengthMenu: [10, 25, 50, 100],
+                pagingType: 'simple_numbers',
+                
+
+                "language": {
+                    "search": "Rechercher:",
+                    "lengthMenu": "Afficher _MENU_ entrées par page",
+                    "info": "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
+                    "infoEmpty": "Aucune entrée disponible",
+                    "zeroRecords": "Aucun résultat trouvé",
+                    "paginate": {
+                        "previous": "Précédent",
+                        "next": "Suivant"
+                    }
+                },
+                "dom": '<"top"lBf>t<"bottom"p><"clear">',
+                "initComplete": function() {
+                    // Arrondir les coins de la barre de recherche
+                    $('.dataTables_filter input').css('border-radius', '10px');
+                    // Remplacer le label par un placeholder
+                    $('.dataTables_filter label').contents().filter(function() {
+                        return this.nodeType === 3;
+                    }).remove();                        
+                    $('.dataTables_filter input').attr('placeholder', 'Rechercher...'); 
+                    $('.dataTables_filter').css({
+                        'position': 'relative',
+                        
+                    });                        
+                    $('.dataTables_filter input').css({
+                        'padding-left': '30px',  // Espace pour l'icône
+                    }).before('<i class="fa fa-search absolute text-gray-300" style="position: absolute; top: 50%; left: 10px; transform: translateY(-50%);"></i>');
+
+                    $('.dataTables_length select').css({
+                        'padding': '6px 12px',
+                        'font-family': 'Arial, sans-serif',
+                        'font-size': '14px',                 // Change la taille de la police
+                        
+                    });
+                    $('.dataTables_length').css({
+                        'font-family': 'Arial, sans-serif',  // Change la police
+                        'font-size': '14px',
+                        'line-height': '1rem',
+                        'color' : 'gray'
+                    });
+                    $('.dataTables_wrapper .top').css({
+                        'display': 'flex',
+                        'justify-content': 'space-between',
+                        'align-items': 'center',
+                        'margin-top': '20px',   // Marge supérieure
+                        'margin-bottom': '20px'  // Marge inférieure
+                    });
+                    $('.dataTables_paginate .paginate_button').css({
+                        'margin': '8px 20px',
+                        'color' : 'gray',
+                        'font-size': '14px',
+                        'line-height': '1rem',
+                    });
+                },
+            });
+
+            @foreach($categoriesPrincipales as $categorie)
+                $('#depenses-table-{{ $categorie->uuid }}').DataTable({
+                   
+                     
+                        buttons: [
+                        { 
+                            extend: 'print', 
+                            className: 'btn btn-sm text-red-500 btn-primary fa fa-print', 
+                            text:'' 
+                        },
+                        
+                      
+                        {
+                            extend: 'excelHtml5',
+                            text: '<i class="fa fa-file-excel-o"></i>',
+                            titleAttr: 'Excel',
+                            filename: 'MUPOL_depenses_{{ $categorie->nom }}',
+                            title: 'MUPOL depenses {{ $categorie->nom }}', 
+
+                        },
+                        {
+                            extend: 'pdfHtml5',
+                            text: '<i class="fa fa-file-pdf-o"></i>',
+                            titleAttr: 'PDF',
+                            filename: 'MUPOL_depenses_{{ $categorie->nom }}',
+                            title: function() {
+                                var date = new Date();
+                                var formattedDate = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear(); // Format DD/MM/YYYY
+                                return 'MUPOL depenses {{ $categorie->nom }} - ' + formattedDate;
+                            },                            
+                            customize: function (doc) {
+                                // Personnalisation du titre
+                                doc.content[1].table.widths = 
+                                Array(doc.content[1].table.body[0].length + 1).join('*').split('');
+                            }
+                        }
+                        ],
+             
+                        paging: true,
+                        ordering: true,
+                        info: true,
+                        searching: true,
+                        lengthChange: true,
+                        lengthMenu: [10, 25, 50, 100],
+                        pagingType: 'simple_numbers',
+                        
+
+                        "language": {
+                            "search": "Rechercher:",
+                            "lengthMenu": "Afficher _MENU_ entrées par page",
+                            "info": "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
+                            "infoEmpty": "Aucune entrée disponible",
+                            "zeroRecords": "Aucun résultat trouvé",
+                            "paginate": {
+                                "previous": "Précédent",
+                                "next": "Suivant"
+                            }
+                        },
+                        "dom": '<"top"lBf>t<"bottom"p><"clear">',
+                        "initComplete": function() {
+                            // Arrondir les coins de la barre de recherche
+                            $('.dataTables_filter input').css('border-radius', '10px');
+                            // Remplacer le label par un placeholder
+                            $('.dataTables_filter label').contents().filter(function() {
+                                return this.nodeType === 3;
+                            }).remove();                        
+                            $('.dataTables_filter input').attr('placeholder', 'Rechercher...'); 
+                            $('.dataTables_filter').css({
+                                'position': 'relative',
+                                
+                            });                        
+                            $('.dataTables_filter input').css({
+                                'padding-left': '30px',  // Espace pour l'icône
+                            }).before('<i class="fa fa-search absolute text-gray-300" style="position: absolute; top: 50%; left: 10px; transform: translateY(-50%);"></i>');
+
+                            $('.dataTables_length select').css({
+                                'padding': '6px 12px',
+                                'font-family': 'Arial, sans-serif',
+                                'font-size': '14px',                 // Change la taille de la police
+                                
+                            });
+                            $('.dataTables_length').css({
+                                'font-family': 'Arial, sans-serif',  // Change la police
+                                'font-size': '14px',
+                                'line-height': '1rem',
+                                'color' : 'gray'
+                            });
+                            $('.dataTables_wrapper .top').css({
+                                'display': 'flex',
+                                'justify-content': 'space-between',
+                                'align-items': 'center',
+                                'margin-top': '20px',   // Marge supérieure
+                                'margin-bottom': '20px'  // Marge inférieure
+                            });
+                            $('.dataTables_paginate .paginate_button').css({
+                                'margin': '8px 20px',
+                                'color' : 'gray',
+                                'font-size': '14px',
+                                'line-height': '1rem',
+                            });
+                        },
+                });
+            @endforeach
+
+            // Afficher l'onglet actif et changer la couleur de fond de l'onglet sélectionné
+            $("a.tab-link").on("click", function (e) {
+                e.preventDefault();
+
+                // Retirer la couleur de fond de tous les onglets
+                $("a.tab-link").removeClass("bg-[#4845D8] text-white").addClass("text-blue-600");
+
+                // Ajouter la couleur de fond et changer la couleur du texte de l'onglet actif
+                $(this).removeClass("text-blue-600").addClass("bg-[#4845D8] text-white");
+
+                // Masquer tous les contenus d'onglets et afficher celui sélectionné
+                $(".tab-content").addClass("hidden");
+                var targetTab = $(this).attr("href");
+                $(targetTab).removeClass("hidden");
+            });
+
+            $("a.tab-link:first").addClass("bg-[#4845D8] text-white");
+            $(".tab-content:first").removeClass("hidden");
+        });
+    </script>
 </x-app-layout>

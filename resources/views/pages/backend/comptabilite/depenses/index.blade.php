@@ -37,13 +37,17 @@
                                 Tous
                             </a>
                         </li>
-                        @foreach($categoriesPrincipales as $categorie)
-                            <li class="mr-1">
-                                <a href="#category-{{ $categorie->uuid }}" class="inline-block truncate py-2 px-3 text-blue-600 hover:text-whit text-sm rounded-t-md focus:outline-none tab-link" title="{{ $categorie->nom }}">
-                                    {{ $categorie->nom }}
-                                </a>
-                            </li>
-                        @endforeach
+                        <li class="mr-1">
+                            <a href="#all" class="inline-block py-2 px-3 text-blue-600 hover:text-whit text-sm rounded-t-md focus:outline-none tab-link">
+                                H[opitqux]
+                            </a>
+                        </li>
+                        <li class="mr-1">
+                            <a href="#all" class="inline-block py-2 px-3 text-blue-600 hover:text-whit text-sm rounded-t-md focus:outline-none tab-link">
+                                Tous
+                            </a>
+                        </li>
+                        
                     </ul>
                 </div>
 

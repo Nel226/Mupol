@@ -73,6 +73,25 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Carte des Centres de santé -->
+                    <a href="{{ route('users.index') }}" class="block">
+                        <div class="bg-white h-full rounded-lg shadow-md p-8">
+                            <div class="flex items-center">
+                                <div class="bg-blue-500 text-white p-3 rounded-full">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-white dark:text-gray-100" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7a3 3 0 00-3 3v3a3 3 0 003 3h8a3 3 0 003-3V10a3 3 0 00-3-3H8zM4 12a4 4 0 014-4h8a4 4 0 014 4M4 20h16M4 16h16M4 8h16"/>
+                                    </svg>
+                                      
+                                </div>
+                                <div class="ml-4">
+                                    <h2 class="text-xl font-semibold">Centres de santé</h2>
+                                    <p class="mt-2 text-gray-600">Créez, mettez à jour ou supprimez les centres de santé</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
                 </div>
                 
             </div>

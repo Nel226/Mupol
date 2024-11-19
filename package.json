@@ -2,7 +2,7 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "dev": "vite  --port 3700 ",
+        "dev": "vite  --port 3800",
         "build": "vite build"
     },
     "devDependencies": {

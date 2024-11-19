@@ -80,12 +80,12 @@
 
                                 @if (!Auth::guard('adherent')->check())
 
-                                    <x-primary-button class=" !bg-white !text-[#4000FF] " href="{{ route('adherent.login') }}">
                                     <a href="{{ route('adherent.login') }}">
+                                        <x-primary-button class=" !bg-white !text-[#4000FF] " href="{{ route('adherent.login') }}">
                                             <i class=" fa fa-unlock-alt "></i>
                                             Connexion
-                                        </a>
-                                    </x-primary-button>    
+                                        </x-primary-button>    
+                                    </a>
                                     <div class="relative inline-block text-left">
                                         <x-primary-button class=" inline-flex items-center !text-gray-700 bg-white hover:bg-gray-50 " id="languageMenuButton" aria-expanded="true" aria-haspopup="true">
                                             <span class="mr-2">Langue</span>

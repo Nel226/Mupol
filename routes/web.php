@@ -18,6 +18,7 @@ use App\Http\Controllers\BudgetController;
 
 use App\Http\Controllers\CaisseController;
 use App\Http\Controllers\CategorieController;
+use App\Http\Controllers\CentreSanteController;
 use App\Http\Controllers\CotisationController;
 use App\Http\Controllers\PrestationController;
 use App\Http\Controllers\DemandeController;
@@ -136,6 +137,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('parametres', ParametreController::class);
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
+    Route::resource('centres-sante', CentreSanteController::class);
 
     //DEBUT COMPTABILITE
     Route::resource('demandes', DemandeController ::class);

@@ -11,6 +11,7 @@
                 $slides = [
                     ['image' => 'images/caroussel/caroussel5.jpg', 'title' => 'MU-POl, la Mutuelle de la Police Nationale', 'text_color' => 'white'],
                     ['image' => 'images/caroussel/caroussel8.jpg', 'title' => 'MU-POl, la Mutuelle de la Police Nationale', 'text_color' => 'white'],
+                    ['image' => 'images/caroussel/caroussel10.JPG', 'title' => 'MU-POl, la Mutuelle de la Police Nationale', 'text_color' => 'white'],
 
                 ];
             @endphp

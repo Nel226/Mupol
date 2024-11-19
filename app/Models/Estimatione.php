@@ -14,7 +14,7 @@ class Estimatione extends Model
     public $incrementing = false;
     protected $keyType = 'string';
 
-protected $fillable = ['montant', 'description', 'categorie_id','sous_categorie_id', 'periode' , 'annee'];
+    protected $fillable = ['montant', 'description', 'categorie_id','sous_categorie_id', 'periode' , 'annee'];
 
     public function categorie()
     {

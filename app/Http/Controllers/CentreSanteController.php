@@ -23,8 +23,20 @@ class CentreSanteController extends Controller
         ];
         $pageTitle = 'Centres de santé';
 
-        $centresSante = CentreSante::all();
-        return view('pages.backend.centres_sante.index', compact('centresSante', 'breadcrumbsItems', 'pageTitle'));
+        $centres = CentreSante::all();
+
+        $hopitaux = $centres->where('type', 'hopital');
+        $cliniques = $centres->where('type', 'clinique');
+    
+        return view('pages.backend.centres_sante.index', [
+            'centres' => $centres,
+            'hopitaux' => $hopitaux,
+            'cliniques' => $cliniques,
+            'breadcrumbsItems' => $breadcrumbsItems,
+            'pageTitle' => $pageTitle,
+
+        ]);
+        
     }
 
     /**

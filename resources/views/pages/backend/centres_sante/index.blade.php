@@ -27,6 +27,13 @@
             <x-header>
                 {{$pageTitle}}
             </x-header>
+            <div class=" flex justify-end">
+                <a href="{{  route('centres-sante.create') }}">
+                    <x-primary-button>
+                        Nouveau centre
+                    </x-primary-button>
+                </a>
+            </div>
 
             <div class="p-6 mx-auto mt-4 bg-white min-h-screen rounded-b-lg shadow-lg">
                 <!-- Tabs -->
@@ -39,14 +46,14 @@
                         </li>
                         <li class="mr-1">
                             <a href="#hopitaux" class="inline-block py-2 px-3 text-blue-600 hover:text-whit text-sm rounded-t-md focus:outline-none tab-link">
-                                Hopitaux
+                                Hôpitaux
                             </a>
-                        </li><li class="mr-1">
+                        </li>
+                        <li class="mr-1">
                             <a href="#cliniques" class="inline-block py-2 px-3 text-blue-600 hover:text-whit text-sm rounded-t-md focus:outline-none tab-link">
                                 Cliniques
                             </a>
                         </li>
-                        
                     </ul>
                 </div>
 
@@ -55,18 +62,92 @@
                     <table id="depenses-table-all" class="w-full text-sm text-left text-gray-500 border rtl:text-right dark:text-gray-400 display">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
-                                <th>Description</th>
-                                <th>Montant</th>
-                                <th>Catégorie</th>
+                                <th>Nom</th>
+                                <th>Type</th>
+                                <th>Adresse</th>
+                                <th>Téléphone</th>
+                                <th>Email</th>
+                                <th>Région</th>
+                                <th>Province</th>
+                                <th>Date d&apos;affiliation</th>
                             </tr>
                         </thead>
                         <tbody>
-                            
+                            @foreach ($centres as $centre)
+                                <tr>
+                                    <td>{{ $centre->nom }}</td>
+                                    <td>{{ $centre->type }}</td>
+                                    <td>{{ $centre->adresse }}</td>
+                                    <td>{{ $centre->telephone }}</td>
+                                    <td>{{ $centre->email }}</td>
+                                    <td>{{ $centre->region }}</td>
+                                    <td>{{ $centre->province }}</td>
+                                    <td>{{ $centre->date_affiliation }}</td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
 
-                
+                <!-- Hôpitaux tab content -->
+                <div id="hopitaux" class="tab-content hidden">
+                    <table id="depenses-table-hopitaux" class="w-full text-sm text-left text-gray-500 border rtl:text-right dark:text-gray-400 display">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
+                            <tr>
+                                <th>Nom</th>
+                                <th>Adresse</th>
+                                <th>Téléphone</th>
+                                <th>Email</th>
+                                <th>Région</th>
+                                <th>Province</th>
+                                <th>Date d&apos;affiliation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($hopitaux as $hopital)
+                                <tr>
+                                    <td>{{ $hopital->nom }}</td>
+                                    <td>{{ $hopital->adresse }}</td>
+                                    <td>{{ $hopital->telephone }}</td>
+                                    <td>{{ $hopital->email }}</td>
+                                    <td>{{ $hopital->region }}</td>
+                                    <td>{{ $hopital->province }}</td>
+                                    <td>{{ $hopital->date_affiliation }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Cliniques tab content -->
+                <div id="cliniques" class="tab-content hidden">
+                    <table id="depenses-table-cliniques" class="w-full text-sm text-left text-gray-500 border rtl:text-right dark:text-gray-400 display">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
+                            <tr>
+                                <th>Nom</th>
+                                <th>Adresse</th>
+                                <th>Téléphone</th>
+                                <th>Email</th>
+                                <th>Région</th>
+                                <th>Province</th>
+                                <th>Date d&apos;affiliation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($cliniques as $clinique)
+                                <tr>
+                                    <td>{{ $clinique->nom }}</td>
+                                    <td>{{ $clinique->adresse }}</td>
+                                    <td>{{ $clinique->telephone }}</td>
+                                    <td>{{ $clinique->email }}</td>
+                                    <td>{{ $clinique->region }}</td>
+                                    <td>{{ $clinique->province }}</td>
+                                    <td>{{ $clinique->date_affiliation }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>    
     </x-content-page>
@@ -78,8 +159,7 @@
     <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
     <script>
         $(document).ready(function() {
-            // DataTable for "Tous"
-            $('#depenses-table-all').DataTable({
+            $('#depenses-table-all, #depenses-table-hopitaux, #depenses-table-cliniques').DataTable({
                 buttons: [
                     { 
                         extend: 'print', 
@@ -113,9 +193,7 @@
                 },
                 "dom": '<"top"lBf>t<"bottom"p><"clear">',
                 "initComplete": function() {
-                    // Arrondir les coins de la barre de recherche
                     $('.dataTables_filter input').css('border-radius', '10px');
-                    // Remplacer le label par un placeholder
                     $('.dataTables_filter label').contents().filter(function() {
                         return this.nodeType === 3;
                     }).remove();                        
@@ -158,17 +236,13 @@
 
           
 
-            // Afficher l'onglet actif et changer la couleur de fond de l'onglet sélectionné
             $("a.tab-link").on("click", function (e) {
                 e.preventDefault();
 
-                // Retirer la couleur de fond de tous les onglets
                 $("a.tab-link").removeClass("bg-[#4845D8] text-white").addClass("text-blue-600");
 
-                // Ajouter la couleur de fond et changer la couleur du texte de l'onglet actif
                 $(this).removeClass("text-blue-600").addClass("bg-[#4845D8] text-white");
 
-                // Masquer tous les contenus d'onglets et afficher celui sélectionné
                 $(".tab-content").addClass("hidden");
                 var targetTab = $(this).attr("href");
                 $(targetTab).removeClass("hidden");
@@ -177,5 +251,5 @@
             $("a.tab-link:first").addClass("bg-[#4845D8] text-white");
             $(".tab-content:first").removeClass("hidden");
         });
-    </script>
+    </script> 
 </x-app-layout>

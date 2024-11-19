@@ -29,7 +29,9 @@ class StoreCentreSanteRequest extends FormRequest
             'email' => 'nullable|email|max:255',
             'region' => 'required|string|max:100',
             'province' => 'required|string|max:100',
-            'date_affiliation' => 'required|date',
+            'date_affiliation' => 'nullable|date',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', 
+
         ];
         
     }

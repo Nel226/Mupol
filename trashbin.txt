@@ -1,3 +1,38 @@
+                  
+
+ 
+    protected $table = 'centres_sante';
+
+ 
+// Si aucune photo n'est envoyée, définir comme null
+ 
+// Validation de l'image
+ 
+ // Ajout de la colonne photo
+ 
+                                // Afficher la prévisualisation de l'image sélectionnée
+
+ 
+                                <!-- Prévisualisation de l'image -->
+
+ 
+<!-- Date affiliation -->
+                            <div class="w-full">
+                                <label for="date_affiliation" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date d&apos;affiliation</label>
+                                <input type="date" name="date_affiliation" id="date_affiliation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
+                            </div>
+ 
+text-white bg-[#4000FF] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800
+ 
+                            <!-- Date d'affiliation -->
+
+ 
+// Retourne le sous_type de la catégorie associée
+ 
+/ Sélectionner uniquement l'id de la catégorie
+ 
+/ Pour obtenir des valeurs uniques
+ 
  }}
  
 {{

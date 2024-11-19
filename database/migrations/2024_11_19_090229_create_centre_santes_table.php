@@ -20,7 +20,8 @@ return new class extends Migration
             $table->string('email');
             $table->string('region');
             $table->string('province');
-            $table->date('date_affiliation');
+            $table->date('date_affiliation')->nullable();
+            $table->string('photo')->nullable(); 
 
             $table->timestamps();
         });

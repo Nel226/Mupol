@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 class CentreSante extends Model
 {
     use HasFactory, HasUuids;
-    // protected $table = 'centres_sante';
     protected $fillable = [
         'nom',
         'type',
@@ -20,5 +19,6 @@ class CentreSante extends Model
         'region',
         'province',
         'date_affiliation',
+        'photo',
     ];
 }

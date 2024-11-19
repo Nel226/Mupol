@@ -1,3 +1,8 @@
+        // Set the page title
+
+ 
+// Use the name of the current centre for the active breadcrumb
+ 
 <div class="w-3/4 mx-auto">
                     <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Ajouter un nouveau centre de santé</h2>
                     

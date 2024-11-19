@@ -35,8 +35,10 @@
                     <form method="POST" action="{{ route('estimations.store') }}" enctype="multipart/form-data">
                         @csrf
                         
+                        
 
                         <div class="grid gap-3 sm:grid-cols-2 sm:gap-6">
+
 
                             <!-- Catégorie estimation -->
                             <div class="w-full">
@@ -57,6 +59,14 @@
                                     <option value="">Sélectionnez une sous-catégorie</option>
                                 </select>
                             </div>
+                            
+                            <!-- Description estimation -->
+                            <div class="w-full col-span-2">
+                                <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+                                <textarea name="description" id="description" rows="4" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Description estimation" required></textarea>
+                            </div>
+                            
+                            
                             
                             
                             
@@ -119,6 +129,33 @@
                                 <textarea name="description" id="description" rows="4" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Description estimation" required></textarea>
                             </div>
                             
+                        </div>
+
+                        <div class="grid gap-3 sm:grid-cols-3 sm:gap-6 mb-3">
+                
+                            <!-- Montant de estimation -->
+                            <div class="w-full">
+                                <label for="montant" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Montant</label>
+                                <input type="number" name="montant" id="montant" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Montant de la estimation" required>
+                            </div>
+
+                            <!-- Periode estimation -->
+                            <div class="w-full">
+                                <label for="periode" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Période</label>
+                                <select name="periode" id="periode" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
+                                    <option value="" disabled selected>Choisir un trimestre</option>
+                                    <option value="T1">Trimestre 1</option>
+                                    <option value="T2">Trimestre 2</option>
+                                    <option value="T3">Trimestre 3</option>
+                                    <option value="T4">Trimestre 4</option>
+                                </select>
+                            </div>
+
+                            <!-- Année estimation -->
+                            <div class="w-full">
+                                <label for="annee" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Année</label>
+                                <input type="number" name="annee" id="annee" min="2020" max="2100" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
+                            </div>
                         </div>
                 
                         <button type="submit" class="mt-5 text-white bg-[#4000FF] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">

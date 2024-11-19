@@ -28,15 +28,67 @@ class CaisseController extends Controller
         $recettes = Recette::whereYear('date', $year)->get();
 
         $data = [];
-        
         foreach ($categories as $categorie) {
             $total = $recettes->where('categorie_id', $categorie->id)->sum('montant');
+          
 
             foreach ($categorie->children as $child) {
                 $total += $recettes->where('categorie_id', $child->id)->sum('montant');
             }
             $data[$categorie->nom] = $total;
         }
+        
+        // $test = []; // Initialisation du tableau test
+
+        // foreach ($categories as $categorie) {
+        //     // Récupération des recettes pour la catégorie actuelle
+        //     $recettesPourCategorie = $recettes->where('categorie_id', $categorie->uuid);
+            
+        //     // Conversion des montants en float et calcul de la somme
+        //     $total = $recettesPourCategorie->sum(function ($recette) {
+        //         return (float) $recette->montant; // Conversion en float pour garantir des calculs corrects
+        //     });
+
+        //     // Ajout des montants individuels pour la catégorie principale dans le tableau test
+        //     $test[$categorie->nom] = [
+        //         'total' => $total,
+        //         'montants' => $recettesPourCategorie->pluck('montant')->map(function ($montant) {
+        //             return (float) $montant; // Conversion en float pour chaque montant individuel
+        //         })->toArray() // Récupère les montants sous forme de tableau
+        //     ];
+
+        //     // Parcours des enfants de la catégorie
+        //     foreach ($categorie->children as $child) {
+        //         // Récupération des recettes pour l'enfant
+        //         $recettesPourChild = $recettes->where('categorie_id', $child->id);
+                
+        //         // Conversion des montants en float et calcul de la somme pour l'enfant
+        //         $childTotal = $recettesPourChild->sum(function ($recette) {
+        //             return (float) $recette->montant; // Conversion en float
+        //         });
+                
+        //         // Ajout des montants individuels pour chaque enfant dans le tableau test
+        //         $test[$categorie->nom . ' - ' . $child->nom] = [
+        //             'total' => $childTotal,
+        //             'montants' => $recettesPourChild->pluck('montant')->map(function ($montant) {
+        //                 return (float) $montant; // Conversion en float pour chaque montant individuel
+        //             })->toArray() // Récupère les montants sous forme de tableau
+        //         ];
+        //     }
+
+        //     // Ajout du total global pour la catégorie dans les données finales
+        //     $data[$categorie->nom] = $total;
+        // }
+
+        // // Affichage du tableau test pour vérification
+        // dd($test);
+
+
+
+        
+
+
+
         
         // $test = []; // Initialisation du tableau test
 

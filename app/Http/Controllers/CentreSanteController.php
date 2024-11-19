@@ -82,8 +82,24 @@ class CentreSanteController extends Controller
     public function show($id)
     {
         $centre = CentreSante::findOrFail($id);
-        return view('pages.backend.centres_sante.show', compact('centre'));
+
+        $breadcrumbsItems = [
+            [
+                'name' => 'Centres de santé',
+                'url' => route('centres-sante.index'),
+                'active' => false
+            ],
+            [
+                'name' => $centre->nom, 
+                'url' => route('centres-sante.show', $centre->id),
+                'active' => true
+            ],
+        ];
+    
+        $pageTitle = 'Détails de ' . $centre->nom;
+        return view('pages.backend.centres_sante.show', compact('centre', 'breadcrumbsItems', 'pageTitle'));
     }
+
 
 
     /**

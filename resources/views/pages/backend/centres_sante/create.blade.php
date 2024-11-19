@@ -32,7 +32,7 @@
                 <div class="w-3/4 mx-auto">
                     <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Ajouter une nouvelle dépense</h2>
                 
-                   
+                
                 </div>
                 
                         

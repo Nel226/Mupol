@@ -13,8 +13,18 @@ class CentreSanteController extends Controller
      */
     public function index()
     {
+        $breadcrumbsItems = [
+            [
+                'name' => 'Centres de santé',
+                'url' => route('centres-sante.index'),
+                'active' => true
+            ],
+           
+        ];
+        $pageTitle = 'Centres de santé';
+
         $centresSante = CentreSante::all();
-        return view('centres_sante.index', compact('centresSante'));
+        return view('pages.backend.centres_sante.index', compact('centresSante', 'breadcrumbsItems', 'pageTitle'));
     }
 
     /**
@@ -22,7 +32,21 @@ class CentreSanteController extends Controller
      */
     public function create()
     {
-        return view('centres_sante.create');
+        $breadcrumbsItems = [
+            [
+                'name' => 'Recettes',
+                'url' => route('centres-sante.index'),
+                'active' => false
+            ],
+            [
+                'name' => 'Ajouter',
+                'url' => route('centres-sante.create'),
+                'active' => true
+            ],
+        ];
+        $pageTitle = 'Ajouter un centre';
+
+        return view('pages.backend.centres_sante.create', compact('breadcrumbsItems', 'pageTitle'));
 
     }
 
@@ -41,7 +65,7 @@ class CentreSanteController extends Controller
     public function show($id)
     {
         $centre = CentreSante::findOrFail($id);
-        return view('centres_sante.show', compact('centre'));
+        return view('pages.backend.centres_sante.show', compact('centre'));
     }
 
 
@@ -50,7 +74,7 @@ class CentreSanteController extends Controller
      */
     public function edit(CentreSante $centreSante)
     {
-        return view('centres_sante.edit', compact('centreSante'));
+        return view('pages.backend.centres_sante.edit', compact('centreSante'));
     }
     /**
      * Update the specified resource in storage.

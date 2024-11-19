@@ -69,13 +69,13 @@
                             </div>
                             <div class="ml-4">
                                 <h2 class="text-xl font-semibold">Général</h2>
-                                <p class="mt-2 text-gray-600">Paramètres généraux de l'application</p>
+                                <p class="mt-2 text-gray-600">Paramètres généraux de l&apos;application</p>
                             </div>
                         </div>
                     </div>
 
                     <!-- Carte des Centres de santé -->
-                    <a href="{{ route('users.index') }}" class="block">
+                    <a href="{{ route('centres_sante.index') }}" class="block">
                         <div class="bg-white h-full rounded-lg shadow-md p-8">
                             <div class="flex items-center">
                                 <div class="bg-blue-500 text-white p-3 rounded-full">

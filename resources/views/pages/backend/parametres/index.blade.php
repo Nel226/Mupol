@@ -32,7 +32,7 @@
                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-white dark:text-gray-100" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7a3 3 0 00-3 3v3a3 3 0 003 3h8a3 3 0 003-3V10a3 3 0 00-3-3H8zM4 12a4 4 0 014-4h8a4 4 0 014 4M4 20h16M4 16h16M4 8h16"/>
                                     </svg>
-                                      
+                                    
                                 </div>
                                 <div class="ml-4">
                                     <h2 class="text-xl font-semibold">Utilisateurs</h2>
@@ -49,7 +49,7 @@
                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-white dark:text-gray-100" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7a4 4 0 014-4h2a4 4 0 014 4v4a4 4 0 01-4 4h-2a4 4 0 01-4-4V7zm0 10a4 4 0 00-4 4v1a1 1 0 001 1h14a1 1 0 001-1v-1a4 4 0 00-4-4M7 21v-1a1 1 0 011-1h8a1 1 0 011 1v1"/>
                                     </svg>
-                                      
+                                    
                                 </div>
                                 <div class="ml-4">
                                     <h2 class="text-xl font-semibold">Rôles</h2>
@@ -82,7 +82,7 @@
                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-white dark:text-gray-100" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7a3 3 0 00-3 3v3a3 3 0 003 3h8a3 3 0 003-3V10a3 3 0 00-3-3H8zM4 12a4 4 0 014-4h8a4 4 0 014 4M4 20h16M4 16h16M4 8h16"/>
                                     </svg>
-                                      
+                                    
                                 </div>
                                 <div class="ml-4">
                                     <h2 class="text-xl font-semibold">Centres de santé</h2>

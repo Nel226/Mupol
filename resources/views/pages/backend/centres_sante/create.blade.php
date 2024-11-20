@@ -120,22 +120,7 @@
                                 </div>
                             </div>
 
-                            <script>
-                                document.getElementById('photo').addEventListener('change', function(event) {
-                                    const file = event.target.files[0];
-                                    const reader = new FileReader();
-                                    const preview = document.getElementById('preview');
-                            
-                                    reader.onload = function(e) {
-                                        preview.src = e.target.result;
-                                        preview.classList.remove('hidden'); // Afficher l'image
-                                    };
-                            
-                                    if (file) {
-                                        reader.readAsDataURL(file);
-                                    }
-                                });
-                            </script>
+                          
             
 
                             <script>

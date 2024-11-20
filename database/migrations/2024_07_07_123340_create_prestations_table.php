@@ -31,7 +31,8 @@ return new class extends Migration
             $table->json('preuve')->nullable();
             $table->enum('validite', ['rejeté', 'accepté', 'en attente'])->default('en attente');
             $table->boolean('etat_paiement')->default(false)->nullable();
-
+            $table->uuid('centre_sante_id'); 
+            $table->foreign('centre_sante_id')->references('id')->on('centre_santes')->onDelete('cascade');
             $table->timestamps();
         });
     }

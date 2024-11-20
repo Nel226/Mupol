@@ -10,6 +10,7 @@ use App\Http\Controllers\AccueilController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdherantController;
 use App\Http\Controllers\Auth\AdherantAuthenticatedSessionController;
+use App\Http\Controllers\Auth\PartenaireAuthenticatedSessionController;
 use App\Http\Controllers\CsvImportController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ParametreController;
@@ -61,6 +62,22 @@ Route::get('/impression-fiche-cession/{id}', [AccueilController::class, 'imprime
 Route::get('/login/adherent', [AdherantAuthenticatedSessionController::class, 'create'])->name('adherent.login');
 Route::post('/login/adherent', [AdherantAuthenticatedSessionController::class, 'store']);
 
+// Affichage du formulaire de connexion pour les partenaires
+Route::get('/login/partenaire', [PartenaireAuthenticatedSessionController::class, 'create'])->name('partenaire.login');
+
+Route::post('/login/partenaire', [PartenaireAuthenticatedSessionController::class, 'store']);
+Route::get('/partenaires/dashboard', [PartenaireAuthenticatedSessionController::class, 'dashboard'])
+    ->name('partenaires.dashboard');
+Route::get('/partenaires/prestations', [PrestationController::class, 'prestationsPartenaire'])
+        ->name('partenaires.prestations');
+
+Route::get('/partenaires/prestations/nouvelle', [PrestationController::class, 'newPrestationPartenaire'])
+    ->name('partenaires.nouvelle-prestation');
+Route::post('/partenaire/rechercher-adherent', [CentreSanteController::class, 'searchAdherent'])->name('partenaire.searchAdherent');
+
+Route::post('/partenaires/prestations/store', [PrestationController::class, 'storePrestationPartenaire'])
+    ->name('partenaires.nouvelle-prestation.store');
+
 Route::middleware('auth:adherent')->group(function () {
     Route::get('/adherents/change-password', [AdherantAuthenticatedSessionController::class, 'showChangePasswordForm'])->name('adherents.change-password');
     Route::post('/adherents/change-password', [AdherantAuthenticatedSessionController::class, 'updatePassword'])->name('adherents.update-password');
@@ -71,6 +88,8 @@ Route::middleware('auth:adherent')->group(function () {
 
     Route::get('/adherents/dashboard', [AdherantAuthenticatedSessionController::class, 'dashboard'])
         ->name('adherents.dashboard');
+
+ 
 
 
     Route::get('/adherents/prestations', [PrestationController::class, 'prestations'])

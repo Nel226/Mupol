@@ -1,25 +1,34 @@
 <!-- Sidebar Area -->
-<aside class="sidebar-sous  py-8  w-64 bg-[#cccccc] text-gray-800 shadow-lg h-screen fixed inset-y-0 left-0 transform -translate-x-full md:translate-x-0 transition duration-300 ease-in-out z-40">
+
+<aside class="sidebar-sous py-8 w-64 bg-[#cccccc] text-gray-800 shadow-lg h-screen fixed inset-y-0 transform -translate-x-full md:translate-x-0 transition duration-300 ease-in-out z-40 left-0 top-16 sm:translate-x-0 bg-transparent">
     <div class="sidebar-inner p-4">
     
         <style>
             .sidebar-sous {
-                
+                top: 4rem; /* Adjust this value to the height of your header */
                 z-index: 40;
-                position: relative; /* Permet à la sidebar de suivre la structure flex */
-                height: 100vh; /* Fixe la hauteur à la hauteur de l'écran */
-                {{--  position: fixed; /* La sidebar doit rester fixée à gauche */  --}}
-
             }
 
         </style>
         <!-- User Profile -->
         <div class="user-profile flex items-center mb-4 p-2 bg-[#4644D5] rounded-md">
-            <img src="{{ asset('storage/' . Auth::guard('adherent')->user()->photo) }}" alt="User Profile" class="h-12 w-12 rounded-full mr-3">
-            <span class="font-semibold text-white">{{ Auth::guard('adherent')->user()->nom }}</span>
+            @if (Auth::guard('adherent')->check())
+                <!-- Adherent profile -->
+                <img src="{{ asset('storage/' . Auth::guard('adherent')->user()->photo) }}" alt="User Profile" class="h-12 w-12 rounded-full mr-3">
+                <span class="font-semibold text-white">{{ Auth::guard('adherent')->user()->nom }}</span>
+            @elseif (Auth::guard('partenaire')->check())
+                <!-- Centre de santé (partenaire) profile -->
+                <img src="{{ asset('storage/' . Auth::guard('partenaire')->user()->photo) }}" alt="Centre de santé Profile" class="h-12 w-12 rounded-full mr-3">
+                <span class="font-semibold text-white">{{ Auth::guard('partenaire')->user()->nom }}</span>
+            @else
+                <!-- Default or guest profile -->
+                <img src="{{ asset('storage/default-profile.jpg') }}" alt="Default Profile" class="h-12 w-12 rounded-full mr-3">
+                <span class="font-semibold text-white">Utilisateur non connecté</span>
+            @endif
         </div>
-        
+
         <nav class="mt-4 font-semibold">
+            @if (Auth::guard('adherent')->check())
             <ul class="space-y-2">
                 <li>
                     <a href="/" class="flex items-center p-2 text-gray-800 hover:bg-gray-700 hover:text-white rounded-md">
@@ -75,6 +84,47 @@
                    
                 </li>
             </ul>
+            @endif
+            @if (Auth::guard('partenaire')->check())
+            <ul class="space-y-2">
+                <li>
+                    <a href="/" class="flex items-center p-2 text-gray-800 hover:bg-gray-700 hover:text-white rounded-md">
+                        <i class="fa fa-user mr-3"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('partenaires.prestations') }}" 
+                    class="@if(Request::is('partenaire/prestations*')) active @endif flex items-center p-2 text-gray-800 hover:bg-gray-700 hover:text-white rounded-md transition-all duration-300">
+                    <i class="fa fa-list mr-3"></i>
+                        <span>Prestations</span>
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="{{ route('adherents.prestations') }}" 
+                        class="@if(Request::is('adherents/prestations*')) active @endif flex items-center p-2 text-gray-800 hover:bg-gray-700 hover:text-white rounded-md transition-all duration-300">
+                        <i class="fa fa-warning mr-3"></i>
+                        <span>Restrictions</span>
+                    </a>
+                </li>
+               
+                
+               
+                <li>
+                    <form method="POST" action="{{ route('adherent.logout') }}" class="flex items-center p-2 text-red-500 hover:bg-red-700 hover:text-white rounded-md">
+                        @csrf
+                        <button type="submit" class="w-full text-left">
+                            <i class="fa  fa-sign-out mr-3"></i>
+
+                            Déconnexion
+                        </button>
+                    </form>
+                   
+                </li>
+            </ul>
+            @endif
+
         </nav>
     </div>
 </aside>

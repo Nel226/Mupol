@@ -4,6 +4,7 @@
             .header-sous {
                 z-index: 50;
                 position: relative;
+                top: 0px;
                 /* Ajoutez des styles pour la barre de navigation */
             }
         </style>

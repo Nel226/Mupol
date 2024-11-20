@@ -26,4 +26,10 @@ class Prestation extends Model
         'etat_paiement',
         'preuve',
     ];
+
+    public function partenaire()
+    {
+        return $this->belongsTo(CentreSante::class); 
+    }
+
 }

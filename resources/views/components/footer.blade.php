@@ -29,6 +29,8 @@
                                     <li><a href="{{ route('en-construction') }}"><i class="fa fa-caret-right"></i>À propos</a></li>
                                     <li><a href="{{ route('services') }}"><i class="fa fa-caret-right"></i>Nos Services</a></li>
                                     <li><a href="{{ route('en-construction') }}"><i class="fa fa-caret-right"></i>Actualités</a></li>
+                                    <li><a href="{{ route('partenaire.login') }}"><i class="fa fa-caret-right"></i>Partenaires</a></li>
+
                                 </ul>
                             </div>
                             <div class="col-lg-6 col-md-6 col-12">

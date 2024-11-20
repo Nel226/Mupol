@@ -36,6 +36,15 @@ class PrestationController extends Controller
         );
     }
 
+    public function prestationsPartenaire()
+    {
+        $partenaire = auth()->guard('partenaire')->user();
+        $prestations = $partenaire->prestations;
+        return  view('pages.frontend.centres_sante.prestations.index',
+                compact('partenaire', 'prestations')
+        );
+    }
+   
     
 
     public function newPrestationAdherent()
@@ -44,7 +53,14 @@ class PrestationController extends Controller
         $adherent->ayantsDroits = AyantDroit::where('adherant_id', $adherent->id)->get();
 
     
-        return view('pages.frontend.adherents.prestations.create', compact('adherent'));
+        return view('pages.frontend.centres_sante.prestations.create', compact('adherent'));
+    }
+    public function newPrestationPartenaire()
+    {
+        $partenaire = auth()->guard('partenaire')->user();
+
+    
+        return view('pages.frontend.centres_sante.prestations.create', compact('partenaire'));
     }
     public function storePrestationAdherent(StorePrestationRequest $request)
     {

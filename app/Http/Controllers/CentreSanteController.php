@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\CentreSante;
 use App\Http\Requests\StoreCentreSanteRequest;
 use App\Http\Requests\UpdateCentreSanteRequest;
+use App\Models\Adherant;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
 
 class CentreSanteController extends Controller
 {
@@ -69,14 +72,16 @@ class CentreSanteController extends Controller
     {
         if ($request->hasFile('photo')) {
             $photoPath = $request->file('photo')->store('photos/centres-sante', 'public');
+
         } else {
             $photoPath = null;  
         }
-        CentreSante::create(array_merge(
-            $request->validated(),  // Données validées
-            ['photo' => $photoPath]  // Ajouter le chemin de la photo
-        ));
-        return redirect()->route('centres-sante.index')->with('success', 'Centre de santé ajouté avec succès.');
+        
+        
+        $validatedData = $request->validated();
+        $validatedData['password'] = Hash::make('123456789'); 
+        CentreSante::create($validatedData);
+            return redirect()->route('centres-sante.index')->with('success', 'Centre de santé ajouté avec succès.');
     }
 
     /**
@@ -85,7 +90,6 @@ class CentreSanteController extends Controller
     public function show($id)
     {
         $centre = CentreSante::findOrFail($id);
-
         $breadcrumbsItems = [
             [
                 'name' => 'Centres de santé',
@@ -108,26 +112,69 @@ class CentreSanteController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(CentreSante $centreSante)
+    public function edit($id)
     {
-        return view('pages.backend.centres_sante.edit', compact('centreSante'));
+        $centre = CentreSante::findOrFail($id); 
+
+        $breadcrumbsItems = [
+            [
+                'name' => 'Centres de santé',
+                'url' => route('centres-sante.index'),
+                'active' => false
+            ],
+            [
+                'name' => $centre->nom,  
+                'url' => route('centres-sante.index'),
+                'active' => true
+            ],
+        ];
+
+        $pageTitle = 'Édition de ' . $centre->nom;  
+
+        return view('pages.backend.centres_sante.edit', compact('centre', 'breadcrumbsItems', 'pageTitle'));
     }
+
+    public function searchAdherent(Request $request)
+    {
+        // Valider le code carte
+        $validated = $request->validate([
+            'code_carte' => 'required|string',
+        ]);
+
+        $adherent = Adherant::where('code_carte', $validated['code_carte'])->first();
+
+        if ($adherent) {
+            return view('partenaires.prestations.nouvelle', compact('adherent'));
+        } else {
+            $message = 'Aucun adhérent trouvé avec ce code carte.';
+            return view('partenaires.prestations.nouvelle', compact('message'));
+        }
+    }
+    
+    
+
+
+
+    
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCentreSanteRequest $request, CentreSante $centreSante)
+    public function update(UpdateCentreSanteRequest $request,  $id)
     {
-        $centreSante->update($request->validated());
+        $centre = CentreSante::findOrFail($id);
+
+        $centre->update($request->validated());
         return redirect()->route('centres_sante.index')->with('success', 'Centre de santé mis à jour avec succès.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(CentreSante $centreSante)
+    public function destroy($id)
     {
+        $centreSante = CentreSante::findOrFail($id);
         $centreSante->delete();
-        return redirect()->route('centres_sante.index')->with('success', 'Centre de santé supprimé avec succès.');
+        return redirect()->route('centres-sante.index')->with('success', 'Centre de santé supprimé avec succès.');
     }
 
 }

@@ -19,7 +19,7 @@ class CentreSanteController extends Controller
                 'url' => route('centres-sante.index'),
                 'active' => true
             ],
-           
+        
         ];
         $pageTitle = 'Centres de santé';
 
@@ -72,7 +72,10 @@ class CentreSanteController extends Controller
         } else {
             $photoPath = null;  
         }
-        CentreSante::create($request->validated());
+        CentreSante::create(array_merge(
+            $request->validated(),  // Données validées
+            ['photo' => $photoPath]  // Ajouter le chemin de la photo
+        ));
         return redirect()->route('centres-sante.index')->with('success', 'Centre de santé ajouté avec succès.');
     }
 

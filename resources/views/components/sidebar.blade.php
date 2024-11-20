@@ -163,6 +163,7 @@
                 </a>
             </li>
             @endrole
+            
             {{--  <li>
                 <a href="#" class="flex items-center px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
                     <i class="fa fa-calendar w-5 h-5 dark:text-gray-400 group-hover:text-black"></i>
@@ -175,6 +176,16 @@
                     <span class="ml-3">Gestion des prestations</span>
                 </a>
             </li>
+
+            @role('controleur')
+            <li>
+                <a href="{{ route('centres-sante.index') }}" class="@if(Request::is('centres-sante') || Request::is('centres-sante/*')) active @endif flex items-center px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
+                    <i class="fa fa-handshake-o dark:text-gray-400 group-hover:text-black"></i>
+                    <span class="ml-3">Gestion des partenaires</span>
+                </a>
+            </li>
+            @endrole
+
             @role('administrateur')
             <li>
                 <a href="{{ route('parametres.index') }}" class="@if(Request::is('parametres')) active @endif flex items-center px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">

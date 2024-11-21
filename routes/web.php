@@ -19,13 +19,15 @@ use App\Http\Controllers\BudgetController;
 
 use App\Http\Controllers\CaisseController;
 use App\Http\Controllers\CategorieController;
-use App\Http\Controllers\CentreSanteController;
 use App\Http\Controllers\CotisationController;
 use App\Http\Controllers\PrestationController;
 use App\Http\Controllers\DemandeController;
 use App\Http\Controllers\DepenseController;
 use App\Http\Controllers\EstimationeController;
+use App\Http\Controllers\PartenaireController;
 use App\Http\Controllers\RecetteController;
+use App\Http\Controllers\RestrictionController;
+use App\Models\Partenaire;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,17 +68,24 @@ Route::post('/login/adherent', [AdherantAuthenticatedSessionController::class, '
 Route::get('/login/partenaire', [PartenaireAuthenticatedSessionController::class, 'create'])->name('partenaire.login');
 
 Route::post('/login/partenaire', [PartenaireAuthenticatedSessionController::class, 'store']);
+Route::post('/logout/partenaire', [PartenaireAuthenticatedSessionController::class, 'destroy'])
+    ->name('partenaire.logout')
+    ->middleware('auth:partenaire');
+
 Route::get('/partenaires/dashboard', [PartenaireAuthenticatedSessionController::class, 'dashboard'])
     ->name('partenaires.dashboard');
 Route::get('/partenaires/prestations', [PrestationController::class, 'prestationsPartenaire'])
         ->name('partenaires.prestations');
 
-Route::get('/partenaires/prestations/nouvelle', [PrestationController::class, 'newPrestationPartenaire'])
-    ->name('partenaires.nouvelle-prestation');
-Route::post('/partenaire/rechercher-adherent', [CentreSanteController::class, 'searchAdherent'])->name('partenaire.searchAdherent');
+Route::match(['get', 'post'], '/partenaires/prestations/nouvelle', [PrestationController::class, 'newPrestationPartenaire'])
+        ->name('partenaires.nouvelle-prestation');
+    
+    
+Route::post('/partenaire/rechercher-adherent', [PartenaireController::class, 'searchAdherent'])->name('partenaire.searchAdherent');
 
 Route::post('/partenaires/prestations/store', [PrestationController::class, 'storePrestationPartenaire'])
     ->name('partenaires.nouvelle-prestation.store');
+Route::resource('restrictions', RestrictionController::class);
 
 Route::middleware('auth:adherent')->group(function () {
     Route::get('/adherents/change-password', [AdherantAuthenticatedSessionController::class, 'showChangePasswordForm'])->name('adherents.change-password');
@@ -156,7 +165,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('parametres', ParametreController::class);
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
-    Route::resource('centres-sante', CentreSanteController::class);
+    Route::resource('partenaires', PartenaireController::class);
 
     //DEBUT COMPTABILITE
     Route::resource('demandes', DemandeController ::class);

@@ -29,7 +29,7 @@ class Prestation extends Model
 
     public function partenaire()
     {
-        return $this->belongsTo(CentreSante::class); 
+        return $this->belongsTo(Partenaire::class); 
     }
 
 }

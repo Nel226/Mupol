@@ -1,8 +1,8 @@
 <x-guest-layout>
     <div  class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-white dark:bg-gray-900" style="background: linear-gradient(15deg, white 50%, rgb(227, 226, 227) 50.1%);">
-        <div>
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+        <div class="!w-[10%] ">
+            <a href="/"  >
+                <x-application-logo class=" fill-current text-gray-500" />
             </a>
         </div>
     

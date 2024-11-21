@@ -75,7 +75,7 @@
                     </div>
 
                     <!-- Carte des Centres de santé -->
-                    <a href="{{ route('centres-sante.index') }}" class="block">
+                    <a href="{{ route('partenaires.index') }}" class="block">
                         <div class="bg-white h-full rounded-lg shadow-md p-8">
                             <div class="flex items-center">
                                 <div class="bg-blue-500 text-white p-3 rounded-full">

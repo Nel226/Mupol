@@ -20,6 +20,9 @@ class ActeMedical extends Model
         
         'code',
         'designation',
+        'plafond',
+        'date_creation',
+        'date_invalidite',
         'categorie',
         'type',
         'sous_type',

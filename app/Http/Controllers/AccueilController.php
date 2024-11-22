@@ -148,7 +148,7 @@ class AccueilController extends Controller
                         'adherant_id' => $adherent->id ,
     
                         'date_naissance' => $ayantDroitData['date_naissance'],
-                        'relation' => $ayantDroitData['lien_parente'],
+                        'relation' => $ayantDroitData['relation'],
                         'code' => $adherent->matricule . '/0' .$index,
                         'position' => $index, 
     

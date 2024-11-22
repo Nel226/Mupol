@@ -9,10 +9,9 @@ class AyantDroit extends Model
 {
     use HasFactory;
     protected $fillable = [
-         'nom', 'prenom', 'sexe', 'date_naissance', 'relation', 'code', 'adherant_id'
+        'nom', 'prenom', 'sexe', 'date_naissance', 'relation', 'code', 'adherant_id'
     ];
 
-   
     public function adherant()
     {
         return $this->belongsTo(Adherant::class);

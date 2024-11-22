@@ -129,7 +129,7 @@ class WizardMembership extends Component
                         "ayantsDroits.$index.prenom" => 'required|string|max:255',
                         "ayantsDroits.$index.sexe" => 'required',
                         "ayantsDroits.$index.date_naissance" => 'required|date',
-                        "ayantsDroits.$index.lien_parente" => 'required|string|max:255',
+                        "ayantsDroits.$index.relation" => 'required|string|max:255',
 
                         "ayantsDroits.$index.photo" => 'nullable|image|max:1024',
                         "ayantsDroits.$index.cnib" => 'nullable|mimes:pdf|max:1024',
@@ -286,7 +286,7 @@ class WizardMembership extends Component
                 'prenom' => '',
                 'sexe' => '',
                 'date_naissance' => '',
-                'lien_parente' => '',
+                'relation' => '',
             ]);
         } else {
             $this->ayantsDroits = [];
@@ -294,7 +294,7 @@ class WizardMembership extends Component
     }
     public function changeLienParente($value, $index)
     {
-        $this->ayantsDroits[$index]['lien_parente'] = $value;
+        $this->ayantsDroits[$index]['relation'] = $value;
     }
 
     

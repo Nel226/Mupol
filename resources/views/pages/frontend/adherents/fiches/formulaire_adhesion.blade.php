@@ -514,7 +514,7 @@
                                     @endif
                                 </td>
                                 <td> {{ $ayantDroit['date_naissance'] }} </td>
-                                <td> {{ $ayantDroit['lien_parente'] }} </td>
+                                <td> {{ $ayantDroit['relation'] }} </td>
                             </tr>
                         @endforeach
             

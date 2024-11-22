@@ -15,11 +15,13 @@ return new class extends Migration
             $table->uuid('id')->primary(); 
             $table->string('code')->unique(); 
             $table->string('designation'); 
-            
-            $table->decimal('plafond', 10, 2); 
-            $table->date('date_creation'); 
-            $table->date('date_invalidite')->nullable();
-
+            $table->string('categorie');
+            $table->string('type');
+            $table->string('sous_type')->nullable();  
+            $table->integer('taux_remboursement')->default(0); 
+            $table->decimal('plafond_remboursement', 10, 2)->nullable(); 
+            $table->string('frequence_plafond')->nullable(); 
+            $table->string('beneficiaire'); 
             $table->timestamps();
         });
     }

@@ -1,3 +1,15 @@
+// Génère un UUID si le champ `id` est vide
+ 
+  'plafond',
+        'date_creation',
+        'date_invalidite',
+ 
+=======
+>>>>>>> Stashed changes
+ 
+foreignKey: foreignKey: <<<<<<< Updated upstream
+
+ 
 =======
 >>>>>>> Stashed changes
  

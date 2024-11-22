@@ -247,7 +247,7 @@
                         <th>Code</th>
                         <th>Désignation (Actes médicaux)</th>
                         <th>Plafond</th>
-                        <th>Code/Acte</th>
+                        <th>Coût/Acte</th>
                         <th>Actions</th>
                     </tr>
                 </thead>

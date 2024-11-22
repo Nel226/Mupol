@@ -1,3 +1,9 @@
+=======
+>>>>>>> Stashed changes
+ 
+: BelongsTo<<<<<<< Updated upstream
+
+ 
  (clinique privée)
  
 // Génère un UUID si le champ `id` est vide

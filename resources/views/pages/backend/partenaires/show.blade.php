@@ -33,20 +33,20 @@
                 <section class="bg-white dark:bg-gray-900">
                     <div class="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
 
-                        <img class="w-full max-h-[400px] h-auto dark:hidden" src="{{ Storage::url($centre->photo) }}" alt="Centre de santé image">
-                        <img class="w-full max-h-[400px] h-auto hidden dark:block" src="{{ Storage::url($centre->photo) }}" alt="Centre de santé image">
+                        <img class="w-full max-h-[400px] h-auto dark:hidden" src="{{ Storage::url($partenaire->photo) }}" alt="partenaire de santé image">
+                        <img class="w-full max-h-[400px] h-auto hidden dark:block" src="{{ Storage::url($partenaire->photo) }}" alt="partenaire de santé image">
 
                         <div class="mt-4 md:mt-0">
                             <h2 class="mb-6 text-3xl font-extrabold text-gray-900 dark:text-white">Détails</h2>
                             <div class="card bg-gray-50 dark:bg-gray-800 p-6 rounded-lg shadow-md">
                                 <div class="card-body">
-                                    <p class="text-lg font-semibold text-gray-700 dark:text-gray-300"><strong>Type :</strong> {{ $centre->type }}</p>
-                                    <p class="text-lg font-semibold text-gray-700 dark:text-gray-300"><strong>Adresse :</strong> {{ $centre->adresse }}</p>
-                                    <p class="text-lg font-semibold text-gray-700 dark:text-gray-300"><strong>Téléphone :</strong> {{ $centre->telephone }}</p>
-                                    <p class="text-lg font-semibold text-gray-700 dark:text-gray-300"><strong>Email :</strong> {{ $centre->email }}</p>
-                                    <p class="text-lg font-semibold text-gray-700 dark:text-gray-300"><strong>Région :</strong> {{ $centre->region }}</p>
-                                    <p class="text-lg font-semibold text-gray-700 dark:text-gray-300"><strong>Province :</strong> {{ $centre->province }}</p>
-                                    <p class="text-lg font-semibold text-gray-700 dark:text-gray-300"><strong>Date d'affiliation :</strong> {{ $centre->date_affiliation }}</p>
+                                    <p class="text-lg font-semibold text-gray-700 dark:text-gray-300"><strong>Type :</strong> {{ $partenaire->type }}</p>
+                                    <p class="text-lg font-semibold text-gray-700 dark:text-gray-300"><strong>Adresse :</strong> {{ $partenaire->adresse }}</p>
+                                    <p class="text-lg font-semibold text-gray-700 dark:text-gray-300"><strong>Téléphone :</strong> {{ $partenaire->telephone }}</p>
+                                    <p class="text-lg font-semibold text-gray-700 dark:text-gray-300"><strong>Email :</strong> {{ $partenaire->email }}</p>
+                                    <p class="text-lg font-semibold text-gray-700 dark:text-gray-300"><strong>Région :</strong> {{ $partenaire->region }}</p>
+                                    <p class="text-lg font-semibold text-gray-700 dark:text-gray-300"><strong>Province :</strong> {{ $partenaire->province }}</p>
+                                    <p class="text-lg font-semibold text-gray-700 dark:text-gray-300"><strong>Date d'affiliation :</strong> {{ $partenaire->date_affiliation }}</p>
                                 </div>
 
                                 <!-- Actions -->

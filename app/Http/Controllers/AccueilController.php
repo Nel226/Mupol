@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Mail\AdherantRegistrationMail;
 use App\Models\AyantDroit;
 use App\Helpers\PasswordHelper;
-use App\Http\Controllers\PartenaireController;
+use App\Models\Partenaire;
 
 class AccueilController extends Controller
 {
@@ -220,8 +220,10 @@ class AccueilController extends Controller
     public function partenaires()
     {
         $partenaires = Partenaire::all();
-        
-        return view('pages.frontend.partenaires.liste-partenaires');
+         // Grouper les partenaires par type
+        $groupedPartenaires = $partenaires->groupBy('type');
+
+        return view('pages.frontend.partenaires.liste-partenaires', compact('partenaires', 'groupedPartenaires'));
     }
 
 }

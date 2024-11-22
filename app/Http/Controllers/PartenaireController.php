@@ -82,9 +82,12 @@ class PartenaireController extends Controller
         
         
         $validatedData = $request->validated();
+        $validatedData['photo'] = $photoPath;
         $validatedData['password'] = Hash::make('123456789'); 
+        
         Partenaire::create($validatedData);
-            return redirect()->route('partenaires.index')->with('success', 'Partenaire de santé ajouté avec succès.');
+
+        return redirect()->route('partenaires.index')->with('success', 'Partenaire de santé ajouté avec succès.');
     }
 
     /**

@@ -24,7 +24,7 @@ class StoreActeMedicalRequest extends FormRequest
         return [
             'code' => 'required|string|max:255|unique:acte_medicals,code',
             'designation' => 'required|string|max:255',
-            'cout' => 'required|numeric|min:0',
+            
             'plafond' => 'required|numeric|min:0',
             'date_creation' => 'required|date',
             'date_invalidite' => 'nullable|date|after_or_equal:date_creation',

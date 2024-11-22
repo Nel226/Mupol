@@ -179,7 +179,7 @@
 
             @role('controleur')
             <li>
-                <a href="{{ route('centres-sante.index') }}" class="@if(Request::is('centres-sante') || Request::is('centres-sante/*')) active @endif flex items-center px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
+                <a href="{{ route('partenaires.index') }}" class="@if(Request::is('centres-sante') || Request::is('centres-sante/*')) active @endif flex items-center px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
                     <i class="fa fa-handshake-o dark:text-gray-400 group-hover:text-black"></i>
                     <span class="ml-3">Gestion des partenaires</span>
                 </a>

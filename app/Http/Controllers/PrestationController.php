@@ -208,7 +208,7 @@ class PrestationController extends Controller
         $prestationsToSave = [];
 
         foreach ($types as $type) {
-          
+        
             for ($i = 0; $i <= 20; $i++) { 
                 $typeSuffix = $i > 0 ? "-$i" : ''; 
                 if (!empty($data["date_$type$typeSuffix"]) && !empty($data["centre_$type$typeSuffix"]) && !empty($data["montant_$type$typeSuffix"])) {

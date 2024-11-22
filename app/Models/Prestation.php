@@ -30,10 +30,13 @@ class Prestation extends Model
     public function partenaire()
     {
         return $this->belongsTo(Partenaire::class); 
+<<<<<<< Updated upstream
     }
     public function acteMedical()
     {
         return $this->belongsTo(ActeMedical::class, 'acte_medical_id');
+=======
+>>>>>>> Stashed changes
     }
 
 }

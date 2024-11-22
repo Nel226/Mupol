@@ -1,0 +1,210 @@
+ (clinique privée)
+ 
+// Génère un UUID si le champ `id` est vide
+ 
+        // Générer automatiquement un UUID pour chaque nouveau modèle
+
+ 
+   protected static function boot()
+    {
+        parent::boot();
+
+        // Générer automatiquement un UUID pour chaque nouveau modèle
+        static::creating(function ($model) {
+            $model->id = (string) \Illuminate\Support\Str::uuid();
+        });
+    }
+ 
+   protected static function boot()
+    {
+        parent::boot();
+
+        // Générer automatiquement un UUID pour chaque nouveau modèle
+        static::creating(function ($model) {
+            $model->id = (string) \Illuminate\Support\Str::uuid();
+        });
+    }
+ 
+        'id',
+
+ 
+Seeder
+ 
+ 'id',
+        'code',
+        'designation',
+ 
+'cout',
+        'plafond',
+        'date_creation',
+        'date_invalidite',
+
+ 
+->nullable()
+ 
+, [
+                'consultation',
+                'hospitalisation',
+                'radio',
+                'maternite',
+                'allocation',
+                'analyse_biomedicale',
+                'pharmacie',
+                'optique',
+                'dentaire_auditif',
+                'autre'
+            ])->nullable(); 
+ 
+            $table->date('date_invalidite')->nullable();
+
+ 
+            $table->date('date_creation'); 
+
+ 
+            $table->decimal('plafond', 10, 2); 
+
+ 
+            $table->string('categorie'); // Catégorie de l'acte médical (ex: soins ambulatoires, hospitalisation, etc.)
+
+ 
+principale
+ 
+_prestation
+ 
+// Type d'acte (ex: IRM, consultation, etc.)
+ 
+// Taux de remboursement en %
+ 
+// Plafond de remboursement
+ 
+            $table->string('unite_plafond')->nullable(); // Unité du plafond (ex: F)
+
+ 
+// Fréquence de remboursement (ex: /an, /séance, etc.)
+ 
+// Bénéficiaire (ex: /famille, /personne)
+ 
+// Catégorie principale de l'acte
+ 
+            $table->decimal('cout', 10, 2); 
+
+ 
+<div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mx-auto">
+            
+        
+        </div>
+ 
+                                <button onclick="addRow('actesMedicauxBody')" class="bg-green-500 text-white px-4 py-2 rounded mt-4">Ajouter une ligne</button>
+
+ 
+                                <button onclick="addRow('prescriptionBody')" class="bg-green-500 text-white px-4 py-2 rounded mt-4">Ajouter une ligne</button>
+
+ 
+add
+ 
+green-500 text-white px-4 py-2 rounded mt-4
+ 
+            // Fonction pour supprimer une ligne
+
+ 
+                                <button onclick="addRow('prescriptionBody')" class="bg-green-500 text-white px-4 py-2 rounded mt-4">Ajouter une ligne</button>
+
+ 
+            // Fonction pour ajouter une ligne dans un tableau
+
+ 
+            // Fonction pour afficher/masquer une section
+
+ 
+                                <button onclick="addRow('actesMedicauxBody')" class="bg-green-500 text-white px-4 py-2 rounded mt-4">Ajouter une ligne</button>
+
+ 
+<button onclick="addRowToTable('actesMedicauxBody')" class="bg-green-500 text-white px-4 py-2 rounded mt-2">
+                                    Ajouter une ligne
+                                </button>
+ 
+ <div class="section-title">3. ACTES MEDICAUX</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Code</th>
+                    <th>Désignation (Actes médicaux)</th>
+                    <th>Plafond</th>
+                    <th>Code/Acte</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input type="text" class="input-field"></td>
+                    <td><input type="text" class="input-field"></td>
+                    <td><input type="text" class="input-field"></td>
+                    <td><input type="text" class="input-field"></td>
+                </tr>
+                <tr>
+                    <td><input type="text" class="input-field"></td>
+                    <td><input type="text" class="input-field"></td>
+                    <td><input type="text" class="input-field"></td>
+                    <td><input type="text" class="input-field"></td>
+                </tr>
+                <tr>
+                    <td><input type="text" class="input-field"></td>
+                    <td><input type="text" class="input-field"></td>
+                    <td><input type="text" class="input-field"></td>
+                    <td><input type="text" class="input-field"></td>
+                </tr>
+                <tr><td colspan="4" class="important">IMPORTANT ! Validité du bulletin de prise en charge : 5 jours - Taux = 80%</td></tr>
+            </tbody>
+        </table>
+
+        <div class="section-title">4. PRESCRIPTION MEDICAMENTEUSE</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>N°</th>
+                    <th>Médicaments</th>
+                    <th>Posologie</th>
+                    <th>Quantité</th>
+                    <th>Prix Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td><input type="text" class="input-field"></td><td><input type="text" class="input-field"></td><td><input type="number" class="input-field"></td><td><input type="number" class="input-field"></td></tr>
+                <tr><td>2</td><td><input type="text" class="input-field"></td><td><input type="text" class="input-field"></td><td><input type="number" class="input-field"></td><td><input type="number" class="input-field"></td></tr>
+                <tr><td colspan="5" class="important">IMPORTANT ! Validité du bulletin de prise en charge : 5 jours - Taux = 80%</td></tr>
+            </tbody>
+        </table>
+
+        <div class="section-title">5. EXAMENS COMPLEMENTAIRES</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Code</th>
+                    <th>Désignation (Actes médicaux)</th>
+                    <th>Plafond</th>
+                    <th>Code/Acte</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td><input type="text" class="input-field"></td><td><input type="text" class="input-field"></td><td><input type="text" class="input-field"></td><td><input type="text" class="input-field"></td></tr>
+                <tr><td colspan="4" class="important">IMPORTANT ! Validité du bulletin de prise en charge : 5 jours - Taux = 80%</td></tr>
+            </tbody>
+        </table>
+ 
+                // Réinitialiser les radios et remplir le statut
+
+ 
+                // Remplir les champs automatiquement
+
+ 
+                // Réinitialiser les radios et remplir le sexe
+
+ 
+ (Partenaire)
+ 
+(Adhérent)
+ 
+                                    <!-- L'utilisateur est connecté à un des guards -->
+
+ 
+href="{{ route('adherent.login') }}"
+ 

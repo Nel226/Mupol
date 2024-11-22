@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
+
 
 class ActeMedical extends Model
 {
@@ -15,13 +17,16 @@ class ActeMedical extends Model
     protected $keyType = 'string';
 
     protected $fillable = [
-        'id',
+        
         'code',
         'designation',
-        'cout',
-        'plafond',
-        'date_creation',
-        'date_invalidite',
+        'categorie',
+        'type',
+        'sous_type',
+        'taux_remboursement',
+        'plafond_remboursement',
+        'frequence_plafond',
+        'beneficiaire',
     ];
 
     public function prestations()
@@ -29,13 +34,16 @@ class ActeMedical extends Model
         return $this->hasMany(Prestation::class, 'acte_medical_id');
     }
 
+ 
+
     protected static function boot()
     {
         parent::boot();
 
-        // Générer automatiquement un UUID pour chaque nouveau modèle
         static::creating(function ($model) {
-            $model->id = (string) \Illuminate\Support\Str::uuid();
+            if (empty($model->id)) {
+                $model->id = (string) Str::uuid(); 
+            }
         });
     }
 }

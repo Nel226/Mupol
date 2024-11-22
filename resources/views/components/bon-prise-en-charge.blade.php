@@ -211,15 +211,24 @@
                 var sexe = selectedOption.getAttribute('data-sexe');
                 var statut = selectedOption.getAttribute('data-statut');
                 var nomPrenom = selectedOption.getAttribute('data-nom-prenom');
-        
-                // Remplir les champs automatiquement
+                var dateNaissance = selectedOption.getAttribute('data-date-naissance');
+
                 document.getElementById('nomPrenom').value = nomPrenom;
         
-                // Réinitialiser les radios et remplir le sexe
                 document.getElementById('sexeM').checked = (sexe === 'M');
                 document.getElementById('sexeF').checked = (sexe === 'F');
         
-                // Réinitialiser les radios et remplir le statut
+                if (dateNaissance) {
+                    var birthDate = new Date(dateNaissance);
+                    var age = new Date().getFullYear() - birthDate.getFullYear();
+                    var m = new Date().getMonth() - birthDate.getMonth();
+                    if (m < 0 || (m === 0 && new Date().getDate() < birthDate.getDate())) {
+                        age--;
+                    }
+                    document.getElementById('age').value = age;
+                }
+        
+
                 document.getElementById('statutConjoint').checked = (statut === 'conjoint');
                 document.getElementById('statutEnfant').checked = (statut === 'enfant');
             });
@@ -229,72 +238,135 @@
         <p class="small-note">Signature : 
             <br>
         </p>
-        <div class="section-title">3. ACTES MEDICAUX</div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Code</th>
-                    <th>Désignation (Actes médicaux)</th>
-                    <th>Plafond</th>
-                    <th>Code/Acte</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><input type="text" class="input-field"></td>
-                    <td><input type="text" class="input-field"></td>
-                    <td><input type="text" class="input-field"></td>
-                    <td><input type="text" class="input-field"></td>
-                </tr>
-                <tr>
-                    <td><input type="text" class="input-field"></td>
-                    <td><input type="text" class="input-field"></td>
-                    <td><input type="text" class="input-field"></td>
-                    <td><input type="text" class="input-field"></td>
-                </tr>
-                <tr>
-                    <td><input type="text" class="input-field"></td>
-                    <td><input type="text" class="input-field"></td>
-                    <td><input type="text" class="input-field"></td>
-                    <td><input type="text" class="input-field"></td>
-                </tr>
-                <tr><td colspan="4" class="important">IMPORTANT ! Validité du bulletin de prise en charge : 5 jours - Taux = 80%</td></tr>
-            </tbody>
-        </table>
+        <!-- Section 3 : Actes Médicaux -->
+        <div id="section3" class="hidden">
+            <div class="section-title">3. ACTES MEDICAUX</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Désignation (Actes médicaux)</th>
+                        <th>Plafond</th>
+                        <th>Code/Acte</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="actesMedicauxBody">
+                    <tr>
+                        <td><input type="text" class="input-field"></td>
+                        <td><input type="text" class="input-field"></td>
+                        <td><input type="text" class="input-field"></td>
+                        <td><input type="text" class="input-field"></td>
+                        <td><button onclick="deleteRow(this)" class="bg-red-500 text-white px-2 py-1 rounded"><i class=" fa fa-trash"></i></button></td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr><td colspan="5" class="important">IMPORTANT ! Validité du bulletin de prise en charge : 5 jours - Taux = 80%</td></tr>
+                    <tr>
+                        <td colspan="5" class="text-center border-t border-gray-300">
+                            <x-primary-button onclick="addRow('actesMedicauxBody')" class="bg-[#4000FF]"><i class="fa  fa-plus-circle"></i></x-primary-button>
 
-        <div class="section-title">4. PRESCRIPTION MEDICAMENTEUSE</div>
-        <table>
-            <thead>
-                <tr>
-                    <th>N°</th>
-                    <th>Médicaments</th>
-                    <th>Posologie</th>
-                    <th>Quantité</th>
-                    <th>Prix Total</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr><td>1</td><td><input type="text" class="input-field"></td><td><input type="text" class="input-field"></td><td><input type="number" class="input-field"></td><td><input type="number" class="input-field"></td></tr>
-                <tr><td>2</td><td><input type="text" class="input-field"></td><td><input type="text" class="input-field"></td><td><input type="number" class="input-field"></td><td><input type="number" class="input-field"></td></tr>
-                <tr><td colspan="5" class="important">IMPORTANT ! Validité du bulletin de prise en charge : 5 jours - Taux = 80%</td></tr>
-            </tbody>
-        </table>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    
+        <!-- Section 4 : Prescription Médicamenteuse -->
+        <div id="section4" class="hidden">
+            <div class="section-title">4. PRESCRIPTION MEDICAMENTEUSE</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>N°</th>
+                        <th>Médicaments</th>
+                        <th>Posologie</th>
+                        <th>Quantité</th>
+                        <th>Prix Total</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="prescriptionBody">
+                    <tr>
+                        <td>1</td>
+                        <td><input type="text" class="input-field"></td>
+                        <td><input type="text" class="input-field"></td>
+                        <td><input type="number" class="input-field"></td>
+                        <td><input type="number" class="input-field"></td>
+                        <td><button onclick="deleteRow(this)" class="bg-red-500 text-white px-2 py-1 rounded"><i class=" fa fa-trash"></i></button></td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr><td colspan="6" class="important">IMPORTANT ! Validité du bulletin de prise en charge : 5 jours - Taux = 80%</td></tr>
+                    <tr>
+                        <td colspan="6" class="text-center border-t border-gray-300"> 
+                            <x-primary-button onclick="addRow('prescriptionBody')" class="bg-[#4000FF]"><i class="fa  fa-plus-circle"></i></x-primary-button>
 
-        <div class="section-title">5. EXAMENS COMPLEMENTAIRES</div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Code</th>
-                    <th>Désignation (Actes médicaux)</th>
-                    <th>Plafond</th>
-                    <th>Code/Acte</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr><td><input type="text" class="input-field"></td><td><input type="text" class="input-field"></td><td><input type="text" class="input-field"></td><td><input type="text" class="input-field"></td></tr>
-                <tr><td colspan="4" class="important">IMPORTANT ! Validité du bulletin de prise en charge : 5 jours - Taux = 80%</td></tr>
-            </tbody>
-        </table>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    
+        <!-- Section 5 : Examens Complémentaires -->
+        <div id="section5" class="hidden">
+            <div class="section-title">5. EXAMENS COMPLEMENTAIRES</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Désignation (Actes médicaux)</th>
+                        <th>Plafond</th>
+                        <th>Code/Acte</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="examensBody">
+                    <tr>
+                        <td><input type="text" class="input-field"></td>
+                        <td><input type="text" class="input-field"></td>
+                        <td><input type="text" class="input-field"></td>
+                        <td><input type="text" class="input-field"></td>
+                        <td><button onclick="deleteRow(this)" class="bg-red-500 text-white px-2 py-1 rounded"><i class=" fa fa-trash"></i></button></td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr><td colspan="5" class="important">IMPORTANT ! Validité du bulletin de prise en charge : 5 jours - Taux = 80%</td></tr>
+                    <tr>
+                        <td colspan="5" class="text-center border-t border-gray-300">    
+                            <x-primary-button onclick="addRow('examensBody')" class="bg-[#4000FF]"><i class="fa  fa-plus-circle"></i></x-primary-button>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <!-- Boutons pour afficher/masquer les sections -->
+        <div class="flex space-x-4 mb-6">
+            <button onclick="toggleSection('section3')" class="bg-blue-500 text-white px-4 py-2 rounded">Afficher/Cacher Actes Médicaux</button>
+            <button onclick="toggleSection('section4')" class="bg-blue-500 text-white px-4 py-2 rounded">Afficher/Cacher Prescription Médicamenteuse</button>
+            <button onclick="toggleSection('section5')" class="bg-blue-500 text-white px-4 py-2 rounded">Afficher/Cacher Examens Complémentaires</button>
+        </div>
+        
+        
+        <script>
+            function toggleSection(sectionId) {
+                const section = document.getElementById(sectionId);
+                section.classList.toggle('hidden');
+            }
+        
+            function addRow(tbodyId) {
+                const tbody = document.getElementById(tbodyId);
+                const newRow = tbody.querySelector('tr').cloneNode(true);
+                tbody.appendChild(newRow);
+            }
+        
+            function deleteRow(button) {
+                const row = button.parentNode.parentNode;
+                row.parentNode.removeChild(row);
+            }
+        </script>
+        
 
         <p class="small-note">Signature et cachet médecin prescripteur : 
             <br>

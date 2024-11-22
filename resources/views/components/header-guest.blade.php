@@ -5,7 +5,6 @@
                 z-index: 50;
                 position: relative;
                 top: 0px;
-                /* Ajoutez des styles pour la barre de navigation */
             }
         </style>
         <!-- Topbar -->
@@ -79,10 +78,10 @@
                            
                             <div class="get-quote">
 
-                                @if (!Auth::guard('adherent')->check())
+                                @if (!Auth::guard('adherent')->check() && !Auth::guard('partenaire')->check())
 
                                     <a href="{{ route('adherent.login') }}">
-                                        <x-primary-button class=" !bg-white !text-[#4000FF] " href="{{ route('adherent.login') }}">
+                                        <x-primary-button class=" !bg-white !text-[#4000FF] " >
                                             <i class=" fa fa-unlock-alt "></i>
                                             Connexion
                                         </x-primary-button>    
@@ -111,17 +110,27 @@
                                             </div>
                                         </div>
                                     </div>                            
-                                @else
-                                <form class="flex" action="{{ route('adherent.logout') }}" method="post">
-                                    @csrf
-                                    <x-primary-button class=" !bg-white !text-[#4000FF] " href="{{ route('adherent.login') }}">
-                                        <i class=" fa fa-unlock-alt "></i>
-                                        Déconnexion
-                                    </x-primary-button>  
-                                       
-                                </form>
-                                    
-                                @endif
+                                    @else
+                                        @if (Auth::guard('adherent')->check())
+                                            <!-- Formulaire de déconnexion pour adherent -->
+                                            <form class="flex" action="{{ route('adherent.logout') }}" method="post">
+                                                @csrf
+                                                <x-primary-button class="!bg-white !text-[#4000FF]">
+                                                    <i class="fa fa-unlock-alt"></i>
+                                                    Déconnexion
+                                                </x-primary-button>
+                                            </form>
+                                        @elseif (Auth::guard('partenaire')->check())
+                                            <!-- Formulaire de déconnexion pour partenaire -->
+                                            <form class="flex" action="{{ route('partenaire.logout') }}" method="post">
+                                                @csrf
+                                                <x-primary-button class="!bg-white !text-[#4000FF]">
+                                                    <i class="fa fa-unlock-alt"></i>
+                                                    Déconnexion
+                                                </x-primary-button>
+                                            </form>
+                                        @endif
+                                    @endif
                               
                                 
                                 <script>

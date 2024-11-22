@@ -16,11 +16,11 @@ return new class extends Migration
             $table->string('nom'); 
             $table->string('type'); 
             $table->string('adresse'); 
+            $table->string('geolocalisation'); 
             $table->string('telephone'); 
             $table->string('email');
             $table->string('region');
             $table->string('province');
-            $table->date('date_affiliation')->nullable();
             $table->string('photo')->nullable(); 
             $table->string('password'); 
             $table->timestamps();

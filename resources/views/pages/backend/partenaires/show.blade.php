@@ -68,11 +68,12 @@
                                         </x-primary-button>
                                     </form>
                                 </div>
+                
                             </div>
                         </div>
                     </div>
                 </section>
-            </div>
+
             
         </div>
     </x-content-page>

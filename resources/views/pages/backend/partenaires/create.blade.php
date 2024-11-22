@@ -61,13 +61,20 @@
                             </div>
 
                             <!-- Adresse -->
-                            <div class="w-full col-span-2">
+                            <div class="w-full">
                                 <label for="adresse" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Adresse</label>
-                                <textarea name="adresse" id="adresse" rows="4" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Adresse du partenaire" required></textarea>
+                                <input type="text" name="adresse" id="adresse" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Entrez une adresse" required>
                                 @error('adresse')
                                     <p class="text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
+                            <div class="w-full">
+                                <label for="geolocalisation" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Lien Google Maps</label>
+                                <input type="url" name="geolocalisation" id="geolocalisation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Entrez un lien Google Maps" required>
+                                @error('geolocalisation')
+                                    <p class="text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>    
 
                             <!-- Téléphone -->
                             <div class="w-full">
@@ -109,20 +116,53 @@
                                 @enderror
                             </div>
 
-                            <!-- Photo  -->
+                            <!-- Photo -->
                             <div class="w-full col-span-2">
                                 <label for="photo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Photo</label>
-                                <input type="file" name="photo" id="photo" accept="image/*" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                <input 
+                                    type="file" 
+                                    name="photo" 
+                                    id="photo" 
+                                    accept="image/*" 
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                                 @error('photo')
                                     <p class="text-sm text-red-600">{{ $message }}</p>
                                 @enderror
 
                                 <div class="mt-4">
-                                    <img id="preview" src="#" alt="Prévisualisation de l'image" class="hidden max-w-full h-auto border border-gray-300 rounded-lg">
+                                    <img 
+                                        id="preview" 
+                                        src="#" 
+                                        alt="Prévisualisation de l'image" 
+                                        class="hidden max-w-full h-auto border border-gray-300 rounded-lg">
                                 </div>
                             </div>
 
-                          
+                            <!-- Script pour gérer la prévisualisation -->
+                            <script>
+                                document.getElementById('photo').addEventListener('change', function (event) {
+                                    const file = event.target.files[0]; // Obtenir le fichier sélectionné
+                                    const preview = document.getElementById('preview'); // L'élément img pour prévisualisation
+                                    
+                                    if (file) {
+                                        const reader = new FileReader(); // Créer un lecteur de fichier
+                                        
+                                        reader.onload = function (e) {
+                                            preview.src = e.target.result; // Définir la source de l'image
+                                            preview.classList.remove('hidden'); // Afficher l'image
+                                        };
+                                        
+                                        reader.readAsDataURL(file); // Lire le fichier comme URL
+                                    } else {
+                                        preview.src = '#'; // Réinitialiser la source si aucun fichier sélectionné
+                                        preview.classList.add('hidden'); // Cacher l'image
+                                    }
+                                });
+                            </script>
+
+
+                           
+                            
             
 
                             <script>

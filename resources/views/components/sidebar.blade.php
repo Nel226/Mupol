@@ -179,7 +179,7 @@
 
             @role('controleur')
             <li>
-                <a href="{{ route('partenaires.index') }}" class="@if(Request::is('centres-sante') || Request::is('centres-sante/*')) active @endif flex items-center px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
+                <a href="{{ route('partenaires.index') }}" class="@if(Request::is('partenaires') || Request::is('partenaires/*')) active @endif flex items-center px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
                     <i class="fa fa-handshake-o dark:text-gray-400 group-hover:text-black"></i>
                     <span class="ml-3">Gestion des partenaires</span>
                 </a>
@@ -194,7 +194,7 @@
                 </a>
             </li>
             @endrole
-            <!-- Suivi des Prestations (Controleur) -->
+            {{--  <!-- Suivi des Prestations (Controleur) -->
             @role('controleur')
             <li x-data="{ open: true }" class="relative">
                 <a href="#" @click.prevent="open = !open" class="flex items-center px-4 py-3 text-white transition-transform transform rounded-lg hover:bg-indigo-700 group">
@@ -216,7 +216,7 @@
 
                 </ol>
             </li>
-            @endrole
+            @endrole  --}}
         </ul>
        
     </div>

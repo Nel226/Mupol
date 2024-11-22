@@ -16,7 +16,6 @@ class MembershipController extends Controller
             // Add other validation rules here
         ]);
 
-        // Store the data in the database
         $demandeAdhesion = DemandeAdhesion::create($validatedData);
 
         // Return a response with the ID for redirection

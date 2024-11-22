@@ -48,6 +48,7 @@ Route::get('/', [AccueilController::class, 'accueil'])->name(name: 'accueil');
 Route::get('/contacts', [AccueilController::class, 'contacts'])->name(name: 'contacts');
 Route::get('/services', [AccueilController::class, 'services'])->name(name: 'services');
 Route::get('/en-construction', [AccueilController::class, 'enConstruction'])->name(name: 'en-construction');
+Route::get('/partenaires/liste', [AccueilController::class, 'partenaires'])->name('liste-partenaires');
 
 Route::get('/formulaire-adhesion', [AccueilController::class, 'newAdhesion'])->name(name: 'formulaire-adhesion');
 Route::get('/resume-adhesion/{id}', [AccueilController::class, 'resumeAdhesion'])->name('resume-adhesion');
@@ -66,6 +67,7 @@ Route::get('/login/adherent', [AdherantAuthenticatedSessionController::class, 'c
 Route::post('/login/adherent', [AdherantAuthenticatedSessionController::class, 'store']);
 
 // Affichage du formulaire de connexion pour les partenaires
+
 Route::get('/login/partenaire', [PartenaireAuthenticatedSessionController::class, 'create'])->name('partenaire.login');
 
 Route::post('/login/partenaire', [PartenaireAuthenticatedSessionController::class, 'store']);
@@ -98,8 +100,6 @@ Route::middleware('auth:adherent')->group(function () {
 
     Route::get('/adherents/dashboard', [AdherantAuthenticatedSessionController::class, 'dashboard'])
         ->name('adherents.dashboard');
-
- 
 
 
     Route::get('/adherents/prestations', [PrestationController::class, 'prestations'])

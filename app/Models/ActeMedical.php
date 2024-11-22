@@ -34,7 +34,7 @@ class ActeMedical extends Model
         return $this->hasMany(Prestation::class, 'acte_medical_id');
     }
 
- 
+
 
     protected static function boot()
     {

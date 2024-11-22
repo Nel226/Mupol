@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Mail\AdherantRegistrationMail;
 use App\Models\AyantDroit;
 use App\Helpers\PasswordHelper;
+use App\Http\Controllers\PartenaireController;
 
 class AccueilController extends Controller
 {
@@ -214,6 +215,13 @@ class AccueilController extends Controller
     public function enConstruction()
     {
         return view('pages.frontend.under-construction');
+    }
+
+    public function partenaires()
+    {
+        $partenaires = Partenaire::all();
+        
+        return view('pages.frontend.partenaires.liste-partenaires');
     }
 
 }

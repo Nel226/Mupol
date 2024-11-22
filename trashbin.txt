@@ -1,3 +1,174 @@
+src="
+ 
+Hash::make('123456789')
+ 
+Hash::make('123456789')
+ 
+text-lg 
+ 
+text-lg 
+ 
+text-lg
+ 
+text-lg
+ 
+text-lg
+ 
+text-lg
+ 
+text-lg
+ 
+hidden
+ 
+                        <img class="w-full max-h-[400px] h-auto dark:hidden" src="{{ Storage::url($partenaire->photo) }}" alt="partenaire de santé image">
+
+ 
+max:100
+ 
+            'date_affiliation' => 'nullable|date',
+
+ 
+        'date_affiliation',
+
+ 
+            $table->date('date_affiliation')->nullable();
+
+ 
+<!-- Actions -->
+                                <div class="flex justify-end gap-4 mt-4">
+                                    <a href="{{ route('centres-sante.index') }}" class="btn btn-secondary text-white bg-gray-600 hover:bg-gray-700 rounded-lg py-2 px-4">
+                                        Retour à la liste
+                                    </a>
+                                    <a href="{{ route('centres-sante.edit', $centre) }}" class="btn btn-primary text-white bg-blue-600 hover:bg-blue-700 rounded-lg py-2 px-4">
+                                        Modifier
+                                    </a>
+                                    <form action="{{ route('centres-sante.destroy', $centre) }}" method="POST" class="d-inline" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce centre ?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger text-white bg-red-600 hover:bg-red-700 rounded-lg py-2 px-4">
+                                            Supprimer
+                                        </button>
+                                    </form>
+                                </div>
+ 
+col-span-2
+ 
+lien Google Maps
+ 
+                                <!-- Prévisualisation de l'image -->
+
+ 
+                            
+                           
+                            
+                       
+ 
+height="400px"
+ 
+ <div id="map-preview" class="w-full h-60 mt-4">
+                                <iframe id="map-iframe" width="100%" height="100%" style="border:0;" src="" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                            
+                            <script>
+                                document.getElementById('google_maps_link').addEventListener('input', function() {
+                                    const link = this.value;
+                                    const iframe = document.getElementById('map-iframe');
+                                    
+                                    // Vérification si l'URL appartient à Google Maps et si c'est un lien 'maps.app.goo.gl'
+                                    if (link.includes('maps.app.goo.gl')) {
+                                        // Extraire les coordonnées du lien 'maps.app.goo.gl'
+                                        const regex = /https:\/\/maps\.app\.goo\.gl\/([a-zA-Z0-9_-]+)/;
+                                        const match = link.match(regex);
+                                        
+                                        if (match) {
+                                            // Extraire le code de localisation
+                                            const placeId = match[1];
+                                            // Construire l'URL d'iframe avec la version correcte
+                                            iframe.src = `https://www.google.com/maps/embed/v1/place?q=${placeId}&key=AIzaSyDGqTyqoPIvYxhn_Sa7ZrK5bENUWhpCo0w`;
+                                        } else {
+                                            iframe.src = '';  // Effacer l'iframe si l'URL n'est pas valide
+                                        }
+                                    } else if (link.includes('google.com/maps')) {
+                                        // Si c'est un lien classique de Google Maps (exemple avec des coordonnées ou un lieu)
+                                        iframe.src = `https://www.google.com/maps/embed?pb=${encodeURIComponent(link.split('maps')[1])}`;
+                                    } else {
+                                        iframe.src = '';  // Effacer l'iframe si ce n'est pas un lien valide
+                                    }
+                                });
+                            </script>
+ 
+ <div class="w-full">
+                                <label for="google_maps_link" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Lien Google Maps</label>
+                                <input type="url" name="google_maps_link" id="google_maps_link" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Entrez un lien Google Maps" required>
+                                @error('google_maps_link')
+                                    <p class="text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+                            
+                            <div id="map-preview" class="w-full h-60 mt-4">
+                                <iframe id="map-iframe" width="100%" height="100%" style="border:0;" src="" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                            
+ 
+ <script>
+                                document.getElementById('google_maps_link').addEventListener('input', function() {
+                                    const link = this.value;
+                                    const iframe = document.getElementById('map-iframe');
+                            
+                                    // Vérification si l'URL appartient à Google Maps et si c'est un lien 'maps.app.goo.gl'
+                                    if (link.includes('maps.app.goo.gl')) {
+                                        // Ouvrir le lien dans un nouvel onglet ou dans une nouvelle fenêtre
+                                        window.open(link, '_blank');
+                                        iframe.src = '';  // Supprimer l'iframe
+                                    } else if (link.includes('google.com/maps')) {
+                                        // Pour un lien classique de Google Maps (comme une adresse ou des coordonnées)
+                                        iframe.src = `https://www.google.com/maps/embed?pb=${encodeURIComponent(link.split('maps')[1])}`;
+                                    } else {
+                                        iframe.src = '';  // Effacer l'iframe si ce n'est pas un lien valide
+                                    }
+                                });
+                            </script>
+ 
+<div class="w-full">
+                                <label for="google_maps_link" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Lien Google Maps</label>
+                                <input type="url" name="google_maps_link" id="google_maps_link" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Entrez un lien Google Maps" required>
+                                @error('google_maps_link')
+                                    <p class="text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+                            
+                            <div id="map-preview" class="w-full h-60 mt-4">
+                                <iframe id="map-iframe" width="100%" height="100%" style="border:0;" src="" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                            
+                            <script>
+                                document.getElementById('google_maps_link').addEventListener('input', function() {
+                                    const link = this.value;
+                                    const iframe = document.getElementById('map-iframe');
+                                    
+                                    // Vérification si l'URL appartient à Google Maps
+                                    if (link.includes('google.com/maps')) {
+                                        // Utilisation de l'iframe sans clé API
+                                        iframe.src = `https://www.google.com/maps/embed?pb=${encodeURIComponent(link.split('maps')[1])}`;
+                                    } else {
+                                        iframe.src = '';  // Effacer l'iframe si ce n'est pas un lien valide
+                                    }
+                                });
+                            </script>
+                            
+                            
+                            
+                          
+ 
+                                        iframe.src = `https://www.google.com/maps/embed/v1/place?key=YOUR_GOOGLE_MAPS_API_KEY&q=${latitude},${longitude}`;
+
+ 
+                            <!-- Zone d'aperçu de la carte -->
+
+ 
+        // Store the data in the database
+
+ 
 // Génère un UUID si le champ `id` est vide
  
   'plafond',

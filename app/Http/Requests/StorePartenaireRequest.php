@@ -29,7 +29,7 @@ class StorePartenaireRequest extends FormRequest
             'email' => 'nullable|email|max:255',
             'region' => 'required|string|max:100',
             'province' => 'required|string|max:100',
-            'date_affiliation' => 'nullable|date',
+            'geolocalisation' => 'required|string',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', 
         ];
     }

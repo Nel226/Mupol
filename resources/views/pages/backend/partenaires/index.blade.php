@@ -87,7 +87,7 @@
                                     <td>{{ $partenaire->email }}</td>
                                     <td>{{ $partenaire->region }}</td>
                                     <td>{{ $partenaire->province }}</td>
-                                    <td>{{ $partenaire->date_affiliation }}</td>
+                                    <td>{{ $partenaire->created_at }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -117,7 +117,7 @@
                                     <td>{{ $hopital->email }}</td>
                                     <td>{{ $hopital->region }}</td>
                                     <td>{{ $hopital->province }}</td>
-                                    <td>{{ $hopital->date_affiliation }}</td>
+                                    <td>{{ $hopital->created_at }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -147,7 +147,37 @@
                                     <td>{{ $clinique->email }}</td>
                                     <td>{{ $clinique->region }}</td>
                                     <td>{{ $clinique->province }}</td>
-                                    <td>{{ $clinique->date_affiliation }}</td>
+                                    <td>{{ $clinique->created_at }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pharmacies tab content -->
+                <div id="pharmacies" class="tab-content hidden">
+                    <table id="pharmacies-table" class="w-full text-sm text-left text-gray-500 border rtl:text-right dark:text-gray-400 display">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
+                            <tr>
+                                <th>Nom</th>
+                                <th>Adresse</th>
+                                <th>Téléphone</th>
+                                <th>Email</th>
+                                <th>Région</th>
+                                <th>Province</th>
+                                <th>Date d&apos;affiliation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($pharmacies as $pharmacie)
+                                <tr class="cursor-pointer" onclick="window.location='{{ route('partenaires.show', $pharmacie->id) }}'">
+                                    <td>{{ $pharmacie->nom }}</td>
+                                    <td>{{ $pharmacie->adresse }}</td>
+                                    <td>{{ $pharmacie->telephone }}</td>
+                                    <td>{{ $pharmacie->email }}</td>
+                                    <td>{{ $pharmacie->region }}</td>
+                                    <td>{{ $pharmacie->province }}</td>
+                                    <td>{{ $pharmacie->created_at }}</td>
                                 </tr>
                             @endforeach
                         </tbody>

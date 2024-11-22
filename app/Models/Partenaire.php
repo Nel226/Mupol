@@ -18,8 +18,9 @@ class Partenaire extends Authenticatable
         'email',
         'region',
         'province',
-        'date_affiliation',
         'photo',
+        'geolocalisation',
+
         'password',
     ];
 

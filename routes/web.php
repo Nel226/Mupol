@@ -15,6 +15,7 @@ use App\Http\Controllers\CsvImportController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ParametreController;
 use App\Http\Controllers\AyantDroitController;
+use App\Http\Controllers\ActeMedicalController;
 use App\Http\Controllers\BudgetController;
 
 use App\Http\Controllers\CaisseController;
@@ -157,6 +158,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
     Route::resource('centres-sante', CentreSanteController::class);
+    Route::resource('acte-medicals', ActeMedicalController::class);
 
     //DEBUT COMPTABILITE
     Route::resource('demandes', DemandeController ::class);

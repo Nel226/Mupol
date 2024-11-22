@@ -31,5 +31,9 @@ class Prestation extends Model
     {
         return $this->belongsTo(CentreSante::class); 
     }
+    public function acteMedical()
+    {
+        return $this->belongsTo(ActeMedical::class, 'acte_medical_id');
+    }
 
 }

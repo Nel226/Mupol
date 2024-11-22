@@ -221,7 +221,7 @@ class PrestationController extends Controller
                         'beneficiaire' => $data['beneficiaire'],
                         'idPrestation' => $data['idPrestation'],
                         'contactPrestation' => $data['contactPrestation'],
-                        'acte' => $data["acte$typeSuffix"],
+                        'acte_medical_id' => $data["acte_medical_id"], // Modifie
                         'date' => $data["date_$type$typeSuffix"],
                         'centre' => $data["centre_$type$typeSuffix"],
                         'montant' => $data["montant_$type$typeSuffix"],

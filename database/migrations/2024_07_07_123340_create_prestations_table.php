@@ -22,7 +22,9 @@ return new class extends Migration
             $table->string('idPrestation');
             $table->string('contactPrestation');
 
-            $table->string('acte');
+            $table->uuid('acte_medical_id')->nullable();
+            $table->foreign('acte_medical_id')->references('id')->on('acte_medicals')->onDelete('set null');
+            
             $table->date('date');
             $table->string('centre');
             $table->string('type')->nullable();

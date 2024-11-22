@@ -79,7 +79,7 @@ class CentreSanteController extends Controller
         
         
         $validatedData = $request->validated();
-        $validatedData['password'] = Hash::make('123456789'); 
+        $validatedData['password'] = Hash::make('123456789');
         CentreSante::create($validatedData);
             return redirect()->route('centres-sante.index')->with('success', 'Centre de santé ajouté avec succès.');
     }

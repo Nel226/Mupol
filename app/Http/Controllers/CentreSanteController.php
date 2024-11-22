@@ -178,3 +178,4 @@ class CentreSanteController extends Controller
     }
 
 }
+

@@ -449,7 +449,7 @@
                                                     <select wire:model="ayantsDroits.{{ $i }}.relation" wire:change="changeLienParente($event.target.value, {{ $i }})" class="border-2 rounded w-full py-1">
                                                         <option value="" disabled selected>Sélectionnez un lien</option>
                                                         <option value="conjoint">Conjoint (e)</option>
-                                                        <option value="autre">Enfant</option>
+                                                        <option value="enfant">Enfant</option>
                                                     </select>
                                                     @error('ayantsDroits.' . $i . '.relation')
                                                         <span class="text-red-500 text-xs">{{ $message }}</span>

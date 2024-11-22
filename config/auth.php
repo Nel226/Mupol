@@ -45,6 +45,7 @@ return [
             'driver' => 'session',
             'provider' => 'adherents', 
         ],
+        
         'partenaire' => [ 
             'driver' => 'session',
             'provider' => 'partenaires', 
@@ -78,9 +79,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\Adherant::class, 
         ],
+
         'partenaires' => [ 
             'driver' => 'eloquent',
-            'model' => App\Models\CentreSante::class, 
+            'model' => App\Models\Partenaire::class, 
         ],
 
         // 'users' => [

@@ -11,7 +11,7 @@
             
             <div class="container">
                 <x-primary-button>
-                    <a href="{{ route('partenaire.login') }}">Connexion</a>
+                    <a href="{{ route('user.login') }}">Connexion</a>
                 </x-primary-button>
                 
                 <div class="inner">

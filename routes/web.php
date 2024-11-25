@@ -11,6 +11,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdherantController;
 use App\Http\Controllers\Auth\AdherantAuthenticatedSessionController;
 use App\Http\Controllers\Auth\PartenaireAuthenticatedSessionController;
+use App\Http\Controllers\Auth\UserLoginDetectorController;
 use App\Http\Controllers\CsvImportController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ParametreController;
@@ -63,20 +64,31 @@ Route::post('/finalisation-adhesion', [AccueilController::class, 'finalAdhesion'
 Route::get('/cession-volontaire/{id}', [AccueilController::class, 'showCessionVolontaire'])->name('showCessionVolontaire');
 Route::get('/impression-fiche-cession/{id}', [AccueilController::class, 'imprimerFicheCession'])->name('imprimer-fiche-cession');
 
+
+
+// Affichage du formulaire de connexion
+
+// Authentification d'un Adhérent
 Route::get('/login/adherent', [AdherantAuthenticatedSessionController::class, 'create'])->name('adherent.login');
 Route::post('/login/adherent', [AdherantAuthenticatedSessionController::class, 'store']);
+Route::post('/logout/adherent', [AdherantAuthenticatedSessionController::class, 'destroy'])
+    ->name('adherent.logout')
+    ->middleware('auth:adherent');
 
-// Affichage du formulaire de connexion pour les partenaires
-
+// Authentification d'un Partenaire
 Route::get('/login/partenaire', [PartenaireAuthenticatedSessionController::class, 'create'])->name('partenaire.login');
-
 Route::post('/login/partenaire', [PartenaireAuthenticatedSessionController::class, 'store']);
 Route::post('/logout/partenaire', [PartenaireAuthenticatedSessionController::class, 'destroy'])
     ->name('partenaire.logout')
     ->middleware('auth:partenaire');
-
 Route::get('/partenaires/dashboard', [PartenaireAuthenticatedSessionController::class, 'dashboard'])
     ->name('partenaires.dashboard');
+
+// Detection automatique du Controller en fonction du User
+Route::get('/login/user', [UserLoginDetectorController::class, 'showLoginForm'])->name('user.login');
+Route::post('/login/user', [UserLoginDetectorController::class, 'authenticate']);
+
+
 Route::get('/partenaires/prestations', [PrestationController::class, 'prestationsPartenaire'])
         ->name('partenaires.prestations');
 
@@ -126,10 +138,6 @@ Route::middleware('auth:adherent')->group(function () {
 });
 Route::resource('prestations', PrestationController::class);
 
-
-Route::post('/logout/adherent', [AdherantAuthenticatedSessionController::class, 'destroy'])
-    ->name('adherent.logout')
-    ->middleware('auth:adherent');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 

@@ -45,7 +45,7 @@ class PartenaireAuthenticatedSessionController extends Controller
         Auth::guard('partenaire')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/login/partenaire');
+        return redirect('/login/user');
     }
     
 }

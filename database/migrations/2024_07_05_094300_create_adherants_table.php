@@ -58,9 +58,10 @@ return new class extends Migration
             $table->string('password');
             $table->boolean('must_change_password')->default(true);
             $table->boolean('is_adherent')->default(false);
-
-
             $table->timestamps();
+
+            // Indexation de la colonne 'email'
+            $table->index('email');
         });
     }
 
@@ -69,6 +70,11 @@ return new class extends Migration
      */
     public function down(): void
     {
+        // Suppression de l'index sur la colonne 'email'
+        Schema::table('adherants', function (Blueprint $table) {
+            $table->dropIndex(['email']);
+        });
+        
         Schema::dropIfExists('adherants');
     }
 };

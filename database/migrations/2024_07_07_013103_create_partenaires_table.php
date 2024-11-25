@@ -22,7 +22,9 @@ return new class extends Migration
             $table->string('region');
             $table->string('province');
             $table->string('photo')->nullable(); 
-            $table->string('password'); 
+            $table->string('password');
+            $table->boolean('must_change_password')->default(true);
+
             $table->timestamps();
 
              // Ajout de l'index sur la colonne 'email'

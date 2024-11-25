@@ -9,16 +9,16 @@ class AyantDroit extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'nom', 'prenom', 'sexe', 'date_naissance', 'relation', 'code', 'adherant_id'
+        'nom', 'prenom', 'sexe', 'date_naissance', 'relation', 'code', 'adherent_id'
     ];
 
-    public function adherant()
+    public function adherent()
     {
-        return $this->belongsTo(Adherant::class);
+        return $this->belongsTo(Adherent::class);
     }
     public function prestations()
     {
-        return $this->hasMany(Prestation::class, 'adherantCode', 'code_carte');
+        return $this->hasMany(Prestation::class, 'adherentCode', 'code_carte');
     }
 
 }

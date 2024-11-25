@@ -30,7 +30,7 @@ class ConfirmationDemandeAdhesion extends Mailable
     {
         $this->demandeAdhesion = $demandeAdhesion;
         $this->pdf = $pdf;
-        $this->generatedPassword = $generatedPassword; // Ajoutez ce champ
+        $this->generatedPassword = $generatedPassword; 
     }
 
     /**
@@ -68,6 +68,6 @@ class ConfirmationDemandeAdhesion extends Mailable
                     ->subject('Confirmation de votre demande d\'adhésion')
                     ->attachData($this->pdf->output(), 'Fiche-cession-volontaire-de-salaire.pdf', [
                         'mime' => 'application/pdf',
-                    ]);
+        ]);
     }
 }

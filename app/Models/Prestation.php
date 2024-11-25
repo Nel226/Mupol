@@ -9,10 +9,10 @@ class Prestation extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'adherantCode',
-        'adherantNom',
-        'adherantPrenom',
-        'adherantSexe',
+        'adherentCode',
+        'adherentNom',
+        'adherentPrenom',
+        'adherentSexe',
         'beneficiaire',
         'idPrestation',
         'contactPrestation',

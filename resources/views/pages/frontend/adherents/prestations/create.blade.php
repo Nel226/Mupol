@@ -29,10 +29,10 @@
 
                 <form action="{{ route('adherents.nouvelle-prestation.store') }}" method="POST" enctype="multipart/form-data" class="space-y-4 max-w-2xl mx-auto">
                     @csrf
-                    <input type="hidden" name="adherantCode" value="{{ $adherent->code_carte }}">
-                    <input type="hidden" name="adherantNom" value="{{ $adherent->nom }}">
-                    <input type="hidden" name="adherantPrenom" value="{{ $adherent->prenom }}">
-                    <input type="hidden" name="adherantSexe" value="{{ $adherent->genre }}">
+                    <input type="hidden" name="adherentCode" value="{{ $adherent->code_carte }}">
+                    <input type="hidden" name="adherentNom" value="{{ $adherent->nom }}">
+                    <input type="hidden" name="adherentPrenom" value="{{ $adherent->prenom }}">
+                    <input type="hidden" name="adherentSexe" value="{{ $adherent->genre }}">
                     <input type="hidden" name="beneficiaireInput" value="adherent">
                     <script>
                         document.addEventListener('DOMContentLoaded', function() {

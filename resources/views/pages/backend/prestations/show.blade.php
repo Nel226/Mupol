@@ -38,11 +38,11 @@
                         <tbody>
                             <tr>
                                 <td class="px-4 py-2 border border-gray-300 whitespace-nowrap">{{ $prestation->date }}</td>
-                                <td class="px-4 py-2 border border-gray-300 whitespace-nowrap">{{ $prestation->adherantNom }}</td>
-                                <td class="px-4 py-2 border border-gray-300 whitespace-nowrap">{{ $prestation->adherantPrenom }}</td>
-                                <td class="px-4 py-2 border border-gray-300 whitespace-nowrap">{{ $prestation->adherantCode }}</td>
+                                <td class="px-4 py-2 border border-gray-300 whitespace-nowrap">{{ $prestation->adherentNom }}</td>
+                                <td class="px-4 py-2 border border-gray-300 whitespace-nowrap">{{ $prestation->adherentPrenom }}</td>
+                                <td class="px-4 py-2 border border-gray-300 whitespace-nowrap">{{ $prestation->adherentCode }}</td>
                                 <td class="px-4 py-2 border border-gray-300 whitespace-nowrap">{{ $prestation->beneficiaire }}</td>
-                                <td class="px-4 py-2 border border-gray-300 whitespace-nowrap">{{ $prestation->adherantSexe }}</td>
+                                <td class="px-4 py-2 border border-gray-300 whitespace-nowrap">{{ $prestation->adherentSexe }}</td>
                                 <td class="px-4 py-2 border border-gray-300 whitespace-nowrap">{{ $prestation->centre }}</td>
                                 <td class="px-4 py-2 border border-gray-300 whitespace-nowrap">{{ $prestation->acte }}</td>
                                 <td class="px-4 py-2 border border-gray-300 whitespace-nowrap">{{ number_format($prestation->montant, 2, ',', ' ') }}</td>

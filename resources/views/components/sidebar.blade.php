@@ -123,14 +123,14 @@
             </li>
           
             {{--  <li>
-                <a href="{{ route('adherants.index') }}" class="@if(Request::is('adherants') || Request::is('adherants/*')) active @endif flex items-center px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300 hover:scale-105">
+                <a href="{{ route('adherents.index') }}" class="@if(Request::is('adherents') || Request::is('adherents/*')) active @endif flex items-center px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300 hover:scale-105">
                     <i class="fa  fa-book w-5 h-5 dark:text-gray-400 group-hover:text-black"></i>
                     <span class="ml-3">Provisions</span>
                 </a>
             </li>  --}}
          
             <li>
-                <a href="{{ route('adherants.index') }}" class="@if(Request::is('adherants') || Request::is('adherants/*')) active @endif flex items-center px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
+                <a href="{{ route('adherents.index') }}" class="@if(Request::is('adherents') || Request::is('adherents/*')) active @endif flex items-center px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
                     <i class="fa fa-line-chart w-5 h-5 dark:text-gray-400 group-hover:text-black"></i>
                     <span class="ml-3">Statistiques</span>
                 </a>
@@ -148,7 +148,7 @@
             @role('agentsaisie|controleur')
 
             <li>
-                <a href="{{ route('adherants.index') }}" class="@if(Request::is('adherants') || Request::is('adherants/*')) active @endif flex items-center px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
+                <a href="{{ route('adherents.index') }}" class="@if(Request::is('adherents') || Request::is('adherents/*')) active @endif flex items-center px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
                     <i class="fa fa-user w-5 h-5 dark:text-gray-400 group-hover:text-black"></i>
                     <span class="ml-3">Gestion des adhésions</span>
                 </a>

@@ -26,10 +26,10 @@ class PrestationSeeder extends Seeder
             $montant = rand(100, 1000);
 
             DB::table('prestations')->insert([
-                'adherantCode' => 'AD' . str_pad(rand(1, 1000), 4, '0', STR_PAD_LEFT),
-                'adherantNom' => 'Nom' . rand(1, 100),
-                'adherantPrenom' => 'Prenom' . rand(1, 100),
-                'adherantSexe' => rand(0, 1) ? 'M' : 'F',
+                'adherentCode' => 'AD' . str_pad(rand(1, 1000), 4, '0', STR_PAD_LEFT),
+                'adherentNom' => 'Nom' . rand(1, 100),
+                'adherentPrenom' => 'Prenom' . rand(1, 100),
+                'adherentSexe' => rand(0, 1) ? 'M' : 'F',
                 'beneficiaire' => 'Beneficiaire' . rand(1, 100),
                 'idPrestation' => 'PRE' . str_pad(rand(1, 1000), 4, '0', STR_PAD_LEFT),
                 'acte' => 'Acte' . rand(1, 10),

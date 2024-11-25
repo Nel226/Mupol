@@ -1,3 +1,4085 @@
+  public function partenaires()
+    {
+        $partenaires = Partenaire::all();
+        
+        return view('pages.frontend.partenaires.liste-partenaires');
+    }
+ 
+'demandeAdhesion' => $this->demandeAdhesion,
+                'logoUrl' => asset('images/logo.png'), 
+                'generatedPassword' => $this->generatedPassword, 
+ 
+ with: [
+              
+
+            ],
+ 
+  'demandeAdhesion' => $this->demandeAdhesion,
+                'generatedPassword' => $this->generatedPassword, 
+ 
+  with: [
+              
+
+            ],
+ 
+  'demandeAdhesion' => $this->demandeAdhesion,
+                'generatedPassword' => $this->generatedPassword, 
+ 
+                'name' => $this->partenaire->nom,
+
+ 
+ // Ajout explicite de l'email
+ 
+// Ajout explicite de l'email
+ 
+        <p>Nous vous  pourez changer votre mot de passe dès votre première connexion.</p>
+
+ 
+recommandons
+ 
+        <p>Bonjour/ Bonsoir,</p>
+
+ 
+        <h1>Bienvenue, {{ $name }}!</h1>
+
+ 
+            // Gestion de l'upload de fichier
+
+ 
+            // Validation des données
+
+ 
+            // Génération et hashage du mot de passe
+
+ 
+            // Création du partenaire
+
+ 
+            // Envoi de l'email
+
+ 
+            // Redirection avec message de succès
+
+ 
+            // Redirection avec message d'erreur
+
+ 
+            // Gestion des erreurs : suppression de la photo si nécessaire
+
+ 
+$pdf,
+ 
+Adhesion
+ 
+            
+
+
+ 
+        <p>Nous vous informerons dès que votre demande sera traitée.</p>
+
+ 
+        <p>Télécharger votre fiche de cession volontaire de salaire en pièce jointe en dessous..</p>
+
+ 
+Confirmation de votre demande d&apos;adhésion
+ 
+    protected $pdf;
+
+ 
+             ->attachData($this->pdf->output(), 'Fiche-cession-volontaire-de-salaire.pdf', [
+                        'mime' => 'application/pdf',
+        ])
+ 
+        ->attachData($this->pdf->output(), 'Fiche-cession-volontaire-de-salaire.pdf', [
+                        'mime' => 'application/pdf',
+        ]);
+ 
+->attachData($this->pdf->output(), 'Fiche-cession-volontaire-de-salaire.pdf', [
+                        'mime' => 'application/pdf',
+        ]);
+    }
+ 
+ ->attachData($this->pdf->output(), 'Fiche-cession-volontaire-de-salaire.pdf', [
+                        'mime' => 'application/pdf',
+ 
+  return new Content(
+            view: 'view.name',
+        );
+ 
+            
+ 
+        $this->pdf = $pdf;
+
+ 
+   public function __construct()
+    {
+        //
+    }
+
+ 
+$pdf, 
+ 
+/ Ajoutez ce champ
+ 
+<<<<<<< Updated upstream
+
+ 
+=======
+>>>>>>> Stashed changes
+ 
+
+        
+
+        return back()->withErrors([
+            'email' => 'Les informations d\'identification sont incorrectes.',
+            'password' => 'Les informations d\'identification sont incorrectes.',
+        ]);
+ 
+if (Auth::guard('adherent')->attempt($request->only('email', 'password'))) {
+            $request->session()->regenerate();
+            $adherent = Auth::guard('adherent')->user();
+            if ($adherent->must_change_password) {
+                return redirect()->route('adherents.change-password');
+            }
+            $this->sendOtp($adherent);
+            return redirect()->route('adherents.verify-otp');
+        }
+ 
+        'must_change_password' => true,
+
+ 
+123456789'
+ 
+
+
+ 
+must_change_password
+ 
+use App\Http\Controllers\Frontend\RestrictionController;
+
+ 
+use App\Http\Controllers\Frontend\DemandeController;
+
+ 
+use App\Http\Controllers\Frontend\EstimationController;
+
+ 
+use App\Http\Controllers\Frontend\CategorieController;
+use App\Http\Controllers\Frontend\CotisationController;
+ 
+use App\Http\Controllers\Backend\AccueilController;
+
+ 
+use App\Http\Controllers\Backend\ActeMedicalController;
+
+ 
+use App\Http\Controllers\Auth\AdherentAuthenticatedSessionController;
+use App\Http\Controllers\Auth\PartenaireAuthenticatedSessionController;
+ 
+use App\Livewire\Counter;
+use App\Models\AyantDroit;
+ 
+use App\Models\Partenaire;
+
+ 
+
+
+    Route::get('/test-ayantsdroits/{id}/edit', function ($id) {
+        $ayantDroit =  AyantDroit::find(3);
+        return view('pages.ayantsdroits.edit', compact('ayantDroit'));
+    });
+    
+    
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+ 
+Route::post('/logout/adherent', [AdherentAuthenticatedSessionController::class, 'destroy'])
+    ->name('adherent.logout')
+    ->middleware('auth:adherent');
+ 
+Route::middleware('auth:adherent')->group(function () {
+    Route::get('/adherents/change-password', [AdherentAuthenticatedSessionController::class, 'showChangePasswordForm'])->name('adherents.change-password');
+    Route::post('/adherents/change-password', [AdherentAuthenticatedSessionController::class, 'updatePassword'])->name('adherents.update-password');
+
+    Route::get('/adherents/verify-otp', [AdherentAuthenticatedSessionController::class, 'showVerifyOtpForm'])->name('adherents.verify-otp');
+    Route::post('/adherents/verify-otp', [AdherentAuthenticatedSessionController::class, 'verifyOtp']);
+
+
+    Route::get('/adherents/dashboard', [AdherentAuthenticatedSessionController::class, 'dashboard'])
+        ->name('adherents.dashboard');
+
+
+    Route::get('/adherents/prestations', [PrestationController::class, 'prestations'])
+        ->name('adherents.prestations');
+
+    Route::get('/adherents/ayantsdroits', [AyantDroitController::class, 'ayantsDroits'])
+        ->name('adherents.ayantsdroits');
+    
+    Route::get('/adherents/ayantsdroits/nouveau', [AyantDroitController::class, 'newAyantDroitAdherent'])
+        ->name('adherents.nouveau-ayantdroit');
+    
+    Route::post('/adherents/ayantsdroits/store', [AyantDroitController::class, 'storeAyantDroitAdherent'])
+        ->name('adherents.nouveau-ayantdroit.store');
+    Route::delete('/adherents/ayantsdroits/delete/{id}', [AyantDroitController::class, 'deleteAyantDroitAdherent'])
+        ->name('adherents.delete-ayantdroit');
+    
+
+    Route::get('/adherents/prestations/nouvelle', [PrestationController::class, 'newPrestationAdherent'])
+        ->name('adherents.nouvelle-prestation');
+
+    Route::post('/adherents/prestations/store', [PrestationController::class, 'storePrestationAdherent'])
+        ->name('adherents.nouvelle-prestation.store');
+    
+});
+ 
+Route::get('/partenaires/dashboard', [PartenaireAuthenticatedSessionController::class, 'dashboard'])
+    ->name('partenaires.dashboard');
+Route::get('/partenaires/prestations', [PrestationController::class, 'prestationsPartenaire'])
+        ->name('partenaires.prestations');
+
+Route::match(['get', 'post'], '/partenaires/prestations/nouvelle', [PrestationController::class, 'newPrestationPartenaire'])
+        ->name('partenaires.nouvelle-prestation');
+    
+    
+Route::post('/partenaire/rechercher-adherent', [PartenaireController::class, 'searchAdherent'])->name('partenaire.searchAdherent');
+
+Route::post('/partenaires/prestations/store', [PrestationController::class, 'storePrestationPartenaire'])
+    ->name('partenaires.nouvelle-prestation.store');
+ 
+Route::get('/login/adherent', [AdherentAuthenticatedSessionController::class, 'create'])->name('adherent.login');
+Route::post('/login/adherent', [AdherentAuthenticatedSessionController::class, 'store']);
+
+// Affichage du formulaire de connexion pour les partenaires
+
+Route::get('/login/partenaire', [PartenaireAuthenticatedSessionController::class, 'create'])->name('partenaire.login');
+
+Route::post('/login/partenaire', [PartenaireAuthenticatedSessionController::class, 'store']);
+Route::post('/logout/partenaire', [PartenaireAuthenticatedSessionController::class, 'destroy'])
+    ->name('partenaire.logout')
+    ->middleware('auth:partenaire');
+ 
+// Affichage du formulaire de connexion pour les partenaires
+
+ 
+->middleware('auth:partenaire');
+ 
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+
+ 
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::post('/import-csv', [CsvImportController::class, 'import'])->name('import-csv');
+    Route::post('/ayantdroits/import', [AyantDroitController::class, 'import'])->name('ayantdroits.import');
+
+    Route::get('/prestations/{id}/recu', action: [PrestationController::class, 'downloadReceipt'])->name('prestations.downloadReceipt');
+    Route::get('/prestations/suivi', [PrestationController::class, 'suivi'])->name('suivi');
+    Route::get('/consultation/suivi', [PrestationController::class, 'suiviConsultation'])->name('suivi-consultation');
+    Route::get('/radio/suivi', [PrestationController::class, 'suiviRadio'])->name('suivi-radio');
+    Route::get('/maternite/suivi', [PrestationController::class, 'suiviMaternite'])->name('suivi-maternite');
+    Route::get('/allocation/suivi', [PrestationController::class, 'suiviAllocation'])->name('suivi-allocation');
+    Route::get('/analyse-biomedicale/suivi', [PrestationController::class, 'suiviAnalyseBiomedicale'])->name('suivi-analyse-biomedicale');
+    Route::get('/pharmacie/suivi', [PrestationController::class, 'suiviPharmacie'])->name('suivi-pharmacie');
+    Route::get('/optique/suivi', [PrestationController::class, 'suiviOptique'])->name('suivi-optique');
+    Route::get('/dentaire-auditif/suivi', [PrestationController::class, 'suiviDentaireAuditif'])->name('suivi-dentaire-auditif');
+    Route::get('/autre/suivi', [PrestationController::class, 'suiviAutre'])->name('suivi-autre');
+
+    Route::get('/edit-demande-adhesion/{id}', App\Livewire\EditMembership::class)->name('edit-demande-adhesion');
+
+});
+ 
+
+
+
+ 
+Route::post('/prestations/{id}/valider', [PrestationController::class, 'valider'])->name('prestations.valider');
+    Route::post('/prestations/{id}/rejeter', [PrestationController::class, 'rejeter'])->name('prestations.rejeter');
+    Route::post('/prestations/{id}/validerpaiement', [PrestationController::class, 'validerPaiement'])->name('prestations.validerpaiement');
+ 
+Route::get('/counter', Counter::class);
+
+ 
+    Route::get('/get-data', [CotisationController::class, 'getData']);
+
+ 
+
+    
+
+ 
+
+
+    Route::get('/test-ayantsdroits/{id}/edit', function ($id) {
+        $ayantDroit =  AyantDroit::find(3);
+        return view('pages.ayantsdroits.edit', compact('ayantDroit'));
+    });
+ 
+
+    Route::get('recettes-categories', [RecetteController ::class, 'categories'])->name('recettes.categories');
+
+    Route::resource('depenses', DepenseController ::class);
+    Route::get('depenses-categories', [DepenseController ::class, 'categories'])->name('depenses.categories');
+    Route::resource('categories', CategorieController ::class);
+
+    Route::resource('caisse', CaisseController ::class);
+
+    Route::resource('budget-suivi', BudgetController ::class);
+    Route::resource('estimations', EstimationeController ::class);
+
+
+    //FIN COMPTABILITE
+
+ 
+    Route::post('/adherents/{id}/accept', [DemandeController::class, 'accept'])->name('adherents.accept');
+
+ 
+    Route::resource('recettes', RecetteController ::class);
+
+ 
+Route::resource('adherants', AdherantController::class);
+    Route::resource('ayantsdroits', AyantDroitController::class);
+    Route::resource('prestations', PrestationController::class);
+    Route::resource('cotisations', CotisationController::class);
+    Route::resource('parametres', ParametreController::class);
+    Route::resource('roles', RoleController::class);
+    Route::resource('users', UserController::class);
+    Route::resource('partenaires', PartenaireController::class);
+
+    //DEBUT COMPTABILITE
+    Route::resource('demandes', DemandeController ::class);
+ 
+Route::resource('prestations', PrestationController::class);
+
+ 
+Route::resource('restrictions', RestrictionController::class);
+
+ 
+
+// Route::get('/', function () {
+//     return redirect('/login');
+// });
+ 
+Route::get('/login/partenaire', [PartenaireAuthenticatedSessionController::class, 'create'])->name('partenaire.login');
+
+Route::post('/login/partenaire', [PartenaireAuthenticatedSessionController::class, 'store']);
+Route::post('/logout/partenaire', [PartenaireAuthenticatedSessionController::class, 'destroy'])
+    ->name('partenaire.logout')
+    ->middleware('auth:partenaire');
+ 
+// Affichage du formulaire de connexion pour les partenaires
+
+ 
+Route::get('/login/adherent', [AdherantAuthenticatedSessionController::class, 'create'])->name('adherent.login');
+Route::post('/login/adherent', [AdherantAuthenticatedSessionController::class, 'store']);
+ 
+
+// Route::get('/', function () {
+//     return redirect('/login');
+// });
+ 
+use App\Livewire\Counter;
+
+ 
+use App\Models\AyantDroit;
+
+ 
+use App\Http\Controllers\Frontend\RoleController;
+use App\Http\Controllers\Frontend\UserController;
+ 
+use App\Http\Controllers\Frontend\ProfileController;
+ 
+use App\Http\Controllers\Frontend\CsvImportController;
+use App\Http\Controllers\Frontend\DashboardController;
+use App\Http\Controllers\Frontend\ParametreController;
+ 
+use App\Http\Controllers\Frontend\BudgetController;
+
+use App\Http\Controllers\Frontend\CaisseController;
+ 
+use App\Http\Controllers\Frontend\DepenseController;
+use App\Http\Controllers\Frontend\EstimationeController;
+ 
+use App\Http\Controllers\Frontend\RecetteController;
+
+ 
+use App\Models\Partenaire;
+
+ 
+Frontend\
+ 
+Frontend\
+ 
+<?php
+
+use App\Http\Controllers\EstimationController;
+use App\Livewire\Counter;
+use App\Models\AyantDroit;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\AccueilController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AdherentController;
+use App\Http\Controllers\Auth\AdherentAuthenticatedSessionController;
+use App\Http\Controllers\Auth\PartenaireAuthenticatedSessionController;
+use App\Http\Controllers\CsvImportController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ParametreController;
+use App\Http\Controllers\AyantDroitController;
+use App\Http\Controllers\ActeMedicalController;
+use App\Http\Controllers\BudgetController;
+
+use App\Http\Controllers\CaisseController;
+use App\Http\Controllers\CategorieController;
+use App\Http\Controllers\CotisationController;
+use App\Http\Controllers\PrestationController;
+use App\Http\Controllers\DemandeController;
+use App\Http\Controllers\DepenseController;
+use App\Http\Controllers\EstimationeController;
+use App\Http\Controllers\PartenaireController;
+use App\Http\Controllers\RecetteController;
+use App\Http\Controllers\RestrictionController;
+use App\Models\Partenaire;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "web" middleware group. Make something great!
+|
+*/
+
+// Route::get('/', function () {
+//     return redirect('/login');
+// });
+Route::get('/', [AccueilController::class, 'accueil'])->name(name: 'accueil');
+Route::get('/contacts', [AccueilController::class, 'contacts'])->name(name: 'contacts');
+Route::get('/services', [AccueilController::class, 'services'])->name(name: 'services');
+Route::get('/en-construction', [AccueilController::class, 'enConstruction'])->name(name: 'en-construction');
+Route::get('/partenaires/liste', [AccueilController::class, 'partenaires'])->name('liste-partenaires');
+
+Route::get('/formulaire-adhesion', [AccueilController::class, 'newAdhesion'])->name(name: 'formulaire-adhesion');
+Route::get('/resume-adhesion/{id}', [AccueilController::class, 'resumeAdhesion'])->name('resume-adhesion');
+Route::get('/demande-adhesion/{id}/fiche-cession-volontaire', [AccueilController::class, 'downloadCessionFiche'])
+    ->name('download-fiche-cession-volontaire');
+Route::get('download-form-adhesion/{id}', [AccueilController::class, 'downloadFormAdhesion'])->name('download-form-adhesion');
+Route::post('/recapitulatif-form', [AccueilController::class, 'recapitulatifForm'])->name('recapitulatif-form');
+Route::get('/formulaire-adhesion-recapitulatif', function () {
+    return view('components.formulaire-adhesion'); 
+})->name('formulaire.adhesion.recapitulatif');
+Route::post('/finalisation-adhesion', [AccueilController::class, 'finalAdhesion'])->name('finalisation-adhesion');
+Route::get('/cession-volontaire/{id}', [AccueilController::class, 'showCessionVolontaire'])->name('showCessionVolontaire');
+Route::get('/impression-fiche-cession/{id}', [AccueilController::class, 'imprimerFicheCession'])->name('imprimer-fiche-cession');
+
+Route::get('/login/adherent', [AdherentAuthenticatedSessionController::class, 'create'])->name('adherent.login');
+Route::post('/login/adherent', [AdherentAuthenticatedSessionController::class, 'store']);
+
+// Affichage du formulaire de connexion pour les partenaires
+
+Route::get('/login/partenaire', [PartenaireAuthenticatedSessionController::class, 'create'])->name('partenaire.login');
+
+Route::post('/login/partenaire', [PartenaireAuthenticatedSessionController::class, 'store']);
+Route::post('/logout/partenaire', [PartenaireAuthenticatedSessionController::class, 'destroy'])
+    ->name('partenaire.logout')
+    ->middleware('auth:partenaire');
+
+Route::get('/partenaires/dashboard', [PartenaireAuthenticatedSessionController::class, 'dashboard'])
+    ->name('partenaires.dashboard');
+Route::get('/partenaires/prestations', [PrestationController::class, 'prestationsPartenaire'])
+        ->name('partenaires.prestations');
+
+Route::match(['get', 'post'], '/partenaires/prestations/nouvelle', [PrestationController::class, 'newPrestationPartenaire'])
+        ->name('partenaires.nouvelle-prestation');
+    
+    
+Route::post('/partenaire/rechercher-adherent', [PartenaireController::class, 'searchAdherent'])->name('partenaire.searchAdherent');
+
+Route::post('/partenaires/prestations/store', [PrestationController::class, 'storePrestationPartenaire'])
+    ->name('partenaires.nouvelle-prestation.store');
+Route::resource('restrictions', RestrictionController::class);
+
+Route::middleware('auth:adherent')->group(function () {
+    Route::get('/adherents/change-password', [AdherentAuthenticatedSessionController::class, 'showChangePasswordForm'])->name('adherents.change-password');
+    Route::post('/adherents/change-password', [AdherentAuthenticatedSessionController::class, 'updatePassword'])->name('adherents.update-password');
+
+    Route::get('/adherents/verify-otp', [AdherentAuthenticatedSessionController::class, 'showVerifyOtpForm'])->name('adherents.verify-otp');
+    Route::post('/adherents/verify-otp', [AdherentAuthenticatedSessionController::class, 'verifyOtp']);
+
+
+    Route::get('/adherents/dashboard', [AdherentAuthenticatedSessionController::class, 'dashboard'])
+        ->name('adherents.dashboard');
+
+
+    Route::get('/adherents/prestations', [PrestationController::class, 'prestations'])
+        ->name('adherents.prestations');
+
+    Route::get('/adherents/ayantsdroits', [AyantDroitController::class, 'ayantsDroits'])
+        ->name('adherents.ayantsdroits');
+    
+    Route::get('/adherents/ayantsdroits/nouveau', [AyantDroitController::class, 'newAyantDroitAdherent'])
+        ->name('adherents.nouveau-ayantdroit');
+    
+    Route::post('/adherents/ayantsdroits/store', [AyantDroitController::class, 'storeAyantDroitAdherent'])
+        ->name('adherents.nouveau-ayantdroit.store');
+    Route::delete('/adherents/ayantsdroits/delete/{id}', [AyantDroitController::class, 'deleteAyantDroitAdherent'])
+        ->name('adherents.delete-ayantdroit');
+    
+
+    Route::get('/adherents/prestations/nouvelle', [PrestationController::class, 'newPrestationAdherent'])
+        ->name('adherents.nouvelle-prestation');
+
+    Route::post('/adherents/prestations/store', [PrestationController::class, 'storePrestationAdherent'])
+        ->name('adherents.nouvelle-prestation.store');
+    
+});
+Route::resource('prestations', PrestationController::class);
+
+
+Route::post('/logout/adherent', [AdherentAuthenticatedSessionController::class, 'destroy'])
+    ->name('adherent.logout')
+    ->middleware('auth:adherent');
+
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+
+
+Route::get('/counter', Counter::class);
+
+
+
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::post('/import-csv', [CsvImportController::class, 'import'])->name('import-csv');
+    Route::post('/ayantdroits/import', [AyantDroitController::class, 'import'])->name('ayantdroits.import');
+
+    Route::get('/prestations/{id}/recu', action: [PrestationController::class, 'downloadReceipt'])->name('prestations.downloadReceipt');
+    Route::get('/prestations/suivi', [PrestationController::class, 'suivi'])->name('suivi');
+    Route::get('/consultation/suivi', [PrestationController::class, 'suiviConsultation'])->name('suivi-consultation');
+    Route::get('/radio/suivi', [PrestationController::class, 'suiviRadio'])->name('suivi-radio');
+    Route::get('/maternite/suivi', [PrestationController::class, 'suiviMaternite'])->name('suivi-maternite');
+    Route::get('/allocation/suivi', [PrestationController::class, 'suiviAllocation'])->name('suivi-allocation');
+    Route::get('/analyse-biomedicale/suivi', [PrestationController::class, 'suiviAnalyseBiomedicale'])->name('suivi-analyse-biomedicale');
+    Route::get('/pharmacie/suivi', [PrestationController::class, 'suiviPharmacie'])->name('suivi-pharmacie');
+    Route::get('/optique/suivi', [PrestationController::class, 'suiviOptique'])->name('suivi-optique');
+    Route::get('/dentaire-auditif/suivi', [PrestationController::class, 'suiviDentaireAuditif'])->name('suivi-dentaire-auditif');
+    Route::get('/autre/suivi', [PrestationController::class, 'suiviAutre'])->name('suivi-autre');
+
+
+    Route::resource('adherents', AdherentController::class);
+    Route::resource('ayantsdroits', AyantDroitController::class);
+    Route::resource('prestations', PrestationController::class);
+    Route::resource('cotisations', CotisationController::class);
+    Route::resource('parametres', ParametreController::class);
+    Route::resource('roles', RoleController::class);
+    Route::resource('users', UserController::class);
+    Route::resource('partenaires', PartenaireController::class);
+
+    //DEBUT COMPTABILITE
+    Route::resource('demandes', DemandeController ::class);
+    Route::post('/adherents/{id}/accept', [DemandeController::class, 'accept'])->name('adherents.accept');
+
+    Route::resource('recettes', RecetteController ::class);
+    Route::get('recettes-categories', [RecetteController ::class, 'categories'])->name('recettes.categories');
+
+    Route::resource('depenses', DepenseController ::class);
+    Route::get('depenses-categories', [DepenseController ::class, 'categories'])->name('depenses.categories');
+    Route::resource('categories', CategorieController ::class);
+
+    Route::resource('caisse', CaisseController ::class);
+
+    Route::resource('budget-suivi', BudgetController ::class);
+    Route::resource('estimations', EstimationeController ::class);
+
+
+    //FIN COMPTABILITE
+
+
+    Route::get('/edit-demande-adhesion/{id}', App\Livewire\EditMembership::class)->name('edit-demande-adhesion');
+
+
+    Route::get('/test-ayantsdroits/{id}/edit', function ($id) {
+        $ayantDroit =  AyantDroit::find(3);
+        return view('pages.ayantsdroits.edit', compact('ayantDroit'));
+    });
+    
+    
+
+    Route::get('/get-data', [CotisationController::class, 'getData']);
+
+    Route::post('/prestations/{id}/valider', [PrestationController::class, 'valider'])->name('prestations.valider');
+    Route::post('/prestations/{id}/rejeter', [PrestationController::class, 'rejeter'])->name('prestations.rejeter');
+    Route::post('/prestations/{id}/validerpaiement', [PrestationController::class, 'validerPaiement'])->name('prestations.validerpaiement');
+});
+
+require __DIR__.'/auth.php';
+
+ 
+Route::get('/counter', Counter::class);
+ 
+Route::post('/finalisation-adhesion', [AccueilController::class, 'finalAdhesion'])->name('finalisation-adhesion');
+Route::get('/cession-volontaire/{id}', [AccueilController::class, 'showCessionVolontaire'])->name('showCessionVolontaire');
+Route::get('/impression-fiche-cession/{id}', [AccueilController::class, 'imprimerFicheCession'])->name('imprimer-fiche-cession');
+ 
+// Route::get('/', function () {
+//     return redirect('/login');
+// });
+Route::get('/', [AccueilController::class, 'accueil'])->name(name: 'accueil');
+Route::get('/contacts', [AccueilController::class, 'contacts'])->name(name: 'contacts');
+Route::get('/services', [AccueilController::class, 'services'])->name(name: 'services');
+Route::get('/en-construction', [AccueilController::class, 'enConstruction'])->name(name: 'en-construction');
+Route::get('/partenaires/liste', [AccueilController::class, 'partenaires'])->name('liste-partenaires');
+
+Route::get('/formulaire-adhesion', [AccueilController::class, 'newAdhesion'])->name(name: 'formulaire-adhesion');
+Route::get('/resume-adhesion/{id}', [AccueilController::class, 'resumeAdhesion'])->name('resume-adhesion');
+Route::get('/demande-adhesion/{id}/fiche-cession-volontaire', [AccueilController::class, 'downloadCessionFiche'])
+    ->name('download-fiche-cession-volontaire');
+Route::get('download-form-adhesion/{id}', [AccueilController::class, 'downloadFormAdhesion'])->name('download-form-adhesion');
+Route::post('/recapitulatif-form', [AccueilController::class, 'recapitulatifForm'])->name('recapitulatif-form');
+Route::get('/formulaire-adhesion-recapitulatif', function () {
+    return view('components.formulaire-adhesion'); 
+})->name('formulaire.adhesion.recapitulatif');
+ 
+/ Chemin du fichier de routes admin
+ 
+// Préfixe pour toutes les routes admin
+ 
+// Utilise les middlewares "web" pour les sessions, CSRF, etc.
+ 
+use App\Models\Adherent;
+ 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Exception;
+use Illuminate\Support\Facades\Log;
+ 
+use App\Models\Categorie;
+use App\Models\Depense;
+use Illuminate\Support\Facades\Auth;
+use Dompdf\Dompdf;
+use Dompdf\Options;
+use Carbon\Carbon;
+ 
+use App\Helpers\ImageHelper;
+use App\Helpers\PDFHelper;
+ 
+namespace App\Http\Controllers;
+
+ 
+namespace App\Http\Controllers;
+
+ 
+
+
+   
+    
+ 
+    // Backend
+
+ 
+ // Frontend
+
+    public function ayantsDroits()
+    {
+        $adherent = auth()->guard('adherent')->user();
+        $ayantsDroits = AyantDroit::where('adherent_id', $adherent->id)->get();
+        return  view('pages.frontend.adherents.ayantsdroits.index',
+                compact('adherent', 'ayantsDroits')
+        );
+
+    }
+    public function newAyantDroitAdherent()
+    {
+        $adherent = auth()->guard('adherent')->user();
+        $adherent->ayantsDroits = json_decode($adherent->ayantsDroits, true); 
+
+        $ayantsDroits = $adherent->ayantsDroits;
+        return  view('pages.frontend.adherents.ayantsdroits.create',
+                compact('adherent', 'ayantsDroits')
+        );
+
+    }
+    public function storeAyantDroitAdherent(StoreAyantDroitRequest $request)
+    {
+        $adherent = auth()->guard('adherent')->user();
+        $nextPosition = AyantDroit::where('adherent_id', $adherent->id)->max('position') + 1;
+        if ($nextPosition > 6) {
+            return back()->withErrors(['message' => 'You cannot add more than 7 dependents.']);
+        }
+        $adherent->ayantsDroits = json_decode($adherent->ayantsDroits, true); 
+
+        $ayantsDroits = $adherent->ayantsDroits;
+
+
+        $ayantDroit = new AyantDroit();
+        $ayantDroit->nom = $request->nom;
+        $ayantDroit->prenom = $request->prenom;
+        $ayantDroit->sexe = $request->sexe;
+        $ayantDroit->date_naissance = $request->date_naissance;
+        $ayantDroit->relation = $request->relation;
+        $ayantDroit->code = $adherent->matricule . '/01';
+        $ayantDroit->adherent_id = $adherent->id;
+        $ayantDroit->position = $nextPosition;
+
+        $ayantDroit->save();
+        return redirect()->route('adherents.ayantsdroits')->with('success', 'Ayant droit ajouté avec succès.');
+        
+
+    }
+    public function deleteAyantDroitAdherent($id)
+    {
+        
+        $ayantDroit = AyantDroit::find($id);
+
+        if ($ayantDroit) {
+            $ayantDroit->delete();
+            return redirect()->back()->with('success', 'Ayant droit supprimé avec succès.');
+        }
+
+        return redirect()->back()->with('error', 'Ayant droit non trouvé.');
+    }
+   
+    
+
+    // Backend
+ 
+
+
+ 
+   public function searchAdherent(Request $request)
+    {
+        $validated = $request->validate([
+            'code_carte' => 'required|string',
+        ]);
+
+        $adherent = Adherent::where('code_carte', $validated['code_carte'])->first();
+        $adherent->ayantsDroits = json_decode($adherent->ayantsDroits, true); 
+
+        if ($adherent) {
+            return view('pages.frontend.partenaires.prestations.create', compact('adherent'));
+        } else {
+            $message = 'Aucun adhérent trouvé avec ce code carte.';
+            return view('pages.frontend.partenaires.prestations.create', compact('message'));
+        }
+    }
+ 
+        
+ 
+ 
+
+       
+ 
+use App\Helpers\ImageHelper;
+
+ 
+use Ramsey\Uuid\Uuid;
+
+ 
+use Illuminate\Support\Facades\Log;
+
+ 
+use Illuminate\Support\Facades\DB;
+
+ 
+use Dompdf\Dompdf;
+use Dompdf\Options;
+ 
+ // Frontend
+
+    public function prestations()
+    {
+        $adherent = auth()->guard('adherent')->user();
+        
+        $prestations = $adherent->prestations;
+        return  view('pages.frontend.adherents.prestations.index',
+                compact('adherent', 'prestations')
+        );
+    }
+
+    public function prestationsPartenaire()
+    {
+        $partenaire = auth()->guard('partenaire')->user();
+        $prestations = $partenaire->prestations;
+        return  view('pages.frontend.partenaires.prestations.index',
+                compact('partenaire', 'prestations')
+        );
+    }
+   
+    
+
+    public function newPrestationAdherent()
+    {
+        $adherent = auth()->guard('adherent')->user();
+        $adherent->ayantsDroits = AyantDroit::where('adherent_id', $adherent->id)->get();
+
+    
+        return view('pages.frontend.partenaires.prestations.create', compact('adherent'));
+    }
+    public function newPrestationPartenaire()
+    {
+        $partenaire = auth()->guard('partenaire')->user();
+        
+    
+        return view('pages.frontend.partenaires.prestations.create', compact('partenaire'));
+    }
+    public function storePrestationAdherent(StorePrestationRequest $request)
+    {
+        $data = $request->all();
+        $adherentCode = $request->adherentCode;
+        $totalMontant = Prestation::where('adherentCode', $adherentCode)->sum('montant');
+        $types = ['consultation', 'hospitalisation', 'radio', 'maternite', 'allocation', 'analyse_biomedicale', 'pharmacie', 'optique', 'dentaire_auditif', 'autre'];
+        $prestationsToSave = [];
+
+        foreach ($types as $type) {
+          
+            for ($i = 0; $i <= 20; $i++) { 
+                $typeSuffix = $i > 0 ? "-$i" : ''; 
+                if (!empty($data["date_$type$typeSuffix"]) && !empty($data["centre_$type$typeSuffix"]) && !empty($data["montant_$type$typeSuffix"])) {
+
+                    $prestationsToSave[] = [
+                        'adherentCode' => $data['adherentCode'],
+                        'adherentNom' => $data['adherentNom'],
+                        'adherentPrenom' => $data['adherentPrenom'],
+                        'adherentSexe' => $data['adherentSexe'],
+                        'beneficiaire' => $data['beneficiaire'],
+                        'idPrestation' => Uuid::uuid4()->toString(),
+                        'contactPrestation' => $data['contactPrestation'],
+                        'acte' => $data["acte$typeSuffix"],
+                        'date' => $data["date_$type$typeSuffix"],
+                        'centre' => $data["centre_$type$typeSuffix"],
+                        'montant' => $data["montant_$type$typeSuffix"],
+                        'type' => $data["type_$type$typeSuffix"] ?? null,
+                        'sous_type' => $data["sous_type_$type$typeSuffix"] ?? null,
+                        'validite' => 'en attente',
+                        'etat_paiement' => false,
+                    ];
+                }
+            }
+        }
+
+        if (empty($prestationsToSave)) {
+            return back()->withErrors(['message' => 'Veuillez remplir tous les champs obligatoires pour chaque prestation visible.']);
+        }
+        
+
+        foreach ($prestationsToSave as $prestationData) {
+            $montant = $prestationData['montant'];
+            if ($totalMontant + $montant > 1500000) {
+                return back()->withErrors(['error' => 'Erreur : La somme totale des prestations de cet adhérent dépasse 1 500 000.']);
+            }
+
+            $prestation = new Prestation($prestationData);
+            
+            // if ($request->hasFile('preuve')) {
+            //     foreach ($request->file('preuve') as $file) {
+            //         $path = $file->store('preuves', 'public'); 
+            //         $prestation->preuve = json_encode([$path]); 
+            //     }
+            // }
+            if ($request->hasFile('preuve')) {
+                $files = [];
+                foreach ($request->file('preuve') as $file) {
+                    $path = $file->store('preuves', 'public');
+                    $files[] = $path; 
+                }
+                $prestation->preuve = json_encode($files); 
+            }
+            
+
+            $prestation->save(); 
+        }
+
+        $adherent = auth()->guard('adherent')->user();
+        
+        $adherent->ayantsDroits = json_decode($adherent->ayantsDroits, true); 
+
+    
+        // Vérifiez ce que contient $ayantsDroits
+        return redirect()->route('adherents.prestations')->with('success', 'Enregistrement réussi');
+
+    }
+    
+
+    // Backend
+ 
+use App\Http\Controllers\PartenaireController;
+
+ 
+        return view('pages.frontend.partenaires.restrictions.index');
+
+ 
+        // Vérifiez ce que contient $ayantsDroits
+
+ 
+
+    public function suiviDentaireAuditif(Request $request)
+    {
+
+        $currentYear = $request->input('year', Carbon::now()->year);
+        $adherentCodes = Adherent::pluck('code_carte')->toArray();
+        $prestationsAdherents = Prestation::join('adherents', 'prestations.adherentCode', '=', 'adherents.code_carte')
+            ->whereYear('prestations.created_at', $currentYear)
+            ->select('prestations.*', 'adherents.id as adherent_id')
+            ->get();
+
+        $prestationsAyantsDroit = Prestation::join('ayant_droits', 'prestations.adherentCode', '=', 'ayant_droits.code')
+            ->join('adherents', 'ayant_droits.adherent_id', '=', 'adherents.id')
+            ->whereYear('prestations.created_at', $currentYear)
+            ->select('prestations.*', 'adherents.id as adherent_id')
+            ->distinct()
+            ->get();
+
+        
+
+        $prestationsAll = $prestationsAdherents->merge($prestationsAyantsDroit);
+
+
+        $prestationsGroupedByAdherent = $prestationsAll->groupBy('adherent_id');
+
+        $adherents = Adherent::whereYear('date_enregistrement', $currentYear)->get();
+        $ayantsDroit = AyantDroit::join('adherents', 'ayant_droits.adherent_id', '=', 'adherents.id')
+            ->whereYear('adherents.date_enregistrement', $currentYear)
+            ->select('ayant_droits.*')
+            ->get();
+        $prestations = Prestation::whereYear('created_at', $currentYear)->get();
+        $categories = [
+            'Nombre de nouveaux bénéficiaires',
+            'Nombre de bénéficiaires (A)',
+            'Nombre moyen de bénéficiaire (A1)',
+            'Nombre de dentaires et auditifs (B)',
+            'Nombre de dentaires et auditifs Cumulée (B1)',
+            'Taux d’utilisation mensuel % C (C)',
+            'Taux d’utilisation cumulée %(D)',
+            'Coût total des dentaires et auditifs (E)',
+            'Coût Cumulé total des dentaires et auditifs (E1)',
+            'Coût moyen mensuel d’une dentaire et auditif (F)',
+            'Coût moyen cumulé d’une dentaire et auditif (G)'
+        ];
+
+        $months = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
+
+        $data = [];
+        $dentairesAuditifsCumulative = 0;
+        $coutCumulative = 0;
+        $beneficiairesCumulative = 0;
+        $totalCoutCumulative = 0;
+
+        foreach ($categories as $category) {
+            foreach ($months as $month) {
+                $data[$category][$month] = 0;
+            }
+            $data[$category]['Total'] = 0;
+            $data[$category]['Moyenne'] = 0;
+            $data[$category]['Référence'] = '';
+        }
+
+        // Nombre de bénéficiaires (adhérents + ayants droit)
+        foreach ($adherents as $adherent) {
+            $date = Carbon::parse($adherent->date_enregistrement);
+            $month = $months[$date->month - 1];
+
+            $data['Nombre de nouveaux bénéficiaires'][$month]++;
+            $data['Nombre de nouveaux bénéficiaires']['Total']++;
+
+            $data['Nombre de bénéficiaires (A)'][$month]++;
+            $data['Nombre de bénéficiaires (A)']['Total']++;
+        }
+
+        foreach ($ayantsDroit as $ayantDroit) {
+            $date = Carbon::parse($ayantDroit->adherent->date_enregistrement);
+            $month = $months[$date->month - 1];
+
+            // Nombre de bénéficiaires (A) par mois
+            $data['Nombre de nouveaux bénéficiaires'][$month]++;
+            $data['Nombre de nouveaux bénéficiaires']['Total']++;
+
+            $data['Nombre de bénéficiaires (A)'][$month]++;
+            $data['Nombre de bénéficiaires (A)']['Total']++;
+        }
+
+        // Calcul du cumul des bénéficiaires pour chaque mois
+        foreach ($months as $index => $month) {
+            $beneficiairesCumulative += $data['Nombre de bénéficiaires (A)'][$month];
+            $data['Nombre de bénéficiaires (A)'][$month] = $beneficiairesCumulative;
+
+            // Calculer A1 = A / nombre de mois déjà écoulés
+            $data['Nombre moyen de bénéficiaire (A1)'][$month] = floor($beneficiairesCumulative / ($index + 1));
+            $data['Nombre moyen de bénéficiaire (A1)']['Total'] = $data['Nombre moyen de bénéficiaire (A1)'][$month];
+        }
+
+        // Calculer les statistiques à pfartir des prestations
+        foreach ($prestations as $prestation) {
+            $date = Carbon::parse($prestation->created_at);
+            $month = $months[$date->month - 1];
+
+            // Nombre de dentaires et auditifs (B)
+            if ($prestation->acte == 'dentaire_auditif') {
+                $data['Nombre de dentaires et auditifs (B)'][$month]++;
+                $data['Nombre de dentaires et auditifs (B)']['Total']++;
+
+                // Cumul des dentaires et auditifs (B1)
+                $dentairesAuditifsCumulative++;
+                $data['Nombre de dentaires et auditifs Cumulée (B1)'][$month] = $dentairesAuditifsCumulative;
+                $data['Nombre de dentaires et auditifs Cumulée (B1)']['Total'] = $dentairesAuditifsCumulative;
+
+                // Coût total des dentaires et auditifs (E)
+                if (!isset($data['Coût total des dentaires et auditifs (E)'][$month])) {
+                    $data['Coût total des dentaires et auditifs (E)'][$month] = 0;
+                }
+                $data['Coût total des dentaires et auditifs (E)'][$month] += $prestation->montant;
+                $data['Coût total des dentaires et auditifs (E)']['Total'] += $prestation->montant;
+
+                
+            }
+        }
+
+        // Calculer le cumul par mois pour B1
+        foreach ($months as $index => $month) {
+            if ($index > 0) {
+                $data['Nombre de dentaires et auditifs Cumulée (B1)'][$month] = $data['Nombre de dentaires et auditifs Cumulée (B1)'][$months[$index - 1]] + $data['Nombre de dentaires et auditifs (B)'][$month];
+            }
+
+            // Cumul du coût total des dentaires et auditifs (E1)
+            if ($index > 0) {
+                $data['Coût Cumulé total des dentaires et auditifs (E1)'][$month] = $data['Coût Cumulé total des dentaires et auditifs (E1)'][$months[$index - 1]] + $data['Coût total des dentaires et auditifs (E)'][$month];
+            } else {
+                $data['Coût Cumulé total des dentaires et auditifs (E1)'][$month] = $data['Coût total des dentaires et auditifs (E)'][$month];
+            }
+            $data['Coût Cumulé total des dentaires et auditifs (E1)']['Total'] = $data['Coût Cumulé total des dentaires et auditifs (E1)'][$month] ;        
+            
+            // Coût moyen cumulé d’une dentaire et auditif (G)
+            if ($data['Nombre de dentaires et auditifs Cumulée (B1)'][$month] > 0) {
+                $data['Coût moyen cumulé d’une dentaire et auditif (G)'][$month] = $data['Coût Cumulé total des dentaires et auditifs (E1)'][$month] / $data['Nombre de dentaires et auditifs Cumulée (B1)'][$month];
+            }
+        }
+        if ($data['Nombre de dentaires et auditifs Cumulée (B1)']['Total'] > 0) {
+            $data['Coût moyen cumulé d’une dentaire et auditif (G)']['Total'] = $data['Coût Cumulé total des dentaires et auditifs (E1)']['Total']  / $data['Nombre de dentaires et auditifs Cumulée (B1)']['Total'];
+        } else {
+            $data['Coût moyen cumulé d’une dentaire et auditif (G)']['Total'] = 0;
+        }
+
+        // Calcul des moyennes et taux d'utilisation
+        foreach ($months as $index => $month) {
+            $previousMonths = $index + 1;
+
+            // Taux d’utilisation mensuel % (C)
+            if ($data['Nombre de bénéficiaires (A)'][$month] > 0) {
+                $data['Taux d’utilisation mensuel % C (C)'][$month] = number_format(($data['Nombre de dentaires et auditifs (B)'][$month] / $data['Nombre de bénéficiaires (A)'][$month])*$previousMonths * 100, 2);
+            }
+            if ($beneficiairesCumulative > 0) {
+                $data['Taux d’utilisation mensuel % C (C)']['Total'] = number_format(($dentairesAuditifsCumulative / $beneficiairesCumulative)*12 * 100, 2);
+            } else {
+                $data['Taux d’utilisation mensuel % C (C)']['Total'] = 0;
+            }
+            // Taux d’utilisation cumulée % (D)
+            if ($data['Nombre moyen de bénéficiaire (A1)'][$month] > 0) {
+                $data['Taux d’utilisation cumulée %(D)'][$month] = number_format(($data['Nombre de dentaires et auditifs Cumulée (B1)'][$month] / $data['Nombre moyen de bénéficiaire (A1)'][$month])*$previousMonths * 100, 2);
+            
+            }
+            if ($data['Nombre moyen de bénéficiaire (A1)']['Total'] > 0) {
+                $data['Taux d’utilisation cumulée %(D)']['Total'] = number_format(($dentairesAuditifsCumulative / $data['Nombre moyen de bénéficiaire (A1)']['Total'])*12 * 100, 2);
+            } else {
+                $data['Taux d’utilisation cumulée %(D)']['Total'] = 0;
+            }
+
+            // Coût moyen mensuel d’une dentaire et auditif (F)
+            if ($data['Nombre de dentaires et auditifs (B)'][$month] > 0) {
+                $data['Coût moyen mensuel d’une dentaire et auditif (F)'][$month] = $data['Coût total des dentaires et auditifs (E)'][$month] / $data['Nombre de dentaires et auditifs (B)'][$month];
+            }
+
+
+            
+        }
+        if ($data['Nombre de dentaires et auditifs (B)']['Total'] > 0) {
+            $data['Coût moyen mensuel d’une dentaire et auditif (F)']['Total'] = $data['Coût total des dentaires et auditifs (E)']['Total']  / $data['Nombre de dentaires et auditifs (B)']['Total'];
+        } else {
+            $data['Coût moyen mensuel d’une dentaire et auditif (F)']['Total'] = 0;
+        }
+
+        // Calcul des moyennes totales pour chaque catégorie
+        foreach ($categories as $category) {
+            $data[$category]['Moyenne'] = number_format($data[$category]['Total'] / count($months), 2, ',', ' ');
+        }
+
+        // Convertir les données pour Tabulator
+        $tabulatorData = [];
+        foreach ($categories as $category) {
+            $row = ['Category' => $category];
+            foreach ($months as $month) {
+                $row[$month] = $data[$category][$month];
+            }
+            $row['Total'] = $data[$category]['Total'];
+            $row['Moyenne'] = $data[$category]['Moyenne'];
+            $row['Référence'] = $data[$category]['Référence'];
+            $tabulatorData[] = $row;
+        }
+
+        $viewData = [
+            'tabulatorData' => $tabulatorData,
+            'currentYear' => $currentYear,
+        ];
+
+        return view('pages.backend.prestations.suivi-dentaire-auditif', compact('tabulatorData', 'prestationsGroupedByAdherent', 'currentYear', 'prestationsAll', 'months' , 'data'));
+    }
+
+    public function suiviAutre(Request $request)
+    {
+
+        $currentYear = $request->input('year', Carbon::now()->year);
+        $adherentCodes = Adherent::pluck('code_carte')->toArray();
+        $prestationsAdherents = Prestation::join('adherents', 'prestations.adherentCode', '=', 'adherents.code_carte')
+            ->whereYear('prestations.created_at', $currentYear)
+            ->select('prestations.*', 'adherents.id as adherent_id')
+            ->get();
+
+        $prestationsAyantsDroit = Prestation::join('ayant_droits', 'prestations.adherentCode', '=', 'ayant_droits.code')
+            ->join('adherents', 'ayant_droits.adherent_id', '=', 'adherents.id')
+            ->whereYear('prestations.created_at', $currentYear)
+            ->select('prestations.*', 'adherents.id as adherent_id')
+            ->distinct()
+            ->get();
+
+        
+
+        $prestationsAll = $prestationsAdherents->merge($prestationsAyantsDroit);
+
+
+        $prestationsGroupedByAdherent = $prestationsAll->groupBy('adherent_id');
+
+        $adherents = Adherent::whereYear('date_enregistrement', $currentYear)->get();
+        $ayantsDroit = AyantDroit::join('adherents', 'ayant_droits.adherent_id', '=', 'adherents.id')
+            ->whereYear('adherents.date_enregistrement', $currentYear)
+            ->select('ayant_droits.*')
+            ->get();
+        $prestations = Prestation::whereYear('created_at', $currentYear)->get();
+        $categories = [
+            'Nombre de nouveaux bénéficiaires',
+            'Nombre de bénéficiaires (A)',
+            'Nombre moyen de bénéficiaire (A1)',
+            'Nombre autres (B)',
+            'Nombre autres Cumulée (B1)',
+            'Taux d’utilisation mensuel % C (C)',
+            'Taux d’utilisation cumulée %(D)',
+            'Coût total des autres (E)',
+            'Coût Cumulé total des autres (E1)',
+            'Coût moyen mensuel d’un autre (F)',
+            'Coût moyen cumulé d’un autre (G)'
+        ];
+
+        $months = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
+
+        $data = [];
+        $autresCumulative = 0;
+        $coutCumulative = 0;
+        $beneficiairesCumulative = 0;
+        $totalCoutCumulative = 0;
+
+        foreach ($categories as $category) {
+            foreach ($months as $month) {
+                $data[$category][$month] = 0;
+            }
+            $data[$category]['Total'] = 0;
+            $data[$category]['Moyenne'] = 0;
+            $data[$category]['Référence'] = '';
+        }
+
+        // Nombre de bénéficiaires (adhérents + ayants droit)
+        foreach ($adherents as $adherent) {
+            $date = Carbon::parse($adherent->date_enregistrement);
+            $month = $months[$date->month - 1];
+
+            $data['Nombre de nouveaux bénéficiaires'][$month]++;
+            $data['Nombre de nouveaux bénéficiaires']['Total']++;
+
+            $data['Nombre de bénéficiaires (A)'][$month]++;
+            $data['Nombre de bénéficiaires (A)']['Total']++;
+        }
+
+        foreach ($ayantsDroit as $ayantDroit) {
+            $date = Carbon::parse($ayantDroit->adherent->date_enregistrement);
+            $month = $months[$date->month - 1];
+
+            // Nombre de bénéficiaires (A) par mois
+            $data['Nombre de nouveaux bénéficiaires'][$month]++;
+            $data['Nombre de nouveaux bénéficiaires']['Total']++;
+
+            $data['Nombre de bénéficiaires (A)'][$month]++;
+            $data['Nombre de bénéficiaires (A)']['Total']++;
+        }
+
+        // Calcul du cumul des bénéficiaires pour chaque mois
+        foreach ($months as $index => $month) {
+            $beneficiairesCumulative += $data['Nombre de bénéficiaires (A)'][$month];
+            $data['Nombre de bénéficiaires (A)'][$month] = $beneficiairesCumulative;
+
+            // Calculer A1 = A / nombre de mois déjà écoulés
+            $data['Nombre moyen de bénéficiaire (A1)'][$month] = floor($beneficiairesCumulative / ($index + 1));
+            $data['Nombre moyen de bénéficiaire (A1)']['Total'] = $data['Nombre moyen de bénéficiaire (A1)'][$month];
+        }
+
+        // Calculer les statistiques à pfartir des prestations
+        foreach ($prestations as $prestation) {
+            $date = Carbon::parse($prestation->created_at);
+            $month = $months[$date->month - 1];
+
+            // Nombre autres (B)
+            if ($prestation->acte == 'autre') {
+                $data['Nombre autres (B)'][$month]++;
+                $data['Nombre autres (B)']['Total']++;
+
+                // Cumul des autre (B1)
+                $autresCumulative++;
+                $data['Nombre autres Cumulée (B1)'][$month] = $autresCumulative;
+                $data['Nombre autres Cumulée (B1)']['Total'] = $autresCumulative;
+
+                // Coût total des autres (E)
+                if (!isset($data['Coût total des autres (E)'][$month])) {
+                    $data['Coût total des autres (E)'][$month] = 0;
+                }
+                $data['Coût total des autres (E)'][$month] += $prestation->montant;
+                $data['Coût total des autres (E)']['Total'] += $prestation->montant;
+
+                
+            }
+        }
+
+        // Calculer le cumul par mois pour B1
+        foreach ($months as $index => $month) {
+            if ($index > 0) {
+                $data['Nombre autres Cumulée (B1)'][$month] = $data['Nombre autres Cumulée (B1)'][$months[$index - 1]] + $data['Nombre autres (B)'][$month];
+            }
+
+            // Cumul du coût total des autres (E1)
+            if ($index > 0) {
+                $data['Coût Cumulé total des autres (E1)'][$month] = $data['Coût Cumulé total des autres (E1)'][$months[$index - 1]] + $data['Coût total des autres (E)'][$month];
+            } else {
+                $data['Coût Cumulé total des autres (E1)'][$month] = $data['Coût total des autres (E)'][$month];
+            }
+            $data['Coût Cumulé total des autres (E1)']['Total'] = $data['Coût Cumulé total des autres (E1)'][$month] ;        
+            
+            // Coût moyen cumulé d’un autre (G)
+            if ($data['Nombre autres Cumulée (B1)'][$month] > 0) {
+                $data['Coût moyen cumulé d’un autre (G)'][$month] = $data['Coût Cumulé total des autres (E1)'][$month] / $data['Nombre autres Cumulée (B1)'][$month];
+            }
+        }
+        if ($data['Nombre autres Cumulée (B1)']['Total'] > 0) {
+            $data['Coût moyen cumulé d’un autre (G)']['Total'] = $data['Coût Cumulé total des autres (E1)']['Total']  / $data['Nombre autres Cumulée (B1)']['Total'];
+        } else {
+            $data['Coût moyen cumulé d’un autre (G)']['Total'] = 0;
+        }
+
+        // Calcul des moyennes et taux d'utilisation
+        foreach ($months as $index => $month) {
+            $previousMonths = $index + 1;
+
+            // Taux d’utilisation mensuel % (C)
+            if ($data['Nombre de bénéficiaires (A)'][$month] > 0) {
+                $data['Taux d’utilisation mensuel % C (C)'][$month] = number_format(($data['Nombre autres (B)'][$month] / $data['Nombre de bénéficiaires (A)'][$month])*$previousMonths * 100, 2);
+            }
+            if ($beneficiairesCumulative > 0) {
+                $data['Taux d’utilisation mensuel % C (C)']['Total'] = number_format(($autresCumulative / $beneficiairesCumulative)*12 * 100, 2);
+            } else {
+                $data['Taux d’utilisation mensuel % C (C)']['Total'] = 0;
+            }
+            // Taux d’utilisation cumulée % (D)
+            if ($data['Nombre moyen de bénéficiaire (A1)'][$month] > 0) {
+                $data['Taux d’utilisation cumulée %(D)'][$month] = number_format(($data['Nombre autres Cumulée (B1)'][$month] / $data['Nombre moyen de bénéficiaire (A1)'][$month])*$previousMonths * 100, 2);
+            
+            }
+            if ($data['Nombre moyen de bénéficiaire (A1)']['Total'] > 0) {
+                $data['Taux d’utilisation cumulée %(D)']['Total'] = number_format(($autresCumulative / $data['Nombre moyen de bénéficiaire (A1)']['Total'])*12 * 100, 2);
+            } else {
+                $data['Taux d’utilisation cumulée %(D)']['Total'] = 0;
+            }
+
+            // Coût moyen mensuel d’un autre (F)
+            if ($data['Nombre autres (B)'][$month] > 0) {
+                $data['Coût moyen mensuel d’un autre (F)'][$month] = $data['Coût total des autres (E)'][$month] / $data['Nombre autres (B)'][$month];
+            }
+
+
+            
+        }
+        if ($data['Nombre autres (B)']['Total'] > 0) {
+            $data['Coût moyen mensuel d’un autre (F)']['Total'] = $data['Coût total des autres (E)']['Total']  / $data['Nombre autres (B)']['Total'];
+        } else {
+            $data['Coût moyen mensuel d’un autre (F)']['Total'] = 0;
+        }
+
+        // Calcul des moyennes totales pour chaque catégorie
+        foreach ($categories as $category) {
+            $data[$category]['Moyenne'] = number_format($data[$category]['Total'] / count($months), 2, ',', ' ');
+        }
+
+        // Convertir les données pour Tabulator
+        $tabulatorData = [];
+        foreach ($categories as $category) {
+            $row = ['Category' => $category];
+            foreach ($months as $month) {
+                $row[$month] = $data[$category][$month];
+            }
+            $row['Total'] = $data[$category]['Total'];
+            $row['Moyenne'] = $data[$category]['Moyenne'];
+            $row['Référence'] = $data[$category]['Référence'];
+            $tabulatorData[] = $row;
+        }
+
+        $viewData = [
+            'tabulatorData' => $tabulatorData,
+            'currentYear' => $currentYear,
+        ];
+
+        return view('pages.backend.prestations.suivi-autre', compact('tabulatorData', 'prestationsGroupedByAdherent', 'currentYear', 'prestationsAll', 'months' , 'data'));
+    }
+ 
+
+
+
+    public function suiviAnalyseBiomedicale(Request $request)
+    {
+
+        $currentYear = $request->input('year', Carbon::now()->year);
+        $adherentCodes = Adherent::pluck('code_carte')->toArray();
+        $prestationsAdherents = Prestation::join('adherents', 'prestations.adherentCode', '=', 'adherents.code_carte')
+            ->whereYear('prestations.created_at', $currentYear)
+            ->select('prestations.*', 'adherents.id as adherent_id')
+            ->get();
+
+        $prestationsAyantsDroit = Prestation::join('ayant_droits', 'prestations.adherentCode', '=', 'ayant_droits.code')
+            ->join('adherents', 'ayant_droits.adherent_id', '=', 'adherents.id')
+            ->whereYear('prestations.created_at', $currentYear)
+            ->select('prestations.*', 'adherents.id as adherent_id')
+            ->distinct()
+            ->get();
+
+        
+
+        $prestationsAll = $prestationsAdherents->merge($prestationsAyantsDroit);
+
+
+        $prestationsGroupedByAdherent = $prestationsAll->groupBy('adherent_id');
+
+        $adherents = Adherent::whereYear('date_enregistrement', $currentYear)->get();
+        $ayantsDroit = AyantDroit::join('adherents', 'ayant_droits.adherent_id', '=', 'adherents.id')
+            ->whereYear('adherents.date_enregistrement', $currentYear)
+            ->select('ayant_droits.*')
+            ->get();
+        $prestations = Prestation::whereYear('created_at', $currentYear)->get();
+        $categories = [
+            'Nombre de nouveaux bénéficiaires',
+            'Nombre de bénéficiaires (A)',
+            'Nombre moyen de bénéficiaire (A1)',
+            'Nombre d’analyses biomédicales (B)',
+            'Nombre d’analyses biomédicales Cumulée (B1)',
+            'Taux d’utilisation mensuel % C (C)',
+            'Taux d’utilisation cumulée %(D)',
+            'Coût total des analyses biomédicales (E)',
+            'Coût Cumulé total des analyses biomédicales (E1)',
+            'Coût moyen mensuel d’une analyse biomédicale (F)',
+            'Coût moyen cumulé d’une analyse biomédicale (G)'
+        ];
+
+        $months = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
+
+        $data = [];
+        $analysesBiomedicalesCumulative = 0;
+        $coutCumulative = 0;
+        $beneficiairesCumulative = 0;
+        $totalCoutCumulative = 0;
+
+        foreach ($categories as $category) {
+            foreach ($months as $month) {
+                $data[$category][$month] = 0;
+            }
+            $data[$category]['Total'] = 0;
+            $data[$category]['Moyenne'] = 0;
+            $data[$category]['Référence'] = '';
+        }
+
+        // Nombre de bénéficiaires (adhérents + ayants droit)
+        foreach ($adherents as $adherent) {
+            $date = Carbon::parse($adherent->date_enregistrement);
+            $month = $months[$date->month - 1];
+
+            $data['Nombre de nouveaux bénéficiaires'][$month]++;
+            $data['Nombre de nouveaux bénéficiaires']['Total']++;
+
+            $data['Nombre de bénéficiaires (A)'][$month]++;
+            $data['Nombre de bénéficiaires (A)']['Total']++;
+        }
+
+        foreach ($ayantsDroit as $ayantDroit) {
+            $date = Carbon::parse($ayantDroit->adherent->date_enregistrement);
+            $month = $months[$date->month - 1];
+
+            // Nombre de bénéficiaires (A) par mois
+            $data['Nombre de nouveaux bénéficiaires'][$month]++;
+            $data['Nombre de nouveaux bénéficiaires']['Total']++;
+
+            $data['Nombre de bénéficiaires (A)'][$month]++;
+            $data['Nombre de bénéficiaires (A)']['Total']++;
+        }
+
+        // Calcul du cumul des bénéficiaires pour chaque mois
+        foreach ($months as $index => $month) {
+            $beneficiairesCumulative += $data['Nombre de bénéficiaires (A)'][$month];
+            $data['Nombre de bénéficiaires (A)'][$month] = $beneficiairesCumulative;
+
+            // Calculer A1 = A / nombre de mois déjà écoulés
+            $data['Nombre moyen de bénéficiaire (A1)'][$month] = floor($beneficiairesCumulative / ($index + 1));
+            $data['Nombre moyen de bénéficiaire (A1)']['Total'] = $data['Nombre moyen de bénéficiaire (A1)'][$month];
+        }
+
+        // Calculer les statistiques à pfartir des prestations
+        foreach ($prestations as $prestation) {
+            $date = Carbon::parse($prestation->created_at);
+            $month = $months[$date->month - 1];
+
+            // Nombre d'analyses biomédicales (B)
+            if ($prestation->acte == 'analyse_biomedicale') {
+                $data['Nombre d’analyses biomédicales (B)'][$month]++;
+                $data['Nombre d’analyses biomédicales (B)']['Total']++;
+
+                // Cumul des analyses biomédicales (B1)
+                $analysesBiomedicalesCumulative++;
+                $data['Nombre d’analyses biomédicales Cumulée (B1)'][$month] = $analysesBiomedicalesCumulative;
+                $data['Nombre d’analyses biomédicales Cumulée (B1)']['Total'] = $analysesBiomedicalesCumulative;
+
+                // Coût total des analyses biomédicales (E)
+                if (!isset($data['Coût total des analyses biomédicales (E)'][$month])) {
+                    $data['Coût total des analyses biomédicales (E)'][$month] = 0;
+                }
+                $data['Coût total des analyses biomédicales (E)'][$month] += $prestation->montant;
+                $data['Coût total des analyses biomédicales (E)']['Total'] += $prestation->montant;
+
+                
+            }
+        }
+
+        // Calculer le cumul par mois pour B1
+        foreach ($months as $index => $month) {
+            if ($index > 0) {
+                $data['Nombre d’analyses biomédicales Cumulée (B1)'][$month] = $data['Nombre d’analyses biomédicales Cumulée (B1)'][$months[$index - 1]] + $data['Nombre d’analyses biomédicales (B)'][$month];
+            }
+
+            // Cumul du coût total des analyses biomédicales (E1)
+            if ($index > 0) {
+                $data['Coût Cumulé total des analyses biomédicales (E1)'][$month] = $data['Coût Cumulé total des analyses biomédicales (E1)'][$months[$index - 1]] + $data['Coût total des analyses biomédicales (E)'][$month];
+            } else {
+                $data['Coût Cumulé total des analyses biomédicales (E1)'][$month] = $data['Coût total des analyses biomédicales (E)'][$month];
+            }
+            $data['Coût Cumulé total des analyses biomédicales (E1)']['Total'] = $data['Coût Cumulé total des analyses biomédicales (E1)'][$month] ;        
+            
+            // Coût moyen cumulé d’une analyse biomédicale (G)
+            if ($data['Nombre d’analyses biomédicales Cumulée (B1)'][$month] > 0) {
+                $data['Coût moyen cumulé d’une analyse biomédicale (G)'][$month] = $data['Coût Cumulé total des analyses biomédicales (E1)'][$month] / $data['Nombre d’analyses biomédicales Cumulée (B1)'][$month];
+            }
+        }
+        if ($data['Nombre d’analyses biomédicales Cumulée (B1)']['Total'] > 0) {
+            $data['Coût moyen cumulé d’une analyse biomédicale (G)']['Total'] = $data['Coût Cumulé total des analyses biomédicales (E1)']['Total']  / $data['Nombre d’analyses biomédicales Cumulée (B1)']['Total'];
+        } else {
+            $data['Coût moyen cumulé d’une analyse biomédicale (G)']['Total'] = 0;
+        }
+
+        // Calcul des moyennes et taux d'utilisation
+        foreach ($months as $index => $month) {
+            $previousMonths = $index + 1;
+
+            // Taux d’utilisation mensuel % (C)
+            if ($data['Nombre de bénéficiaires (A)'][$month] > 0) {
+                $data['Taux d’utilisation mensuel % C (C)'][$month] = number_format(($data['Nombre d’analyses biomédicales (B)'][$month] / $data['Nombre de bénéficiaires (A)'][$month])*$previousMonths * 100, 2);
+            }
+            if ($beneficiairesCumulative > 0) {
+                $data['Taux d’utilisation mensuel % C (C)']['Total'] = number_format(($analysesBiomedicalesCumulative / $beneficiairesCumulative)*12 * 100, 2);
+            } else {
+                $data['Taux d’utilisation mensuel % C (C)']['Total'] = 0;
+            }
+            // Taux d’utilisation cumulée % (D)
+            if ($data['Nombre moyen de bénéficiaire (A1)'][$month] > 0) {
+                $data['Taux d’utilisation cumulée %(D)'][$month] = number_format(($data['Nombre d’analyses biomédicales Cumulée (B1)'][$month] / $data['Nombre moyen de bénéficiaire (A1)'][$month])*$previousMonths * 100, 2);
+            
+            }
+            if ($data['Nombre moyen de bénéficiaire (A1)']['Total'] > 0) {
+                $data['Taux d’utilisation cumulée %(D)']['Total'] = number_format(($analysesBiomedicalesCumulative / $data['Nombre moyen de bénéficiaire (A1)']['Total'])*12 * 100, 2);
+            } else {
+                $data['Taux d’utilisation cumulée %(D)']['Total'] = 0;
+            }
+
+            // Coût moyen mensuel d’une analyse biomédicale (F)
+            if ($data['Nombre d’analyses biomédicales (B)'][$month] > 0) {
+                $data['Coût moyen mensuel d’une analyse biomédicale (F)'][$month] = $data['Coût total des analyses biomédicales (E)'][$month] / $data['Nombre d’analyses biomédicales (B)'][$month];
+            }
+
+
+            
+        }
+        if ($data['Nombre d’analyses biomédicales (B)']['Total'] > 0) {
+            $data['Coût moyen mensuel d’une analyse biomédicale (F)']['Total'] = $data['Coût total des analyses biomédicales (E)']['Total']  / $data['Nombre d’analyses biomédicales (B)']['Total'];
+        } else {
+            $data['Coût moyen mensuel d’une analyse biomédicale (F)']['Total'] = 0;
+        }
+
+        // Calcul des moyennes totales pour chaque catégorie
+        foreach ($categories as $category) {
+            $data[$category]['Moyenne'] = number_format($data[$category]['Total'] / count($months), 2, ',', ' ');
+        }
+
+        // Convertir les données pour Tabulator
+        $tabulatorData = [];
+        foreach ($categories as $category) {
+            $row = ['Category' => $category];
+            foreach ($months as $month) {
+                $row[$month] = $data[$category][$month];
+            }
+            $row['Total'] = $data[$category]['Total'];
+            $row['Moyenne'] = $data[$category]['Moyenne'];
+            $row['Référence'] = $data[$category]['Référence'];
+            $tabulatorData[] = $row;
+        }
+
+        $viewData = [
+            'tabulatorData' => $tabulatorData,
+            'currentYear' => $currentYear,
+        ];
+
+        return view('pages.backend.prestations.suivi-analyse-biomedicale', compact('tabulatorData', 'prestationsGroupedByAdherent', 'currentYear', 'prestationsAll', 'months' , 'data'));
+    }
+
+    public function suiviPharmacie(Request $request)
+    {
+
+        $currentYear = $request->input('year', Carbon::now()->year);
+        $adherentCodes = Adherent::pluck('code_carte')->toArray();
+        $prestationsAdherents = Prestation::join('adherents', 'prestations.adherentCode', '=', 'adherents.code_carte')
+            ->whereYear('prestations.created_at', $currentYear)
+            ->select('prestations.*', 'adherents.id as adherent_id')
+            ->get();
+
+        $prestationsAyantsDroit = Prestation::join('ayant_droits', 'prestations.adherentCode', '=', 'ayant_droits.code')
+            ->join('adherents', 'ayant_droits.adherent_id', '=', 'adherents.id')
+            ->whereYear('prestations.created_at', $currentYear)
+            ->select('prestations.*', 'adherents.id as adherent_id')
+            ->distinct()
+            ->get();
+
+        
+
+        $prestationsAll = $prestationsAdherents->merge($prestationsAyantsDroit);
+
+
+        $prestationsGroupedByAdherent = $prestationsAll->groupBy('adherent_id');
+
+        $adherents = Adherent::whereYear('date_enregistrement', $currentYear)->get();
+        $ayantsDroit = AyantDroit::join('adherents', 'ayant_droits.adherent_id', '=', 'adherents.id')
+            ->whereYear('adherents.date_enregistrement', $currentYear)
+            ->select('ayant_droits.*')
+            ->get();
+        $prestations = Prestation::whereYear('created_at', $currentYear)->get();
+        $categories = [
+            'Nombre de nouveaux bénéficiaires',
+            'Nombre de bénéficiaires (A)',
+            'Nombre moyen de bénéficiaire (A1)',
+            'Nombre de pharmacies (B)',
+            'Nombre de pharmacies Cumulée (B1)',
+            'Taux d’utilisation mensuel % C (C)',
+            'Taux d’utilisation cumulée %(D)',
+            'Coût total des pharmacies (E)',
+            'Coût Cumulé total des pharmacies (E1)',
+            'Coût moyen mensuel d’une pharmacie (F)',
+            'Coût moyen cumulé d’une pharmacie (G)'
+        ];
+
+        $months = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
+
+        $data = [];
+        $pharmaciesCumulative = 0;
+        $coutCumulative = 0;
+        $beneficiairesCumulative = 0;
+        $totalCoutCumulative = 0;
+
+        foreach ($categories as $category) {
+            foreach ($months as $month) {
+                $data[$category][$month] = 0;
+            }
+            $data[$category]['Total'] = 0;
+            $data[$category]['Moyenne'] = 0;
+            $data[$category]['Référence'] = '';
+        }
+
+        // Nombre de bénéficiaires (adhérents + ayants droit)
+        foreach ($adherents as $adherent) {
+            $date = Carbon::parse($adherent->date_enregistrement);
+            $month = $months[$date->month - 1];
+
+            $data['Nombre de nouveaux bénéficiaires'][$month]++;
+            $data['Nombre de nouveaux bénéficiaires']['Total']++;
+
+            $data['Nombre de bénéficiaires (A)'][$month]++;
+            $data['Nombre de bénéficiaires (A)']['Total']++;
+        }
+
+        foreach ($ayantsDroit as $ayantDroit) {
+            $date = Carbon::parse($ayantDroit->adherent->date_enregistrement);
+            $month = $months[$date->month - 1];
+
+            // Nombre de bénéficiaires (A) par mois
+            $data['Nombre de nouveaux bénéficiaires'][$month]++;
+            $data['Nombre de nouveaux bénéficiaires']['Total']++;
+
+            $data['Nombre de bénéficiaires (A)'][$month]++;
+            $data['Nombre de bénéficiaires (A)']['Total']++;
+        }
+
+        // Calcul du cumul des bénéficiaires pour chaque mois
+        foreach ($months as $index => $month) {
+            $beneficiairesCumulative += $data['Nombre de bénéficiaires (A)'][$month];
+            $data['Nombre de bénéficiaires (A)'][$month] = $beneficiairesCumulative;
+
+            // Calculer A1 = A / nombre de mois déjà écoulés
+            $data['Nombre moyen de bénéficiaire (A1)'][$month] = floor($beneficiairesCumulative / ($index + 1));
+            $data['Nombre moyen de bénéficiaire (A1)']['Total'] = $data['Nombre moyen de bénéficiaire (A1)'][$month];
+        }
+
+        // Calculer les statistiques à pfartir des prestations
+        foreach ($prestations as $prestation) {
+            $date = Carbon::parse($prestation->created_at);
+            $month = $months[$date->month - 1];
+
+            // Nombre de pharmacies (B)
+            if ($prestation->acte == 'pharmacie') {
+                $data['Nombre de pharmacies (B)'][$month]++;
+                $data['Nombre de pharmacies (B)']['Total']++;
+
+                // Cumul des pharmacies (B1)
+                $pharmaciesCumulative++;
+                $data['Nombre de pharmacies Cumulée (B1)'][$month] = $pharmaciesCumulative;
+                $data['Nombre de pharmacies Cumulée (B1)']['Total'] = $pharmaciesCumulative;
+
+                // Coût total des pharmacies (E)
+                if (!isset($data['Coût total des pharmacies (E)'][$month])) {
+                    $data['Coût total des pharmacies (E)'][$month] = 0;
+                }
+                $data['Coût total des pharmacies (E)'][$month] += $prestation->montant;
+                $data['Coût total des pharmacies (E)']['Total'] += $prestation->montant;
+
+                
+            }
+        }
+
+        // Calculer le cumul par mois pour B1
+        foreach ($months as $index => $month) {
+            if ($index > 0) {
+                $data['Nombre de pharmacies Cumulée (B1)'][$month] = $data['Nombre de pharmacies Cumulée (B1)'][$months[$index - 1]] + $data['Nombre de pharmacies (B)'][$month];
+            }
+
+            // Cumul du coût total des pharmacies (E1)
+            if ($index > 0) {
+                $data['Coût Cumulé total des pharmacies (E1)'][$month] = $data['Coût Cumulé total des pharmacies (E1)'][$months[$index - 1]] + $data['Coût total des pharmacies (E)'][$month];
+            } else {
+                $data['Coût Cumulé total des pharmacies (E1)'][$month] = $data['Coût total des pharmacies (E)'][$month];
+            }
+            $data['Coût Cumulé total des pharmacies (E1)']['Total'] = $data['Coût Cumulé total des pharmacies (E1)'][$month] ;        
+            
+            // Coût moyen cumulé d’une pharmacie (G)
+            if ($data['Nombre de pharmacies Cumulée (B1)'][$month] > 0) {
+                $data['Coût moyen cumulé d’une pharmacie (G)'][$month] = $data['Coût Cumulé total des pharmacies (E1)'][$month] / $data['Nombre de pharmacies Cumulée (B1)'][$month];
+            }
+        }
+        if ($data['Nombre de pharmacies Cumulée (B1)']['Total'] > 0) {
+            $data['Coût moyen cumulé d’une pharmacie (G)']['Total'] = $data['Coût Cumulé total des pharmacies (E1)']['Total']  / $data['Nombre de pharmacies Cumulée (B1)']['Total'];
+        } else {
+            $data['Coût moyen cumulé d’une pharmacie (G)']['Total'] = 0;
+        }
+
+        // Calcul des moyennes et taux d'utilisation
+        foreach ($months as $index => $month) {
+            $previousMonths = $index + 1;
+
+            // Taux d’utilisation mensuel % (C)
+            if ($data['Nombre de bénéficiaires (A)'][$month] > 0) {
+                $data['Taux d’utilisation mensuel % C (C)'][$month] = number_format(($data['Nombre de pharmacies (B)'][$month] / $data['Nombre de bénéficiaires (A)'][$month])*$previousMonths * 100, 2);
+            }
+            if ($beneficiairesCumulative > 0) {
+                $data['Taux d’utilisation mensuel % C (C)']['Total'] = number_format(($pharmaciesCumulative / $beneficiairesCumulative)*12 * 100, 2);
+            } else {
+                $data['Taux d’utilisation mensuel % C (C)']['Total'] = 0;
+            }
+            // Taux d’utilisation cumulée % (D)
+            if ($data['Nombre moyen de bénéficiaire (A1)'][$month] > 0) {
+                $data['Taux d’utilisation cumulée %(D)'][$month] = number_format(($data['Nombre de pharmacies Cumulée (B1)'][$month] / $data['Nombre moyen de bénéficiaire (A1)'][$month])*$previousMonths * 100, 2);
+            
+            }
+            if ($data['Nombre moyen de bénéficiaire (A1)']['Total'] > 0) {
+                $data['Taux d’utilisation cumulée %(D)']['Total'] = number_format(($pharmaciesCumulative / $data['Nombre moyen de bénéficiaire (A1)']['Total'])*12 * 100, 2);
+            } else {
+                $data['Taux d’utilisation cumulée %(D)']['Total'] = 0;
+            }
+
+            // Coût moyen mensuel d’une pharmacie (F)
+            if ($data['Nombre de pharmacies (B)'][$month] > 0) {
+                $data['Coût moyen mensuel d’une pharmacie (F)'][$month] = $data['Coût total des pharmacies (E)'][$month] / $data['Nombre de pharmacies (B)'][$month];
+            }
+
+
+            
+        }
+        if ($data['Nombre de pharmacies (B)']['Total'] > 0) {
+            $data['Coût moyen mensuel d’une pharmacie (F)']['Total'] = $data['Coût total des pharmacies (E)']['Total']  / $data['Nombre de pharmacies (B)']['Total'];
+        } else {
+            $data['Coût moyen mensuel d’une pharmacie (F)']['Total'] = 0;
+        }
+
+        // Calcul des moyennes totales pour chaque catégorie
+        foreach ($categories as $category) {
+            $data[$category]['Moyenne'] = number_format($data[$category]['Total'] / count($months), 2, ',', ' ');
+        }
+
+        // Convertir les données pour Tabulator
+        $tabulatorData = [];
+        foreach ($categories as $category) {
+            $row = ['Category' => $category];
+            foreach ($months as $month) {
+                $row[$month] = $data[$category][$month];
+            }
+            $row['Total'] = $data[$category]['Total'];
+            $row['Moyenne'] = $data[$category]['Moyenne'];
+            $row['Référence'] = $data[$category]['Référence'];
+            $tabulatorData[] = $row;
+        }
+
+        $viewData = [
+            'tabulatorData' => $tabulatorData,
+            'currentYear' => $currentYear,
+        ];
+
+        return view('pages.backend.prestations.suivi-pharmacie', compact('tabulatorData', 'prestationsGroupedByAdherent', 'currentYear', 'prestationsAll', 'months' , 'data'));
+    }
+
+    public function suiviOptique(Request $request)
+    {
+
+        $currentYear = $request->input('year', Carbon::now()->year);
+        $adherentCodes = Adherent::pluck('code_carte')->toArray();
+        $prestationsAdherents = Prestation::join('adherents', 'prestations.adherentCode', '=', 'adherents.code_carte')
+            ->whereYear('prestations.created_at', $currentYear)
+            ->select('prestations.*', 'adherents.id as adherent_id')
+            ->get();
+
+        $prestationsAyantsDroit = Prestation::join('ayant_droits', 'prestations.adherentCode', '=', 'ayant_droits.code')
+            ->join('adherents', 'ayant_droits.adherent_id', '=', 'adherents.id')
+            ->whereYear('prestations.created_at', $currentYear)
+            ->select('prestations.*', 'adherents.id as adherent_id')
+            ->distinct()
+            ->get();
+
+        
+
+        $prestationsAll = $prestationsAdherents->merge($prestationsAyantsDroit);
+
+
+        $prestationsGroupedByAdherent = $prestationsAll->groupBy('adherent_id');
+
+        $adherents = Adherent::whereYear('date_enregistrement', $currentYear)->get();
+        $ayantsDroit = AyantDroit::join('adherents', 'ayant_droits.adherent_id', '=', 'adherents.id')
+            ->whereYear('adherents.date_enregistrement', $currentYear)
+            ->select('ayant_droits.*')
+            ->get();
+        $prestations = Prestation::whereYear('created_at', $currentYear)->get();
+        $categories = [
+            'Nombre de nouveaux bénéficiaires',
+            'Nombre de bénéficiaires (A)',
+            'Nombre moyen de bénéficiaire (A1)',
+            'Nombre d’optiques (B)',
+            'Nombre d’optiques Cumulée (B1)',
+            'Taux d’utilisation mensuel % C (C)',
+            'Taux d’utilisation cumulée %(D)',
+            'Coût total des optiques (E)',
+            'Coût Cumulé total des optiques (E1)',
+            'Coût moyen mensuel d’une optique (F)',
+            'Coût moyen cumulé d’une optique (G)'
+        ];
+
+        $months = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
+
+        $data = [];
+        $optiquesCumulative = 0;
+        $coutCumulative = 0;
+        $beneficiairesCumulative = 0;
+        $totalCoutCumulative = 0;
+
+        foreach ($categories as $category) {
+            foreach ($months as $month) {
+                $data[$category][$month] = 0;
+            }
+            $data[$category]['Total'] = 0;
+            $data[$category]['Moyenne'] = 0;
+            $data[$category]['Référence'] = '';
+        }
+
+        // Nombre de bénéficiaires (adhérents + ayants droit)
+        foreach ($adherents as $adherent) {
+            $date = Carbon::parse($adherent->date_enregistrement);
+            $month = $months[$date->month - 1];
+
+            $data['Nombre de nouveaux bénéficiaires'][$month]++;
+            $data['Nombre de nouveaux bénéficiaires']['Total']++;
+
+            $data['Nombre de bénéficiaires (A)'][$month]++;
+            $data['Nombre de bénéficiaires (A)']['Total']++;
+        }
+
+        foreach ($ayantsDroit as $ayantDroit) {
+            $date = Carbon::parse($ayantDroit->adherent->date_enregistrement);
+            $month = $months[$date->month - 1];
+
+            // Nombre de bénéficiaires (A) par mois
+            $data['Nombre de nouveaux bénéficiaires'][$month]++;
+            $data['Nombre de nouveaux bénéficiaires']['Total']++;
+
+            $data['Nombre de bénéficiaires (A)'][$month]++;
+            $data['Nombre de bénéficiaires (A)']['Total']++;
+        }
+
+        // Calcul du cumul des bénéficiaires pour chaque mois
+        foreach ($months as $index => $month) {
+            $beneficiairesCumulative += $data['Nombre de bénéficiaires (A)'][$month];
+            $data['Nombre de bénéficiaires (A)'][$month] = $beneficiairesCumulative;
+
+            // Calculer A1 = A / nombre de mois déjà écoulés
+            $data['Nombre moyen de bénéficiaire (A1)'][$month] = floor($beneficiairesCumulative / ($index + 1));
+            $data['Nombre moyen de bénéficiaire (A1)']['Total'] = $data['Nombre moyen de bénéficiaire (A1)'][$month];
+        }
+
+        // Calculer les statistiques à pfartir des prestations
+        foreach ($prestations as $prestation) {
+            $date = Carbon::parse($prestation->created_at);
+            $month = $months[$date->month - 1];
+
+            // Nombre d’optiques (B)
+            if ($prestation->acte == 'optique') {
+                $data['Nombre d’optiques (B)'][$month]++;
+                $data['Nombre d’optiques (B)']['Total']++;
+
+                // Cumul des optiques (B1)
+                $optiquesCumulative++;
+                $data['Nombre d’optiques Cumulée (B1)'][$month] = $optiquesCumulative;
+                $data['Nombre d’optiques Cumulée (B1)']['Total'] = $optiquesCumulative;
+
+                // Coût total des optiques (E)
+                if (!isset($data['Coût total des optiques (E)'][$month])) {
+                    $data['Coût total des optiques (E)'][$month] = 0;
+                }
+                $data['Coût total des optiques (E)'][$month] += $prestation->montant;
+                $data['Coût total des optiques (E)']['Total'] += $prestation->montant;
+
+                
+            }
+        }
+
+        // Calculer le cumul par mois pour B1
+        foreach ($months as $index => $month) {
+            if ($index > 0) {
+                $data['Nombre d’optiques Cumulée (B1)'][$month] = $data['Nombre d’optiques Cumulée (B1)'][$months[$index - 1]] + $data['Nombre d’optiques (B)'][$month];
+            }
+
+            // Cumul du coût total des optiques (E1)
+            if ($index > 0) {
+                $data['Coût Cumulé total des optiques (E1)'][$month] = $data['Coût Cumulé total des optiques (E1)'][$months[$index - 1]] + $data['Coût total des optiques (E)'][$month];
+            } else {
+                $data['Coût Cumulé total des optiques (E1)'][$month] = $data['Coût total des optiques (E)'][$month];
+            }
+            $data['Coût Cumulé total des optiques (E1)']['Total'] = $data['Coût Cumulé total des optiques (E1)'][$month] ;        
+            
+            // Coût moyen cumulé d’une optique (G)
+            if ($data['Nombre d’optiques Cumulée (B1)'][$month] > 0) {
+                $data['Coût moyen cumulé d’une optique (G)'][$month] = $data['Coût Cumulé total des optiques (E1)'][$month] / $data['Nombre d’optiques Cumulée (B1)'][$month];
+            }
+        }
+        if ($data['Nombre d’optiques Cumulée (B1)']['Total'] > 0) {
+            $data['Coût moyen cumulé d’une optique (G)']['Total'] = $data['Coût Cumulé total des optiques (E1)']['Total']  / $data['Nombre d’optiques Cumulée (B1)']['Total'];
+        } else {
+            $data['Coût moyen cumulé d’une optique (G)']['Total'] = 0;
+        }
+
+        // Calcul des moyennes et taux d'utilisation
+        foreach ($months as $index => $month) {
+            $previousMonths = $index + 1;
+
+            // Taux d’utilisation mensuel % (C)
+            if ($data['Nombre de bénéficiaires (A)'][$month] > 0) {
+                $data['Taux d’utilisation mensuel % C (C)'][$month] = number_format(($data['Nombre d’optiques (B)'][$month] / $data['Nombre de bénéficiaires (A)'][$month])*$previousMonths * 100, 2);
+            }
+            if ($beneficiairesCumulative > 0) {
+                $data['Taux d’utilisation mensuel % C (C)']['Total'] = number_format(($optiquesCumulative / $beneficiairesCumulative)*12 * 100, 2);
+            } else {
+                $data['Taux d’utilisation mensuel % C (C)']['Total'] = 0;
+            }
+            // Taux d’utilisation cumulée % (D)
+            if ($data['Nombre moyen de bénéficiaire (A1)'][$month] > 0) {
+                $data['Taux d’utilisation cumulée %(D)'][$month] = number_format(($data['Nombre d’optiques Cumulée (B1)'][$month] / $data['Nombre moyen de bénéficiaire (A1)'][$month])*$previousMonths * 100, 2);
+            
+            }
+            if ($data['Nombre moyen de bénéficiaire (A1)']['Total'] > 0) {
+                $data['Taux d’utilisation cumulée %(D)']['Total'] = number_format(($optiquesCumulative / $data['Nombre moyen de bénéficiaire (A1)']['Total'])*12 * 100, 2);
+            } else {
+                $data['Taux d’utilisation cumulée %(D)']['Total'] = 0;
+            }
+
+            // Coût moyen mensuel d’une optique (F)
+            if ($data['Nombre d’optiques (B)'][$month] > 0) {
+                $data['Coût moyen mensuel d’une optique (F)'][$month] = $data['Coût total des optiques (E)'][$month] / $data['Nombre d’optiques (B)'][$month];
+            }
+
+
+            
+        }
+        if ($data['Nombre d’optiques (B)']['Total'] > 0) {
+            $data['Coût moyen mensuel d’une optique (F)']['Total'] = $data['Coût total des optiques (E)']['Total']  / $data['Nombre d’optiques (B)']['Total'];
+        } else {
+            $data['Coût moyen mensuel d’une optique (F)']['Total'] = 0;
+        }
+
+        // Calcul des moyennes totales pour chaque catégorie
+        foreach ($categories as $category) {
+            $data[$category]['Moyenne'] = number_format($data[$category]['Total'] / count($months), 2, ',', ' ');
+        }
+
+        // Convertir les données pour Tabulator
+        $tabulatorData = [];
+        foreach ($categories as $category) {
+            $row = ['Category' => $category];
+            foreach ($months as $month) {
+                $row[$month] = $data[$category][$month];
+            }
+            $row['Total'] = $data[$category]['Total'];
+            $row['Moyenne'] = $data[$category]['Moyenne'];
+            $row['Référence'] = $data[$category]['Référence'];
+            $tabulatorData[] = $row;
+        }
+
+        $viewData = [
+            'tabulatorData' => $tabulatorData,
+            'currentYear' => $currentYear,
+        ];
+
+        return view('pages.backend.prestations.suivi-optique', compact('tabulatorData', 'prestationsGroupedByAdherent', 'currentYear', 'prestationsAll', 'months' , 'data'));
+    }
+
+ 
+
+
+     
+
+    
+   
+    
+    public function suiviMaternite(Request $request)
+    {
+
+        $currentYear = $request->input('year', Carbon::now()->year);
+        $adherentCodes = Adherent::pluck('code_carte')->toArray();
+        $prestationsAdherents = Prestation::join('adherents', 'prestations.adherentCode', '=', 'adherents.code_carte')
+            ->whereYear('prestations.created_at', $currentYear)
+            ->select('prestations.*', 'adherents.id as adherent_id')
+            ->get();
+
+        $prestationsAyantsDroit = Prestation::join('ayant_droits', 'prestations.adherentCode', '=', 'ayant_droits.code')
+            ->join('adherents', 'ayant_droits.adherent_id', '=', 'adherents.id')
+            ->whereYear('prestations.created_at', $currentYear)
+            ->select('prestations.*', 'adherents.id as adherent_id')
+            ->distinct()
+            ->get();
+
+        
+
+        $prestationsAll = $prestationsAdherents->merge($prestationsAyantsDroit);
+
+
+        $prestationsGroupedByAdherent = $prestationsAll->groupBy('adherent_id');
+
+        $adherents = Adherent::whereYear('date_enregistrement', $currentYear)->get();
+        $ayantsDroit = AyantDroit::join('adherents', 'ayant_droits.adherent_id', '=', 'adherents.id')
+            ->whereYear('adherents.date_enregistrement', $currentYear)
+            ->select('ayant_droits.*')
+            ->get();
+        $prestations = Prestation::whereYear('created_at', $currentYear)->get();
+        $categories = [
+            'Nombre de nouveaux bénéficiaires',
+            'Nombre de bénéficiaires (A)',
+            'Nombre moyen de bénéficiaire (A1)',
+            'Nombre de maternites (B)',
+            'Nombre de maternites Cumulée (B1)',
+            'Taux d’utilisation mensuel % C (C)',
+            'Taux d’utilisation cumulée %(D)',
+            'Coût total des maternites (E)',
+            'Coût Cumulé total des maternites (E1)',
+            'Coût moyen mensuel d’une maternite (F)',
+            'Coût moyen cumulé d’une maternite (G)'
+        ];
+
+        $months = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
+
+        $data = [];
+        $maternitesCumulative = 0;
+        $coutCumulative = 0;
+        $beneficiairesCumulative = 0;
+        $totalCoutCumulative = 0;
+
+        foreach ($categories as $category) {
+            foreach ($months as $month) {
+                $data[$category][$month] = 0;
+            }
+            $data[$category]['Total'] = 0;
+            $data[$category]['Moyenne'] = 0;
+            $data[$category]['Référence'] = '';
+        }
+
+        // Nombre de bénéficiaires (adhérents + ayants droit)
+        foreach ($adherents as $adherent) {
+            $date = Carbon::parse($adherent->date_enregistrement);
+            $month = $months[$date->month - 1];
+            $data['Nombre de nouveaux bénéficiaires'][$month]++;
+            $data['Nombre de nouveaux bénéficiaires']['Total']++;
+
+            $data['Nombre de bénéficiaires (A)'][$month]++;
+            $data['Nombre de bénéficiaires (A)']['Total']++;
+        }
+
+        foreach ($ayantsDroit as $ayantDroit) {
+            $date = Carbon::parse($ayantDroit->adherent->date_enregistrement);
+            $month = $months[$date->month - 1];
+
+            // Nombre de bénéficiaires (A) par mois
+            $data['Nombre de nouveaux bénéficiaires'][$month]++;
+            $data['Nombre de nouveaux bénéficiaires']['Total']++;
+
+            $data['Nombre de bénéficiaires (A)'][$month]++;
+            $data['Nombre de bénéficiaires (A)']['Total']++;
+        }
+
+        // Calcul du cumul des bénéficiaires pour chaque mois
+        foreach ($months as $index => $month) {
+            $beneficiairesCumulative += $data['Nombre de bénéficiaires (A)'][$month];
+            $data['Nombre de bénéficiaires (A)'][$month] = $beneficiairesCumulative;
+
+            // Calculer A1 = A / nombre de mois déjà écoulés
+            $data['Nombre moyen de bénéficiaire (A1)'][$month] = floor($beneficiairesCumulative / ($index + 1));
+            $data['Nombre moyen de bénéficiaire (A1)']['Total'] = $data['Nombre moyen de bénéficiaire (A1)'][$month];
+        }
+
+        // Calculer les statistiques à partir des prestations
+        foreach ($prestations as $prestation) {
+            $date = Carbon::parse($prestation->created_at);
+            $month = $months[$date->month - 1];
+
+            // Nombre de maternites (B)
+            if ($prestation->acte == 'maternite') {
+                $data['Nombre de maternites (B)'][$month]++;
+                $data['Nombre de maternites (B)']['Total']++;
+
+                // Cumul des maternites (B1)
+                $maternitesCumulative++;
+                $data['Nombre de maternites Cumulée (B1)'][$month] = $maternitesCumulative;
+                $data['Nombre de maternites Cumulée (B1)']['Total'] = $maternitesCumulative;
+
+                // Coût total des maternites (E)
+                if (!isset($data['Coût total des maternites (E)'][$month])) {
+                    $data['Coût total des maternites (E)'][$month] = 0;
+                }
+                $data['Coût total des maternites (E)'][$month] += $prestation->montant;
+                $data['Coût total des maternites (E)']['Total'] += $prestation->montant;
+
+                
+            }
+        }
+
+        // Calculer le cumul par mois pour B1
+        foreach ($months as $index => $month) {
+            if ($index > 0) {
+                $data['Nombre de maternites Cumulée (B1)'][$month] = $data['Nombre de maternites Cumulée (B1)'][$months[$index - 1]] + $data['Nombre de maternites (B)'][$month];
+            }
+
+            // Cumul du coût total des maternites (E1)
+            if ($index > 0) {
+                $data['Coût Cumulé total des maternites (E1)'][$month] = $data['Coût Cumulé total des maternites (E1)'][$months[$index - 1]] + $data['Coût total des maternites (E)'][$month];
+            } else {
+                $data['Coût Cumulé total des maternites (E1)'][$month] = $data['Coût total des maternites (E)'][$month];
+            }
+            $data['Coût Cumulé total des maternites (E1)']['Total'] = $data['Coût Cumulé total des maternites (E1)'][$month] ;        
+            
+            // Coût moyen cumulé d’une maternite (G)
+            if ($data['Nombre de maternites Cumulée (B1)'][$month] > 0) {
+                $data['Coût moyen cumulé d’une maternite (G)'][$month] = $data['Coût Cumulé total des maternites (E1)'][$month] / $data['Nombre de maternites Cumulée (B1)'][$month];
+            }
+        }
+        if ($data['Nombre de maternites Cumulée (B1)']['Total'] > 0) {
+            $data['Coût moyen cumulé d’une maternite (G)']['Total'] = $data['Coût Cumulé total des maternites (E1)']['Total']  / $data['Nombre de maternites Cumulée (B1)']['Total'];
+        } else {
+            $data['Coût moyen cumulé d’une maternite (G)']['Total'] = 0;
+        }
+
+        // Calcul des moyennes et taux d'utilisation
+        foreach ($months as $index => $month) {
+            $previousMonths = $index + 1;
+
+            // Taux d’utilisation mensuel % (C)
+            if ($data['Nombre de bénéficiaires (A)'][$month] > 0) {
+                $data['Taux d’utilisation mensuel % C (C)'][$month] = number_format(($data['Nombre de maternites (B)'][$month] / $data['Nombre de bénéficiaires (A)'][$month])*$previousMonths * 100, 2);
+            }
+            if ($beneficiairesCumulative > 0) {
+                $data['Taux d’utilisation mensuel % C (C)']['Total'] = number_format(($maternitesCumulative / $beneficiairesCumulative)*12 * 100, 2);
+            } else {
+                $data['Taux d’utilisation mensuel % C (C)']['Total'] = 0;
+            }
+            // Taux d’utilisation cumulée % (D)
+            if ($data['Nombre moyen de bénéficiaire (A1)'][$month] > 0) {
+                $data['Taux d’utilisation cumulée %(D)'][$month] = number_format(($data['Nombre de maternites Cumulée (B1)'][$month] / $data['Nombre moyen de bénéficiaire (A1)'][$month])*$previousMonths * 100, 2);
+            
+            }
+            if ($data['Nombre moyen de bénéficiaire (A1)']['Total'] > 0) {
+                $data['Taux d’utilisation cumulée %(D)']['Total'] = number_format(($maternitesCumulative / $data['Nombre moyen de bénéficiaire (A1)']['Total'])*12 * 100, 2);
+            } else {
+                $data['Taux d’utilisation cumulée %(D)']['Total'] = 0;
+            }
+
+            // Coût moyen mensuel d’une maternite (F)
+            if ($data['Nombre de maternites (B)'][$month] > 0) {
+                $data['Coût moyen mensuel d’une maternite (F)'][$month] = $data['Coût total des maternites (E)'][$month] / $data['Nombre de maternites (B)'][$month];
+            }
+
+
+            
+        }
+        if ($data['Nombre de maternites (B)']['Total'] > 0) {
+            $data['Coût moyen mensuel d’une maternite (F)']['Total'] = $data['Coût total des maternites (E)']['Total']  / $data['Nombre de maternites (B)']['Total'];
+        } else {
+            $data['Coût moyen mensuel d’une maternite (F)']['Total'] = 0;
+        }
+
+        // Calcul des moyennes totales pour chaque catégorie
+        foreach ($categories as $category) {
+            $data[$category]['Moyenne'] = number_format($data[$category]['Total'] / count($months), 2, ',', ' ');
+        }
+
+        // Convertir les données pour Tabulator
+        $tabulatorData = [];
+        foreach ($categories as $category) {
+            $row = ['Category' => $category];
+            foreach ($months as $month) {
+                $row[$month] = $data[$category][$month];
+            }
+            $row['Total'] = $data[$category]['Total'];
+            $row['Moyenne'] = $data[$category]['Moyenne'];
+            $row['Référence'] = $data[$category]['Référence'];
+            $tabulatorData[] = $row;
+        }
+
+        $viewData = [
+            'tabulatorData' => $tabulatorData,
+            'currentYear' => $currentYear,
+        ];
+
+        return view('pages.backend.prestations.suivi-maternite', compact('tabulatorData', 'prestationsGroupedByAdherent', 'currentYear', 'prestationsAll', 'months' , 'data'));
+    }
+    
+
+    public function suiviAllocation(Request $request)
+    {
+
+        $currentYear = $request->input('year', Carbon::now()->year);
+        $adherentCodes = Adherent::pluck('code_carte')->toArray();
+        $prestationsAdherents = Prestation::join('adherents', 'prestations.adherentCode', '=', 'adherents.code_carte')
+            ->whereYear('prestations.created_at', $currentYear)
+            ->select('prestations.*', 'adherents.id as adherent_id')
+            ->get();
+
+        $prestationsAyantsDroit = Prestation::join('ayant_droits', 'prestations.adherentCode', '=', 'ayant_droits.code')
+            ->join('adherents', 'ayant_droits.adherent_id', '=', 'adherents.id')
+            ->whereYear('prestations.created_at', $currentYear)
+            ->select('prestations.*', 'adherents.id as adherent_id')
+            ->distinct()
+            ->get();
+
+        
+
+        $prestationsAll = $prestationsAdherents->merge($prestationsAyantsDroit);
+
+
+        $prestationsGroupedByAdherent = $prestationsAll->groupBy('adherent_id');
+
+        $adherents = Adherent::whereYear('date_enregistrement', $currentYear)->get();
+        $ayantsDroit = AyantDroit::join('adherents', 'ayant_droits.adherent_id', '=', 'adherents.id')
+            ->whereYear('adherents.date_enregistrement', $currentYear)
+            ->select('ayant_droits.*')
+            ->get();
+        $prestations = Prestation::whereYear('created_at', $currentYear)->get();
+        $categories = [
+            'Nombre de nouveaux bénéficiaires',
+            'Nombre de bénéficiaires (A)',
+            'Nombre moyen de bénéficiaire (A1)',
+            'Nombre d’allocations (B)',
+            'Nombre d’allocations Cumulée (B1)',
+            'Taux d’utilisation mensuel % C (C)',
+            'Taux d’utilisation cumulée %(D)',
+            'Coût total des allocations (E)',
+            'Coût Cumulé total des allocations (E1)',
+            'Coût moyen mensuel d’une allocation (F)',
+            'Coût moyen cumulé d’une allocation (G)'
+        ];
+
+        $months = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
+
+        $data = [];
+        $allocationsCumulative = 0;
+        $coutCumulative = 0;
+        $beneficiairesCumulative = 0;
+        $totalCoutCumulative = 0;
+
+        foreach ($categories as $category) {
+            foreach ($months as $month) {
+                $data[$category][$month] = 0;
+            }
+            $data[$category]['Total'] = 0;
+            $data[$category]['Moyenne'] = 0;
+            $data[$category]['Référence'] = '';
+        }
+
+        // Nombre de bénéficiaires (adhérents + ayants droit)
+        foreach ($adherents as $adherent) {
+            $date = Carbon::parse($adherent->date_enregistrement);
+            $month = $months[$date->month - 1];
+            $data['Nombre de nouveaux bénéficiaires'][$month]++;
+            $data['Nombre de nouveaux bénéficiaires']['Total']++;
+            $data['Nombre de bénéficiaires (A)'][$month]++;
+            $data['Nombre de bénéficiaires (A)']['Total']++;
+        }
+
+        foreach ($ayantsDroit as $ayantDroit) {
+            $date = Carbon::parse($ayantDroit->adherent->date_enregistrement);
+            $month = $months[$date->month - 1];
+
+            // Nombre de bénéficiaires (A) par mois
+            $data['Nombre de nouveaux bénéficiaires'][$month]++;
+            $data['Nombre de nouveaux bénéficiaires']['Total']++;
+            $data['Nombre de bénéficiaires (A)'][$month]++;
+            $data['Nombre de bénéficiaires (A)']['Total']++;
+        }
+
+        // Calcul du cumul des bénéficiaires pour chaque mois
+        foreach ($months as $index => $month) {
+            $beneficiairesCumulative += $data['Nombre de bénéficiaires (A)'][$month];
+            $data['Nombre de bénéficiaires (A)'][$month] = $beneficiairesCumulative;
+
+            // Calculer A1 = A / nombre de mois déjà écoulés
+            $data['Nombre moyen de bénéficiaire (A1)'][$month] = floor($beneficiairesCumulative / ($index + 1));
+            $data['Nombre moyen de bénéficiaire (A1)']['Total'] = $data['Nombre moyen de bénéficiaire (A1)'][$month];
+        }
+
+        // Calculer les statistiques à partir des prestations
+        foreach ($prestations as $prestation) {
+            $date = Carbon::parse($prestation->created_at);
+            $month = $months[$date->month - 1];
+
+            // Nombre allocations (B)
+            if ($prestation->acte == 'allocation') {
+                $data['Nombre d’allocations (B)'][$month]++;
+                $data['Nombre d’allocations (B)']['Total']++;
+
+                // Cumul des allocations (B1)
+                $allocationsCumulative++;
+                $data['Nombre d’allocations Cumulée (B1)'][$month] = $allocationsCumulative;
+                $data['Nombre d’allocations Cumulée (B1)']['Total'] = $allocationsCumulative;
+
+                // Coût total des allocations (E)
+                if (!isset($data['Coût total des allocations (E)'][$month])) {
+                    $data['Coût total des allocations (E)'][$month] = 0;
+                }
+                $data['Coût total des allocations (E)'][$month] += $prestation->montant;
+                $data['Coût total des allocations (E)']['Total'] += $prestation->montant;
+
+                
+            }
+        }
+
+        // Calculer le cumul par mois pour B1
+        foreach ($months as $index => $month) {
+            if ($index > 0) {
+                $data['Nombre d’allocations Cumulée (B1)'][$month] = $data['Nombre d’allocations Cumulée (B1)'][$months[$index - 1]] + $data['Nombre d’allocations (B)'][$month];
+            }
+
+            // Cumul du coût total des allocations (E1)
+            if ($index > 0) {
+                $data['Coût Cumulé total des allocations (E1)'][$month] = $data['Coût Cumulé total des allocations (E1)'][$months[$index - 1]] + $data['Coût total des allocations (E)'][$month];
+            } else {
+                $data['Coût Cumulé total des allocations (E1)'][$month] = $data['Coût total des allocations (E)'][$month];
+            }
+            $data['Coût Cumulé total des allocations (E1)']['Total'] = $data['Coût Cumulé total des allocations (E1)'][$month] ;        
+            
+            // Coût moyen cumulé d’une allocation (G)
+            if ($data['Nombre d’allocations Cumulée (B1)'][$month] > 0) {
+                $data['Coût moyen cumulé d’une allocation (G)'][$month] = $data['Coût Cumulé total des allocations (E1)'][$month] / $data['Nombre d’allocations Cumulée (B1)'][$month];
+            }
+        }
+        if ($data['Nombre d’allocations Cumulée (B1)']['Total'] > 0) {
+            $data['Coût moyen cumulé d’une allocation (G)']['Total'] = $data['Coût Cumulé total des allocations (E1)']['Total']  / $data['Nombre d’allocations Cumulée (B1)']['Total'];
+        } else {
+            $data['Coût moyen cumulé d’une allocation (G)']['Total'] = 0;
+        }
+
+        // Calcul des moyennes et taux d'utilisation
+        foreach ($months as $index => $month) {
+            $previousMonths = $index + 1;
+
+            // Taux d’utilisation mensuel % (C)
+            if ($data['Nombre de bénéficiaires (A)'][$month] > 0) {
+                $data['Taux d’utilisation mensuel % C (C)'][$month] = number_format(($data['Nombre d’allocations (B)'][$month] / $data['Nombre de bénéficiaires (A)'][$month])*$previousMonths * 100, 2);
+            }
+            if ($beneficiairesCumulative > 0) {
+                $data['Taux d’utilisation mensuel % C (C)']['Total'] = number_format(($allocationsCumulative / $beneficiairesCumulative)*12 * 100, 2);
+            } else {
+                $data['Taux d’utilisation mensuel % C (C)']['Total'] = 0;
+            }
+            // Taux d’utilisation cumulée % (D)
+            if ($data['Nombre moyen de bénéficiaire (A1)'][$month] > 0) {
+                $data['Taux d’utilisation cumulée %(D)'][$month] = number_format(($data['Nombre d’allocations Cumulée (B1)'][$month] / $data['Nombre moyen de bénéficiaire (A1)'][$month])*$previousMonths * 100, 2);
+            
+            }
+            if ($data['Nombre moyen de bénéficiaire (A1)']['Total'] > 0) {
+                $data['Taux d’utilisation cumulée %(D)']['Total'] = number_format(($allocationsCumulative / $data['Nombre moyen de bénéficiaire (A1)']['Total'])*12 * 100, 2);
+            } else {
+                $data['Taux d’utilisation cumulée %(D)']['Total'] = 0;
+            }
+
+            // Coût moyen mensuel d’une allocation (F)
+            if ($data['Nombre d’allocations (B)'][$month] > 0) {
+                $data['Coût moyen mensuel d’une allocation (F)'][$month] = $data['Coût total des allocations (E)'][$month] / $data['Nombre d’allocations (B)'][$month];
+            }
+
+
+            
+        }
+        if ($data['Nombre d’allocations (B)']['Total'] > 0) {
+            $data['Coût moyen mensuel d’une allocation (F)']['Total'] = $data['Coût total des allocations (E)']['Total']  / $data['Nombre d’allocation (B)']['Total'];
+        } else {
+            $data['Coût moyen mensuel d’une allocation (F)']['Total'] = 0;
+        }
+
+        // Calcul des moyennes totales pour chaque catégorie
+        foreach ($categories as $category) {
+            $data[$category]['Moyenne'] = number_format($data[$category]['Total'] / count($months), 2, ',', ' ');
+        }
+
+        // Convertir les données pour Tabulator
+        $tabulatorData = [];
+        foreach ($categories as $category) {
+            $row = ['Category' => $category];
+            foreach ($months as $month) {
+                $row[$month] = $data[$category][$month];
+            }
+            $row['Total'] = $data[$category]['Total'];
+            $row['Moyenne'] = $data[$category]['Moyenne'];
+            $row['Référence'] = $data[$category]['Référence'];
+            $tabulatorData[] = $row;
+        }
+
+        $viewData = [
+            'tabulatorData' => $tabulatorData,
+            'currentYear' => $currentYear,
+        ];
+
+        return view('pages.backend.prestations.suivi-allocation', compact('tabulatorData', 'prestationsGroupedByAdherent', 'currentYear', 'prestationsAll', 'months' , 'data'));
+    }
+ 
+ public function ImageToDataUrl(String $filename): String 
+    {
+        if (!file_exists($filename)) {
+            throw new Exception('File not found.');
+        }
+
+        $mime = mime_content_type($filename);
+        if ($mime === false) {
+            throw new Exception('Illegal MIME type.');
+        }
+
+        $raw_data = file_get_contents($filename);
+        if (empty($raw_data)) {
+            throw new Exception('File not readable or empty.');
+        }
+
+        return "data:{$mime};base64," . base64_encode($raw_data);
+    }
+
+    public function downloadReceipt($id)
+    {
+        $prestation = Prestation::findOrFail($id);
+
+        $data = [
+            'prestation' => $prestation,
+            'logoPath' => public_path('images/logofinal.png'),
+        ];
+        return PDFHelper::downloadPDF('pages.backend.prestations.prestation', $data, 'Recu_paiement_' . $prestation->id);
+    }
+    
+    public function suivi(Request $request)
+    {
+
+        $currentYear = $request->input('year', Carbon::now()->year);
+        $adherentCodes = Adherent::pluck('code_carte')->toArray();
+        $prestationsAdherents = Prestation::join('adherents', 'prestations.adherentCode', '=', 'adherents.code_carte')
+            ->whereYear('prestations.created_at', $currentYear)
+            ->select('prestations.*', 'adherents.id as adherent_id')
+            ->get();
+
+        $prestationsAyantsDroit = Prestation::join('ayant_droits', 'prestations.adherentCode', '=', 'ayant_droits.code')
+            ->join('adherents', 'ayant_droits.adherent_id', '=', 'adherents.id')
+            ->whereYear('prestations.created_at', $currentYear)
+            ->select('prestations.*', 'adherents.id as adherent_id')
+            ->distinct()
+            ->get();
+
+        
+
+        $prestationsAll = $prestationsAdherents->merge($prestationsAyantsDroit);
+
+
+        $prestationsGroupedByAdherent = $prestationsAll->groupBy('adherent_id');
+
+        $adherents = Adherent::whereYear('date_enregistrement', $currentYear)->get();
+        $ayantsDroit = AyantDroit::join('adherents', 'ayant_droits.adherent_id', '=', 'adherents.id')
+            ->whereYear('adherents.date_enregistrement', $currentYear)
+            ->select('ayant_droits.*')
+            ->get();
+        $prestations = Prestation::whereYear('created_at', $currentYear)->get();
+        $categories = [
+            'Nombre de nouveaux bénéficiaires',
+            'Nombre de bénéficiaires (A)',
+            'Nombre moyen de bénéficiaire (A1)',
+            'Nombre d’hospitalisation (B)',
+            'Nombre d’hospitalisation Cumulée (B1)',
+            'Taux d’utilisation mensuel % C (C)',
+            'Taux d’utilisation cumulée %(D)',
+            'Coût total des hospitalisations (E)',
+            'Coût Cumulé total des hospitalisations (E1)',
+            'Coût moyen mensuel d’une hospitalisation (F)',
+            'Coût moyen cumulé d’une hospitalisation (G)'
+        ];
+
+        $months = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
+
+        $data = [];
+        $hospitalisationsCumulative = 0;
+        $coutCumulative = 0;
+        $beneficiairesCumulative = 0;
+        $totalCoutCumulative = 0;
+
+        foreach ($categories as $category) {
+            foreach ($months as $month) {
+                $data[$category][$month] = 0;
+            }
+            $data[$category]['Total'] = 0;
+            $data[$category]['Moyenne'] = 0;
+            $data[$category]['Référence'] = '';
+        }
+
+        // Nombre de bénéficiaires (adhérents + ayants droit)
+        foreach ($adherents as $adherent) {
+            $date = Carbon::parse($adherent->date_enregistrement);
+            $month = $months[$date->month - 1];
+
+            $data['Nombre de nouveaux bénéficiaires'][$month]++;
+            $data['Nombre de nouveaux bénéficiaires']['Total']++;
+
+            $data['Nombre de bénéficiaires (A)'][$month]++;
+            $data['Nombre de bénéficiaires (A)']['Total']++;
+        }
+
+        foreach ($ayantsDroit as $ayantDroit) {
+            $date = Carbon::parse($ayantDroit->adherent->date_enregistrement);
+            $month = $months[$date->month - 1];
+
+            // Nombre de bénéficiaires (A) par mois
+            $data['Nombre de nouveaux bénéficiaires'][$month]++;
+            $data['Nombre de nouveaux bénéficiaires']['Total']++;
+
+            $data['Nombre de bénéficiaires (A)'][$month]++;
+            $data['Nombre de bénéficiaires (A)']['Total']++;
+        }
+
+        // Calcul du cumul des bénéficiaires pour chaque mois
+        foreach ($months as $index => $month) {
+            $beneficiairesCumulative += $data['Nombre de bénéficiaires (A)'][$month];
+            $data['Nombre de bénéficiaires (A)'][$month] = $beneficiairesCumulative;
+
+            // Calculer A1 = A / nombre de mois déjà écoulés
+            $data['Nombre moyen de bénéficiaire (A1)'][$month] = floor($beneficiairesCumulative / ($index + 1));
+            $data['Nombre moyen de bénéficiaire (A1)']['Total'] = $data['Nombre moyen de bénéficiaire (A1)'][$month];
+        }
+
+        // Calculer les statistiques à pfartir des prestations
+        foreach ($prestations as $prestation) {
+            $date = Carbon::parse($prestation->created_at);
+            $month = $months[$date->month - 1];
+
+            // Nombre d’hospitalisations (B)
+            if ($prestation->acte == 'hospitalisation') {
+                $data['Nombre d’hospitalisation (B)'][$month]++;
+                $data['Nombre d’hospitalisation (B)']['Total']++;
+
+                // Cumul des hospitalisations (B1)
+                $hospitalisationsCumulative++;
+                $data['Nombre d’hospitalisation Cumulée (B1)'][$month] = $hospitalisationsCumulative;
+                $data['Nombre d’hospitalisation Cumulée (B1)']['Total'] = $hospitalisationsCumulative;
+
+                // Coût total des hospitalisations (E)
+                if (!isset($data['Coût total des hospitalisations (E)'][$month])) {
+                    $data['Coût total des hospitalisations (E)'][$month] = 0;
+                }
+                $data['Coût total des hospitalisations (E)'][$month] += $prestation->montant;
+                $data['Coût total des hospitalisations (E)']['Total'] += $prestation->montant;
+
+                
+            }
+        }
+
+        // Calculer le cumul par mois pour B1
+        foreach ($months as $index => $month) {
+            if ($index > 0) {
+                $data['Nombre d’hospitalisation Cumulée (B1)'][$month] = $data['Nombre d’hospitalisation Cumulée (B1)'][$months[$index - 1]] + $data['Nombre d’hospitalisation (B)'][$month];
+            }
+
+            // Cumul du coût total des hospitalisations (E1)
+            if ($index > 0) {
+                $data['Coût Cumulé total des hospitalisations (E1)'][$month] = $data['Coût Cumulé total des hospitalisations (E1)'][$months[$index - 1]] + $data['Coût total des hospitalisations (E)'][$month];
+            } else {
+                $data['Coût Cumulé total des hospitalisations (E1)'][$month] = $data['Coût total des hospitalisations (E)'][$month];
+            }
+            $data['Coût Cumulé total des hospitalisations (E1)']['Total'] = $data['Coût Cumulé total des hospitalisations (E1)'][$month] ;        
+            
+            // Coût moyen cumulé d’une hospitalisation (G)
+            if ($data['Nombre d’hospitalisation Cumulée (B1)'][$month] > 0) {
+                $data['Coût moyen cumulé d’une hospitalisation (G)'][$month] = $data['Coût Cumulé total des hospitalisations (E1)'][$month] / $data['Nombre d’hospitalisation Cumulée (B1)'][$month];
+            }
+        }
+        if ($data['Nombre d’hospitalisation Cumulée (B1)']['Total'] > 0) {
+            $data['Coût moyen cumulé d’une hospitalisation (G)']['Total'] = $data['Coût Cumulé total des hospitalisations (E1)']['Total']  / $data['Nombre d’hospitalisation Cumulée (B1)']['Total'];
+        } else {
+            $data['Coût moyen cumulé d’une hospitalisation (G)']['Total'] = 0;
+        }
+
+        // Calcul des moyennes et taux d'utilisation
+        foreach ($months as $index => $month) {
+            $previousMonths = $index + 1;
+
+            // Taux d’utilisation mensuel % (C)
+            if ($data['Nombre de bénéficiaires (A)'][$month] > 0) {
+                $data['Taux d’utilisation mensuel % C (C)'][$month] = number_format(($data['Nombre d’hospitalisation (B)'][$month] / $data['Nombre de bénéficiaires (A)'][$month])*$previousMonths * 100, 2);
+            }
+            if ($beneficiairesCumulative > 0) {
+                $data['Taux d’utilisation mensuel % C (C)']['Total'] = number_format(($hospitalisationsCumulative / $beneficiairesCumulative)*12 * 100, 2);
+            } else {
+                $data['Taux d’utilisation mensuel % C (C)']['Total'] = 0;
+            }
+            // Taux d’utilisation cumulée % (D)
+            if ($data['Nombre moyen de bénéficiaire (A1)'][$month] > 0) {
+                $data['Taux d’utilisation cumulée %(D)'][$month] = number_format(($data['Nombre d’hospitalisation Cumulée (B1)'][$month] / $data['Nombre moyen de bénéficiaire (A1)'][$month])*$previousMonths * 100, 2);
+            
+            }
+            if ($data['Nombre moyen de bénéficiaire (A1)']['Total'] > 0) {
+                $data['Taux d’utilisation cumulée %(D)']['Total'] = number_format(($hospitalisationsCumulative / $data['Nombre moyen de bénéficiaire (A1)']['Total'])*12 * 100, 2);
+            } else {
+                $data['Taux d’utilisation cumulée %(D)']['Total'] = 0;
+            }
+
+            // Coût moyen mensuel d’une hospitalisation (F)
+            if ($data['Nombre d’hospitalisation (B)'][$month] > 0) {
+                $data['Coût moyen mensuel d’une hospitalisation (F)'][$month] = $data['Coût total des hospitalisations (E)'][$month] / $data['Nombre d’hospitalisation (B)'][$month];
+            }
+
+
+            
+        }
+        if ($data['Nombre d’hospitalisation (B)']['Total'] > 0) {
+            $data['Coût moyen mensuel d’une hospitalisation (F)']['Total'] = $data['Coût total des hospitalisations (E)']['Total']  / $data['Nombre d’hospitalisation (B)']['Total'];
+        } else {
+            $data['Coût moyen mensuel d’une hospitalisation (F)']['Total'] = 0;
+        }
+
+        // Calcul des moyennes totales pour chaque catégorie
+        foreach ($categories as $category) {
+            $data[$category]['Moyenne'] = number_format($data[$category]['Total'] / count($months), 2, ',', ' ');
+        }
+
+        // Convertir les données pour Tabulator
+        $tabulatorData = [];
+        foreach ($categories as $category) {
+            $row = ['Category' => $category];
+            foreach ($months as $month) {
+                $row[$month] = $data[$category][$month];
+            }
+            $row['Total'] = $data[$category]['Total'];
+            $row['Moyenne'] = $data[$category]['Moyenne'];
+            $row['Référence'] = $data[$category]['Référence'];
+            $tabulatorData[] = $row;
+        }
+
+        $viewData = [
+            'tabulatorData' => $tabulatorData,
+            'currentYear' => $currentYear,
+        ];
+
+        return view('pages.backend.prestations.suivi', compact('tabulatorData', 'prestationsGroupedByAdherent', 'currentYear', 'prestationsAll', 'months' , 'data'));
+    }
+
+    public function suiviConsultation(Request $request)
+    {
+
+        $currentYear = $request->input('year', Carbon::now()->year);
+        $adherentCodes = Adherent::pluck('code_carte')->toArray();
+
+        $adherents = Adherent::whereYear('date_enregistrement', $currentYear)->get();
+        $ayantsDroit = AyantDroit::join('adherents', 'ayant_droits.adherent_id', '=', 'adherents.id')
+            ->whereYear('adherents.date_enregistrement', $currentYear)
+            ->select('ayant_droits.*')
+            ->get();
+        $prestations = Prestation::whereYear('created_at', $currentYear)->get();
+        $categories = [
+            'Nombre de nouveaux bénéficiaires',
+            'Nombre de bénéficiaires (A)',
+            'Nombre moyen de bénéficiaire (A1)',
+            'Nombre de consultation (B)',
+            'Nombre de consultation Cumulée (B1)',
+            'Taux d’utilisation mensuel % C (C)',
+            'Taux d’utilisation cumulée %(D)',
+            'Coût total des consultations (E)',
+            'Coût Cumulé total des consultations (E1)',
+            'Coût moyen mensuel d’une consultation (F)',
+            'Coût moyen cumulé d’une consultation (G)'
+        ];
+
+        $months = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
+
+        $data = [];
+        $consultationsCumulative = 0;
+        $coutCumulative = 0;
+        $beneficiairesCumulative = 0;
+        $totalCoutCumulative = 0;
+
+        foreach ($categories as $category) {
+            foreach ($months as $month) {
+                $data[$category][$month] = 0;
+            }
+            $data[$category]['Total'] = 0;
+            $data[$category]['Moyenne'] = 0;
+            $data[$category]['Référence'] = '';
+        }
+
+        // Nombre de bénéficiaires (adhérents + ayants droit)
+        foreach ($adherents as $adherent) {
+            $date = Carbon::parse($adherent->date_enregistrement);
+            $month = $months[$date->month - 1];
+
+            $data['Nombre de nouveaux bénéficiaires'][$month]++;
+            $data['Nombre de nouveaux bénéficiaires']['Total']++;
+
+            $data['Nombre de bénéficiaires (A)'][$month]++;
+            $data['Nombre de bénéficiaires (A)']['Total']++;
+        }
+
+        foreach ($ayantsDroit as $ayantDroit) {
+            $date = Carbon::parse($ayantDroit->adherent->date_enregistrement);
+            $month = $months[$date->month - 1];
+
+            // Nombre de bénéficiaires (A) par mois
+            $data['Nombre de nouveaux bénéficiaires'][$month]++;
+            $data['Nombre de nouveaux bénéficiaires']['Total']++;
+            
+            $data['Nombre de bénéficiaires (A)'][$month]++;
+            $data['Nombre de bénéficiaires (A)']['Total']++;
+        }
+
+        // Calcul du cumul des bénéficiaires pour chaque mois
+        foreach ($months as $index => $month) {
+            $beneficiairesCumulative += $data['Nombre de bénéficiaires (A)'][$month];
+            $data['Nombre de bénéficiaires (A)'][$month] = $beneficiairesCumulative;
+
+            // Calculer A1 = A / nombre de mois déjà écoulés
+            $data['Nombre moyen de bénéficiaire (A1)'][$month] = floor($beneficiairesCumulative / ($index + 1));
+            $data['Nombre moyen de bénéficiaire (A1)']['Total'] = $data['Nombre moyen de bénéficiaire (A1)'][$month];
+        }
+
+        // Calculer les statistiques à partir des prestations
+        foreach ($prestations as $prestation) {
+            $date = Carbon::parse($prestation->created_at);
+            $month = $months[$date->month - 1];
+
+            // Nombre de consultation (B)
+            if ($prestation->acte == 'consultation') {
+                $data['Nombre de consultation (B)'][$month]++;
+                $data['Nombre de consultation (B)']['Total']++;
+
+                // Cumul des hospitalisations (B1)
+                $consultationsCumulative++;
+                $data['Nombre de consultation Cumulée (B1)'][$month] = $consultationsCumulative;
+                $data['Nombre de consultation Cumulée (B1)']['Total'] = $consultationsCumulative;
+
+                // Coût total des hospitalisations (E)
+                if (!isset($data['Coût total des consultations (E)'][$month])) {
+                    $data['Coût total des consultations (E)'][$month] = 0;
+                }
+                $data['Coût total des consultations (E)'][$month] += $prestation->montant;
+                $data['Coût total des consultations (E)']['Total'] += $prestation->montant;
+
+                
+            }
+        }
+
+        // Calculer le cumul par mois pour B1
+        foreach ($months as $index => $month) {
+            if ($index > 0) {
+                $data['Nombre de consultation Cumulée (B1)'][$month] = $data['Nombre de consultation Cumulée (B1)'][$months[$index - 1]] + $data['Nombre de consultation (B)'][$month];
+            }
+
+            // Cumul du coût total des consultations (E1)
+            if ($index > 0) {
+                $data['Coût Cumulé total des consultations (E1)'][$month] = $data['Coût Cumulé total des consultations (E1)'][$months[$index - 1]] + $data['Coût total des consultations (E)'][$month];
+            } else {
+                $data['Coût Cumulé total des consultations (E1)'][$month] = $data['Coût total des consultations (E)'][$month];
+            }
+            $data['Coût Cumulé total des consultations (E1)']['Total'] = $data['Coût Cumulé total des consultations (E1)'][$month] ;        
+            
+            // Coût moyen cumulé d’une consultations (G)
+            if ($data['Nombre de consultation Cumulée (B1)'][$month] > 0) {
+                $data['Coût moyen cumulé d’une consultation (G)'][$month] = $data['Coût Cumulé total des consultations (E1)'][$month] / $data['Nombre de consultation Cumulée (B1)'][$month];
+            }
+        }
+        if ($data['Nombre de consultation Cumulée (B1)']['Total'] > 0) {
+            $data['Coût moyen cumulé d’une consultation (G)']['Total'] = $data['Coût Cumulé total des consultations (E1)']['Total']  / $data['Nombre de consultation Cumulée (B1)']['Total'];
+        } else {
+            $data['Coût moyen cumulé d’une consultation (G)']['Total'] = 0;
+        }
+
+        // Calcul des moyennes et taux d'utilisation
+        foreach ($months as $index => $month) {
+            $previousMonths = $index + 1;
+
+            // Taux d’utilisation mensuel % (C)
+            if ($data['Nombre de bénéficiaires (A)'][$month] > 0) {
+                $data['Taux d’utilisation mensuel % C (C)'][$month] = number_format(($data['Nombre de consultation (B)'][$month] / $data['Nombre de bénéficiaires (A)'][$month])*$previousMonths * 100, 2);
+            }
+            if ($beneficiairesCumulative > 0) {
+                $data['Taux d’utilisation mensuel % C (C)']['Total'] = number_format(($consultationsCumulative / $beneficiairesCumulative)*12 * 100, 2);
+            } else {
+                $data['Taux d’utilisation mensuel % C (C)']['Total'] = 0;
+            }
+            // Taux d’utilisation cumulée % (D)
+            if ($data['Nombre moyen de bénéficiaire (A1)'][$month] > 0) {
+                $data['Taux d’utilisation cumulée %(D)'][$month] = number_format(($data['Nombre de consultation Cumulée (B1)'][$month] / $data['Nombre moyen de bénéficiaire (A1)'][$month])*$previousMonths * 100, 2);
+            
+            }
+            if ($data['Nombre moyen de bénéficiaire (A1)']['Total'] > 0) {
+                $data['Taux d’utilisation cumulée %(D)']['Total'] = number_format(($consultationsCumulative / $data['Nombre moyen de bénéficiaire (A1)']['Total'])*12 * 100, 2);
+            } else {
+                $data['Taux d’utilisation cumulée %(D)']['Total'] = 0;
+            }
+
+            // Coût moyen mensuel d’une consultation (F)
+            if ($data['Nombre de consultation (B)'][$month] > 0) {
+                $data['Coût moyen mensuel d’une consultation (F)'][$month] = $data['Coût total des consultations (E)'][$month] / $data['Nombre de consultation (B)'][$month];
+            }
+
+
+            
+        }
+        if ($data['Nombre de consultation (B)']['Total'] > 0) {
+            $data['Coût moyen mensuel d’une consultation (F)']['Total'] = $data['Coût total des consultations (E)']['Total']  / $data['Nombre de consultation (B)']['Total'];
+        } else {
+            $data['Coût moyen mensuel d’une consultation (F)']['Total'] = 0;
+        }
+
+        // Calcul des moyennes totales pour chaque catégorie
+        foreach ($categories as $category) {
+            $data[$category]['Moyenne'] = number_format($data[$category]['Total'] / count($months), 2, ',', ' ');
+        }
+
+        // Convertir les données pour Tabulator
+        $tabulatorData = [];
+        foreach ($categories as $category) {
+            $row = ['Category' => $category];
+            foreach ($months as $month) {
+                $row[$month] = $data[$category][$month];
+            }
+            $row['Total'] = $data[$category]['Total'];
+            $row['Moyenne'] = $data[$category]['Moyenne'];
+            $row['Référence'] = $data[$category]['Référence'];
+            $tabulatorData[] = $row;
+        }
+
+        $viewData = [
+            'tabulatorData' => $tabulatorData,
+            'currentYear' => $currentYear,
+        ];
+
+        return view('pages.backend.prestations.suivi-consultation', compact('tabulatorData', 'currentYear', 'months' , 'data'));
+    }
+
+
+    public function suiviRadio(Request $request)
+    {
+
+        $currentYear = $request->input('year', Carbon::now()->year);
+        $adherentCodes = Adherent::pluck('code_carte')->toArray();
+        $prestationsAdherents = Prestation::join('adherents', 'prestations.adherentCode', '=', 'adherents.code_carte')
+            ->whereYear('prestations.created_at', $currentYear)
+            ->select('prestations.*', 'adherents.id as adherent_id')
+            ->get();
+
+        $prestationsAyantsDroit = Prestation::join('ayant_droits', 'prestations.adherentCode', '=', 'ayant_droits.code')
+            ->join('adherents', 'ayant_droits.adherent_id', '=', 'adherents.id')
+            ->whereYear('prestations.created_at', $currentYear)
+            ->select('prestations.*', 'adherents.id as adherent_id')
+            ->distinct()
+            ->get();
+
+        
+
+        $prestationsAll = $prestationsAdherents->merge($prestationsAyantsDroit);
+
+
+        $prestationsGroupedByAdherent = $prestationsAll->groupBy('adherent_id');
+
+        $adherents = Adherent::whereYear('date_enregistrement', $currentYear)->get();
+        $ayantsDroit = AyantDroit::join('adherents', 'ayant_droits.adherent_id', '=', 'adherents.id')
+            ->whereYear('adherents.date_enregistrement', $currentYear)
+            ->select('ayant_droits.*')
+            ->get();
+        $prestations = Prestation::whereYear('created_at', $currentYear)->get();
+        $categories = [
+            'Nombre de nouveaux bénéficiaires',
+            'Nombre de bénéficiaires (A)',
+            'Nombre moyen de bénéficiaire (A1)',
+            'Nombre de radios (B)',
+            'Nombre de radios Cumulée (B1)',
+            'Taux d’utilisation mensuel % C (C)',
+            'Taux d’utilisation cumulée %(D)',
+            'Coût total des radios (E)',
+            'Coût Cumulé total des radios (E1)',
+            'Coût moyen mensuel d’une radio (F)',
+            'Coût moyen cumulé d’une radio (G)'
+        ];
+
+        $months = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
+
+        $data = [];
+        $radiosCumulative = 0;
+        $coutCumulative = 0;
+        $beneficiairesCumulative = 0;
+        $totalCoutCumulative = 0;
+
+        foreach ($categories as $category) {
+            foreach ($months as $month) {
+                $data[$category][$month] = 0;
+            }
+            $data[$category]['Total'] = 0;
+            $data[$category]['Moyenne'] = 0;
+            $data[$category]['Référence'] = '';
+        }
+
+        // Nombre de bénéficiaires (adhérents + ayants droit)
+        foreach ($adherents as $adherent) {
+            $date = Carbon::parse($adherent->date_enregistrement);
+            $month = $months[$date->month - 1];
+
+            $data['Nombre de nouveaux bénéficiaires'][$month]++;
+            $data['Nombre de nouveaux bénéficiaires']['Total']++;
+
+            $data['Nombre de bénéficiaires (A)'][$month]++;
+            $data['Nombre de bénéficiaires (A)']['Total']++;
+        }
+
+        foreach ($ayantsDroit as $ayantDroit) {
+            $date = Carbon::parse($ayantDroit->adherent->date_enregistrement);
+            $month = $months[$date->month - 1];
+
+            // Nombre de bénéficiaires (A) par mois
+            $data['Nombre de nouveaux bénéficiaires'][$month]++;
+            $data['Nombre de nouveaux bénéficiaires']['Total']++;
+
+            $data['Nombre de bénéficiaires (A)'][$month]++;
+            $data['Nombre de bénéficiaires (A)']['Total']++;
+        }
+
+        // Calcul du cumul des bénéficiaires pour chaque mois
+        foreach ($months as $index => $month) {
+            $beneficiairesCumulative += $data['Nombre de bénéficiaires (A)'][$month];
+            $data['Nombre de bénéficiaires (A)'][$month] = $beneficiairesCumulative;
+
+            // Calculer A1 = A / nombre de mois déjà écoulés
+            $data['Nombre moyen de bénéficiaire (A1)'][$month] = floor($beneficiairesCumulative / ($index + 1));
+            $data['Nombre moyen de bénéficiaire (A1)']['Total'] = $data['Nombre moyen de bénéficiaire (A1)'][$month];
+        }
+
+        // Calculer les statistiques à partir des prestations
+        foreach ($prestations as $prestation) {
+            $date = Carbon::parse($prestation->created_at);
+            $month = $months[$date->month - 1];
+
+            // Nombre de radios (B)
+            if ($prestation->acte == 'radio') {
+                $data['Nombre de radios (B)'][$month]++;
+                $data['Nombre de radios (B)']['Total']++;
+
+                // Cumul des radios (B1)
+                $radiosCumulative++;
+                $data['Nombre de radios Cumulée (B1)'][$month] = $radiosCumulative;
+                $data['Nombre de radios Cumulée (B1)']['Total'] = $radiosCumulative;
+
+                // Coût total des radios (E)
+                if (!isset($data['Coût total des radios (E)'][$month])) {
+                    $data['Coût total des radios (E)'][$month] = 0;
+                }
+                $data['Coût total des radios (E)'][$month] += $prestation->montant;
+                $data['Coût total des radios (E)']['Total'] += $prestation->montant;
+
+                
+            }
+        }
+
+        // Calculer le cumul par mois pour B1
+        foreach ($months as $index => $month) {
+            if ($index > 0) {
+                $data['Nombre de radios Cumulée (B1)'][$month] = $data['Nombre de radios Cumulée (B1)'][$months[$index - 1]] + $data['Nombre de radios (B)'][$month];
+            }
+
+            // Cumul du coût total des radios (E1)
+            if ($index > 0) {
+                $data['Coût Cumulé total des radios (E1)'][$month] = $data['Coût Cumulé total des radios (E1)'][$months[$index - 1]] + $data['Coût total des radios (E)'][$month];
+            } else {
+                $data['Coût Cumulé total des radios (E1)'][$month] = $data['Coût total des radios (E)'][$month];
+            }
+            $data['Coût Cumulé total des radios (E1)']['Total'] = $data['Coût Cumulé total des radios (E1)'][$month] ;        
+            
+            // Coût moyen cumulé d’une radio (G)
+            if ($data['Nombre de radios Cumulée (B1)'][$month] > 0) {
+                $data['Coût moyen cumulé de radios (G)'][$month] = $data['Coût Cumulé total des radios (E1)'][$month] / $data['Nombre de radios Cumulée (B1)'][$month];
+            }
+        }
+        if ($data['Nombre de radios Cumulée (B1)']['Total'] > 0) {
+            $data['Coût moyen cumulé d’une radio (G)']['Total'] = $data['Coût Cumulé total des radios (E1)']['Total']  / $data['Nombre de radios Cumulée (B1)']['Total'];
+        } else {
+            $data['Coût moyen cumulé d’une radio (G)']['Total'] = 0;
+        }
+
+        // Calcul des moyennes et taux d'utilisation
+        foreach ($months as $index => $month) {
+            $previousMonths = $index + 1;
+
+            // Taux d’utilisation mensuel % (C)
+            if ($data['Nombre de bénéficiaires (A)'][$month] > 0) {
+                $data['Taux d’utilisation mensuel % C (C)'][$month] = number_format(($data['Nombre de radios (B)'][$month] / $data['Nombre de bénéficiaires (A)'][$month])*$previousMonths * 100, 2);
+            }
+            if ($beneficiairesCumulative > 0) {
+                $data['Taux d’utilisation mensuel % C (C)']['Total'] = number_format(($radiosCumulative / $beneficiairesCumulative)*12 * 100, 2);
+            } else {
+                $data['Taux d’utilisation mensuel % C (C)']['Total'] = 0;
+            }
+            // Taux d’utilisation cumulée % (D)
+            if ($data['Nombre moyen de bénéficiaire (A1)'][$month] > 0) {
+                $data['Taux d’utilisation cumulée %(D)'][$month] = number_format(($data['Nombre de radios Cumulée (B1)'][$month] / $data['Nombre moyen de bénéficiaire (A1)'][$month])*$previousMonths * 100, 2);
+            
+            }
+            if ($data['Nombre moyen de bénéficiaire (A1)']['Total'] > 0) {
+                $data['Taux d’utilisation cumulée %(D)']['Total'] = number_format(($radiosCumulative / $data['Nombre moyen de bénéficiaire (A1)']['Total'])*12 * 100, 2);
+            } else {
+                $data['Taux d’utilisation cumulée %(D)']['Total'] = 0;
+            }
+
+            // Coût moyen mensuel d’une radio (F)
+            if ($data['Nombre de radios (B)'][$month] > 0) {
+                $data['Coût moyen mensuel d’une radio (F)'][$month] = $data['Coût total des radios (E)'][$month] / $data['Nombre de radios (B)'][$month];
+            }
+
+
+            
+        }
+        if ($data['Nombre de radios (B)']['Total'] > 0) {
+            $data['Coût moyen mensuel d’une radio (F)']['Total'] = $data['Coût total des radios (E)']['Total']  / $data['Nombre de radios (B)']['Total'];
+        } else {
+            $data['Coût moyen mensuel d’une radio (F)']['Total'] = 0;
+        }
+
+        // Calcul des moyennes totales pour chaque catégorie
+        foreach ($categories as $category) {
+            $data[$category]['Moyenne'] = number_format($data[$category]['Total'] / count($months), 2, ',', ' ');
+        }
+
+        // Convertir les données pour Tabulator
+        $tabulatorData = [];
+        foreach ($categories as $category) {
+            $row = ['Category' => $category];
+            foreach ($months as $month) {
+                $row[$month] = $data[$category][$month];
+            }
+            $row['Total'] = $data[$category]['Total'];
+            $row['Moyenne'] = $data[$category]['Moyenne'];
+            $row['Référence'] = $data[$category]['Référence'];
+            $tabulatorData[] = $row;
+        }
+
+        $viewData = [
+            'tabulatorData' => $tabulatorData,
+            'currentYear' => $currentYear,
+        ];
+
+        return view('pages.backend.prestations.suivi-radio', compact('tabulatorData', 'prestationsGroupedByAdherent', 'currentYear', 'prestationsAll', 'months' , 'data'));
+    }
+ 
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Prestation $prestation)
+    {
+        //
+    }
+
+    public function valider($id)
+    {
+        $prestation = Prestation::findOrFail($id);
+        $prestation->validite = 'accepté'; 
+
+        $prestation->save();
+
+        return redirect()->route('prestations.index')->with('success', 'La prestation a été validée avec succès.');
+    }
+    public function rejeter($id)
+    {
+        $prestation = Prestation::findOrFail($id);
+        $prestation->validite = 'rejeté'; // Vous pouvez définir 'rejeté', 'en attente', etc., selon vos besoins
+
+        $prestation->save();
+
+        return redirect()->route('prestations.index')->with('success', 'La prestation a été rejetée.');
+    }
+
+    public function validerPaiement($id)
+    {
+        $prestation = Prestation::findOrFail($id);
+        $prestation->etat_paiement = 1; 
+        $prestation->save();
+
+        $categorie = Categorie::where('nom', 'Prestations et dépenses de personnels')->first();
+        $sousCategorie = Categorie::where('nom', 'Couverture des risques maladies ou accidents')->first();
+
+        Depense::create([
+            'uuid' => (string) Str::uuid(),
+            'montant' => $prestation->montant,
+            'description' => 'Dépense pour prestation' , 
+            'categorie_id' => $categorie->uuid, 
+            'sous_categorie_id' => $sousCategorie->uuid, 
+            'date' => $prestation->created_at->format('Y-m-d')
+        ]);
+
+        return redirect()->route('prestations.index')->with('success', 'Le paiement a été validé avec succès.');
+    }
+
+ 
+/**
+     * Display the specified resource.
+     */
+    public function show(Prestation $prestation)
+    {
+        if (!empty($prestation->preuve)) {
+            $prestation->preuve = json_decode($prestation->preuve, true) ?? [];
+        } else {
+            $prestation->preuve = [];
+        }
+        
+        $montantModerateur = (($prestation->montant*20)/100);
+        $montantMutuelle = (($prestation->montant*80)/100);
+
+        return view('pages.backend.prestations.show',compact('prestation', 'montantModerateur', 'montantMutuelle'));
+
+    }
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Prestation $prestation)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(UpdatePrestationRequest $request, Prestation $prestation)
+    {
+        //
+    }
+
+ 
+
+   
+
+    /**
+     * Store a newly created resource in storage.
+     */
+   
+    public function store(StorePrestationRequest $request)
+    {
+        $data = $request->all();
+        $adherentCode = $request->adherentCode;
+        $totalMontant = Prestation::where('adherentCode', $adherentCode)->sum('montant');
+        $types = ['consultation', 'hospitalisation', 'radio', 'maternite', 'allocation', 'analyse_biomedicale', 'pharmacie', 'optique', 'dentaire_auditif', 'autre'];
+        $prestationsToSave = [];
+
+        foreach ($types as $type) {
+        
+            for ($i = 0; $i <= 20; $i++) { 
+                $typeSuffix = $i > 0 ? "-$i" : ''; 
+                if (!empty($data["date_$type$typeSuffix"]) && !empty($data["centre_$type$typeSuffix"]) && !empty($data["montant_$type$typeSuffix"])) {
+
+                    $prestationsToSave[] = [
+                        'adherentCode' => $data['adherentCode'],
+                        'adherentNom' => $data['adherentNom'],
+                        'adherentPrenom' => $data['adherentPrenom'],
+                        'adherentSexe' => $data['adherentSexe'],
+                        'beneficiaire' => $data['beneficiaire'],
+                        'idPrestation' => $data['idPrestation'],
+                        'contactPrestation' => $data['contactPrestation'],
+                        'acte_medical_id' => $data["acte_medical_id"], // Modifie
+                        'date' => $data["date_$type$typeSuffix"],
+                        'centre' => $data["centre_$type$typeSuffix"],
+                        'montant' => $data["montant_$type$typeSuffix"],
+                        'type' => $data["type_$type$typeSuffix"] ?? null,
+                        'sous_type' => $data["sous_type_$type$typeSuffix"] ?? null,
+                        'validite' => 'en attente',
+                        'etat_paiement' => false,
+                    ];
+                }
+            }
+        }
+
+        if (empty($prestationsToSave)) {
+            return back()->withErrors(['message' => 'Veuillez remplir tous les champs obligatoires pour chaque prestation visible.']);
+        }
+        
+
+        foreach ($prestationsToSave as $prestationData) {
+            $montant = $prestationData['montant'];
+            if ($totalMontant + $montant > 1500000) {
+                return back()->withErrors(['error' => 'Erreur : La somme totale des prestations de cet adhérent dépasse 1 500 000.']);
+            }
+
+            $prestation = new Prestation($prestationData);
+            
+            // if ($request->hasFile('preuve')) {
+            //     foreach ($request->file('preuve') as $file) {
+            //         $path = $file->store('preuves', 'public'); 
+            //         $prestation->preuve = json_encode([$path]); 
+            //     }
+            // }
+            if ($request->hasFile('preuve')) {
+                $files = [];
+                foreach ($request->file('preuve') as $file) {
+                    $path = $file->store('preuves', 'public');
+                    $files[] = $path; 
+                }
+                $prestation->preuve = json_encode($files); 
+            }
+            
+
+            $prestation->save(); 
+        }
+
+        return redirect()->route('prestations.index')->with('success', 'Enregistrement réussi');
+    }
+ 
+ // Backend
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $user = Auth::user();
+
+        $adherents = Adherent::all(); 
+        $ayantsDroit = AyantDroit::all(); 
+
+        // Date limite pour l'adhésion (6 mois en arrière)
+        $sixMonthsAgo = Carbon::now()->subMonths(6);
+
+        
+        $adherentsValides = Adherent::where('date_enregistrement', '<=', $sixMonthsAgo)->get();
+
+    
+
+        
+        $ayantsDroitValides = AyantDroit::whereIn('adherent_id', $adherentsValides->pluck('id'))->get();
+
+        $prestations = Prestation::orderBy('created_at', 'desc')->get();
+        $prestationsValides = Prestation::where('validite', 'accepté')->get();
+
+        return view('pages.backend.prestations.index', compact('adherents', 'ayantsDroit', 'prestations', 'prestationsValides', 'adherentsValides', 'ayantsDroitValides'));
+
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        $adherents = Adherent::all(); 
+        $ayantsDroit = AyantDroit::all(); 
+
+        // Date limite pour l'adhésion (6 mois en arrière)
+        $sixMonthsAgo = Carbon::now()->subMonths(6);
+
+        
+        $adherentsValides = Adherent::all();
+
+    
+
+        
+        $ayantsDroitValides = AyantDroit::whereIn('adherent_id', $adherentsValides->pluck('id'))->get();
+
+        $prestations = Prestation::all();
+        $prestationsValides = Prestation::where('validite', 'accepté')->get();
+
+        return view('pages.backend.prestations.create', compact('adherents', 'ayantsDroit', 'prestations', 'prestationsValides', 'adherentsValides', 'ayantsDroitValides'));
+
+    }
+ 
+   /**
+     * Update the specified resource in storage.
+     */
+    public function update(UpdatePartenaireRequest $request,  $id)
+    {
+        $partenaire = Partenaire::findOrFail($id);
+
+        $partenaire->update($request->validated());
+        return redirect()->route('partenaires.index')->with('success', 'partenaire de santé mis à jour avec succès.');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy($id)
+    {
+        $partenaireSante = Partenaire::findOrFail($id);
+        $partenaireSante->delete();
+        return redirect()->route('partenaires.index')->with('success', 'partenaire de santé supprimé avec succès.');
+    }
+ 
+
+    /**
+     * Display the specified resource.
+     */
+    public function show($id)
+    {
+        $partenaire = Partenaire::findOrFail($id);
+        $breadcrumbsItems = [
+            [
+                'name' => 'Partenaires',
+                'url' => route('partenaires.index'),
+                'active' => false
+            ],
+            [
+                'name' => $partenaire->nom, 
+                'url' => route('partenaires.show', $partenaire->id),
+                'active' => true
+            ],
+        ];
+    
+        $pageTitle = 'Détails de ' . $partenaire->nom;
+        return view('pages.backend.partenaires.show', compact('partenaire', 'breadcrumbsItems', 'pageTitle'));
+    }
+
+
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit($id)
+    {
+        $partenaire = Partenaire::findOrFail($id); 
+
+        $breadcrumbsItems = [
+            [
+                'name' => 'Partenaires',
+                'url' => route('partenaires.index'),
+                'active' => false
+            ],
+            [
+                'name' => $partenaire->nom,  
+                'url' => route('partenaires.index'),
+                'active' => true
+            ],
+        ];
+
+        $pageTitle = 'Édition de ' . $partenaire->nom;  
+
+        return view('pages.backend.partenaires.edit', compact('partenaire', 'breadcrumbsItems', 'pageTitle'));
+    }
+ 
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $breadcrumbsItems = [
+            [
+                'name' => 'Partenaires',
+                'url' => route('partenaires.index'),
+                'active' => true
+            ],
+        
+        ];
+        $pageTitle = 'Partenaires';
+
+        $partenaires = Partenaire::all();
+
+        $hopitaux = $partenaires->where('type', 'hopital');
+        $cliniques = $partenaires->where('type', 'clinique');
+        $pharmacies = $partenaires->where('type', 'pharmacie');
+
+        return view('pages.backend.partenaires.index', [
+            'partenaires' => $partenaires,
+            'hopitaux' => $hopitaux,
+            'cliniques' => $cliniques,
+            'pharmacies' => $pharmacies,
+
+            'breadcrumbsItems' => $breadcrumbsItems,
+            'pageTitle' => $pageTitle,
+
+        ]);
+        
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        $breadcrumbsItems = [
+            [
+                'name' => 'Partenaires',
+                'url' => route('partenaires.index'),
+                'active' => false
+            ],
+            [
+                'name' => 'Ajouter',
+                'url' => route('partenaires.create'),
+                'active' => true
+            ],
+        ];
+        $pageTitle = 'Ajouter un partenaire';
+
+        return view('pages.backend.partenaires.create', compact('breadcrumbsItems', 'pageTitle'));
+
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(StorePartenaireRequest $request)
+    {
+        if ($request->hasFile('photo')) {
+            $photoPath = $request->file('photo')->store('photos/partenaires', 'public');
+
+        } else {
+            $photoPath = null;  
+        }
+        
+        
+        $validatedData = $request->validated();
+        $validatedData['photo'] = $photoPath; 
+
+        $validatedData['password'] = Hash::make('123456789'); 
+        Partenaire::create($validatedData);
+        return redirect()->route('partenaires.index')->with('success', 'Partenaire de santé ajouté avec succès.');
+    }
+ 
+
+    public function accept($id)
+    {
+        $adherent = Adherent::where('id', $id)->first();
+        if ($adherent) {
+            $adherent->is_adherent = true;
+            $adherent->save();
+
+            return redirect()->back()->with('status', 'La demande a été acceptée avec succès.');
+        }
+
+        return redirect()->back()->withErrors(['error' => 'Adhérent non trouvé.']);
+    }
+ 
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(DemandeAdhesion $demande)
+    {
+        $breadcrumbsItems = [
+            [
+                'name' => 'Demandes',
+                'url' => route('demandes.index'),
+                'active' => false
+            ],
+            [
+                'name' => 'Adhésions',
+                'url' => route('demandes.index'),
+                'active' => true
+            ],
+        ];
+        $pageTitle = 'Demande N°'.$demande->id;
+        $demande->ayantsDroits = json_decode($demande->ayantsDroits, true); 
+
+        return view('pages.backend.demandes.show', compact('demande', 'breadcrumbsItems', 'pageTitle' ));
+
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit( $id)
+    {
+        $demande = DemandeAdhesion::findOrFail($id); 
+        $pageTitle = 'Modification demande N°'.$demande->id;
+
+
+        return view('pages.backend.demandes.edit',compact('demande', 'pageTitle'));
+    }
+
+ 
+/**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        
+        $breadcrumbsItems = [
+            [
+                'name' => 'Adhésions',
+                'url' => route('adherents.index'),
+                'active' => true
+            ],
+        ];
+        $pageTitle = 'Liste des demandes d\'adhésions';
+
+        $demandes = Adherent::orderBy('created_at', 'desc')->get();
+        
+        return view('pages.backend.demandes.index', compact('demandes', 'breadcrumbsItems', 'pageTitle'));
+    }
+    
+
+
+ 
+   
+    public function update(UpdateAyantDroitRequest $request, $id)
+    {
+        $validatedData = $request->validate([
+            'nom' => 'required',
+            'prenom' => 'required',
+            'sexe' => 'required',
+            'date_naissance' => 'required|date',
+            'relation' => 'required',
+            'adherent_id' => 'required',
+            'code' => 'required',
+        ]);
+
+        $ayantDroit = AyantDroit::findOrFail($id);
+
+        $ayantDroit->nom = $validatedData['nom'];
+        $ayantDroit->prenom = $validatedData['prenom'];
+        $ayantDroit->sexe = $validatedData['sexe'];
+        $ayantDroit->date_naissance = $validatedData['date_naissance'];
+        $ayantDroit->relation = $validatedData['relation'];
+
+        $adherent = Adherent::where('no_matricule', $request->adherent_id)->firstOrFail();
+        $ayantDroit->adherent_id = $adherent->id; 
+        $ayantDroit->code = $validatedData['code'];
+
+        $ayantDroit->save();
+
+        return redirect()->route('adherents.index')->with('success', 'Ayant droit mis à jour avec succès.');
+    }
+
+
+    
+    /**
+    * Remove the specified resource from storage.
+    */
+    public function destroy($id)
+    {
+        try {
+            $ayantDroit = AyantDroit::findOrFail($id);
+            
+            $ayantDroit->delete();
+
+            return response()->json(['success' => 'Enregistrement supprimé avec succès!'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Erreur lors de la suppression: ' . $e->getMessage()], 500);
+        }
+    }
+ 
+
+
+    
+   
+    
+    /**
+    * Update the specified resource in storage.
+    */
+ 
+ public function import(Request $request)
+    {
+    $validator = Validator::make($request->all(), [
+        'excel-file-ayant-droit' => 'required|mimes:xlsx,xls,csv'
+    ]);
+    
+    // Si la validation échoue, retourner avec les erreurs
+    if ($validator->fails()) {
+        return back()->withErrors($validator)->withInput();
+    }
+    $headerAyantDroit = [
+            'nom', 'prenom', 'sexe', 'date_naissance', 'relation', 'code', 'matricule_id'
+    ];
+
+    // Récupérer le fichier depuis la requête
+    $file = $request->file('excel-file-ayant-droit');
+    try {
+        // Importer les données depuis le fichier Excel
+        Excel::import(new AyantDroitsImport, $file);
+
+        // Rediriger avec un message de succès
+        return redirect()->route('adherents.index')
+                         ->with('success', 'Ayant-droits importés avec succès.');
+    } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+        $failures = $e->failures();
+        $messages = [];
+
+        // Collecter les messages d'erreur
+        foreach ($failures as $failure) {
+            $messages[] = 'Erreur à la ligne ' . $failure->row() . ': ' . implode(', ', $failure->errors());
+        }
+
+        // Retourner avec les messages d'erreur
+        return back()->withErrors($messages)->withInput();
+    } catch (\Exception $e) {
+        Log::error('Erreur générale lors de l\'importation : ' . $e->getMessage());
+        // En cas d'erreur générale
+        return back()->withErrors(['error' => 'Erreur lors de l\'importation : ' . $e->getMessage()]);
+    }
+    }
+
+    /**
+    * Display the specified resource.
+    */
+    public function show(AyantDroit $ayantDroit)
+    {
+        //
+    }
+    
+    /**
+    * Show the form for editing the specified resource.
+    */
+    
+    public function edit($id)
+    {
+        $ayantDroit = AyantDroit::findOrFail($id); // Trouver l'ayant droit par ID
+        $adherents = Adherent::all(); 
+
+        return view('pages.backend.ayantsdroits.edit',compact('adherents', 'ayantDroit'));
+
+    }
+ 
+    // Frontend
+
+ 
+// Backend
+
+    /**
+    * Display a listing of the resource.
+    */
+    public function index()
+    {
+        //
+    }
+    
+    /**
+    * Show the form for creating a new resource.
+    */
+    public function create()
+    {
+        $breadcrumbsItems = [
+            [
+                'name' => 'Adhésions',
+                'url' => route('adherents.index'),
+                'active' => false
+            ],
+            [
+                'name' => 'Création ayant droit',
+                'url' => route('ayantsdroits.create'),
+                'active' => true
+            ],
+        ];
+        $pageTitle = 'Création ayant droit';
+        $adherents = Adherent::all();
+        
+        return view('pages.backend.ayantsdroits.create',compact('adherents', 'pageTitle', 'breadcrumbsItems'));
+        
+    }
+    
+    /**
+    * Store a newly created resource in storage.
+    */
+    public function store(StoreAyantDroitRequest $request)
+    {
+        $validatedData = $request->validate([
+            'nom' => 'required',
+            'prenom' => 'required',
+            'sexe' => 'required',
+            'date_naissance' => 'required|date',
+            'relation' => 'required',
+            'adherent_id' => 'required',
+            'code' => 'required',
+            
+        ]);
+        
+        $adherent = Adherent::where('no_matricule', $request->adherent_id)->firstOrFail();
+        $header = [
+            'ordre', 'date_enregistrement', 'nom', 'prenom', 'genre', 'service', 'no_matricule',
+             'code_carte', 'telephone', 'charge', 'mensualite', 'adhesion'
+        ];
+        $headerAyantDroit = [
+             'nom', 'prenom', 'sexe', 'date_naissance', 'relation', 'code', 'matricule_adherent'
+        ];
+        
+        $adherents = Adherent::all();
+        $ayantsDroit = AyantDroit::with('adherent')->get()->map(function($ayantDroit) {
+            return [
+                'id' => $ayantDroit->id,
+                'nom' => $ayantDroit->nom,
+                'prenom' => $ayantDroit->prenom,
+                'sexe' => $ayantDroit->sexe,
+                'date_naissance' => $ayantDroit->date_naissance,
+                'relation' => $ayantDroit->relation,
+                'code' => $ayantDroit->code,
+                'matricule_adherent' => $ayantDroit->adherent->no_matricule, 
+            ];
+        });        
+        $ayantDroit = new AyantDroit();
+        $ayantDroit->nom = $validatedData['nom'];
+        $ayantDroit->prenom = $validatedData['prenom'];
+        $ayantDroit->sexe = $validatedData['sexe'];
+        $ayantDroit->date_naissance = $validatedData['date_naissance'];
+        $ayantDroit->relation = $validatedData['relation'];
+        $ayantDroit->adherent_id = $adherent->id; 
+
+        $ayantDroit->code = $validatedData['code'];
+        
+        $ayantDroit->save();
+        return redirect()->route('adherents.index')->with('success', 'Ayant droit ajouté avec succès.');
+   
+        
+
+    }
+    
+ 
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy($id)
+    {
+        try {
+            $adherent = Adherent::findOrFail($id);
+            $adherent->delete();
+            
+            return response()->json(['status' => 'success']);
+        } catch (\Exception $e) {
+            return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
+        }
+    }
+ 
+/**
+     * Show the form for editing the specified resource.
+     */
+    public function edit( $id)
+    {
+        $adherent = Adherent::findOrFail($id); // Trouver l'ayant droit par ID
+
+        return view('pages.backend.adherents.edit',compact('adherent'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(UpdateAdherentRequest $request, $id)
+    {
+
+        $validatedData = $request->validate([
+            'nom' => 'required',
+            'prenom' => 'required',
+            'genre' => 'required',
+            'service' => 'required',
+            'no_matricule' => 'required',
+            'code_carte' => 'required',
+            'charge' => 'required',
+            'mensualite' => 'required',
+            'adhesion' => 'required',
+            'date_enregistrement' => 'required|date',
+            'photo' => 'image|nullable', // optionnel
+        ]);
+        $adherent = Adherent::findOrFail($id);
+
+        $adherent->nom = $validatedData['nom'];
+        $adherent->prenom = $validatedData['prenom'];
+        $adherent->genre = $validatedData['genre'];
+        $adherent->service = $validatedData['service'];
+        $adherent->no_matricule = $validatedData['no_matricule'];
+        $adherent->code_carte = $validatedData['code_carte'];
+        $adherent->charge = $validatedData['charge'];
+        $adherent->mensualite = $validatedData['mensualite'];
+        $adherent->adhesion = $validatedData['adhesion'];
+        $adherent->date_enregistrement = $validatedData['date_enregistrement'];
+
+        if ($request->hasFile('photo')) {
+            $photoPath = $request->file('photo')->store('photos', 'public');
+            $adherent->photo = $photoPath;
+        }
+
+        $adherent->save();
+
+        return redirect()->route('adherents.index')->with('success', 'Adhérent mis à jour avec succès.');
+    }
+ 
+// Backend
+
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $header = [
+            'ordre', 'date_enregistrement', 'nom', 'prenom', 'genre', 'service', 'no_matricule',
+            'code_carte', 'telephone', 'charge', 'mensualite', 'adhesion'
+        ];
+        $headerAyantDroit = [
+            'nom', 'prenom', 'sexe', 'date_naissance', 'relation', 'code', 'matricule_adherent'
+        ];
+        $breadcrumbsItems = [
+            [
+                'name' => 'Adhésions',
+                'url' => route('adherents.index'),
+                'active' => true
+            ],
+        ];
+        $pageTitle = 'Liste des adhésions';
+
+        $adherents = Adherent::all();
+        $ad = AyantDroit::all();
+        $mutualistes = $adherents->concat($ad);
+
+        $groupedAdherents = $adherents->groupBy(function($adherent) {
+            return \Carbon\Carbon::parse($adherent->date_enregistrement)->format('Y-m');
+        })->sortKeys();
+        $sheets = [];
+        foreach ($groupedAdherents as $yearMonth => $adherents) {
+            $sheets[$yearMonth] = $adherents->map(function($adherent) {
+                return [
+                    'id'=> $adherent->id,
+                    'ordre' => $adherent->ordre,
+                    'date_enregistrement' => $adherent->date_enregistrement,
+                    'nom' => $adherent->nom,
+                    'prenom' => $adherent->prenom,
+                    'genre' => $adherent->genre,
+                    'service' => $adherent->service,
+                    'no_matricule' => $adherent->no_matricule,
+                    'code_carte' => $adherent->code_carte,
+                    'telephone' => $adherent->telephone,
+                    'charge' => $adherent->charge,
+                    'mensualite' => $adherent->mensualite,
+                    'adhesion' => $adherent->adhesion,
+                ];
+            })->toArray();
+        }
+    
+        $ayantsDroit = AyantDroit::with('adherent')->get()->map(function($ayantDroit) {
+            return [
+                'id' => $ayantDroit->id,
+                'nom' => $ayantDroit->nom,
+                'prenom' => $ayantDroit->prenom,
+                'sexe' => $ayantDroit->sexe,
+                'date_naissance' => $ayantDroit->date_naissance,
+                'relation' => $ayantDroit->relation,
+                'code' => $ayantDroit->code,
+                'matricule_adherent' => $ayantDroit->adherent->no_matricule, 
+                'date_enregistrement_adherent' => $ayantDroit->adherent->date_enregistrement 
+
+            ];
+        });
+        $ayantsDroitAll = AyantDroit::all();
+        
+        $groupedAyantsDroits = $ayantsDroit->groupBy(function($ayantDroit) {
+            return Carbon::parse($ayantDroit['date_enregistrement_adherent'])->format('Y-m');
+        })->sortKeys();
+
+        
+    
+        $sheetsAyantsDroits = [];
+        foreach ($groupedAyantsDroits as $yearMonth => $ayantsDroits) {
+            $sheetsAyantsDroits[$yearMonth] = collect($ayantsDroits)->map(function($ayantDroit) {
+                return [
+                    'id' => $ayantDroit['id'],
+                    'nom' => $ayantDroit['nom'],
+                    'prenom' => $ayantDroit['prenom'],
+                    'sexe' => $ayantDroit['sexe'],
+                    'date_naissance' => $ayantDroit['date_naissance'],
+                    'relation' => $ayantDroit['relation'],
+                    'code' => $ayantDroit['code'],
+                    'matricule_adherent' => $ayantDroit['matricule_adherent'],
+                ];
+            })->toArray();
+        }
+
+        return view('pages.backend.adherents.index', compact('header', 'mutualistes','ayantsDroitAll', 'sheets', 'sheetsAyantsDroits', 'ayantsDroit', 'ad','adherents', 'headerAyantDroit', 'breadcrumbsItems', 'pageTitle'));
+    }
+    
+
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        $breadcrumbsItems = [
+            [
+                'name' => 'Adhésions',
+                'url' => route('adherents.index'),
+                'active' => false
+            ],
+            [
+                'name' => 'Création adhérent',
+                'url' => route('adherents.create'),
+                'active' => true
+            ],
+        ];
+        $pageTitle = 'Création adhérent';
+
+        return view('pages.backend.adherents.create', compact('pageTitle', 'breadcrumbsItems'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(StoreAdherentRequest $request)
+    {
+        $header = [
+            'ordre', 'date_enregistrement', 'nom', 'prenom', 'genre', 'service', 'no_matricule',
+             'code_carte', 'telephone', 'charge', 'mensualite', 'adhesion'
+        ];
+        $headerAyantDroit = [
+            'nom', 'prenom', 'sexe', 'date_naissance', 'relation', 'code', 'matricule_adherent'
+        ];
+    
+        $adherents = Adherent::all();
+        $ayantsDroit = AyantDroit::with('adherent')->get()->map(function($ayantDroit) {
+            return [
+                'id' => $ayantDroit->id,
+                'nom' => $ayantDroit->nom,
+                'prenom' => $ayantDroit->prenom,
+                'sexe' => $ayantDroit->sexe,
+                'date_naissance' => $ayantDroit->date_naissance,
+                'relation' => $ayantDroit->relation,
+                'code' => $ayantDroit->code,
+                'matricule_adherent' => $ayantDroit->adherent->no_matricule, // Matricule de l'adhérent
+            ];
+        });
+        $validatedData = $request->validate([
+            'nom' => 'required',
+            'prenom' => 'required',
+            'genre' => 'required',
+            'service' => 'required',
+            'no_matricule' => 'required',
+            'code_carte' => 'required',
+            'telephone' => 'required',
+            'charge' => 'required',
+            'mensualite' => 'required',
+            'adhesion' => 'required',
+            'photo' => 'image', 
+            'date_enregistrement'=>'required',
+        ]);
+
+        if ($request->hasFile('photo')) {
+            $photoPath = $request->file('photo')->store('photos', 'public');
+            $validatedData['photo'] = $photoPath;
+        }
+
+        $validatedData['ordre'] = $validatedData['ordre'] ?? 0; 
+
+        $adherent = Adherent::create($validatedData);
+        session()->flash('header', $header);
+        session()->flash('adherents', $adherents);
+        return redirect()->route('adherents.index')->with('success', 'Adhérent ajouté avec succès.');
+    
+    
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(Adherent $adherent)
+    {
+        $pretations = Prestation::where('adherentCode' == $adherent->code_carte);
+        return view('pages.backend.adherents.show', compact('adherent', 'pretations'));
+
+    }
+ 
+2
+ 
+$table->uuid('partenaire_id'); 
+            $table->foreign('partenaire_id')->references('id')->on('partenaires')->onDelete('cascade');
+ 
+$table->uuid('partenaire_id'); 
+            $table->foreign('partenaire_id')->references('id')->on('partenaires')->onDelete('cascade');
+ 
+<<<<<<< Updated upstream
+
+ 
+<<<<<<< Updated upstream
+=======
+                <div class="flex justify-center space-x-4">
+                    <a href="{{ route('partenaires.edit', $partenaire) }}" >
+                        <x-primary-button>
+                            Modifier
+                        </x-primary-button>
+                    </a>
+            
+                    <!-- Bouton Supprimer -->
+                    <form action="{{ route('partenaires.destroy', $partenaire->id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce partenaire de santé ?');">
+                        @csrf
+                        @method('DELETE')
+                        <x-primary-button type="submit" class=" bg-red-600  hover:bg-red-700">
+                            Supprimer
+                        </x-primary-button>
+                    </form>
+                </div>
+            </div>
+ 
+>>>>>>> Stashed changes
+
+ 
+=======
+
+ 
+<section class="bg-white dark:bg-gray-900">
+                    <div class="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
+
+                        <img class="w-full max-h-[400px] h-auto dark:hidden" src="{{ Storage::url($partenaire->photo) }}" alt="partenaire de santé image">
+                        <img class="w-full max-h-[400px] h-auto hidden dark:block" src="{{ Storage::url($partenaire->photo) }}" alt="partenaire de santé image">
+
+                        <div class="mt-4 md:mt-0">
+                            <h2 class="mb-6 text-xl font-extrabold text-gray-900 dark:text-white">Détails</h2>
+                            <div class="card bg-gray-50 dark:bg-gray-800 p-6 rounded-lg shadow-md">
+                                <div class="card-body text-sm">
+                                    <p class=" font-semibold text-gray-700 dark:text-gray-300"><strong>Type :</strong> {{ $partenaire->type }}</p>
+                                    <p class=" font-semibold text-gray-700 dark:text-gray-300"><strong>Adresse :</strong> {{ $partenaire->adresse }}</p>
+                                    <p class=" font-semibold text-gray-700 dark:text-gray-300"><strong>Téléphone :</strong> {{ $partenaire->telephone }}</p>
+                                    <p class=" font-semibold text-gray-700 dark:text-gray-300"><strong>Email :</strong> {{ $partenaire->email }}</p>
+                                    <p class=" font-semibold text-gray-700 dark:text-gray-300"><strong>Région :</strong> {{ $partenaire->region }}</p>
+                                    <p class="font-semibold text-gray-700 dark:text-gray-300"><strong>Province :</strong> {{ $partenaire->province }}</p>
+                                    <p class="font-semibold text-gray-700 dark:text-gray-300"><strong>Date d&apos;affiliation :</strong> {{ $partenaire->created_at }}</p>
+                                </div>
+
+                                
+>>>>>>> Stashed changes
+ 
+<<<<<<< Updated upstream
+
+                <section class="bg-white dark:bg-gray-900">
+                    <div class="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
+
+                        <img class="w-full max-h-[400px] h-auto dark:hidden" src="{{ Storage::url($centre->photo) }}" alt="Centre de santé image">
+                        <img class="w-full max-h-[400px] h-auto hidden dark:block" src="{{ Storage::url($centre->photo) }}" alt="Centre de santé image">
+
+                        <div class="mt-4 md:mt-0">
+                            <h2 class="mb-6 text-3xl font-extrabold text-gray-900 dark:text-white">Détails</h2>
+                            <div class="card bg-gray-50 dark:bg-gray-800 p-6 rounded-lg shadow-md">
+                                <div class="card-body">
+                                    <p class="text-lg font-semibold text-gray-700 dark:text-gray-300"><strong>Type :</strong> {{ $centre->type }}</p>
+                                    <p class="text-lg font-semibold text-gray-700 dark:text-gray-300"><strong>Adresse :</strong> {{ $centre->adresse }}</p>
+                                    <p class="text-lg font-semibold text-gray-700 dark:text-gray-300"><strong>Téléphone :</strong> {{ $centre->telephone }}</p>
+                                    <p class="text-lg font-semibold text-gray-700 dark:text-gray-300"><strong>Email :</strong> {{ $centre->email }}</p>
+                                    <p class="text-lg font-semibold text-gray-700 dark:text-gray-300"><strong>Région :</strong> {{ $centre->region }}</p>
+                                    <p class="text-lg font-semibold text-gray-700 dark:text-gray-300"><strong>Province :</strong> {{ $centre->province }}</p>
+                                    <p class="text-lg font-semibold text-gray-700 dark:text-gray-300"><strong>Date d'affiliation :</strong> {{ $centre->date_affiliation }}</p>
+                                </div>
+
+                                <!-- Actions -->
+                                <div class="flex justify-end gap-4 mt-4">
+                                    <a href="{{ route('partenaires.index', $partenaire) }}" >
+                                        Retour à la liste
+                                    </a>
+
+                                    <a href="{{ route('partenaires.edit', $partenaire) }}" >                                        
+                                        Modifier
+                                    </a>
+
+                                    <!-- Bouton Supprimer -->
+                                    <form action="{{ route('partenaires.destroy', $partenaire->id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce partenaire de santé ?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <x-primary-button type="submit" class=" bg-red-600  hover:bg-red-700">
+                                            Supprimer
+                                        </x-primary-button>
+                                    </form>
+                                </div>
+=======
+                <section class="bg-white dark:bg-gray-900">
+                    <div class="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
+
+                        <img class="w-full max-h-[400px] h-auto dark:hidden" src="{{ Storage::url($partenaire->photo) }}" alt="partenaire de santé image">
+                        <img class="w-full max-h-[400px] h-auto hidden dark:block" src="{{ Storage::url($partenaire->photo) }}" alt="partenaire de santé image">
+
+                        <div class="mt-4 md:mt-0">
+                            <h2 class="mb-6 text-xl font-extrabold text-gray-900 dark:text-white">Détails</h2>
+                            <div class="card bg-gray-50 dark:bg-gray-800 p-6 rounded-lg shadow-md">
+                                <div class="card-body text-sm">
+                                    <p class=" font-semibold text-gray-700 dark:text-gray-300"><strong>Type :</strong> {{ $partenaire->type }}</p>
+                                    <p class=" font-semibold text-gray-700 dark:text-gray-300"><strong>Adresse :</strong> {{ $partenaire->adresse }}</p>
+                                    <p class=" font-semibold text-gray-700 dark:text-gray-300"><strong>Téléphone :</strong> {{ $partenaire->telephone }}</p>
+                                    <p class=" font-semibold text-gray-700 dark:text-gray-300"><strong>Email :</strong> {{ $partenaire->email }}</p>
+                                    <p class=" font-semibold text-gray-700 dark:text-gray-300"><strong>Région :</strong> {{ $partenaire->region }}</p>
+                                    <p class="font-semibold text-gray-700 dark:text-gray-300"><strong>Province :</strong> {{ $partenaire->province }}</p>
+                                    <p class="font-semibold text-gray-700 dark:text-gray-300"><strong>Date d&apos;affiliation :</strong> {{ $partenaire->created_at }}</p>
+                                </div>
+
+                                
+>>>>>>> Stashed changes
+ 
 src="
  
 Hash::make('123456789')

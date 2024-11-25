@@ -184,7 +184,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($adherants as $adherant)
+                                @foreach($adherents as $adherent)
                                 <tr class="bg-white border-b cursor-pointer dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                     <td class="px-6 py-4 overflow-hidden whitespace-nowrap overflow-ellipsis">
                                         <a href="">
@@ -193,37 +193,37 @@
                                     </td>
                                     <td class="px-6 py-4">
                                         <a href="">
-                                            {{ $adherant->nom }}  {{ $adherant->prenom }}
+                                            {{ $adherent->nom }}  {{ $adherent->prenom }}
                                         </a>
                                     </td>
                                     <td class="px-6 py-4">
                                         <a href="">
-                                            {{ $adherant->date_enregistrement }}
+                                            {{ $adherent->date_enregistrement }}
                                         </a>
                                     </td>
                                     <td class="px-6 py-4">
                                         <a href="">
-                                            {{ $adherant->adhesion }}
+                                            {{ $adherent->adhesion }}
                                         </a>
                                     </td>
                                     <td class="px-6 py-4">
                                         <a href="">
-                                            {{ $adherant->mensualite }}
+                                            {{ $adherent->mensualite }}
                                         </a>
                                     </td>
                                     <td class="px-6 py-4">
                                         <a href="">
-                                            {{ $adherant->months_since_joining }} mois
+                                            {{ $adherent->months_since_joining }} mois
                                         </a>
                                     </td>
                                     <td class="px-6 py-4">
                                         <a href="">
-                                            {{ $adherant->total_mensualites }} 
+                                            {{ $adherent->total_mensualites }} 
                                         </a>
                                     </td>
                                     <td class="px-6 py-4">
                                         <a href="">
-                                            {{ $adherant->total_cotisations }} 
+                                            {{ $adherent->total_cotisations }} 
                                         </a>
                                     </td>
                                 </tr>
@@ -460,7 +460,7 @@
                                     </td>
                                     <td class="px-6 py-4">
                                         <a href="">
-                                            {{ $prestation->adherantNom }}  {{ $prestation->adherantPrenom }}
+                                            {{ $prestation->adherentNom }}  {{ $prestation->adherentPrenom }}
                                         </a>
                                     </td>
                                     <td class="px-6 py-4">

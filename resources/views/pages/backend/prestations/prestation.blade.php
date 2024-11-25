@@ -87,15 +87,15 @@
             <div class="details-column">
                 <div class="details-row">
                     <span class="details-label">Nom :</span>
-                    <span>{{ $prestation->adherantNom }}</span>
+                    <span>{{ $prestation->adherentNom }}</span>
                 </div>
                 <div class="details-row">
                     <span class="details-label">Prénom :</span>
-                    <span>{{ $prestation->adherantPrenom }}</span>
+                    <span>{{ $prestation->adherentPrenom }}</span>
                 </div>
                 <div class="details-row">
                     <span class="details-label">Sexe :</span>
-                    <span>{{ $prestation->adherantSexe }}</span>
+                    <span>{{ $prestation->adherentSexe }}</span>
                 </div>
                 <div style="margin-top: 30px;" class="details-row">
                     <span class="details-label">Acte :</span>

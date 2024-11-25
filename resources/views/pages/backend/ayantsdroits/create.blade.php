@@ -14,17 +14,17 @@
                     @csrf
                     <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
                         <div class="sm:col-span-2">
-                            <label for="adherant_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Matricule de l&apos;adhérent</label>
-                            <select name="adherant_id" id="adherant_id" style="height:30px" class="select2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
+                            <label for="adherent_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Matricule de l&apos;adhérent</label>
+                            <select name="adherent_id" id="adherent_id" style="height:30px" class="select2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
                                 <option value=""></option>
-                                @foreach ($adherants as $adherant)
-                                <option value="{{ $adherant->no_matricule }}">Mle {{ $adherant->no_matricule }} : {{ $adherant->nom }} {{ $adherant->prenom }}</option>
+                                @foreach ($adherents as $adherent)
+                                <option value="{{ $adherent->no_matricule }}">Mle {{ $adherent->no_matricule }} : {{ $adherent->nom }} {{ $adherent->prenom }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <script>
                             $(document).ready(function (){
-                                $("#adherant_id").select2({
+                                $("#adherent_id").select2({
                                     height:'20px',
                                     placeholder: 'Sélectionnez le matricule adhérant',
                                     language: "fr",
@@ -32,7 +32,7 @@
                             })
                             $(document).ready(function() {
                                 function toggleFormFields() {
-                                    var selectedValue = $("#adherant_id").val();
+                                    var selectedValue = $("#adherent_id").val();
                                     if (selectedValue) {
                                         $("#nom, #prenom, #date_naissance, #sexe input, #relation , #code")
                                         .prop('disabled', false)
@@ -45,7 +45,7 @@
                                 }
                                 
                                 toggleFormFields();
-                                $("#adherant_id").change(toggleFormFields);
+                                $("#adherent_id").change(toggleFormFields);
                             });
                         </script>
                         
@@ -95,7 +95,7 @@
                                 let adherentPrefix = '';
                         
                                 function toggleFormFields() {
-                                    var selectedValue = $("#adherant_id").val();
+                                    var selectedValue = $("#adherent_id").val();
                                     if (selectedValue) {
                                         $("#nom, #prenom, #date_naissance, #sexe input, #relation , #code")
                                             .prop('disabled', false)
@@ -109,7 +109,7 @@
                         
                                 toggleFormFields();
                         
-                                $("#adherant_id").change(function() {
+                                $("#adherent_id").change(function() {
                                     toggleFormFields();
                                     
                                     var adherentCode = $(this).val();

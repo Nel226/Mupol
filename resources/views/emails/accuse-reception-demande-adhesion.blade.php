@@ -43,7 +43,7 @@
             <h2>Accusé de réception de votre demande d'adhésion</h2>
         </div>
 
-        <p>Bonjour,</p>
+        <p>Bonjour / Bonsoir,</p>
 
         <p>Nous vous remercions d'avoir soumis votre demande d'adhésion.</p>
 

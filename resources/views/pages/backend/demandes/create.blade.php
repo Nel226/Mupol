@@ -9,7 +9,7 @@
             <div class="w-3/4 mx-auto">
                 <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Ajouter un nouvel adhérant</h2>
                 
-                <form method="POST" action="{{ route('adherants.store') }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('adherents.store') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="grid gap-3 sm:grid-cols-3 sm:gap-6">
                         <div class="grid grid-cols-2 gap-6 sm:col-span-3">

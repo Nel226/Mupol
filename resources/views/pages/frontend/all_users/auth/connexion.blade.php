@@ -45,7 +45,7 @@
                             </div>
                             <div class="max-w-md w-full mx-auto border p-8 rounded-tr-lg rounded-br-lg bg-gray-200">
                                 <div class="text-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 612 612" height="130px" width="130px" class=" inline-block">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 612 612" fill="#556080" height="100px" width="100px" class=" inline-block">
                                         <g>
                                             <g>
                                                 <g>

@@ -10,9 +10,9 @@
         <section class="contact-us section">
             
             <div class="container">
-                <x-primary-button>
+                {{-- <x-primary-button>
                     <a href="{{ route('user.login') }}">Connexion</a>
-                </x-primary-button>
+                </x-primary-button> --}}
                 
                 <div class="inner">
                     <div class="row">

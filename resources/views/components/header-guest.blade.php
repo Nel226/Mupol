@@ -86,7 +86,7 @@
                                             Connexion
                                         </x-primary-button>    
                                     </a>
-                                    <div class="relative inline-block text-left">
+                                    {{-- <div class="relative inline-block text-left">
                                         <x-primary-button class=" inline-flex items-center !text-gray-700 bg-white hover:bg-gray-50 " id="languageMenuButton" aria-expanded="true" aria-haspopup="true">
                                             <span class="mr-2">Langue</span>
                                             <svg class="-mr-1 ml-2 h-2 w-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -109,7 +109,7 @@
                                                 </a>
                                             </div>
                                         </div>
-                                    </div>                            
+                                    </div>                             --}}
                                     @else
                                         @if (Auth::guard('adherent')->check())
                                             <!-- Formulaire de déconnexion pour adherent -->
@@ -133,13 +133,13 @@
                                     @endif
                               
                                 
-                                <script>
+                                {{-- <script>
                                     // Toggle dropdown visibility
                                     document.getElementById('languageMenuButton').addEventListener('click', function() {
                                         const dropdownMenu = document.getElementById('dropdownMenu');
                                         dropdownMenu.classList.toggle('hidden');
                                     });
-                                </script>
+                                </script> --}}
                                 
                             </div>
                             <div class="">

@@ -24,8 +24,8 @@ return new class extends Migration
             $table->string('extrait')->nullable();
             $table->unsignedInteger('position')->nullable();
 
-            $table->unsignedBigInteger('adherant_id');
-            $table->foreign('adherant_id')->references('id')->on('adherants')->onDelete('restrict');
+            $table->unsignedBigInteger('adherent_id');
+            $table->foreign('adherent_id')->references('id')->on('adherents')->onDelete('restrict');
             $table->timestamps();
         });
     }

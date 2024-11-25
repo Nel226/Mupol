@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('type');
             $table->string('sous_type')->nullable();  
             $table->integer('taux_remboursement')->default(0); 
-            $table->decimal('plafond_remboursement', 10, 2)->nullable(); 
+            $table->decimal('plafond_remboursement', 10)->nullable(); 
             $table->string('frequence_plafond')->nullable(); 
             $table->string('beneficiaire'); 
             $table->timestamps();

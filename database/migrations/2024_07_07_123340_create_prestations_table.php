@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('prestations', function (Blueprint $table) {
             $table->id();
-            $table->string('adherantCode');
+            $table->string('adherentCode');
 
-            $table->string('adherantNom');
-            $table->string('adherantPrenom');
-            $table->string('adherantSexe');
+            $table->string('adherentNom');
+            $table->string('adherentPrenom');
+            $table->string('adherentSexe');
             $table->string('beneficiaire');
             $table->string('idPrestation');
             $table->string('contactPrestation');
@@ -31,9 +31,9 @@ return new class extends Migration
             $table->json('preuve')->nullable();
             $table->enum('validite', ['rejeté', 'accepté', 'en attente'])->default('en attente');
             $table->boolean('etat_paiement')->default(false)->nullable();
-
             $table->uuid('partenaire_id'); 
             $table->foreign('partenaire_id')->references('id')->on('partenaires')->onDelete('cascade');
+
             
             $table->timestamps();
         });

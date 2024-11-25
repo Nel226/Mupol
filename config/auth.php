@@ -77,7 +77,7 @@ return [
 
         'adherents' => [ 
             'driver' => 'eloquent',
-            'model' => App\Models\Adherant::class, 
+            'model' => App\Models\Adherent::class, 
         ],
 
         'partenaires' => [ 

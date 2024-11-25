@@ -300,16 +300,16 @@
                     <div id="prestationsContainer" class="container p-4 mx-auto">
                         <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
 
-                        @foreach ($prestationsGroupedByAdherant as $adherantId => $prestations)
+                        @foreach ($prestationsGroupedByAdherent as $adherentId => $prestations)
                             @php
-                                $adherant = App\Models\Adherant::find($adherantId);
+                                $adherent = App\Models\Adherent::find($adherentId);
                                 $totalMontant = $prestations->sum('montant');
                             @endphp
 
                             <div class="mb-3 border border-gray-300 rounded-lg shadow-md
                                 @if($totalMontant >= 1500000) bg-red-100 border-red-500 @else bg-white @endif">
                                 <h2 class="flex justify-between p-3 text-base font-semibold @if($totalMontant >= 1500000) bg-red-100 border-red-500 @else bg-gray-100  @endif cursor-pointer toggle-accordion" x-data="{ open: false }" @click="open = !open">
-                                    <span class="text-gray-700 w-128">{{ $adherant->nom }} {{ $adherant->prenom }} (Code: {{ $adherant->code_carte }})</span>
+                                    <span class="text-gray-700 w-128">{{ $adherent->nom }} {{ $adherent->prenom }} (Code: {{ $adherent->code_carte }})</span>
                                     <div class=" flex justify-end">
                                         <span class="text-gray-700 mr-4 ">Montant total: {{ number_format($totalMontant, 2) }} F CFA</span>
                                         <span class="float-right mr-4 text-gray-500 accordion-toggle">+</span>
@@ -333,8 +333,8 @@
                                             @foreach ($prestations as $prestation)
                                                 <tr>
                                                     <td class="px-6 py-4 whitespace-nowrap">{{ $prestation->idPrestation }}</td>
-                                                    <td class="px-6 py-4 whitespace-nowrap">{{ $prestation->adherantNom }}</td>
-                                                    <td class="px-6 py-4 whitespace-nowrap">{{ $prestation->adherantPrenom }}</td>
+                                                    <td class="px-6 py-4 whitespace-nowrap">{{ $prestation->adherentNom }}</td>
+                                                    <td class="px-6 py-4 whitespace-nowrap">{{ $prestation->adherentPrenom }}</td>
                                                     <td class="px-6 py-4 whitespace-nowrap">{{ $prestation->acte }}</td>
                                                     <td class="px-6 py-4 whitespace-nowrap">{{ $prestation->date }}</td>
                                                     <td class="px-6 py-4 whitespace-nowrap">{{ $prestation->centre }}</td>

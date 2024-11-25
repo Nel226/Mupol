@@ -14,15 +14,15 @@
                             <div class="sm:col-span-2">
                                 
                                 
-                                <label for="adherant_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Matricule de l&apos;adhérent</label>
-                                <select name="adherant_id" id="adherant_id" style="height:30px" 
+                                <label for="adherent_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Matricule de l&apos;adhérent</label>
+                                <select name="adherent_id" id="adherent_id" style="height:30px" 
                                         class="select2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" 
                                         required>
-                                    <option value="{{ $ayantDroit->adherant->no_matricule }}" selected="selected">{{ $ayantDroit->adherant->no_matricule }} "Ancienne valeur"</option> <!-- Option par défaut -->
+                                    <option value="{{ $ayantDroit->adherent->no_matricule }}" selected="selected">{{ $ayantDroit->adherent->no_matricule }} "Ancienne valeur"</option> <!-- Option par défaut -->
 
-                                    @foreach ($adherants as $adherant)
-                                        <option value="{{ $adherant->no_matricule }}">
-                                            Mle {{ $adherant->no_matricule }} : {{ $adherant->nom }} {{ $adherant->prenom }}
+                                    @foreach ($adherents as $adherent)
+                                        <option value="{{ $adherent->no_matricule }}">
+                                            Mle {{ $adherent->no_matricule }} : {{ $adherent->nom }} {{ $adherent->prenom }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -35,16 +35,16 @@
                                 
                                 
                                 $(document).ready(function () {
-                                    $("#adherant_id").select2({
+                                    $("#adherent_id").select2({
                                         placeholder: 'Sélectionnez le matricule adhérent',
                                         language: "fr"
                                     });
                                 
-                                    $("#adherant_id").val("{{ $ayantDroit->adherant_id }}").trigger('change');
+                                    $("#adherent_id").val("{{ $ayantDroit->adherent_id }}").trigger('change');
                                 
                                     // Function to toggle form fields based on selection
                                     function toggleFormFields() {
-                                        var selectedValue = $("#adherant_id").val();
+                                        var selectedValue = $("#adherent_id").val();
                                         if (selectedValue) {
                                             $("#nom, #prenom, #date_naissance, #sexe input, #relation, #code")
                                                 .prop('disabled', false)
@@ -58,7 +58,7 @@
                                 
                                     toggleFormFields();
                                 
-                                    $("#adherant_id").change(toggleFormFields);
+                                    $("#adherent_id").change(toggleFormFields);
                                 });
                                 
                                 

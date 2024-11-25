@@ -35,7 +35,7 @@
                     </div>
                 @endif
     
-                <form   action="{{ route('prestations.store') }}" method="POST" enctype="multipart/form-data" id="formPrestation" class=" max-w-2xl mx-auto adherant-form">
+                <form   action="{{ route('prestations.store') }}" method="POST" enctype="multipart/form-data" id="formPrestation" class=" max-w-2xl mx-auto adherent-form">
                     @csrf
                     <div class=" ">
                         <!-- Premier formulaire -->
@@ -54,36 +54,36 @@
                                     
                                     <hr class=" w-4/5  h-1 mx-auto mb-4 bg-[#4000FF] border-0 rounded md:mb-10 dark:bg-gray-700">
     
-                                    <label for="adherantCode" class="block mb-2 text-sm font-medium text-gray-900">Sélectionnez le code du mutualiste :</label>
+                                    <label for="adherentCode" class="block mb-2 text-sm font-medium text-gray-900">Sélectionnez le code du mutualiste :</label>
                                     
     
-                                    <select id="adherantCode" name="adherantCode" class="adherantCode block w-full p-2 !mb-6 border border-gray-300 rounded-lg">
+                                    <select id="adherentCode" name="adherentCode" class="adherentCode block w-full p-2 !mb-6 border border-gray-300 rounded-lg">
                                         <option value="">-- Choisir un code --</option>
-                                        @foreach ($adherants as $adherant)
-                                            <option value="{{ $adherant->code_carte }}">{{ $adherant->code_carte }}</option>
+                                        @foreach ($adherents as $adherent)
+                                            <option value="{{ $adherent->code_carte }}">{{ $adherent->code_carte }}</option>
                                         @endforeach
                                         @foreach ($ayantsDroitValides as $ayantDroit)
                                             <option value="{{ $ayantDroit->code }}">{{ $ayantDroit->code }}</option>
                                         @endforeach
                                     </select>
                                     
-                                    <div id="adherantInfo" class="adherantInfo mt-4 hidden">
+                                    <div id="adherentInfo" class="adherentInfo mt-4 hidden">
                                         <div class="flex space-x-6">
                                             
                                             <div class="w-1/2 ">
                                                 
-                                                <label for="adherantNom" class="block mb-2 text-sm font-medium text-gray-900">Nom :</label>
-                                                <input id="adherantNom" name="adherantNom" type="text" class="adherantNom block w-full p-2 mb-4 bg-gray-200 border border-gray-300 rounded-lg " readonly>
+                                                <label for="adherentNom" class="block mb-2 text-sm font-medium text-gray-900">Nom :</label>
+                                                <input id="adherentNom" name="adherentNom" type="text" class="adherentNom block w-full p-2 mb-4 bg-gray-200 border border-gray-300 rounded-lg " readonly>
                                             </div>
                                             <div class="w-1/2 ">
-                                                <label for="adherantPrenom" class="block mb-2 text-sm font-medium text-gray-900">Prénom :</label>
-                                                <input id="adherantPrenom" name="adherantPrenom" type="text" class="adherantPrenom w-full p-2 mb-4 bg-gray-200 border border-gray-300 rounded-lg bg-gray-200block" readonly>
+                                                <label for="adherentPrenom" class="block mb-2 text-sm font-medium text-gray-900">Prénom :</label>
+                                                <input id="adherentPrenom" name="adherentPrenom" type="text" class="adherentPrenom w-full p-2 mb-4 bg-gray-200 border border-gray-300 rounded-lg bg-gray-200block" readonly>
                                             </div>
                                         </div>
                                         <div class="flex space-x-6">
                                             <div class="w-1/2 ">
-                                                <label for="adherantSexe" class="block mb-2 text-sm font-medium text-gray-900">Sexe :</label>
-                                                <input id="adherantSexe" name="adherantSexe" type="text" class="adherantSexe block w-full p-2 mb-4 bg-gray-200 border border-gray-300 rounded-lg " readonly>
+                                                <label for="adherentSexe" class="block mb-2 text-sm font-medium text-gray-900">Sexe :</label>
+                                                <input id="adherentSexe" name="adherentSexe" type="text" class="adherentSexe block w-full p-2 mb-4 bg-gray-200 border border-gray-300 rounded-lg " readonly>
                                             </div>
                                             <div class="w-1/2 ">
                                                 <label for="beneficiaire" class="block mb-2 text-sm font-medium text-gray-900">Statut du bénéficiaire :</label>
@@ -680,7 +680,7 @@
                 
                 <script defer>
                     document.addEventListener('DOMContentLoaded', () => {
-                        const adherantCode = document.getElementById('adherantCode');
+                        const adherentCode = document.getElementById('adherentCode');
                         const acteContainer = document.getElementById('acteContainer');
     
                         const consultationOptions = document.getElementById('consultationOptions');
@@ -696,47 +696,47 @@
             
                         const allocationOptions = document.getElementById('allocationOptions');
                         const secoursMedicalDetail = document.getElementById('secoursMedicalDetail');
-                        var adherants = @json($adherants); 
+                        var adherents = @json($adherents); 
                         var ayantsDroit = @json($ayantsDroit); 
                         
-                        const adherantInfo = document.getElementById('adherantInfo');
+                        const adherentInfo = document.getElementById('adherentInfo');
                         const beneficiaireIndicator = document.getElementById('beneficiaire');
                         const infosACompleter = document.getElementById('infosACompleter');
     
                         
                         
-                        $('#adherantCode').on('change', function() {
+                        $('#adherentCode').on('change', function() {
                             const selectedCode = $(this).val(); // Récupérer la valeur sélectionnée
-                            const selectedAdherant = adherants.find(adherant => adherant.code_carte === selectedCode);
+                            const selectedAdherent = adherents.find(adherent => adherent.code_carte === selectedCode);
                     
-                            if (selectedAdherant) {
-                                document.getElementById('adherantNom').value = selectedAdherant.nom;
-                                document.getElementById('adherantPrenom').value = selectedAdherant.prenom;
-                                document.getElementById('adherantSexe').value = selectedAdherant.genre;
+                            if (selectedAdherent) {
+                                document.getElementById('adherentNom').value = selectedAdherent.nom;
+                                document.getElementById('adherentPrenom').value = selectedAdherent.prenom;
+                                document.getElementById('adherentSexe').value = selectedAdherent.genre;
                                 beneficiaireIndicator.value = 'Adhérant';
                     
                                 acteContainer.classList.remove('hidden');
-                                adherantInfo.classList.remove('hidden');
+                                adherentInfo.classList.remove('hidden');
                                 infosACompleter.classList.remove('hidden');
     
                             } else {
                                 const selectedAyantDroit = ayantsDroit.find(ayantDroit => ayantDroit.code === selectedCode);
                     
                                 if (selectedAyantDroit) {
-                                    document.getElementById('adherantNom').value = selectedAyantDroit.nom;
-                                    document.getElementById('adherantPrenom').value = selectedAyantDroit.prenom;
-                                    document.getElementById('adherantSexe').value = selectedAyantDroit.genre;
+                                    document.getElementById('adherentNom').value = selectedAyantDroit.nom;
+                                    document.getElementById('adherentPrenom').value = selectedAyantDroit.prenom;
+                                    document.getElementById('adherentSexe').value = selectedAyantDroit.genre;
                                     beneficiaireIndicator.value = 'Ayant Droit';
                     
                                     acteContainer.classList.remove('hidden');
-                                    adherantInfo.classList.remove('hidden');
+                                    adherentInfo.classList.remove('hidden');
                                     infosACompleter.classList.remove('hidden');
     
                                 } else {
                                     // Réinitialiser les champs si aucun adhérant ou ayant droit trouvé
-                                    document.getElementById('adherantNom').value = '';
-                                    document.getElementById('adherantPrenom').value = '';
-                                    document.getElementById('adherantSexe').value = '';
+                                    document.getElementById('adherentNom').value = '';
+                                    document.getElementById('adherentPrenom').value = '';
+                                    document.getElementById('adherentSexe').value = '';
                                     beneficiaireIndicator.value = 'Non trouvé';
                     
                                     acteContainer.classList.add('hidden');
@@ -813,7 +813,7 @@
                     });
     
                     $(document).ready(function() {
-                        $('#adherantCode').select2({
+                        $('#adherentCode').select2({
                             placeholder: '-- Choisir un code --',
                             width: '100%',
                             language: {

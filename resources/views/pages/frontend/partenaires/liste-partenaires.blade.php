@@ -10,9 +10,11 @@
         <section class="contact-us section">
             
             <div class="container">
-                <x-primary-button>
-                    <a href="{{ route('partenaire.login') }}">Connexion</a>
-                </x-primary-button>
+                <div class=" flex justify-end mb-2">
+                    <x-primary-button class="btn">
+                        <a href="{{ route('partenaire.login') }}">Connexion</a>
+                    </x-primary-button>
+                </div>
                 
                 <div class="inner">
                     <div class="row">

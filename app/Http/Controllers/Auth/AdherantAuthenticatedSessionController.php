@@ -123,4 +123,5 @@ class AdherantAuthenticatedSessionController extends Controller
 
         return redirect('/login/user');
     }
+    
 }

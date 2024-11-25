@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\AdherantAuthenticatedSessionController;
 use App\Http\Controllers\Auth\PartenaireAuthenticatedSessionController;
+use App\Http\Requests\Auth\LoginRequest;
 
 class UserLoginDetectorController extends Controller
 {
@@ -55,7 +56,13 @@ class UserLoginDetectorController extends Controller
             default => throw new \Exception("Contrôleur non défini pour ce guard"),
         };
 
-        // Instancier le contrôleur et appeler la méthode store
-        return app($controller)->dashboard();
+        // Créez une instance de LoginRequest à partir de la requête actuelle
+        $loginRequest = LoginRequest::createFrom($request);
+
+        // Injectez le conteneur dans la requête pour éviter l'erreur
+        $loginRequest->setContainer(app())->validateResolved();
+
+        // Appelez dynamiquement la méthode store
+        return app($controller)->store($loginRequest);
     }
 }

@@ -22,9 +22,7 @@ return new class extends Migration
             $table->string('idPrestation');
             $table->string('contactPrestation');
 
-            $table->uuid('acte_medical_id')->nullable();
-            $table->foreign('acte_medical_id')->references('id')->on('acte_medicals')->onDelete('set null');
-            
+            $table->string('acte');
             $table->date('date');
             $table->string('centre');
             $table->string('type')->nullable();
@@ -33,8 +31,10 @@ return new class extends Migration
             $table->json('preuve')->nullable();
             $table->enum('validite', ['rejeté', 'accepté', 'en attente'])->default('en attente');
             $table->boolean('etat_paiement')->default(false)->nullable();
+
             $table->uuid('partenaire_id'); 
             $table->foreign('partenaire_id')->references('id')->on('partenaires')->onDelete('cascade');
+            
             $table->timestamps();
         });
     }

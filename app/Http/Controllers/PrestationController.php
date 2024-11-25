@@ -39,7 +39,9 @@ class PrestationController extends Controller
     public function prestationsPartenaire()
     {
         $partenaire = auth()->guard('partenaire')->user();
+
         $prestations = $partenaire->prestations;
+        
         return  view('pages.frontend.partenaires.prestations.index',
                 compact('partenaire', 'prestations')
         );
@@ -53,7 +55,7 @@ class PrestationController extends Controller
         $adherent->ayantsDroits = AyantDroit::where('adherant_id', $adherent->id)->get();
 
     
-        return view('pages.frontend.partenaires.prestations.create', compact('adherent'));
+        return view('pages.frontend.adherents.prestations.create', compact('adherent'));
     }
     public function newPrestationPartenaire()
     {
@@ -221,7 +223,8 @@ class PrestationController extends Controller
                         'beneficiaire' => $data['beneficiaire'],
                         'idPrestation' => $data['idPrestation'],
                         'contactPrestation' => $data['contactPrestation'],
-                        'acte_medical_id' => $data["acte_medical_id"], // Modifie
+                        'acte' => $data["acte"],
+                        // 'acte_medical_id' => $data["acte_medical_id"], // Modifie
                         'date' => $data["date_$type$typeSuffix"],
                         'centre' => $data["centre_$type$typeSuffix"],
                         'montant' => $data["montant_$type$typeSuffix"],

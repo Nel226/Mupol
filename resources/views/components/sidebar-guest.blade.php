@@ -47,7 +47,7 @@
                     <a href="{{ route('adherents.prestations') }}" 
                         class="@if(Request::is('adherents/prestations*')) active @endif flex items-center p-2 text-gray-800 hover:bg-gray-700 hover:text-white rounded-md transition-all duration-300">
                         <i class="fa fa-file mr-3"></i>
-                        <span>Prestations</span>
+                        <span>Demande de remboursement</span>
                     </a>
                 </li>
                 <li>

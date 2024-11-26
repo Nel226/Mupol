@@ -80,7 +80,7 @@
 
                                 @if (!Auth::guard('adherent')->check() && !Auth::guard('partenaire')->check())
 
-                                    <a href="{{ route('adherent.login') }}">
+                                    <a href="{{ route('user.login') }}">
                                         <x-primary-button class=" !bg-white !text-[#4000FF] " >
                                             <i class=" fa fa-unlock-alt "></i>
                                             Connexion

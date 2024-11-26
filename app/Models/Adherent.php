@@ -7,18 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 
 class Adherent extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasUuids;
+    protected $keyType = 'string'; 
+    public $incrementing = false; 
     protected $fillable = [
-        'ordre',
         'date_enregistrement',
         'nom',
         'prenom',
         'genre',
         'service',
-        'no_matricule',
+        'matricule',
         'nip',
         'cnib',
         'delivree',
@@ -50,7 +52,10 @@ class Adherent extends Authenticatable
         'must_change_password', 'is_adherent',
     ];
 
-  
+    /**
+     * Boot method pour attacher des événements au modèle.
+     */
+    
     public function ayantsDroits()
     {
         return $this->hasMany(AyantDroit::class);

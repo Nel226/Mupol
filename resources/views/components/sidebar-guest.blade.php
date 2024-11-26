@@ -36,12 +36,7 @@
                         <span>Mon Profil</span>
                     </a>
                 </li>
-                <li>
-                    <a href="" class="flex items-center p-2 text-gray-800 hover:bg-gray-700 hover:text-white rounded-md">
-                        <i class="fa fa-cogs mr-3"></i>
-                        <span>Nos Services</span>
-                    </a>
-                </li>
+                
                 
                 <li>
                     <a href="{{ route('adherents.prestations') }}" 
@@ -58,31 +53,9 @@
                 </li>
                 <li>
                 
-                {{-- <li>
-                    <a href="" class="flex items-center p-2 text-gray-800 hover:bg-gray-700 hover:text-white rounded-md">
-                        <i class="fa fa-file-text mr-3"></i>
-                        <span>Ma Demande d'Adhésion</span>
-                    </a>
-                </li> --}}
-                <li>
-                    <a href="#" 
-                        class="@if(Request::is('adhesion*')) active @endif flex items-center p-2 text-gray-800 hover:bg-gray-700 hover:text-white rounded-md transition-all duration-300">
-                        <i class="fa fa-file-text mr-3"></i>
-                        <span>Ma Demande d&apos;Adhésion</span>
-                    </a>
-                </li>
                 
-                <li>
-                    <form method="POST" action="{{ route('adherent.logout') }}" class="flex items-center p-2 text-red-500 hover:bg-red-700 hover:text-white rounded-md">
-                        @csrf
-                        <button type="submit" class="w-full text-left">
-                            <i class="fa  fa-sign-out mr-3"></i>
-
-                            Déconnexion
-                        </button>
-                    </form>
-                   
-                </li>
+                
+                
             </ul>
             @endif
             @if (Auth::guard('partenaire')->check())

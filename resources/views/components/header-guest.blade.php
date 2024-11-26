@@ -45,102 +45,69 @@
         <div class=" w-full !bg-[#4000FF]">
             <div class="container">
                 <div class="inner">
-                    <div class="row">
-                        
-                        <div class="col-lg-7 col-md-9 col-12">
-                            
-                            <!-- Main Menu -->
+                    <div class="row items-center justify-between">
+                        <!-- Menu principal -->
+                        <div class="col-lg-10 col-md-11 col-12">
                             <div class="main-menu">
                                 <nav class="navigation">
-                                    <ul class="nav menu !text-white ">
+                                    <ul class="nav menu flex flex-nowrap items-center gap-2 text-white text-sm">
                                         <li class="{{ request()->routeIs('accueil') ? 'active' : '' }}">
-                                            <a href="{{ route('accueil') }}" >Accueil </a>
+                                            <a href="{{ route('accueil') }}" class="hover:text-gray-300 px-2">Accueil</a>
                                         </li>
                                         <li class="{{ request()->routeIs('en-construction') ? 'active' : '' }}">
-                                            <a href="{{ route('en-construction') }}">À Propos</a>
+                                            <a href="{{ route('en-construction') }}" class="hover:text-gray-300 px-2">À Propos</a>
                                         </li>
                                         <li class="{{ request()->routeIs('services') ? 'active' : '' }}">
-                                            <a href="{{ route('services') }}">Nos Services</a>
+                                            <a href="{{ route('services') }}" class="hover:text-gray-300 px-2">Nos Services</a>
                                         </li>
                                         <li class="{{ request()->routeIs('formulaire-adhesion') ? 'active' : '' }}">
-                                            <a href="{{ route('formulaire-adhesion') }}">Adhérer maintenant</a>
+                                            <a href="{{ route('formulaire-adhesion') }}" class="hover:text-gray-300 px-2">Adhérer</a>
                                         </li>
                                         <li class="{{ request()->routeIs('contacts') ? 'active' : '' }}">
-                                            <a href="{{ route('contacts') }}">Nous contacter</a>
+                                            <a href="{{ route('contacts') }}" class="hover:text-gray-300 px-2">Nous contacter</a>
                                         </li>
+                                        @if (Auth::guard('adherent')->check())
+                                            <li class="{{ request()->routeIs('adherents.dashboard') ? 'active' : '' }}">
+                                                <a href="{{ route('adherents.dashboard') }}" class="hover:text-gray-300 px-2">Mon Profil</a>
+                                            </li>
+                                            <li class="{{ request()->routeIs('adherents.prestations') ? 'active' : '' }}">
+                                                <a href="{{ route('adherents.prestations') }}" class="hover:text-gray-300 px-2">Remboursement</a>
+                                            </li>
+                                            <li class="{{ request()->routeIs('adherents.ayantsdroits') ? 'active' : '' }}">
+                                                <a href="{{ route('adherents.ayantsdroits') }}" class="hover:text-gray-300 px-2">Ayants Droits</a>
+                                            </li>
+                                        @endif
                                     </ul>
                                 </nav>
                             </div>
-                            <!--/ End Main Menu -->
                         </div>
-                        
-                        <div class="col-lg-5 flex items-center justify-end my-1 col-12">
-                           
+                    
+                        <!-- Bouton Connexion/Déconnexion -->
+                        <div class="col-lg-2 col-12 flex justify-end">
                             <div class="get-quote">
-
                                 @if (!Auth::guard('adherent')->check() && !Auth::guard('partenaire')->check())
-
                                     <a href="{{ route('adherent.login') }}">
-                                        <x-primary-button class=" !bg-white !text-[#4000FF] " >
-                                            <i class=" fa fa-unlock-alt "></i>
-                                            Connexion
-                                        </x-primary-button>    
-                                    </a>
-                                    {{-- <div class="relative inline-block text-left">
-                                        <x-primary-button class=" inline-flex items-center !text-gray-700 bg-white hover:bg-gray-50 " id="languageMenuButton" aria-expanded="true" aria-haspopup="true">
-                                            <span class="mr-2">Langue</span>
-                                            <svg class="-mr-1 ml-2 h-2 w-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
-                                            </svg>
+                                        <x-primary-button class="!bg-white !text-[#4000FF] px-2 py-1 text-xs">
+                                            <i class="fa fa-unlock-alt"></i> Connexion
                                         </x-primary-button>
-                                    
-                                        <!-- Dropdown Menu -->
-                                        <div class="origin-top-right absolute right-0 mt-2 w-40 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none hidden" role="menu" aria-orientation="vertical" aria-labelledby="languageMenuButton" id="dropdownMenu">
-                                            <div class="py-1" role="none">
-                                                <!-- French Option -->
-                                                <a href="?lang=fr" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">
-                                                    <img src="{{ asset('images/flags/france.png') }}" alt="Français" class="w-5 h-5 mr-2">
-                                                    Français
-                                                </a>
-                                                <!-- English Option -->
-                                                <a href="?lang=en" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">
-                                                    <img src="{{ asset('images/flags/united-states.png') }}" alt="English" class="w-5 h-5 mr-2">
-                                                    English
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>                             --}}
-                                    @else
-                                        @if (Auth::guard('adherent')->check())
-                                            <!-- Formulaire de déconnexion pour adherent -->
-                                            <form class="flex" action="{{ route('adherent.logout') }}" method="post">
-                                                @csrf
-                                                <x-primary-button class="!bg-white !text-[#4000FF]">
-                                                    <i class="fa fa-unlock-alt"></i>
-                                                    Déconnexion
-                                                </x-primary-button>
-                                            </form>
-                                        @elseif (Auth::guard('partenaire')->check())
-                                            <!-- Formulaire de déconnexion pour partenaire -->
-                                            <form class="flex" action="{{ route('partenaire.logout') }}" method="post">
-                                                @csrf
-                                                <x-primary-button class="!bg-white !text-[#4000FF]">
-                                                    <i class="fa fa-unlock-alt"></i>
-                                                    Déconnexion
-                                                </x-primary-button>
-                                            </form>
-                                        @endif
+                                    </a>
+                                @else
+                                    @if (Auth::guard('adherent')->check())
+                                        <form action="{{ route('adherent.logout') }}" method="post" class="flex">
+                                            @csrf
+                                            <x-primary-button class="!bg-white !text-[#4000FF] px-2 py-1 text-xs">
+                                                <i class="fa fa-unlock-alt"></i> Déconnexion
+                                            </x-primary-button>
+                                        </form>
+                                    @elseif (Auth::guard('partenaire')->check())
+                                        <form action="{{ route('partenaire.logout') }}" method="post" class="flex">
+                                            @csrf
+                                            <x-primary-button class="!bg-white !text-[#4000FF] px-2 py-1 text-xs">
+                                                <i class="fa fa-unlock-alt"></i> Déconnexion
+                                            </x-primary-button>
+                                        </form>
                                     @endif
-                              
-                                
-                                {{-- <script>
-                                    // Toggle dropdown visibility
-                                    document.getElementById('languageMenuButton').addEventListener('click', function() {
-                                        const dropdownMenu = document.getElementById('dropdownMenu');
-                                        dropdownMenu.classList.toggle('hidden');
-                                    });
-                                </script> --}}
-                                
+                                @endif
                             </div>
                             <div class="">
                                 <!-- Mobile Nav -->
@@ -149,6 +116,8 @@
                             </div>
                         </div>
                     </div>
+                    
+                    
                 </div>
             </div>
         </div>

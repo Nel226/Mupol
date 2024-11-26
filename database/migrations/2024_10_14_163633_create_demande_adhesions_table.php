@@ -12,7 +12,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('demande_adhesions', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary(); 
             $table->string('matricule');
             $table->string('nip');
             $table->string('cnib');
@@ -20,7 +20,7 @@ return new class extends Migration
             $table->date('expire');
             $table->string('adresse');
             $table->string('telephone');
-            $table->string(column: 'email');
+            $table->string( 'email');
 
             $table->string('nom');
             $table->string('prenom');

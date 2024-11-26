@@ -35,6 +35,10 @@ use App\Http\Controllers\Backend\RestrictionController;
 |
 */
 
+// routes/admin.php
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -55,8 +59,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/dentaire-auditif/suivi', [PrestationController::class, 'suiviDentaireAuditif'])->name('suivi-dentaire-auditif');
     Route::get('/autre/suivi', [PrestationController::class, 'suiviAutre'])->name('suivi-autre');
 
-    Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
-
+   
     Route::resource('adherents', AdherentController::class);
     Route::resource('ayantsdroits', AyantDroitController::class);
     Route::resource('prestations', PrestationController::class);

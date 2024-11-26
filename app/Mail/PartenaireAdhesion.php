@@ -13,15 +13,15 @@ class PartenaireAdhesion extends Mailable
 {
     use Queueable, SerializesModels;
     public $partenaire;
-    public $password;
+    public $generatedPassword;
     /**
      * Create a new message instance.
      */
  
-     public function __construct($partenaire, $password)
+    public function __construct($partenaire, $generatedPassword)
     {
         $this->partenaire = $partenaire;
-        $this->password = $password;
+        $this->generatedPassword = $generatedPassword;
     }
 
     /**
@@ -41,25 +41,20 @@ class PartenaireAdhesion extends Mailable
     {
         return new Content(
             view: 'emails.partenaire-adhesion', 
-            
             with: [
-                'email' => $this->partenaire->email,
-                'password' => $this->password,
+                'partenaire' => $this->partenaire,
                 'logoUrl' => asset('images/logo.png'), 
+                'generatedPassword' => $this->generatedPassword, 
 
             ],
+           
         );
     }
     
     public function build()
     {
         return $this->view('emails.partenaire-adhesion') 
-                    ->subject('Bienvenue à la MU-POL')
-                    ->with([
-                        'name' => $this->partenaire->name,
-                        'email' => $this->partenaire->email, 
-                        'password' => $this->password,
-                    ]);
+                    ->subject('Bienvenue à la MU-POL');
     }
 
     /**

@@ -10,7 +10,7 @@
         <div class="mt-8 text-gray-200 text-sm font-semibold uppercase tracking-wide">Menu</div>
         <ul class="mt-2 space-y-2 text-sm font-medium" x-data="{ openMenu: null }">
             <li>
-                <a href="{{ route('dashboard') }}" class="@if(Request::is('dashboard')) active @endif flex items-center px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300 hover:scale-105 ">
+                <a href="{{ route('admin.dashboard') }}" class="@if(Request::is('admin/dashboard')) active @endif flex items-center px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300 hover:scale-105 ">
                     <i class="fa fa-pie-chart w-5 h-5 dark:text-gray-400 group-hover:text-black"></i>
                     <span class="ml-3">Tableau de bord</span>
                 </a>

@@ -53,8 +53,8 @@
 
         <p>Voici vos informations de connexion :</p>
         <ul>
-            <li><strong>Email :</strong> {{ $email }}</li>
-            <li><strong>Mot de passe temporaire :</strong> {{ $password }}</li>
+            <li><strong>Email :</strong> {{ $partenaire->email }}</li>
+            <li><strong>Mot de passe temporaire :</strong> {{ $generatedPassword }}</li>
         </ul>
         <p>Vous pouvez maintenant vous connecter à votre compte.</p>
         <p>Si vous avez des questions, n'hésitez pas à nous contacter.</p>

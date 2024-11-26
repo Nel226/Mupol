@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('prestations', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary(); 
             $table->string('adherentCode');
 
             $table->string('adherentNom');
@@ -32,10 +32,11 @@ return new class extends Migration
             $table->enum('validite', ['rejeté', 'accepté', 'en attente'])->default('en attente');
             $table->boolean('etat_paiement')->default(false)->nullable();
             $table->uuid('partenaire_id'); 
+            $table->timestamps();
+
             $table->foreign('partenaire_id')->references('id')->on('partenaires')->onDelete('cascade');
 
             
-            $table->timestamps();
         });
     }
 

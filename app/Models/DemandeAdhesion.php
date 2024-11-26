@@ -4,10 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 
 class DemandeAdhesion extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUuids;
+
+    protected $keyType = 'string'; 
+    public $incrementing = false;
 
     // Define the table if it's different from the default ('demande_adhesions')
     protected $table = 'demande_adhesions';

@@ -82,76 +82,78 @@ class AccueilController extends Controller
         $demandeAdhesion->signature = $request->input('signature'); 
         $demandeAdhesion->save();
         $cotisations = DemandeCategorieHelper::calculerCotisationMensuelleTotale($demandeAdhesion->nombreAyantsDroits, $demandeAdhesion->statut);
+        $mensualite = $cotisations['cotisationTotale'];
         $pdf = Pdf::loadView('pages.frontend.adherents.fiches.cession_volontaire', ['demandeAdhesion' => $demandeAdhesion]);
 
-        $adherent = Adherent::where('matricule', $demandeAdhesion->matricule)->first();
-    
-        if (!$adherent) {
-            $generatedPassword = PasswordHelper::generateSecurePassword();
-            
-            $adherent = Adherent::create([
-                'matricule' => $demandeAdhesion->matricule, 
-                'nip' => $demandeAdhesion->nip,
-                'cnib' => $demandeAdhesion->cnib,
-                'delivree' => $demandeAdhesion->delivree,
-                'expire' => $demandeAdhesion->expire,
-                'adresse' => $demandeAdhesion->adresse_permanente,
-                'telephone' => $demandeAdhesion->telephone,
-                'email' => $demandeAdhesion->email,
-                'nom' => $demandeAdhesion->nom,
-                'prenom' => $demandeAdhesion->prenom,
-                'genre' => $demandeAdhesion->genre, 
-                'departement' => $demandeAdhesion->departement, 
-                'ville' => $demandeAdhesion->ville,
-                'pays' => $demandeAdhesion->pays,
-                'nom_pere' => $demandeAdhesion->nom_pere,
-                'nom_mere' => $demandeAdhesion->nom_mere,
-                'situation_matrimoniale' => $demandeAdhesion->situation_matrimoniale,
-                'nom_prenom_personne_besoin' => $demandeAdhesion->nom_prenom_personne_besoin,
-                'lieu_residence' => $demandeAdhesion->lieu_residence,
-                'telephone_personne_prevenir' => $demandeAdhesion->telephone_personne_prevenir,
-                'photo' => $demandeAdhesion->photo,
-                'nombreAyantsDroits' => $demandeAdhesion->nombreAyantsDroits,
-                'ayantsDroits' => $demandeAdhesion->ayantsDroits,
-                'categorie' => $demandeAdhesion->categorie,
-                'statut' => $demandeAdhesion->statut,
-                'grade' => $demandeAdhesion->grade,
-                'departARetraite' => $demandeAdhesion->departARetraite,
-                'numeroCARFO' => $demandeAdhesion->numeroCARFO,
-                'dateIntegration' => $demandeAdhesion->dateIntegration,
-                'dateDepartARetraite' => $demandeAdhesion->dateDepartARetraite,
-                'direction' => $demandeAdhesion->direction,
-                'service' => $demandeAdhesion->service,
-                'password' => Hash::make($generatedPassword), 
-                'date_enregistrement' => now(),
-                'code_carte' => $demandeAdhesion->matricule . '/00', 
-                'region' => $demandeAdhesion->region,
-                'province' => $demandeAdhesion->province,
-                'localite' => $demandeAdhesion->localite,
-                'must_change_password' => true,
-                'is_adherent' => false,
+        $generatedPassword = PasswordHelper::generateSecurePassword();
+        $data = [
+            'matricule' => $demandeAdhesion->matricule,
+            'nip' => $demandeAdhesion->nip,
+            'cnib' => $demandeAdhesion->cnib,
+            'delivree' => $demandeAdhesion->delivree,
+            'expire' => $demandeAdhesion->expire,
+            'adresse' => $demandeAdhesion->adresse,
+            'telephone' => $demandeAdhesion->telephone,
+            'email' => $demandeAdhesion->email,
+            'nom' => $demandeAdhesion->nom,
+            'prenom' => $demandeAdhesion->prenom,
+            'genre' => $demandeAdhesion->genre, 
+            'departement' => $demandeAdhesion->departement, 
+            'ville' => $demandeAdhesion->ville,
+            'pays' => $demandeAdhesion->pays,
+            'nom_pere' => $demandeAdhesion->nom_pere,
+            'nom_mere' => $demandeAdhesion->nom_mere,
+            'situation_matrimoniale' => $demandeAdhesion->situation_matrimoniale,
+            'nom_prenom_personne_besoin' => $demandeAdhesion->nom_prenom_personne_besoin,
+            'lieu_residence' => $demandeAdhesion->lieu_residence,
+            'telephone_personne_prevenir' => $demandeAdhesion->telephone_personne_prevenir,
+            'photo' => $demandeAdhesion->photo,
+            'nombreAyantsDroits' => $demandeAdhesion->nombreAyantsDroits,
+            'charge' => $demandeAdhesion->nombreAyantsDroits,
 
-            ]);
-        }
+            'ayantsDroits' => $demandeAdhesion->ayantsDroits,
+            'categorie' => $demandeAdhesion->categorie,
+            'mensualite' => $mensualite,
+
+            'statut' => $demandeAdhesion->statut,
+            'grade' => $demandeAdhesion->grade,
+            'departARetraite' => $demandeAdhesion->departARetraite,
+            'numeroCARFO' => $demandeAdhesion->numeroCARFO,
+            'dateIntegration' => $demandeAdhesion->dateIntegration,
+            'dateDepartARetraite' => $demandeAdhesion->dateDepartARetraite,
+            'direction' => $demandeAdhesion->direction,
+            'service' => $demandeAdhesion->service,
+            'password' => Hash::make($generatedPassword), 
+            'date_enregistrement' => now(),
+            'code_carte' => $demandeAdhesion->matricule . '/00', 
+            'region' => $demandeAdhesion->region,
+            'province' => $demandeAdhesion->province,
+            'localite' => $demandeAdhesion->localite,
+            'must_change_password' => true,
+            'is_adherent' => false,
+
+        ];
+        $adherent = Adherent::create($data);
+        
 
         $ayantsDroitsArray = json_decode($demandeAdhesion->ayantsDroits, true);
-
         if ($demandeAdhesion->nombreAyantsDroits > 0) {
             if (is_array($ayantsDroitsArray)) {
                 foreach ($ayantsDroitsArray as $index => $ayantDroitData) {
+                    $position = $index + 1;
                     AyantDroit::create([
                         'nom' => $ayantDroitData['nom'],
                         'prenom' => $ayantDroitData['prenom'],
                         'sexe' => $ayantDroitData['sexe'],
-                        'photo' => $ayantDroitData['photo'] ?? null,
-                        'cnib' => $ayantDroitData['cnib'] ?? null,
-                        'extrait' => $ayantDroitData['extrait'] ?? null,
+                        'photo' => !empty($ayantDroitData['photo_path']) ? $ayantDroitData['photo_path'] : null,
+                        'cnib' => !empty($ayantDroitData['cnib_path']) ? $ayantDroitData['cnib_path'] : null,
+                        'extrait' => !empty($ayantDroitData['extrait_path']) ? $ayantDroitData['extrait_path'] : null,
                         'adherent_id' => $adherent->id ,
     
                         'date_naissance' => $ayantDroitData['date_naissance'],
                         'relation' => $ayantDroitData['relation'],
-                        'code' => $adherent->matricule . '/0' .$index,
-                        'position' => $index, 
+                        'code' => $adherent->matricule . '/' . str_pad($position, 2, '0', STR_PAD_LEFT), 
+                        'position' => $position, 
     
                     ]);
                 }
@@ -161,8 +163,18 @@ class AccueilController extends Controller
 
 
         Mail::to($demandeAdhesion->email)->send(new ConfirmationDemandeAdhesion($demandeAdhesion, $pdf, $generatedPassword));
+        return redirect()->route('final-demande-adhesion')->with([
+            'cotisations' => $cotisations,
+            'demandeAdhesion' => $demandeAdhesion,
+            'status' => 'Votre demande d\'adhésion a été envoyée avec succès!'
+        ]);
+    }
 
-        return view('pages.frontend.adherents.final-demande-adhesion', compact( 'cotisations', 'demandeAdhesion'));
+    public function confirmationAdhesion()
+    {
+        $cotisations = session('cotisations');
+        $demandeAdhesion = session('demandeAdhesion');
+        return view('pages.frontend.adherents.final-demande-adhesion', compact('cotisations', 'demandeAdhesion'));
     }
 
 
@@ -221,7 +233,6 @@ class AccueilController extends Controller
     public function partenaires()
     {
         $partenaires = Partenaire::all();
-         // Grouper les partenaires par type
         $groupedPartenaires = $partenaires->groupBy('type');
 
         return view('pages.frontend.partenaires.liste-partenaires', compact('partenaires', 'groupedPartenaires'));

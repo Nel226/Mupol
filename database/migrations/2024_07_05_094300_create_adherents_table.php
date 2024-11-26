@@ -13,10 +13,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('adherents', function (Blueprint $table) {
-            $table->id();
-            $table->string('matricule')->nullable();
-            $table->string('nip')->nullable();
-            $table->string('cnib')->nullable();
+            $table->uuid('id')->primary(); 
+            $table->string('matricule')->nullable(false);
+            $table->string('nip');
+            $table->string('cnib');
             $table->date('delivree')->nullable();
             $table->date('expire')->nullable();
             $table->string('adresse')->nullable();
@@ -50,10 +50,9 @@ return new class extends Migration
             $table->string('province')->nullable();
             $table->string('localite')->nullable();
 
-            $table->string('ordre')->nullable();
             $table->date('date_enregistrement')->nullable();
             $table->string('code_carte')->nullable();
-            $table->string('charge')->nullable();
+            $table->integer('charge')->nullable();
             $table->string('mensualite')->nullable();
             $table->string('adhesion')->default(10000);
             $table->string('password');

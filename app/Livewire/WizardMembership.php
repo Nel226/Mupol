@@ -232,7 +232,7 @@ class WizardMembership extends Component
         session()->flash('message', 'Formulaire soumis avec succès !');
         
         // Réinitialisez le formulaire si nécessaire
-        // $this->reset();
+        $this->reset();
         
 
         $this->currentStep = 1; 

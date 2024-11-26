@@ -427,7 +427,7 @@
                                                     <label class="block text-gray-700 text-sm font-bold mb-1">Genre</label>
                                                     <select wire:model="ayantsDroits.{{ $i }}.sexe" class="border rounded w-full py-1">
                                                         <option value="" disabled selected>Sélectionner</option>
-                                                        <option value="H">Homme</option>
+                                                        <option value="M">Homme</option>
                                                         <option value="F">Femme</option>
                                                     </select>
                                                     <!-- Affichage des erreurs pour le champ "sexe" -->
@@ -464,7 +464,6 @@
                                                     <div class="w-full justify-center border-2 rounded-md p-1 border-gray-700">
                                                         <input type="file" wire:model="ayantsDroits.{{ $i }}.cnib" class="w-full py-2"  accept='.pdf'>
                                                         
-                                            
                                                         @error('ayantsDroits.' . $i . '.cnib')
                                                             <span class="text-red-500 text-xs">{{ $message }}</span>
                                                         @enderror

@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('ayant_droits', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary(); 
             $table->string('nom');
             $table->string('prenom');
             $table->string('sexe');
@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('extrait')->nullable();
             $table->unsignedInteger('position')->nullable();
 
-            $table->unsignedBigInteger('adherent_id');
+            $table->uuid('adherent_id');
             $table->foreign('adherent_id')->references('id')->on('adherents')->onDelete('restrict');
             $table->timestamps();
         });

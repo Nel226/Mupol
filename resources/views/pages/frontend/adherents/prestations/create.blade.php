@@ -15,7 +15,6 @@
         </script>
     @endif
 
-    <x-sidebar-guest />
 
     <div class="min-h-screen ml-64 bg-gray-50 dark:bg-gray-900 py-3">
         <section class="container mx-auto px-6">

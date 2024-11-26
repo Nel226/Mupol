@@ -71,7 +71,6 @@
                             <p class="text-gray-600 text-sm mb-2"><strong>Situation matrimoniale :</strong> {{ $demande->situation_matrimoniale }}</p>
                         
                             <!-- Personnes à prévenir en cas de besoin -->
-                            <!-- Personnes à prévenir en cas de besoin -->
                             <div class="mt-6 bg-gray-50 shadow-md rounded-lg p-4">
                                 <h4 class="text-lg font-semibold text-gray-800 border-b border-gray-200 pb-2 mb-4">Personnes à prévenir en cas de besoin</h4>
                                 
@@ -93,7 +92,6 @@
 
                         </div>
                 
-                        <!-- Liste des ayants droits -->
                         <div class="bg-white shadow-md rounded-lg p-6">
                             <h3 class="text-xl font-semibold text-gray-800 mb-4">Liste des ayants droits</h3>
                             <div class="overflow-x-auto">
@@ -109,12 +107,67 @@
                                             <th class="py-3 px-4 text-center">CNIB</th>
                                             <th class="py-3 px-4 text-center">Extrait</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        @endif
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($demande->ayantsDroits as $index => $ayantDroit)
+                                            <tr class="border-b border-gray-200 hover:bg-gray-100">
+                                                <!-- Photo -->
+                                                <td class="py-3 px-4 text-center">
+                                                    <img 
+                                                        src="{{ asset($ayantDroit->photo) }}" 
+                                                        alt="Photo de {{ $ayantDroit->nom }}" 
+                                                        class="w-10 h-10 rounded-full object-cover mx-auto"
+                                                    />
+                                                </td>
+                                                
+                                                <!-- Nom -->
+                                                <td class="py-3 px-4">{{ $ayantDroit->nom }}</td>
+                                                
+                                                <!-- Prénom(s) -->
+                                                <td class="py-3 px-4">{{ $ayantDroit->prenoms }}</td>
+                                                
+                                                <!-- Sexe -->
+                                                <td class="py-3 px-4">{{ ucfirst($ayantDroit->sexe) }}</td>
+                                                
+                                                <!-- Lien de parenté -->
+                                                <td class="py-3 px-4">{{ $ayantDroit->lienParente }}</td>
+                                                
+                                                <!-- CNIB -->
+                                                <td class="py-3 px-4 text-center">
+                                                    @if($ayantDroit->cnib)
+                                                        {{ $ayantDroit->cnib }}
+                                                    @else
+                                                        <span class="text-gray-500">Non disponible</span>
+                                                    @endif
+                                                </td>
+                                                
+                                                <!-- Extrait -->
+                                                <td class="py-3 px-4 text-center">
+                                                    @if($ayantDroit->extrait)
+                                                        <a 
+                                                            href="{{ asset($ayantDroit->extrait) }}" 
+                                                            target="_blank" 
+                                                            class="text-blue-600 hover:underline"
+                                                        >
+                                                            Voir
+                                                        </a>
+                                                    @else
+                                                        <span class="text-gray-500">Non disponible</span>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                                @else
+                                <p class="text-gray-600">Aucun ayant droit enregistré pour cette demande.</p>
+                                @endif
+                            </div>
+                        </div>
+                        
+
                     </div>
-                
+
                     <!-- Section : Formations professionnelles -->
                     <div class="section border-t border-gray-300 mt-2 pt-4">
                         <h3 class="text-1xl font-semibold mb-2 bg-gray-500 px-auto px-1">INFORMATIONS PROFESSIONELLES</h3>

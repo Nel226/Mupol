@@ -105,7 +105,10 @@ class AdherentAuthenticatedSessionController extends Controller
 
     public function dashboard(): View
     {
-        return view('pages.frontend.adherents.dashboard');
+        $adherent = Auth::guard('adherent')->user();
+        $adherent->ayantsDroits = json_decode($adherent->ayantsDroits, true); 
+
+        return view('pages.frontend.adherents.dashboard', compact('adherent'));
     }
 
 

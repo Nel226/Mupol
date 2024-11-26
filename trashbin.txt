@@ -1,3 +1,1326 @@
+// Vue de l'email
+ 
+namespace App\Mail;
+
+use Illuminate\Bus\Queueable;
+use Illuminate\Mail\Mailable;
+use Illuminate\Queue\SerializesModels;
+
+class PartenaireAdhesion extends Mailable
+{
+    use Queueable, SerializesModels;
+
+    public $email;
+    public $password;
+    public $nom;
+
+    /**
+     * Create a new message instance.
+     */
+    public function __construct($data)
+    {
+        $this->email = $data['email'];
+        $this->password = $data['password'];
+        $this->nom = $data['nom'];
+    }
+
+    /**
+     * Build the message.
+     */
+    public function build()
+    {
+        return $this->view('emails.partenaire-adhesion')
+                    ->subject('Bienvenue à la MU-POL!')
+                    ->with([
+                        'email' => $this->email,
+                        'password' => $this->password,
+                        'nom' => $this->nom,
+                    ]);
+    }
+}
+
+ 
+<?php
+
+namespace App\Mail;
+
+use Illuminate\Bus\Queueable;
+use Illuminate\Mail\Mailable;
+use Illuminate\Queue\SerializesModels;
+
+class PartenaireAdhesion extends Mailable
+{
+    use Queueable, SerializesModels;
+
+    public $email;
+    public $password;
+    public $nom;
+
+    /**
+     * Create a new message instance.
+     */
+    public function __construct($data)
+    {
+        $this->email = $data['email'];
+        $this->password = $data['password'];
+        $this->nom = $data['nom'];
+    }
+
+    /**
+     * Build the message.
+     */
+    public function build()
+    {
+        return $this->view('emails.partenaire-adhesion')
+                    ->subject('Bienvenue à la MU-POL!')
+                    ->with([
+                        'email' => $this->email,
+                        'password' => $this->password,
+                        'nom' => $this->nom,
+                    ]);
+    }
+}
+
+ 
+            dd($mailData);
+
+ 
+<p>Voici vos informations d'identification :</p>
+    <ul>
+        <li><strong>Email :</strong> {{ $email }}</li>
+        <li><strong>Mot de passe temporaire :</strong> {{ $password }}</li>
+    </ul>
+
+ 
+$validatedData['nom'] ?? 
+ 
+            dd($mailData);
+
+ 
+validatedData['email']
+ 
+generatedPassword
+ 
+                 
+ 
+Content
+ 
+public function content()
+    {
+        return $this->view('emails.partenaire-adhesion')
+                    ->with([
+                        'email' => $this->email,
+                        'password' => $this->password,
+                        'nom' => $this->nom,
+                    ])
+                    ->subject('Bienvenue à la MU-POL!');
+    }
+ 
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Bienvenue à la MU-POL!</title>
+</head>
+<body>
+    <h1>Bienvenue à la MU-POL!</h1>
+    <p>Votre compte a été créé avec succès en tant que partenaire de santé.</p>
+
+    <p>Nous sommes ravis de vous compter parmi nos partenaires.</p>
+
+    <p>Voici vos informations de connexion :</p>
+    <ul>
+        <li><strong>Email :</strong> {{ $email }}</li>
+        <li><strong>Mot de passe temporaire :</strong> {{ $password }}</li>
+    </ul>
+
+    <p>Vous pouvez maintenant vous connecter à votre compte.</p>
+
+    <p>Si vous avez des questions, n'hésitez pas à nous contacter.</p>
+
+    <p>Merci,</p>
+    <p>L'équipe de la Mutelle de la Police Nationale</p>
+</body>
+</html>
+
+ 
+namespace App\Mail;
+
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Content;
+use Illuminate\Mail\Mailables\Envelope;
+use Illuminate\Queue\SerializesModels;
+
+class PartenaireAdhesion extends Mailable
+{
+    use Queueable, SerializesModels;
+    public $email;
+    public $password;
+
+    public function __construct($email, $password)
+    {
+        $this->email = $email;
+        $this->password = $password;
+    }
+
+    public function build()
+    {
+        return $this->view('emails.partenaire-adhesion')
+                    ->with([
+                        'email' => $this->email,
+                        'password' => $this->password,
+                    ])
+                    ->subject('Bienvenue à la MU-POL');
+    }
+
+    /**
+     * Get the message envelope.
+     */
+    public function envelope(): Envelope
+    {
+        return new Envelope(
+            subject: 'Partenaire Adhesion MU-POL',
+        );
+    }
+
+    /**
+     * Get the message content definition.
+     */
+    
+    
+   
+    /**
+     * Get the attachments for the message.
+     *
+     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
+     */
+    public function attachments(): array
+    {
+        return [];
+    }
+}
+
+ 
+partenaire->
+ 
+ public function build()
+    {
+        return $this->view('emails.partenaire-adhesion')
+                    ->with([
+                        'partenaire' => $this->partenaire,
+                        'generatedPassword' => $this->generatedPassword,
+                    ])
+                    ->subject('Bienvenue à la MU-POL');
+    }
+    
+ 
+            dd($partenaire, $generatedPassword);
+
+ 
+partenaire
+ 
+public function content(): Content
+    {
+        return new Content(
+            view: 'emails.partenaire-adhesion', 
+            with: [
+                'partenaire' => $this->partenaire,
+                'logoUrl' => asset('images/logo.png'), 
+                'generatedPassword' => $this->generatedPassword, 
+
+            ],
+           
+        );
+    }
+ 
+ <p>Voici vos informations d'identification :</p>
+    <ul>
+        <li><strong>Email :</strong> {{ $email }}</li>
+        <li><strong>Mot de passe temporaire :</strong> {{ $password }}</li>
+    </ul>
+
+ 
+->with([
+                        'name' => $this->partenaire->name,
+                        'email' => $this->partenaire->email, 
+                        'password' => $this->password,
+                    ])
+ 
+->with([
+                        'name' => $this->partenaire->name,
+                        'email' => $this->partenaire->email, 
+                        'password' => $this->password,
+                    ]);
+ 
+ with([
+                'generatedPassword' => $this->generatedPassword,
+                'logoUrl' => asset('images/logo.png'), 
+            ],
+            with: [
+                'email' => $this->partenaire->email,
+                'password' => $this->password,
+
+            ],
+ 
+                'demandeAdhesion' => $this->demandeAdhesion,
+
+ 
+ with: [
+                'email' => $this->partenaire->email,
+                'password' => $this->password,
+
+            ],
+ 
+ with: [
+                'email' => $this->partenaire->email,
+                'password' => $this->password,
+
+            ],
+ 
+ @if ($adherent->nombreAyantsDroits > 0)
+                                <table class="w-full border-collapse bg-white shadow-md rounded-lg overflow-hidden mt-6">
+                                    <thead>
+                                        <tr class="bg-gray-100 text-gray-600 uppercase text-sm leading-normal">
+                                            <th class="py-3 px-4 text-center">Photo</th>
+                                            <th class="py-3 px-4">Nom</th>
+                                            <th class="py-3 px-4">Prénom(s)</th>
+                                            <th class="py-3 px-4">Sexe</th>
+                                            <th class="py-3 px-4">Lien de parenté</th>
+                                            <th class="py-3 px-4 text-center">CNIB</th>
+                                            <th class="py-3 px-4 text-center">Extrait</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($adherent->ayantsDroits as $index => $ayantDroit)
+                                            <tr class="border-b border-gray-200 hover:bg-gray-100">
+                                                <!-- Photo -->
+                                                <td class="py-3 px-4 text-center">
+                                                    {{-- <img 
+                                                    src="{{ asset(Storage::url('photos/ayants-droit/' . $ayantDroit->photo ?? 'default.jpg')) }}" 
+                                                    alt="Photo de {{ $ayantDroit->nom }}" 
+                                                        class="w-10 h-10 rounded-full object-cover mx-auto"
+                                                    /> --}}
+                                                </td>
+                                                
+                                                <!-- Nom -->
+                                                <td class="py-3 px-4">{{ $ayantDroit->nom }}</td>
+                                                
+                                                <!-- Prénom(s) -->
+                                                <td class="py-3 px-4">{{ $ayantDroit->prenoms }}</td>
+                                                
+                                                <!-- Sexe -->
+                                                <td class="py-3 px-4">{{ ucfirst($ayantDroit->sexe) }}</td>
+                                                
+                                                <!-- Lien de parenté -->
+                                                <td class="py-3 px-4">{{ $ayantDroit->lienParente }}</td>
+                                                
+                                                <!-- CNIB -->
+                                                <td class="py-3 px-4 text-center">
+                                                    @if($ayantDroit->cnib)
+                                                        {{ $ayantDroit->cnib }}
+                                                    @else
+                                                        <span class="text-gray-500">Non disponible</span>
+                                                    @endif
+                                                </td>
+                                                
+                                                <!-- Extrait -->
+                                                <td class="py-3 px-4 text-center">
+                                                    @if($ayantDroit->extrait)
+                                                        <a 
+                                                            href="{{ asset($ayantDroit->extrait) }}" 
+                                                            target="_blank" 
+                                                            class="text-blue-600 hover:underline"
+                                                        >
+                                                            Voir
+                                                        </a>
+                                                    @else
+                                                        <span class="text-gray-500">Non disponible</span>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                                @else
+                                <p class="text-gray-600">Aucun ayant droit enregistré pour cette demande.</p>
+                                @endif
+ 
+                    dd($ayantDroitData['cnib_path']);
+
+ 
+                    dd($ayantDroitData);
+
+ 
+?? null
+ 
+                    dd($ayantDroitData);
+
+ 
+                    dd($ayantDroitData);
+
+ 
+ ?? null
+ 
+ ?? null
+ 
+?? null
+ 
+            $table->bigIncrements('id'); // role id
+
+ 
+protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (empty($model->id)) {
+                $model->id = (string) Str::uuid(); /
+            }
+        });
+    }
+  
+ 
+/ Utilisez Str::orderedUuid() si nécessaire
+ 
+        // Générer automatiquement un UUID pour chaque nouvel enregistrement
+
+ 
+// Désactiver l'incrémentation automatique
+ 
+/ Le type de la clé primair
+ 
+/ UUID pour la clé étrangère vers roles
+ 
+// UUID pour la clé étrangère vers users
+ 
+// Utilisation d'UUID
+ 
+                                            
+
+ 
+<li><strong>Adresse :</strong> {{ $adherent->adresse }}</li>
+                                        <li><strong>Téléphone :</strong> {{ $adherent->telephone }}</li>
+                                        <li><strong>Email :</strong> {{ $adherent->email }}</li>
+ 
+ieu_residence 
+ 
+{{ $adherent->nip }}
+ 
+class="main-container"
+ 
+  <style>
+        .main-container {
+            display: flex;
+            flex-direction: row;
+            min-height: 100vh; /* Assurez-vous que la page prend toute la hauteur */
+        }
+    </style>
+ 
+                 <li><strong>Statut :</strong> Personnel en activité</li>
+                                        <li><strong>Grade :</strong> {{ $adherent->grade }}</li>
+ 
+                                        <li><strong>Genre :</strong> {{ $adherent->genre }}</li>
+
+ 
+    @endif
+
+ 
+<div class="border p-2 rounded-lg mb-2 leading-none">
+                                <div class="text-center">
+                                    <p><strong>{{ $demande->statut == 'personnel_active' ? 'Personnel en activité' : 'Personnel retraité' }}</strong></p>
+                                </div>
+                                <div>
+                                    <div>
+                                        <p><strong>Grade :</strong> {{ $demande->grade }}</p>
+                                    </div>
+                
+                                </div>
+                                <div class="flex space-x-4">
+                                    <div class="flex-1 w-1/2 leading-none">
+                                        <div class="flex leading-none">
+                                            <div class="flex-shrink-0 leading-none">
+                                                <p class="mr-1 leading-none"><strong>Date depart à la retraite :</strong></p>
+                                                <p class="text-xs leading-none"><small>(JJ/MM/AAAA)</small></p>
+                                            </div>
+                                            <div class="flex-1">
+                                                <p>{{ $demande->departARetraite }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                
+                                    <div class="flex  w-1/2 leading-none">
+                                        <p><strong>N° CARFO :</strong> {{ $demande->numeroCARFO }}</p>
+                                    </div>
+                
+                                </div>
+                            </div>
+ 
+<li><strong>Nom et prénom (s) du père :</strong> {{ $adherent->nom_pere }}</li>
+                                        <li><strong>Nom et prénom (s) de la mère :</strong> {{ $adherent->nom_mere }}</li>
+ 
+                                </tbody>
+
+ 
+                                </tbody>
+
+ 
+                                    @endforeach
+
+ 
+                            <!-- Personnes à prévenir en cas de besoin -->
+
+ 
+h-screen
+ 
+ <!-- Deux colonnes côte à côte -->
+                <div class="row mt-4">
+                    <!-- Première colonne -->
+                    <div class="col-lg-6 col-12">
+                        <div class="main-sidebar">
+                            <!-- Widget Catégories -->
+                            <div class="single-widget category">
+                                <h3 class="title">Références</h3>
+                                <ul class="categor-list">
+                              
+                                    <li><strong>Matricule :</strong> {{ $adherent->matricule }}</li>
+                                    <li><strong>NIP :</strong> {{ $adherent->nip }}</li>
+                                    <li><strong>CNIB :</strong> {{ $adherent->cnib }}</li>
+                                    <li><strong>Adresse :</strong> {{ $adherent->adresse }}</li>
+                                    <li><strong>Téléphone :</strong> {{ $adherent->telephone }}</li>
+                                    <li><strong>Email :</strong> {{ $adherent->email }}</li>
+
+                                </ul>
+                            </div>
+                            <!-- Widget Tags -->
+                            <div class="single-widget category">
+                                <h3 class="title">Informations personnelles</h3>
+                                <ul class="categor-list">
+                                    <li><a href="#">Men's Apparel</a></li>
+                                    <li><a href="#">Women's Apparel</a></li>
+                                    <li><a href="#">Bags Collection</a></li>
+                                    <li><a href="#">Accessories</a></li>
+                                    <li><a href="#">Sun Glasses</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Deuxième colonne -->
+                    <div class="col-lg-6 col-12">
+                        <div class="main-sidebar">
+                            <!-- Widget Catégories -->
+                            <div class="single-widget side-tags">
+                                <h3 class="title">Etat civil</h3>
+                                <ul class="categor-list">
+                                    <li><strong>Nom :</strong> {{ $adherent->nom }}</li>
+                                    <li><strong>Prénom (s) :</strong> {{ $adherent->prenom }}</li>
+                                    <li><strong>Genre :</strong> {{ $adherent->genre == 'masculin' ? 'Masculin' : 'Féminin'  }}</li>
+                                    <li><strong>Lieu de maissance :</strong> {{ $adherent->lieu_naissance  }}</li>
+                                    <li><strong>Nom et prénom (s) du père :</strong> {{ $adherent->nom_pere }}</li>
+                                    <li><strong>Nom et prénom (s) de la mère :</strong> {{ $adherent->nom_mere }}</li>
+                                </ul>
+                            </div>
+                           
+                            <!-- Widget Tags -->
+                            <div class="single-widget side-tags">
+                                <h3 class="title">Informations profesionnelles</h3>
+                                <ul class="tag">
+                                    <li><a href="#">business</a></li>
+                                    <li><a href="#">wordpress</a></li>
+                                    <li><a href="#">html</a></li>
+                                    <li><a href="#">multipurpose</a></li>
+                                    <li><a href="#">education</a></li>
+                                    <li><a href="#">template</a></li>
+                                    <li><a href="#">Ecommerce</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+ 
+_permanente
+ 
+{{ $demande->genre == 'masculin' ? 'Masculin' : 'Féminin' }}
+ 
+      <p><strong>Matricule :</strong> {{ $demande->matricule }}</p>
+                                <p><strong>NIP :</strong> {{ $demande->nip }}</p>
+                                <p><strong>CNIB :</strong> {{ $demande->cnib }}</p>
+                                <p><strong>Adresse :</strong> {{ $demande->adresse_permanente }}</p>
+                                <p><strong>Téléphone :</strong> {{ $demande->telephone }}</p>
+                                <p><strong>Email :</strong> {{ $demande->email }}</p>
+ 
+        </div>
+
+ 
+ <div class=" content">
+            <style>
+                .content {
+                    padding: 1rem;
+                }
+            </style>
+ 
+div><
+ 
+                        </div>
+
+ 
+Rôle ou Description
+ 
+<div class="single-widget recent-post">
+                                                <h3 class="title">Recent post</h3>
+                                                <!-- Single Post -->
+                                                <div class="single-post">
+                                                    <div class="image">
+                                                        <img src="img/blog-sidebar1.jpg" alt="#">
+                                                    </div>
+                                                    <div class="content">
+                                                        <h5><a href="#">We have annnocuced our new product.</a></h5>
+                                                        <ul class="comment">
+                                                            <li><i class="fa fa-calendar" aria-hidden="true"></i>Jan 11, 2020</li>
+                                                            <li><i class="fa fa-commenting-o" aria-hidden="true"></i>35</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <!-- End Single Post -->
+                                                <!-- Single Post -->
+                                                <div class="single-post">
+                                                    <div class="image">
+                                                        <img src="img/blog-sidebar2.jpg" alt="#">
+                                                    </div>
+                                                    <div class="content">
+                                                        <h5><a href="#">Top five way for solving teeth problems.</a></h5>
+                                                        <ul class="comment">
+                                                            <li><i class="fa fa-calendar" aria-hidden="true"></i>Mar 05, 2019</li>
+                                                            <li><i class="fa fa-commenting-o" aria-hidden="true"></i>59</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <!-- End Single Post -->
+                                                <!-- Single Post -->
+                                                <div class="single-post">
+                                                    <div class="image">
+                                                        <img src="img/blog-sidebar3.jpg" alt="#">
+                                                    </div>
+                                                    <div class="content">
+                                                        <h5><a href="#">We provide highly business soliutions.</a></h5>
+                                                        <ul class="comment">
+                                                            <li><i class="fa fa-calendar" aria-hidden="true"></i>June 09, 2019</li>
+                                                            <li><i class="fa fa-commenting-o" aria-hidden="true"></i>44</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <!-- End Single Post -->
+                                            </div>
+                                            <!--/ End Single Widget -->
+ 
+<div class="col-lg-8 col-12">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="single-main">
+                                                    <!-- News Head -->
+                                                    <div class="news-head">
+                                                        <img src="img/blog1.jpg" alt="#">
+                                                    </div>
+                                                    <!-- News Title -->
+                                                    <h1 class="news-title"><a href="news-single.html">More than 80 clinical trials launch to test of the coronavirus .</a></h1>
+                                                    <!-- Meta -->
+                                                    <div class="meta">
+                                                        <div class="meta-left">
+                                                            <span class="author"><a href="#"><img src="img/author1.jpg" alt="#">Naimur Rahman</a></span>
+                                                            <span class="date"><i class="fa fa-clock-o"></i>03 Feb 2019</span>
+                                                        </div>
+                                                        <div class="meta-right">
+                                                            <span class="comments"><a href="#"><i class="fa fa-comments"></i>05 Comments</a></span>
+                                                            <span class="views"><i class="fa fa-eye"></i>33K Views</span>
+                                                        </div>
+                                                    </div>
+                                                    <!-- News Text -->
+                                                    <div class="news-text">
+                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse facilisis ultricies tortor, nec sollicitudin lorem sagittis vitae. Curabitur rhoncus commodo rutrum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam nec lacus pulvinar, laoreet dolor quis, pellentesque ante. Cras nulla orci, pharetra at dictum consequat, pretium pretium nulla. Suspendisse porttitor nunc a sodales tempor. Mauris sed felis maximus, interdum metus vel, tincidunt diam.</p>
+                                                        <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam nec lacus pulvinar, laoreet dolor quis, pellentesque ante. Cras nulla orci, pharetra at dictum consequat, pretium pretium nulla. Suspendisse porttitor nunc a sodales tempor. Mauris sed felis maximus, interdum metus vel, tincidunt diam. Nam ac risus vitae sem vehicula egestas. Sed velit nulla, viverra non commod</p>
+                                                        <div class="image-gallery">
+                                                            <div class="row">
+                                                                <div class="col-lg-6 col-md-6 col-12">
+                                                                    <div class="single-image">
+                                                                        <img src="img/blog2.jpg" alt="#">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-6 col-md-6 col-12">
+                                                                    <div class="single-image">
+                                                                        <img src="img/blog3.jpg" alt="#">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse facilisis ultricies tortor, nec sollicitudin lorem sagittis vitae. Curabitur rhoncus commodo rutrum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam nec lacus pulvinar, laoreet dolor quis, pellentesque ante. Cras nulla orci, pharetra at dictum consequat, pretium pretium nulla. Suspendisse porttitor nunc a sodales tempor. Mauris sed felis maximus, interdum metus vel, tincidunt diam.</p>
+                                                        <blockquote class="overlay">
+                                                            <p>Aliquam nec lacus pulvinar, laoreet dolor quis, pellentesque ante. Cras nulla orci, pharetra at dictum consequat, pretium pretium nulla. Suspendisse porttitor nunc a sodales tempor. Mauris sed felis maximus, interdum metus vel, tincidunt diam. Nam ac risus vitae sem vehicula egestas. Sed velit nulla, viverra non commodo et, sodales</p>					
+                                                        </blockquote>
+                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse facilisis ultricies tortor, nec sollicitudin lorem sagittis vitae. Curabitur rhoncus commodo rutrum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam nec lacus pulvinar, laoreet dolor quis, pellentesque ante. Cras nulla orci, pharetra at dictum consequat, pretium pretium nulla. Suspendisse porttitor nunc a sodales tempor. Mauris sed felis maximus, interdum metus vel, tincidunt diam. Nam ac risus vitae sem vehicula egestas. Sed velit nulla, viverra non commodo et, sodales id dui.</p>
+                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse facilisis ultricies tortor, nec sollicitudin lorem sagittis vitae. Curabitur rhoncus commodo rutrum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam nec lacus pulvinar, laoreet dolor quis, pellentesque ante. Cras nulla orci, pharetra at dictum consequat, pretium pretium nulla. Suspendisse</p>
+                                                    </div>
+                                                    <div class="blog-bottom">
+                                                        <!-- Social Share -->
+                                                        <ul class="social-share">
+                                                            <li class="facebook"><a href="#"><i class="fa fa-facebook"></i><span>Facebook</span></a></li>
+                                                            <li class="twitter"><a href="#"><i class="fa fa-twitter"></i><span>Twitter</span></a></li>
+                                                            <li class="google-plus"><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                                            <li class="linkedin"><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                                            <li class="pinterest"><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                                                        </ul>
+                                                        <!-- Next Prev -->
+                                                        <ul class="prev-next">
+                                                            <li class="prev"><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
+                                                            <li class="next"><a href="#"><i class="fa fa-angle-double-right"></i></a></li>
+                                                        </ul>
+                                                        <!--/ End Next Prev -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="blog-comments">
+                                                    <h2>All Comments</h2>
+                                                    <div class="comments-body">
+                                                        <!-- Single Comments -->
+                                                        <div class="single-comments">
+                                                            <div class="main">
+                                                                <div class="head">
+                                                                    <img src="img/author1.jpg" alt="#"/>
+                                                                </div>
+                                                                <div class="body">
+                                                                    <h4>Afsana Mimi</h4>
+                                                                    <div class="comment-meta"><span class="meta"><i class="fa fa-calendar"></i>March 05, 2019</span><span class="meta"><i class="fa fa-clock-o"></i>03:38 AM</span></div>
+                                                                    <p>Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas</p>
+                                                                    <a href="#"><i class="fa fa-reply"></i>replay</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>		
+                                                        <!--/ End Single Comments -->
+                                                        <!-- Single Comments -->
+                                                        <div class="single-comments left">
+                                                            <div class="main">
+                                                                <div class="head">
+                                                                    <img src="img/author2.jpg" alt="#"/>
+                                                                </div>
+                                                                <div class="body">
+                                                                    <h4>Naimur Rahman</h4>
+                                                                    <div class="comment-meta"><span class="meta"><i class="fa fa-calendar"></i>March 05, 2019</span><span class="meta"><i class="fa fa-clock-o"></i>03:38 AM</span></div>
+                                                                    <p>Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas</p>
+                                                                    <a href="#"><i class="fa fa-reply"></i>replay</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>		
+                                                        <!--/ End Single Comments -->
+                                                        <!-- Single Comments -->
+                                                        <div class="single-comments">
+                                                            <div class="main">
+                                                                <div class="head">
+                                                                    <img src="img/author3.jpg" alt="#"/>
+                                                                </div>
+                                                                <div class="body">
+                                                                    <h4>Suriya Molharta</h4>
+                                                                    <div class="comment-meta"><span class="meta"><i class="fa fa-calendar"></i>March 05, 2019</span><span class="meta"><i class="fa fa-clock-o"></i>03:38 AM</span></div>
+                                                                    <p>Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas</p>
+                                                                    <a href="#"><i class="fa fa-reply"></i>replay</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>		
+                                                        <!--/ End Single Comments -->											
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+ 
+<!-- Single Widget -->
+                                            <div class="single-widget search">
+                                                <div class="form">
+                                                    <input type="email" placeholder="Search Here...">
+                                                    <a class="button" href="#"><i class="fa fa-search"></i></a>
+                                                </div>
+                                            </div>
+                                            <!--/ End Single Widget -->
+ 
+<div class="col-12">
+                                                <div class="comments-form">
+                                                    <h2>Leave Comments</h2>
+                                                    <!-- Contact Form -->
+                                                    <form class="form" method="post" action="mail/mail.php">
+                                                        <div class="row">
+                                                            <div class="col-lg-4 col-md-4 col-12">
+                                                                <div class="form-group">
+                                                                    <i class="fa fa-user"></i>
+                                                                    <input type="text" name="first-name" placeholder="First name" required="required">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4 col-md-4 col-12">
+                                                                <div class="form-group">
+                                                                    <i class="fa fa-envelope"></i>
+                                                                    <input type="text" name="last-name" placeholder="Last name" required="required">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4 col-md-4 col-12">
+                                                                <div class="form-group">
+                                                                    <i class="fa fa-envelope"></i>
+                                                                    <input type="email" name="email" placeholder="Your Email" required="required">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12">
+                                                                <div class="form-group message">
+                                                                    <i class="fa fa-pencil"></i>
+                                                                    <textarea name="message" rows="7" placeholder="Type Your Message Here" ></textarea>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12">
+                                                                <div class="form-group button">	
+                                                                    <button type="submit" class="btn primary"><i class="fa fa-send"></i>Submit Comment</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                    <!--/ End Contact Form -->
+                                                </div>
+                                            </div>
+ 
+<div class="absolute bottom-2 right-2 z-10 sm:bottom-4 sm:right-4">
+                                        <label 
+                                            for="cover" 
+                                            class="flex cursor-pointer items-center justify-center gap-2 rounded bg-primary py-1 px-2 text-sm font-medium text-white hover:bg-opacity-90 sm:px-4"
+                                        >
+                                            <input type="file" name="cover" id="cover" class="sr-only" />
+                                            <span>Modifier</span>
+                                        </label>
+                                    </div>
+ 
+user-90
+ 
+    <div class="overflow-hidden rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+                                    <!-- Couverture -->
+                                    <div class="relative z-20 h-35 md:h-65">
+                                      <img
+                                        src="/images/background1.jpg"
+                                        alt="profile cover"
+                                        class="h-full w-full rounded-tl-sm rounded-tr-sm object-cover object-center"
+                                      />
+                                      <div class="absolute bottom-1 right-1 z-10 xsm:bottom-4 xsm:right-4">
+                                        <label
+                                          for="cover"
+                                          class="flex cursor-pointer items-center justify-center gap-2 rounded bg-primary py-1 px-2 text-sm font-medium text-white hover:bg-opacity-90 xsm:px-4"
+                                        >
+                                          <input type="file" name="cover" id="cover" class="sr-only" />
+                                          <span>Modifier</span>
+                                        </label>
+                                      </div>
+                                    </div>
+                                  
+                                    <!-- Profil -->
+                                    <div class="px-4 pb-6 text-center lg:pb-8 xl:pb-11.5">
+                                      <div class="relative z-30 mx-auto -mt-22 h-30 w-full max-w-30 rounded-full bg-white/20 p-1 backdrop-blur sm:h-44 sm:max-w-44 sm:p-3">
+                                        <img src="/images/user-90.png" alt="profile" />
+                                        <label
+                                          for="profile"
+                                          class="absolute bottom-0 right-0 flex h-8.5 w-8.5 cursor-pointer items-center justify-center rounded-full bg-primary text-white hover:bg-opacity-90 sm:bottom-2 sm:right-2"
+                                        >
+                                          <input type="file" name="profile" id="profile" class="sr-only" />
+                                          <span>Modifier</span>
+                                        </label>
+                                      </div>
+                                      <div class="mt-4">
+                                        <h3 class="mb-1.5 text-2xl font-semibold text-black dark:text-white">Nom de l'utilisateur</h3>
+                                        <p class="font-medium text-sm">Rôle ou Description</p>
+                                      </div>
+                                    </div>
+                                  </div>
+ 
+    <x-sidebar-guest/>
+
+ 
+    <x-sidebar-guest />
+
+ 
+    <x-sidebar-guest />
+
+ 
+    <x-sidebar-guest/>
+
+ 
+        <x-sidebar-guest/>
+
+ 
+ px-4
+ 
+px-4
+ 
+     <li>
+                                                <a href="{{  route('adherents.ayantsdroits') }}" class="@if(Request::is('adherents/ayantsdroits') || Request::is('adherents/ayantsdroits/*')) active @endif flex items-center p-2 text-gray-800 hover:bg-gray-700 hover:text-white rounded-md">
+                                                    <i class="fa fa-users mr-3"></i>
+                                                    <span>Mes ayants droits</span>
+                                                </a>
+                                            </li>
+                                            <li>
+
+ 
+<li>
+                                                <a href="/" class="flex items-center p-2 text-gray-800 hover:bg-gray-700 hover:text-white rounded-md">
+                                                    <i class="fa fa-user mr-3"></i>
+                                                    <span>Mon Profil</span>
+                                                </a>
+                                            </li>
+                                    
+                                            
+                                            <li>
+                                                <a href="{{ route('adherents.prestations') }}" 
+                                                    class="@if(Request::is('adherents/prestations*')) active @endif flex items-center p-2 text-gray-800 hover:bg-gray-700 hover:text-white rounded-md transition-all duration-300">
+                                                    <i class="fa fa-file mr-3"></i>
+                                                    <span>Demande de remboursement</span>
+                                                </a>
+                                            </li>
+ 
+contacts'
+ 
+ous contacter
+ 
+                                        <ul class="space-y-2">
+                                            
+                                            
+                                            
+                                            
+                                        </ul>
+ 
+<!-- Header Area -->
+    <header class="header header-sous" >
+        <style>
+            .header-sous {
+                z-index: 50;
+                position: relative;
+                top: 0px;
+            }
+        </style>
+        <!-- Topbar -->
+        <div class="topbar bg-white py-2 shadow-md">
+            <div class="container mx-auto flex flex-wrap items-center justify-between">
+                
+                <!-- Logo -->
+                <div class="flex items-center flex-shrink-0">
+                    <a href="/">
+                        <img src="{{ asset('images/logofinal.png') }}" alt="Logo de la Mutuelle" class="h-12 w-auto">
+                    </a>
+                </div>
+                
+                <!-- Title and Slogan -->
+                <div class="flex-grow text-center">
+                    <h1 class="text-lg lg:text-xl font-bold text-[#4000FF] uppercase tracking-tight">
+                        Mutuelle de la Police
+                    </h1>
+                    <p class="text-xs lg:text-sm text-[#4000FF]">
+                        Tous solidaires pour notre bien-être !
+                    </p>
+                </div>
+                
+                <!-- Secondary Logo or CTA -->
+                <div class="flex items-center justify-end flex-shrink-0">
+                    <a href="/">
+                        <img src="{{ asset('images/police_logo.jpg') }}" alt="Logo de la Police" class="h-12 w-auto">
+                    </a>
+                </div>
+                
+            </div>
+           
+        </div>
+        <!-- End Topbar -->
+        
+        <!-- Header Inner -->
+        
+        <div class=" w-full !bg-[#4000FF]">
+            <div class="container">
+                <div class="inner">
+                    <div class="row">
+                        
+                        <div class="col-lg-7 col-md-9 col-12">
+                            
+                            <!-- Main Menu -->
+                            <div class="main-menu">
+                                <nav class="navigation">
+                                    <ul class="nav menu !text-white ">
+                                        <li class="{{ request()->routeIs('accueil') ? 'active' : '' }}">
+                                            <a href="{{ route('accueil') }}" >Accueil </a>
+                                        </li>
+                                        <li class="{{ request()->routeIs('en-construction') ? 'active' : '' }}">
+                                            <a href="{{ route('en-construction') }}">À Propos</a>
+                                        </li>
+                                        <li class="{{ request()->routeIs('services') ? 'active' : '' }}">
+                                            <a href="{{ route('services') }}">Nos Services</a>
+                                        </li>
+                                        <li class="{{ request()->routeIs('formulaire-adhesion') ? 'active' : '' }}">
+                                            <a href="{{ route('formulaire-adhesion') }}">Adhérer maintenant</a>
+                                        </li>
+                                        <li class="{{ request()->routeIs('contacts') ? 'active' : '' }}">
+                                            <a href="{{ route('contacts') }}">Nous contacter</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                            <!--/ End Main Menu -->
+                        </div>
+                        
+                        <div class="col-lg-5 flex items-center justify-end my-1 col-12">
+                           
+                            <div class="get-quote">
+
+                                @if (!Auth::guard('adherent')->check() && !Auth::guard('partenaire')->check())
+
+                                    <a href="{{ route('adherent.login') }}">
+                                        <x-primary-button class=" !bg-white !text-[#4000FF] " >
+                                            <i class=" fa fa-unlock-alt "></i>
+                                            Connexion
+                                        </x-primary-button>    
+                                    </a>
+                                    {{-- <div class="relative inline-block text-left">
+                                        <x-primary-button class=" inline-flex items-center !text-gray-700 bg-white hover:bg-gray-50 " id="languageMenuButton" aria-expanded="true" aria-haspopup="true">
+                                            <span class="mr-2">Langue</span>
+                                            <svg class="-mr-1 ml-2 h-2 w-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                                            </svg>
+                                        </x-primary-button>
+                                    
+                                        <!-- Dropdown Menu -->
+                                        <div class="origin-top-right absolute right-0 mt-2 w-40 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none hidden" role="menu" aria-orientation="vertical" aria-labelledby="languageMenuButton" id="dropdownMenu">
+                                            <div class="py-1" role="none">
+                                                <!-- French Option -->
+                                                <a href="?lang=fr" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">
+                                                    <img src="{{ asset('images/flags/france.png') }}" alt="Français" class="w-5 h-5 mr-2">
+                                                    Français
+                                                </a>
+                                                <!-- English Option -->
+                                                <a href="?lang=en" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">
+                                                    <img src="{{ asset('images/flags/united-states.png') }}" alt="English" class="w-5 h-5 mr-2">
+                                                    English
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>                             --}}
+                                    @else
+                                        @if (Auth::guard('adherent')->check())
+                                            <!-- Formulaire de déconnexion pour adherent -->
+                                            <form class="flex" action="{{ route('adherent.logout') }}" method="post">
+                                                @csrf
+                                                <x-primary-button class="!bg-white !text-[#4000FF]">
+                                                    <i class="fa fa-unlock-alt"></i>
+                                                    Déconnexion
+                                                </x-primary-button>
+                                            </form>
+                                        @elseif (Auth::guard('partenaire')->check())
+                                            <!-- Formulaire de déconnexion pour partenaire -->
+                                            <form class="flex" action="{{ route('partenaire.logout') }}" method="post">
+                                                @csrf
+                                                <x-primary-button class="!bg-white !text-[#4000FF]">
+                                                    <i class="fa fa-unlock-alt"></i>
+                                                    Déconnexion
+                                                </x-primary-button>
+                                            </form>
+                                        @endif
+                                    @endif
+                              
+                                
+                                {{-- <script>
+                                    // Toggle dropdown visibility
+                                    document.getElementById('languageMenuButton').addEventListener('click', function() {
+                                        const dropdownMenu = document.getElementById('dropdownMenu');
+                                        dropdownMenu.classList.toggle('hidden');
+                                    });
+                                </script> --}}
+                                
+                            </div>
+                            <div class="">
+                                <!-- Mobile Nav -->
+                                <div class="mobile-nav"></div>
+                                <!-- End Mobile Nav -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/ End Header Inner -->
+    </header>
+<!-- End Header Area -->
+ 
+<!-- Header Area -->
+    <header class="header header-sous" >
+        <style>
+            .header-sous {
+                z-index: 50;
+                position: relative;
+                top: 0px;
+            }
+        </style>
+        <!-- Topbar -->
+        <div class="topbar bg-white py-2 shadow-md">
+            <div class="container mx-auto flex flex-wrap items-center justify-between">
+                
+                <!-- Logo -->
+                <div class="flex items-center flex-shrink-0">
+                    <a href="/">
+                        <img src="{{ asset('images/logofinal.png') }}" alt="Logo de la Mutuelle" class="h-12 w-auto">
+                    </a>
+                </div>
+                
+                <!-- Title and Slogan -->
+                <div class="flex-grow text-center">
+                    <h1 class="text-lg lg:text-xl font-bold text-[#4000FF] uppercase tracking-tight">
+                        Mutuelle de la Police
+                    </h1>
+                    <p class="text-xs lg:text-sm text-[#4000FF]">
+                        Tous solidaires pour notre bien-être !
+                    </p>
+                </div>
+                
+                <!-- Secondary Logo or CTA -->
+                <div class="flex items-center justify-end flex-shrink-0">
+                    <a href="/">
+                        <img src="{{ asset('images/police_logo.jpg') }}" alt="Logo de la Police" class="h-12 w-auto">
+                    </a>
+                </div>
+                
+            </div>
+           
+        </div>
+        <!-- End Topbar -->
+        
+        <!-- Header Inner -->
+        
+        <div class=" w-full !bg-[#4000FF]">
+            <div class="container">
+                <div class="inner">
+                    <div class="row">
+                        
+                        <div class="col-lg-7 col-md-9 col-12">
+                            
+                            <!-- Main Menu -->
+                            <div class="main-menu">
+                                <nav class="navigation">
+                                    <ul class="nav menu !text-white ">
+                                        <li class="{{ request()->routeIs('accueil') ? 'active' : '' }}">
+                                            <a href="{{ route('accueil') }}" >Accueil </a>
+                                        </li>
+                                        <li class="{{ request()->routeIs('en-construction') ? 'active' : '' }}">
+                                            <a href="{{ route('en-construction') }}">À Propos</a>
+                                        </li>
+                                        <li class="{{ request()->routeIs('services') ? 'active' : '' }}">
+                                            <a href="{{ route('services') }}">Nos Services</a>
+                                        </li>
+                                        <li class="{{ request()->routeIs('formulaire-adhesion') ? 'active' : '' }}">
+                                            <a href="{{ route('formulaire-adhesion') }}">Adhérer maintenant</a>
+                                        </li>
+                                        <li class="{{ request()->routeIs('contacts') ? 'active' : '' }}">
+                                            <a href="{{ route('contacts') }}">Nous contacter</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                            <!--/ End Main Menu -->
+                        </div>
+                        
+                        <div class="col-lg-5 flex items-center justify-end my-1 col-12">
+                           
+                            <div class="get-quote">
+
+                                @if (!Auth::guard('adherent')->check() && !Auth::guard('partenaire')->check())
+
+                                    <a href="{{ route('adherent.login') }}">
+                                        <x-primary-button class=" !bg-white !text-[#4000FF] " >
+                                            <i class=" fa fa-unlock-alt "></i>
+                                            Connexion
+                                        </x-primary-button>    
+                                    </a>
+                                    {{-- <div class="relative inline-block text-left">
+                                        <x-primary-button class=" inline-flex items-center !text-gray-700 bg-white hover:bg-gray-50 " id="languageMenuButton" aria-expanded="true" aria-haspopup="true">
+                                            <span class="mr-2">Langue</span>
+                                            <svg class="-mr-1 ml-2 h-2 w-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                                            </svg>
+                                        </x-primary-button>
+                                    
+                                        <!-- Dropdown Menu -->
+                                        <div class="origin-top-right absolute right-0 mt-2 w-40 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none hidden" role="menu" aria-orientation="vertical" aria-labelledby="languageMenuButton" id="dropdownMenu">
+                                            <div class="py-1" role="none">
+                                                <!-- French Option -->
+                                                <a href="?lang=fr" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">
+                                                    <img src="{{ asset('images/flags/france.png') }}" alt="Français" class="w-5 h-5 mr-2">
+                                                    Français
+                                                </a>
+                                                <!-- English Option -->
+                                                <a href="?lang=en" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">
+                                                    <img src="{{ asset('images/flags/united-states.png') }}" alt="English" class="w-5 h-5 mr-2">
+                                                    English
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>                             --}}
+                                    @else
+                                        @if (Auth::guard('adherent')->check())
+                                            <!-- Formulaire de déconnexion pour adherent -->
+                                            <form class="flex" action="{{ route('adherent.logout') }}" method="post">
+                                                @csrf
+                                                <x-primary-button class="!bg-white !text-[#4000FF]">
+                                                    <i class="fa fa-unlock-alt"></i>
+                                                    Déconnexion
+                                                </x-primary-button>
+                                            </form>
+                                        @elseif (Auth::guard('partenaire')->check())
+                                            <!-- Formulaire de déconnexion pour partenaire -->
+                                            <form class="flex" action="{{ route('partenaire.logout') }}" method="post">
+                                                @csrf
+                                                <x-primary-button class="!bg-white !text-[#4000FF]">
+                                                    <i class="fa fa-unlock-alt"></i>
+                                                    Déconnexion
+                                                </x-primary-button>
+                                            </form>
+                                        @endif
+                                    @endif
+                              
+                                
+                                {{-- <script>
+                                    // Toggle dropdown visibility
+                                    document.getElementById('languageMenuButton').addEventListener('click', function() {
+                                        const dropdownMenu = document.getElementById('dropdownMenu');
+                                        dropdownMenu.classList.toggle('hidden');
+                                    });
+                                </script> --}}
+                                
+                            </div>
+                            <div class="">
+                                <!-- Mobile Nav -->
+                                <div class="mobile-nav"></div>
+                                <!-- End Mobile Nav -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/ End Header Inner -->
+    </header>
+<!-- End Header Area -->
+ 
+ <li>
+                    <form method="POST" action="{{ route('adherent.logout') }}" class="flex items-center p-2 text-red-500 hover:bg-red-700 hover:text-white rounded-md">
+                        @csrf
+                        <button type="submit" class="w-full text-left">
+                            <i class="fa  fa-sign-out mr-3"></i>
+
+                            Déconnexion
+                        </button>
+                    </form>
+                   
+                </li>
+ 
+{{-- <li>
+                    <a href="" class="flex items-center p-2 text-gray-800 hover:bg-gray-700 hover:text-white rounded-md">
+                        <i class="fa fa-file-text mr-3"></i>
+                        <span>Ma Demande d'Adhésion</span>
+                    </a>
+                </li> --}}
+ 
+<li>
+                    <a href="#" 
+                        class="@if(Request::is('adhesion*')) active @endif flex items-center p-2 text-gray-800 hover:bg-gray-700 hover:text-white rounded-md transition-all duration-300">
+                        <i class="fa fa-file-text mr-3"></i>
+                        <span>Ma Demande d&apos;Adhésion</span>
+                    </a>
+                </li>
+ 
+<li>
+                    <a href="" class="flex items-center p-2 text-gray-800 hover:bg-gray-700 hover:text-white rounded-md">
+                        <i class="fa fa-cogs mr-3"></i>
+                        <span>Nos Services</span>
+                    </a>
+                </li>
+ 
+    public const HOME = '/dashboard';
+
+ 
+    // Ajoutez d'autres routes pour l'administration ici
+
+ 
+ Route::middleware(['auth', 'verified'])->group(function () {
+        Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+    });
+ 
+    Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+
+ 
+         // Grouper les partenaires par type
+
+ 
+        dd($demandeAdhesion);
+
+ 
+status
+ 
+        $status = session('status');
+
+ 
+// Utilisation de position avec padding
+ 
+_permanente
+ 
+        dd($demandeAdhesion);
+
+ 
+emandeAdhesion->nombreAyantsDroits
+ 
+        // Vous pouvez aussi passer des données ou une vue spécifique
+
+ 
+        return view('pages.frontend.adherents.final-demande-adhesion', compact( 'cotisations', 'demandeAdhesion'));
+
+ 
+        'ordre',
+
+ 
+, 255
+ 
+        dd($demandeAdhesion);
+
+ 
+>matricule
+ 
+->nullable()
+ 
+ if (!$adherent) {
+ 
+        $adherent = Adherent::where('matricule', $demandeAdhesion->matricule)->first();
+
+ 
+            dd($adherent);
+
+ 
+[
+                
+            ]
+ 
+            dd($demandeAdhesion->matricule);
+
+ 
+                'matricule' => $demandeAdhesion->matricule, 
+
+ 
+                dd($demandeAdhesion->matricule);
+
+ 
+->nullable
+ 
+->nullable()
+ 
+->nullable()
+ 
+            $table->string('ordre')->nullable();
+
+ 
   public function partenaires()
     {
         $partenaires = Partenaire::all();

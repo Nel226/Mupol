@@ -41,6 +41,8 @@ Route::get('/formulaire-adhesion-recapitulatif', function () {
 })->name('formulaire.adhesion.recapitulatif');
 
 Route::post('/finalisation-adhesion', [AccueilController::class, 'finalAdhesion'])->name('finalisation-adhesion');
+Route::get('/final-demande-adhesion', [AccueilController::class, 'confirmationAdhesion'])->name('final-demande-adhesion');
+
 Route::get('/cession-volontaire/{id}', [AccueilController::class, 'showCessionVolontaire'])->name('showCessionVolontaire');
 Route::get('/impression-fiche-cession/{id}', [AccueilController::class, 'imprimerFicheCession'])->name('imprimer-fiche-cession');
 

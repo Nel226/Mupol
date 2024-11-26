@@ -98,8 +98,11 @@ class PartenaireController extends Controller
 
             $partenaire = Partenaire::create($validatedData);
 
-            Mail::to($validatedData['email'])->send(new PartenaireAdhesion($partenaire, $generatedPassword));
-
+            Mail::to($validatedData['email'])->send(new PartenaireAdhesion(
+                $validatedData['email'], 
+                $generatedPassword // Assurez-vous que cette variable contient bien le mot de passe généré
+            ));
+            
             return redirect()
                 ->route('partenaires.index')
                 ->with('success', 'Partenaire de santé ajouté avec succès.');

@@ -10,6 +10,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class Partenaire extends Authenticatable
 {
     use HasFactory, HasUuids;
+
+    protected $keyType = 'string'; 
+    public $incrementing = false;
     protected $fillable = [
         'nom',
         'type',

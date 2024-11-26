@@ -18,7 +18,8 @@
                 }
             </style>
 
-            <div class="min-h-screen ml-64 bg-gray-50 dark:bg-gray-900 py-3">
+            <div class="min-h-screen ml-64 bg-gray-50 dark:bg-gray-900 py-3"
+            style="background-image: url('{{ asset('images/background2.jpg') }}'); background-size: cover; background-position: center;">
                 <section class="container mx-auto px-6">
                     
                     <!-- Header Start -->
@@ -145,19 +146,5 @@
                 </section>
             </div>
                     
-            <section class="section">
-                <div class="container h-screen">
-                    <div class="">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                
-
-                                
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
         </div>
 </x-guest-layout>

@@ -88,12 +88,10 @@
                     <form method="POST" action="{{ route('partenaire.logout') }}" class="flex items-center p-2 text-red-500 hover:bg-red-700 hover:text-white rounded-md">
                         @csrf
                         <button type="submit" class="w-full text-left">
-                            <i class="fa  fa-sign-out mr-3"></i>
-
+                            <i class="fas fa-sign-out-alt mr-3"></i>
                             Déconnexion
                         </button>
                     </form>
-                   
                 </li>
             </ul>
             @endif

@@ -51,7 +51,7 @@ class UserLoginDetectorController extends Controller
     {
         // Sélectionner le contrôleur en fonction du guard
         $controller = match ($guard) {
-            'adherent' => AdherantAuthenticatedSessionController::class,
+            'adherent' => AdherentAuthenticatedSessionController::class,
             'partenaire' => PartenaireAuthenticatedSessionController::class,
             default => throw new \Exception("Contrôleur non défini pour ce guard"),
         };

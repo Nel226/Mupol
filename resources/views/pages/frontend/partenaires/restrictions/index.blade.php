@@ -20,7 +20,8 @@
     @endif
     <x-sidebar-guest/>
 
-    <div class="min-h-screen ml-64 bg-gray-50 dark:bg-gray-900 py-3">
+    <div class="min-h-screen ml-64 bg-gray-50 dark:bg-gray-900 py-3"
+        style="background-image: url('{{ asset('images/background2.jpg') }}'); background-size: cover; background-position: center;">
         <section class="container mx-auto ">
             
             <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mx-auto">

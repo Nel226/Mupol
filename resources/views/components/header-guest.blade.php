@@ -86,7 +86,7 @@
                         <div class="col-lg-2 col-12 flex justify-end">
                             <div class="get-quote">
                                 @if (!Auth::guard('adherent')->check() && !Auth::guard('partenaire')->check())
-                                    <a href="{{ route('adherent.login') }}">
+                                    <a href="{{ route('user.login') }}">
                                         <x-primary-button class="!bg-white !text-[#4000FF] px-2 py-1 text-xs">
                                             <i class="fa fa-unlock-alt"></i> Connexion
                                         </x-primary-button>

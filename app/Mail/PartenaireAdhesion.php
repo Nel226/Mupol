@@ -12,58 +12,44 @@ use Illuminate\Queue\SerializesModels;
 class PartenaireAdhesion extends Mailable
 {
     use Queueable, SerializesModels;
-    public $partenaire;
-    public $generatedPassword;
+
+    public $email;
+    public $password;
+
     /**
-     * Create a new message instance.
+     * Crée une nouvelle instance de message.
+     *
+     * @param  string  $email
+     * @param  string  $password
      */
- 
-    public function __construct($partenaire, $generatedPassword)
+    public function __construct($email, $password)
     {
-        $this->partenaire = $partenaire;
-        $this->generatedPassword = $generatedPassword;
+        $this->email = $email;
+        $this->password = $password;
     }
 
     /**
-     * Get the message envelope.
+     * Retourne l'enveloppe du message.
      */
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Partenaire Adhesion MU-POL',
+            subject: 'Confirmation de votre adhésion',
         );
     }
 
     /**
-     * Get the message content definition.
+     * Retourne la définition du contenu du message.
      */
     public function content(): Content
     {
         return new Content(
             view: 'emails.partenaire-adhesion', 
             with: [
-                'partenaire' => $this->partenaire,
-                'logoUrl' => asset('images/logo.png'), 
-                'generatedPassword' => $this->generatedPassword, 
-
+                'email' => $this->email,
+                'password' => $this->password,
+                'logoUrl' => asset('images/logo.png'),  // Logo à ajouter dans l'email
             ],
-           
         );
-    }
-    
-    public function build()
-    {
-        return $this->view('emails.partenaire-adhesion') 
-                    ->subject('Bienvenue à la MU-POL');
-    }
-
-    /**
-     * Get the attachments for the message.
-     *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
-     */
-    public function attachments(): array
-    {
-        return [];
     }
 }

@@ -42,21 +42,16 @@
         </div>
 
 
-    <p>Voici vos informations d'identification :</p>
-    <ul>
-        <li><strong>Email :</strong> {{ $email }}</li>
-        <li><strong>Mot de passe temporaire :</strong> {{ $password }}</li>
-    </ul>
-
         <p>Votre compte a été créé avec succès en tant que partenaire de santé.</p>
         <p>Nous sommes ravis de vous compter parmi nos partenaires.</p>
 
         <p>Voici vos informations de connexion :</p>
         <ul>
-            <li><strong>Email :</strong> {{ $partenaire->email }}</li>
-            <li><strong>Mot de passe temporaire :</strong> {{ $generatedPassword }}</li>
+            <li><strong>Email :</strong> {{ $email }}</li>
+            <li><strong>Mot de passe temporaire :</strong> {{ $password }}</li>
         </ul>
         <p>Vous pouvez maintenant vous connecter à votre compte.</p>
+
         <p>Si vous avez des questions, n'hésitez pas à nous contacter.</p>
 
         <div class="footer">

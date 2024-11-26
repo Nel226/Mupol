@@ -38,7 +38,6 @@ class OtpMail extends Mailable
         return $this->subject('Votre code OTP')
                     ->view('emails.otp')
                     ->with(['otp' => $this->otp]);
-       
     }
     
 
@@ -52,7 +51,6 @@ class OtpMail extends Mailable
             view: 'emails.otp', // Assurez-vous que la vue est correcte
             with: [
                 'logoUrl' => asset('images/logo.png'), 
-                 
 
             ],
         );

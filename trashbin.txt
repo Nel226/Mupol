@@ -1,3 +1,284 @@
+// Vue de l'email
+ 
+namespace App\Mail;
+
+use Illuminate\Bus\Queueable;
+use Illuminate\Mail\Mailable;
+use Illuminate\Queue\SerializesModels;
+
+class PartenaireAdhesion extends Mailable
+{
+    use Queueable, SerializesModels;
+
+    public $email;
+    public $password;
+    public $nom;
+
+    /**
+     * Create a new message instance.
+     */
+    public function __construct($data)
+    {
+        $this->email = $data['email'];
+        $this->password = $data['password'];
+        $this->nom = $data['nom'];
+    }
+
+    /**
+     * Build the message.
+     */
+    public function build()
+    {
+        return $this->view('emails.partenaire-adhesion')
+                    ->subject('Bienvenue à la MU-POL!')
+                    ->with([
+                        'email' => $this->email,
+                        'password' => $this->password,
+                        'nom' => $this->nom,
+                    ]);
+    }
+}
+
+ 
+<?php
+
+namespace App\Mail;
+
+use Illuminate\Bus\Queueable;
+use Illuminate\Mail\Mailable;
+use Illuminate\Queue\SerializesModels;
+
+class PartenaireAdhesion extends Mailable
+{
+    use Queueable, SerializesModels;
+
+    public $email;
+    public $password;
+    public $nom;
+
+    /**
+     * Create a new message instance.
+     */
+    public function __construct($data)
+    {
+        $this->email = $data['email'];
+        $this->password = $data['password'];
+        $this->nom = $data['nom'];
+    }
+
+    /**
+     * Build the message.
+     */
+    public function build()
+    {
+        return $this->view('emails.partenaire-adhesion')
+                    ->subject('Bienvenue à la MU-POL!')
+                    ->with([
+                        'email' => $this->email,
+                        'password' => $this->password,
+                        'nom' => $this->nom,
+                    ]);
+    }
+}
+
+ 
+            dd($mailData);
+
+ 
+<p>Voici vos informations d'identification :</p>
+    <ul>
+        <li><strong>Email :</strong> {{ $email }}</li>
+        <li><strong>Mot de passe temporaire :</strong> {{ $password }}</li>
+    </ul>
+
+ 
+$validatedData['nom'] ?? 
+ 
+            dd($mailData);
+
+ 
+validatedData['email']
+ 
+generatedPassword
+ 
+                 
+ 
+Content
+ 
+public function content()
+    {
+        return $this->view('emails.partenaire-adhesion')
+                    ->with([
+                        'email' => $this->email,
+                        'password' => $this->password,
+                        'nom' => $this->nom,
+                    ])
+                    ->subject('Bienvenue à la MU-POL!');
+    }
+ 
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Bienvenue à la MU-POL!</title>
+</head>
+<body>
+    <h1>Bienvenue à la MU-POL!</h1>
+    <p>Votre compte a été créé avec succès en tant que partenaire de santé.</p>
+
+    <p>Nous sommes ravis de vous compter parmi nos partenaires.</p>
+
+    <p>Voici vos informations de connexion :</p>
+    <ul>
+        <li><strong>Email :</strong> {{ $email }}</li>
+        <li><strong>Mot de passe temporaire :</strong> {{ $password }}</li>
+    </ul>
+
+    <p>Vous pouvez maintenant vous connecter à votre compte.</p>
+
+    <p>Si vous avez des questions, n'hésitez pas à nous contacter.</p>
+
+    <p>Merci,</p>
+    <p>L'équipe de la Mutelle de la Police Nationale</p>
+</body>
+</html>
+
+ 
+namespace App\Mail;
+
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Content;
+use Illuminate\Mail\Mailables\Envelope;
+use Illuminate\Queue\SerializesModels;
+
+class PartenaireAdhesion extends Mailable
+{
+    use Queueable, SerializesModels;
+    public $email;
+    public $password;
+
+    public function __construct($email, $password)
+    {
+        $this->email = $email;
+        $this->password = $password;
+    }
+
+    public function build()
+    {
+        return $this->view('emails.partenaire-adhesion')
+                    ->with([
+                        'email' => $this->email,
+                        'password' => $this->password,
+                    ])
+                    ->subject('Bienvenue à la MU-POL');
+    }
+
+    /**
+     * Get the message envelope.
+     */
+    public function envelope(): Envelope
+    {
+        return new Envelope(
+            subject: 'Partenaire Adhesion MU-POL',
+        );
+    }
+
+    /**
+     * Get the message content definition.
+     */
+    
+    
+   
+    /**
+     * Get the attachments for the message.
+     *
+     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
+     */
+    public function attachments(): array
+    {
+        return [];
+    }
+}
+
+ 
+partenaire->
+ 
+ public function build()
+    {
+        return $this->view('emails.partenaire-adhesion')
+                    ->with([
+                        'partenaire' => $this->partenaire,
+                        'generatedPassword' => $this->generatedPassword,
+                    ])
+                    ->subject('Bienvenue à la MU-POL');
+    }
+    
+ 
+            dd($partenaire, $generatedPassword);
+
+ 
+partenaire
+ 
+public function content(): Content
+    {
+        return new Content(
+            view: 'emails.partenaire-adhesion', 
+            with: [
+                'partenaire' => $this->partenaire,
+                'logoUrl' => asset('images/logo.png'), 
+                'generatedPassword' => $this->generatedPassword, 
+
+            ],
+           
+        );
+    }
+ 
+ <p>Voici vos informations d'identification :</p>
+    <ul>
+        <li><strong>Email :</strong> {{ $email }}</li>
+        <li><strong>Mot de passe temporaire :</strong> {{ $password }}</li>
+    </ul>
+
+ 
+->with([
+                        'name' => $this->partenaire->name,
+                        'email' => $this->partenaire->email, 
+                        'password' => $this->password,
+                    ])
+ 
+->with([
+                        'name' => $this->partenaire->name,
+                        'email' => $this->partenaire->email, 
+                        'password' => $this->password,
+                    ]);
+ 
+ with([
+                'generatedPassword' => $this->generatedPassword,
+                'logoUrl' => asset('images/logo.png'), 
+            ],
+            with: [
+                'email' => $this->partenaire->email,
+                'password' => $this->password,
+
+            ],
+ 
+                'demandeAdhesion' => $this->demandeAdhesion,
+
+ 
+ with: [
+                'email' => $this->partenaire->email,
+                'password' => $this->password,
+
+            ],
+ 
+ with: [
+                'email' => $this->partenaire->email,
+                'password' => $this->password,
+
+            ],
+ 
  @if ($adherent->nombreAyantsDroits > 0)
                                 <table class="w-full border-collapse bg-white shadow-md rounded-lg overflow-hidden mt-6">
                                     <thead>

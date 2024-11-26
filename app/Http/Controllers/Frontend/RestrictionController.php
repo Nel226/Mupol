@@ -11,4 +11,9 @@ class RestrictionController extends Controller
     {
         return view('pages.frontend.partenaires.restrictions.index');
     }
+
+    public function restrictionsPartenaire()
+    {
+        return view('pages.frontend.partenaires.restrictions.index');
+    }
 }

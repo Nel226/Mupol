@@ -61,11 +61,13 @@
             @if (Auth::guard('partenaire')->check())
             <ul class="space-y-2">
                 <li>
-                    <a href="/" class="flex items-center p-2 text-gray-800 hover:bg-gray-700 hover:text-white rounded-md">
+                    <a href="{{ route('partenaires.dashboard') }}" 
+                        class="@if(Request::is('partenaires/dashboard*')) active @endif flex items-center p-2 text-gray-800 hover:bg-gray-700 hover:text-white rounded-md transition-all duration-300">
                         <i class="fa fa-user mr-3"></i>
                         <span>Dashboard</span>
                     </a>
                 </li>
+                
                 <li>
                     <a href="{{ route('partenaires.nouvelle-prestation') }}" 
                     class="@if(Request::is('partenaire/prestations*')) active @endif flex items-center p-2 text-gray-800 hover:bg-gray-700 hover:text-white rounded-md transition-all duration-300">
@@ -75,7 +77,7 @@
                 </li>
                 
                 <li>
-                    <a href="{{ route('restrictions.index') }}" 
+                    <a href="{{ route('partenaire.restrictions') }}" 
                         class="@if(Request::is('restrictions/*')) active @endif flex items-center p-2 text-gray-800 hover:bg-gray-700 hover:text-white rounded-md transition-all duration-300">
                         <i class="fa fa-warning mr-3"></i>
                         <span>Restrictions</span>

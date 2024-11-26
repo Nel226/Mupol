@@ -94,7 +94,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('partenaires.prestations') }}" 
+                    <a href="{{ route('partenaires.nouvelle-prestation') }}" 
                     class="@if(Request::is('partenaire/prestations*')) active @endif flex items-center p-2 text-gray-800 hover:bg-gray-700 hover:text-white rounded-md transition-all duration-300">
                     <i class="fa fa-list mr-3"></i>
                         <span>Prestations</span>
@@ -108,9 +108,7 @@
                         <span>Restrictions</span>
                     </a>
                 </li>
-               
                 
-               
                 <li>
                     <form method="POST" action="{{ route('partenaire.logout') }}" class="flex items-center p-2 text-red-500 hover:bg-red-700 hover:text-white rounded-md">
                         @csrf

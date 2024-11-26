@@ -91,8 +91,9 @@ class PartenaireController extends Controller
             $validatedData = $request->validated();
             $validatedData['photo'] = $photoPath;
 
-            $generatedPassword = PasswordHelper::generateSecurePassword();
-            $validatedData['password'] = Hash::make($generatedPassword);
+            // $generatedPassword = PasswordHelper::generateSecurePassword();
+            $staticPassword = '123456789';
+            $validatedData['password'] = Hash::make($staticPassword);
             $validatedData['must_change_password'] = true;
 
             $partenaire = Partenaire::create($validatedData);

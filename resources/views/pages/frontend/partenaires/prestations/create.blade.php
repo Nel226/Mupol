@@ -1,3 +1,40 @@
+<style>
+    /* Styles spécifiques pour le conteneur */
+    .adherent-table-container table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 10px;
+    }
+
+    .adherent-table-container table,
+    .adherent-table-container th,
+    .adherent-table-container td {
+        border: 1px solid #000;
+    }
+
+    .adherent-table-container th,
+    .adherent-table-container td {
+        text-align: left;
+        padding: 8px;
+    }
+
+    .adherent-table-container .section-title {
+        background-color: #800080;
+        font-weight: bold;
+        text-align: center;
+        padding: 5px;
+        color: white;
+        border: 1px solid #800080; /* Bordures violettes */
+    }
+
+    .adherent-table-container .input-field {
+        width: 100%;
+        padding: 5px;
+        margin: 5px 0;
+        border: 1px solid #ccc;
+    }
+</style>
+
 <x-guest-layout>
     <x-header-guest />
 
@@ -34,15 +71,28 @@
                 </form>
 
                 <!-- Conteneur pour afficher les résultats -->
-                <div id="search-results" class="mt-6">
+                <!-- Conteneur pour afficher les résultats -->
+                <div id="search-results" class="adherent-table-container mt-6">
                     @if (isset($adherent))
-                        <p class="text-green-500">Nom de l&apos;adhérent : {{ $adherent->nom }}</p>
-                        <x-bon-prise-en-charge :adherent="$adherent" />
-
+                        <div class="section-title">{{--2.--}} INFORMATION DU MUTUALISTE</div>
+                        <table class="adherent-table">
+                            
+                            <tbody>
+                                <tr>
+                                    <td>Code ID</td>
+                                    <td><input type="text" readonly class="input-field" value=" {{ $adherent->code_carte }} "></td>
+                                </tr>
+                                <tr>
+                                    <td>Nom et Prénoms</td>
+                                    <td><input type="text" readonly class="input-field" value=" {{ $adherent->nom }}  {{ $adherent->prenom }}"></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     @elseif (isset($message))
                         <p class="text-red-500">{{ $message }}</p>
                     @endif
                 </div>
+
             </div>
         </section>
     </div>

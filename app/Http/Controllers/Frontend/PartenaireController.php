@@ -20,7 +20,6 @@ class PartenaireController extends Controller
         ]);
 
         $adherent = Adherent::where('code_carte', $validated['code_carte'])->first();
-        $adherent->ayantsDroits = json_decode($adherent->ayantsDroits, true); 
 
         if ($adherent) {
             return view('pages.frontend.partenaires.prestations.create', compact('adherent'));

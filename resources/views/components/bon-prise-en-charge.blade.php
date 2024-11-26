@@ -113,7 +113,7 @@
         }
     </style>
     <div class="header">
-            <img src="{{ asset('images/logo.png') }}" alt="Logo">
+            {{-- <img src="{{ asset('images/logo.png') }}" alt="Logo">
           
             <h2>BON DE PRISE EN CHARGE MEDICALE</h2>
             <p>Mutualité de la Police Nationale "MP/PN"<br>Tel : +226 53 01 87 53 - Email : demo@examplemail.com</p>
@@ -130,9 +130,9 @@
             </tr>
         </table>
 
-        <div class="section-title">1. ETABLISSEMENT MEDICAL CONVENTIONNE</div>
+        <div class="section-title">1. ETABLISSEMENT MEDICAL CONVENTIONNE</div> --}}
 
-        <div class="section-title">2. INFORMATION DU MUTUALISTE</div>
+        <div class="section-title">{{--2.--}} INFORMATION DU MUTUALISTE</div>
         <table>
             <thead>
                 <tr>
@@ -153,7 +153,7 @@
         
         <br> <!-- Pour espacer les tableaux -->
         
-        <table>
+        {{-- <table>
             <thead>
                 <tr>
                     <th colspan="4">Patient</th>
@@ -173,7 +173,7 @@
                                 @foreach($adherent->ayantsDroits as $ayantDroit)
                                     <option value="{{ $ayantDroit['nom'] }}" 
                                             data-sexe="{{ $ayantDroit['sexe'] }}" 
-                                            data-statut="{{ $ayantDroit['lien_parente'] }}" 
+                                            data-statut="{{ $ayantDroit['relation'] }}" 
                                             data-date-naissance="{{ $ayantDroit['date_naissance'] }}"
                                             data-nom-prenom="{{ $ayantDroit['prenom'] }} {{ $ayantDroit['nom'] }}">
                                         {{ $ayantDroit['prenom'] }} {{ $ayantDroit['nom'] }}
@@ -346,7 +346,7 @@
             <button onclick="toggleSection('section3')" class="bg-blue-500 text-white px-4 py-2 rounded">Afficher/Cacher Actes Médicaux</button>
             <button onclick="toggleSection('section4')" class="bg-blue-500 text-white px-4 py-2 rounded">Afficher/Cacher Prescription Médicamenteuse</button>
             <button onclick="toggleSection('section5')" class="bg-blue-500 text-white px-4 py-2 rounded">Afficher/Cacher Examens Complémentaires</button>
-        </div>
+        </div> 
         
         
         <script>
@@ -370,6 +370,6 @@
 
         <p class="small-note">Signature et cachet médecin prescripteur : 
             <br>
-        </p>
+        </p> --}}
     </div>
 

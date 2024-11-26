@@ -63,7 +63,7 @@ class PartenaireAuthenticatedSessionController extends Controller
             ],
         ]);
 
-        $partenaire = Auth::guard('adherent')->user();
+        $partenaire = Auth::guard('partenaire')->user();
         $partenaire->password = Hash::make($request->password);
         $partenaire->must_change_password = false;
         $partenaire->save();

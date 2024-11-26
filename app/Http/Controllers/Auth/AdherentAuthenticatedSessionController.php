@@ -30,7 +30,7 @@ class AdherentAuthenticatedSessionController extends Controller
 
     public function store(LoginRequest $request): RedirectResponse
     {
-       
+    
         if (Auth::guard('adherent')->attempt($request->only('email', 'password'))) {
             $request->session()->regenerate();
             $adherent = Auth::guard('adherent')->user();
@@ -123,6 +123,7 @@ class AdherentAuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/login/adherent');
+        return redirect('/login/user');
     }
+    
 }

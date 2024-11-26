@@ -26,6 +26,9 @@ return new class extends Migration
             $table->boolean('must_change_password')->default(true);
 
             $table->timestamps();
+
+             // Ajout de l'index sur la colonne 'email'
+            $table->index('email');
         });
     }
 
@@ -34,6 +37,11 @@ return new class extends Migration
      */
     public function down(): void
     {
+         // Suppression de l'index sur la colonne 'email'
+        Schema::table('partenaires', function (Blueprint $table) {
+            $table->dropIndex(['email']);
+        });
+        
         Schema::dropIfExists('partenaires');
     }
 };

@@ -50,7 +50,6 @@ Route::post('/login/adherent', [AdherentAuthenticatedSessionController::class, '
 
 
 Route::get('/login/partenaire', [PartenaireAuthenticatedSessionController::class, 'create'])->name('partenaire.login');
-
 Route::post('/login/partenaire', [PartenaireAuthenticatedSessionController::class, 'store']);
 
 Route::middleware('auth:partenaire')->group(function () {

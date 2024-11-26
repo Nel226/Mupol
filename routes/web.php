@@ -5,6 +5,7 @@ use App\Http\Controllers\Frontend\AccueilController;
 use App\Http\Controllers\Frontend\AdherantController;
 use App\Http\Controllers\Auth\AdherentAuthenticatedSessionController;
 use App\Http\Controllers\Auth\PartenaireAuthenticatedSessionController;
+use App\Http\Controllers\Auth\UserLoginDetectorController;
 use App\Http\Controllers\Frontend\AyantDroitController;
 use App\Http\Controllers\Frontend\ActeMedicalController;
 
@@ -49,6 +50,10 @@ Route::post('/login/adherent', [AdherentAuthenticatedSessionController::class, '
 
 Route::get('/login/partenaire', [PartenaireAuthenticatedSessionController::class, 'create'])->name('partenaire.login');
 Route::post('/login/partenaire', [PartenaireAuthenticatedSessionController::class, 'store']);
+
+// Detection automatique du Controller en fonction du User
+Route::get('/login/user', [UserLoginDetectorController::class, 'showLoginForm'])->name('user.login');
+Route::post('/login/user', [UserLoginDetectorController::class, 'authenticate']);
 
 Route::middleware('auth:partenaire')->group(function () {
     

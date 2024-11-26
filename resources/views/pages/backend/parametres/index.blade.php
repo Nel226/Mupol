@@ -74,7 +74,7 @@
                         </div>
                     </div>
 
-                    <!-- Carte des Centres de santé -->
+                    {{-- <!-- Carte des Centres de santé -->
                     <a href="{{ route('partenaires.index') }}" class="block">
                         <div class="bg-white h-full rounded-lg shadow-md p-8">
                             <div class="flex items-center">
@@ -90,7 +90,7 @@
                                 </div>
                             </div>
                         </div>
-                    </a>
+                    </a> --}}
 
                 </div>
                 

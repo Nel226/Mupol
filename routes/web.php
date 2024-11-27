@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\AdherentAuthenticatedSessionController;
 use App\Http\Controllers\Auth\PartenaireAuthenticatedSessionController;
 use App\Http\Controllers\Auth\UserLoginDetectorController;
 use App\Http\Controllers\Frontend\AyantDroitController;
+use App\Http\Controllers\Frontend\RestrictionController;
 use App\Http\Controllers\Frontend\ActeMedicalController;
 
 
@@ -76,6 +77,8 @@ Route::middleware('auth:partenaire')->group(function () {
         ->name('partenaires.nouvelle-prestation.store');
     Route::post('/logout/partenaire', [PartenaireAuthenticatedSessionController::class, 'destroy'])
         ->name('partenaire.logout');
+    Route::get('/partenaires/restrictions', [RestrictionController::class, 'restrictionsPartenaire'])
+        ->name('partenaire.restrictions');
 });
 
 

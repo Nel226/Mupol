@@ -14,6 +14,25 @@
         <link rel="stylesheet" href="{{ asset('css/fontawesome.min.css') }}">
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
+        <!-- *************** Template partenaire ***************** -->
+        <!-- Favicon -->
+        <link href="img/favicon.ico" rel="icon">
+
+        <!-- Google Web Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Roboto:wght@500;700;900&display=swap" rel="stylesheet"> 
+
+        <!-- Icon Font Stylesheet -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+        <!-- Libraries Stylesheet -->
+        <link href="lib/animate/animate.min.css" rel="stylesheet">
+        <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+        <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+        <!-- ******************************** -->
+
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
@@ -36,6 +55,9 @@
         <!-- Medipro CSS -->
         <link rel="stylesheet" href="{{ asset('css/normalize.css') }}">
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/css/style-partenaire.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/wizard.css') }}">
+        <link rel="stylesheet" type="text/css" href="fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
         <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -98,8 +120,13 @@
         <script src="{{ asset('js/map-active.js') }}"></script>
         <!-- Bootstrap JS -->
         <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+        <!-- Stepper JS -->
+        <script src="{{ asset('js/jquery.steps.js') }}"></script>
+        <script src="{{ asset('js/wizard.js') }}"></script>
+        
         <!-- Main JS -->
         <script src="{{ asset('js/main.js') }}"></script>
+        <script src="{{ asset('assets/js/main.js') }}"></script>
         
     </head>
     <style>

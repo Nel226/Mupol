@@ -1,31 +1,16 @@
-<x-guest-layout class="main-container">
-    <style>
-        .main-container {
-            display: flex;
-            flex-direction: row;
-            min-height: 100vh; /* Assurez-vous que la page prend toute la hauteur */
-        }
-    </style>
-    <x-header-guest/>
-   
-        {{--  <x-preloader/>  --}}
-        <x-sidebar-guest/>
-        <div class=" content">
-            <style>
-                .content {
-                    padding: 1rem;
-                }
-            </style>
-            <section class="section">
-                <div class="container h-screen">
-                    <div class="">
-                        <div class="row">
-                            <div class="col-lg-12">
-                          
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-</x-guest-layout>
+<!-- resources/views/dashboard.blade.php -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+
+    @vite('resources/js/app.jsx')  <!-- Inclure le fichier React -->
+
+</head>
+<body>
+    <div id="root"></div>  <!-- Point d'attache pour le composant React -->
+</body>
+</html>

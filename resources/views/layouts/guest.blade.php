@@ -56,6 +56,8 @@
         <link rel="stylesheet" href="{{ asset('css/normalize.css') }}">
         <link rel="stylesheet" href="{{ asset('style.css') }}">
         <link rel="stylesheet" href="{{ asset('assets/css/style-partenaire.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/wizard.css') }}">
+        <link rel="stylesheet" type="text/css" href="fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
         <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -116,6 +118,10 @@
         <script src="{{ asset('js/map-active.js') }}"></script>
         <!-- Bootstrap JS -->
         <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+        <!-- Stepper JS -->
+        <script src="{{ asset('js/jquery.steps.js') }}"></script>
+        <script src="{{ asset('js/wizard.js') }}"></script>
+        
         <!-- Main JS -->
         <script src="{{ asset('js/main.js') }}"></script>
         <script src="{{ asset('assets/js/main.js') }}"></script>

@@ -1,87 +1,66 @@
-<div class="mx-auto w-[100] md:w-[100%] lg:w-[100%]    z-10">
-
-    <div class="w-[90%] md:w-5/6 lg:w-5/6 mx-auto  mt-10">
+<div class="mx-auto w-full max-w-screen-lg px-4 sm:px-6 md:px-8 z-10">
+    <div class="w-full md:w-5/6 mx-auto mt-6 md:mt-10">
         <!-- Stepper -->
-        <div class="flex justify-between items-center mb-6">
+        <div class="flex justify-between items-center mb-4 md:mb-6">
             @for ($step = 1; $step <= $totalSteps; $step++)
-                <div class="flex justify-center flex-col items-center flex-1"> <!-- Each step takes equal width -->
+                <div class="flex justify-center flex-col items-center flex-1">
                     <div class="relative flex items-center w-full">
                         <!-- Connecting Line -->
                         @if ($step > 1 && $step <= $totalSteps)
-                        <div class="flex-1 h-1 {{ $currentStep >= $step ? 'bg-[#4000FF]' : 'bg-gray-300' }}"
-                                style="height: 4px; margin-left: -1rem;">
-                        </div>
+                            <div class="flex-1 h-1 {{ $currentStep >= $step ? 'bg-[#4000FF]' : 'bg-gray-300' }}"
+                                 style="height: 3px; margin-left: -0.5rem;"></div>
                         @endif
                         <!-- Step Circle -->
-                        <div
-                            class="w-6 h-6 lg:w-8 lg:h-8 flex  shadow-lg items-center justify-center {{ $currentStep >= $step ? 'bg-[#4000FF]' : 'bg-gray-300' }} rounded-full text-white z-10">
+                        <div class="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 flex shadow-lg items-center justify-center {{ $currentStep >= $step ? 'bg-[#4000FF]' : 'bg-gray-300' }} rounded-full text-white z-10">
                             @if ($currentStep > $step)
-                                <i class="fa fa-check"></i> <!-- Display check icon for completed steps -->
+                                <i class="fa fa-check"></i>
                             @else
-                                {{ $step }} <!-- Show step number for incomplete steps -->
+                                {{ $step }}
                             @endif
                         </div>
-    
                         <!-- Connecting Line -->
                         @if ($step < $totalSteps)
                             <div class="flex-1 h-1 {{ $currentStep > $step ? 'bg-[#4000FF]' : 'bg-gray-300' }}"
-                                style="height: 4px; margin-left: -1rem;"></div>
+                                style="height: 3px; margin-left: -0.5rem;"></div>
                         @endif
                     </div>
-    
                     <!-- Step Label -->
-                    <div class="text-xs mt-2 text-center w-full h-12 overflow-hidden"> <!-- Réserve 2 lignes pour le texte -->
-                        <p class="step-label whitespace-normal break-words ">
-                            @if ($step == 1)
-                                Références de l&apos;adhérent
-                            @elseif ($step == 2)
-                                Etat civil
-                            @elseif ($step == 3)
-                                Informations personnelles
-                            @elseif ($step == 4)
-                                Informations professionnelles
-                            @elseif ($step == 5)
-                                Récapitulatif
+                    <div class="text-xs mt-2 text-center w-full h-12 overflow-hidden">
+                        <p class="step-label whitespace-normal break-words">
+                            @if ($step == 1) Références de l&apos;adhérent
+                            @elseif ($step == 2) Etat civil
+                            @elseif ($step == 3) Informations personnelles
+                            @elseif ($step == 4) Informations professionnelles
+                            @elseif ($step == 5) Récapitulatif
                             @endif
                         </p>
                     </div>
-    
                 </div>
             @endfor
         </div>
-    
+
         <!-- Contenu des étapes -->
-        <div id="wizard-top" class="  shadow-lg border rounded-lg border-gray-200  px-5 pt-6 pb-8 mb-4">
-            <h2 class="text-xl font-bold mb-5 text-gray-800 text-center">
-                @if ($currentStep == 1)
-                    1. Références de l&apos;adhérent
-                @endif
-                @if ($currentStep == 2)
-                    2. Etat civil
-                @endif
-                @if ($currentStep == 3)
-                    3. Informations personnelles
-                @endif
-                @if ($currentStep == 4)
-                    4. Informations professionelles
-                @endif
-                @if ($currentStep == 5)
-                    5. Récapitulatif
+        <div id="wizard-top" class="shadow-lg border rounded-lg border-gray-200 px-4 md:px-5 pt-2 md:pt-6 pb-6 md:pb-8 mb-4">
+            <h2 class="text-lg sm:text-xl font-bold mb-1 md:mb-5 text-gray-800 text-center">
+                @if ($currentStep == 1) 1. Références de l&apos;adhérent
+                @elseif ($currentStep == 2) 2. Etat civil
+                @elseif ($currentStep == 3) 3. Informations personnelles
+                @elseif ($currentStep == 4) 4. Informations professionnelles
+                @elseif ($currentStep == 5) 5. Récapitulatif
                 @endif
             </h2>
-            <div class="overflow-y-auto max-h-[500px]">
-
+            <div class="overflow-y-auto max-h-[500px] sm:scrollbar-thin px-1 sm:px-4">
                 <!-- Étape 1 -->
                 @if ($currentStep == 1)
                     <div>
                         <!-- Grille pour Matricule et NIP -->
-                        <div class="grid grid-cols-1 lg:grid-cols-2 md:grid-cols-2 gap-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-3 sm:gap-4">
         
                             <!-- Matricule -->
                             <div>
                                 <label class="block text-gray-700 text-sm font-bold mb-1" for="matricule">Matricule</label>
                                 <input wire:model="matricule" id="matricule" type="text"
-                                class=" bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4">
+                                    class="bg-gray-50 appearance-none border-2 rounded w-full py-1 sm:py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-0 sm:mb-4">
                                 @error('matricule')
                                     <span class="text-red-500 text-xs">{{ $message }}</span>
                                 @enderror
@@ -91,23 +70,22 @@
                             <div>
                                 <label class="block text-gray-700 text-sm font-bold mb-1" for="nip">NIP</label>
                                 <input wire:model="nip" id="nip" type="text"
-                                class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4">
+                                    class="bg-gray-50 appearance-none border-2 rounded w-full py-1 sm:py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline  mb-0 sm:mb-4">
                                 @error('nip')
                                     <span class="text-red-500 text-xs">{{ $message }}</span>
                                 @enderror
                             </div>
         
                         </div>
-        
-        
+
                         <!-- Grille pour N° CNIB, Délivré le, et Expire le -->
-                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-2">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 mt-3">
         
                             <!-- N° CNIB -->
                             <div>
                                 <label class="block text-gray-700 text-sm font-bold mb-1" for="cnib">N° CNIB</label>
                                 <input wire:model="cnib" id="cnib" type="text"
-                                class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4">
+                                    class="bg-gray-50 appearance-none border-2 rounded w-full py-1 sm:py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline  mb-0 sm:mb-4">
                                 @error('cnib')
                                     <span class="text-red-500 text-xs">{{ $message }}</span>
                                 @enderror
@@ -117,8 +95,8 @@
                             <div>
                                 <label class="block text-gray-700 text-sm font-bold mb-1" for="delivree">Délivré le</label>
                                 <input wire:model="delivree" id="delivree" type="date"
-                                class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4"
-                                    wire:change="updateExpire">
+                                    class="bg-gray-50 appearance-none border-2 rounded w-full py-1 sm:py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline  mb-0 sm:mb-4"
+                                        wire:change="updateExpire">
                                 @error('delivree')
                                     <span class="text-red-500 text-xs">{{ $message }}</span>
                                 @enderror
@@ -128,8 +106,7 @@
                             <div>
                                 <label class="block text-gray-700 text-sm font-bold mb-1" for="expire">Expire le</label>
                                 <input wire:model="expire" id="expire" type="date"
-                                class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4"
-                                    readonly>
+                                    class="bg-gray-50 appearance-none border-2 rounded w-full py-1 sm:py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline  mb-0 sm:mb-4" readonly>
                                 @error('expire')
                                     <span class="text-red-500 text-xs">{{ $message }}</span>
                                 @enderror
@@ -137,10 +114,9 @@
         
                             <!-- Adresse permanente -->
                             <div>
-                                <label class="block text-gray-700 text-sm font-bold mb-1" for="adresse_permanente">Adresse
-                                    permanente</label>
+                                <label class="block text-gray-700 text-sm font-bold mb-1" for="adresse_permanente">Adresse permanente</label>
                                 <input wire:model="adresse_permanente" id="adresse_permanente" type="text"
-                                class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4">
+                                    class="bg-gray-50 appearance-none border-2 rounded w-full py-1 sm:py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline  mb-0 sm:mb-4">
                                 @error('adresse_permanente')
                                     <span class="text-red-500 text-xs">{{ $message }}</span>
                                 @enderror
@@ -150,7 +126,7 @@
                             <div>
                                 <label class="block text-gray-700 text-sm font-bold mb-1" for="telephone">Téléphone</label>
                                 <input wire:model="telephone" id="telephone" type="text"
-                                class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4">
+                                    class="bg-gray-50 appearance-none border-2 rounded w-full py-1 sm:py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline  mb-0 sm:mb-4">
                                 @error('telephone')
                                     <span class="text-red-500 text-xs">{{ $message }}</span>
                                 @enderror
@@ -160,28 +136,28 @@
                             <div>
                                 <label class="block text-gray-700 text-sm font-bold mb-1" for="email">Email</label>
                                 <input wire:model="email" id="email" type="email"
-                                class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4">
+                                    class="bg-gray-50 appearance-none border-2 rounded w-full py-1 sm:py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline  mb-0 sm:mb-4">
                                 @error('email')
                                     <span class="text-red-500 text-xs">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
-                        
-        
                     </div>
                 @endif
+        
+
         
                 <!-- Étape 2 -->
                 @if ($currentStep == 2)
                     <div>
                         <!-- Grille pour Nom(s), Prénom(s), et Genre -->
-                        <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3  gap-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         
                             <!-- Nom(s) -->
                             <div>
                                 <label class="block text-gray-700 text-sm font-bold mb-1" for="nom">Nom(s)</label>
                                 <input wire:model="nom" id="nom" type="text"
-                                    class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4">
+                                    class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline  mb-0 sm:mb-4">
                                 @error('nom')
                                     <span class="text-red-500 text-xs">{{ $message }}</span>
                                 @enderror
@@ -191,7 +167,7 @@
                             <div>
                                 <label class="block text-gray-700 text-sm font-bold mb-1" for="prenom">Prénom(s)</label>
                                 <input wire:model="prenom" id="prenom" type="text"
-                                    class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4">
+                                    class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline  mb-0 sm:mb-4">
                                 @error('prenom')
                                     <span class="text-red-500 text-xs">{{ $message }}</span>
                                 @enderror
@@ -223,7 +199,7 @@
                                 <div>
                                     <label class="block text-gray-700 text-sm font-bold mb-1" for="departement">Département</label>
                                     <input wire:model="departement" id="departement" type="text"
-                                        class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4">
+                                        class="bg-gray-50 appearance-none border-2 rounded w-full py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline  mb-0 sm:mb-4">
                                     @error('departement')
                                         <span class="text-red-500 text-xs">{{ $message }}</span>
                                     @enderror
@@ -231,10 +207,9 @@
             
                                 <!-- Ville / Village -->
                                 <div>
-                                    <label class="block text-gray-700 text-sm font-bold mb-1" for="ville">Ville /
-                                        Village</label>
+                                    <label class="block text-gray-700 text-sm font-bold mb-1" for="ville">Ville / Village</label>
                                     <input wire:model="ville" id="ville" type="text"
-                                        class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4">
+                                        class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline  mb-0 sm:mb-4">
                                     @error('ville')
                                         <span class="text-red-500 text-xs">{{ $message }}</span>
                                     @enderror
@@ -244,7 +219,7 @@
                                 <div>
                                     <label class="block text-gray-700 text-sm font-bold mb-1" for="pays">Pays </label>
                                     <input wire:model="pays" id="pays" type="text"
-                                        class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4">
+                                        class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline  mb-0 sm:mb-4">
                                     @error('pays')
                                         <span class="text-red-500 text-xs">{{ $message }}</span>
                                     @enderror
@@ -260,7 +235,7 @@
                                 <label class="block text-gray-700 text-sm font-bold mb-1" for="nom_pere">Nom et Prénom(s) du
                                     père</label>
                                 <input wire:model="nom_pere" id="nom_pere" type="text"
-                                    class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4">
+                                    class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline  mb-0 sm:mb-4">
                                 @error('nom_pere')
                                     <span class="text-red-500 text-xs">{{ $message }}</span>
                                 @enderror
@@ -271,7 +246,7 @@
                                 <label class="block text-gray-700 text-sm font-bold mb-1" for="nom_mere">Nom et Prénom(s) de
                                     la mère</label>
                                 <input wire:model="nom_mere" id="nom_mere" type="text"
-                                    class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4">
+                                    class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline  mb-0 sm:mb-4">
                                 @error('nom_mere')
                                     <span class="text-red-500 text-xs">{{ $message }}</span>
                                 @enderror
@@ -322,7 +297,7 @@
                                         <label class="block text-gray-700 text-sm font-bold mb-1"
                                             for="nom_prenom_personne_besoin">Nom et prénoms (s)</label>
                                         <input wire:model="nom_prenom_personne_besoin" id="nom_prenom_personne_besoin" type="text"
-                                            class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4">
+                                            class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline  mb-0 sm:mb-4">
                                         @error('nom_prenom_personne_besoin')
                                             <span class="text-red-500 text-xs">{{ $message }}</span>
                                         @enderror
@@ -334,7 +309,7 @@
                                             <label class="block text-gray-700 text-sm font-bold mb-1" for="lieu_residence">Lieu de
                                                 résidence</label>
                                             <input wire:model="lieu_residence" id="lieu_residence" type="text"
-                                                class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4">
+                                                class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline  mb-0 sm:mb-4">
                                             @error('lieu_residence')
                                                 <span class="text-red-500 text-xs">{{ $message }}</span>
                                             @enderror
@@ -346,7 +321,7 @@
                                                 for="telephone_personne_prevenir">Téléphone</label>
                                             <input wire:model="telephone_personne_prevenir" id="telephone_personne_prevenir"
                                                 type="text"
-                                                class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4">
+                                                class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline  mb-0 sm:mb-4">
                                             @error('telephone')
                                                 <span class="text-red-500 text-xs">{{ $message }}</span>
                                             @enderror

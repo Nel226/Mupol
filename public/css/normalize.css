@@ -473,6 +473,14 @@ Preloader Area CSS
 	padding-top:50px;
 	padding-bottom: 30px;
 }
+
+/* Réduction des paddings pour les téléphones */
+@media (max-width: 640px) {
+    .section {
+        padding-top: 20px; /* Diminue à 20px sur mobile */
+        padding-bottom: 15px; /* Diminue à 15px sur mobile */
+    }
+}
 .section-title{
 	text-align: center;
     margin-bottom: 15px;

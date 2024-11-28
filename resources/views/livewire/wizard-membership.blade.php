@@ -1,13 +1,13 @@
 
-<div class="mx-auto w-full max-w-screen-lg px-4 sm:px-6 md:px-8 z-10">
+<div class="mx-auto w-full max-w-screen-lg px-3 sm:px-5 md:px-7 z-10">
     <div class="w-full md:w-5/6 mx-auto mt-6 md:mt-10">
         <!-- Stepper -->
         <!-- Stepper pour les petits écrans (<= 450px) -->
         <ul class="flex flex-col justify-center items-center mb-4 md:mb-6 sm:hidden">
             @for ($step = 1; $step <= $totalSteps; $step++)
-            <li class="flex justify-center items-center w-full mb-4">
+            <li class="flex justify-center items-center w-full mb-2 sm:mb-4">
                 <!-- Stepper Rectangle for Small Screens -->
-                <div class="flex flex-col items-center w-full rounded-xl border {{ $currentStep >= $step ? 'border-[#4000FF]' : 'border-gray-300' }} {{ $currentStep == $step ? 'bg-[#4000FF]' : 'bg-white' }}">
+                <div class="flex flex-col items-center w-full rounded-xl border-2 {{ $currentStep >= $step ? 'border-[#4000FF]' : 'border-gray-300' }} {{ $currentStep == $step ? 'bg-[#4000FF]' : 'bg-white' }}">
                     <!-- Step Number and Label on the Same Line -->
                     <div class="flex items-center justify-center w-full">
                         <!-- Step Number -->
@@ -656,6 +656,13 @@
                         :signature="$signature"
                         :signature-image="$signatureImage"
                     />
+                    <!-- Affichage de l'iframe -->
+                    <iframe 
+                        src="{{ route('formulaire.adhesion.recapitulatif') }}" 
+                        width="100%" 
+                        height="800px" 
+                        style="border: none;">
+                    </iframe>
                 @endif
             </div>
 

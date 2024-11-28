@@ -57,7 +57,7 @@
 
         <div class="footer">
             <p>Merci,</p>
-            <p>L'équipe de la Mutelle de la Police Nationale</p>
+            <p>L'équipe de la Mutuelle de la Police Nationale</p>
         </div>
     </div>
 </body>

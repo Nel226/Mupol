@@ -11,7 +11,7 @@
 
         </style>
         <!-- User Profile -->
-        <div class="user-profile flex items-center mb-4 p-2 bg-[#4644D5] rounded-md">
+        <div class="user-profile flex items-center mb-4 p-2 bg-primary1 rounded-md">
             @if (Auth::guard('adherent')->check())
                 <!-- Adherent profile -->
                 <img src="{{ asset('storage/' . Auth::guard('adherent')->user()->photo) }}" alt="User Profile" class="h-12 w-12 rounded-full mr-3">

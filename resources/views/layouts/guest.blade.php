@@ -54,7 +54,7 @@
         <link rel="stylesheet" href="{{ asset('css/magnific-popup.css') }}">
         <!-- Medipro CSS -->
         <link rel="stylesheet" href="{{ asset('css/normalize.css') }}">
-        <link rel="stylesheet" href="{{ asset('style.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
         <link rel="stylesheet" href="{{ asset('assets/css/style-partenaire.css') }}">
                 
         <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
@@ -66,6 +66,8 @@
 
         
         <!-- Scripts -->
+
+        @vite(['resources/js/app.jsx'])
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         @livewireStyles
         <script src="{{ asset('js/regions.js') }}" defer></script>
@@ -129,9 +131,10 @@
     </style>
     <body class=" font-sans font-body text-gray-900 antialiased">
         
-        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-white dark:bg-gray-900" >
+        <div style="margin: 0px !important;" class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-white dark:bg-gray-900" >
 
             <div class="w-full   bg-white dark:bg-gray-800  overflow-y-auto ">
+                <div id="app"></div>
 
                 {{ $slot }}
             </div>
@@ -140,4 +143,8 @@
         @stack('scripts')
         @livewireScripts
     </body>
+    <footer style="margin: 0px;">
+        <x-footer/>
+
+    </footer>
 </html>

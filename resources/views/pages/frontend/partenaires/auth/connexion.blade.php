@@ -26,7 +26,7 @@
                 <div class="">
                     <div class="row  mx-auto justify-center">
                         <div class="col-lg-10  flex justify-center rounded-lg">
-                            <div class=" bg-[#4B45DC  max-w-md w-full mx-auto border p-8 shadow-lg rounded-tl-lg rounded-bl-lg " style="background: rgb(75,68,220);
+                            <div class=" bg-primary1  max-w-md w-full mx-auto border p-8 shadow-lg rounded-tl-lg rounded-bl-lg " style="background: rgb(75,68,220);
                             background: linear-gradient(90deg, #c9ccee 9%, #f2f2f9 85%);">
                                 <div class=" mx-auto justify-center flex h-full items-center ">
                                     <div class="rounded-full !w-[30%] ">

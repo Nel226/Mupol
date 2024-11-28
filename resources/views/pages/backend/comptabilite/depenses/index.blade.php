@@ -319,10 +319,10 @@
                 e.preventDefault();
 
                 // Retirer la couleur de fond de tous les onglets
-                $("a.tab-link").removeClass("bg-[#4845D8] text-white").addClass("text-blue-600");
+                $("a.tab-link").removeClass("bg-primary1 text-white").addClass("text-blue-600");
 
                 // Ajouter la couleur de fond et changer la couleur du texte de l'onglet actif
-                $(this).removeClass("text-blue-600").addClass("bg-[#4845D8] text-white");
+                $(this).removeClass("text-blue-600").addClass("bg-primary1 text-white");
 
                 // Masquer tous les contenus d'onglets et afficher celui sélectionné
                 $(".tab-content").addClass("hidden");
@@ -330,7 +330,7 @@
                 $(targetTab).removeClass("hidden");
             });
 
-            $("a.tab-link:first").addClass("bg-[#4845D8] text-white");
+            $("a.tab-link:first").addClass("bg-primary1 text-white");
             $(".tab-content:first").removeClass("hidden");
         });
     </script>

@@ -7,11 +7,11 @@
                     <div class="relative flex items-center w-full">
                         <!-- Connecting Line -->
                         @if ($step > 1 && $step <= $totalSteps)
-                            <div class="flex-1 h-1 {{ $currentStep >= $step ? 'bg-[#4000FF]' : 'bg-gray-300' }}"
+                            <div class="flex-1 h-1 {{ $currentStep >= $step ? 'bg-primary1' : 'bg-gray-300' }}"
                                  style="height: 3px; margin-left: -0.5rem;"></div>
                         @endif
                         <!-- Step Circle -->
-                        <div class="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 flex shadow-lg items-center justify-center {{ $currentStep >= $step ? 'bg-[#4000FF]' : 'bg-gray-300' }} rounded-full text-white z-10">
+                        <div class="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 flex shadow-lg items-center justify-center {{ $currentStep >= $step ? 'bg-primary1' : 'bg-gray-300' }} rounded-full text-white z-10">
                             @if ($currentStep > $step)
                                 <i class="fa fa-check"></i>
                             @else
@@ -20,7 +20,7 @@
                         </div>
                         <!-- Connecting Line -->
                         @if ($step < $totalSteps)
-                            <div class="flex-1 h-1 {{ $currentStep > $step ? 'bg-[#4000FF]' : 'bg-gray-300' }}"
+                            <div class="flex-1 h-1 {{ $currentStep > $step ? 'bg-primary1' : 'bg-gray-300' }}"
                                 style="height: 3px; margin-left: -0.5rem;"></div>
                         @endif
                     </div>
@@ -664,7 +664,7 @@
                 <!-- Bouton "Suivant" ou "Soumettre", toujours aligné à droite -->
                 @if ($currentStep < $totalSteps)
                     <button wire:click="nextStep" onclick="scrollToTop()"
-                        class="bg-[#4000FF] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                        class="bg-primary1 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                         Suivant
                     </button>
                 @else

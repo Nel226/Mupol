@@ -134,7 +134,7 @@
                                                 <i class="fa fa-image "></i>
                                                 Charger
                                             </span>
-                                            <span class="absolute toggle  bg-[#4000FF] h-full w-[50%] rounded-full transition-all top-0 left-0 peer-checked:left-[50%]"></span>
+                                            <span class="absolute toggle  bg-primary1 h-full w-[50%] rounded-full transition-all top-0 left-0 peer-checked:left-[50%]"></span>
                                         </div>
                                     </label>
                                     
@@ -270,7 +270,7 @@
         </div>
     </section>
     
-    <x-footer/>
+      
 
 </x-guest-layout>
 

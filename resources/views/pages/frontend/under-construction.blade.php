@@ -26,6 +26,6 @@
 			</div>
 		</section>
 	<!--/ End Single News -->
-    <x-footer/>
+      
 
 </x-guest-layout>

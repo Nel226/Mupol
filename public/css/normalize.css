@@ -440,7 +440,7 @@ Preloader Area CSS
 	transition: all 0.4s ease;
 	-webkit-transform: perspective(1px) translateZ(0);
 	transform: perspective(1px) translateZ(0);
-	border: none;
+	/* border: none; */
 	border-radius: 0;
 	border-radius:4px;
 }

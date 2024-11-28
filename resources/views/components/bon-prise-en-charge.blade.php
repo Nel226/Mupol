@@ -264,7 +264,7 @@
                     <tr><td colspan="5" class="important">IMPORTANT ! Validité du bulletin de prise en charge : 5 jours - Taux = 80%</td></tr>
                     <tr>
                         <td colspan="5" class="text-center border-t border-gray-300">
-                            <x-primary-button onclick="addRow('actesMedicauxBody')" class="bg-[#4000FF]"><i class="fa  fa-plus-circle"></i></x-primary-button>
+                            <x-primary-button onclick="addRow('actesMedicauxBody')" class="bg-primary1"><i class="fa  fa-plus-circle"></i></x-primary-button>
 
                         </td>
                     </tr>
@@ -300,7 +300,7 @@
                     <tr><td colspan="6" class="important">IMPORTANT ! Validité du bulletin de prise en charge : 5 jours - Taux = 80%</td></tr>
                     <tr>
                         <td colspan="6" class="text-center border-t border-gray-300"> 
-                            <x-primary-button onclick="addRow('prescriptionBody')" class="bg-[#4000FF]"><i class="fa  fa-plus-circle"></i></x-primary-button>
+                            <x-primary-button onclick="addRow('prescriptionBody')" class="bg-primary1"><i class="fa  fa-plus-circle"></i></x-primary-button>
 
                         </td>
                     </tr>
@@ -334,7 +334,7 @@
                     <tr><td colspan="5" class="important">IMPORTANT ! Validité du bulletin de prise en charge : 5 jours - Taux = 80%</td></tr>
                     <tr>
                         <td colspan="5" class="text-center border-t border-gray-300">    
-                            <x-primary-button onclick="addRow('examensBody')" class="bg-[#4000FF]"><i class="fa  fa-plus-circle"></i></x-primary-button>
+                            <x-primary-button onclick="addRow('examensBody')" class="bg-primary1"><i class="fa  fa-plus-circle"></i></x-primary-button>
                         </td>
                     </tr>
                 </tfoot>

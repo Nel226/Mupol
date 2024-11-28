@@ -307,8 +307,8 @@ body{
 	background:#4644D5;
 }
 .header .header-inner {
-	background: rgb(34,167,195);
-	background: linear-gradient(0deg, #FFFFFF 0%, #FFFFFF 100%);
+	background: #4000FF;
+	/* background: linear-gradient(0deg, #FFFFFF 0%, #FFFFFF 100%); */
 	z-index:999;
 	width:100%;
 }
@@ -354,6 +354,12 @@ body{
 	position: relative;
 	display: inline-block;
 	position:relative;
+}
+.header .nav li a.active {
+    color: rgb(255, 255, 255); /* Couleur différente pour l'état actif */
+    font-size: 16px; /* Augmente la taille pour indiquer l'état actif */
+    font-weight: 700; /* Texte en gras pour l'état actif */
+    border-bottom: 2px solid rgb(238, 239, 254); /* Ligne en dessous pour indiquer l'état actif */
 }
 .header .nav li a::before {
 	position: absolute;
@@ -590,7 +596,7 @@ body{
 }
 /* Header Sticky */
 .header.sticky .header-inner{
-	/* position:fixed; */
+	position:fixed;
 	z-index:999;
 	top:0;
 	left:0;
@@ -2159,8 +2165,8 @@ body{
 }
 .main-sidebar .search .button {
 	position: absolute;
-	right: 40px;
-	top: 40px;
+	right: 20px;
+	/* top: 40px; */
 	height: 44px;
 	width: 50px;
 	line-height: 45px;

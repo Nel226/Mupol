@@ -97,7 +97,7 @@
                     </span>
                     @if(isset($adherentsCountPerRegion['Centre']))
                         <div class="flex items-center p-4 bg-gray-200 border shadow-lg mb-6">
-                            <div class="w-10 h-10 p-3 mr-4 text-[#4000FF] bg-purple-100 rounded-full flex items-center justify-center">
+                            <div class="w-10 h-10 p-3 mr-4 text-primary1 bg-purple-100 rounded-full flex items-center justify-center">
                                 <i class="fa fa-bank"></i>
                             </div>
                             <div>
@@ -118,7 +118,7 @@
                         @foreach($adherentsCountPerRegion as $region => $count)
                             @if($region !== 'Centre') <!-- S'assurer que la région Centre n'est pas incluse ici -->
                                 <div class="flex items-center p-4 bg-white border shadow-lg">
-                                    <div class="w-10 h-10 p-3 mr-4 text-[#4000FF] bg-purple-100 rounded-full flex items-center justify-center">
+                                    <div class="w-10 h-10 p-3 mr-4 text-primary1 bg-purple-100 rounded-full flex items-center justify-center">
                                         <i class="fa fa-bank"></i>
                                     </div>
                                     <div>
@@ -140,10 +140,10 @@
                             e.preventDefault();
             
                             // Retirer la couleur de fond de tous les onglets
-                            $("a.tab-link").removeClass("bg-[#4845D8] text-white").addClass("text-blue-600");
+                            $("a.tab-link").removeClass("bg-primary1 text-white").addClass("text-blue-600");
             
                             // Ajouter la couleur de fond et changer la couleur du texte de l'onglet actif
-                            $(this).removeClass("text-blue-600").addClass("bg-[#4845D8] text-white");
+                            $(this).removeClass("text-blue-600").addClass("bg-primary1 text-white");
             
                             // Masquer tous les contenus d'onglets et afficher celui sélectionné
                             $(".tab-content").addClass("hidden");
@@ -151,7 +151,7 @@
                             $(targetTab).removeClass("hidden");
                         });
             
-                        $("a.tab-link:first").addClass("bg-[#4845D8] text-white");
+                        $("a.tab-link:first").addClass("bg-primary1 text-white");
                         $(".tab-content:first").removeClass("hidden");
                     });
                 </script>

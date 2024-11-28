@@ -26,11 +26,11 @@
                                 <label for="genre" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Genre</label>
                                 <div class="flex items-center p-2 space-x-4">
                                     <label class="inline-flex items-center text-gray-700 dark:text-white">
-                                        <input type="radio" name="genre" value="M" {{ strtoupper($adherent->genre[0]) == 'M' ? 'checked' : '' }} class="text-[#4000FF] form-radio">
+                                        <input type="radio" name="genre" value="M" {{ strtoupper($adherent->genre[0]) == 'M' ? 'checked' : '' }} class="text-primary1 form-radio">
                                         <span class="ml-2 text-sm">Masculin</span>
                                     </label>
                                     <label class="inline-flex items-center text-gray-700 dark:text-white">
-                                        <input type="radio" name="genre" value="F" {{ strtoupper($adherent->genre[0]) == 'F' ? 'checked' : '' }} class="text-[#4000FF] form-radio">
+                                        <input type="radio" name="genre" value="F" {{ strtoupper($adherent->genre[0]) == 'F' ? 'checked' : '' }} class="text-primary1 form-radio">
                                         <span class="ml-2 text-sm">Féminin</span>
                                     </label>
                                 </div>

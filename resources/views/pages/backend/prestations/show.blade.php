@@ -4,7 +4,7 @@
 
         <div class="flex-1 p-6">
             <div class="py-5">
-                <h1 class="text-xl font-bold text-center text-[#4000FF]">Détails de la prestation</h1>
+                <h1 class="text-xl font-bold text-center text-primary1">Détails de la prestation</h1>
                 <p class="mt-1 text-sm text-gray-500">
                     Vous avez ici toutes les informations de la prestation soumise. Vous pouvez la valider si elle est acceptée ou la rejeter.
                 </p>
@@ -12,7 +12,7 @@
             <!-- Colonne 1: Informations de la prestation -->
             <div class="p-6 bg-white rounded-lg shadow-md dark:bg-gray-800">
                 <div class="flex justify-end">
-                    <span class="bg-blue-100 text-[#4000FF]  text-xs font-medium inline-flex items-center  px-2.5 py-1 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">
+                    <span class="bg-blue-100 text-primary1  text-xs font-medium inline-flex items-center  px-2.5 py-1 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">
                         <i  class=" fa fa-check me-1.5"></i>
                         {{ ucfirst($prestation->validite) }}
                     </span>
@@ -95,7 +95,7 @@
                                 <span>Montant modérateur</span>
                                 <div class="flex items-center gap-2">
                                     <span class="text-gray-900">{{ ($prestation->montant * 20) / 100 }}</span>
-                                    <span class="bg-blue-100 text-[#4000FF] text-xs font-medium px-2.5 py-1 rounded border border-blue-400">20%</span>
+                                    <span class="bg-blue-100 text-primary1 text-xs font-medium px-2.5 py-1 rounded border border-blue-400">20%</span>
                                 </div>
                             </div>
                             
@@ -103,7 +103,7 @@
                                 <span>Montant mutuelle</span>
                                 <div class="flex items-center gap-2">
                                     <span class="text-gray-900">{{ ($prestation->montant * 80) / 100 }}</span>
-                                    <span class="bg-blue-100 text-[#4000FF] text-xs font-medium px-2.5 py-1 rounded border border-blue-400">80%</span>
+                                    <span class="bg-blue-100 text-primary1 text-xs font-medium px-2.5 py-1 rounded border border-blue-400">80%</span>
                                 </div>
                             </div>
                             

@@ -11,7 +11,7 @@
             
             <x-auth-session-status class="mb-4" :status="session('status')" />
             
-            <div class="bg-gray-100 border-[#4000FF] border-2 py-3 px-8 rounded-lg shadow-xl">
+            <div class="bg-gray-100 border-primary1 border-2 py-3 px-8 rounded-lg shadow-xl">
                 <div class="text-center justify-center flex mb-8">
                     
                     <h1 class="text-2xl font-bold text-center mt-4">Connexion</h1>

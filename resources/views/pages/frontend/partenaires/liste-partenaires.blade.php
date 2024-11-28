@@ -94,6 +94,6 @@
     
     
 	<!--/ End Contact Us -->
-    <x-footer/>
+      
 
 </x-guest-layout>

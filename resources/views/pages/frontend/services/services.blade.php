@@ -28,7 +28,7 @@
                                     
                                         <!-- Consultation -->
                                         <h3 class="font-bold text-lg mt-4 mb-1 flex items-center">
-                                            <i class="icofont icofont-stethoscope mr-2 p-2 bg-[#4000FF] text-white font-bold rounded-md"></i>
+                                            <i class="icofont icofont-stethoscope mr-2 p-2 bg-primary1 text-white font-bold rounded-md"></i>
                                             Consultation
                                         </h3>
                                         <p class=" text-justify">
@@ -36,7 +36,7 @@
                                     
                                         <!-- Hospitalization -->
                                         <h3 class="font-bold text-lg mt-4 mb-1 flex items-center">
-                                            <i class="icofont icofont-hospital mr-2 p-2 bg-[#4000FF] text-white font-bold rounded-md"></i>
+                                            <i class="icofont icofont-hospital mr-2 p-2 bg-primary1 text-white font-bold rounded-md"></i>
                                             Hospitalisation
                                         </h3>
                                         <p class=" text-justify">
@@ -45,16 +45,16 @@
                                     
                                         <!-- Radiology -->
                                         <h3 class="font-bold text-lg mt-4 mb-1 flex items-center">
-                                            <i class="icofont icofont-heart-alt mr-2 p-2 bg-[#4000FF] text-white font-bold rounded-md"></i>
+                                            <i class="icofont icofont-heart-alt mr-2 p-2 bg-primary1 text-white font-bold rounded-md"></i>
                                             Radiologie
                                         </h3>
-                                        <p>
+                                        <p class=" text-justify">
                                             {{__('La radiologie est essentielle pour le diagnostic de nombreuses affections. La MU-POL couvre une gamme complète d\'examens d\'imagerie médicale, y compris les radiographies, les échographies, les IRM et les scanners. Ces examens sont pris en charge pour détecter des problèmes de santé spécifiques, permettant un diagnostic et un suivi rapide des pathologies. Que ce soit pour des examens de routine ou des tests plus approfondis, la couverture radiologique est conçue pour vous offrir une tranquillité d\'esprit.') }}
                                         </p>
                                     
                                         <!-- Maternity -->
                                         <h3 class="font-bold text-lg mt-4 mb-1 flex items-center">
-                                            <i class="icofont icofont-baby mr-2 p-2 bg-[#4000FF] text-white font-bold rounded-md"></i>
+                                            <i class="icofont icofont-baby mr-2 p-2 bg-primary1 text-white font-bold rounded-md"></i>
                                             Maternité
                                         </h3>
                                         <p class=" text-justify">
@@ -63,7 +63,7 @@
                                     
                                         <!-- Pharmacy -->
                                         <h3 class="font-bold text-lg mt-4 mb-1 flex items-center">
-                                            <i class="icofont icofont-money mr-2 p-2 bg-[#4000FF] text-white font-bold rounded-md"></i>
+                                            <i class="icofont icofont-money mr-2 p-2 bg-primary1 text-white font-bold rounded-md"></i>
                                             Pharmacie
                                         </h3>
                                         <p class=" text-justify">
@@ -72,7 +72,7 @@
                                         
                                         <!-- Biomedical Analysis -->
                                         <h3 class="font-bold text-lg mt-4 mb-1 flex items-center">
-                                            <i class="icofont icofont-laboratory mr-2 p-2 bg-[#4000FF] text-white font-bold rounded-md"></i>
+                                            <i class="icofont icofont-laboratory mr-2 p-2 bg-primary1 text-white font-bold rounded-md"></i>
                                             Analyse Biomédicale
                                         </h3>
                                         <p class=" text-justify">
@@ -81,7 +81,7 @@
 
                                         <!-- Optical Services -->
                                         <h3 class="font-bold text-lg mt-4 mb-1 flex items-center">
-                                            <i class="icofont icofont-eye-alt mr-2 p-2 bg-[#4000FF] text-white font-bold rounded-md"></i>
+                                            <i class="icofont icofont-eye-alt mr-2 p-2 bg-primary1 text-white font-bold rounded-md"></i>
                                             Optique
                                         </h3>
                                         <p class=" text-justify">
@@ -90,7 +90,7 @@
                                     
                                         <!-- Dental & Auditory Services -->
                                         <h3 class="font-bold text-lg mt-4 mb-1 flex items-center">
-                                            <i class="icofont icofont-tooth mr-2 p-2 bg-[#4000FF] text-white font-bold rounded-md"></i>
+                                            <i class="icofont icofont-tooth mr-2 p-2 bg-primary1 text-white font-bold rounded-md"></i>
                                             Soins Dentaires & Auditifs
                                         </h3>
                                         <p class=" text-justify">
@@ -99,14 +99,14 @@
                                     
                                         <!-- Allocation -->
                                         <h3 class="font-bold text-lg mt-4 mb-1 flex items-center">
-                                            <i class="icofont icofont-money mr-2 p-2 bg-[#4000FF] text-white font-bold rounded-md"></i>
+                                            <i class="icofont icofont-money mr-2 p-2 bg-primary1 text-white font-bold rounded-md"></i>
                                             Allocation
                                         </h3>
                                         <p class=" text-justify">
                                             {{__('En cas de situation particulière (invalidité, décès d\'un adhérent ou d\'un ayant droit), la MU-POL offre des allocations spécifiques pour aider financièrement les familles dans ces moments difficiles. Cette allocation peut aussi inclure un secours médical pour des traitements exceptionnels ou non couverts. Les adhérents peuvent compter sur cette assistance pour alléger les coûts imprévus liés à des conditions particulières.') }}
                                         </p>
 
-                                        <blockquote class=" mt-4 !bg-[#4000FF]">
+                                        <blockquote class=" mt-4 bg-primary1">
                                             <p>« Adhérer à la MU-POL, c&apos;est assurer sa santé et celle de ses proches avec des prestations diversifiées et adaptées à tous les besoins. »</p>
                                         </blockquote>
                                     
@@ -138,7 +138,7 @@
 							<div class="single-widget search">
 								<div class="form">
 									<input type="text" id="findField" placeholder="Rechercher...">
-									<button class="button bg-[#4000FF]" href="#" onclick="search();"><i class="fa fa-search"></i></button>
+									<button class="button bg-primary1" href="#" onclick="search();"><i class="fa fa-search"></i></button>
 								</div>
                                 
                                 {{--  <button onclick="removeHightlight();">removeHightlight</button>  --}}  
@@ -207,7 +207,7 @@
                                 </ul>
                             </div>
 							<!--/ End Single Widget -->
-							<!-- Single Widget -->
+							{{-- <!-- Single Widget -->
 							<div class="single-widget recent-post">
 								<h3 class="title">Actualités récentes</h3>
 								<!-- Single Post -->
@@ -253,7 +253,7 @@
 								</div>
 								<!-- End Single Post -->
 							</div>
-							<!--/ End Single Widget -->
+							<!--/ End Single Widget --> --}}
 							<!-- Single Widget -->
 							<!--/ End Single Widget -->
 							<!-- Single Widget -->
@@ -275,6 +275,6 @@
 			</div>
 		</section>
 	<!--/ End Single News -->
-    <x-footer/>
+      
 
 </x-guest-layout>

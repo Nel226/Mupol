@@ -16,6 +16,18 @@
     background-color:#333;
     color:#fff;
 }
+.text-primary1{
+    color: #4000FF !important;
+}
+.bg-primary1{
+    background-color: #4000FF !important;
+}
+.border-primary1{
+    border-color: #4000FF;
+}
+.bg-[#fffe4a70]{
+    background-color : #fffe4a70;
+}
 
 /*Allow column header names to wrap lines*/
 #example-table-theme .tabulator-header .tabulator-col,

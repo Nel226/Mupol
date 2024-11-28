@@ -22,7 +22,7 @@
         <ul class="flex overflow-x-auto border-b border-gray-900" id="myTabAyantDroit" role="tablist">
             @foreach($sheetsAyantsDroits as $yearMonth => $data)
                 <li class="flex-none" role="presentation">
-                    <button class="nav-link-ayantdroit text-sm border-gray-300 border-2 px-4 py-2 rounded-t-lg {{ $loop->first ? 'bg-[#4000FF] text-white' : 'bg-gray-200 text-gray-600 hover:bg-gray-300' }}" id="tab-{{ $yearMonth }}-ayantdroit-tab" data-bs-toggle="tab" data-bs-target="#tab-{{ $yearMonth }}-ayantdroit" type="button" role="tab" aria-controls="tab-{{ $yearMonth }}-ayantdroit" aria-selected="{{ $loop->first ? 'true' : 'false' }}">
+                    <button class="nav-link-ayantdroit text-sm border-gray-300 border-2 px-4 py-2 rounded-t-lg {{ $loop->first ? 'bg-primary1 text-white' : 'bg-gray-200 text-gray-600 hover:bg-gray-300' }}" id="tab-{{ $yearMonth }}-ayantdroit-tab" data-bs-toggle="tab" data-bs-target="#tab-{{ $yearMonth }}-ayantdroit" type="button" role="tab" aria-controls="tab-{{ $yearMonth }}-ayantdroit" aria-selected="{{ $loop->first ? 'true' : 'false' }}">
                         {{ $yearMonth }}
                     </button>
                 </li>
@@ -148,7 +148,7 @@
                 document.querySelectorAll('.tab-pane-ayantdroit').forEach(pane => pane.classList.add('hidden'));
                 
                 tabsAyantDroit.forEach(link => {
-                    link.classList.remove('bg-[#4000FF]', 'text-white');
+                    link.classList.remove('bg-primary1', 'text-white');
                     link.classList.add('bg-gray-200', 'text-gray-600');
                 });
     
@@ -156,7 +156,7 @@
                 targetPane.classList.remove('hidden');
     
                 this.classList.remove('bg-gray-200', 'text-gray-600');
-                this.classList.add('bg-[#4000FF]', 'text-white');
+                this.classList.add('bg-primary1', 'text-white');
             });
         });
     

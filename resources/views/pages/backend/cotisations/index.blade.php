@@ -235,7 +235,7 @@
                         <!-- Column 1 -->
                         <div class="flex items-center justify-between flex-1">
                             <span class="text-left">Total des adhésions:</span>
-                            <span class="bg-blue-100 text-[#4000FF] text-xs font-medium inline-flex items-center  px-2.5 py-1 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">
+                            <span class="bg-blue-100 text-primary1 text-xs font-medium inline-flex items-center  px-2.5 py-1 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">
                                 {{ number_format($sumTotalAdhesions, 2, ',', ' ') }} FCFA
                             </span>
                         </div>
@@ -243,7 +243,7 @@
                         <!-- Column 2 -->
                         <div class="flex items-center justify-between flex-1">
                             <span class="text-left">Total des mensualités:</span>
-                            <span class="bg-blue-100 text-[#4000FF] text-xs font-medium inline-flex items-center  px-2.5 py-1 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">
+                            <span class="bg-blue-100 text-primary1 text-xs font-medium inline-flex items-center  px-2.5 py-1 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">
                                 {{ number_format($sumTotalMensualites, 2, ',', ' ') }} FCFA
     
                              </span>
@@ -397,7 +397,7 @@
                         @foreach($prestationsCostsByAct as $acte => $cost)
                             <div class="flex-1   flex items-center justify-between">
                                 <span class="text-left capitalize">{{ $acte }}:</span>
-                                <span class="bg-blue-100 text-[#4000FF] text-xs font-medium inline-flex items-center px-2.5 py-1 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">
+                                <span class="bg-blue-100 text-primary1 text-xs font-medium inline-flex items-center px-2.5 py-1 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">
                                     {{ number_format($cost, 2, ',', ' ') }} FCFA
                                 </span>
                             </div>
@@ -494,14 +494,14 @@
                         <!-- Column 1 -->
                         <div class="flex items-center justify-between flex-1">
                             <span class="text-left">Total des dépenses:</span>
-                            <span class="bg-blue-100 text-[#4000FF] text-xs font-medium inline-flex items-center  px-2.5 py-1 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">
+                            <span class="bg-blue-100 text-primary1 text-xs font-medium inline-flex items-center  px-2.5 py-1 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">
                                 {{ number_format($sumTotalPrestations, 2, ',', ' ') }} FCFA
     
                             </span>
                         </div>
                         <div class="flex items-center justify-between flex-1">
                             <span class="text-left">Reste dans la caisse:</span>
-                            <span class="bg-blue-100 text-[#4000FF] text-xs font-medium inline-flex items-center  px-2.5 py-1 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">
+                            <span class="bg-blue-100 text-primary1 text-xs font-medium inline-flex items-center  px-2.5 py-1 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">
                                 {{ number_format($sumTotalCotisations-$sumTotalPrestations, 2, ',', ' ') }} FCFA
     
                             </span>

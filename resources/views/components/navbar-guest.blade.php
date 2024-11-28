@@ -1,5 +1,5 @@
 <!-- Navbar Area -->
-<nav class="bg-[#4644D5] shadow-md fixed w-full z-40 top-0 left-0">
+<nav class="bg-primary1 shadow-md fixed w-full z-40 top-0 left-0">
     <div class="container mx-auto px-4 py-4 flex items-center justify-between">
         
         <!-- Logo et Profil Utilisateur -->
@@ -83,7 +83,7 @@
     </div>
 
     <!-- Menu mobile -->
-    <div id="mobile-menu" class="md:hidden hidden bg-[#4644D5] text-white">
+    <div id="mobile-menu" class="md:hidden hidden bg-primary1 text-white">
         <ul class="space-y-4 py-4">
             @if (Auth::guard('adherent')->check())
             <li><a href="/" class="block p-4">Mon Profil</a></li>

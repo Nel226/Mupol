@@ -39,7 +39,7 @@
                     @csrf
                     <div class=" ">
                         <!-- Premier formulaire -->
-                        <div class=" mb-6 border-4 rounded-md border-[#4000FF] py-2">
+                        <div class=" mb-6 border-4 rounded-md border-primary1 py-2">
                             <div class="px-5">
                                 <div class="flex items-center gap-4">
                                     <img src="{{ asset('images/medical.png') }}" alt="Image medical" class="h-40">
@@ -52,7 +52,7 @@
                                 
                                 <div class="form-content p-4">
                                     
-                                    <hr class=" w-4/5  h-1 mx-auto mb-4 bg-[#4000FF] border-0 rounded md:mb-10 dark:bg-gray-700">
+                                    <hr class=" w-4/5  h-1 mx-auto mb-4 bg-primary1 border-0 rounded md:mb-10 dark:bg-gray-700">
     
                                     <label for="adherentCode" class="block mb-2 text-sm font-medium text-gray-900">Sélectionnez le code du mutualiste :</label>
                                     
@@ -98,18 +98,18 @@
                                     <!-- Sélection principale -->
                                     <div  id="infosACompleter" class=" infosACompleter hidden" >
                                         <fieldset class=" mt-2 ">
-                                            {{--  <legend class="px-3 py-1 font-semibold text-white bg-[#4000FF] border-b border-gray-300 rounded-t-lg">
+                                            {{--  <legend class="px-3 py-1 font-semibold text-white bg-primary1 border-b border-gray-300 rounded-t-lg">
                                                 Formulaire prestation #1
                                             </legend>  --}}
                                             {{--  <button class="toggle-form">
                                                 Afficher/Masquer
                                             </button>  --}}
-                                            {{--  <div  class="p-2 border-2 border-[#4000FF] rounded-md">
+                                            {{--  <div  class="p-2 border-2 border-primary1 rounded-md">
                                             </div>  --}}
                                             
                                                 <div class="relative w-4/5 mx-auto flex py-5 items-center">
                                                     <div class="flex-grow border-t  border-4 border-gray-400"></div>
-                                                    <span class="flex-shrink mx-4 text-[#4000FF] font-bold text-base"> A compléter</span>
+                                                    <span class="flex-shrink mx-4 text-primary1 font-bold text-base"> A compléter</span>
                                                     <div class="flex-grow border-t border-4 border-gray-400"></div>
                                                 </div>
                                                 

@@ -3,42 +3,66 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
-use Illuminate\View\View;
+use App\Mail\ResetPasswordMail; // Ajoutez l'import de votre Mailable
+use Illuminate\Support\Facades\Mail;
 
 class PasswordResetLinkController extends Controller
 {
-    /**
-     * Display the password reset link request view.
-     */
-    public function create(): View
+    public function create()
     {
-        return view('auth.forgot-password');
+        return view('auth.passwords.email'); // Vue standard
     }
-
-    /**
-     * Handle an incoming password reset link request.
-     *
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
-        $request->validate([
-            'email' => ['required', 'email'],
-        ]);
 
-        // We will send the password reset link to this user. Once we have attempted
-        // to send the link, we will examine the response then see the message we
-        // need to show to the user. Finally, we'll send out a proper response.
-        $status = Password::sendResetLink(
-            $request->only('email')
+        $request->validate(['email' => 'required|email']);
+
+        // Détecter le type en fonction de l'email
+        $type = $this->detectUserType($request->email);
+
+        if (!$type) {
+            return back()->withErrors(['email' => 'Adresse email introuvable.']);
+        }
+
+        // Obtenir le broker correspondant au type
+        $broker = $this->getPasswordBroker($type);
+
+        // Envoyer le lien de réinitialisation
+        $status = Password::broker($broker)->sendResetLink(
+            $request->only('email'),
+            function ($user, $token) use ($type) {
+                // Envoyer un email personnalisé avec le lien de réinitialisation
+                Mail::to($user->email)->send(new ResetPasswordMail($token, $type));
+            }
         );
 
-        return $status == Password::RESET_LINK_SENT
-                    ? back()->with('status', __($status))
-                    : back()->withInput($request->only('email'))
-                            ->withErrors(['email' => __($status)]);
+        return $status === Password::RESET_LINK_SENT
+            ? back()->with('status', __($status))
+            : back()->withErrors(['email' => __($status)]);
+    }
+
+    private function detectUserType($email)
+    {
+        // Détection du type en fonction des données de votre application
+        if (\App\Models\Adherent::where('email', $email)->exists()) {
+            return 'adherent';
+        }
+
+        if (\App\Models\Partenaire::where('email', $email)->exists()) {
+            return 'partenaire';
+        }
+
+        return null; // Aucun utilisateur trouvé
+    }
+
+    private function getPasswordBroker($type)
+    {
+        return match ($type) {
+            'adherent' => 'adherents',
+            'partenaire' => 'partenaires',
+            default => 'users',
+        };
     }
 }

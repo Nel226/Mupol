@@ -156,7 +156,7 @@
             </div>
         </section>
     
-        <x-footer/>
+          
 
     @endif
 </x-guest-layout>

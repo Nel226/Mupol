@@ -26,6 +26,8 @@ use App\Http\Controllers\Frontend\PartenaireController;
 */
 
 Route::get('/', [AccueilController::class, 'accueil'])->name(name: 'accueil');
+Route::get('/apropos', [AccueilController::class, 'apropos'])->name(name: 'apropos');
+
 Route::get('/contacts', [AccueilController::class, 'contacts'])->name(name: 'contacts');
 Route::get('/services', [AccueilController::class, 'services'])->name(name: 'services');
 Route::get('/en-construction', [AccueilController::class, 'enConstruction'])->name(name: 'en-construction');

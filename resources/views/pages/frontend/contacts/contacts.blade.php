@@ -30,7 +30,7 @@
                                     <div class="content">
                                         <h3 class="font-bold text-lg">LOCALISATION</h3>
                                         <p>
-                                            <a class=" text-[#4000FF] underline" href="https://maps.app.goo.gl/pSGfdxcayY9y6fcCA">Lien Google Maps</a>
+                                            <a class=" text-primary1 underline" href="https://maps.app.goo.gl/pSGfdxcayY9y6fcCA">Lien Google Maps</a>
                                         </p>
                                     </div>
                                 </div>
@@ -64,6 +64,6 @@
 			</div>
 		</section>
 	<!--/ End Contact Us -->
-    <x-footer/>
+      
 
 </x-guest-layout>

@@ -213,7 +213,10 @@ class AccueilController extends Controller
         return PDFHelper::downloadPDF('pages.frontend.adherents.fiches.formulaire_adhesion', $data, 'Formulaire_adhesion' . $demandeAdhesion->id . '.pdf');
     }
 
-
+    public function apropos()
+    {
+        return view('pages.frontend.apropos.apropos');
+    }
     public function contacts()
     {
         return view('pages.frontend.contacts.contacts');

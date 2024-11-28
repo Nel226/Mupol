@@ -243,7 +243,7 @@
                                 <tr>
                                     <td class="border px-4 py-2">{{ $prestation->idPrestation }}</td>
                                     <td class="border text-right px-4 py-2">
-                                        <span class="bg-blue-100 text-[#4000FF]  text-xs font-medium inline-flex items-center  px-2.5 py-1 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">
+                                        <span class="bg-blue-100 text-primary1  text-xs font-medium inline-flex items-center  px-2.5 py-1 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">
                                             {{ $prestation->montant }}
                                         </span>
                                         

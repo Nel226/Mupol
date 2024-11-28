@@ -113,7 +113,7 @@ class WizardMembership extends Component
                 'photo' => 'required|image|max:1024',
                 'nom_prenom_personne_besoin' => 'required|string|max:255',
                 'lieu_residence' => 'required|string|max:255',
-                'telephone' => 'required',
+                'telephone_personne_prevenir' => 'required',
                 'nombreAyantsDroits' => 'required|integer',
             ]);
 

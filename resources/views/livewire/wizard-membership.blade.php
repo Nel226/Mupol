@@ -1,6 +1,5 @@
 
-<div class="page-content">
-    <div class="wizard-heading">FORMULAIRE D'ADHÉSION</div>
+<div class="w-full">
     <div class="wizard-v7-content">
         <div class="wizard-form">
             <form class="form-register" wire:submit.prevent="submit">

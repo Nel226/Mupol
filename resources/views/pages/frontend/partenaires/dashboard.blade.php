@@ -134,10 +134,3 @@
         </section>
     </div>
 </x-guest-layout>
-   </table>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-</x-guest-layout>

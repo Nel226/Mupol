@@ -1,0 +1,184 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import '~select2/dist/css/select2.min.css';
+@import  "tabulator-tables";
+
+/*Theme the Tabulator element*/
+#example-table-theme{
+    background-color:#ccc;
+    border: 1px solid #333;
+    border-radius: 10px;
+}
+
+/*Theme the header*/
+#example-table-theme .tabulator-header {
+    background-color:#333;
+    color:#fff;
+}
+.text-primary1{
+    color: #4000FF !important;
+}
+.bg-primary1{
+    background-color: #4000FF !important;
+}
+.border-primary1{
+    border-color: #4000FF;
+}
+
+/*Allow column header names to wrap lines*/
+#example-table-theme .tabulator-header .tabulator-col,
+#example-table-theme .tabulator-header .tabulator-col-row-handle {
+    white-space: normal;
+}
+
+/*Color the table rows*/
+#example-table-theme .tabulator-tableholder .tabulator-table .tabulator-row{
+    color:#fff;
+    background-color: #666;
+}
+
+/*Color even rows*/
+    #example-table-theme .tabulator-tableholder .tabulator-table .tabulator-row:nth-child(even) {
+    background-color: #444;
+}
+.side-title {
+    font-size: 12px;
+    letter-spacing: 0.07em;
+    margin-bottom: 20px;
+}
+
+.active {
+    background-color: #ffffff; /* Couleur de fond différente pour l'onglet actif */
+    color: var(--gray-dark); /* Police en gras pour l'onglet actif */
+}
+.active-tab {
+    border-color: #6B7280; /* Modifier pour votre couleur d'onglet actif */
+    font-weight: bold;
+    background-color: #4000FF;
+    color: white;
+}
+.custom-select-wrapper {
+    position: relative;
+    width: 300px;
+}
+
+
+
+.tabulator .tabulator-cell {
+    padding-top: 10px;
+    padding-bottom: 10px; 
+}
+
+
+.custom-select {
+    position: relative;
+    display: block;
+}
+
+.custom-select select {
+    display: none; /* Hide the original select element */
+}
+
+.select-selected {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.select-items {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-top: none;
+    border-radius: 4px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 99;
+}
+
+.select-items div {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.select-items div:hover {
+    background-color: #ddd;
+}
+
+.search-box {
+    width: calc(100% - 20px);
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.tabulator-cell {
+    white-space: nowrap; /* Empêche le retour à la ligne */
+    overflow: visible;    /* Permet au texte de déborder */
+    text-overflow: clip;  /* Enlève les points de suspension */
+}
+.accordion-content {
+    display: none;
+}
+.accordion-content.show {
+    display: block;
+}
+.dataTables_wrapper .dt-buttons {
+  float: left;
+}
+.dataTables_wrapper .dataTables_filter {
+  float: right;
+}
+.dataTables_wrapper .dataTables_filter input {
+  margin: 0;
+  width: auto;
+}
+.dataTables_wrapper {
+  overflow: hidden;
+}
+
+
+.dt-paging {
+    display: flex;
+    justify-content: end;
+    margin: 10px 0; /* Marge autour de la pagination */
+}
+
+div.dt-container .dt-paging .dt-paging-button.current, div.dt-container .dt-paging .dt-paging-button.current:hover {
+    color: inherit !important;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    background-color: rgba(212, 57, 57, 0.05);
+}
+div.dt-container .dt-paging .dt-paging-button.current, div.dt-container .dt-paging .dt-paging-button.current:hover {
+    color: white !important;
+    font-weight: 700;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    background-color: rgba(64, 18, 228, 0.991);
+    border-radius: 100%;
+    
+}
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Deux colonnes */
+    gap: 16px; /* Espacement entre les éléments */
+}
+
+.grid-item {
+    background-color: #f9f9f9; /* Couleur de fond pour les éléments de la grille */
+    padding: 16px; /* Espacement interne */
+    border-radius: 8px; /* Coins arrondis */
+    border: 1px solid #ccc; /* Bordure */
+}
+.toggle-thumb {
+    transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.toggle-option-1,
+.toggle-option-2 {
+    transition: color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}

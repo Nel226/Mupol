@@ -11,6 +11,10 @@ export default {
 
     theme: {
         extend: {
+
+          screens: {
+            'screen-stepper': '450px', // Définir le breakpoint à 450px
+          },
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },

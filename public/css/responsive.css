@@ -1302,6 +1302,7 @@ Version:	1.1
 	padding: 65px 0px;
 }
 
+/* --------------------------------------- Stepper -------------------------------- */
 /* Personnalisation de la barre de défilement pour les petits écrans */
 @media (max-width: 640px) {
     .sm\:scrollbar-thin::-webkit-scrollbar {
@@ -1318,6 +1319,55 @@ Version:	1.1
     }
 }
 
+/* @media (max-width: 450px) {
+    .flex-stepper {
+        flex-wrap: wrap; 
+        gap: 10px; 
+        justify-content: space-around; 
+    }
+
+    .flex-stepper .flex-1 {
+        flex: 0 0 calc(100% / 3); 
+        text-align: center; 
+    }
+
+    .flex-stepper .step-label {
+        font-size: 12px;
+        text-align: center;
+    }
+} */
+
+/* Media Query pour écrans inférieurs à 450px */
+/* @media (max-width: 450px) {
+    
+    .custom-stepper-small {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border-radius: 12px;
+        background-color: #ffffff;
+        border: 2px solid #4000FF;
+    }
+
+    
+    .custom-stepper-small .step-number {
+        font-size: 20px;
+        color: #4000FF;
+    }
+
+    .custom-stepper-small .step-title {
+        font-size: 14px;
+        font-weight: bold;
+        color: #666;
+    }
+} */
+
+/* Pour les écrans <= 450px : Affiche le stepper avec les rectangles */
+
+
+
+/* --------------------------------------- Stepper -------------------------------- */
 
 
 

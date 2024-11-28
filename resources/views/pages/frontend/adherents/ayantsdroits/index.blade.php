@@ -19,7 +19,7 @@
         </script>
     @endif
 
-    <div class="min-h-screen ml-64 bg-gray-50 dark:bg-gray-900 py-3">
+    <div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-3">
         <section class="container mx-auto ">
             @if ($adherent->ayantsDroits()->count() < 6 )
                 

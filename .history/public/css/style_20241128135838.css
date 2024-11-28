@@ -355,9 +355,6 @@ body{
 	display: inline-block;
 	position:relative;
 }
-.header .nav li.active a:hover {
-    color: rgb(66, 65, 65) !important ; /* Couleur spécifique pour actif + hover */
-}
 .header .nav li a::before {
 	position: absolute;
 	content: "";
@@ -4001,7 +3998,7 @@ body{
 .footer .footer-top {
     padding: 30px 0px;
     position: relative;
-    background: #4000FF;
+    background: #4B45DC;
 }
 .footer .footer-top:before{
 	position:absolute;

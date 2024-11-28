@@ -392,7 +392,7 @@ Version:	1.1
 	z-index: 333;
 	position: absolute;
 	position: relative;
-	padding-bottom: 20px;
+	padding-bottom: 10px;
 	background: #fff;
 }
 .slicknav_menu{
@@ -438,7 +438,8 @@ Version:	1.1
 	
 }
 .slicknav_nav li a {
-	color: white;
+	color: rgb(199, 198, 198);
+	font-weight: 600;
 	transition: all 0.4s ease;
 	background: none;
 	padding: 4px 10px;
@@ -520,9 +521,9 @@ Version:	1.1
 }
 .header .header-inner .get-quote .btn {
 	color: #fff;
-	display: none;
-	margin: 0;
-	padding: 0;
+	/* display: none; */
+	/* margin: 0; */
+	/* padding: 0; */
 }
 .section{
 	padding:50px 0px;

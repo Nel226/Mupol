@@ -355,8 +355,12 @@ body{
 	display: inline-block;
 	position:relative;
 }
-.header .nav li.active a:hover {
-    color: rgb(66, 65, 65) !important ; /* Couleur spécifique pour actif + hover */
+.header .nav li a.active:hover {
+    color: rgb(227, 221, 221); /* Couleur spécifique pour actif + hover */
+    background-color: rgb(64, 80, 225); /* Exemple de fond différent */
+    font-size: 15px; /* Peut être ajusté */
+    font-weight: 600;
+    text-transform: uppercase;
 }
 .header .nav li a::before {
 	position: absolute;
@@ -4001,7 +4005,7 @@ body{
 .footer .footer-top {
     padding: 30px 0px;
     position: relative;
-    background: #4000FF;
+    background: #4B45DC;
 }
 .footer .footer-top:before{
 	position:absolute;

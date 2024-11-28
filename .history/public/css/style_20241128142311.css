@@ -355,8 +355,11 @@ body{
 	display: inline-block;
 	position:relative;
 }
-.header .nav li.active a:hover {
-    color: rgb(66, 65, 65) !important ; /* Couleur spécifique pour actif + hover */
+.header .nav li a.active {
+    color: rgb(255, 255, 255); /* Couleur différente pour l'état actif */
+    font-size: 16px; /* Augmente la taille pour indiquer l'état actif */
+    font-weight: 700; /* Texte en gras pour l'état actif */
+    border-bottom: 2px solid rgb(238, 239, 254); /* Ligne en dessous pour indiquer l'état actif */
 }
 .header .nav li a::before {
 	position: absolute;
@@ -4001,7 +4004,7 @@ body{
 .footer .footer-top {
     padding: 30px 0px;
     position: relative;
-    background: #4000FF;
+    background: #4B45DC;
 }
 .footer .footer-top:before{
 	position:absolute;

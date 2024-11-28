@@ -207,7 +207,7 @@
                                 </ul>
                             </div>
 							<!--/ End Single Widget -->
-							<!-- Single Widget -->
+							{{-- <!-- Single Widget -->
 							<div class="single-widget recent-post">
 								<h3 class="title">Actualités récentes</h3>
 								<!-- Single Post -->
@@ -253,7 +253,7 @@
 								</div>
 								<!-- End Single Post -->
 							</div>
-							<!--/ End Single Widget -->
+							<!--/ End Single Widget --> --}}
 							<!-- Single Widget -->
 							<!--/ End Single Widget -->
 							<!-- Single Widget -->

@@ -136,7 +136,7 @@
     </style>
     <body class=" font-sans font-body text-gray-900 antialiased">
         
-        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-white dark:bg-gray-900" >
+        <div style="margin: 0px !important;" class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-white dark:bg-gray-900" >
 
             <div class="w-full   bg-white dark:bg-gray-800  overflow-y-auto ">
                 <div id="app"></div>
@@ -144,9 +144,12 @@
                 {{ $slot }}
             </div>
         </div>
-        <x-footer/>
 
         @stack('scripts')
         @livewireScripts
     </body>
+    <footer style="margin: 0px;">
+        <x-footer/>
+
+    </footer>
 </html>

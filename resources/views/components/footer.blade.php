@@ -26,7 +26,7 @@
                             <div class="col-lg-6 col-md-6 col-12">
                                 <ul>
                                     <li><a href="/"><i class="fa fa-caret-right"></i>Accueil</a></li>
-                                    <li><a href="{{ route('en-construction') }}"><i class="fa fa-caret-right"></i>À propos</a></li>
+                                    <li><a href="{{ route('apropos') }}"><i class="fa fa-caret-right"></i>À propos</a></li>
                                     <li><a href="{{ route('services') }}"><i class="fa fa-caret-right"></i>Nos Services</a></li>
                                     {{-- <li><a href="{{ route('en-construction') }}"><i class="fa fa-caret-right"></i>Actualités</a></li> --}}
 

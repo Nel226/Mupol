@@ -1,11 +1,11 @@
 <!-- Header Area -->
-    <header class="header header-sous" >
+    <header class="header header-sous " >
         <style>
             .header-sous {
-                z-index: 50;
-                position: relative;
+                z-index: 99999;
                 top: 0px;
             }
+           
         </style>
         <!-- Topbar -->
         <div class="topbar bg-white py-2 shadow-md">
@@ -42,7 +42,7 @@
         
         <!-- Header Inner -->
         
-        <div class=" w-full bg-primary1">
+        <div class="header-inner  w-full bg-primary1">
             <div class="container">
                 <div class="inner">
                     <div class="row items-center justify-between">
@@ -54,8 +54,8 @@
                                         <li class="{{ request()->routeIs('accueil') ? 'active' : '' }}">
                                             <a href="{{ route('accueil') }}" class="hover:text-gray-300 px-2">Accueil</a>
                                         </li>
-                                        <li class="{{ request()->routeIs('en-construction') ? 'active' : '' }}">
-                                            <a href="{{ route('en-construction') }}" class="hover:text-gray-300 px-2">À Propos</a>
+                                        <li class="{{ request()->routeIs('apropos') ? 'active' : '' }}">
+                                            <a href="{{ route('apropos') }}" class="hover:text-gray-300 px-2">À Propos</a>
                                         </li>
                                         <li class="{{ request()->routeIs('services') ? 'active' : '' }}">
                                             <a href="{{ route('services') }}" class="hover:text-gray-300 px-2">Nos Services</a>

@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\UserLoginDetectorController;
 use App\Http\Controllers\Frontend\AyantDroitController;
 use App\Http\Controllers\Frontend\RestrictionController;
 use App\Http\Controllers\Frontend\ActeMedicalController;
+use App\Http\Controllers\Frontend\RestrictionController;
 
 
 use App\Http\Controllers\Frontend\PrestationController;
@@ -49,12 +50,6 @@ Route::get('/final-demande-adhesion', [AccueilController::class, 'confirmationAd
 Route::get('/cession-volontaire/{id}', [AccueilController::class, 'showCessionVolontaire'])->name('showCessionVolontaire');
 Route::get('/impression-fiche-cession/{id}', [AccueilController::class, 'imprimerFicheCession'])->name('imprimer-fiche-cession');
 
-Route::get('/login/adherent', [AdherentAuthenticatedSessionController::class, 'create'])->name('adherent.login');
-Route::post('/login/adherent', [AdherentAuthenticatedSessionController::class, 'store']);
-
-
-Route::get('/login/partenaire', [PartenaireAuthenticatedSessionController::class, 'create'])->name('partenaire.login');
-Route::post('/login/partenaire', [PartenaireAuthenticatedSessionController::class, 'store']);
 
 // Detection automatique du Controller en fonction du User
 Route::get('/login/user', [UserLoginDetectorController::class, 'showLoginForm'])->name('user.login');
@@ -77,6 +72,9 @@ Route::middleware('auth:partenaire')->group(function () {
         
     Route::post('/partenaires/prestations/store', [PrestationController::class, 'storePrestationPartenaire'])
         ->name('partenaires.nouvelle-prestation.store');
+        
+    Route::get('/partenaires/restrictions', [RestrictionController::class, 'restrictionsPartenaire'])
+        ->name('partenaire.restrictions');
     Route::post('/logout/partenaire', [PartenaireAuthenticatedSessionController::class, 'destroy'])
         ->name('partenaire.logout');
     Route::get('/partenaires/restrictions', [RestrictionController::class, 'restrictionsPartenaire'])

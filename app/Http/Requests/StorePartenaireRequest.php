@@ -26,7 +26,7 @@ class StorePartenaireRequest extends FormRequest
             'type' => 'required|string|max:100',
             'adresse' => 'required|string|max:255',
             'telephone' => 'required|string|max:20', 
-            'email' => 'nullable|email|max:255',
+            'email' => 'required|email|unique:adherents,email|unique:partenaires,email',
             'region' => 'required|string|max:100',
             'province' => 'required|string|max:100',
             'geolocalisation' => 'required|string',

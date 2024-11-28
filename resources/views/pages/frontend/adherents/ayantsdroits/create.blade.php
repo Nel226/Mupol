@@ -16,7 +16,7 @@
     @endif
 
 
-    <div class="min-h-screen ml-64 bg-gray-50 dark:bg-gray-900 py-3">
+    <div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-3">
         <section class="container mx-auto px-6">
             <div class="bg-white min-h-screen dark:bg-gray-800 rounded-lg shadow-lg p-8 mx-auto max-w-4xl">
                 <div class="mb-6 text-center">

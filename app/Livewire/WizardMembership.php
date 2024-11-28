@@ -90,7 +90,7 @@ class WizardMembership extends Component
                 'expire' => 'required|date|after:delivree', // Assurez-vous que 'expire' est après 'delivree'
                 'adresse_permanente' => 'required',
                 'telephone' => 'required',
-                'email' => 'required|email|unique:adherents,email',  
+                'email' => 'required|email|unique:adherents,email|unique:partenaires,email',
 
             ],
             [

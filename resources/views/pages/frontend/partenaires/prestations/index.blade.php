@@ -18,9 +18,8 @@
             });
         </script>
     @endif
-    <x-sidebar-guest/>
 
-    <div class="min-h-screen ml-64 bg-gray-50 dark:bg-gray-900 py-3">
+    <div class="min-h-screen  bg-gray-50 dark:bg-gray-900 py-3">
         <section class="container mx-auto ">
             <div class=" flex my-2 justify-end">
                 <x-primary-button >

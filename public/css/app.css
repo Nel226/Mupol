@@ -29,6 +29,11 @@
     background-color : #fffe4a70;
 }
 
+.bg-[#d6d61a]{
+    background-color : #d6d61a;
+
+}
+
 /*Allow column header names to wrap lines*/
 #example-table-theme .tabulator-header .tabulator-col,
 #example-table-theme .tabulator-header .tabulator-col-row-handle {

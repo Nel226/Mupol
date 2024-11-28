@@ -1,104 +1,9 @@
-{{-- <!-- Icons font CSS-->
-<link href="wizard/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
-<link href="wizard/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
-<!-- Font special for pages-->
-<link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
-
-<!-- Main CSS-->
-<link href="wizard/css/main.css" rel="stylesheet" media="all"> --}}
-
-{{-- <div class="page-wrapper bg-img-1 p-t-275 p-b-100">
-    <div class="wrapper wrapper--w820">
-        <div class="card card-1">
-            <div class="card-heading">
-                <h2 class="title">Register Wizard</h2>
-            </div>
-            
-            <div class="card-body">
-                <form class="wizard-container" method="POST" action="#" id="js-wizard-form">
-                    <ul class="tab-list">
-                        <li class="tab-list__item active">
-                            <a class="tab-list__link" href="#tab1" data-toggle="tab">
-                                <span class="step">1</span>
-                                <span class="desc">username</span>
-                            </a>
-                        </li>
-                        <li class="tab-list__item">
-                            <a class="tab-list__link" href="#tab2" data-toggle="tab">
-                                <span class="step">2</span>
-                                <span class="desc">email</span>
-                            </a>
-                        </li>
-                        <li class="tab-list__item">
-                            <a class="tab-list__link" href="#tab3" data-toggle="tab">
-                                <span class="step">3</span>
-                                <span class="desc">password</span>
-                            </a>
-                        </li>
-                        <li class="tab-list__item">
-                            <a class="tab-list__link" href="#tab4" data-toggle="tab">
-                                <span class="step">4</span>
-                                <span class="desc">Confirm Pas...</span>
-                            </a>
-                        </li>
-                    </ul>
-                    <div class="tab-content">
-                        <div class="tab-pane active" id="tab1">
-                            <div class="form">
-                                <div class="input-group">
-                                    <input class="input--style-1" type="text" name="username" placeholder="Username here" required="required">
-                                    <a class="btn--next" href="#">next step</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane" id="tab2">
-                            <div class="form">
-                                <div class="input-group">
-                                    <input class="input--style-1" type="email" name="email" placeholder="ex: example@email.com" required="required">
-                                    <a class="btn--next" href="#">next step</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane" id="tab3">
-                            <div class="form">
-                                <div class="input-group">
-                                    <input class="input--style-1" type="password" name="password" placeholder="Password" id="password" required="required">
-                                    <a class="btn--next" href="#">next step</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane" id="tab4">
-                            <div class="form">
-                                <div class="input-group">
-                                    <input class="input--style-1" type="password" name="re_password" placeholder="Password" required="required">
-                                    <a class="btn--next" href="#">Confirm</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div> --}}
-
-{{-- <!-- Jquery JS-->
-<script src="wizard/vendor/jquery/jquery.min.js"></script>
-<!-- Vendor JS-->
-<script src="wizard/vendor/jquery-validate/jquery.validate.min.js"></script>
-<script src="wizard/vendor/bootstrap-wizard/bootstrap.min.js"></script>
-<script src="wizard/vendor/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
-
-
-<!-- Main JS-->
-<script src="wizard/js/global.js"></script> --}}
-
 
 <div class="mx-auto w-full max-w-screen-lg px-4 sm:px-6 md:px-8 z-10">
     <div class="w-full md:w-5/6 mx-auto mt-6 md:mt-10">
         <!-- Stepper -->
         <!-- Stepper pour les petits écrans (<= 450px) -->
-        <ul class="flex flex-col justify-center items-center mb-4 md:mb-6 screen-stepper:hidden">
+        <ul class="flex flex-col justify-center items-center mb-4 md:mb-6 sm:hidden">
             @for ($step = 1; $step <= $totalSteps; $step++)
             <li class="flex justify-center items-center w-full mb-4">
                 <!-- Stepper Rectangle for Small Screens -->
@@ -125,7 +30,7 @@
         </ul>
 
         <!-- Stepper pour les grands écrans (> 450px) -->
-        <div class="flex-stepper justify-between items-center mb-4 md:mb-6 hidden screen-stepper:flex">
+        <div class="flex-stepper justify-between items-center mb-4 md:mb-6 hidden sm:flex">
             @for ($step = 1; $step <= $totalSteps; $step++)
                 <div class="flex justify-center flex-col items-center flex-1 {{ $step == 1 || $step == $totalSteps ? 'w-[calc(100%/4)]' : '' }}">
                     <div class="relative flex items-center w-full">
@@ -196,7 +101,7 @@
                             <div>
                                 <label class="block text-gray-700 text-sm font-bold mb-1" for="matricule">Matricule</label>
                                 <input wire:model="matricule" id="matricule" type="text"
-                                    class="bg-gray-50 appearance-none border-2 rounded w-full py-1 sm:py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-0 sm:mb-4">
+                                    class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-0 sm:mb-4">
                                 @error('matricule')
                                     <span class="text-red-500 text-xs">{{ $message }}</span>
                                 @enderror
@@ -206,7 +111,7 @@
                             <div>
                                 <label class="block text-gray-700 text-sm font-bold mb-1" for="nip">NIP</label>
                                 <input wire:model="nip" id="nip" type="text"
-                                    class="bg-gray-50 appearance-none border-2 rounded w-full py-1 sm:py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline  mb-0 sm:mb-4">
+                                    class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline  mb-0 sm:mb-4">
                                 @error('nip')
                                     <span class="text-red-500 text-xs">{{ $message }}</span>
                                 @enderror
@@ -221,7 +126,7 @@
                             <div>
                                 <label class="block text-gray-700 text-sm font-bold mb-1" for="cnib">N° CNIB</label>
                                 <input wire:model="cnib" id="cnib" type="text"
-                                    class="bg-gray-50 appearance-none border-2 rounded w-full py-1 sm:py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline  mb-0 sm:mb-4">
+                                    class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline  mb-0 sm:mb-4">
                                 @error('cnib')
                                     <span class="text-red-500 text-xs">{{ $message }}</span>
                                 @enderror
@@ -231,7 +136,7 @@
                             <div>
                                 <label class="block text-gray-700 text-sm font-bold mb-1" for="delivree">Délivré le</label>
                                 <input wire:model="delivree" id="delivree" type="date"
-                                    class="bg-gray-50 appearance-none border-2 rounded w-full py-1 sm:py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline  mb-0 sm:mb-4"
+                                    class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline  mb-0 sm:mb-4"
                                         wire:change="updateExpire">
                                 @error('delivree')
                                     <span class="text-red-500 text-xs">{{ $message }}</span>
@@ -242,7 +147,7 @@
                             <div>
                                 <label class="block text-gray-700 text-sm font-bold mb-1" for="expire">Expire le</label>
                                 <input wire:model="expire" id="expire" type="date"
-                                    class="bg-gray-50 appearance-none border-2 rounded w-full py-1 sm:py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline  mb-0 sm:mb-4" readonly>
+                                    class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline  mb-0 sm:mb-4" readonly>
                                 @error('expire')
                                     <span class="text-red-500 text-xs">{{ $message }}</span>
                                 @enderror
@@ -252,7 +157,7 @@
                             <div>
                                 <label class="block text-gray-700 text-sm font-bold mb-1" for="adresse_permanente">Adresse permanente</label>
                                 <input wire:model="adresse_permanente" id="adresse_permanente" type="text"
-                                    class="bg-gray-50 appearance-none border-2 rounded w-full py-1 sm:py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline  mb-0 sm:mb-4">
+                                    class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline  mb-0 sm:mb-4">
                                 @error('adresse_permanente')
                                     <span class="text-red-500 text-xs">{{ $message }}</span>
                                 @enderror
@@ -262,7 +167,7 @@
                             <div>
                                 <label class="block text-gray-700 text-sm font-bold mb-1" for="telephone">Téléphone</label>
                                 <input wire:model="telephone" id="telephone" type="text"
-                                    class="bg-gray-50 appearance-none border-2 rounded w-full py-1 sm:py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline  mb-0 sm:mb-4">
+                                    class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline  mb-0 sm:mb-4">
                                 @error('telephone')
                                     <span class="text-red-500 text-xs">{{ $message }}</span>
                                 @enderror
@@ -272,7 +177,7 @@
                             <div>
                                 <label class="block text-gray-700 text-sm font-bold mb-1" for="email">Email</label>
                                 <input wire:model="email" id="email" type="email"
-                                    class="bg-gray-50 appearance-none border-2 rounded w-full py-1 sm:py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline  mb-0 sm:mb-4">
+                                    class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline  mb-0 sm:mb-4">
                                 @error('email')
                                     <span class="text-red-500 text-xs">{{ $message }}</span>
                                 @enderror

@@ -24,7 +24,7 @@
 								<h2>Nous Contacter</h2>
 								<p>Pour plus d&apos;informations, n&apos;hésitez pas à nous contacter.</p>
                                 <div class="flex items-start">
-                                    <div class="p-3 bg-yellow-500 mr-4 flex items-center justify-center w-12 h-12">
+                                    <div class="p-3 bg-[#d6d61a] mr-4 flex items-center justify-center w-12 h-12">
                                         <i class="icofont icofont-google-map"></i>
                                     </div>
                                     <div class="content">
@@ -35,7 +35,7 @@
                                     </div>
                                 </div>
                                 <div class="flex items-start">
-                                    <div class="p-3 bg-yellow-500 mr-4 flex items-center justify-center w-12 h-12">
+                                    <div class="p-3 bg-[#d6d61a] mr-4 flex items-center justify-center w-12 h-12">
                                         <i class="icofont icofont-ui-call"></i>
                                     </div>
                                     <div class="content">
@@ -46,7 +46,7 @@
                                     </div>
                                 </div>
                                 <div class="flex items-start">
-                                    <div class="p-3 bg-yellow-500 mr-4 flex items-center justify-center w-12 h-12">
+                                    <div class="p-3 bg-[#d6d61a] mr-4 flex items-center justify-center w-12 h-12">
                                         <i class="icofont icofont-mail"></i>
                                     </div>
                                     <div class="content">

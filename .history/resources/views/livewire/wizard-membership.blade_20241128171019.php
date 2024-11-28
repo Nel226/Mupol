@@ -1,6 +1,6 @@
 
-<div id="wizard-top" class="mx-auto w-full max-w-screen-lg px-4 sm:px-6 md:px-8 z-10">
-    <div  class="w-full md:w-5/6 mx-auto mt-6 md:mt-10">
+<div class="mx-auto w-full max-w-screen-lg px-4 sm:px-6 md:px-8 z-10">
+    <div class="w-full md:w-5/6 mx-auto mt-6 md:mt-10">
         <!-- Stepper -->
         <!-- Stepper pour les petits écrans (<= 450px) -->
         <ul class="flex flex-col justify-center items-center mb-4 md:mb-6 sm:hidden">
@@ -81,7 +81,7 @@
 
 
         <!-- Contenu des étapes -->
-        <div  class="shadow-lg border rounded-lg border-gray-200 px-4 md:px-5 pt-2 md:pt-6 pb-6 md:pb-8 mb-4">
+        <div id="wizard-top" class="shadow-lg border rounded-lg border-gray-200 px-4 md:px-5 pt-2 md:pt-6 pb-6 md:pb-8 mb-4">
             <h2 class="text-lg sm:text-xl font-bold mb-1 md:mb-5 text-gray-800 text-center">
                 @if ($currentStep == 1) 1. Références de l&apos;adhérent
                 @elseif ($currentStep == 2) 2. Etat civil

@@ -1,6 +1,6 @@
 
-<div id="wizard-top" class="mx-auto w-full max-w-screen-lg px-4 sm:px-6 md:px-8 z-10">
-    <div  class="w-full md:w-5/6 mx-auto mt-6 md:mt-10">
+<div class="mx-auto w-full max-w-screen-lg px-4 sm:px-6 md:px-8 z-10">
+    <div id="wizard-top" class="w-full md:w-5/6 mx-auto mt-6 md:mt-10">
         <!-- Stepper -->
         <!-- Stepper pour les petits écrans (<= 450px) -->
         <ul class="flex flex-col justify-center items-center mb-4 md:mb-6 sm:hidden">

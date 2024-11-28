@@ -1,13 +1,13 @@
 
-<div id="wizard-top" class="mx-auto w-full max-w-screen-lg px-4 sm:px-6 md:px-8 z-10">
-    <div  class="w-full md:w-5/6 mx-auto mt-6 md:mt-10">
+<div class="mx-auto w-full max-w-screen-lg px-4 sm:px-6 md:px-8 z-10">
+    <div class="w-full md:w-5/6 mx-auto mt-6 md:mt-10">
         <!-- Stepper -->
         <!-- Stepper pour les petits écrans (<= 450px) -->
         <ul class="flex flex-col justify-center items-center mb-4 md:mb-6 sm:hidden">
             @for ($step = 1; $step <= $totalSteps; $step++)
             <li class="flex justify-center items-center w-full mb-4">
                 <!-- Stepper Rectangle for Small Screens -->
-                <div class="flex flex-col items-center w-full rounded-xl border {{ $currentStep >= $step ? 'border-primary1' : 'border-gray-300' }} {{ $currentStep == $step ? 'bg-primary1' : 'bg-white' }}">
+                <div class="flex flex-col items-center w-full rounded-xl border {{ $currentStep >= $step ? 'border-[#4000FF]' : 'border-gray-300' }} {{ $currentStep == $step ? 'bg-[#4000FF]' : 'bg-white' }}">
                     <!-- Step Number and Label on the Same Line -->
                     <div class="flex items-center justify-center w-full">
                         <!-- Step Number -->
@@ -41,11 +41,11 @@
 
                         <!-- Connecting Line -->
                         @if ($step > 1 && $step <= $totalSteps)
-                            <div class="flex-1 h-1 {{ $currentStep >= $step ? 'bg-primary1' : 'bg-gray-300' }}"
+                            <div class="flex-1 h-1 {{ $currentStep >= $step ? 'bg-[#4000FF]' : 'bg-gray-300' }}"
                                 style="height: 3px; margin-left: -0.5rem;"></div>
                         @endif
                         <!-- Step Circle -->
-                        <div class="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 flex shadow-lg items-center justify-center {{ $currentStep >= $step ? 'bg-primary1' : 'bg-gray-300' }} rounded-full text-white z-10">
+                        <div class="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 flex shadow-lg items-center justify-center {{ $currentStep >= $step ? 'bg-[#4000FF]' : 'bg-gray-300' }} rounded-full text-white z-10">
                             @if ($currentStep > $step)
                                 <i class="fa fa-check"></i>
                             @else
@@ -54,7 +54,7 @@
                         </div>
                         <!-- Connecting Line -->
                         @if ($step < $totalSteps)
-                            <div class="flex-1 h-1 {{ $currentStep > $step ? 'bg-primary1' : 'bg-gray-300' }}"
+                            <div class="flex-1 h-1 {{ $currentStep > $step ? 'bg-[#4000FF]' : 'bg-gray-300' }}"
                                 style="height: 3px; margin-left: -0.5rem;"></div>
                         @endif
 
@@ -81,7 +81,7 @@
 
 
         <!-- Contenu des étapes -->
-        <div  class="shadow-lg border rounded-lg border-gray-200 px-4 md:px-5 pt-2 md:pt-6 pb-6 md:pb-8 mb-4">
+        <div id="wizard-top" class="shadow-lg border rounded-lg border-gray-200 px-4 md:px-5 pt-2 md:pt-6 pb-6 md:pb-8 mb-4">
             <h2 class="text-lg sm:text-xl font-bold mb-1 md:mb-5 text-gray-800 text-center">
                 @if ($currentStep == 1) 1. Références de l&apos;adhérent
                 @elseif ($currentStep == 2) 2. Etat civil
@@ -680,7 +680,7 @@
                 <!-- Bouton "Suivant" ou "Soumettre", toujours aligné à droite -->
                 @if ($currentStep < $totalSteps)
                     <button wire:click="nextStep" onclick="scrollToTop()"
-                        class="bg-primary1 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                        class="bg-[#4000FF] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                         Suivant
                     </button>
                 @else

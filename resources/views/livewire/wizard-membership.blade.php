@@ -78,8 +78,6 @@
             @endfor
         </div>
 
-
-
         <!-- Contenu des étapes -->
         <div id="wizard-top" class="shadow-lg border rounded-lg border-gray-200 px-4 md:px-5 pt-2 md:pt-6 pb-6 md:pb-8 mb-4">
             <h2 class="text-lg sm:text-xl font-bold mb-1 md:mb-5 text-gray-800 text-center">
@@ -185,9 +183,7 @@
                         </div>
                     </div>
                 @endif
-        
 
-        
                 <!-- Étape 2 -->
                 @if ($currentStep == 2)
                     <div>
@@ -510,7 +506,6 @@
                     </div>
                 @endif
 
-        
                 <!-- Étape 4 -->
                 @if ($currentStep == 4)
                     <div>

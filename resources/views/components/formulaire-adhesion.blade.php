@@ -63,7 +63,10 @@
     }
 </style>
 
-<div class="adhesion-form overflow-x-auto max-w-4xl border mx-auto p-10 bg-white shadow-lg rounded-lg">
+<div class="adhesion-form  max-w-4xl border mx-auto p-10 bg-white shadow-lg rounded-lg">
+    <iframe src="" frameborder="0">
+        
+    </iframe>
     <div class="flex justify-between items-center mx-auto pb-2 w-11/12 mb-2">
         <!-- Colonne 1 -->
         <div class="flex flex-col space-y-1 items-center text-center leading-none self-start">

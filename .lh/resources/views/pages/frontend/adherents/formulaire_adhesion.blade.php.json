@@ -3,11 +3,15 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 0,
+            "activePatchIndex": 1,
             "patches": [
                 {
                     "date": 1732811675007,
                     "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1732812635553,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,9 +26,9 @@\n     <section class=\"section bg-gray-100\">\n         <div class=\"container mx-auto px-4 lg:px-8\">\n             <div class=\"bg-white  rounded-lg overflow-hidden transform transition duration-500\">\n                 <!-- Image de fond atténuée avec Overlay translucide -->\n-                <div class=\"hidden md:block relative h-64 bg-cover bg-center rounded-t-lg\" style=\"background-image: url('{{ asset('images/caroussel/caroussel7.jpeg') }}');\">\n+                <div class=\"relative h-64 bg-cover bg-center rounded-t-lg sm:block hidden\" style=\"background-image: url('{{ asset('images/caroussel/caroussel7.jpeg') }}');\">\n                     <div class=\"absolute inset-0 bg-gradient-to-r from-white to-transparent opacity-70\"></div>\n                 </div>\n                 \n \n"
                 }
             ],
             "date": 1732811675007,

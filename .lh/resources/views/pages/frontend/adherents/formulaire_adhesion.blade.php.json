@@ -1,0 +1,18 @@
+{
+    "sourceFile": "resources/views/pages/frontend/adherents/formulaire_adhesion.blade.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1732811675007,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1732811675007,
+            "name": "Commit-0",
+            "content": "<x-guest-layout>\n    <x-preloader/>\n\n    <x-header-guest/>\n\n\n    {{--  <!-- Breadcrumbs -->\n    <div class=\"breadcrumbs overlay\">\n        <div class=\"container\">\n            <div class=\"bread-inner\">\n                <div class=\"row\">\n                    <div class=\"col-12\">\n                        <h2>Demande d&apos;adhésion MU-POL</h2>\n                        <ul class=\"bread-list\">\n                            <li><a href=\"index.html\">Accueil</a></li>\n                            <li><i class=\"icofont-simple-right\"></i></li>\n                            <li class=\"active\">Adhérer</li>\n                        </ul>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n    <!-- End Breadcrumbs -->  --}}\n            \n    <section class=\"section bg-gray-100\">\n        <div class=\"container mx-auto px-4 lg:px-8\">\n            <div class=\"bg-white  rounded-lg overflow-hidden transform transition duration-500\">\n                <!-- Image de fond atténuée avec Overlay translucide -->\n                <div class=\"hidden md:block relative h-64 bg-cover bg-center rounded-t-lg\" style=\"background-image: url('{{ asset('images/caroussel/caroussel7.jpeg') }}');\">\n                    <div class=\"absolute inset-0 bg-gradient-to-r from-white to-transparent opacity-70\"></div>\n                </div>\n                \n\n                <!-- Contenu Principal -->\n                <div class=\"px-8 py-12 text-gray-700\">\n                    <h3 class=\"text-2xl font-semibold text-center text-gray-800 mb-6\">Formulaire d'adhésion</h3>\n                    \n                    <!-- Formulaire d'Adhésion -->\n                    <div class=\"relative z-10\">\n                        <livewire:wizard-membership />\n                    </div>\n                </div>\n            </div>\n        </div>\n    </section>\n\n      \n\n</x-guest-layout>\n"
+        }
+    ]
+}

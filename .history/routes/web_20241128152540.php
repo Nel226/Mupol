@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\UserLoginDetectorController;
 use App\Http\Controllers\Frontend\AyantDroitController;
 use App\Http\Controllers\Frontend\RestrictionController;
 use App\Http\Controllers\Frontend\ActeMedicalController;
+use App\Http\Controllers\Frontend\RestrictionController;
 
 
 use App\Http\Controllers\Frontend\PrestationController;

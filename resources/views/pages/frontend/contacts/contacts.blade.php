@@ -2,7 +2,10 @@
     <x-preloader/>
 
     <x-header-guest/>
-  
+
+
+    
+            
     <!-- Start Contact Us -->
 		<section class="contact-us section">
 			<div class="container">
@@ -21,7 +24,7 @@
 								<h2>Nous Contacter</h2>
 								<p>Pour plus d&apos;informations, n&apos;hésitez pas à nous contacter.</p>
                                 <div class="flex items-start">
-                                    <div class="p-3 bg-[#d6d61a] mr-4 flex items-center justify-center w-12 h-12">
+                                    <div class="p-3 bg-yellow-500 mr-4 flex items-center justify-center w-12 h-12">
                                         <i class="icofont icofont-google-map"></i>
                                     </div>
                                     <div class="content">
@@ -31,42 +34,35 @@
                                         </p>
                                     </div>
                                 </div>
-                                <div class="content">
-                                    <h3 class="font-bold text-lg">LOCALISATION</h3>
-                                    <p>
-                                        <a class=" text-[#4000FF] underline" href="https://maps.app.goo.gl/pSGfdxcayY9y6fcCA">Lien Google Maps</a>
-                                    </p>
+                                <div class="flex items-start">
+                                    <div class="p-3 bg-yellow-500 mr-4 flex items-center justify-center w-12 h-12">
+                                        <i class="icofont icofont-ui-call"></i>
+                                    </div>
+                                    <div class="content">
+                                        <h3 class="font-bold text-lg">TELEPHONE</h3>
+                                        <p>
+                                            +226 25728277
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="flex items-start">
-                                <div class="p-3 bg-[#d6d61a] mr-4 flex items-center justify-center w-12 h-12">
-                                    <i class="icofont icofont-ui-call"></i>
+                                <div class="flex items-start">
+                                    <div class="p-3 bg-yellow-500 mr-4 flex items-center justify-center w-12 h-12">
+                                        <i class="icofont icofont-mail"></i>
+                                    </div>
+                                    <div class="content">
+                                        <h3 class="font-bold text-lg">E-MAIL</h3>
+                                        <p>
+                                            <a href="https://maps.app.goo.gl/pSGfdxcayY9y6fcCA">Lien Google Maps</a>
+                                        </p>
+                                    </div>
                                 </div>
-                                <div class="content">
-                                    <h3 class="font-bold text-lg">TELEPHONE</h3>
-                                    <p>
-                                        +226 25728277
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="flex items-start">
-                                <div class="p-3 bg-[#d6d61a] mr-4 flex items-center justify-center w-12 h-12">
-                                    <i class="icofont icofont-mail"></i>
-                                </div>
-                                <div class="content">
-                                    <h3 class="font-bold text-lg">E-MAIL</h3>
-                                    <p>
-                                        <a href="https://maps.app.goo.gl/pSGfdxcayY9y6fcCA">Lien Google Maps</a>
-                                    </p>
-                                </div>
-                            </div>
-                            
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+                               
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
 	<!--/ End Contact Us -->
       
 

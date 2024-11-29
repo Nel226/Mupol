@@ -123,7 +123,7 @@ class AdherentAuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect()->route('user/login');
+        return redirect()->route('user.login');
     }
     
 }

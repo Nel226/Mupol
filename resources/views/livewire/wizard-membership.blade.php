@@ -531,7 +531,7 @@
                                 {{-- Grade --}}
                                 <div>
                                     <label class="block text-gray-700 text-sm font-bold mb-1">Grade</label>
-                                    <select wire:model="grade" class="border-2 bg-gray-50 rounded w-full py-1">
+                                    <select wire:model="grade" class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-0 sm:mb-4">
                                         <option value="" disabled selected>Sélectionnez un grade</option>
                                         @foreach($grades as $gradeOption)
                                             <option value="{{ $gradeOption }}">{{ $gradeOption }}</option>
@@ -544,7 +544,7 @@
 
                                 <div>
                                     <label class="block text-gray-700 text-sm font-bold mb-1">Départ à la retraite</label>
-                                    <input type="date" wire:model="departARetraite" class="border-2 bg-gray-50 rounded w-full py-1">
+                                    <input type="date" wire:model="departARetraite" class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-0 sm:mb-4">
                                     @error('departARetraite')
                                         <span class="text-red-500 text-xs">{{ $message }}</span>
                                     @enderror
@@ -552,7 +552,7 @@
 
                                 <div>
                                     <label class="block text-gray-700 text-sm font-bold mb-1">Numéro CARFO</label>
-                                    <input type="text" wire:model="numeroCARFO" class="border-2 bg-gray-50 rounded w-full py-1">
+                                    <input type="text" wire:model="numeroCARFO" class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-0 sm:mb-4">
                                     @error('numeroCARFO')
                                         <span class="text-red-500 text-xs">{{ $message }}</span>
                                     @enderror
@@ -566,7 +566,7 @@
                                 <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
                                     <div>
                                         <label class="block text-gray-700 text-sm font-bold mb-1">Grade</label>
-                                        <select wire:model="grade" class="border-2 bg-gray-50 rounded w-full py-1">
+                                        <select wire:model="grade" class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-0 sm:mb-4">
                                             <option value="" disabled selected>Sélectionnez un grade</option>
                                             @foreach($grades as $gradeOption)
                                                 <option value="{{ $gradeOption }}">{{ $gradeOption }}</option>
@@ -579,7 +579,7 @@
 
                                     <div>
                                         <label class="block text-gray-700 text-sm font-bold mb-1">Date d&apos;intégration</label>
-                                        <input type="date" wire:model="dateIntegration" class="border-2 bg-gray-50 rounded w-full py-1">
+                                        <input type="date" wire:model="dateIntegration" class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-0 sm:mb-4">
                                         @error('dateIntegration')
                                             <span class="text-red-500 text-xs">{{ $message }}</span>
                                         @enderror
@@ -587,7 +587,7 @@
 
                                     <div>
                                         <label class="block text-gray-700 text-sm font-bold mb-1">Date de départ à la retraite</label>
-                                        <input type="date" wire:model="dateDepartARetraite" class="border-2 bg-gray-50 rounded w-full py-1">
+                                        <input type="date" wire:model="dateDepartARetraite" class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-0 sm:mb-4">
                                         @error('dateDepartARetraite')
                                             <span class="text-red-500 text-xs">{{ $message }}</span>
                                         @enderror
@@ -597,7 +597,7 @@
                                 <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     <div>
                                         <label class="block text-gray-700 text-sm font-bold mb-1">Direction</label>
-                                        <input type="text" wire:model="direction" class="border-2 bg-gray-50 rounded w-full py-1">
+                                        <input type="text" wire:model="direction" class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-0 sm:mb-4">
                                         @error('direction')
                                             <span class="text-red-500 text-xs">{{ $message }}</span>
                                         @enderror
@@ -605,7 +605,7 @@
 
                                     <div>
                                         <label class="block text-gray-700 text-sm font-bold mb-1">Service</label>
-                                        <input type="text" wire:model="service" class="border-2 bg-gray-50 rounded w-full py-1">
+                                        <input type="text" wire:model="service" class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-0 sm:mb-4">
                                         @error('service')
                                             <span class="text-red-500 text-xs">{{ $message }}</span>
                                         @enderror
@@ -657,12 +657,49 @@
                         :signature-image="$signatureImage"
                     />
                     <!-- Affichage de l'iframe -->
-                    <iframe 
-                        src="{{ route('formulaire.adhesion.recapitulatif') }}" 
+                    {{-- <iframe 
+                        src="{{ route('formulaire.adhesion.recapitulatif', [
+                            'matricule' => $matricule,
+                            'nip' => $nip,
+                            'cnib' => $cnib,
+                            'delivree' => $delivree,
+                            'expire' => $expire,
+                            'adresse_permanente' => $adresse_permanente,
+                            'telephone' => $telephone,
+                            'email' => $email,
+                            'nom' => $nom,
+                            'prenom' => $prenom,
+                            'genre' => $genre,
+                            'departement' => $departement,
+                            'ville' => $ville,
+                            'pays' => $pays,
+                            'nom_pere' => $nom_pere,
+                            'nom_mere' => $nom_mere,
+                            'situation_matrimoniale' => $situation_matrimoniale,
+                            'nom_prenom_personne_besoin' => $nom_prenom_personne_besoin,
+                            'lieu_residence' => $lieu_residence,
+                            'telephone_personne_prevenir' => $telephone_personne_prevenir,
+                            'photo' => $photo,
+                            'photo_path_adherent' => $photo_path_adherent,
+                            'photo_path_ayantdroit' => $photo_path_ayantdroit,
+                            'date_integration' => $dateIntegration,
+                            'date_depart_a_retraite' => $dateDepartARetraite,
+                            'direction' => $direction,
+                            'service' => $service,
+                            'statut' => $statut,
+                            'grade' => $grade,
+                            'depart_a_retraite' => $departARetraite,
+                            'numero_carfo' => $numeroCARFO,
+                            'nombre_ayants_droits' => $nombreAyantsDroits,
+                            'ayants_droits' => $ayantsDroits,
+                            'signature' => $signature,
+                            'signature_image' => $signatureImage
+                        ]) }}" 
                         width="100%" 
                         height="800px" 
                         style="border: none;">
-                    </iframe>
+                    </iframe> --}}
+
                 @endif
             </div>
 

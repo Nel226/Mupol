@@ -6,7 +6,7 @@
     <x-header-guest/>
     <div class="">
        
-        <section class="section ">
+        <section class="section min-h-screen ">
             <div class="container ">
                 <div class="">
                     <div class="row  mx-auto justify-center">

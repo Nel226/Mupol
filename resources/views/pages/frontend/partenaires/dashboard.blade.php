@@ -79,9 +79,17 @@
                 <div class="profile-container flex-col md:flex-row gap-2"> <!-- Utilisation de flex-col pour mobile et flex-row pour les grands écrans -->
                     <!-- Section Photo -->
                     <div class="flex-shrink-0 w-full md:w-auto ">
-                        <img src="{{ $partenaire->photo ?? asset('images/default-avatar.png') }}" 
+                        
+
+                        <img 
+                            src="{{ $partenaire->photo 
+                                ? (Str::startsWith($partenaire->photo, 'images/') 
+                                    ? asset($partenaire->photo) 
+                                    : asset('storage/' . $partenaire->photo)) 
+                                : asset('images/default-placeholder.png') }}" 
                             alt="Photo de {{ $partenaire->nom }}" 
-                            class="profile-image mx-auto" />
+                            class="profile-image mx-auto"
+                        >
                     </div>
 
                     <!-- Section Informations -->

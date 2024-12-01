@@ -89,12 +89,17 @@ class WizardMembership extends Component
                 'delivree' => 'required|date',
                 'expire' => 'required|date|after:delivree', // Assurez-vous que 'expire' est après 'delivree'
                 'adresse_permanente' => 'required',
-                'telephone' => 'required',
+                'telephone' => [
+                    'required',
+                    'regex:/^(\+?[0-9]{1,3})?[0-9]{8,10}$/',
+                ],
                 'email' => 'required|email|unique:adherents,email|unique:partenaires,email',
 
             ],
             [
                 'email.unique' => 'L\'email est  déjà utilisé',
+                'telephone.required' => 'Numéro de téléphone requis.',
+                'telephone.regex' => 'Numéro de téléphone invalide.',
             ]);
         } elseif ($this->currentStep == 2) {
             $this->validate([
@@ -113,8 +118,16 @@ class WizardMembership extends Component
                 'photo' => 'required|image|max:1024',
                 'nom_prenom_personne_besoin' => 'required|string|max:255',
                 'lieu_residence' => 'required|string|max:255',
-                'telephone_personne_prevenir' => 'required',
+                'telephone_personne_prevenir' => [
+                    'required',
+                    'regex:/^(\+?[0-9]{1,3})?[0-9]{8,10}$/',
+                ],
                 'nombreAyantsDroits' => 'required|integer',
+            ],
+            [
+                'photo.max' => 'La taille de l\'image doit être inférieure à 1MB.',
+                'telephone_personne_prevenir.required' => 'Numéro de téléphone requis.',
+                'telephone_personne_prevenir.regex' => 'Numéro de téléphone invalide.',
             ]);
 
             if ($this->photo) {

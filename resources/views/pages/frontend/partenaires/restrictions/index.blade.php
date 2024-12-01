@@ -19,8 +19,7 @@
         </script>
     @endif
 
-    <div class="min-h-screen ml-64 bg-gray-50 dark:bg-gray-900 py-3"
-        style="background-image: url('{{ asset('images/background2.jpg') }}'); background-size: cover; background-position: center;">
+    <div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-3">
         <section class="container mx-auto ">
             
             <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-8 max-w-4xl mx-auto">

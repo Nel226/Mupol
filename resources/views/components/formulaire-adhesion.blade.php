@@ -74,16 +74,18 @@
         }
 
         .adhesion-form {
+            
             margin: 0;
             padding: 0;
             box-shadow: none; /* Supprimer l'ombre lors de l'impression */
         }
+        
     }
 </style>
 
 <div class="overflow-x-auto border-4 bg-gray-500 custom-scroll">
 
-    <div class="  adhesion-form min-w-[640px] max-w-4xl border mx-auto p-10 bg-white shadow-lg rounded-lg">
+    <div class="  adhesion-form max-w-4xl border mx-auto p-10 bg-white shadow-lg rounded-lg" style="min-width: 640px;">
         <div class="flex justify-between items-center mx-auto pb-2 w-11/12 mb-2">
             <!-- Colonne 1 -->
             <div class="flex flex-col space-y-1 items-center text-center leading-none self-start">

@@ -1319,6 +1319,12 @@ Version:	1.1
     }
 }
 
+
+
+@media (min-width: 640px) {
+    .adhesion-form {
+        min-width: 640px; ;
+}
 /* @media (max-width: 450px) {
     .flex-stepper {
         flex-wrap: wrap; 

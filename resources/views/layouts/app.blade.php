@@ -8,20 +8,23 @@
         <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
+        <link rel="icon" type="image/x-icon" href="{{ asset('images/favicon.ico') }}">
         <link rel="stylesheet" href="{{ asset('css/tabulator.min.css') }}">
         <link rel="stylesheet" href="{{ asset('css/fontawesome.min.css') }}">
         <link rel="stylesheet" href="{{ asset('css/datatables.min.css') }}">
         <link rel="stylesheet" href="{{ asset('css/select2.min.css') }}">
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+        <link href="https://cdn.jsdelivr.net/npm/pagedone@1.2.2/src/css/pagedone.css " rel="stylesheet"/>
 
+        <link href="{{ asset('../node_modules/pagedone/src/css/pagedone.css') }} " rel="stylesheet"/>
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         @livewireStyles
+        <script src="https://cdn.jsdelivr.net/npm/pagedone@1.2.2/src/js/pagedone.js"></script>
 
-        <script src="https://cdn.tailwindcss.com"></script>
         <script src="{{ asset('js/cdn.min.js') }}" defer></script>
         <script src="{{ asset('js/regions.js') }}" defer></script>
-
+        <script src="{{ asset('../node_modules/pagedone/src/js/pagedone.js') }}"></script>
         <script src="{{ asset('js/jquery.min.js') }}"></script>
 
         <script src="{{ asset('js/pdfmake.min.js') }}"></script>

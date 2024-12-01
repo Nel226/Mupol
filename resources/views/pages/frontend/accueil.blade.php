@@ -34,7 +34,7 @@
                                     <a class="btn" href="{{ route('formulaire-adhesion') }}">
                                         Adhérer maintenant
                                     </a>
-                                    <a href="#" class="btn primary">A propos de nous</a>
+                                    <a href="{{ route('apropos') }}" class="btn primary">A propos de nous</a>
                                 </div>
                             </div>
                         </div>
@@ -305,47 +305,47 @@
                             @switch($type)
                                 @case('consultation')
                                     <i class="icofont icofont-stethoscope"></i>
-                                    <h4><a href="service-details.html">Consultation</a></h4>
+                                    <h4><a href="{{ route('services') }}">Consultation</a></h4>
                                     <p>{{ $descriptions['consultation'] }}</p>
                                     @break
                                 @case('hospitalisation')
                                     <i class="icofont icofont-hospital"></i>
-                                    <h4><a href="service-details.html">Hospitalisation</a></h4>
+                                    <h4><a href="{{ route('services') }}">Hospitalisation</a></h4>
                                     <p>{{ $descriptions['hospitalisation'] }}</p>
                                     @break
                                 @case('radio')
                                     <i class="icofont icofont-heart-alt"></i>
-                                    <h4><a href="service-details.html">Radiologie</a></h4>
+                                    <h4><a href="{{ route('services') }}">Radiologie</a></h4>
                                     <p>{{ $descriptions['radio'] }}</p>
                                     @break
                                 @case('maternite')
                                     <i class="icofont icofont-baby"></i>
-                                    <h4><a href="service-details.html">Maternité</a></h4>
+                                    <h4><a href="{{ route('services') }}">Maternité</a></h4>
                                     <p>{{ $descriptions['maternite'] }}</p>
                                     @break
                                 @case('allocation')
                                     <i class="icofont icofont-money"></i>
-                                    <h4><a href="service-details.html">Allocations</a></h4>
+                                    <h4><a href="{{ route('services') }}">Allocations</a></h4>
                                     <p>{{ $descriptions['allocation'] }}</p>
                                     @break
                                 @case('analyse_biomedicale')
                                     <i class="icofont icofont-test-tube"></i>
-                                    <h4><a href="service-details.html"> Analyses Biomedicales</a></h4>
+                                    <h4><a href="{{ route('services') }}"> Analyses Biomedicales</a></h4>
                                     <p>{{ $descriptions['analyse_biomedicale'] }}</p>
                                     @break
                                 @case('pharmacie')
                                     <i class="icofont icofont-medical-sign"></i>
-                                    <h4><a href="service-details.html">Pharmacie</a></h4>
+                                    <h4><a href="{{ route('services') }}">Pharmacie</a></h4>
                                     <p>{{ $descriptions['pharmacie'] }}</p>
                                     @break
                                 @case('optique')
                                     <i class="icofont icofont-eye-alt"></i>
-                                    <h4><a href="service-details.html">Optique</a></h4>
+                                    <h4><a href="{{ route('services') }}">Optique</a></h4>
                                     <p>{{ $descriptions['optique'] }}</p>
                                     @break
                                 @case('dentaire_auditif')
                                     <i class="icofont icofont-tooth"></i>
-                                    <h4><a href="service-details.html">Soins dentaires et auditifs</a></h4>
+                                    <h4><a href="{{ route('services') }}">Soins dentaires et auditifs</a></h4>
                                     <p>{{ $descriptions['dentaire_auditif'] }}</p>
                                     @break
                                 
@@ -378,7 +378,7 @@
                     <!-- Single Blog -->
                     <div class="single-news">
                         <div class="news-head">
-                            <img src="{{ asset('images/actualites/actualite8.jpg') }}" alt="Actualité">
+                            <img src="{{ asset('images/actualites/actualite5.jpg') }}" alt="Actualité">
                         </div>
                         <div class="news-body">
                             <div class="news-content">
@@ -394,7 +394,7 @@
                     <!-- Single Blog -->
                     <div class="single-news">
                         <div class="news-head">
-                            <img src="{{ asset('images/actualites/actualite5.jpg') }}" alt="Actualité">
+                            <img src="{{ asset('images/actualites/actualite8.jpg') }}" alt="Actualité">
                         </div>
                         <div class="news-body">
                             <div class="news-content">

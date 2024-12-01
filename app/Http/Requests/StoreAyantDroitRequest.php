@@ -22,7 +22,14 @@ class StoreAyantDroitRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nom' => 'required|string|max:255',
+            'prenom' => 'required|string|max:255',
+            'sexe' => 'required',
+            'date_naissance' => 'required|date',
+            'relation' => 'required',
+            'photo' => 'required|image|mimes:jpg,jpeg,png|max:1024',
+            'extrait' => 'required|file|mimes:pdf|max:2048',
+            'cnib' => 'nullable|file|mimes:pdf|max:2048',
         ];
     }
 }

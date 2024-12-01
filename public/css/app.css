@@ -22,17 +22,24 @@
 .bg-primary1{
     background-color: #4000FF !important;
 }
+.bg-primary2{
+    background-color: #4B45DC !important;
+}
 .border-primary1{
     border-color: #4000FF;
 }
-.bg-[#fffe4a70]{
-    background-color : #fffe4a70;
+
+.layout-guest{
+    background-color: rgb(241 245 249 / var(--tw-bg-opacity)); 
+    color: rgb(99 115 129 / var(--tw-text-opacity));
+    font-size: .875rem;
+    font-weight: 400;
+
+    line-height: inherit;
+    margin: 0;
 }
 
-.bg-[#d6d61a]{
-    background-color : #d6d61a;
 
-}
 
 /*Allow column header names to wrap lines*/
 #example-table-theme .tabulator-header .tabulator-col,

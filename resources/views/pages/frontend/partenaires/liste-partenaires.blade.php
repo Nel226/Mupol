@@ -5,7 +5,7 @@
 
     <div class=" min-h-screen">
         
-        
+    
         <!-- Start Contact Us -->
         <section class="contact-us section">
             <div class="container">
@@ -34,11 +34,16 @@
                                                 <!-- Photo -->
                                                 <div class="col-12 col-md-3 mb-3 px-1 py-3 mb-md-0">
                                                     <img 
-                                                        src="{{ $partenaire->photo ? asset('storage/' . $partenaire->photo) : asset('images/default-placeholder.png') }}" 
+                                                        src="{{ $partenaire->photo 
+                                                            ? (Str::startsWith($partenaire->photo, 'images/') 
+                                                                ? asset($partenaire->photo) 
+                                                                : asset('storage/' . $partenaire->photo)) 
+                                                            : asset('images/default-placeholder.png') }}" 
                                                         alt="{{ $partenaire->nom }}" 
-                                                        class="rounded"
-                                                        style="width: 100%; height: 120px; object-fit: cover;"
+                                                        class="rounded w-full h-auto object-cover"
                                                     >
+
+                                                
                                                 </div>
 
                                                 <div class="col-12 col-md-9 m-0 mb-md-0">

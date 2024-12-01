@@ -1,4 +1,4 @@
-<aside id="logo-sidebar" class="fixed left-0 z-40 w-64 h-screen transition-transform -translate-x-full top-0 sm:translate-x-0 bg-transparent  ">
+<aside id="logo-sidebar" aria-label="Sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0">
     <div class="h-full px-4 py-6 overflow-y-auto bg-transparent dark:bg-gray-900">
         <a href="/" class="flex items-center">
             <img src="{{ asset('images/logofinal.png') }}" class="h-16 w-16 rounded-full border-2 border-white bg-white shadow-lg" alt="Logo" />

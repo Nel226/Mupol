@@ -19,25 +19,6 @@
             });
         </script>
     @endif
-
-    <!-- Breadcrumbs -->
-    <div class="breadcrumbs overlay">
-        <div class="container">
-            <div class="bread-inner">
-                <div class="row">
-                    <div class="col-12">
-                        <h2>Demande d&apos;adhésion MU-POL</h2>
-                        <ul class="bread-list">
-                            <li><a href="index.html">Accueil</a></li>
-                            <li><i class="icofont-simple-right"></i></li>
-                            <li class="active">Adhérer</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Breadcrumbs -->
             
     <section class=" section">
         <div class="container">
@@ -47,8 +28,8 @@
                     <div class="col-lg-12">
                         <x-section-guest>
 
-                            <div class="flex justify-between gap-2 my-3">
-                                <a class="btn" href="{{ route('download-form-adhesion', [
+                            <div class="flex-col justify-between gap-2 space-y-2 my-3">
+                                <a class="text-primary1 underline" href="{{ route('download-form-adhesion', [
                                         'id' => $demandeAdhesion->id, 
                                     ]) }}">
                                     Télécharger le formulaire d'adhésion
@@ -56,19 +37,17 @@
                                 </a>
                                 <div>
 
-                                    <a class="btn" href="{{ route('download-fiche-cession-volontaire', [
+                                    <a class="text-primary1 underline" href="{{ route('download-fiche-cession-volontaire', [
                                             'id' => $demandeAdhesion->id, 
                                         ]) }}">
                                         Télécharger la fiche de cession volontaire
                         
                                     </a>
-                                    <button onclick="printIframeContent()" class="btn" style="background-color: #4CAF50">
-                                        Imprimer 
-                                    </button>
+                                    
                                 </div>
                             </div>
                             
-                            <iframe id="iframeId" src="{{ route('imprimer-fiche-cession', ['id' => $demandeAdhesion->id]) }}" style="display:none;"></iframe>
+                            {{-- <iframe id="iframeId" src="{{ route('imprimer-fiche-cession', ['id' => $demandeAdhesion->id]) }}" style="display:none;"></iframe>
                             
                             <script>
                                 function printIframeContent() {
@@ -76,7 +55,7 @@
                                     iframe.contentWindow.focus(); 
                                     iframe.contentWindow.print();  
                                 }
-                            </script>
+                            </script> --}}
                             <div class="container  my-3 border border-gray-200  p-10 bg-white shadow-lg rounded-lg mx-auto">
                         
                                 <div class="font-bold mb-4 text-green-600 flex-col text-center justify-center space-y-2 ">

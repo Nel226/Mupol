@@ -115,7 +115,7 @@ class WizardMembership extends Component
         } elseif ($this->currentStep == 3) {
             $this->validate([
                 'situation_matrimoniale' => 'required|string',
-                'photo' => 'required|image|max:1024',
+                'photo' => 'required|image|mimes:jpeg,png,jpg|max:1024',
                 'nom_prenom_personne_besoin' => 'required|string|max:255',
                 'lieu_residence' => 'required|string|max:255',
                 'telephone_personne_prevenir' => [
@@ -125,14 +125,30 @@ class WizardMembership extends Component
                 'nombreAyantsDroits' => 'required|integer',
             ],
             [
-                'photo.max' => 'La taille de l\'image doit être inférieure à 1MB.',
+                'photo.required' => 'La photo est obligatoire.',
+                'photo.image' => 'Le fichier téléchargé doit être une image.',
+                'photo.mimes' => 'L\'image doit être de type jpeg, png ou jpg.',
+                'photo.max' => 'La taille de l\'image ne doit pas dépasser 1 Mo.',
+
                 'telephone_personne_prevenir.required' => 'Numéro de téléphone requis.',
                 'telephone_personne_prevenir.regex' => 'Numéro de téléphone invalide.',
+
             ]);
 
             if ($this->photo) {
-                $path = $this->photo->storeAs('public/photos/adherents', $this->photo->getClientOriginalName());
-                $this->photo_path_adherent = 'photos/adherents/' . $this->photo->getClientOriginalName();
+                // Vérification du type MIME
+                $mimeType = $this->photo->getMimeType();
+                if (!in_array($mimeType, ['image/jpeg', 'image/png', 'image/jpg'])) {
+                    session()->flash('error', 'Le fichier doit être une image valide.');
+                    return;
+                }
+                 // Générer un nom unique pour l'image (ne pas utiliser le nom original)
+                $fileName = uniqid('photo_', true) . '.' . $this->photo->getClientOriginalExtension();
+                
+                $path = $this->photo->storeAs('public/photos/adherents', $fileName);
+                $this->photo_path_adherent = 'photos/adherents/' . $fileName;
+                // $path = $this->photo->storeAs('public/photos/adherents', $this->photo->getClientOriginalName());
+                // $this->photo_path_adherent = 'photos/adherents/' . $this->photo->getClientOriginalName();
             }
         
             if ($this->nombreAyantsDroits > 0) {

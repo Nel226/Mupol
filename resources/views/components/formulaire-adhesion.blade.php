@@ -1,6 +1,7 @@
 <style>
     body {
         font-family: Arial, sans-serif;
+        font-size: 11px;
         /* margin: 0;
         padding: 0;
         width: 210mm; /* Largeur A4 */

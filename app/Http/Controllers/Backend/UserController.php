@@ -15,8 +15,19 @@ class UserController extends Controller
 {
     public function index()
     {
+        $breadcrumbsItems = [
+            [
+                'name' => 'Utilisateurs',
+                'url' => route('users.index'),
+                'active' => true
+            ],
+        ];
+
+        $pageTitle = 'Utilisateurs';
+
         $users = User::with('roles')->get();
-        return view('pages.backend.users.index', compact('users'));
+    
+        return view('pages.backend.users.index', compact('users', 'breadcrumbsItems', 'pageTitle'));
     }
 
     public function create()

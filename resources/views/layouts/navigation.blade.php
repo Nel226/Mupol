@@ -3,7 +3,7 @@
     
     <div class="px-4 mx-auto sm:px-6 lg:px-8">
         <div class="flex justify-between">
-            <div class="flex items-center justify-start rtl:justify-end">
+            <div class="flex items-center sm:hidden justify-start rtl:justify-end">
                 
                 <button @click="open = !open" class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
                     <span class="sr-only">Open sidebar</span>
@@ -14,7 +14,13 @@
                 
             </div>
 
-            <div class="flex items-center justify-between w-full">
+            <!-- Include Breadcrumbs Component -->
+            <div>
+                @component('components.breadcrumb', ['breadcrumbItems' => $breadcrumbItems])
+                @endcomponent
+            </div>
+
+            <div class="flex items-center justify-between">
                 <div >
                     @yield('navigation-content')
                 </div>

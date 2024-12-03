@@ -1,5 +1,11 @@
 
 <x-app-layout >
+    @if (session('success'))
+    <x-succes-notification>
+        {{ session('success') }}
+    </x-succes-notification>
+    @endif
+
     <x-top-navbar-admin/>
 
     <div id="sidebar" class="lg:block z-20 hidden  bg-blue-800  w-64 h-screen fixed rounded-none border-none">
@@ -8,15 +14,21 @@
     </div>
    
     <x-content-page-admin>
+        
+        @include('layouts.navigation', ['breadcrumbItems' => $breadcrumbsItems])
 
-        <div class= "flex flex-col items-center justify-center min-h-screen text-sm">
 
-            <div class=" p-0 sm:p-4 w-full border-0 sm:border-2 border-gray-200 rounded-lg dark:border-gray-700">
-                <div class="px-0 py-2 sm:px-4 sm:py-8 mx-auto lg:py-16">
-                    <div class="flex items-center px-2 sm:px-4 py-2 text-gray-500 bg-[#fffe4a70] rounded-t-lg shadow-lg">
-                        <h1 class="flex-1 text-xl sm:text-2xl font-bold">Utilisateurs</h1>
-                    </div>
-                    <div class=" w-full px-0 sm:px-15 mt-1 sm:mt-4 mx-auto">
+
+
+        <x-header>
+            {{$pageTitle}}
+        </x-header>
+
+        <div class= "flex flex-col items-center justify-center text-sm">
+
+            <div class=" p-0 sm:p-4 w-full border-0 sm:border-2 bg-white border-gray-200 rounded-lg dark:border-gray-700">
+                <div class="px-2 sm:px-4 sm:py-8 mx-auto lg:py-16">
+                    <div class=" w-full px-0 sm:px-15 sm:mt-4 mx-auto">
                         <div class="flex py-3 justify-between items-center">
                             <h2 class=" text-sm sm:text-xl font-semibold">Liste des utilisateurs</h2>
                             <a href="{{ route('users.create') }}">

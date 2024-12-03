@@ -139,7 +139,7 @@
                         ],
                         
                        
-                        responsive: true,
+                        // responsive: true,
 
                         paging: true,
                         ordering: true,

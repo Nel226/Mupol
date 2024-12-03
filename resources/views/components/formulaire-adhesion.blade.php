@@ -347,7 +347,7 @@
                                 <td class="border border-gray-400">{{ $ayantDroit['nom'] }}</td>
                                 <td class="border border-gray-400">{{ $ayantDroit['prenom'] }}</td>
                                 <td class="border border-gray-400">
-                                    @if ($ayantDroit['sexe'] === 'H')
+                                    @if ($ayantDroit['sexe'] === 'M')
                                         Homme
                                     @elseif ($ayantDroit['sexe'] === 'F')
                                         Femme
@@ -382,7 +382,7 @@
             
             <!-- Personnel Retraité -->
             @if ($this->statut === 'personnel_retraite')
-                <div class="border text-9pt p-2 rounded-lg mb-2 leading-none">
+                <div class="border text-10pt p-2 rounded-lg mb-2 leading-none">
                     <div class="text-center">
                         <p><strong>{{ $this->statut == 'personnel_active' ? 'Personnel en activité' : 'Personnel retraité' }}</strong></p>
                     </div>
@@ -397,7 +397,7 @@
                             <div class="flex">
                                 <div class="flex-shrink-0">
                                     <p class="mr-1 leading-none"><strong>DATE DÉPART À LA RETRAITE :</strong></p>
-                                    <p class="text-8pt leading-none"><small>(JJ/MM/AAAA)</small></p>
+                                    <p class="text-9pt leading-none"><small>(JJ/MM/AAAA)</small></p>
                                 </div>
                                 <div class="flex-1">
                                     <p class="leading-none">{{ $this->departARetraite }}</p>
@@ -415,7 +415,7 @@
             
             <!-- Personnel en Activité -->
             @if ($this->statut === 'personnel_active')
-                <div class="border px-2 rounded-lg leading-none">
+                <div class="border text-10pt px-2 rounded-lg leading-none">
                     <div class="text-center">
                         <p><strong>{{ $this->statut == 'personnel_active' ? 'Personnel en activité' : 'Personnel retraité' }}</strong></p>
                     </div>
@@ -479,7 +479,7 @@
                             </ul>
                         </div>
                     </div>
-    
+
                 </div>
     
                 <!-- Colonne Signature -->

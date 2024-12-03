@@ -76,6 +76,16 @@ class WizardMembership extends Component
             session()->put('currentStep', $this->currentStep);
         }
     }
+    public function goToStep($step)
+    {
+        if ($step > $this->currentStep) {
+            $this->validateStep(); // Valider avant de permettre la navigation vers une étape suivante
+        }
+        if ($step >= 1 && $step <= $this->totalSteps) {
+            $this->currentStep = $step;
+            session()->put('currentStep', $this->currentStep);
+        }
+    }
     
 
     // Méthode de validation par étape
@@ -144,11 +154,9 @@ class WizardMembership extends Component
                 }
                  // Générer un nom unique pour l'image (ne pas utiliser le nom original)
                 $fileName = uniqid('photo_', true) . '.' . $this->photo->getClientOriginalExtension();
-                
+
                 $path = $this->photo->storeAs('public/photos/adherents', $fileName);
                 $this->photo_path_adherent = 'photos/adherents/' . $fileName;
-                // $path = $this->photo->storeAs('public/photos/adherents', $this->photo->getClientOriginalName());
-                // $this->photo_path_adherent = 'photos/adherents/' . $this->photo->getClientOriginalName();
             }
         
             if ($this->nombreAyantsDroits > 0) {
@@ -165,20 +173,45 @@ class WizardMembership extends Component
                         "ayantsDroits.$index.extrait" => 'nullable|mimes:pdf|max:1024',
                         
                     ]);
+
+                    // if ($request->hasFile('photo')) {
+                    //     // Utilisation de `uniqid()` pour éviter les collisions de noms
+                    //     $photoName = uniqid() . '_' . $ayantDroit['photo']->getClientOriginalName();
+                    //     $photoPath = $ayantDroit['photo']->storeAs('public/photos/ayants_droits', $photoName);
+                    //     $this->ayantsDroits[$index]['photo_path'] = 'storage/photos/ayants_droits/' . $photoName;
+                    // }
+                    
+                    // if ($request->hasFile('cnib')) {
+                    //     // Utilisation de `uniqid()` pour éviter les collisions de noms
+                    //     $cnibName = uniqid() . '_' . $ayantDroit['cnib']->getClientOriginalName();
+                    //     $cnibPath = $ayantDroit['cnib']->storeAs('public/pdf/cnibs', $cnibName);
+                    //     $this->ayantsDroits[$index]['cnib_path'] = 'storage/pdf/cnibs/' . $cnibName;
+                    // }
+                    
+                    // if ($request->hasFile('extrait')) {
+                    //     // Utilisation de `uniqid()` pour éviter les collisions de noms
+                    //     $extraitName = uniqid() . '_' . $ayantDroit['extrait']->getClientOriginalName();
+                    //     $extraitPath = $ayantDroit['extrait']->storeAs('public/pdf/extraits', $extraitName);
+                    //     $this->ayantsDroits[$index]['extrait_path'] = 'storage/pdf/extraits/' . $extraitName;
+                    // }
+                    
             
                     if (isset($ayantDroit['photo'])) {
-                        $photoPath = $ayantDroit['photo']->storeAs('public/photos/ayants_droits', $ayantDroit['photo']->getClientOriginalName());
-                        $this->ayantsDroits[$index]['photo_path'] = 'photos/ayants_droits/' . $ayantDroit['photo']->getClientOriginalName();
+                        $photoName = uniqid() . '_' . $ayantDroit['photo']->getClientOriginalName();
+                        $photoPath = $ayantDroit['photo']->storeAs('public/photos/ayants_droits', $photoName);
+                        $this->ayantsDroits[$index]['photo_path'] = 'storage/photos/ayants_droits/' . $photoName;
                     }
             
                     if (isset($ayantDroit['cnib'])) {
-                        $cnibPath = $ayantDroit['cnib']->storeAs('public/pdf/cnibs', $ayantDroit['cnib']->getClientOriginalName());
-                        $this->ayantsDroits[$index]['cnib_path'] = 'pdf/cnibs/' . $ayantDroit['cnib']->getClientOriginalName();
+                        $cnibName = uniqid() . '_' . $ayantDroit['cnib']->getClientOriginalName();
+                        $cnibPath = $ayantDroit['cnib']->storeAs('public/pdf/cnibs', $cnibName);
+                        $this->ayantsDroits[$index]['cnib_path'] = 'storage/pdf/cnibs/' . $cnibName;
                     }
-            
+
                     if (isset($ayantDroit['extrait'])) {
-                        $extraitPath = $ayantDroit['extrait']->storeAs('public/pdf/extraits', $ayantDroit['extrait']->getClientOriginalName());
-                        $this->ayantsDroits[$index]['extrait_path'] = 'pdf/extraits/' . $ayantDroit['extrait']->getClientOriginalName();
+                        $extraitName = uniqid() . '_' . $ayantDroit['extrait']->getClientOriginalName();
+                        $extraitPath = $ayantDroit['extrait']->storeAs('public/pdf/extraits', $extraitName);
+                        $this->ayantsDroits[$index]['extrait_path'] = 'storage/pdf/extraits/' . $extraitName;
                     }
                 }
             }
@@ -262,11 +295,8 @@ class WizardMembership extends Component
         
         // Réinitialisez le formulaire si nécessaire
         $this->reset();
-        
-
         $this->currentStep = 1; 
         session()->put('currentStep', 1);
-
         
         return redirect()->route('resume-adhesion', ['id' => $demandeAdhesion->id]);
     }

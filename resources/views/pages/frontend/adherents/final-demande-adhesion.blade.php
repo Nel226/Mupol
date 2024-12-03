@@ -46,16 +46,12 @@
                         <x-section-guest>
 
                             <div class="flex justify-between gap-2 my-3">
-                                <a class="btn" href="{{ route('download-form-adhesion', [
-                                        'id' => $demandeAdhesion->id, 
-                                    ]) }}">
+                                <a class="btn" href="{{ route('download-form-adhesion', ['id' => $demandeAdhesion->id]) }}">
                                     Télécharger le formulaire d'adhésion
                                 </a>
 
                                 <div>
-                                    <a class="btn" href="{{ route('download-fiche-cession-volontaire', [
-                                            'id' => $demandeAdhesion->id, 
-                                        ]) }}">
+                                    <a class="btn" href="{{ route('download-fiche-cession-volontaire', ['id' => $demandeAdhesion->id]) }}">
                                         Télécharger la fiche de cession volontaire
                                     </a>
                                 </div>

@@ -26,7 +26,7 @@
         <div class="flex-1 p-6">
 
             <!-- Main Content -->
-            <div class="grid grid-cols-4 md:grid-cols-4 lg:grid-cols-4 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 <!-- Card 1 -->
                 <div class="w-full">
                     <div class="bg-white shadow-xl rounded-2xl p-3">
@@ -35,7 +35,7 @@
                                 <p class="text-sm font-semibold">{{__('Mutualistes')}}</p>
                                 <h5 class="font-bold">{{$mutualistesCount}}</h5>
                             </div>
-                            <div class="w-12 h-12 flex items-center justify-center rounded-lg bg-gradient-to-tl from-[#4000FF] to-[#e0d9f6] shadow-lg">
+                            <div class="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-lg bg-gradient-to-tl from-[#4000FF] to-[#e0d9f6] shadow-lg">
                                 <i class="fa fa-users text-white text-lg"></i>
                             </div>
                         </div>
@@ -50,7 +50,7 @@
                                 <p class="text-sm font-semibold">{{__('Adhérents')}}</p>
                                 <h5 class="font-bold">{{$adherentsCount}}</h5>
                             </div>
-                            <div class="w-12 h-12 flex items-center justify-center rounded-lg bg-gradient-to-tl from-[#4000FF] to-[#e0d9f6] shadow-lg">
+                            <div class="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-lg bg-gradient-to-tl from-[#4000FF] to-[#e0d9f6] shadow-lg">
                                 <i class="fa fa-user text-white text-lg"></i>
                             </div>
                         </div>
@@ -65,7 +65,7 @@
                                 <p class="text-sm font-semibold">{{__('Ayants-droit')}}</p>
                                 <h5 class="font-bold">{{$ayantsDroitCount}}</h5>
                             </div>
-                            <div class="w-12 h-12 flex items-center justify-center rounded-lg bg-gradient-to-tl from-[#4000FF] to-[#e0d9f6] shadow-lg">
+                            <div class="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-lg bg-gradient-to-tl from-[#4000FF] to-[#e0d9f6] shadow-lg">
                                 <i class="fa fa-users text-white text-lg"></i>
                             </div>
                         </div>
@@ -73,7 +73,6 @@
                 </div>
 
                 <!-- Card 4 -->
-
                 <div class="w-full  ">
                     <div class="bg-white shadow-xl rounded-2xl p-3">
                         <div class="flex justify-between">
@@ -81,16 +80,15 @@
                                 <p class="text-sm font-semibold">{{__('Paiements')}}</p>
                                 <h5 class="font-bold">{{$validatedPrestationsCount}}</h5>
                             </div>
-                            <div class="w-12 h-12 flex items-center justify-center rounded-lg bg-gradient-to-tl from-[#4000FF] to-[#e0d9f6] shadow-lg">
+                            <div class="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-lg bg-gradient-to-tl from-[#4000FF] to-[#e0d9f6] shadow-lg">
                                 <i class="fa fa-money text-white text-lg"></i>
                             </div>
                         </div>
                     </div>
                 </div>
-    
             </div>
 
-            <div class="mt-6 grid grid-cols-3 lg:grid-cols-3 gap-6">
+            <div class="mt-3 sm:mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-3 sm:gap-6">
                 <div class=" col-span-1 row-span-1 bg-white shadow-lg rounded-lg">
                     <div class="relative flex items-center justify-center rounded-lg bg-cover bg-center h-full" style="background-image: url('{{ asset('images/background1.jpg') }}');">
                         <div class="absolute inset-0 bg-black opacity-30 rounded-lg"></div>
@@ -124,7 +122,7 @@
                     
                 </div>
                 <div class=" col-span-2 row-span-3 bg-white p-6 shadow-lg rounded-lg">
-                    <h3 class="text-lg font-semibold text-gray-900">Sommes dépensées  pour prestations</h3>
+                    <h3 class="text-sm sm:text-lg font-semibold text-gray-900">Sommes dépensées  pour prestations</h3>
                     <div style="height: 400px" class="flex justify-center items-center">
                         <canvas id="prestationsPieChart" class=" "></canvas>  
                     </div>                        
@@ -175,7 +173,6 @@
                                     legend: {
                                         position: 'left',  
                                     },
-                                   
                                 },
                                 
                             }
@@ -184,7 +181,7 @@
                 </div>
                 
                 <div class="col-span-1 row-span-2 bg-white p-6 shadow-lg rounded-lg">
-                    <h3 class="text-lg font-semibold text-gray-900">États des paiements</h3>
+                    <h3 class="text-sm sm:text-lg font-semibold text-gray-900">États des paiements</h3>
 
                     <ul class="space-y-4 mt-4">
                         <!-- Paiements non effectués -->
@@ -219,13 +216,13 @@
             <div class="mt-6 grid grid-cols-2 lg:grid-cols-2 gap-6">
                 <!-- Chart 1: Line Chart -->
                 <div class="bg-white p-6 shadow-lg rounded-lg">
-                    <h3 class="text-lg font-semibold text-gray-900">Sommes dépensées par mois</h3>
+                    <h3 class="text-sm sm:text-lg font-semibold text-gray-900">Sommes dépensées par mois</h3>
                     <canvas id="lineChart"></canvas>
                 </div>
 
                 <!-- Recent Activity -->
                 <div class="bg-white p-6 shadow-lg rounded-lg">
-                    <h3 class="text-lg font-semibold text-gray-900">Dernières prestations</h3>
+                    <h3 class="text-sm sm:text-lg font-semibold text-gray-900">Dernières prestations</h3>
 
                     <div class="relative overflow-x-auto mt-4 shadow-md sm:rounded-lg">
                         <table class="table-auto w-full rounded-md">

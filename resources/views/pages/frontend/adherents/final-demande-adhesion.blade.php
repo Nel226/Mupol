@@ -26,16 +26,23 @@
                     <div class="col-lg-12">
                         <x-section-guest>
 
-                            <div class="flex justify-between gap-2 my-3">
-                                <a class="btn" href="{{ route('download-form-adhesion', ['id' => $demandeAdhesion->id]) }}">
+                            <div class="flex-col justify-between gap-2 space-y-2 my-3">
+                                <a class="text-primary1 underline" href="{{ route('download-form-adhesion', [
+                                        'id' => $demandeAdhesion->id, 
+                                    ]) }}">
                                     Télécharger le formulaire d'adhésion
                                 </a>
 
                                 <div>
-                                    <a class="btn" href="{{ route('download-fiche-cession-volontaire', ['id' => $demandeAdhesion->id]) }}">
+
+                                    <a class="text-primary1 underline" href="{{ route('download-fiche-cession-volontaire', [
+                                            'id' => $demandeAdhesion->id, 
+                                        ]) }}">
                                         Télécharger la fiche de cession volontaire
                                     </a>
-                                    
+                                    <button onclick="printIframeContent()" class="btn" style="background-color: #4CAF50">
+                                        Imprimer 
+                                    </button>
                                 </div>
                             </div>
                             

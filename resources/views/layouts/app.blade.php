@@ -20,6 +20,7 @@
 
         <link rel="stylesheet" href="{{ asset('css/components/navbar.css') }}">
         <link rel="stylesheet" href="{{ asset('css/components/nav.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/btn.css') }}">
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])

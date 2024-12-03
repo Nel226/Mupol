@@ -1,17 +1,19 @@
-<nav class="bg-white border-b border-gray-300 lg:hidden">
+<nav class="bg-white z-50 fixed w-full border-b border-gray-300 lg:hidden">
     <div class="flex justify-between items-center px-9">
-        <!-- Ícono de Menú -->
-        <button id="menu-button" class="lg:hidden">
+        <button id="menu-button" class="">
             <i class="fa fa-bars text-blue-900 text-lg"></i>
         </button>
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 var menuButton = document.getElementById('menu-button');
                 var sidebar = document.getElementById('sidebar');
-        
+                var contentSidebar = document.getElementById('logo-sidebar');
+                
                 menuButton.addEventListener('click', function() {
                     sidebar.classList.toggle('hidden');
                     sidebar.classList.toggle('lg:block');
+                    contentSidebar.classList.toggle('sm:translate-x-0');
+
                 });
             });
         </script>
@@ -23,7 +25,6 @@
 
         </div>
 
-        <!-- Ícono de Notificación y Perfil -->
         <div class="space-x-4">
             <button>
                 <i class="fa fa-user text-blue-900 text-lg"></i>

@@ -108,7 +108,7 @@ class WizardMembership extends Component
                 'genre' => 'required',
                 'departement' => 'required|string',
                 'ville' => 'required|string',
-                'pays' => 'nullable|string',
+                'pays' => 'required|string',
                 'nom_pere' => 'required|string',
                 'nom_mere' => 'required|string',
             ]);
@@ -151,18 +151,18 @@ class WizardMembership extends Component
                     ]);
             
                     if (isset($ayantDroit['photo'])) {
-                        $photoPath = $ayantDroit['photo']->storeAs('public/photos/ayants_droits', $ayantDroit['photo']->getClientOriginalName());
-                        $this->ayantsDroits[$index]['photo_path'] = 'photos/ayants_droits/' . $ayantDroit['photo']->getClientOriginalName();
+                        $photoPath = $ayantDroit['photo']->storeAs('public/ayants_droits/photos', $ayantDroit['photo']->getClientOriginalName());
+                        $this->ayantsDroits[$index]['photo'] = 'ayants_droits/photos/' . $ayantDroit['photo']->getClientOriginalName();
                     }
             
                     if (isset($ayantDroit['cnib'])) {
-                        $cnibPath = $ayantDroit['cnib']->storeAs('public/pdf/cnibs', $ayantDroit['cnib']->getClientOriginalName());
-                        $this->ayantsDroits[$index]['cnib_path'] = 'pdf/cnibs/' . $ayantDroit['cnib']->getClientOriginalName();
+                        $cnibPath = $ayantDroit['cnib']->storeAs('public/ayants_droits/cnib', $ayantDroit['cnib']->getClientOriginalName());
+                        $this->ayantsDroits[$index]['cnib'] = 'ayants_droits/cnib/' . $ayantDroit['cnib']->getClientOriginalName();
                     }
             
                     if (isset($ayantDroit['extrait'])) {
-                        $extraitPath = $ayantDroit['extrait']->storeAs('public/pdf/extraits', $ayantDroit['extrait']->getClientOriginalName());
-                        $this->ayantsDroits[$index]['extrait_path'] = 'pdf/extraits/' . $ayantDroit['extrait']->getClientOriginalName();
+                        $extraitPath = $ayantDroit['extrait']->storeAs('public/ayants_droits/extraits', $ayantDroit['extrait']->getClientOriginalName());
+                        $this->ayantsDroits[$index]['extrait'] = 'ayants_droits/extraits/' . $ayantDroit['extrait']->getClientOriginalName();
                     }
                 }
             }

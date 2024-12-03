@@ -39,106 +39,102 @@
            
         </div>
         <!-- End Topbar -->
-        @if (!Auth::guard('adherent')->check() && !Auth::guard('partenaire')->check())
-            <!-- Header Inner -->
-            
-            <div class="header-inner  w-full bg-primary1">
-                <div class="container">
-                    <div class="inner">
-                        <div class="row items-center justify-between">
-                            <!-- Menu principal -->
-                            <div class="col-lg-10 col-md-10 col-12">
-                                <div class="main-menu">
-                                    <nav class="navigation">
-                                        <ul class="nav menu flex flex-nowrap items-center  text-white text-sm">
-                                            <li class="{{ request()->routeIs('accueil') ? 'active' : '' }}">
-                                                <a href="{{ route('accueil') }}" class="hover:text-gray-300 px-2">Accueil</a>
+        
+        <!-- Header Inner -->
+        
+        <div class="header-inner  w-full bg-primary1">
+            <div class="container">
+                <div class="inner">
+                    <div class="row items-center justify-between">
+                        <!-- Menu principal -->
+                        <div class="col-lg-10 col-md-10 col-12">
+                            <div class="main-menu">
+                                <nav class="navigation">
+                                    <ul class="nav menu flex flex-nowrap items-center  text-white text-sm">
+                                        <li class="{{ request()->routeIs('accueil') ? 'active' : '' }}">
+                                            <a href="{{ route('accueil') }}" class="hover:text-gray-300 px-2">Accueil</a>
+                                        </li>
+                                        <li class="{{ request()->routeIs('apropos') ? 'active' : '' }}">
+                                            <a href="{{ route('apropos') }}" class="hover:text-gray-300 px-2">À Propos</a>
+                                        </li>
+                                        <li class="{{ request()->routeIs('services') ? 'active' : '' }}">
+                                            <a href="{{ route('services') }}" class="hover:text-gray-300 px-2">Nos Services</a>
+                                        </li>
+                                        <li class="{{ request()->routeIs('formulaire-adhesion') ? 'active' : '' }}">
+                                            <a href="{{ route('formulaire-adhesion') }}" class="hover:text-gray-300 px-2">Adhérer</a>
+                                        </li>
+                                        <li class="{{ request()->routeIs('contacts') ? 'active' : '' }}">
+                                            <a href="{{ route('contacts') }}" class="hover:text-gray-300 px-2">Nous contacter</a>
+                                        </li>
+                                        {{-- @if (Auth::guard('adherent')->check())
+                                            <li class="{{ request()->routeIs('adherents.dashboard') ? 'active' : '' }}">
+                                                <a href="{{ route('adherents.dashboard') }}" class="hover:text-gray-300 px-2">Mon Profil</a>
                                             </li>
-                                            <li class="{{ request()->routeIs('apropos') ? 'active' : '' }}">
-                                                <a href="{{ route('apropos') }}" class="hover:text-gray-300 px-2">À Propos</a>
-                                            </li>
-                                            <li class="{{ request()->routeIs('services') ? 'active' : '' }}">
-                                                <a href="{{ route('services') }}" class="hover:text-gray-300 px-2">Nos Services</a>
-                                            </li>
-                                            @if (!Auth::guard('partenaire')->check())
-                                            <li class="{{ request()->routeIs('formulaire-adhesion') ? 'active' : '' }}">
-                                                <a href="{{ route('formulaire-adhesion') }}" class="hover:text-gray-300 px-2">Adhérer</a>
-                                            </li>
-                                            @endif
-                                            <li class="{{ request()->routeIs('contacts') ? 'active' : '' }}">
-                                                <a href="{{ route('contacts') }}" class="hover:text-gray-300 px-2">Nous contacter</a>
-                                            </li>
-                                            @if (Auth::guard('adherent')->check())
-                                                <li class="{{ request()->routeIs('adherents.dashboard') ? 'active' : '' }}">
-                                                    <a href="{{ route('adherents.dashboard') }}" class="hover:text-gray-300 px-2">Mon Profil</a>
+                                            @if (Auth::guard('adherent')->user()->is_adherent == 1)
+                                                <li class="{{ request()->routeIs('adherents.prestations') ? 'active' : '' }}">
+                                                    <a href="{{ route('adherents.prestations') }}" class="hover:text-gray-300 px-2">Remboursement</a>
                                                 </li>
-                                                @if (Auth::guard('adherent')->user()->is_adherent == 1)
-                                                    <li class="{{ request()->routeIs('adherents.prestations') ? 'active' : '' }}">
-                                                        <a href="{{ route('adherents.prestations') }}" class="hover:text-gray-300 px-2">Remboursement</a>
-                                                    </li>
-                                                    <li class="{{ request()->routeIs('adherents.ayantsdroits') ? 'active' : '' }}">
-                                                        <a href="{{ route('adherents.ayantsdroits') }}" class="hover:text-gray-300 px-2">Ayants Droits</a>
-                                                    </li>
-                                                @endif
-                                            @endif
-
-                                            @if (Auth::guard('partenaire')->check())
-                                                <li class="{{ request()->routeIs('partenaires.dashboard') ? 'active' : '' }}">
-                                                    <a href="{{ route('partenaires.dashboard') }}" class="hover:text-gray-300 px-2">Profil</a>
-                                                </li>
-                                                <li class="{{ request()->routeIs('partenaires.nouvelle-prestation') ? 'active' : '' }}">
-                                                    <a href="{{ route('partenaires.nouvelle-prestation') }}" class="hover:text-gray-300 px-2">Rechercher</a>
-                                                </li>
-                                                <li class="{{ request()->routeIs('partenaire.restrictions') ? 'active' : '' }}">
-                                                    <a href="{{ route('partenaire.restrictions') }}" class="hover:text-gray-300 px-2">Restrictions</a>
+                                                <li class="{{ request()->routeIs('adherents.ayantsdroits') ? 'active' : '' }}">
+                                                    <a href="{{ route('adherents.ayantsdroits') }}" class="hover:text-gray-300 px-2">Ayants Droits</a>
                                                 </li>
                                             @endif
-                                        </ul>
-                                    </nav>
-                                </div>
-                            </div>
-                        
-                            <!-- Bouton Connexion/Déconnexion -->
-                            <div class="col-lg-2 col-md-2 col-12 flex items-center justify-between">
-                                <div class="get-quote">
-                                    @if (!Auth::guard('adherent')->check() && !Auth::guard('partenaire')->check())
-                                        <a href="{{ route('user.login') }}">
-                                            <button class="btn items-center !border !border-white">
-                                                <i class="fa fa-unlock-alt mr-1"></i> Connexion
-                                            </button>
-                                        </a>
-                                    @else
-                                        @if (Auth::guard('adherent')->check())
-                                            <form action="{{ route('adherent.logout') }}" method="post" class="flex">
-                                                @csrf
-                                                <button class="btn items-center !border !border-white">
-                                                    <i class="fa  fa-lock mr-1"></i> Déconnexion
-                                                </button>
-                                            </form>
-                                        @elseif (Auth::guard('partenaire')->check())
-                                            <form action="{{ route('partenaire.logout') }}" method="post" class="flex">
-                                                @csrf
-                                                <button class="btn items-center !border !border-white">
-                                                    <i class="fa  fa-lock mr-1"></i> Déconnexion
-                                                </button>
-                                            </form>
                                         @endif
-                                    @endif
-                                </div>
-                                <div class="">
-                                    <!-- Mobile Nav -->
-                                    <div class="mobile-nav"></div>
-                                    <!-- End Mobile Nav -->
-                                </div>
+
+                                        @if (Auth::guard('partenaire')->check())
+                                            <li class="{{ request()->routeIs('partenaires.dashboard') ? 'active' : '' }}">
+                                                <a href="{{ route('partenaires.dashboard') }}" class="hover:text-gray-300 px-2">Profil</a>
+                                            </li>
+                                            <li class="{{ request()->routeIs('partenaires.nouvelle-prestation') ? 'active' : '' }}">
+                                                <a href="{{ route('partenaires.nouvelle-prestation') }}" class="hover:text-gray-300 px-2">Rechercher</a>
+                                            </li>
+                                            <li class="{{ request()->routeIs('partenaire.restrictions') ? 'active' : '' }}">
+                                                <a href="{{ route('partenaire.restrictions') }}" class="hover:text-gray-300 px-2">Restrictions</a>
+                                            </li>
+                                        @endif --}}
+                                    </ul>
+                                </nav>
                             </div>
                         </div>
-                        
-                        
+                    
+                        <!-- Bouton Connexion/Déconnexion -->
+                        <div class="col-lg-2 col-md-2 col-12 flex items-center justify-between">
+                            <div class="get-quote">
+                                @if (!Auth::guard('adherent')->check() && !Auth::guard('partenaire')->check())
+                                    <a href="{{ route('user.login') }}">
+                                        <button class="btn items-center !border !border-white">
+                                            <i class="fa fa-unlock-alt mr-1"></i> Connexion
+                                        </button>
+                                    </a>
+                                @else
+                                    @if (Auth::guard('adherent')->check())
+                                        <form action="{{ route('adherent.logout') }}" method="post" class="flex">
+                                            @csrf
+                                            <button class="btn items-center !border !border-white">
+                                                <i class="fa  fa-lock mr-1"></i> Déconnexion
+                                            </button>
+                                        </form>
+                                    @elseif (Auth::guard('partenaire')->check())
+                                        <form action="{{ route('partenaire.logout') }}" method="post" class="flex">
+                                            @csrf
+                                            <button class="btn items-center !border !border-white">
+                                                <i class="fa  fa-lock mr-1"></i> Déconnexion
+                                            </button>
+                                        </form>
+                                    @endif
+                                @endif
+                            </div>
+                            <div class="">
+                                <!-- Mobile Nav -->
+                                <div class="mobile-nav"></div>
+                                <!-- End Mobile Nav -->
+                            </div>
+                        </div>
                     </div>
+                    
+                    
                 </div>
             </div>
-            <!--/ End Header Inner -->
-        @endif
-
+        </div>
+        <!--/ End Header Inner -->
     </header>
 <!-- End Header Area -->

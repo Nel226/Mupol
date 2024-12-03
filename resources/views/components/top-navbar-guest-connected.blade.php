@@ -4,7 +4,7 @@
    <nav class="bg-white px-6 py-[10px] flex items-center justify-between shadow-sm">
      
     <div>
-        <div class="flex items-center">
+        <div class="flex items-center space-x-1">
 
             <button id="nav-toggle" class="text-gray-800 focus:outline-none lg:hidden">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -12,25 +12,48 @@
               </svg>
             </button>
             <img class="h-12 lg:hidden" src="{{ asset('images/logofinal.png') }}" alt="Logo">
+            <h5 class="lg:hidden text-primary1 font-bold">{{ config('app.name') }}</h5>
         </div>
         <!-- Dropdown menu (masqué par défaut) -->
         
         <!-- navbar nav -->
         <div id="dropdown-menu" class="hidden bg-white shadow-md z-50">
-          <ul class="flex-col ml-auto items-center">
-              <!-- Liens du menu -->
-             <li class="dropdown stopevent mr-2">
-                  <a href="{{ route('adherents.dashboard') }}" 
-                  class="@if(Request::is('adherents/dashboard')) active @endif block text-gray-800 hover:bg-gray-200 rounded-md px-2 py-1">Mon Profil
-                  </a>
-             </li>
-             <li class="dropdown stopevent mr-2">
-              <a href="{{ route('adherents.prestations') }}" class="block text-gray-800 hover:bg-gray-200 rounded-md px-2 py-1">Demande de remboursement</a>
-             </li>
-             <li class="dropdown stopevent mr-2">
-              <a href="{{ route('adherents.ayantsdroits') }}" class="block text-gray-800 hover:bg-gray-200 rounded-md px-2 py-1">Mes ayants droits</a>
-             </li>
-          </ul>
+          
+          @if (Auth::guard('adherent')->check())
+            <ul class="flex-col ml-auto items-center">
+                <!-- Liens du menu -->
+                <li class="dropdown stopevent mr-2">
+                    <a href="{{ route('adherents.dashboard') }}" 
+                    class="@if(Request::is('adherents/dashboard')) active @endif block text-gray-800 hover:bg-gray-200 rounded-md px-2 py-1">Mon Profil
+                    </a>
+                </li>
+                <li class="dropdown stopevent mr-2">
+                <a href="{{ route('adherents.prestations') }}" class="@if(Request::is('adherents/prestations*')) active @endif block text-gray-800 hover:bg-gray-200 rounded-md px-2 py-1">Demande de remboursement</a>
+                </li>
+                <li class="dropdown stopevent mr-2">
+                <a href="{{ route('adherents.ayantsdroits') }}" class="@if(Request::is('adherents/ayantsdroits') || Request::is('adherents/ayantsdroits/*')) active @endif block text-gray-800 hover:bg-gray-200 rounded-md px-2 py-1">Mes ayants droits</a>
+                </li>
+                
+            </ul>
+          @endif
+          @if (Auth::guard('partenaire')->check())
+            <ul class="flex-col ml-auto items-center">
+                <!-- Liens du menu -->
+                <li class="dropdown stopevent mr-2">
+                    <a href="{{ route('partenaires.dashboard') }}" 
+                    class="@if(Request::is('partenaires/dashboard')) active @endif block text-gray-800 hover:bg-gray-200 rounded-md px-2 py-1">Profil
+                    </a>
+                </li>
+                <li class="dropdown stopevent mr-2">
+                <a href="{{ route('partenaires.nouvelle-prestation') }}" class="@if(Request::is('partenaire/prestations*') || Request::is('partenaire/rechercher-adherent')) active @endif block text-gray-800 hover:bg-gray-200 rounded-md px-2 py-1">Recherche</a>
+                </li>
+                <li class="dropdown stopevent mr-2">
+                <a href="{{ route('partenaire.restrictions') }}" class="@if(Request::is('partenaires/restrictions')) active @endif block text-gray-800 hover:bg-gray-200 rounded-md px-2 py-1">Restrictions</a>
+                </li>
+                
+            </ul>
+          @endif
+
         </div>
         <script>
           document.addEventListener("DOMContentLoaded", () => {
@@ -53,14 +76,33 @@
     </div>
       <ul class="flex ml-auto items-center">
         <li class="dropdown stopevent mr-2">
-           <a class="text-gray-600" href="#" role="button" id="dropdownNotification" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-           </a>
-           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            @if (Auth::guard('adherent')->check())
+                <form method="POST" action="{{ route('adherent.logout') }}" class="text-gray-600">
+                    @csrf
+                    <button type="submit" class="text-gray-600" id="dropdownNotification" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa  fa-sign-out-alt w-6 h-6"></i> 
+                    </button>
+                </form>
+                
+            @elseif (Auth::guard('partenaire')->check())
+                <form method="POST" action="{{ route('partenaire.logout') }}" class="">
+                    @csrf
+                    <button type="submit" class="text-gray-600" id="dropdownNotification" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa  fa-sign-out-alt w-6 h-6"></i> 
+                    </button>
+                </form>
+               
+            @else
+                <a class="text-gray-600" href="#" role="button" id="dropdownNotification" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class=" fa fa-sign-out-alt w-6 h-6"></i>
+                </a>
+            @endif
+           {{-- <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
               <path
                  stroke-linecap="round"
                  stroke-linejoin="round"
                  d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0M3.124 7.5A8.969 8.969 0 015.292 3m13.416 0a8.969 8.969 0 012.168 4.5" />
-           </svg>
+           </svg> --}}
            <div class="dropdown-menu dropdown-menu-lg lg:left-auto lg:right-0" aria-labelledby="dropdownNotification">
               <div>
                  <div class="border-b px-3 pt-2 pb-3 flex justify-between items-center">
@@ -118,8 +160,14 @@
         <li class="dropdown ml-2">
            <a class="rounded-full" href="#" role="button" id="dropdownUser" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <div class="w-10 h-10 relative">
-                 <img alt="avatar" src="{{  asset('storage/' . $adherent->photo)}}" class="rounded-full" />
-                 <div class="absolute border-gray-200 border-2 rounded-full right-0 bottom-0 bg-green-600 h-3 w-3"></div>
+                @if (Auth::guard('adherent')->check())
+                    <img alt="avatar" src="{{  asset('storage/' . $adherent->photo)}}" class="rounded-full" />
+                @elseif (Auth::guard('partenaire')->check())
+                    <img alt="avatar" src="{{ asset('storage/' . Auth::guard('partenaire')->user()->photo) }}" class="rounded-full" />
+                @else
+                    <img src="{{ asset('images/user-90.png') }}" alt="Default Profile" class="h-10 w-10 rounded-full mr-3">
+                @endif
+                 
               </div>
            </a>
           

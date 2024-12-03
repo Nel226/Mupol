@@ -54,10 +54,10 @@
             @if (Auth::guard('partenaire')->check())
             <ul class="flex space-x-6">
                 <li>
-                    <a href="/" class="hover:bg-gray-700 p-2 rounded-md">Dashboard</a>
+                    <a href="{{ route('partenaires.dashboard') }}" class="hover:bg-gray-700 p-2 rounded-md">Profil</a>
                 </li>
                 <li>
-                    <a href="{{ route('partenaires.prestations') }}" class="hover:bg-gray-700 p-2 rounded-md">Prestations</a>
+                    <a href="{{ route('partenaires.prestations') }}" class="hover:bg-gray-700 p-2 rounded-md">Recherche</a>
                 </li>
                 <li>
                     <a href="{{ route('restrictions.index') }}" class="hover:bg-gray-700 p-2 rounded-md">Restrictions</a>

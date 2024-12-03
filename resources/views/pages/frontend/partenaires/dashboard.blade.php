@@ -1,12 +1,6 @@
-<x-guest-layout class="main-container">
+<x-guest-layout >
     <style>
-        .main-container {
-            display: flex;
-            flex-direction: column; /* Changer pour colonne pour que tout soit centré */
-            justify-content: center; /* Centrer verticalement */
-            align-items: center; /* Centrer horizontalement */
-            min-height: 100vh; /* Assurer que la page prend toute la hauteur */
-        }
+        
         .profile-container {
             display: flex;
             align-items: flex-start; /* Aligne les éléments en haut */
@@ -20,7 +14,7 @@
             border-radius: 8px;
         }
         .section-title {
-            background-color: #800080;
+            background-color: #f9c513;
             font-weight: bold;
             text-align: center;
             padding: 0.5rem;
@@ -49,96 +43,120 @@
         }
     </style>
 
-    <x-preloader />
-    <x-header-guest />
-    @if (session('success'))
-        <x-succes-notification>
-            {{ session('success') }}
-        </x-succes-notification>
+    <x-preloader/>
+
+    @if (session()->has('message'))
+        <div id="success-notification" class="notification bg-green-500 text-white p-4 rounded mb-4">
+            {{ session('message') }}
+        </div>
         <script>
             document.addEventListener('DOMContentLoaded', function () {
-                const notification = document.getElementById('success-notification-content');
-                const closeBtn = document.getElementById('close-notification');
-                notification.classList.remove('hidden');
-                closeBtn.addEventListener('click', () => {
-                    notification.classList.add('hidden');
-                });
+                const notification = document.getElementById('success-notification');
+                
+                setTimeout(() => {
+                    notification.classList.add('hidden'); // Cache le message après 5 secondes
+                }, 5000);
             });
         </script>
     @endif
+    
+    
+    <div id="app-layout" class="layout-guest overflow-x-hidden flex">
+        @include("components.navbar-guest-connected")
+        <!-- app layout content -->
+        <div 
+        id="app-layout-content" 
+        class="min-h-screen w-full lg:pl-[15.625rem] transition-all duration-300 ease-out">
+    
+            @include("components.top-navbar-guest-connected")
 
-    <div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-3">
-        <section class="container mx-auto">
-            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 mx-auto max-w-4xl">
-                <div class="mb-6 text-center">
-                    <h2 class="text-xl font-bold text-gray-800 dark:text-white">Profil du Partenaire</h2>
-                    <p class="text-gray-600 dark:text-gray-300 mt-2">Informations détaillées du partenaire de santé.</p>
-                </div>
-
-                <!-- Conteneur des informations du partenaire -->
-                <div class="profile-container flex-col md:flex-row gap-2"> <!-- Utilisation de flex-col pour mobile et flex-row pour les grands écrans -->
-                    <!-- Section Photo -->
-                    <div class="flex-shrink-0 w-full md:w-auto ">
-                        
-
-                        <img 
-                            src="{{ $partenaire->photo 
-                                ? (Str::startsWith($partenaire->photo, 'images/') 
-                                    ? asset($partenaire->photo) 
-                                    : asset('storage/' . $partenaire->photo)) 
-                                : asset('images/default-placeholder.png') }}" 
-                            alt="Photo de {{ $partenaire->nom }}" 
-                            class="profile-image mx-auto"
-                        >
-                    </div>
-
-                    <!-- Section Informations -->
-                    <div class="adherent-table-container flex-1">
-                        <div class="section-title">INFORMATIONS DU PARTENAIRE</div>
-                        <table class="adherent-table">
-                            <tbody>
-                                <tr>
-                                    <td>Nom</td>
-                                    <td>{{ $partenaire->nom }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Type</td>
-                                    <td>{{ $partenaire->type }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Adresse</td>
-                                    <td>{{ $partenaire->adresse }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Région</td>
-                                    <td>{{ $partenaire->region }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Province</td>
-                                    <td>{{ $partenaire->province }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Téléphone</td>
-                                    <td>{{ $partenaire->telephone }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Email</td>
-                                    <td>{{ $partenaire->email }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Géolocalisation</td>
-                                    <td>
-                                        <!-- Affichage de la carte via iframe -->
-                                        <iframe 
-                                            src="https://www.google.com/maps?q={{ $partenaire->geolocalisation }}&hl=fr&z=14&output=embed" 
-                                            width="100%" height="300" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+            <div class="bg-indigo-600 px-8 pt-10 lg:pt-14 pb-16 flex justify-between items-center mb-3">
+                <!-- title -->
+                <h1 class="text-xl text-white">{{ $pageTitle }}</h1>
+                
             </div>
-        </section>
+            <div class="-mt-12 mx-6 mb-6 ">
+            <section class="container mx-auto">
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 mx-auto max-w-4xl">
+                    <div class="mb-6 text-center">
+                        <h2 class="text-xl font-bold text-gray-800 dark:text-white">Profil du Partenaire</h2>
+                        <p class="text-gray-600 dark:text-gray-300 mt-2">Informations détaillées du partenaire de santé.</p>
+                    </div>
+    
+                    <!-- Conteneur des informations du partenaire -->
+                    <div class="profile-container flex-col  md:flex-row gap-2"> <!-- Utilisation de flex-col pour mobile et flex-row pour les grands écrans -->
+                        <!-- Section Photo -->
+                        <div class="flex-shrink-0 w-full md:w-auto ">
+                            
+    
+                            <img 
+                                src="{{ $partenaire->photo 
+                                    ? (Str::startsWith($partenaire->photo, 'images/') 
+                                        ? asset($partenaire->photo) 
+                                        : asset('storage/' . $partenaire->photo)) 
+                                    : asset('images/default-placeholder.png') }}" 
+                                alt="Photo de {{ $partenaire->nom }}" 
+                                class="profile-image mx-auto"
+                            >
+                        </div>
+    
+                        <!-- Section Informations -->
+                        <div class="adherent-table-container flex-1">
+                            <div class="section-title">INFORMATIONS DU PARTENAIRE</div>
+                            <div class="overflow-x-auto">
+                                <table class="adherent-table">
+                                    <tbody>
+                                        <tr>
+                                            <td>Nom</td>
+                                            <td>{{ $partenaire->nom }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Type</td>
+                                            <td>{{ $partenaire->type }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Adresse</td>
+                                            <td>{{ $partenaire->adresse }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Région</td>
+                                            <td>{{ $partenaire->region }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Province</td>
+                                            <td>{{ $partenaire->province }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Téléphone</td>
+                                            <td>{{ $partenaire->telephone }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Email</td>
+                                            <td>{{ $partenaire->email }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Géolocalisation</td>
+                                            <td class=" flex-wrap underline text-primary1">{{ $partenaire->geolocalisation }}</td>
+    
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+                
+            
+            </div>
+            
+            @include("components.footer-guest-connected")
+        </div>
     </div>
+
+    @include("components.scripts")
+
 </x-guest-layout>
+
+

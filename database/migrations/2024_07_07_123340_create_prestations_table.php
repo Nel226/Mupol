@@ -31,7 +31,7 @@ return new class extends Migration
             $table->json('preuve')->nullable();
             $table->enum('validite', ['rejeté', 'accepté', 'en attente'])->default('en attente');
             $table->boolean('etat_paiement')->default(false)->nullable();
-            $table->uuid('partenaire_id'); 
+            $table->uuid('partenaire_id')->nullable(); 
             $table->timestamps();
 
             $table->foreign('partenaire_id')->references('id')->on('partenaires')->onDelete('cascade');

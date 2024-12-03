@@ -34,8 +34,9 @@ class AyantDroitController extends Controller
         $adherent->ayantsDroits = json_decode($adherent->ayantsDroits, true); 
 
         $ayantsDroits = $adherent->ayantsDroits;
+        $pageTitle = 'Nouveau';
         return  view('pages.frontend.adherents.ayantsdroits.create',
-                compact('adherent', 'ayantsDroits')
+                compact('adherent', 'ayantsDroits', 'pageTitle')
         );
 
     }

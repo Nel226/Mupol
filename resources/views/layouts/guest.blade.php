@@ -88,7 +88,6 @@
         <script src="{{ asset('js/easing.js') }}"></script>
         <!-- Color JS -->
         <script src="{{ asset('js/colors.js') }}"></script>
-        <script src="{{ asset('js/sidenav-burger.js') }}"></script>
 
         <!-- Popper JS -->
         <script src="{{ asset('js/popper.min.js') }}"></script>

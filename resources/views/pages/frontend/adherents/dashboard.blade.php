@@ -1,5 +1,7 @@
 <x-guest-layout >
 
+    <x-preloader/>
+
     @if (session()->has('message'))
         <div id="success-notification" class="notification bg-green-500 text-white p-4 rounded mb-4">
             {{ session('message') }}

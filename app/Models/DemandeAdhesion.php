@@ -27,7 +27,13 @@ class DemandeAdhesion extends Model
         'statut', 'grade', 'departARetraite', 'numeroCARFO',
         'dateIntegration', 'dateDepartARetraite', 'direction', 'service',
         'region', 'province', 'localité','code_carte',
+        'etat',
     ];
+
+    public function adherent()
+    {
+        return $this->hasOne(Adherent::class);
+    }
 
     
 }

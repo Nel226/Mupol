@@ -77,15 +77,24 @@ class DemandeController extends Controller
 
     public function accept($id)
     {
-        $adherent = Adherent::where('id', $id)->first();
+        $adherent = Adherent::find($id);
+
         if ($adherent) {
             $adherent->is_adherent = true;
             $adherent->save();
 
-            return redirect()->back()->with('status', 'La demande a été acceptée avec succès.');
+            $demande = $adherent->demande; 
+
+            if ($demande) {
+                $demande->etat = 1;
+                $demande->save();
+            }
+
+            return redirect()->back()->with('success', 'La demande a été acceptée avec succès.');
         }
 
         return redirect()->back()->withErrors(['error' => 'Adhérent non trouvé.']);
     }
+
 
 }

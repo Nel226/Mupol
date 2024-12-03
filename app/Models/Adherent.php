@@ -65,4 +65,12 @@ class Adherent extends Authenticatable
         return $this->hasMany(Prestation::class, 'adherentCode', 'code_carte');
     }
 
+    // App\Models\Adherent.php
+
+    public function demande()
+    {
+        return $this->belongsTo(DemandeAdhesion::class, 'demande_id'); // Assurez-vous que 'demande_id' est le bon nom de colonne dans votre base de données
+    }
+
+
 }

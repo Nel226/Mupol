@@ -1319,7 +1319,11 @@ Version:	1.1
     }
 }
 
-
+.text-small-footer {
+	font-size: 8pt; 
+	list-style-type: circle !important;
+	margin-left: 20px;
+}
 
 @media (min-width: 640px) {
     .adhesion-form {

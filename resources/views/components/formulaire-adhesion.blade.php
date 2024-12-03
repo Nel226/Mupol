@@ -1,22 +1,51 @@
 <style>
     body {
         font-family: Arial, sans-serif;
+        font-size: 10pt;
         /* margin: 0;
         padding: 0;
         width: 210mm; /* Largeur A4 */
         /*height: 297mm; Hauteur A4 */
     }
 
+    /* ----------------------------- REFERENCES ADHERENT -------------------------------- */
+
+    .width-70 {
+        width: 70%;
+    }
+    .width-30 {
+        width: 30%;
+    }
+    .width-90 {
+        width: 90%;
+    }
+    .width-95 {
+        width: 97%;
+    }
+
+    /* ----------------------------- ETAT CIVIL -------------------------------- */
+    .etat-civil p {
+        margin: 0;
+        padding: 0;
+        line-height: 20px;
+        font-weight: 400;
+        
+    }
+    .etat-civil p {
+        margin: 0;
+        padding: 0;
+        
+    }
     .table {
         width: 100%;
         border-collapse: collapse;
-        margin-top: 10px;
+        margin-top: 5px;
     }
 
     .table th,
     .table td {
         border: 2px solid rgb(36, 36, 36);
-        padding: 8px;
+        padding: 10px;
     }
 
     .document {
@@ -30,7 +59,7 @@
     }
 
     fieldset {
-        margin-top: 10px;
+        margin-top: 4px;
     }
 
     legend {
@@ -38,14 +67,15 @@
         padding: 0 10px;
     }
 
-    ul {
-        margin-top: 10px;
+    .footer ul {
+        margin-top: 5px;
+        list-style-type: circle;
     }
 
-    p {
-        margin: 5px 0;
+    .header-left p {
+        margin: 0;
+        
     }
-
     .custom-scroll::-webkit-scrollbar {
         width: 6px; /* Largeur verticale */
         height: 6px; /* Largeur horizontale */
@@ -64,23 +94,35 @@
         background-color: #f1f1f1; /* Couleur de l'arrière-plan */
     }
 
-    @media print {
-        body {
-            width: 210mm; /* Largeur A4 */
-            height: 297mm; /* Hauteur A4 */
-            margin: 0;
-            padding: 0;
-            -webkit-print-color-adjust: exact; /* Pour une impression fidèle aux couleurs */
-        }
-
-        .adhesion-form {
-            
-            margin: 0;
-            padding: 0;
-            box-shadow: none; /* Supprimer l'ombre lors de l'impression */
-        }
-        
+    .text-small {
+        font-size: 8pt; 
     }
+    .text-10pt {
+        font-size: 10pt;
+    }
+    .text-9pt {
+        font-size: 10pt;
+    }
+    .text-8pt {
+        font-size: 8pt;
+    }
+    .text-small-footer {
+        font-size: 8pt; 
+        list-style-type: circle !important;
+        margin-left: 15px;
+    }
+    #custom-list .circle {
+        display: inline-block;
+        width: 4px; /* Taille du cercle */
+        height: 4px;
+        background-color: black; /* Couleur du cercle */
+        border-radius: 50%; /* Rend l'élément circulaire */
+        margin-right: 5px; /* Espace entre le cercle et le texte */
+    }
+
+
+
+    
 </style>
 
 <div class="overflow-x-auto border-4 bg-gray-500 custom-scroll">
@@ -88,11 +130,11 @@
     <div class="  adhesion-form max-w-4xl border mx-auto p-10 bg-white shadow-lg rounded-lg" style="min-width: 640px;">
         <div class="flex justify-between items-center mx-auto pb-2 w-11/12 mb-2">
             <!-- Colonne 1 -->
-            <div class="flex flex-col space-y-1 items-center text-center leading-none self-start">
+            <div class="header-left flex flex-col space-y-1 items-center text-center leading-none self-start">
                 <p><strong>MUTUELLE DE LA POLICE NATIONALE</strong></p>
-                <div class="border-t-[2px] border-black  w-1/4"></div> <!-- Trait -->
+                <div class="border-t-2 border-black  w-1/4"></div> <!-- Trait -->
                 <p><strong>CONSEIL D'ADMINISTRATION</strong></p>
-                <div class="border-t-[2px] border-black  w-1/4"></div> <!-- Trait -->
+                <div class="border-t-2 border-black  w-1/4"></div> <!-- Trait -->
                 <p><strong>SECRÉTARIAT GÉNÉRAL</strong></p>
             </div>
     
@@ -102,7 +144,7 @@
             </div>
     
             <!-- Colonne 3 -->
-            <div class="flex flex-col self-start text-center space-y-1 leading-none">
+            <div class=" header- right flex flex-col self-start text-center space-y-1 leading-none">
                 <p><strong>BURKINA FASO</strong></p>
                 <p>Unité - Progrès - Justice</p>
             </div>
@@ -110,27 +152,27 @@
     
         <!-- Titre principal -->
         <div class="flex flex-col items-center space-y-0 w-11/12 mx-auto">
-            <h2 class="text-center text-3xl font-bold mt-0">FORMULAIRE D'ADHÉSION</h2>
+            <h2 class="text-center text-2xl font-bold mt-0">FORMULAIRE D'ADHÉSION</h2>
     
             <!-- Sous-titre avec surlignage -->
-            <h1 class="text-center text-1xl text-white font-bold bg-black px-3 py-1 inline-block">
+            <h1 class="text-center text-white font-bold bg-black px-3 py-1 inline-block">
                 À REMPLIR EN CARACTÈRES D'IMPRIMERIE
             </h1>
         </div>
         
         <!--  : Références adhérent -->
-        <div class=" border-t border-gray-300 mt-2 pt-3 w-11/12 mx-auto">
+        <div class="  border-t border-gray-300 mt-2 pt-2 w-11/12 mx-auto">
             <div class="flex">
                 <!-- Colonne Références -->
-                <div class="w-3/4">
+                <div class="width-70 text-10pt">
                     <h3 class="text-1xl font-semibold bg-gray-500 px-auto px-1 py-1">RÉFÉRENCES DE L'ADHÉRENT</h3>
     
                     <div>
-                        <p><strong>Matricule :</strong> {{ $this->matricule }}</p>
+                        <p><strong>MATRICULE :</strong> {{ $this->matricule }}</p>
                     </div>
     
                     <!-- NIP et CNIB sur la même ligne -->
-                    <div class="flex space-x-0 leading-none">
+                    <div class="flex space-x-0 leading-none mb-1">
                         <p class="flex-1"><strong>NIP :</strong> {{ $this->nip }}</p>
                         <p class="flex-1"><strong>CNIB :</strong> {{ $this->cnib }}</p>
                     </div>
@@ -142,7 +184,7 @@
                                 <!-- Première colonne : DÉLIVRÉE LE et (JJ/MM/AAAA) -->
                                 <div class="flex-shrink-0">
                                     <p class="mr-1 leading-none"><strong>DÉLIVRÉE LE :</strong></p>
-                                    <p class="text-xs leading-none"><small>(JJ/MM/AAAA)</small></p>
+                                    <p class="text-8pt leading-none"><small>(JJ/MM/AAAA)</small></p>
                                 </div>
     
                                 <!-- Deuxième colonne : valeur de la date de délivrance -->
@@ -156,7 +198,7 @@
                             <!-- Première colonne : EXPIRE LE et (JJ/MM/AAAA) -->
                             <div class="flex-shrink-0">
                                 <p class="mr-1 leading-none"><strong>EXPIRE LE :</strong></p>
-                                <p class="text-xs leading-none"><small>(JJ/MM/AAAA)</small></p>
+                                <p class="text-8pt leading-none"><small>(JJ/MM/AAAA)</small></p>
                             </div>
     
                             <div class="flex-1">
@@ -167,39 +209,49 @@
                 </div>
     
                 <!-- Colonne Signature -->
-                <div class="w-1/4 items-center px-2 justify-center flex flex-col">
-                    <h3 class="text-xs underline decoration-solid ">SIGNATURE DE L’ADHÉRENT</h3>
-                    <div class="w-full flex-grow border-2 border-black mt-2 flex items-center justify-center">
+                <div class="width-30 items-center px-2 justify-center flex flex-col">
+                    <h3 class="text-9pt underline decoration-solid pt-1 "><strong>SIGNATURE DE L’ADHÉRENT</strong></h3>
+                    <div class="w-full flex-grow border-2 border-black mt-1 flex items-center justify-center">
                     </div>
                 </div>
             </div>
     
-            <div>
-                <p><strong>Adresse :</strong> {{ $this->adresse_permanente }}</p>
+            <div class="text-10pt">
+                <p><strong>ADRESSE :</strong> {{ $this->adresse_permanente }}</p>
             </div>
     
-            <div class="flex space-x-4">
-                <p class="flex-1"><strong>Téléphone :</strong> {{ $this->telephone }}</p>
-                <p class="flex-1"><strong>Email :</strong> {{ $this->email }}</p>
+            <div class="flex space-x-4 text-10pt">
+                <p class="flex-1"><strong>TÉLÉPHONE :</strong> {{ $this->telephone }}</p>
+                <p class="flex-1"><strong>EMAIL :</strong> {{ $this->email }}</p>
             </div>
         </div>
     
     
         <!--  : État civil -->
-        <div class=" border-t border-gray-300 mt-1 pt-3 w-11/12 mx-auto">
+        <div class=" etat-civil border-t border-gray-300 mt-1 pt-3 w-11/12 mx-auto">
     
             <h3 class="text-1xl font-semibold bg-gray-500 py-1 px-auto px-1">ÉTAT CIVIL</h3>
     
-            <div class="flex">
+            <div class="flex text-10pt">
                 <div class="w-3/4">
-                    <div class="mt-2">
-                        <p><strong>Nom :</strong> {{ $this->nom }}</p>
-                        <p><strong>Prénom(s) :</strong> {{ $this->prenom }}</p>
+                    <div class="flex-1 mt-1">
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <p class="mr-1"><strong>NOM</strong></p>
+                                <p class="mr-1"><strong>PRÉNOM(S)</strong></p>
+                            </div>
+        
+                            <div class="flex-1">
+                                <p> <strong>:</strong> {{ $this->nom }}</p>
+                                <p> <strong>:</strong> {{ $this->prenom }}</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="flex items-center space-x-2 mt-1">
+
+                    <div class="flex items-center space-x-2 mt-0">
                         <!-- Colonne 1 : Lieu de naissance -->
                         <div class="flex-shrink-0">
-                            <p><strong>Lieu de naissance </strong></p>
+                            <p><strong>LIEU DE NAISSANCE </strong></p>
                         </div>
     
                         <!-- Colonne 2 : Barre verticale -->
@@ -209,12 +261,9 @@
                         <div class="flex-1">
                             <div class="flex">
                                 <div class="flex-shrink-0">
-                                    <p class="mr-1"><strong>Département</strong></p>
-                                    <p class="mr-1"><strong>Ville / Village</strong></p>
-                                    <div class="leading-none">
-                                        <p class="mr-1"><strong>Pays</strong></p>
-                                        {{-- <p class="text-xs"><small>(Si vous êtes né(e) hors du pays)</small></p> --}}
-                                    </div>
+                                    <p class="mr-1"><strong>DÉPARTEMENT</strong></p>
+                                    <p class="mr-1"><strong>VILLE / VILLAGE</strong></p>
+                                    <p class="mr-1"><strong>PAYS</strong></p>
                                 </div>
     
                                 <div class="flex-1">
@@ -229,14 +278,26 @@
     
                 <div class="w-1/4 flex items-center px-2 justify-center">
                     <div class="w-full h-1/2 flex-grow border-2 border-black mt-2 flex items-center justify-center">
-                        <p class="mr-2"><strong class="mr-1">Genre
+                        <p class="mr-2"><strong class="mr-1">GENRE
                                 :</strong>{{ $this->genre == 'masculin' ? 'Masculin' : 'Féminin' }}</p>
                     </div>
                 </div>
             </div>
     
-            <p><strong>Nom du père :</strong> {{ $this->nom_pere }}</p>
-            <p><strong>Nom de la mère :</strong> {{ $this->nom_mere }}</p>
+            
+            <div class="flex-1 text-10pt">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <p class="mr-1"><strong>NOM DU PÈRE</strong></p>
+                        <p class="mr-1"><strong>NOM DE LA MÈRE</strong></p>
+                    </div>
+
+                    <div class="flex-1">
+                        <p> <strong>:</strong> {{ $this->nom_pere }}</p>
+                        <p> <strong>:</strong> {{ $this->nom_mere }}</p>
+                    </div>
+                </div>
+            </div>
         </div>
     
     
@@ -244,39 +305,38 @@
         <div class=" border-t border-gray-300 mt-2 pt-3 w-11/12 mx-auto">
             <h3 class="text-1xl font-semibold bg-gray-500 px-auto px-1 py-1">INFORMATIONS PERSONNELLES</h3>
     
-            <div>
-                <p><strong>Situation matrimoniale :</strong> {{ $this->situation_matrimoniale }} </p>
+            <div class="text-10pt mt-1">
+                <p><strong>SITUATION MATRIMONIALE :</strong> {{ $this->situation_matrimoniale }} </p>
             </div>
     
-            <fieldset class="border-2 border-gray-400 leading-none rounded-lg">
-                <legend class="font-semibold bg-white pr-2 mx-4 flex items-center">
-                    <span class="text-black text-lg">></span>
-                    Personnes à prévenir en cas de besoin
+            <fieldset class=" text-10pt border-2 border-black leading-none py-1 rounded-lg">
+                <legend class="font-semibold text-10pt bg-white pr-2 mx-4 flex items-center">
+                    PERSONNE À PRÉVENIR EN CAS DE BESOIN
                 </legend>
                 <div class="px-1">
-                    <p><strong>Nom & Prénom(s) :</strong> {{ $this->nom_prenom_personne_besoin }} </p>
+                    <p><strong>NOM & PRÉNOM(S) :</strong> {{ $this->nom_prenom_personne_besoin }} </p>
     
                     <div class="flex space-x-4"> <!-- Flexbox avec un espace entre les éléments -->
-                        <p class="flex-1"><strong>Lieu de résidence :</strong>
+                        <p class="flex-1"><strong>LIEU DE RÉSIDENCE :</strong>
                             {{ $this->lieu_residence }}</p>
-                        <p class="flex-1"><strong>Téléphone :</strong>
+                        <p class="flex-1"><strong>TÉLÉPHONE :</strong>
                             {{ $this->telephone_personne_prevenir }}</p>
                     </div>
                 </div>
             </fieldset>
     
-            <div class="pt-4 text-center text-2xl font-bold">
+            <div class="pt-4 text-center text-xl font-bold">
                 <h2 class=" leading-none">LISTE DES AYANTS DROITS</h2>
             </div>
-            <table class="table leading-none w-full border-collapse border-2 border-gray-400 text-left">
+            <table class="table text-9pt leading-none w-full border-collapse border-2 border-black text-left">
                 <thead class="bg-gray-200">
                     <tr>
                         <th class="border border-gray-400">N°</th>
-                        <th class="border border-gray-400">Nom</th>
-                        <th class="border border-gray-400">Prénom(s)</th>
-                        <th class="border border-gray-400">Sexe</th>
-                        <th class="border border-gray-400">Date de naissance</th>
-                        <th class="border border-gray-400">Lien de parenté</th>
+                        <th class="border border-gray-400">NOM</th>
+                        <th class="border border-gray-400">PRÉNOM(S)</th>
+                        <th class="border border-gray-400">SEXE</th>
+                        <th class="border border-gray-400">DATE DE NAISSANCE</th>
+                        <th class="border border-gray-400">LIEN DE PARENTÉ</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -287,7 +347,7 @@
                                 <td class="border border-gray-400">{{ $ayantDroit['nom'] }}</td>
                                 <td class="border border-gray-400">{{ $ayantDroit['prenom'] }}</td>
                                 <td class="border border-gray-400">
-                                    @if ($ayantDroit['sexe'] === 'H')
+                                    @if ($ayantDroit['sexe'] === 'M')
                                         Homme
                                     @elseif ($ayantDroit['sexe'] === 'F')
                                         Femme
@@ -316,19 +376,19 @@
             
         </div>
     
-        <!--  : Formations professionnelles -->
-        <div class=" border-t border-gray-300 mt-2 pt-4 w-11/12 mx-auto">
+        <!--  : Informations professionnelles -->
+        <div class=" border-t border-gray-300 mt-2 pt-3 w-11/12 mx-auto">
             <h3 class="text-1xl font-semibold mb-2 bg-gray-500 px-auto px-1 py-1">INFORMATIONS PROFESSIONELLES</h3>
             
             <!-- Personnel Retraité -->
             @if ($this->statut === 'personnel_retraite')
-                <div class="border p-2 rounded-lg mb-2 leading-none">
+                <div class="border text-10pt p-2 rounded-lg mb-2 leading-none">
                     <div class="text-center">
                         <p><strong>{{ $this->statut == 'personnel_active' ? 'Personnel en activité' : 'Personnel retraité' }}</strong></p>
                     </div>
                     <div>
                         <div>
-                            <p><strong>Grade :</strong> {{ $this->grade }}</p>
+                            <p><strong>DRADE :</strong> {{ $this->grade }}</p>
                         </div>
     
                     </div>
@@ -336,8 +396,8 @@
                         <div class="flex-1 w-1/2">
                             <div class="flex">
                                 <div class="flex-shrink-0">
-                                    <p class="mr-1 leading-none"><strong>Date depart à la retraite :</strong></p>
-                                    <p class="text-xs leading-none"><small>(JJ/MM/AAAA)</small></p>
+                                    <p class="mr-1 leading-none"><strong>DATE DÉPART À LA RETRAITE :</strong></p>
+                                    <p class="text-9pt leading-none"><small>(JJ/MM/AAAA)</small></p>
                                 </div>
                                 <div class="flex-1">
                                     <p class="leading-none">{{ $this->departARetraite }}</p>
@@ -355,21 +415,21 @@
             
             <!-- Personnel en Activité -->
             @if ($this->statut === 'personnel_active')
-                <div class="border px-2 rounded-lg leading-none">
+                <div class="border text-10pt px-2 rounded-lg leading-none">
                     <div class="text-center">
                         <p><strong>{{ $this->statut == 'personnel_active' ? 'Personnel en activité' : 'Personnel retraité' }}</strong></p>
                     </div>
                     <div>
                         <div>
-                            <p><strong>Grade :</strong> {{ $this->grade }}</p>
+                            <p><strong>GRADE :</strong> {{ $this->grade }}</p>
                         </div>
     
                         <div class="flex space-x-4">
                             <div class="flex-1 w-1/2">
                                 <div class="flex">
                                     <div class="flex-shrink-0">
-                                        <p class="mr-1 leading-none"><strong>Date d'intégration :</strong></p>
-                                        <p class="text-xs leading-none"><small>(JJ/MM/AAAA)</small></p>
+                                        <p class="mr-1 leading-none"><strong>DATE INTÉGRATION  :</strong></p>
+                                        <p class="text-8pt leading-none"><small>(JJ/MM/AAAA)</small></p>
                                     </div>
                                     <div class="flex-1">
                                         <p class="leading-none">{{ $this->dateIntegration }}</p>
@@ -379,7 +439,7 @@
     
                             <div class="flex  w-1/2 leading-none">
                                 <div class="flex-shrink-0 leading-none">
-                                    <p class="mr-1 leading-none"><strong>Date de départ à la rétraite :</strong></p>
+                                    <p class="mr-1 leading-none"><strong>DATE DÉPART À LA RETRAITE :</strong></p>
                                     <p class="text-xs leading-none"><small>(JJ/MM/AAAA)</small></p>
                                 </div>
     
@@ -392,34 +452,40 @@
                         </div>
     
                         <div class="flex space-x-0">
-                            <p class="flex-1"><strong>Direction :</strong> {{ $this->direction }}</p>
-                            <p class="flex-1"><strong>Service :</strong> {{ $this->service }}</p>
+                            <p class="flex-1"><strong>DIRECTION :</strong> {{ $this->direction }}</p>
+                            <p class="flex-1"><strong>SERVICE :</strong> {{ $this->service }}</p>
                         </div>
                     </div>
                 </div>
             @endif
             
             
-            <div class="flex">
+            <div class="flex footer border-t border-gray-300 mt-2 pt-2">
                 <!-- Colonne Références -->
-                <div class="w-3/4 flex items-center justify-center">
-                    <div class="rounded-lg text-1xl border-2 border-black font-semibold px-1">
+                <div class="w-3/4 flex items-center justify-start">
+                    <div class=" width-95 rounded-lg border-4 border-black font-semibold py-2 px-2">
     
-                        <h3>JOINDRE DES PHOTOS RECENTES DE L’ADHERENT ET DES AYANTS DROITS</h3>
-                        <h3 class=" text-1xl font-semibol px-auto px-1">
-                            	joindre une copie de l’extrait de naissance de chaque enfant
-                        </h3>
-                        <h3>
-                            	joindre une copie de l’extrait de naissance et de la CNIB pour la ou le(s) conjoint(es)
-                        </h3>
+                        <h3 class="text-8pt">JOINDRE DES PHOTOS RECENTES DE L'ADHÉRENT ET DES AYANTS DROITS</h3>
+                        <div id="custom-list">
+                            <ul class="text-small-footer">
+                                <li>
+                                    <span class="circle"></span>
+                                    Joindre une copie de l’extrait de naissance de chaque enfant
+                                </li>
+                                <li>
+                                    <span class="circle"></span>
+                                    Joindre une copie de l’extrait de naissance et de la CNIB pour la ou le(s) conjoint(es)
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-    
+
                 </div>
     
                 <!-- Colonne Signature -->
-                <div class="w-[20%] items-center px-2 justify-end flex-col ml-auto">
+                <div class="w-1/4 items-center pl-3 justify-end flex-col ml-auto">
                     <h3 class="text-xs text-center underline decoration-solid " style="font-size: 10px;">VISA DU PRESIDENT DU CONSEIL D’ADMINISTRATION</h3>
-                    <div class="w-full h-32 flex-grow border-2 border-black flex items-center justify-center">
+                    <div class="width-full h-24 flex-grow border-2 border-black flex items-center justify-center">
                     </div>
                 </div>
             </div>

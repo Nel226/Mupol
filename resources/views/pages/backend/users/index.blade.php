@@ -8,23 +8,24 @@
     </div>
    
     <x-content-page-admin>
-        <div class="flex-1 flex items-center justify-center ">
 
-            <div class=" p-2 sm:p-4 w-full border-2 border-gray-200 rounded-lg sm:ml-64 dark:border-gray-700">
+        <div class= "flex flex-col items-center justify-center min-h-screen text-sm">
+
+            <div class=" p-0 sm:p-4 w-full border-0 sm:border-2 border-gray-200 rounded-lg dark:border-gray-700">
                 <div class="px-0 py-2 sm:px-4 sm:py-8 mx-auto lg:py-16">
                     <div class="flex items-center px-2 sm:px-4 py-2 text-gray-500 bg-[#fffe4a70] rounded-t-lg shadow-lg">
-                        <h1 class="flex-1 text-2xl font-bold">Utilisateurs</h1>
+                        <h1 class="flex-1 text-xl sm:text-2xl font-bold">Utilisateurs</h1>
                     </div>
                     <div class=" w-full px-0 sm:px-15 mt-1 sm:mt-4 mx-auto">
                         <div class="flex py-3 justify-between items-center">
-                            <h2 class="text-xl font-semibold mb-4">Liste des utilisateurs</h2>
+                            <h2 class=" text-sm sm:text-xl font-semibold">Liste des utilisateurs</h2>
                             <a href="{{ route('users.create') }}">
-                                <x-primary-button class="mt-2">
+                                <x-primary-button class="">
                                     {{ __('Créer un utilisateur') }}
                                 </x-primary-button>
                             </a>
                         </div>
-                        <div class="relative overflow-x-auto mt-4 shadow-md sm:rounded-lg">
+                        <div class="relative overflow-x-auto mt-4 shadow-md rounded-lg">
                             <table class="table-auto w-full rounded-md">
                                 <thead class="rounded-md">
                                     <tr class="bg-gray-300">

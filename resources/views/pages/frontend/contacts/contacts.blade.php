@@ -41,7 +41,7 @@
                                     <div class="content">
                                         <h3 class="font-bold text-lg">TELEPHONE</h3>
                                         <p>
-                                            +226 25728277
+                                            {{ config('contact.phone_mupol') }}
                                         </p>
                                     </div>
                                 </div>

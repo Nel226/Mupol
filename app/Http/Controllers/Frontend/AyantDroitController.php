@@ -22,8 +22,9 @@ class AyantDroitController extends Controller
     {
         $adherent = auth()->guard('adherent')->user();
         $ayantsDroits = AyantDroit::where('adherent_id', $adherent->id)->get();
+        $pageTitle = 'Liste des ayants droit';
         return  view('pages.frontend.adherents.ayantsdroits.index',
-                compact('adherent', 'ayantsDroits')
+                compact('adherent', 'ayantsDroits', 'pageTitle')
         );
 
     }
@@ -33,8 +34,9 @@ class AyantDroitController extends Controller
         $adherent->ayantsDroits = json_decode($adherent->ayantsDroits, true); 
 
         $ayantsDroits = $adherent->ayantsDroits;
+        $pageTitle = 'Nouveau';
         return  view('pages.frontend.adherents.ayantsdroits.create',
-                compact('adherent', 'ayantsDroits')
+                compact('adherent', 'ayantsDroits', 'pageTitle')
         );
 
     }
@@ -42,30 +44,41 @@ class AyantDroitController extends Controller
     {
         $adherent = auth()->guard('adherent')->user();
         $nextPosition = AyantDroit::where('adherent_id', $adherent->id)->max('position') + 1;
+        
         if ($nextPosition > 6) {
-            return back()->withErrors(['message' => 'You cannot add more than 7 dependents.']);
+            return back()->withErrors(['message' => 'Vous ne pouvez pas ajouter plus de 7 ayants droits.']);
         }
-        $adherent->ayantsDroits = json_decode($adherent->ayantsDroits, true); 
-
-        $ayantsDroits = $adherent->ayantsDroits;
-
-
+    
         $ayantDroit = new AyantDroit();
         $ayantDroit->nom = $request->nom;
         $ayantDroit->prenom = $request->prenom;
         $ayantDroit->sexe = $request->sexe;
         $ayantDroit->date_naissance = $request->date_naissance;
         $ayantDroit->relation = $request->relation;
-        $ayantDroit->code = $adherent->matricule . '/01';
+        $ayantDroit->code = $adherent->matricule . '/0'.$nextPosition;
         $ayantDroit->adherent_id = $adherent->id;
         $ayantDroit->position = $nextPosition;
-
-        $ayantDroit->save();
-        return redirect()->route('adherents.ayantsdroits')->with('success', 'Ayant droit ajouté avec succès.');
+    
+        // Gestion des fichiers
+        if ($request->hasFile('photo')) {
+            $ayantDroit->photo = $request->file('photo')->store('ayants_droits/photos', 'public');
+        }
         
-
+        if ($request->hasFile('extrait')) {
+            $ayantDroit->extrait = $request->file('extrait')->store('ayants_droits/extraits', 'public');
+        }
+    
+        if ($request->relation === 'Epoux' || $request->relation === 'Epouse') {
+            if ($request->hasFile('cnib')) {
+                $ayantDroit->cnib = $request->file('cnib')->store('ayants_droits/cnib', 'public');
+            }
+        }
+    
+        $ayantDroit->save();
+    
+        return redirect()->route('adherents.ayantsdroits')->with('success', 'Ayant droit ajouté avec succès.');
     }
-    public function deleteAyantDroitAdherent($id)
+        public function deleteAyantDroitAdherent($id)
     {
         
         $ayantDroit = AyantDroit::find($id);

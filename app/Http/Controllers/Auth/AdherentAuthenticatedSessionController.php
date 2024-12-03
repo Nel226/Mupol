@@ -107,8 +107,8 @@ class AdherentAuthenticatedSessionController extends Controller
     {
         $adherent = Auth::guard('adherent')->user();
         $adherent->ayantsDroits = json_decode($adherent->ayantsDroits, true); 
-
-        return view('pages.frontend.adherents.dashboard', compact('adherent'));
+        $pageTitle = 'Profil';
+        return view('pages.frontend.adherents.dashboard', compact('adherent', 'pageTitle'));
     }
 
 

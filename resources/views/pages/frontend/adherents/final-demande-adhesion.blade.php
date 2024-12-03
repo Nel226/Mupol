@@ -18,25 +18,6 @@
             });
         </script>
     @endif
-
-    <!-- Breadcrumbs -->
-    <div class="breadcrumbs overlay">
-        <div class="container">
-            <div class="bread-inner">
-                <div class="row">
-                    <div class="col-12">
-                        <h2>Demande d&apos;adhésion MU-POL</h2>
-                        <ul class="bread-list">
-                            <li><a href="index.html">Accueil</a></li>
-                            <li><i class="icofont-simple-right"></i></li>
-                            <li class="active">Adhérer</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Breadcrumbs -->
             
     <section class=" section">
         <div class="container">
@@ -54,9 +35,19 @@
                                     <a class="btn" href="{{ route('download-fiche-cession-volontaire', ['id' => $demandeAdhesion->id]) }}">
                                         Télécharger la fiche de cession volontaire
                                     </a>
+                                    
                                 </div>
                             </div>
                             
+                            {{-- <iframe id="iframeId" src="{{ route('imprimer-fiche-cession', ['id' => $demandeAdhesion->id]) }}" style="display:none;"></iframe>
+                            
+                            <script>
+                                function printIframeContent() {
+                                    const iframe = document.getElementById('iframeId');
+                                    iframe.contentWindow.focus(); 
+                                    iframe.contentWindow.print();  
+                                }
+                            </script> --}}
                             <div class="container  my-3 border border-gray-200  p-10 bg-white shadow-lg rounded-lg mx-auto">
                                 <div class="font-bold mb-4 text-green-600 flex-col text-center justify-center space-y-2 ">
                                     <i class="fa fa-check-circle w-16 h-16 text-5xl"></i>

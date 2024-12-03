@@ -1,5 +1,6 @@
 <x-guest-layout>
-    <x-header-guest/>
+
+    <x-preloader/>
 
     @if (session('success'))
         <x-succes-notification>
@@ -18,91 +19,134 @@
             });
         </script>
     @endif
+    <div id="app-layout" class="overflow-x-hidden flex">
+        @include("components.navbar-guest-connected")
+        <!-- app layout content -->
+        <div 
+        id="app-layout-content" 
+        class="layout-guest min-h-screen w-full lg:pl-[15.625rem] transition-all duration-300 ease-out">
+     
+            @include("components.top-navbar-guest-connected")
 
-    <div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-3">
-        <section class="container mx-auto ">
-            @if ($adherent->ayantsDroits()->count() < 6 )
+           <div class="bg-indigo-600 px-8 pt-10 lg:pt-14 pb-16 flex justify-between items-center mb-3">
+              <!-- title -->
+              <h1 class="text-xl text-white">{{ $pageTitle }}</h1>
+              
+           </div>
+           <div class="-mt-12  mb-6 ">
+            <div class="mx-6 my-6 grid grid-cols-1 lg:grid-cols-1 grid-rows-1 grid-flow-row-dense gap-6">
                 
-            <div class=" flex my-2 justify-end">
-                <x-primary-button >
-                    <a href=" {{route('adherents.nouveau-ayantdroit')}} ">
+                <!-- card -->
+                <div class="card h-full shadow">
+                    <div class="border-b border-gray-300 px-1 md:px-5 py-4 flex items-center w-full justify-between">
+                        <!-- title -->
+                        <div>
+                           <h4>Mes ayants droit</h4>
+                        </div>
+                        <div>
+                           <!-- button -->
+                           <div class="dropdown leading-4">
+                            @if ($adherent->ayantsDroits()->count() < 6 )
+                           
+                                <button
+                                class="btn btn-sm gap-x-2 bg-white text-gray-800 border-gray-300 border disabled:opacity-50 disabled:pointer-events-none hover:text-white hover:bg-gray-700 hover:border-gray-700 active:bg-gray-700 active:border-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-300"
+                                type="button"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                <a href=" {{route('adherents.nouveau-ayantdroit')}} ">
+                                    Nouveau ayant droit
+                                </a>
+                                </button>
+                            @endif
+                              
+                           </div>
+                        </div>
+                     </div>
+                   <div class="relative overflow-x-auto" data-simplebar="" style="max-height: 380px">
+                      <!-- table -->
+                      <table class="text-left w-full whitespace-nowrap">
+                         <thead class="text-gray-700">
+                            <tr>
+                               <th scope="col" class="border-b bg-gray-100 px-6 py-3">Identité</th>
+                               <th scope="col" class="border-b bg-gray-100 px-6 py-3">Date de naissance</th>
+                               <th scope="col" class="border-b bg-gray-100 px-6 py-3">Lien de parenté</th>
+                               <th scope="col" class="border-b bg-gray-100 px-6 py-3">Code carte</th>
+                               <th scope="col" class="border-b bg-gray-100 px-6 py-3">Documents</th>
+                               <th scope="col" class="border-b bg-gray-100 px-6 py-3"></th>
 
-                        Nouveau ayant droit
-                    </a>
-                </x-primary-button>
-            </div>
-            @endif
-            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6  mx-auto">
-                <div class="mb-6 text-center">
-                    <h2 class="text-xl font-bold text-gray-800 dark:text-white">Liste des ayants droits</h2>
-                </div>
 
-                <div class="overflow-x-auto">
-                    <table class="min-w-full bg-white dark:bg-gray-800 shadow-lg rounded-lg">
-                        <thead>
-                            <tr class="text-left text-gray-600 dark:text-gray-400 uppercase text-sm leading-normal bg-gray-100 dark:bg-gray-700">
-                                {{--  <th class="py-3 px-6">Photo</th>  --}}
-                                <th class="py-3 px-6">Nom</th>
-                                <th class="py-3 px-6">Prénom</th>
-
-                                <th class="py-3 px-6">Lien de parenté</th>
-                                
-                                <th class="py-3 px-6">Actions</th>
-
-
-
-                               
                             </tr>
-                        </thead>
-                        <tbody class="text-gray-600 dark:text-gray-300 text-sm font-light">
-                            @foreach ($ayantsDroits as $ayantDroit)
-                                <tr class="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800">
-                                    {{--  <td class="py-3 px-4 text-center">
-                                        <div class="flex justify-center">
-                                            @if (isset($ayantDroit['photo_path']))
-                                                <button class="open-modal-button text-blue-500 hover:text-blue-700" 
-                                                        data-url="{{ asset('storage/' . $ayantDroit['photo_path']) }}" type="button">
-                                                        <img class="w-10 h-10 rounded-full cursor-pointer" src="{{ asset('storage/' . $ayantDroit['photo_path']) }}" 
-                                                            alt="Photo de {{ $ayantDroit['nom'] }}" 
-                                                            onclick="openModal('{{ asset('storage/' . $ayantDroit['photo_path']) }}')" />
-                                                </button>
+                         </thead>
+                         <tbody>
+                           
+                            @forelse ($ayantsDroits as $ayantDroit)
+                                <tr>
+                                    <td class="border-b border-gray-300 font-medium py-3 px-6 text-left">
+                                        <div class="flex items-center">
+                                            <div>
+                                                <a href="#" class="h-10 w-10 inline-block">
+                                                    <img src="{{ asset('storage/' . $ayantDroit->photo) }}" alt="Photo" class="rounded-full" />
+                                                </a>
+                                            </div>
+                                            <div class="ml-3 leading-4">
+                                                <h5 class="mb-1">
+                                                    <a href="#!">{{ $ayantDroit->nom }} {{ $ayantDroit->prenom }}</a>
+                                                </h5>
+                                                <p class="mb-0 text-gray-500">Genre : {{ $ayantDroit->sexe }}</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="border-b border-gray-300 font-medium py-3 px-6 text-left">{{ $ayantDroit->date_naissance }}</td>
+                                    <td class="border-b border-gray-300 font-medium py-3 px-6 text-left">{{ $ayantDroit->relation }}</td>
+                                    <td class="border-b border-gray-300 font-medium py-3 px-6 text-left">{{ $ayantDroit->relation }}</td>
+                                    <td class="border-b border-gray-300 font-medium py-3 px-6 text-left">
+                                        <div class="flex space-y-2 flex-col">
+                                            @if ($ayantDroit->extrait)
+                                                <a href="{{ asset('storage/' . $ayantDroit->extrait) }}" target="_blank" class="text-primary1 underline">
+                                                    Voir l&apos;extrait
+                                                </a>
                                             @else
-                                                <span class="text-gray-500">N/A</span>
+                                                <span class="text-gray-500">Extrait non disponible</span>
+                                            @endif
+
+                                            @if ($ayantDroit->relation == 'Epoux' || $ayantDroit->relation == 'Epouse')
+                                                @if ($ayantDroit->cnib)
+                                                    <a href="{{ asset('storage/' . $ayantDroit->cnib) }}" target="_blank" class="text-primary1 underline">
+                                                        Voir la CNIB
+                                                    </a>
+                                                @else
+                                                    <span class="text-gray-500">CNIB non disponible</span>
+                                                @endif
                                             @endif
                                         </div>
-                                    </td>  --}}
-                                   
-                                    <td class="py-3 px-6">{{ $ayantDroit->nom }}</td>
-                                    <td class="py-3 px-6">{{ $ayantDroit->prenom }}</td>
-
-                                    <td class="py-3 px-6">{{ $ayantDroit->relation }}</td>
-                                    <th class="py-3 px-2  text-center justify-center">
-                                        {{--  <x-primary-button class=" ">
-                                            <i class=" fa fa-pencil-square"></i>
-                                        </x-primary-button>  --}}
+                                    </td>
+                                    <td class="border-b border-gray-300 font-medium py-3 px-6 text-left">
                                         <form action="{{ route('adherents.delete-ayantdroit', $ayantDroit->id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet ayant droit ?');">
                                             @csrf
-                                            @method('DELETE')  <!-- This is correct and will indicate to Laravel that you want to treat this as a DELETE request -->
-                                            
-                                            <x-primary-button type='submit' class="bg-red-600">
-                                                <i class=" fa fa-trash"></i>
-                                            </x-primary-button>
+                                            @method('DELETE')
+                                            <button type="submit" class="bg-red-800 btn">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
                                         </form>
-                                        
-                                    </th>
-
-                                    
-                                    
+                                    </td>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                            @empty
+                                <tr>
+                                    <td colspan="6" class="text-center py-4">
+                                        <p class="text-gray-500 text-sm">Aucun ayant droit trouvé.</p>
+                                    </td>
+                                </tr>
+                            @endforelse
+                         </tbody>
+                      </table>
+                   </div>
                 </div>
-
-                <div class="mt-8 text-center">
-                    <a href="{{ route('adherents.dashboard') }}" class="text-indigo-600 hover:text-indigo-800 underline">Retour au tableau de bord</a>
-                </div>
-            </div>
-        </section>
+             </div>
+                 
+           </div>
+           
+           @include("components.footer-guest-connected")
+        </div>
     </div>
+   
 </x-guest-layout>

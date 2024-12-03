@@ -6,8 +6,9 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ config('app.name', 'Laravel') }}</title>
-
+        
         <!-- Fonts -->
+        <link rel="icon" type="image/x-icon" href="{{ asset('images/favicon.ico') }}">
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
         
@@ -58,6 +59,9 @@
         <link rel="stylesheet" href="{{ asset('assets/css/style-partenaire.css') }}">
                 
         <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/components/navbar.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/components/nav.css') }}">
+
         
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -84,6 +88,7 @@
         <script src="{{ asset('js/easing.js') }}"></script>
         <!-- Color JS -->
         <script src="{{ asset('js/colors.js') }}"></script>
+
         <!-- Popper JS -->
         <script src="{{ asset('js/popper.min.js') }}"></script>
         <!-- Bootstrap Datepicker JS -->
@@ -120,18 +125,20 @@
         <script src="{{ asset('js/bootstrap.min.js') }}"></script>
         <!-- Main JS -->
         <script src="{{ asset('js/main.js') }}"></script>
-        
+       
+        <script src="{{ asset('js/theme.js') }}" defer></script>
+
     </head>
     <style>
         .font-body{
             font-family:  'Times New Roman', serif !important
         }
     </style>
-    <body class=" font-sans font-body text-gray-900 antialiased">
+    <body class=" font-sans font-body text-gray-900 antialiased min-h-screen">
         
-        <div style="margin: 0px !important;" class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-white dark:bg-gray-900" >
+        <div style="margin: 0px !important;" class="min-h-screen flex flex-col sm:justify-center items-center  sm:pt-0 bg-white dark:bg-gray-900" >
 
-            <div class="w-full   bg-white dark:bg-gray-800  overflow-y-auto ">
+            <div class="w-full   bg-white dark:bg-gray-800   ">
 
                 {{ $slot }}
             </div>

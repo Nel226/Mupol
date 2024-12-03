@@ -1,5 +1,6 @@
 <nav x-data="{ open: false, dropdownOpen: false }" class="    z-50 w-full  border-gray-400 dark:bg-gray-800 dark:border-gray-700">
     <!-- Primary Navigation Menu -->
+    
     <div class="px-4 mx-auto sm:px-6 lg:px-8">
         <div class="flex justify-between">
             <div class="flex items-center justify-start rtl:justify-end">

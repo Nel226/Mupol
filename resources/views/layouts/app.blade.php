@@ -8,20 +8,27 @@
         <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
+        <link rel="icon" type="image/x-icon" href="{{ asset('images/favicon.ico') }}">
         <link rel="stylesheet" href="{{ asset('css/tabulator.min.css') }}">
         <link rel="stylesheet" href="{{ asset('css/fontawesome.min.css') }}">
         <link rel="stylesheet" href="{{ asset('css/datatables.min.css') }}">
         <link rel="stylesheet" href="{{ asset('css/select2.min.css') }}">
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+
+        <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
+
+        <link rel="stylesheet" href="{{ asset('css/components/navbar.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/components/nav.css') }}">
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         @livewireStyles
+        <script src="https://cdn.jsdelivr.net/npm/pagedone@1.2.2/src/js/pagedone.js"></script>
 
-        <script src="https://cdn.tailwindcss.com"></script>
         <script src="{{ asset('js/cdn.min.js') }}" defer></script>
         <script src="{{ asset('js/regions.js') }}" defer></script>
-
+        <script src="{{ asset('../node_modules/pagedone/src/js/pagedone.js') }}"></script>
         <script src="{{ asset('js/jquery.min.js') }}"></script>
 
         <script src="{{ asset('js/pdfmake.min.js') }}"></script>
@@ -36,10 +43,12 @@
         <script src="{{ asset('js/chart.umd.js') }}"></script>
         <script src="{{ asset('js/datatables.min.js') }}"></script>
         <script src="{{ asset('js/select2.min.js') }}"></script>
+        <script src="{{ asset('js/theme.js') }}" defer></script>
+
         
     </head>
-    <body class="font-sans bg-gradient-to-r from-[#4E46E3] to-blue-900  antialiased">
-        <div class="min-h-screen  dark:bg-gray-900">
+    <body class="font-sans   antialiased">
+        <div class="min-h-screen bg-blue-800  dark:bg-gray-900">
             {{--  @include('layouts.navigation')  --}}
 
             <!-- Page Heading -->
@@ -52,7 +61,7 @@
             @endif
 
             <!-- Page Content -->
-            <main>
+            <main class="">
                 {{ $slot }}
             </main>
         </div>

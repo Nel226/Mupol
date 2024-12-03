@@ -26,24 +26,6 @@
         </script>
     @endif
 
-    <!-- Breadcrumbs -->
-    <div class="breadcrumbs overlay">
-        <div class="container">
-            <div class="bread-inner">
-                <div class="row">
-                    <div class="col-12">
-                        <h2>Demande d&apos;adhésion MU-POL</h2>
-                        <ul class="bread-list">
-                            <li><a href="index.html">Accueil</a></li>
-                            <li><i class="icofont-simple-right"></i></li>
-                            <li class="active">Adhérer</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Breadcrumbs -->
             
     <section class=" section bg-gray-100">
         <div class="container">
@@ -53,7 +35,7 @@
                     <div class="col-lg-12">
                         <x-section-guest>
                             
-                            <div class="w-[80%] md:w-3/6 lg:w-3/6  max-w-4xl mx-auto p-6 bg-white shadow-lg border rounded-lg">
+                            <div class=" md:w-3/6 lg:w-3/6  max-w-4xl mx-auto p-6 bg-white shadow-lg border rounded-lg">
                                 <h2 class="text-base font-bold text-center  border-2 border-gray-300 rounded-md p-2 text-gray-800">Remplir la fiche de cession volontaire</h2>
                             
                                 <form action="{{ route('finalisation-adhesion') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
@@ -146,8 +128,8 @@
                                             <canvas id="signatureCanvas" class="border rounded-md bg-white w-full h-40" style="border: 1px solid #000;"></canvas>
                                             <input type="hidden" id="signatureInput" name="signature" />
                                             <div class="w-full !text-xs flex justify-between mt-2">
-                                                <x-primary-button type="button" id="saveButton" class="!text-xs bg-emerald-600 p-2 rounded-md text-white  transition">Enregistrer</x-primary-button>
-                                                <x-primary-button type="button" id="clearButton" class="!text-xs bg-gray-400 p-2 rounded-md text-white  transition">Effacer</x-primary-button>
+                                                <button type="button" id="saveButton" class="!text-xs btn !bg-emerald-600 p-2 rounded-md text-white  transition">Enregistrer</button>
+                                                <button type="button" id="clearButton" class="!text-xs btn !bg-gray-400 p-2 rounded-md text-white  transition">Effacer</button>
                                             </div>
                                         </div>
                                     
@@ -185,7 +167,7 @@
                             
                                     <!-- Bouton de soumission -->
                                     <div class="flex justify-end">
-                                        <x-primary-button type="submit" class="">Soumettre</x-primary-button>
+                                        <button type="submit" class="btn">Soumettre</button>
                                     </div>
                                 </form>
                             </div>

@@ -60,25 +60,26 @@
                                         <li class="{{ request()->routeIs('services') ? 'active' : '' }}">
                                             <a href="{{ route('services') }}" class="hover:text-gray-300 px-2">Nos Services</a>
                                         </li>
-                                        @if (!Auth::guard('partenaire')->check())
                                         <li class="{{ request()->routeIs('formulaire-adhesion') ? 'active' : '' }}">
                                             <a href="{{ route('formulaire-adhesion') }}" class="hover:text-gray-300 px-2">Adhérer</a>
                                         </li>
-                                        @endif
                                         <li class="{{ request()->routeIs('contacts') ? 'active' : '' }}">
                                             <a href="{{ route('contacts') }}" class="hover:text-gray-300 px-2">Nous contacter</a>
                                         </li>
-                                        @if (Auth::guard('adherent')->check())
+                                        {{-- @if (Auth::guard('adherent')->check())
                                             <li class="{{ request()->routeIs('adherents.dashboard') ? 'active' : '' }}">
                                                 <a href="{{ route('adherents.dashboard') }}" class="hover:text-gray-300 px-2">Mon Profil</a>
                                             </li>
-                                            <li class="{{ request()->routeIs('adherents.prestations') ? 'active' : '' }}">
-                                                <a href="{{ route('adherents.prestations') }}" class="hover:text-gray-300 px-2">Remboursement</a>
-                                            </li>
-                                            <li class="{{ request()->routeIs('adherents.ayantsdroits') ? 'active' : '' }}">
-                                                <a href="{{ route('adherents.ayantsdroits') }}" class="hover:text-gray-300 px-2">Ayants Droits</a>
-                                            </li>
+                                            @if (Auth::guard('adherent')->user()->is_adherent == 1)
+                                                <li class="{{ request()->routeIs('adherents.prestations') ? 'active' : '' }}">
+                                                    <a href="{{ route('adherents.prestations') }}" class="hover:text-gray-300 px-2">Remboursement</a>
+                                                </li>
+                                                <li class="{{ request()->routeIs('adherents.ayantsdroits') ? 'active' : '' }}">
+                                                    <a href="{{ route('adherents.ayantsdroits') }}" class="hover:text-gray-300 px-2">Ayants Droits</a>
+                                                </li>
+                                            @endif
                                         @endif
+
                                         @if (Auth::guard('partenaire')->check())
                                             <li class="{{ request()->routeIs('partenaires.dashboard') ? 'active' : '' }}">
                                                 <a href="{{ route('partenaires.dashboard') }}" class="hover:text-gray-300 px-2">Profil</a>
@@ -89,7 +90,7 @@
                                             <li class="{{ request()->routeIs('partenaire.restrictions') ? 'active' : '' }}">
                                                 <a href="{{ route('partenaire.restrictions') }}" class="hover:text-gray-300 px-2">Restrictions</a>
                                             </li>
-                                        @endif
+                                        @endif --}}
                                     </ul>
                                 </nav>
                             </div>

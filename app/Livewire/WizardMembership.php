@@ -118,7 +118,7 @@ class WizardMembership extends Component
                 'genre' => 'required',
                 'departement' => 'required|string',
                 'ville' => 'required|string',
-                'pays' => 'nullable|string',
+                'pays' => 'required|string',
                 'nom_pere' => 'required|string',
                 'nom_mere' => 'required|string',
             ]);

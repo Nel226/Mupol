@@ -74,8 +74,9 @@ class PartenaireAuthenticatedSessionController extends Controller
     public function dashboard(): View
     {
         $partenaire = Auth::guard('partenaire')->user();
+        $pageTitle = 'Profil';
 
-        return view('pages.frontend.partenaires.dashboard', compact('partenaire'));
+        return view('pages.frontend.partenaires.dashboard', compact('partenaire', 'pageTitle'));
     }
 
     public function destroy(Request $request): RedirectResponse
@@ -83,7 +84,7 @@ class PartenaireAuthenticatedSessionController extends Controller
         Auth::guard('partenaire')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('user/login');
+        return redirect('/login/user');
     }
     
 }

@@ -1,14 +1,15 @@
-<aside id="logo-sidebar" class="fixed left-0 z-40 w-64 h-screen transition-transform -translate-x-full top-0 sm:translate-x-0 bg-transparent  ">
+<aside id="logo-sidebar" class="fixed left-0 z-40 w-64  h-screen transition-transform top-0  bg-transparent  ">
     <div class="h-full px-4 py-6 overflow-y-auto bg-transparent dark:bg-gray-900">
-        <a href="/" class="flex items-center">
+        <a href="/login" class="flex items-center lg:flex sm:hidden hidden">
             <img src="{{ asset('images/logofinal.png') }}" class="h-16 w-16 rounded-full border-2 border-white bg-white shadow-lg" alt="Logo" />
             <span class="self-center ml-3 text-base font-bold text-white sm:text-base tracking-wide">
                 {{ config('app.name') }}
             </span>
         </a>
+        
  
-        <div class="mt-8 text-gray-200 text-sm font-semibold uppercase tracking-wide">Menu</div>
-        <ul class="mt-2 space-y-2 text-sm font-medium" x-data="{ openMenu: null }">
+        <div class="mt-4 text-gray-200 text-sm font-semibold uppercase tracking-wide">Menu</div>
+        <ul class="mt-2 space-y-2 text-xs font-medium" x-data="{ openMenu: null }">
             <li>
                 <a href="{{ route('admin.dashboard') }}" class="@if(Request::is('admin/dashboard')) active @endif flex items-center px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300 hover:scale-105 ">
                     <i class="fa fa-pie-chart w-5 h-5 dark:text-gray-400 group-hover:text-black"></i>

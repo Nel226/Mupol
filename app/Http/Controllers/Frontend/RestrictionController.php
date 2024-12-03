@@ -14,6 +14,7 @@ class RestrictionController extends Controller
 
     public function restrictionsPartenaire()
     {
-        return view('pages.frontend.partenaires.restrictions.index');
+        $pageTitle = 'Restrictions';
+        return view('pages.frontend.partenaires.restrictions.index', compact('pageTitle'));
     }
 }

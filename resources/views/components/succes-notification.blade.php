@@ -13,5 +13,17 @@
         <i class="w-5 h-5 fa fa-times"></i>
     </button>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const notification = document.getElementById('success-notification-content');
+        const closeBtn = document.getElementById('close-notification');
+        
+        notification.classList.remove('hidden');
+        
+        closeBtn.addEventListener('click', () => {
+            notification.classList.add('hidden');
+        });
+    });
+</script>
 <!-- END: Notification Content -->
       

@@ -14,14 +14,12 @@
     </div>
    
     <x-content-page-admin>
-        
 
         @include('layouts.navigation')
-        @section('breadcrumbs')
-            <x-breadcrumb :breadcrumbItems="$breadcrumbsItems" />
-        @endsection
+            @section('breadcrumbs')
+                <x-breadcrumb :breadcrumbItems="$breadcrumbsItems" />
+            @endsection
         
-
         <x-header>
             {{$pageTitle}}
         </x-header>

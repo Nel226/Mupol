@@ -15,10 +15,12 @@
    
     <x-content-page-admin>
         
-        @include('layouts.navigation', ['breadcrumbItems' => $breadcrumbsItems])
 
-
-
+        @include('layouts.navigation')
+        @section('breadcrumbs')
+            <x-breadcrumb :breadcrumbItems="$breadcrumbsItems" />
+        @endsection
+        
 
         <x-header>
             {{$pageTitle}}

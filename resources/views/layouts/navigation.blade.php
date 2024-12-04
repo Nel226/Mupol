@@ -4,12 +4,8 @@
     <div class="px-4 mx-auto sm:px-6 lg:px-8">
         <div class="flex justify-between">
             
-
             <!-- Include Breadcrumbs Component -->
-            <div>
-                @component('components.breadcrumb', ['breadcrumbItems' => $breadcrumbItems])
-                @endcomponent
-            </div>
+            @yield('breadcrumbs')
 
             <div class="flex items-center justify-between">
                 <div >

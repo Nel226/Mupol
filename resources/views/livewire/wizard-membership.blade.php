@@ -164,7 +164,9 @@
                             <!-- Téléphone -->
                             <div>
                                 <label class="block text-gray-700 text-sm font-bold mb-1" for="telephone">Téléphone</label>
-                                <input wire:model="telephone" id="telephone" type="text"
+                                <input wire:model="telephone" id="telephone" type="tel" placeholder="Ex: 12345678"
+                                    pattern="^(\+?[1-9][0-9]{0,2})?[0-9]{8,10}$"
+                                    title="Ex. (numéro valide) : +22677020202 ou 77020202"
                                     class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline  mb-0 sm:mb-4">
                                 @error('telephone')
                                     <span class="text-red-500 text-xs">{{ $message }}</span>
@@ -353,7 +355,10 @@
                                         <!-- Téléphone -->
                                         <div>
                                             <label class="block text-gray-700 text-sm font-bold mb-1" for="telephone_personne_prevenir">Téléphone</label>
-                                            <input wire:model="telephone_personne_prevenir" id="telephone_personne_prevenir" type="text"
+                                            <input wire:model="telephone_personne_prevenir" id="telephone_personne_prevenir" 
+                                                type="tel" placeholder="Ex: 12345678"
+                                                pattern="^(\+?[1-9][0-9]{0,2})?[0-9]{8,10}$"
+                                                title="Ex. (numéro valide) : +22677020202 ou 77020202"
                                                 class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-0 sm:mb-4">
                                             @error('telephone_personne_prevenir')
                                                 <span class="text-red-500 text-xs">{{ $message }}</span>

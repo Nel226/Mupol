@@ -2,10 +2,9 @@
 
 <x-guest-layout>
     <x-preloader/>
-    <x-preloader/>
     <x-header-guest/>
     <div class="">
-       
+    
         <section class="section min-h-screen ">
             <div class="container ">
                 <div class="">

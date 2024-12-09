@@ -3,6 +3,9 @@
         <x-succes-notification>
             {{ session('success') }}
         </x-succes-notification>
+        <x-succes-notification>
+            {{ session('success') }}
+        </x-succes-notification>
     @endif
     <x-top-navbar-admin />
 

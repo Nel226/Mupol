@@ -12,6 +12,16 @@ class CotisationController extends Controller
 {
     public function index(Request $request)
     {
+        $breadcrumbsItems = [
+            [
+                'name' => 'Cotisations',
+                'url' => route('cotisations.index'),
+                'active' => true
+            ],
+        ];
+
+        $pageTitle = 'Gestion des cotisations';
+
         $sumTotalMensualites = 0;
         $sumTotalCotisations = 0;
         $sumTotalAdhesions = 0;

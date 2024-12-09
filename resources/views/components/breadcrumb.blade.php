@@ -1,7 +1,7 @@
 @props(['breadcrumbItems' => []])
 
 <div class="flex py-3 items-center ">
-    <ul class="list-none space-x-1 flex flex-wrap items-center px-3 py-1 ">
+    <ul class="list-none space-x-1 flex flex-wrap items-center pl-0 pr-3 py-1 ">
         <li class="inline-block items-center relative text-sm text-gray-500">
             <a href="{{ route('admin.dashboard') }}" class="breadcrumbList">
                 <i class="fa fa-home"></i>

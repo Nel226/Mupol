@@ -7,6 +7,7 @@ use App\Models\DemandeAdhesion;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use App\Models\Adherent;
 
 class WizardMembership extends Component
 {
@@ -51,11 +52,94 @@ class WizardMembership extends Component
     public  $signature, $signatureImage; 
     protected $listeners = ['signatureDataUpdated' => 'updateSignatureData'];
 
+
+    // ------------------------------------------------------------------------------------------------
+    public $adherentType;
+    public $adherent;
+    public $hasMatricule, $hasNip, $hasCnib, $hasAdressePermanente, $hasTelephone, $hasEmail;
+    public $showConfirmationForm = false; // Contrôle l'affichage du formulaire de confirmation
+    public $id;
+
+
+
     // Méthode pour passer à l'étape suivante
     public function mount()
     {
         $this->currentStep = session()->get('currentStep', 1);
     }
+
+    public function changeAdherentType($type)
+    {
+        $this->adherentType = $type; // Logique pour changer le type d'adhérent
+    }
+
+    public function checkExistingData()
+    {
+        // Vérifier si un adhérent existe avec les mêmes matricule, service et nombre d'ayants-droits
+        $existingAdherent = Adherent::where('matricule', $this->matricule)
+                                    ->where('service', $this->service)
+                                    ->where('nombreAyantsDroits', $this->nombreAyantsDroits)
+                                    ->first();
+
+        if ($existingAdherent) {
+            $this->adherent = $existingAdherent;
+            // dd($existingAdherent);
+            // Etape 1
+            $this->nip = $existingAdherent->nip;
+            $this->cnib = $existingAdherent->cnib;
+            $this->delivree = $existingAdherent->delivree;
+            $this->expire = $existingAdherent->expire;
+            $this->adresse_permanente = $existingAdherent->adresse_permanente;
+            $this->telephone = $existingAdherent->telephone;
+            $this->email = $existingAdherent->email;
+
+            // Etape 2
+            $this->nom = $existingAdherent->nom;
+            $this->prenom = $existingAdherent->prenom;
+            $this->genre = $existingAdherent->genre;
+            $this->departement = $existingAdherent->departement;
+            $this->ville = $existingAdherent->ville;
+            $this->pays = $existingAdherent->pays;
+            $this->nom_pere = $existingAdherent->nom_pere;
+            $this->nom_mere = $existingAdherent->nom_mere;
+
+            // Etape 3
+            $this->situation_matrimoniale = $existingAdherent->situation_matrimoniale;  // Situation matrimoniale
+            $this->nom_prenom_personne_besoin = $existingAdherent->nom_prenom_personne_besoin;  // Personne à prévenir
+            $this->lieu_residence = $existingAdherent->lieu_residence;
+            $this->telephone_personne_prevenir = $existingAdherent->telephone_personne_prevenir;
+            $this->photo = $existingAdherent->photo;
+            
+            // AyantsDroits
+            if ($this->nombreAyantsDroits > 0) {
+                for ($i = 0; $i < $this->nombreAyantsDroits; $i++) {
+                    $this->ayantsDroits[$i] = $existingAdherent->ayantsDroits()->skip($i)->first();
+                }
+            }
+
+            // Etape 4
+            // Selon le statut, remplir les champs supplémentaires
+            if ($this->statut === 'personnel_retraite') {
+                $this->grade = $existingAdherent->grade;
+                $this->departARetraite = $existingAdherent->departARetraite;
+                $this->numeroCARFO = $existingAdherent->numeroCARFO;
+            } elseif ($this->statut === 'personnel_active') {
+                $this->grade = $existingAdherent->grade;
+                $this->dateIntegration = $existingAdherent->dateIntegration;
+                $this->dateDepartARetraite = $existingAdherent->dateDepartARetraite;
+                $this->direction = $existingAdherent->direction;
+            }
+
+            $this->showConfirmationForm = true; // Masquer le formulaire
+            
+            session()->flash('error', 'Cet adhérent existe déjà avec ces informations exactes.'); // Si un adhérent existe avec ces informations exactes, mettre à jour ou afficher un message d'erreur
+            
+        } else {
+            // Si aucun adhérent n'existe avec ces informations exactes
+            session()->flash('success', 'Aucun adhérent trouvé avec ces informations exactes.');
+        }
+    }
+
 
     public function nextStep()
     {
@@ -103,7 +187,7 @@ class WizardMembership extends Component
                     'required',
                     'regex:/^(\+?[0-9]{1,3})?[0-9]{8,10}$/',
                 ],
-                'email' => 'required|email|unique:adherents,email|unique:partenaires,email',
+                'email' => 'required|email|unique:adherents,email,' . $this->id . '|unique:partenaires,email,' . $this->id,
 
             ],
             [
@@ -173,29 +257,7 @@ class WizardMembership extends Component
                         "ayantsDroits.$index.extrait" => 'nullable|mimes:pdf|max:1024',
                         
                     ]);
-
-                    // if ($request->hasFile('photo')) {
-                    //     // Utilisation de `uniqid()` pour éviter les collisions de noms
-                    //     $photoName = uniqid() . '_' . $ayantDroit['photo']->getClientOriginalName();
-                    //     $photoPath = $ayantDroit['photo']->storeAs('public/photos/ayants_droits', $photoName);
-                    //     $this->ayantsDroits[$index]['photo_path'] = 'storage/photos/ayants_droits/' . $photoName;
-                    // }
                     
-                    // if ($request->hasFile('cnib')) {
-                    //     // Utilisation de `uniqid()` pour éviter les collisions de noms
-                    //     $cnibName = uniqid() . '_' . $ayantDroit['cnib']->getClientOriginalName();
-                    //     $cnibPath = $ayantDroit['cnib']->storeAs('public/pdf/cnibs', $cnibName);
-                    //     $this->ayantsDroits[$index]['cnib_path'] = 'storage/pdf/cnibs/' . $cnibName;
-                    // }
-                    
-                    // if ($request->hasFile('extrait')) {
-                    //     // Utilisation de `uniqid()` pour éviter les collisions de noms
-                    //     $extraitName = uniqid() . '_' . $ayantDroit['extrait']->getClientOriginalName();
-                    //     $extraitPath = $ayantDroit['extrait']->storeAs('public/pdf/extraits', $extraitName);
-                    //     $this->ayantsDroits[$index]['extrait_path'] = 'storage/pdf/extraits/' . $extraitName;
-                    // }
-                    
-            
                     if (isset($ayantDroit['photo'])) {
                         $photoName = uniqid() . '_' . $ayantDroit['photo']->getClientOriginalName();
                         $photoPath = $ayantDroit['photo']->storeAs('public/photos/ayants_droits', $photoName);
@@ -215,8 +277,6 @@ class WizardMembership extends Component
                     }
                 }
             }
-            
-            
             
         } elseif ($this->currentStep == 4) {
             $this->validate([
@@ -248,11 +308,12 @@ class WizardMembership extends Component
     // Méthode de soumission finale du wizard
     public function submit()
     {
-        
-        $this->validateStep(); 
+        $this->validateStep(); // Assurez-vous de valider la dernière étape
 
+        // Détermination de la catégorie une fois pour les deux cas
         $categorie = DemandeCategorieHelper::determineCategorie($this->nombreAyantsDroits);
 
+        // Préparation des données communes
         $data = [
             'matricule' => $this->matricule,
             'nip' => $this->nip,
@@ -287,19 +348,26 @@ class WizardMembership extends Component
             'direction' => $this->direction,
             'service' => $this->service,
         ];
-        
-        
-        $demandeAdhesion = DemandeAdhesion::create($data);
-        
-        session()->flash('message', 'Formulaire soumis avec succès !');
-        
-        // Réinitialisez le formulaire si nécessaire
+
+         // Si un adhérent existe déjà, on le met à jour, sinon on crée un nouvel enregistrement
+        if ($this->adherent) {
+            $this->adherent->update($data);
+            $demandeAdhesion = $this->adherent;
+            session()->flash('message', 'Les informations de l\'adhérent ont été mises à jour.');
+        } else {
+            $demandeAdhesion = DemandeAdhesion::create($data);
+            session()->flash('message', 'L\'adhérent a été créé avec succès.');
+        }
+
+        // Réinitialisation et redirection
         $this->reset();
-        $this->currentStep = 1; 
+        $this->currentStep = 1;
         session()->put('currentStep', 1);
-        
+        // dd($demandeAdhesion->id);
+
         return redirect()->route('resume-adhesion', ['id' => $demandeAdhesion->id]);
     }
+
     
     public function saveSignature()
     {

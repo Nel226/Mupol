@@ -37,8 +37,10 @@ class AccueilController extends Controller
         return view('pages.frontend.accueil', compact('types', 'descriptions'));
     }
 
-    public function newAdhesion(){
-        return view('pages.frontend.adherents.formulaire_adhesion');
+    public function newAdhesion(Request $request){
+        return view('pages.frontend.adherents.formulaire_adhesion', [
+            'type' => $request->query('type', 'nouveau'), // 'nouveau' par défaut
+        ]);
     }
 
     public function recapitulatifForm( Request $request)
@@ -159,8 +161,6 @@ class AccueilController extends Controller
                 }
             }
         }
-
-
 
         Mail::to($demandeAdhesion->email)->send(new ConfirmationDemandeAdhesion($demandeAdhesion, $pdf, $generatedPassword));
         return redirect()->route('final-demande-adhesion')->with([

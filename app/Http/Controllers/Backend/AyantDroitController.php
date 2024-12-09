@@ -149,9 +149,12 @@ class AyantDroitController extends Controller
     /**
     * Display the specified resource.
     */
-    public function show(AyantDroit $ayantDroit)
+    public function show($id)
     {
-        //
+        $ayantDroit = AyantDroit::with('adherent')->findOrFail($id);
+        $pageTitle = 'Informations mutualiste';
+
+        return view('pages.backend.ayantsdroits.show', compact('ayantDroit', 'pageTitle'));
     }
     
     /**

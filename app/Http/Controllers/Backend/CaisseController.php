@@ -33,7 +33,6 @@ class CaisseController extends Controller
         
         foreach ($categories as $categorie) {
             $total = $recettes->where('categorie_id', $categorie->id)->sum('montant');
-            dd($total);
 
             foreach ($categorie->children as $child) {
                 $total += $recettes->where('categorie_id', $child->id)->sum('montant');

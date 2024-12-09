@@ -49,7 +49,7 @@ class Adherent extends Authenticatable
         'dateDepartARetraite',
         'password', 'cle', 'code_carte', 'telephone', 'charge', 'mensualite', 'adhesion', 'photo',
         'region', 'province', 'localite',
-        'must_change_password', 'is_adherent',
+        'must_change_password', 'is_adherent', 'demande_id'
     ];
 
     /**

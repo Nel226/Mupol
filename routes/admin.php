@@ -48,7 +48,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/ayantdroits/import', [AyantDroitController::class, 'import'])->name('ayantdroits.import');
 
     Route::get('/prestations/{id}/recu', action: [PrestationController::class, 'downloadReceipt'])->name('prestations.downloadReceipt');
-    Route::get('/prestations/suivi', [PrestationController::class, 'suivi'])->name('suivi');
+    Route::get('/prestations/suivi', action: [PrestationController::class, 'suivi'])->name('suivi');
     Route::get('/consultation/suivi', [PrestationController::class, 'suiviConsultation'])->name('suivi-consultation');
     Route::get('/radio/suivi', [PrestationController::class, 'suiviRadio'])->name('suivi-radio');
     Route::get('/maternite/suivi', [PrestationController::class, 'suiviMaternite'])->name('suivi-maternite');

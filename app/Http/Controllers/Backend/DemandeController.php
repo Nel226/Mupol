@@ -86,7 +86,7 @@ class DemandeController extends Controller
             $demande = $adherent->demande; 
 
             if ($demande) {
-                $demande->etat = 1;
+                $demande->etat = true;
                 $demande->save();
             }
 

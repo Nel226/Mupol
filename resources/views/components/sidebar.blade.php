@@ -130,12 +130,12 @@
                 </a>
             </li>  --}}
          
-            <li>
+            {{-- <li>
                 <a href="{{ route('adherents.index') }}" class="@if(Request::is('adherents') || Request::is('adherents/*')) active @endif flex items-center px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
                     <i class="fa fa-line-chart w-5 h-5 dark:text-gray-400 group-hover:text-black"></i>
                     <span class="ml-3">Statistiques</span>
                 </a>
-            </li>
+            </li> --}}
             @endrole
             @role('agentsaisie|controleur')
             <li>
@@ -156,7 +156,7 @@
             </li>
             @endrole
 
-            @role('controleur')
+            @role('controleur|comptable')
             <li>
                 <a href="{{ route('cotisations.index') }}" class="@if(Request::is('cotisations') || Request::is('cotisations/*')) active @endif flex items-center px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
                     <i class="fa fa-money w-5 h-5 dark:text-gray-400 group-hover:text-black"></i>
@@ -171,12 +171,16 @@
                     <span class="ml-3">Gestion des évènements</span>
                 </a>
             </li>  --}}
+            @role('agentsaisie|controleur')
+
             <li>
                 <a href="{{ route('prestations.index') }}" class="@if(Request::is('prestations')) active @endif flex items-center px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
                     <i class="fa fa-file w-5 h-5 dark:text-gray-400 group-hover:text-black"></i>
                     <span class="ml-3">Gestion des prestations</span>
                 </a>
             </li>
+           
+            @endrole
 
             @role('controleur')
             <li>

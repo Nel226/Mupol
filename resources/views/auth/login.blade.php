@@ -40,9 +40,9 @@
                     
                     <!-- Login Button -->
                     <div class="my-4 w-full mx-auto">
-                        <x-primary-button class="!justify-center !py-3 !w-full text-sm sm:text-base"> <!-- Adjusted text size -->
+                        <button class="btn w-full">
                             {{ __('Se connecter') }}
-                        </x-primary-button>
+                        </button>
                     </div>
                 </form>
             </div>

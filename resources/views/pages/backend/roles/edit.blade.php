@@ -1,12 +1,24 @@
 <x-app-layout>
-    <x-sidebar />
+    @if (session('success'))
+        <x-succes-notification>
+            {{ session('success') }}
+        </x-succes-notification>
+    @endif
+    <x-top-navbar-admin />
 
-    <div class="p-4 border-2 border-gray-200 rounded-lg sm:ml-64 dark:border-gray-700 mt-14">
-        <div class="max-w-2xl px-4 py-8 mx-auto lg:py-16">
-            
-            <section class="bg-white dark:bg-gray-900 rounded-md">
+    <div id="sidebar" class="lg:block z-20 hidden bg-blue-800 w-64 h-screen fixed rounded-none border-none">
+        <x-sidebar id="logo-sidebar" />
+    </div>
+
+    <x-content-page-admin>
+        <x-header>
+            {{ $pageTitle }}
+        </x-header>
+
+        <div class="md:p-6 p-2 mx-auto mt-4 bg-white rounded-lg shadow-lg">
+            <section class="bg-white rounded-md dark:bg-gray-900">
                 <div class="max-w-2xl px-4 py-4 mx-auto lg:py-8">
-                    <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Modifier le rôle</h2>
+                    <h2 class="mb-4 text-base md:text-xl font-bold text-gray-900 dark:text-white">Modifier le rôle</h2>
                     <form action="{{ route('roles.update', $role->id) }}" method="POST">
                         @csrf
                         @method('PUT')
@@ -26,15 +38,15 @@
                         </div>
 
                         <div class="flex items-center justify-end mt-8">
-                            <x-primary-button type="submit" class="">
+                            <button type="submit" class="btn">
                                 Mettre à jour le rôle
-                            </x-primary-button>
+                            </button>
                         </div>
                     </form>
                 </div>
             </section>
-            
         </div>
-    </div>
-    
+        
+    </x-content-page-admin>
 </x-app-layout>
+

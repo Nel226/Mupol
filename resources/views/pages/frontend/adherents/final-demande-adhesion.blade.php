@@ -19,7 +19,7 @@
         </script>
     @endif
             
-    <section class=" section min-h-screen min-h-screen">
+    <section class=" section min-h-screen">
         <div class="container">
             <div class="">
                 <div class="row "> 

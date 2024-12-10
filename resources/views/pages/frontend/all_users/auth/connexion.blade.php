@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 
 
 <x-guest-layout>
@@ -96,5 +94,4 @@
         </section>
 
     </div>
-</x-guest-layout>
->>>>>>> 045bd7c423bea5011e151b941d36583f1ed354c5
+gi</x-guest-layout>

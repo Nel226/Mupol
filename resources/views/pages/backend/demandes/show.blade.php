@@ -187,7 +187,7 @@
 
         
                 <!-- Modifier les informations -->
-                <div class="text-right mt-6">
+                <div class=" flex justify-between text-right mt-6">
                     <a href="{{ route('edit-demande-adhesion', ['id'=>$demande->id]) }}">
 
                         <button class="btn">

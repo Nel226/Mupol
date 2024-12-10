@@ -19,13 +19,7 @@ class AdherentController extends Controller
      */
     public function index()
     {
-        $header = [
-            'ordre', 'date_enregistrement', 'nom', 'prenom', 'genre', 'service', 'no_matricule',
-            'code_carte', 'telephone', 'charge', 'mensualite', 'adhesion'
-        ];
-        $headerAyantDroit = [
-            'nom', 'prenom', 'sexe', 'date_naissance', 'relation', 'code', 'matricule_adherent'
-        ];
+       
         $breadcrumbsItems = [
             [
                 'name' => 'Adhésions',
@@ -36,72 +30,10 @@ class AdherentController extends Controller
         $pageTitle = 'Liste des adhésions';
 
         $adherents = Adherent::all();
-        $ad = AyantDroit::all();
-        $mutualistes = $adherents->concat($ad);
+        $ayantsDroit = AyantDroit::with('adherent')->get();        
+        $mutualistes = $adherents->concat($ayantsDroit);
 
-        $groupedAdherents = $adherents->groupBy(function($adherent) {
-            return \Carbon\Carbon::parse($adherent->date_enregistrement)->format('Y-m');
-        })->sortKeys();
-        $sheets = [];
-        foreach ($groupedAdherents as $yearMonth => $adherents) {
-            $sheets[$yearMonth] = $adherents->map(function($adherent) {
-                return [
-                    'id'=> $adherent->id,
-                    'ordre' => $adherent->ordre,
-                    'date_enregistrement' => $adherent->date_enregistrement,
-                    'nom' => $adherent->nom,
-                    'prenom' => $adherent->prenom,
-                    'genre' => $adherent->genre,
-                    'service' => $adherent->service,
-                    'no_matricule' => $adherent->no_matricule,
-                    'code_carte' => $adherent->code_carte,
-                    'telephone' => $adherent->telephone,
-                    'charge' => $adherent->charge,
-                    'mensualite' => $adherent->mensualite,
-                    'adhesion' => $adherent->adhesion,
-                ];
-            })->toArray();
-        }
-    
-        $ayantsDroit = AyantDroit::with('adherent')->get()->map(function($ayantDroit) {
-            return [
-                'id' => $ayantDroit->id,
-                'nom' => $ayantDroit->nom,
-                'prenom' => $ayantDroit->prenom,
-                'sexe' => $ayantDroit->sexe,
-                'date_naissance' => $ayantDroit->date_naissance,
-                'relation' => $ayantDroit->relation,
-                'code' => $ayantDroit->code,
-                'matricule_adherent' => $ayantDroit->adherent->no_matricule, 
-                'date_enregistrement_adherent' => $ayantDroit->adherent->date_enregistrement 
-
-            ];
-        });
-        $ayantsDroitAll = AyantDroit::all();
-        
-        $groupedAyantsDroits = $ayantsDroit->groupBy(function($ayantDroit) {
-            return Carbon::parse($ayantDroit['date_enregistrement_adherent'])->format('Y-m');
-        })->sortKeys();
-
-        
-    
-        $sheetsAyantsDroits = [];
-        foreach ($groupedAyantsDroits as $yearMonth => $ayantsDroits) {
-            $sheetsAyantsDroits[$yearMonth] = collect($ayantsDroits)->map(function($ayantDroit) {
-                return [
-                    'id' => $ayantDroit['id'],
-                    'nom' => $ayantDroit['nom'],
-                    'prenom' => $ayantDroit['prenom'],
-                    'sexe' => $ayantDroit['sexe'],
-                    'date_naissance' => $ayantDroit['date_naissance'],
-                    'relation' => $ayantDroit['relation'],
-                    'code' => $ayantDroit['code'],
-                    'matricule_adherent' => $ayantDroit['matricule_adherent'],
-                ];
-            })->toArray();
-        }
-
-        return view('pages.backend.adherents.index', compact('header', 'mutualistes','ayantsDroitAll', 'sheets', 'sheetsAyantsDroits', 'ayantsDroit', 'ad','adherents', 'headerAyantDroit', 'breadcrumbsItems', 'pageTitle'));
+        return view('pages.backend.adherents.index', compact( 'mutualistes', 'ayantsDroit','adherents', 'pageTitle', 'breadcrumbsItems'));
     }
     
 
@@ -189,8 +121,10 @@ class AdherentController extends Controller
      */
     public function show(Adherent $adherent)
     {
+        $pageTitle = 'Informations mutualiste';
+
         $pretations = Prestation::where('adherentCode' == $adherent->code_carte);
-        return view('pages.backend.adherents.show', compact('adherent', 'pretations'));
+        return view('pages.backend.adherents.show', compact('adherent', 'pretations', 'pageTitle'));
 
     }
 

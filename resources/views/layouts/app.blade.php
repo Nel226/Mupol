@@ -48,7 +48,7 @@
 
         
     </head>
-    <body class="font-sans   antialiased">
+    <body class="font-sans bg-blue-800   antialiased">
         <div class="min-h-screen bg-blue-800  dark:bg-gray-900">
             {{--  @include('layouts.navigation')  --}}
 

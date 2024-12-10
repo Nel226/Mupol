@@ -14,7 +14,8 @@ class ParametreController extends Controller
      */
     public function index()
     {
-        return view('pages.backend.parametres.index');
+        $pageTitle = "Paramètres";
+        return view('pages.backend.parametres.index', compact('pageTitle'));
     }
 
     /**

@@ -58,7 +58,8 @@ return new class extends Migration
             $table->string('password');
             $table->boolean('must_change_password')->default(true);
             $table->boolean('is_adherent')->default(false);
-
+            $table->uuid('demande_id')->nullable();
+            $table->foreign('demande_id')->references('id')->on('demande_adhesions');
 
             $table->timestamps();
         });

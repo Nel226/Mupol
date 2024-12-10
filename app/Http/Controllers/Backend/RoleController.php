@@ -10,13 +10,17 @@ class RoleController extends Controller
 {
     public function index()
     {
+        $pageTitle = "Rôles";
+
         $roles = Role::all();
-        return view('pages.backend.roles.index', compact('roles'));
+        return view('pages.backend.roles.index', compact('roles', 'pageTitle'));
     }
 
     public function create()
     {
-        return view('pages.backend.roles.create');
+        $pageTitle = "Nouveau rôle";
+
+        return view('pages.backend.roles.create', compact('pageTitle'));
     }
 
     public function store(Request $request)
@@ -33,7 +37,9 @@ class RoleController extends Controller
 
     public function edit(Role $role)
     {
-        return view('pages.backend.roles.edit', compact('role'));
+        $pageTitle = "Modifier rôle";
+
+        return view('pages.backend.roles.edit', compact('role', 'pageTitle'));
     }
 
     public function update(Request $request, Role $role)

@@ -49,7 +49,7 @@ class Adherent extends Authenticatable
         'dateDepartARetraite',
         'password', 'cle', 'code_carte', 'telephone', 'charge', 'mensualite', 'adhesion', 'photo',
         'region', 'province', 'localite',
-        'must_change_password', 'is_adherent',
+        'must_change_password', 'is_adherent', 'demande_id'
     ];
 
     /**
@@ -63,6 +63,26 @@ class Adherent extends Authenticatable
     public function prestations()
     {
         return $this->hasMany(Prestation::class, 'adherentCode', 'code_carte');
+    }
+
+    // App\Models\Adherent.php
+
+    public function demande()
+    {
+        return $this->belongsTo(DemandeAdhesion::class, 'demande_id'); // Assurez-vous que 'demande_id' est le bon nom de colonne dans votre base de données
+    }
+
+    public function setNombreAyantsDroitsAttribute($value)
+    {
+        $this->attributes['nombreAyantsDroits'] = $value;
+        $this->attributes['charge'] = $value; // Met à jour automatiquement `charge`
+    }
+
+    // Mutateur pour charge
+    public function setChargeAttribute($value)
+    {
+        $this->attributes['charge'] = $value;
+        $this->attributes['nombreAyantsDroits'] = $value; // Met à jour automatiquement `nombreAyantsDroits`
     }
 
 }

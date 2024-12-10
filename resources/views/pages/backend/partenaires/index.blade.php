@@ -1,85 +1,38 @@
 <x-app-layout>
-    <x-sidebar/>
-
     @if (session('success'))
         <x-succes-notification>
             {{ session('success') }}
         </x-succes-notification>
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                const notification = document.getElementById('success-notification-content');
-                const closeBtn = document.getElementById('close-notification');
-                
-                notification.classList.remove('hidden');
-                
-                closeBtn.addEventListener('click', () => {
-                    notification.classList.add('hidden');
-                });
-            });
-        </script>
     @endif
+    <x-top-navbar-admin />
 
-    <x-content-page>
-        @section('navigation-content')
-            <x-breadcrumb :breadcrumbItems="$breadcrumbsItems" :pageTitle="$pageTitle"/>
-        @endsection        
-        <div class="flex-1 p-6">
-            <x-header>
-                {{$pageTitle}}
-            </x-header>
-            <div class=" flex justify-end">
-                <a href="{{  route('partenaires.create') }}">
-                    <x-primary-button>
-                        Nouveau partenaire
-                    </x-primary-button>
-                </a>
-            </div>
+    <div id="sidebar" class="lg:block z-20 hidden bg-blue-800 w-64 h-screen fixed rounded-none border-none">
+        <x-sidebar id="logo-sidebar" />
+    </div>
 
-            <div class="p-6 mx-auto mt-4 bg-white min-h-screen rounded-b-lg shadow-lg">
-                <!-- Tabs -->
-                <div class="mb-4">
-                    <ul class="flex border-b">
-                        <li class="mr-1">
-                            <a href="#all" class="inline-block py-2 px-3 text-blue-600 hover:text-whit text-sm rounded-t-md focus:outline-none tab-link">
-                                Tous
+    <x-content-page-admin>
+        @section('breadcrumbs')
+            <x-breadcrumb :breadcrumbItems="$breadcrumbsItems" />
+        @endsection
+        <x-header>
+            {{ $pageTitle }}
+        </x-header>
+        
+        <div class="md:p-6 p-2 mx-auto mt-4 bg-white rounded-lg shadow-lg">
+            @role('agentsaisie|controleur')
+                <x-tabs :tabs="['Tous', 'Hôpitaux', 'Cliniques', 'Pharmacies']">
+                    <!-- Tous Tab -->
+                    <div id="tab-tous" class="tab-pane  sm:p-4 p-1 bg-white rounded-md shadow-md">
+                        <div class="flex flex-wrap items-center justify-start py-2 gap-2">
+                            <a href="{{ route('partenaires.create') }}">
+                                <button class="btn">{{ __('Nouveau partenaire') }}</button>
                             </a>
-                        </li>
-                        <li class="mr-1">
-                            <a href="#hopitaux" class="inline-block py-2 px-3 text-blue-600 hover:text-whit text-sm rounded-t-md focus:outline-none tab-link">
-                                Hôpitaux
-                            </a>
-                        </li>
-                        <li class="mr-1">
-                            <a href="#cliniques" class="inline-block py-2 px-3 text-blue-600 hover:text-whit text-sm rounded-t-md focus:outline-none tab-link">
-                                Cliniques
-                            </a>
-                        </li>
-                        <li class="mr-1">
-                            <a href="#pharmacies" class="inline-block py-2 px-3 text-blue-600 hover:text-whit text-sm rounded-t-md focus:outline-none tab-link">
-                                Pharmacies
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Tous tab content -->
-                <div id="all" class="tab-content hidden">
-                    <table id="partenaires-table-all" class="w-full text-sm text-left text-gray-500 border rtl:text-right dark:text-gray-400 display">
-                        <thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
-                            <tr>
-                                <th>Nom</th>
-                                <th>Type</th>
-                                <th>Adresse</th>
-                                <th>Téléphone</th>
-                                <th>Email</th>
-                                <th>Région</th>
-                                <th>Province</th>
-                                <th>Date d&apos;affiliation</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($partenaires as $partenaire)
-                                <tr class="cursor-pointer" onclick="window.location='{{ route('partenaires.show', $partenaire->id) }}'">
+                        </div>
+                      
+                        <x-data-table id="table-tous" :headers="['N', 'Nom', 'Type', 'Adresse', 'Téléphone', 'Email', 'Région', 'Province', 'Date affiliation' ]">
+                            @foreach ($partenaires as $index => $partenaire)
+                                <tr onclick="redirectTo('{{ route('partenaires.show', $partenaire->id) }}')" class=" hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                                    <td>{{ $loop->iteration }}</td>
                                     <td>{{ $partenaire->nom }}</td>
                                     <td>{{ $partenaire->type }}</td>
                                     <td>{{ $partenaire->adresse }}</td>
@@ -90,27 +43,17 @@
                                     <td>{{ $partenaire->created_at }}</td>
                                 </tr>
                             @endforeach
-                        </tbody>
-                    </table>
-                </div>
+                        </x-data-table>
 
-                <!-- Hôpitaux tab content -->
-                <div id="hopitaux" class="tab-content hidden">
-                    <table id="hopitaux-table" class="w-full text-sm text-left text-gray-500 border rtl:text-right dark:text-gray-400 display">
-                        <thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
-                            <tr>
-                                <th>Nom</th>
-                                <th>Adresse</th>
-                                <th>Téléphone</th>
-                                <th>Email</th>
-                                <th>Région</th>
-                                <th>Province</th>
-                                <th>Date d&apos;affiliation</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($hopitaux as $hopital)
-                                <tr class="cursor-pointer" onclick="window.location='{{ route('partenaires.show', $hopital->id) }}'">
+                    </div>
+        
+                    <!-- Hôpitaux Tab -->
+                    <div id="tab-hopitaux" class="tab-pane  sm:p-4 p-1">
+                        
+                        <x-data-table id="table-hopitaux" :headers="['N', 'Nom', 'Adresse', 'Téléphone', 'Email', 'Région', 'Province', 'Date affiliation' ]">
+                            @foreach ($hopitaux as $index => $hopital)
+                                <tr onclick="redirectTo('{{ route('partenaires.show', $hopital->id) }}')" class="cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700">
+                                    <td>{{ $loop->iteration }}</td>
                                     <td>{{ $hopital->nom }}</td>
                                     <td>{{ $hopital->adresse }}</td>
                                     <td>{{ $hopital->telephone }}</td>
@@ -120,27 +63,17 @@
                                     <td>{{ $hopital->created_at }}</td>
                                 </tr>
                             @endforeach
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- Cliniques tab content -->
-                <div id="cliniques" class="tab-content hidden">
-                    <table id="cliniques-table" class="w-full text-sm text-left text-gray-500 border rtl:text-right dark:text-gray-400 display">
-                        <thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
-                            <tr>
-                                <th>Nom</th>
-                                <th>Adresse</th>
-                                <th>Téléphone</th>
-                                <th>Email</th>
-                                <th>Région</th>
-                                <th>Province</th>
-                                <th>Date d&apos;affiliation</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($cliniques as $clinique)
-                                <tr class="cursor-pointer" onclick="window.location='{{ route('partenaires.show', $clinique->id) }}'">
+                        </x-data-table>
+        
+                    </div>
+        
+                    <!-- Cliniques Tab -->
+                    <div id="tab-cliniques" class="tab-pane overflow-x-auto sm:p-4 p-1">
+                        
+                        <x-data-table id="table-cliniques" :headers="['N', 'Nom', 'Adresse', 'Téléphone', 'Email', 'Région', 'Province', 'Date affiliation' ]">
+                            @foreach ($cliniques as $index => $clinique)
+                                <tr onclick="redirectTo('{{ route('partenaires.show', $clinique->id) }}')" class="cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700">
+                                    <td>{{ $loop->iteration }}</td>
                                     <td>{{ $clinique->nom }}</td>
                                     <td>{{ $clinique->adresse }}</td>
                                     <td>{{ $clinique->telephone }}</td>
@@ -150,27 +83,17 @@
                                     <td>{{ $clinique->created_at }}</td>
                                 </tr>
                             @endforeach
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- Pharmacies tab content -->
-                <div id="pharmacies" class="tab-content hidden">
-                    <table id="pharmacies-table" class="w-full text-sm text-left text-gray-500 border rtl:text-right dark:text-gray-400 display">
-                        <thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
-                            <tr>
-                                <th>Nom</th>
-                                <th>Adresse</th>
-                                <th>Téléphone</th>
-                                <th>Email</th>
-                                <th>Région</th>
-                                <th>Province</th>
-                                <th>Date d&apos;affiliation</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($pharmacies as $pharmacie)
-                                <tr class="cursor-pointer" onclick="window.location='{{ route('partenaires.show', $pharmacie->id) }}'">
+                        </x-data-table>
+                        
+                        
+                    </div>
+                    <!-- Pharmacies Tab -->
+                    <div id="tab-pharmacies" class="tab-pane overflow-x-auto sm:p-4 p-1">
+                       
+                        <x-data-table id="table-pharmacies" :headers="['N', 'Nom', 'Adresse', 'Téléphone', 'Email', 'Région', 'Province', 'Date affiliation' ]">
+                            @foreach ($pharmacies as $index => $pharmacie)
+                                <tr onclick="redirectTo('{{ route('partenaires.show', $pharmacie->id) }}')" class="cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700">
+                                    <td>{{ $loop->iteration }}</td>
                                     <td>{{ $pharmacie->nom }}</td>
                                     <td>{{ $pharmacie->adresse }}</td>
                                     <td>{{ $pharmacie->telephone }}</td>
@@ -180,109 +103,32 @@
                                     <td>{{ $pharmacie->created_at }}</td>
                                 </tr>
                             @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>    
-    </x-content-page>
+                        </x-data-table>
+                    </div>
+                </x-tabs>
+            @endrole
+        </div>
+        
+        <script defer>
+            $(document).ready(function () {
+                function initializeDataTable(tableId) {
+                    return $(tableId).DataTable({
+                        dom: "<'flex flex-wrap items-center justify-between mb-2'lf>Bt<'flex items-center justify-between mt-2'ip>",
+                        buttons: ['print', 'excel', 'pdf'],
+                        scrollX: true,
+                        responsive: true
+                    });
+                }
+        
+                // Initialize all tables
+                const tableTous = initializeDataTable('#table-tous');
+                const tableHopitaux = initializeDataTable('#table-hopitaux');
+                const tableCliniques = initializeDataTable('#table-cliniques');
+                const tablePharmaciest = initializeDataTable('#table-pharmacies');
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#partenaires-table-all, #hopitaux-table, #cliniques-table, #pharmacies-table').DataTable({
-                buttons: [
-                    { 
-                        extend: 'print', 
-                        className: 'btn btn-sm text-red-500 btn-primary fa fa-print', 
-                        text:'' 
-                    },
-                                       
-                ],
-         
-                paging: true,
-                ordering: true,
-                info: true,
-                searching: true,
-                lengthChange: true,
-                lengthMenu: [10, 25, 50, 100],
-                pagingType: 'simple_numbers',
-                
-
-                "language": {
-                    "search": "Rechercher:",
-                    "lengthMenu": "Afficher _MENU_ entrées par page",
-                    "info": "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
-                    "infoEmpty": "Aucune entrée disponible",
-                    "zeroRecords": "Aucun résultat trouvé",
-                    "paginate": {
-                        "previous": "Précédent",
-                        "next": "Suivant"
-                    }
-                },
-                "dom": '<"top"lBf>t<"bottom"p><"clear">',
-                "initComplete": function() {
-                    $('.dataTables_filter input').css('border-radius', '10px');
-                    $('.dataTables_filter label').contents().filter(function() {
-                        return this.nodeType === 3;
-                    }).remove();                        
-                    $('.dataTables_filter input').attr('placeholder', 'Rechercher...'); 
-                    $('.dataTables_filter').css({
-                        'position': 'relative',
-                        
-                    });                        
-                    $('.dataTables_filter input').css({
-                        'padding-left': '30px',  // Espace pour l'icône
-                    }).before('<i class="fa fa-search absolute text-gray-300" style="position: absolute; top: 50%; left: 10px; transform: translateY(-50%);"></i>');
-
-                    $('.dataTables_length select').css({
-                        'padding': '6px 12px',
-                        'font-family': 'Arial, sans-serif',
-                        'font-size': '14px',                 // Change la taille de la police
-                        
-                    });
-                    $('.dataTables_length').css({
-                        'font-family': 'Arial, sans-serif',  // Change la police
-                        'font-size': '14px',
-                        'line-height': '1rem',
-                        'color' : 'gray'
-                    });
-                    $('.dataTables_wrapper .top').css({
-                        'display': 'flex',
-                        'justify-content': 'space-between',
-                        'align-items': 'center',
-                        'margin-top': '20px',   // Marge supérieure
-                        'margin-bottom': '20px'  // Marge inférieure
-                    });
-                    $('.dataTables_paginate .paginate_button').css({
-                        'margin': '8px 20px',
-                        'color' : 'gray',
-                        'font-size': '14px',
-                        'line-height': '1rem',
-                    });
-                },
             });
-
-          
-
-            $("a.tab-link").on("click", function (e) {
-                e.preventDefault();
-
-                $("a.tab-link").removeClass("bg-primary1 text-white").addClass("text-blue-600");
-
-                $(this).removeClass("text-blue-600").addClass("bg-primary1 text-white");
-
-                $(".tab-content").addClass("hidden");
-                var targetTab = $(this).attr("href");
-                $(targetTab).removeClass("hidden");
-            });
-
-            $("a.tab-link:first").addClass("bg-primary1 text-white");
-            $(".tab-content:first").removeClass("hidden");
-        });
-    </script> 
+        </script>
+        
+    </x-content-page-admin>
 </x-app-layout>
+

@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+=======
 
 
 <x-guest-layout>
@@ -95,3 +97,4 @@
 
     </div>
 </x-guest-layout>
+>>>>>>> 045bd7c423bea5011e151b941d36583f1ed354c5

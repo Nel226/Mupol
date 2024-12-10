@@ -78,6 +78,7 @@ class AccueilController extends Controller
     {
 
         $demandeAdhesion = DemandeAdhesion::findOrFail($request->input('demande_adhesion_id'));
+       
         $demandeAdhesion->region = $request->input('region');
         $demandeAdhesion->province = $request->input('province');
         $demandeAdhesion->localite = $request->input('localite');
@@ -132,6 +133,9 @@ class AccueilController extends Controller
             'province' => $demandeAdhesion->province,
             'localite' => $demandeAdhesion->localite,
             'must_change_password' => true,
+            'demande_id' => $demandeAdhesion->id,
+            
+
             'is_adherent' => false,
 
         ];
@@ -163,9 +167,9 @@ class AccueilController extends Controller
         }
 
         Mail::to($demandeAdhesion->email)->send(new ConfirmationDemandeAdhesion($demandeAdhesion, $pdf, $generatedPassword));
+        session(['demandeAdhesionId' => $demandeAdhesion->id]);
         return redirect()->route('final-demande-adhesion')->with([
             'cotisations' => $cotisations,
-            'demandeAdhesion' => $demandeAdhesion,
             'status' => 'Votre demande d\'adhésion a été envoyée avec succès!'
         ]);
     }

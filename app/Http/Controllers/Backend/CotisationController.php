@@ -65,6 +65,8 @@ class CotisationController extends Controller
                 $prestationsCostsByAct[$typeActe] += $prestation->montant * 80 / 100;
             }
         }
+        $pageTitle = 'Suivi des cotisations';
+
     
         return view('pages.backend.cotisations.index', compact(
             'adherents',
@@ -77,8 +79,8 @@ class CotisationController extends Controller
             'years',
             'startDate',
             'endDate',
+            'pageTitle',
             'breadcrumbsItems',
-            'pageTitle'
         ));
     }
     

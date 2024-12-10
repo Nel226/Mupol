@@ -56,8 +56,9 @@ return new class extends Migration
             $table->string('region')->nullable();
             $table->string('province')->nullable();
             $table->string('localite')->nullable();
+            $table->boolean('etat')->default(false);
 
-
+            
             $table->timestamps();
         });
     }

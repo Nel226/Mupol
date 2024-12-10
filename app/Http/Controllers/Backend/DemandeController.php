@@ -17,15 +17,17 @@ class DemandeController extends Controller
         
         $breadcrumbsItems = [
             [
-                'name' => 'Adhésions',
-                'url' => route('adherents.index'),
+                'name' => 'Demandes',
+                'url' => route('demandes.index'),
                 'active' => true
             ],
         ];
         $pageTitle = 'Liste des demandes d\'adhésions';
 
-        $demandes = Adherent::orderBy('created_at', 'desc')->get();
-        
+        $demandes = DemandeAdhesion::whereNotNull('email')
+        ->orderBy('created_at', 'desc')
+        ->get();
+            
         return view('pages.backend.demandes.index', compact('demandes', 'breadcrumbsItems', 'pageTitle'));
     }
     
@@ -77,15 +79,24 @@ class DemandeController extends Controller
 
     public function accept($id)
     {
-        $adherent = Adherent::where('id', $id)->first();
+        $adherent = Adherent::find($id);
+
         if ($adherent) {
             $adherent->is_adherent = true;
             $adherent->save();
 
-            return redirect()->back()->with('status', 'La demande a été acceptée avec succès.');
+            $demande = $adherent->demande; 
+
+            if ($demande) {
+                $demande->etat = true;
+                $demande->save();
+            }
+
+            return redirect()->back()->with('success', 'La demande a été acceptée avec succès.');
         }
 
         return redirect()->back()->withErrors(['error' => 'Adhérent non trouvé.']);
     }
+
 
 }

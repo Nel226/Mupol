@@ -12,7 +12,7 @@
         </li>
 
         @foreach($breadcrumbItems as $breadcrumbItem)
-            <li class="inline-block text-gray-500 text-sm font-semibold {{ $breadcrumbItem['active'] ? 'breadcrumbActive dark:text-slate-300 text-[#4644D3]' : 'relative text-sm text-gray-500' }}">
+            <li class="inline-block text-gray-500 text-sm font-light {{ $breadcrumbItem['active'] ? 'breadcrumbActive dark:text-slate-300 text-[#4644D3]' : 'relative text-sm text-gray-500' }}">
                 <a href="{{ $breadcrumbItem['url'] }}" class="breadcrumbList">
                     {{ __($breadcrumbItem['name']) }}
                     @if(!$loop->last)

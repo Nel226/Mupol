@@ -43,6 +43,12 @@ return [
             'visibility' => 'public',
             'throw' => false,
         ],
+        'livewire-tmp' => [
+            'driver' => 'local',
+            'root' => storage_path('app/livewire-tmp'),
+            'url' => env('APP_URL') . '/storage/livewire-tmp',
+            'visibility' => 'private',
+        ],
        
 
         's3' => [

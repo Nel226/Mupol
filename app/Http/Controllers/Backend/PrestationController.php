@@ -39,8 +39,15 @@ class PrestationController extends Controller
 
         $prestations = Prestation::orderBy('created_at', 'desc')->get();
         $prestationsValides = Prestation::where('validite', 'accepté')->get();
-
-        return view('pages.backend.prestations.index', compact('adherents', 'ayantsDroit', 'prestations', 'prestationsValides', 'adherentsValides', 'ayantsDroitValides'));
+        $pageTitle = 'Liste des prestations';
+        $breadcrumbsItems = [
+            [
+                'name' => 'Prestations',
+                'url' => route('prestations.index'),
+                'active' => true
+            ],
+        ];
+        return view('pages.backend.prestations.index', compact('adherents', 'ayantsDroit', 'prestations', 'prestationsValides', 'adherentsValides', 'ayantsDroitValides', 'pageTitle', 'breadcrumbsItems'));
 
     }
 
@@ -65,8 +72,9 @@ class PrestationController extends Controller
 
         $prestations = Prestation::all();
         $prestationsValides = Prestation::where('validite', 'accepté')->get();
+        $pageTitle = 'Nouvelle prestation';
 
-        return view('pages.backend.prestations.create', compact('adherents', 'ayantsDroit', 'prestations', 'prestationsValides', 'adherentsValides', 'ayantsDroitValides'));
+        return view('pages.backend.prestations.create', compact('adherents', 'ayantsDroit', 'prestations', 'prestationsValides', 'adherentsValides', 'ayantsDroitValides', 'pageTitle'));
 
     }
 

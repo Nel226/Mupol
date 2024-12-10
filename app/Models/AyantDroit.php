@@ -13,7 +13,7 @@ class AyantDroit extends Model
     protected $keyType = 'string'; 
     public $incrementing = false; 
     protected $fillable = [
-        'nom', 'prenom', 'sexe', 'date_naissance', 'relation', 'code', 'adherent_id'
+        'nom', 'prenom', 'sexe', 'date_naissance', 'relation', 'code', 'adherent_id','photo', 'extrait', 'cnib',
     ];
 
     public function adherent()

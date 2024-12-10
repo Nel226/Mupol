@@ -15,25 +15,19 @@ class UserController extends Controller
 {
     public function index()
     {
-        $breadcrumbsItems = [
-            [
-                'name' => 'Utilisateurs',
-                'url' => route('users.index'),
-                'active' => true
-            ],
-        ];
-
-        $pageTitle = 'Utilisateurs';
+        $pageTitle = "Utilisateurs";
 
         $users = User::with('roles')->get();
-    
-        return view('pages.backend.users.index', compact('users', 'breadcrumbsItems', 'pageTitle'));
+
+        return view('pages.backend.users.index', compact('users', 'pageTitle'));
     }
 
     public function create()
     {
+        $pageTitle = "Nouvel utilisateur";
+
         $roles = Role::all();
-        return view('pages.backend.users.create', compact('roles'));
+        return view('pages.backend.users.create', compact('roles', 'pageTitle'));
     }
 
     public function store(Request $request)
@@ -62,8 +56,10 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
+        $pageTitle = "Modifier utilisateur";
+
         $roles = Role::all();
-        return view('pages.backend.users.edit', compact('user', 'roles'));
+        return view('pages.backend.users.edit', compact('user', 'roles', 'pageTitle'));
     }
 
     public function update(Request $request, User $user)

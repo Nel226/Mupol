@@ -1,17 +1,20 @@
 <nav x-data="{ open: false, dropdownOpen: false }" class="    z-50 w-full  border-gray-400 dark:bg-gray-800 dark:border-gray-700">
     <!-- Primary Navigation Menu -->
     
-    <div class="px-4 mx-auto sm:px-6 lg:px-8">
+    <div class=" mx-auto py-1 ">
         <div class="flex justify-between">
             
-            <!-- Include Breadcrumbs Component -->
-            @yield('breadcrumbs')
+            <div class="hidden lg:flex">
+                <!-- Include Breadcrumbs Component -->
+                @yield('breadcrumbs')
+
+            </div>
 
             <div class="flex items-center justify-between">
-                <div >
+                {{-- <div >
                     @yield('navigation-content')
-                </div>
-                <div class="hidden sm:flex sm:items-center sm:ms-6" @click.away="dropdownOpen = false">
+                </div> --}}
+                <div class="hidden lg:flex sm:items-center sm:ms-6" @click.away="dropdownOpen = false">
                     <button @click="dropdownOpen = !dropdownOpen" class="inline-flex items-center px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out bg-gray-200 border border-transparent rounded-md dark:text-gray-400 dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none">
                         <div>
                             <i class="fa fa-user-circle-o" aria-hidden="true"></i>
@@ -33,38 +36,9 @@
                 </div>
             </div>
 
-            <!-- Hamburger -->
-            <div class="flex items-center -me-2 sm:hidden">
-                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 text-gray-400 transition duration-150 ease-in-out rounded-md dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 focus:text-gray-500 dark:focus:text-gray-400">
-                    <svg class="w-6 h-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                        <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
+          
         </div>
     </div>
 
-    <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
-            <a href="{{ route('admin.dashboard') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300">Dashboard</a>
-        </div>
-
-        <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
-            <div class="px-4">
-                <div class="text-base font-medium text-gray-800 dark:text-gray-200">{{ Auth::user()->name }}</div>
-                <div class="text-sm font-medium text-gray-500">{{ Auth::user()->email }}</div>
-            </div>
-
-            <div class="mt-3 space-y-1">
-                <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300">Profil</a>
-                <form method="POST" action="{{ route('logout') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300">
-                    @csrf
-                    <button type="submit">Déconnexion</button>
-                </form>
-            </div>
-        </div>
-    </div>
+    
 </nav>

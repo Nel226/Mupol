@@ -80,6 +80,7 @@ class WizardMembership extends Component
         $existingAdherent = Adherent::where('matricule', $this->matricule)
                                     ->where('service', $this->service)
                                     ->where('charge', $this->nombreAyantsDroits)
+                                    ->where('charge', $this->nombreAyantsDroits)
                                     ->first();
 
         if ($existingAdherent) {
@@ -217,6 +218,7 @@ class WizardMembership extends Component
                 'photo.image' => 'Le fichier téléchargé doit être une image.',
                 'photo.mimes' => 'L\'image doit être de type jpeg, png ou jpg.',
                 'photo.max' => 'La taille de l\'image ne doit pas dépasser 1 Mo.',
+               
 
                 'telephone_personne_prevenir.required' => 'Numéro de téléphone requis.',
                 'telephone_personne_prevenir.regex' => 'Numéro de téléphone invalide.',

@@ -78,7 +78,7 @@ class WizardMembership extends Component
         // Vérifier si un adhérent existe avec les mêmes matricule, service et nombre d'ayants-droits
         $existingAdherent = Adherent::where('matricule', $this->matricule)
                                     ->where('service', $this->service)
-                                    ->where('nombreAyantsDroits', $this->nombreAyantsDroits)
+                                    ->where('charge', $this->nombreAyantsDroits)
                                     ->first();
 
         if ($existingAdherent) {
@@ -109,7 +109,8 @@ class WizardMembership extends Component
             $this->lieu_residence = $existingAdherent->lieu_residence;
             $this->telephone_personne_prevenir = $existingAdherent->telephone_personne_prevenir;
             $this->photo = $existingAdherent->photo;
-            
+            $this->nombreAyantsDroits = $existingAdherent->charge;
+
             // AyantsDroits
             if ($this->nombreAyantsDroits > 0) {
                 for ($i = 0; $i < $this->nombreAyantsDroits; $i++) {
@@ -223,6 +224,7 @@ class WizardMembership extends Component
                 'photo.image' => 'Le fichier téléchargé doit être une image.',
                 'photo.mimes' => 'L\'image doit être de type jpeg, png ou jpg.',
                 'photo.max' => 'La taille de l\'image ne doit pas dépasser 1 Mo.',
+               
 
                 'telephone_personne_prevenir.required' => 'Numéro de téléphone requis.',
                 'telephone_personne_prevenir.regex' => 'Numéro de téléphone invalide.',
@@ -352,7 +354,8 @@ class WizardMembership extends Component
          // Si un adhérent existe déjà, on le met à jour, sinon on crée un nouvel enregistrement
         if ($this->adherent) {
             $this->adherent->update($data);
-            $demandeAdhesion = $this->adherent;
+            $demandeAdhesion = DemandeAdhesion::create($data);
+
             session()->flash('message', 'Les informations de l\'adhérent ont été mises à jour.');
         } else {
             $demandeAdhesion = DemandeAdhesion::create($data);

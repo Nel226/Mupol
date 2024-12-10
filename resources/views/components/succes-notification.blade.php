@@ -1,5 +1,5 @@
 <!-- BEGIN: Notification Content -->
-<div id="success-notification-content" class="fixed z-50 flex py-5 pl-5 text-sm border border-green-500 rounded-lg shadow-xl top-5 right-5 pr-14 bg-green-50 dark:bg-darkmode-600 dark:text-slate-300 dark:border-darkmode-600">
+<div id="success-notification-content" class="fixed z-50 z-999999 flex py-5 pl-5 text-sm border border-green-500 rounded-lg shadow-xl top-5 right-5 pr-14 bg-green-50 dark:bg-darkmode-600 dark:text-slate-300 dark:border-darkmode-600">
     <i data-tw-merge  class=" fa fa-check-circle stroke-1.5 w-5 h-5  text-green-500"></i>
 
 

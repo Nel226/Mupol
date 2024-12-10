@@ -72,5 +72,17 @@ class Adherent extends Authenticatable
         return $this->belongsTo(DemandeAdhesion::class, 'demande_id'); // Assurez-vous que 'demande_id' est le bon nom de colonne dans votre base de données
     }
 
+    public function setNombreAyantsDroitsAttribute($value)
+    {
+        $this->attributes['nombreAyantsDroits'] = $value;
+        $this->attributes['charge'] = $value; // Met à jour automatiquement `charge`
+    }
+
+    // Mutateur pour charge
+    public function setChargeAttribute($value)
+    {
+        $this->attributes['charge'] = $value;
+        $this->attributes['nombreAyantsDroits'] = $value; // Met à jour automatiquement `nombreAyantsDroits`
+    }
 
 }

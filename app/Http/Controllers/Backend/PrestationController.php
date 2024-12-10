@@ -40,8 +40,14 @@ class PrestationController extends Controller
         $prestations = Prestation::orderBy('created_at', 'desc')->get();
         $prestationsValides = Prestation::where('validite', 'accepté')->get();
         $pageTitle = 'Liste des prestations';
-
-        return view('pages.backend.prestations.index', compact('adherents', 'ayantsDroit', 'prestations', 'prestationsValides', 'adherentsValides', 'ayantsDroitValides', 'pageTitle'));
+        $breadcrumbsItems = [
+            [
+                'name' => 'Prestations',
+                'url' => route('prestations.index'),
+                'active' => true
+            ],
+        ];
+        return view('pages.backend.prestations.index', compact('adherents', 'ayantsDroit', 'prestations', 'prestationsValides', 'adherentsValides', 'ayantsDroitValides', 'pageTitle', 'breadcrumbsItems'));
 
     }
 

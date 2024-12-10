@@ -11,6 +11,9 @@
     </div>
 
     <x-content-page-admin>
+        @section('breadcrumbs')
+            <x-breadcrumb :breadcrumbItems="$breadcrumbsItems" />
+        @endsection
         <x-header>
             {{ $pageTitle }}
         </x-header>

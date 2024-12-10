@@ -11,9 +11,59 @@
     </div>
 
     <x-content-page-admin>
+
+        @section('breadcrumbs')
+            <x-breadcrumb :breadcrumbItems="$breadcrumbsItems" />
+        @endsection
+       
         <x-header>
             {{ $pageTitle }}
         </x-header>
+         
+        <script defer>
+            $(document).ready(function () {
+                function initializeDataTable(tableId) {
+                    const table = $(tableId).DataTable({
+                        processing: true,
+                        dom: "<'flex flex-wrap items-center justify-between mb-2'lf>Bt<'flex items-center justify-between mt-2'ip>",
+                        buttons: ['print', 'excel', 'pdf'],
+                        scrollX: true,
+                        responsive: true,
+                        pageLength: 10,
+                        deferRender: true,
+                        order: []
+                    }).on('init', function () {
+                        $('#loader').hide(); // Cache le loader
+                        $(tableId).removeClass('hidden'); // Montre la table
+                    });
+        
+                    return table;
+                }
+        
+                // Initialize all tables
+                const tableMutualistes = initializeDataTable('#table-mutualistes');
+                const tableAdherents = initializeDataTable('#table_adherents');
+                const tableAyantsDroit = initializeDataTable('#table_ayantsdroit');
+                
+                // Date range filtering
+                $.fn.dataTable.ext.search.push((settings, data) => {
+                    const startDate = $('#start-date').val();
+                    const endDate = $('#end-date').val();
+                    const date = data[5]; // Colonne contenant la date (index basé sur la table)
+        
+                    if ((startDate && date < startDate) || (endDate && date > endDate)) {
+                        return false;
+                    }
+                    return true;
+                });
+        
+                $('#start-date, #end-date').on('change', () => {
+                    tableMutualistes.draw();
+                });
+            });
+        </script>
+        
+        
 
         <div class="md:p-6 p-2 mx-auto mt-4 bg-white rounded-lg shadow-lg">
             @role('agentsaisie|controleur')
@@ -32,8 +82,11 @@
                                 </div>
                             </div>
                         </div>
-        
-                        <x-data-table id="table-mutualistes" :headers="['N', 'Nom', 'Prénom(s)', 'Genre', 'Code carte', 'Date création']">
+                        <div id="loader" class="flex items-center justify-center">
+                            <p>Chargement en cours...</p>
+                        </div>
+                        
+                        <x-data-table class="hidden" id="table-mutualistes" :headers="['N', 'Nom', 'Prénom(s)', 'Genre', 'Code carte', 'Date création']">
                             @foreach ($mutualistes as $index => $mutualiste)
                                 <tr class=" hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
                                     <td>{{ $loop->iteration }}</td>
@@ -134,43 +187,6 @@
                 </x-tabs>
             @endrole
         </div>
-        
-        <script defer>
-            $(document).ready(function () {
-                function initializeDataTable(tableId) {
-                    return $(tableId).DataTable({
-                        dom: "<'flex flex-wrap items-center justify-between mb-2'lf>Bt<'flex items-center justify-between mt-2'ip>",
-                        buttons: ['print', 'excel', 'pdf'],
-                        scrollX: true,
-                        responsive: true
-                    });
-                }
-        
-                // Initialize all tables
-                const tableMutualistes = initializeDataTable('#table-mutualistes');
-                const tableAdherents = initializeDataTable('#table_adherents');
-                const tableAyantsDroit = initializeDataTable('#table_ayantsdroit');
-        
-                // Date range filtering for Mutualistes tab
-                $('#start-date, #end-date').on('change', function () {
-                    const startDate = $('#start-date').val();
-                    const endDate = $('#end-date').val();
-                    const tables = [tableMutualistes]; // Add other tables here if needed
-        
-                    tables.forEach(table => {
-                        table.rows().every(function () {
-                            const row = this.node();
-                            const rowDate = $(row).find('.date-col').text();
-                            if ((startDate === '' || rowDate >= startDate) && (endDate === '' || rowDate <= endDate)) {
-                                $(row).show();
-                            } else {
-                                $(row).hide();
-                            }
-                        });
-                    });
-                });
-            });
-        </script>
-        
+       
     </x-content-page-admin>
 </x-app-layout>

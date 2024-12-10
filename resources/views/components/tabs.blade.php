@@ -6,10 +6,14 @@
         position: relative;
         width: 100%;
         background-color: #f9f9f9;
-        border-radius: 8px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
+    .tab-link:focus {
+        outline: none;
+        border-bottom: 3px solid #0056b3; /* Ajout pour montrer un état focus clair */
+        background-color: #e5e5e5;
+    }
+    
     .tabs-header {
         display: flex;
         justify-content: space-between;
@@ -112,42 +116,38 @@
 </style>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', () => {
         const tabLinks = document.querySelectorAll('.tab-link');
         const tabsContent = document.querySelectorAll('.tab-pane');
+        const dropdown = document.querySelector('.tabs-dropdown select');
     
-        // Default active tab
-        if (tabLinks.length > 0) {
-            tabLinks[0].classList.add('active');
-            tabsContent[0].style.display = 'block'; // Display the first tab content
+        // Active le premier onglet par défaut
+        function activateTab(index) {
+            tabLinks.forEach((link) => link.classList.remove('active'));
+            tabsContent.forEach((pane) => (pane.style.display = 'none'));
+    
+            tabLinks[index].classList.add('active');
+            tabsContent[index].style.display = 'block';
         }
     
         tabLinks.forEach((link, index) => {
-            link.addEventListener('click', function (event) {
-                event.preventDefault();
-    
-                // Remove active class from all links and hide all content
-                tabLinks.forEach((link) => link.classList.remove('active'));
-                tabsContent.forEach((pane) => (pane.style.display = 'none'));
-    
-                // Add active class to the clicked link and display corresponding content
-                link.classList.add('active');
-                tabsContent[index].style.display = 'block'; // Show the current tab content
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                activateTab(index);
+                if (dropdown) dropdown.selectedIndex = index; // Synchronise avec le dropdown
             });
         });
-        
-        // For the dropdown on small screens
-        const tabsDropdown = document.querySelector('.tabs-dropdown select');
-        if (tabsDropdown) {
-            tabsDropdown.addEventListener('change', function () {
-                const index = this.selectedIndex;
-                tabLinks.forEach((link) => link.classList.remove('active'));
-                tabLinks[index].classList.add('active');
-                tabsContent.forEach((pane) => (pane.style.display = 'none')); // Hide all contents
-                tabsContent[index].style.display = 'block'; // Show selected content
+    
+        if (dropdown) {
+            dropdown.addEventListener('change', () => {
+                activateTab(dropdown.selectedIndex);
             });
         }
+    
+        // Active le premier onglet au chargement
+        activateTab(0);
     });
+    
 </script>
 
 <!-- Menu déroulant pour les petits écrans -->

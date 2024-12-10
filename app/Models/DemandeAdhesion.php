@@ -29,6 +29,7 @@ class DemandeAdhesion extends Model
         'region', 'province', 'localité','code_carte',
         'etat',
     ];
+    
 
     public function adherent()
     {

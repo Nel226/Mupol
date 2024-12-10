@@ -17,15 +17,17 @@ class DemandeController extends Controller
         
         $breadcrumbsItems = [
             [
-                'name' => 'Adhésions',
-                'url' => route('adherents.index'),
+                'name' => 'Demandes',
+                'url' => route('demandes.index'),
                 'active' => true
             ],
         ];
         $pageTitle = 'Liste des demandes d\'adhésions';
 
-        $demandes = Adherent::orderBy('created_at', 'desc')->get();
-        
+        $demandes = DemandeAdhesion::whereNotNull('email')
+        ->orderBy('created_at', 'desc')
+        ->get();
+            
         return view('pages.backend.demandes.index', compact('demandes', 'breadcrumbsItems', 'pageTitle'));
     }
     

@@ -66,13 +66,14 @@
         <!-- app layout content -->
         <div 
         id="app-layout-content" 
-        class="min-h-screen w-full lg:pl-[15.625rem] transition-all duration-300 ease-out">
+        class="min-h-screen w-full transition-all duration-300 ease-out">
     
             @include("components.top-navbar-guest-connected")
 
             <div class="bg-indigo-600 px-8 pt-10 lg:pt-14 pb-16 flex justify-between items-center mb-3">
                 <!-- title -->
                 <h1 class="text-xl text-white">{{ $pageTitle }}</h1>
+                
                 
             </div>
             <div class="-mt-12 mx-6 mb-6 ">

@@ -80,6 +80,7 @@ class CotisationController extends Controller
             'startDate',
             'endDate',
             'pageTitle',
+            'breadcrumbsItems',
         ));
     }
     

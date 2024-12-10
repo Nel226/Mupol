@@ -214,7 +214,7 @@ class AccueilController extends Controller
             'ayantsDroits' => json_decode($demandeAdhesion->ayantsDroits, true),
         ];
 
-        return PDFHelper::downloadPDF('pages.frontend.adherents.fiches.formulaire_adhesion', $data, 'Formulaire_adhesion' . $demandeAdhesion->id . '.pdf');
+        return PDFHelper::downloadPDF('pages.frontend.adherents.fiches.formulaire_adhesion', $data, 'Formulaire_adhesion' . $demandeAdhesion->id);
     }
 
     public function apropos()

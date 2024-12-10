@@ -2,7 +2,7 @@
 <div class="mx-auto w-full max-w-screen-lg px-3 sm:px-5 md:px-7 z-10">
     <div id="wizard-top" class="w-full md:w-5/6 mx-auto mt-6 md:mt-10">
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4 mx-auto">
             <div>
                 <label class="inline-flex items-center mt-2">
                     <input name="type_adhérent" type="radio" wire:click="changeAdherentType('nouveau')" class="form-radio text-indigo-600">
@@ -256,7 +256,7 @@
                                         <div>
                                             <label class="block text-gray-700 text-sm font-bold mb-1" for="departement">Département</label>
                                             <input wire:model="departement" id="departement" type="text"
-                                                class="bg-gray-50 appearance-none border-2 rounded w-full py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline  mb-0 sm:mb-4">
+                                                class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline  mb-0 sm:mb-4">
                                             @error('departement')
                                                 <span class="text-red-500 text-xs">{{ $message }}</span>
                                             @enderror
@@ -374,7 +374,7 @@
                                                 <div>
                                                     <label class="block text-gray-700 text-sm font-bold mb-1" for="telephone_personne_prevenir">Téléphone</label>
                                                     <input wire:model="telephone_personne_prevenir" id="telephone_personne_prevenir" 
-                                                        type="tel" placeholder="Ex: 12345678"
+                                                        type="tel" placeholder="Ex: 77020202"
                                                         pattern="^(\+?[1-9][0-9]{0,2})?[0-9]{8,10}$"
                                                         title="Ex. (numéro valide) : +22677020202 ou 77020202"
                                                         class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-0 sm:mb-4">
@@ -405,7 +405,7 @@
                                 </div>
         
                                 <div class="overflow-x-auto">
-                                    <label class="block text-gray-700 text-sm font-bold mb-1" for="changeNombreAyantsDroits">Nombre d&apos;ayants-droits</label>
+                                    <label class="block text-gray-700 text-sm font-bold mb-1" for="changeNombreAyantsDroits">Nombre d&apos;ayants-droits (Charge)</label>
                                     <select class="border-2 bg-gray-50 rounded w-full py-1" wire:change="changeNombreAyantsDroits($event.target.value)">
                                         <option value="" disabled selected>Choisissez un nombre</option>
                                         <option value="0">0</option>
@@ -811,14 +811,14 @@
                     </div>
                     
                     <!-- Bouton pour vérifier les données -->
-                    <div class="col-span-2">
+                    <div class="">
                         <button wire:click="checkExistingData" class="bg-blue-500 text-white py-2 px-4 rounded">
                             Valider
                         </button>
                     </div>
                 
                     <!-- Message d'erreur ou succès -->
-                    <div class="col-span-2 mt-4">
+                    <div class=" mt-4">
                         @if (session()->has('error'))
                             <div class="text-red-500">
                                 {{ session('error') }}
@@ -1050,10 +1050,10 @@
                                     <div>
                                         <label class="block text-gray-700 text-sm font-bold mb-1">Genre</label>
                                         <div class="flex items-center mb-4">
-                                            <input wire:model="genre" id="masculin" type="radio" value="Masculin" class="mr-2">
+                                            <input wire:model="genre" id="masculin" type="radio" value="M" class="mr-2">
                                             <label for="masculin" class="mr-6">Masculin</label>
                 
-                                            <input wire:model="genre" id="feminin" type="radio" value="Féminin" class="mr-2">
+                                            <input wire:model="genre" id="feminin" type="radio" value="F" class="mr-2">
                                             <label for="feminin">Féminin</label>
                                         </div>
                                         @error('genre')
@@ -1131,6 +1131,7 @@
                         <!-- Étape 3 -->
                         @if ($currentStep == 3)
                             <div>
+                            
                                 <!-- Situation matrimoniale -->
                                 <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
                                     <div class="col-span-2">
@@ -1187,7 +1188,7 @@
                                                 <div>
                                                     <label class="block text-gray-700 text-sm font-bold mb-1" for="telephone_personne_prevenir">Téléphone</label>
                                                     <input wire:model="telephone_personne_prevenir" id="telephone_personne_prevenir" 
-                                                        type="tel" placeholder="Ex: 12345678"
+                                                        type="tel" placeholder="Ex: 77020202"
                                                         pattern="^(\+?[1-9][0-9]{0,2})?[0-9]{8,10}$"
                                                         title="Ex. (numéro valide) : +22677020202 ou 77020202"
                                                         class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-0 sm:mb-4">
@@ -1203,13 +1204,7 @@
                                         <label class="block text-gray-700 text-sm font-bold mb-1" for="photo">Photo</label>
                                         <div class="w-full justify-center border rounded-md p-1 border-gray-500 row-span-3">
                                             @if ($photo)
-                                                <!-- Si $photo est un objet File (nouvelle photo ou modification de photo) -->
-                                                @if ($photo instanceof \Livewire\TemporaryUploadedFile)
-                                                    <img src="{{ $photo->temporaryUrl() }}" alt="Preview" class="w-48 h-48 object-cover mx-auto rounded-full">
-                                                <!-- Si $photo est une chaîne (ancienne photo) -->
-                                                @else
-                                                    <img src="{{ asset($photo) }}" alt="Previous photo" class="w-48 h-48 object-cover mx-auto rounded-full">
-                                                @endif
+                                                <img src="{{ $photo->temporaryUrl() }}" alt="Preview" class="w-48 h-48 object-cover mx-auto rounded-full">
                                             @else
                                                 <img src="{{ asset('images/user-90.png') }}" alt="Default profile photo" class="w-36 h-36 object-cover mx-auto rounded-full">
                                             @endif
@@ -1225,7 +1220,7 @@
                                 </div>
         
                                 <div class="overflow-x-auto">
-                                    <label class="block text-gray-700 text-sm font-bold mb-1" for="changeNombreAyantsDroits">Nombre d&apos;ayants-droits</label>
+                                    <label class="block text-gray-700 text-sm font-bold mb-1" for="changeNombreAyantsDroits">Nombre d&apos;ayants-droits (Charge)</label>
                                     <select class="border-2 bg-gray-50 rounded w-full py-1" wire:change="changeNombreAyantsDroits($event.target.value)">
                                         <option value="" disabled selected>Choisissez un nombre</option>
                                         <option value="0">0</option>

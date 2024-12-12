@@ -401,7 +401,7 @@
                                                 <img src="{{ asset('images/user-90.png') }}" alt="Default profile photo" class="w-36 h-36 object-cover mx-auto rounded-full">
                                             @endif
                                         </div>
-                                        <input type="file" wire:model="photo" id="photo" accept="image/jpg, image/jpeg" class="my-1 block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 
+                                        <input type="file" wire:model="photo" id="photo" accept="image/*" class="my-1 block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 
                                             file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 
                                             file:text-blue-700 hover:file:bg-violet-100"/>
                                         @error('photo') 
@@ -771,6 +771,8 @@
                 </div>
             </div>
         @endif
+
+
 
         <!-- Contenu pour les anciens adhérents -->
         @if ($adherentType === 'ancien')

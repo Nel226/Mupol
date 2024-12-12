@@ -97,8 +97,7 @@ class WizardMembership extends Component
             $this->delivree = $existingAdherent->delivree;
             $this->expire = $existingAdherent->expire;
             $this->adresse_permanente = $existingAdherent->adresse_permanente;
-            // Traitement du numéro de téléphone
-            $numero = $existingAdherent->telephone;
+            $numero = $existingAdherent->telephone; // Traitement du numéro de téléphone
             if (is_null($numero) || strtoupper(trim($numero)) === 'RAS') {
                 $this->telephone = null; // Ne rien envoyer à la vue
             } else {
@@ -240,14 +239,7 @@ class WizardMembership extends Component
             ]);
 
             if ($this->photo) {
-                // Vérification du type MIME
-                $mimeType = $this->photo->getMimeType();
-                if (!in_array($mimeType, ['image/jpeg', 'image/png', 'image/jpg'])) {
-                    session()->flash('error', 'Le fichier doit être une image valide.');
-                    return;
-                }
-                 // Générer un nom unique pour l'image (ne pas utiliser le nom original)
-                $fileName = uniqid('photo_', true) . '.' . $this->photo->getClientOriginalExtension();
+                $fileName = uniqid('adherent_', true) . '.' . $this->photo->getClientOriginalExtension();
 
                 $path = $this->photo->storeAs('public/photos/adherents', $fileName);
                 $this->photo_path_adherent = 'photos/adherents/' . $fileName;
@@ -262,26 +254,26 @@ class WizardMembership extends Component
                         "ayantsDroits.$index.date_naissance" => 'required|date',
                         "ayantsDroits.$index.relation" => 'required|string|max:255',
 
-                        "ayantsDroits.$index.photo" => 'nullable|image|max:1024',
+                        "ayantsDroits.$index.photo" => 'required|image|mimes:jpeg,png,jpg|max:1024',
                         "ayantsDroits.$index.cnib" => 'nullable|mimes:pdf|max:1024',
                         "ayantsDroits.$index.extrait" => 'nullable|mimes:pdf|max:1024',
                         
                     ]);
                     
                     if (isset($ayantDroit['photo'])) {
-                        $photoName = uniqid() . '_' . $ayantDroit['photo']->getClientOriginalName();
+                        $photoName = uniqid('ayantDroit_', true) . '.' . $ayantDroit['photo']->getClientOriginalExtension();
                         $photoPath = $ayantDroit['photo']->storeAs('public/photos/ayants_droits', $photoName);
                         $this->ayantsDroits[$index]['photo_path'] = 'storage/photos/ayants_droits/' . $photoName;
                     }
-            
+
                     if (isset($ayantDroit['cnib'])) {
-                        $cnibName = uniqid() . '_' . $ayantDroit['cnib']->getClientOriginalName();
+                        $cnibName = uniqid('ayantDroit_cnib_', true) . '.' . $ayantDroit['cnib']->getClientOriginalExtension();
                         $cnibPath = $ayantDroit['cnib']->storeAs('public/pdf/cnibs', $cnibName);
                         $this->ayantsDroits[$index]['cnib_path'] = 'storage/pdf/cnibs/' . $cnibName;
                     }
 
                     if (isset($ayantDroit['extrait'])) {
-                        $extraitName = uniqid() . '_' . $ayantDroit['extrait']->getClientOriginalName();
+                        $extraitName = uniqid('ayantDroit_extrait_', true) . '.' . $ayantDroit['extrait']->getClientOriginalExtension();
                         $extraitPath = $ayantDroit['extrait']->storeAs('public/pdf/extraits', $extraitName);
                         $this->ayantsDroits[$index]['extrait_path'] = 'storage/pdf/extraits/' . $extraitName;
                     }

@@ -1,26 +1,34 @@
 
 <div class="mx-auto w-full max-w-screen-lg px-3 sm:px-5 md:px-7 z-10">
-    <div id="wizard-top" class="w-full md:w-5/6 mx-auto mt-6 md:mt-10">
+    <div id="wizard-top" class="w-full md:w-5/6 mx-auto mt-0 md:mt-3">
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4 mx-auto">
-            <div>
-                <label class="inline-flex items-center mt-2">
-                    <input name="type_adhérent" type="radio" wire:click="changeAdherentType('nouveau')" class="form-radio text-indigo-600">
-                    <span class="ml-2">Nouveau adhérent</span>
-                </label>
+        @if (is_null($adherentType))
+            <div class="flex justify-center">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-10 mt-2 sm:mt-4 mx-auto">
+                    <div>
+                        <label class="inline-flex items-center mt-2">
+                            <input name="type_adhérent" type="radio" wire:click="changeAdherentType('nouveau')" class="form-radio text-indigo-600">
+                            <span class="ml-2">Nouveau adhérent</span>
+                        </label>
+                    </div>
+                    <div>
+                        <label class="inline-flex items-center mt-2">
+                            <input name="type_adhérent" type="radio" wire:click="changeAdherentType('ancien')" class="form-radio text-indigo-600">
+                            <span class="ml-2">Ancien adhérent</span>
+                        </label>
+                    </div>
+                </div>
             </div>
-            <div>
-                <label class="inline-flex items-center mt-2">
-                    <input name="type_adhérent" type="radio" wire:click="changeAdherentType('ancien')" class="form-radio text-indigo-600">
-                    <span class="ml-2">Ancien adhérent</span>
-                </label>
-            </div>
-        </div>
+        @endif
 
         @if ($adherentType === 'nouveau')
             <div>
+                <div class="text-center">
+                    <h2 class=" mb-2 text-sm sm:text-lg md:text-xl font-semibold">Nouvelle adhésion</h2>
+                </div>
+                
                 <!-- Stepper -->
-                <!-- Stepper pour les petits écrans (<= 450px) -->
+                <!-- Stepper pour les petits écrans (<= 640px) -->
                 <ul class="flex flex-col justify-center items-center mb-4 md:mb-6 sm:hidden">
                     @for ($step = 1; $step <= $totalSteps; $step++)
                     <li class="flex justify-center items-center w-full mb-2 sm:mb-4">
@@ -47,7 +55,7 @@
                     @endfor
                 </ul>
 
-                <!-- Stepper pour les grands écrans (> 450px) -->
+                <!-- Stepper pour les grands écrans (> 640px) -->
                 <div class="flex-stepper justify-between items-center mb-4 md:mb-6 hidden sm:flex">
                     @for ($step = 1; $step <= $totalSteps; $step++)
                         <div class="flex justify-center flex-col items-center flex-1 {{ $step == 1 || $step == $totalSteps ? 'w-[calc(100%/4)]' : '' }}">
@@ -82,7 +90,7 @@
                                 @endif
                             </div>
                             <!-- Step Label -->
-                            <div class="text-xs mt-2 text-center w-full h-12 overflow-hidden">
+                            <div class="text-xs mt-2 text-center w-full h-4 overflow-hidden">
                                 <p class="step-label whitespace-normal break-words">
                                     @if ($step == 1) Références de l&apos;adhérent
                                     @elseif ($step == 2) Etat civil
@@ -98,7 +106,7 @@
 
                 <!-- Contenu des étapes -->
                 <div  class="shadow-lg border rounded-lg border-gray-200 px-4 md:px-5 pt-2 md:pt-6 pb-6 md:pb-8 mb-4">
-                    <h2 class="text-lg sm:text-xl font-bold mb-1 md:mb-5 text-gray-800 text-center">
+                    <h2 class="text-lg sm:text-xl font-bold mb-2 md:mb-5 rounded-md text-center {{ $currentStep ? 'bg-primary1' : 'bg-gray-300' }} {{ $currentStep ? 'text-white' : 'text-gray-800' }}">
                         @if ($currentStep == 1) 1. Références de l&apos;adhérent
                         @elseif ($currentStep == 2) 2. Etat civil
                         @elseif ($currentStep == 3) 3. Informations personnelles
@@ -182,7 +190,7 @@
                                     <!-- Téléphone -->
                                     <div>
                                         <label class="block text-gray-700 text-sm font-bold mb-1" for="telephone">Téléphone</label>
-                                        <input wire:model="telephone" id="telephone" type="tel" placeholder="Ex: 12345678"
+                                        <input wire:model="telephone" id="telephone" type="tel" placeholder="Ex: 77112233"
                                             pattern="^(\+?[1-9][0-9]{0,2})?[0-9]{8,10}$"
                                             title="Ex. (numéro valide) : +22677020202 ou 77020202"
                                             class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline  mb-0 sm:mb-4">
@@ -286,7 +294,6 @@
                 
                                 <!-- Grille pour Nom et Prénom(s) du père et de la mère -->
                                 <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 gap-4">
-                
                                     <!-- Nom et Prénom(s) du père -->
                                     <div>
                                         <label class="block text-gray-700 text-sm font-bold mb-1" for="nom_pere">Nom et Prénom(s) du
@@ -308,7 +315,6 @@
                                             <span class="text-red-500 text-xs">{{ $message }}</span>
                                         @enderror
                                     </div>
-                
                                 </div>
                                 
                 
@@ -374,7 +380,7 @@
                                                 <div>
                                                     <label class="block text-gray-700 text-sm font-bold mb-1" for="telephone_personne_prevenir">Téléphone</label>
                                                     <input wire:model="telephone_personne_prevenir" id="telephone_personne_prevenir" 
-                                                        type="tel" placeholder="Ex: 77020202"
+                                                        type="tel" placeholder="Ex: 77112233"
                                                         pattern="^(\+?[1-9][0-9]{0,2})?[0-9]{8,10}$"
                                                         title="Ex. (numéro valide) : +22677020202 ou 77020202"
                                                         class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-0 sm:mb-4">
@@ -638,7 +644,6 @@
                                 @endif
                             </div>
                         @endif
-        
                         
                         <!-- Étape 5 -->
                         @if ($currentStep == 5)
@@ -727,7 +732,6 @@
                     </div>
         
             
-            
                     <!-- Boutons de navigation -->
                     <div class="flex justify-between mt-5">
                         @if ($currentStep > 1)
@@ -770,8 +774,8 @@
 
         <!-- Contenu pour les anciens adhérents -->
         @if ($adherentType === 'ancien')
+            @if (!$adherentTrouve)
             <div>
-
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-3 sm:gap-4">
                     <!-- Matricule -->
                     <div>
@@ -809,32 +813,32 @@
                             <span class="text-red-500 text-sm">{{ $message }}</span>
                         @enderror
                     </div>
-                    
-                    <!-- Bouton pour vérifier les données -->
-                    <div class="">
-                        <button wire:click="checkExistingData" class="bg-blue-500 text-white py-2 px-4 rounded">
-                            Valider
-                        </button>
-                    </div>
-                
-                    <!-- Message d'erreur ou succès -->
-                    <div class=" mt-4">
+
+                </div>
+
+                <!-- Bouton pour vérifier les données -->
+                <div class="flex justify-between items-center py-2">
+                    <!-- Message d'erreur à gauche -->
+                    <div class="text-red-500">
                         @if (session()->has('error'))
-                            <div class="text-red-500">
-                                {{ session('error') }}
-                            </div>
-                        @elseif (session()->has('success'))
-                            <div class="text-green-500">
-                                {{ session('success') }}
-                            </div>
+                            {{ session('error') }}
                         @endif
                     </div>
+
+                    <!-- Bouton à droite -->
+                    <button wire:click="checkExistingData" class="bg-blue-500 text-white py-2 px-4 rounded">
+                        Valider
+                    </button>
                 </div>
 
             </div>
+            @endif
 
             @if ($showConfirmationForm)
             <div>
+                <div class="text-center">
+                    <h2 class=" mb-2 text-sm sm:text-lg md:text-xl font-semibold">Mise à jour de l'adhésion</h2>
+                </div>
                 <!-- Stepper -->
                 <!-- Stepper pour les petits écrans (<= 450px) -->
                 <ul class="flex flex-col justify-center items-center mb-4 md:mb-6 sm:hidden">
@@ -898,7 +902,7 @@
                                 @endif
                             </div>
                             <!-- Step Label -->
-                            <div class="text-xs mt-2 text-center w-full h-12 overflow-hidden">
+                            <div class="text-xs mt-2 text-center w-full h-4 overflow-hidden">
                                 <p class="step-label whitespace-normal break-words">
                                     @if ($step == 1) Références de l&apos;adhérent
                                     @elseif ($step == 2) Etat civil
@@ -914,7 +918,7 @@
 
                 <!-- Contenu des étapes -->
                 <div  class="shadow-lg border rounded-lg border-gray-200 px-4 md:px-5 pt-2 md:pt-6 pb-6 md:pb-8 mb-4">
-                    <h2 class="text-lg sm:text-xl font-bold mb-1 md:mb-5 text-gray-800 text-center">
+                    <h2 class="text-lg sm:text-xl font-bold mb-2 md:mb-5 rounded-md text-center {{ $currentStep ? 'bg-primary1' : 'bg-gray-300' }} {{ $currentStep ? 'text-white' : 'text-gray-800' }}">
                         @if ($currentStep == 1) 1. Références de l&apos;adhérent
                         @elseif ($currentStep == 2) 2. Etat civil
                         @elseif ($currentStep == 3) 3. Informations personnelles
@@ -998,7 +1002,7 @@
                                     <!-- Téléphone -->
                                     <div>
                                         <label class="block text-gray-700 text-sm font-bold mb-1" for="telephone">Téléphone</label>
-                                        <input wire:model="telephone" id="telephone" type="tel" placeholder="Ex: 12345678"
+                                        <input wire:model="telephone" id="telephone" type="tel" placeholder="Ex: 77112233"
                                             pattern="^(\+?[1-9][0-9]{0,2})?[0-9]{8,10}$"
                                             title="Ex. (numéro valide) : +22677020202 ou 77020202"
                                             class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline  mb-0 sm:mb-4">
@@ -1071,7 +1075,7 @@
                                         <div>
                                             <label class="block text-gray-700 text-sm font-bold mb-1" for="departement">Département</label>
                                             <input wire:model="departement" id="departement" type="text"
-                                                class="bg-gray-50 appearance-none border-2 rounded w-full py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline  mb-0 sm:mb-4">
+                                                class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline  mb-0 sm:mb-4">
                                             @error('departement')
                                                 <span class="text-red-500 text-xs">{{ $message }}</span>
                                             @enderror
@@ -1188,7 +1192,7 @@
                                                 <div>
                                                     <label class="block text-gray-700 text-sm font-bold mb-1" for="telephone_personne_prevenir">Téléphone</label>
                                                     <input wire:model="telephone_personne_prevenir" id="telephone_personne_prevenir" 
-                                                        type="tel" placeholder="Ex: 77020202"
+                                                        type="tel" placeholder="Ex: 77112233"
                                                         pattern="^(\+?[1-9][0-9]{0,2})?[0-9]{8,10}$"
                                                         title="Ex. (numéro valide) : +22677020202 ou 77020202"
                                                         class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-0 sm:mb-4">

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use App\Models\Adherent;
+use Illuminate\Validation\Rule;
 
 class WizardMembership extends Component
 {
@@ -54,10 +55,10 @@ class WizardMembership extends Component
 
 
     // ------------------------------------------------------------------------------------------------
-    public $adherentType;
+    public $adherentType = null;
     public $adherent;
-    public $hasMatricule, $hasNip, $hasCnib, $hasAdressePermanente, $hasTelephone, $hasEmail;
     public $showConfirmationForm = false; // Contrôle l'affichage du formulaire de confirmation
+    public $adherentTrouve = false; // Par défaut, l'adhérent n'est pas trouvé
     public $id;
 
 
@@ -86,23 +87,23 @@ class WizardMembership extends Component
         if ($existingAdherent) {
 
             $this->showConfirmationForm = true; // Afficher le formulaire
+            $this->adherentTrouve = true;  // L'adhérent est trouvé
 
             $this->adherent = $existingAdherent;
-            // dd($existingAdherent);
-
-             // Remplir dynamiquement les propriétés Livewire à partir du modèle
-            foreach ($existingAdherent->toArray() as $key => $value) {
-                if (property_exists($this, $key)) {
-                    $this->$key = $value;
-                }
-            }
+            
             // Etape 1
             $this->nip = $existingAdherent->nip;
             $this->cnib = $existingAdherent->cnib;
             $this->delivree = $existingAdherent->delivree;
             $this->expire = $existingAdherent->expire;
             $this->adresse_permanente = $existingAdherent->adresse_permanente;
-            $this->telephone = $existingAdherent->telephone;
+            // Traitement du numéro de téléphone
+            $numero = $existingAdherent->telephone;
+            if (is_null($numero) || strtoupper(trim($numero)) === 'RAS') {
+                $this->telephone = null; // Ne rien envoyer à la vue
+            } else {
+                $this->telephone = preg_replace('/\s+/', '', $numero); // Supprimer les espaces du numéro
+            }
             $this->email = $existingAdherent->email;
 
             // Etape 2
@@ -124,14 +125,13 @@ class WizardMembership extends Component
             //$this->nombreAyantsDroits = $existingAdherent->charge;
             
             // Etape 4
-
-            $this->showConfirmationForm = true; // Masquer le formulaire
-            
-            session()->flash('error', 'Veuillez mettre à jour votre adhésion en remplissant tous les champs manquants.'); // Si un adhérent existe avec ces informations exactes, mettre à jour ou afficher un message d'erreur
+            // Etape 5
             
         } else {
+            $this->showConfirmationForm = false; // Masquer le formulaire
+            $this->adherentTrouve = false;  // Aucun adhérent trouvé
             // Si aucun adhérent n'existe avec ces informations exactes
-            session()->flash('success', 'Informations inexactes. \nVeuillez revérifier les données saisies !');
+            session()->flash('error', 'Informations inexactes. Veuillez revérifier les données saisies !');
         }
     }
 
@@ -170,11 +170,22 @@ class WizardMembership extends Component
     // Méthode de validation par étape
     public function validateStep()
     {
+        
         if ($this->currentStep == 1) {
             $this->validate([
-                'matricule' => 'required|min:3',
-                'nip' => 'required',
-                'cnib' => 'required',
+                'matricule' => [
+                    'required',
+                    'min:3',
+                    Rule::unique('adherents', 'matricule')->ignore($this->adherent?->id),
+                ],
+                'nip' => [
+                    'required',
+                    Rule::unique('adherents', 'nip')->ignore($this->adherent?->id),
+                ],
+                'cnib' => [
+                    'required',
+                    Rule::unique('adherents', 'cnib')->ignore($this->adherent?->id),
+                ],
                 'delivree' => 'required|date',
                 'expire' => 'required|date|after:delivree', // Assurez-vous que 'expire' est après 'delivree'
                 'adresse_permanente' => 'required',
@@ -182,8 +193,12 @@ class WizardMembership extends Component
                     'required',
                     'regex:/^(\+?[0-9]{1,3})?[0-9]{8,10}$/',
                 ],
-                'email' => 'required|email|unique:adherents,email,' . $this->id . '|unique:partenaires,email,' . $this->id,
-
+                'email' => [
+                    'required',
+                    'email',
+                    Rule::unique('adherents', 'email')->ignore($this->adherent?->id),
+                    Rule::unique('partenaires', 'email')->ignore($this->adherent?->id),
+                ],
             ],
             [
                 'email.unique' => 'L\'email est  déjà utilisé',
@@ -218,7 +233,6 @@ class WizardMembership extends Component
                 'photo.image' => 'Le fichier téléchargé doit être une image.',
                 'photo.mimes' => 'L\'image doit être de type jpeg, png ou jpg.',
                 'photo.max' => 'La taille de l\'image ne doit pas dépasser 1 Mo.',
-               
 
                 'telephone_personne_prevenir.required' => 'Numéro de téléphone requis.',
                 'telephone_personne_prevenir.regex' => 'Numéro de téléphone invalide.',
@@ -284,7 +298,11 @@ class WizardMembership extends Component
                 $this->validate([
                     'grade' => 'required|string',
                     'departARetraite' => 'required|date',
-                    'numeroCARFO' => 'required|string',
+                    'numeroCARFO' => [
+                        'required',
+                        'string',
+                        Rule::unique('adherents', 'numeroCARFO')->ignore($this->adherent?->id),
+                    ],
                 ]);
             }
         
@@ -347,9 +365,6 @@ class WizardMembership extends Component
 
          // Si un adhérent existe déjà, on le met à jour, sinon on crée un nouvel enregistrement
         if ($this->adherent) {
-            //$this->adherent->update($data);
-            // Identifie l'ancien adhérent
-            $ancienAdherentId = $this->adherent->id;
 
             $demandeAdhesion = DemandeAdhesion::create($data);
 
@@ -368,7 +383,6 @@ class WizardMembership extends Component
         $this->reset();
         $this->currentStep = 1;
         session()->put('currentStep', 1);
-        // dd($demandeAdhesion->id);
 
         return redirect()->route('resume-adhesion', ['id' => $demandeAdhesion->id]);
     }

@@ -136,7 +136,7 @@
     </style>
     <body class=" font-sans font-body text-gray-900 antialiased min-h-screen">
         
-        <div style="margin: 0px !important;" class="min-h-screen flex flex-col sm:justify-center items-center  sm:pt-0 bg-white dark:bg-gray-900" >
+        <div style="margin: 0px !important;" class="sm:min-h-screen flex flex-col sm:justify-center items-center  sm:pt-0 bg-white dark:bg-gray-900" >
 
             <div class="w-full   bg-white dark:bg-gray-800   ">
 

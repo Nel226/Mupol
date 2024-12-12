@@ -210,7 +210,7 @@
     
                 <!-- Colonne Signature -->
                 <div class="width-30 items-center px-2 justify-center flex flex-col">
-                    <h3 class="text-9pt underline decoration-solid pt-1 "><strong>SIGNATURE DE L’ADHÉRENT</strong></h3>
+                    <h3 class="text-8pt underline decoration-solid pt-1 "><strong>SIGNATURE DE L’ADHÉRENT</strong></h3>
                     <div class="w-full flex-grow border-2 border-black mt-1 flex items-center justify-center">
                     </div>
                 </div>

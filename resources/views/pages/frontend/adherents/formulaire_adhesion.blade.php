@@ -12,8 +12,8 @@
                 </div>
 
                 <!-- Contenu Principal -->
-                <div class="px-0 sm:px-6 lg:px-8 py-10 sm:py-8 lg:py-12 text-gray-700">
-                    <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold text-center text-gray-800 mb-4 sm:mb-6 lg:mb-8">Formulaire d'adhésion</h3>
+                <div class="px-0 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-12 text-gray-700">
+                    <h3 class="text-xl sm:text-2xl lg:text-3xl font-semibold text-center text-gray-800 mb-4 sm:mb-6">Formulaire d'adhésion</h3>
                     
                     <!-- Formulaire d'Adhésion -->
                     <div class="relative z-10">

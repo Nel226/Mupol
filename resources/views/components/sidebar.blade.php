@@ -200,29 +200,73 @@
             </li>
             @endrole
 
-            {{--  <!-- Suivi des Prestations (Controleur) -->
+             <!-- Suivi des Prestations (Controleur) -->
             @role('controleur')
-            <li x-data="{ open: true }" class="relative">
-                <a href="#" @click.prevent="open = !open" class="flex items-center px-4 py-3 text-white transition-transform transform rounded-lg hover:bg-indigo-700 group">
-                    <i class="w-6 h-6 fa fa-table transition duration-200 group-hover:scale-110"></i>
-                    <span class="ml-3">Suivi des prestations</span>
-                    <svg class="w-4 h-4 ml-auto transition-transform transform" :class="open ? 'rotate-180' : ''" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                    </svg>
+            <li x-data="{ open: {{ Request::is('admin/suivi*') ? 'true' : 'false' }} }" class="relative">
+                <a href="#" @click.prevent="open = !open" class="flex transition-transform transform items-center justify-between px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 duration-300 hover:scale-105">
+                    <div class="flex items-center">
+                        <i class="fa fa-table w-3 h-3 dark:text-gray-400 group-hover:text-black transition-transform transform"></i>
+                        <span class="ml-3">Suivi des prestations</span>
+                    </div>
+                    <!-- Chevron icon -->
+                    <i :class="open ? 'rotate-180' : ''" class="fa fa-chevron-down text-white group-hover:text-black transition-transform duration-200"></i>
                 </a>
- 
-                <ol x-show="open" x-cloak @click.away="open = false" class="ml-6 mt-2 space-y-2 text-sm text-white rounded-lg dark:bg-gray-800">
-                    <li><a href="{{ route('suivi-consultation') }}" class="block px-4 py-2 hover:bg-gray-100 hover:text-black dark:hover:bg-gray-700 rounded-lg">Consultation</a></li>
-                    <li><a href="{{ route('suivi') }}" class="block px-4 py-2 hover:bg-gray-100 hover:text-black dark:hover:bg-gray-700 rounded-lg">Hospitalisation</a></li>
-                    <li><a href="{{ route('suivi-maternite') }}" class="block px-4 py-2 hover:bg-gray-100 hover:text-black dark:hover:bg-gray-700 rounded-lg">Maternité</a></li>
-                    <li><a href="{{ route('suivi-pharmacie') }}" class="block px-4 py-2 hover:bg-gray-100 hover:text-black dark:hover:bg-gray-700 rounded-lg">Pharmacie</a></li>
-                    <li><a href="{{ route('suivi-optique') }}" class="block px-4 py-2 hover:bg-gray-100 hover:text-black dark:hover:bg-gray-700 rounded-lg">Optique</a></li>
-                    <li><a href="{{ route('suivi-allocation') }}" class="block px-4 py-2 hover:bg-gray-100 hover:text-black dark:hover:bg-gray-700 rounded-lg">Allocation</a></li>
-
-
-                </ol>
+                <ul x-show="open" x-cloak x-transition class="ml-5 mt-1 shadow-lg border border-gray-50 rounded-lg">
+                    <li>
+                        <a href="{{ route('suivi-consultation') }}" class="@if(Request::is('admin/consultation/suivi')) active @endif flex items-center px-3 py-2 text-gray-200 rounded-t-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
+                            <span class="ml-3">Consultation</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('suivi') }}" class="@if(Request::is('admin/prestations/suivi')) active @endif flex items-center px-3 py-2 text-gray-200 hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
+                            <span class="ml-3">Hospitalisation</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('suivi-radio') }}" class="@if(Request::is('admin/radio/suivi')) active @endif flex items-center px-3 py-2 text-gray-200  hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
+                            <span class="ml-3">Radiologie</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('suivi-maternite') }}" class="@if(Request::is('admin/maternite/suivi')) active @endif flex items-center px-3 py-2 text-gray-200 hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
+                            <span class="ml-3">Maternité</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('suivi-pharmacie') }}" class="@if(Request::is('admin/pharmacie/suivi')) active @endif flex items-center px-3 py-2 text-gray-200 hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
+                            <span class="ml-3">Pharmacie</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('suivi-optique') }}" class="@if(Request::is('admin/optique/suivi')) active @endif flex items-center px-3 py-2 text-gray-200 hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
+                            <span class="ml-3">Optique</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('suivi-analyse-biomedicale') }}" class="@if(Request::is('admin/analyse_biomedicale/suivi')) active @endif flex items-center px-3 py-2 text-gray-200 hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
+                            <span class="ml-3">Analyse Biomédicale</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('suivi-dentaire-auditif') }}" class="@if(Request::is('admin/dentaire_auditif/suivi')) active @endif flex items-center px-3 py-2 text-gray-200  hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
+                            <span class="ml-3">Dentaire et auditif</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('suivi-allocation') }}" class="@if(Request::is('admin/allocation/suivi')) active @endif flex items-center px-3 py-2 text-gray-200  hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
+                            <span class="ml-3">Allocations</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('suivi-autre') }}" class="@if(Request::is('admin/autre/suivi')) active @endif flex items-center px-3 py-2 text-gray-200 rounded-b-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
+                            <span class="ml-3">Autres</span>
+                        </a>
+                    </li>
+                </ul>
             </li>
-            @endrole  --}}
+            @endrole
+         
+         
         </ul>
        
     </div>

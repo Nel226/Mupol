@@ -7,12 +7,15 @@ use Illuminate\Http\Request;
 use App\Models\Adherent;
 use App\Models\AyantDroit;
 use App\Models\Prestation;
+use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index( Request $request )
     {
         
         $adherentsCount = Adherent::count();
@@ -107,7 +110,38 @@ class DashboardController extends Controller
                 $prestationsCostsByAct[$typeActe] += $prestation->montant * 80 / 100;
             }
         }
-            
+        $selectedYear = $request->input('year', Carbon::now()->year);
+
+        // Comptabiliser les mutualistes par mois pour l'année sélectionnée
+        $mutualistesParMois = DB::table('adherents')
+            ->select(DB::raw('MONTH(date_enregistrement) as month, COUNT(*) as count'))
+            ->whereYear('date_enregistrement', $selectedYear)
+            ->groupBy(DB::raw('MONTH(date_enregistrement)'))
+            ->get();
+
+        
+        $ayantsDroitParMois = DB::table('ayant_droits')
+            ->join('adherents', 'ayant_droits.adherent_id', '=', 'adherents.id')
+            ->select(DB::raw('MONTH(adherents.date_enregistrement) as month, COUNT(ayant_droits.id) as count'))
+            ->whereYear('adherents.date_enregistrement', $selectedYear)
+            ->groupBy(DB::raw('MONTH(adherents.date_enregistrement)'))
+            ->get();
+
+        // Fusionner les adhérents et ayants droit par mois
+        $evolutionMutualistes = [];
+        for ($i = 1; $i <= 12; $i++) {
+            $adherentsCount = $mutualistesParMois->firstWhere('month', $i)->count ?? 0;
+            $ayantsDroitCount = $ayantsDroitParMois->firstWhere('month', $i)->count ?? 0;
+
+            $evolutionMutualistes[$i] = $adherentsCount + $ayantsDroitCount;
+        }
+        //admin
+        $totalUsers = User::count();
+        $totalRoles = Role::count();
+        $recentUsers = User::latest()->take(5)->get();
+
+        $roles = Role::withCount('users')->get();
+  
         return view('pages.backend.dashboard', compact('monthlyPaymentsData', 
                                         'monthlyPayments' ,
                                         'pourcentageInvalidatedPrestationsCount', 
@@ -129,7 +163,11 @@ class DashboardController extends Controller
                                         'nombrePrestationsNonValidees',
                                         'nombrePrestationsValidees',
                                         'prestationsCostsByAct',
-                                        'currentDateTime'
+                                        'currentDateTime',
+                                        'selectedYear',
+                                        'evolutionMutualistes',
+                                        'totalUsers', 'totalRoles', 
+                                        'roles', 'recentUsers',
                                     ));
         
     }

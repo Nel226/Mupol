@@ -1,31 +1,26 @@
 <x-app-layout>
-    <x-sidebar/>
     @if (session('success'))
-    <x-succes-notification>
-        {{ session('success') }}
-    </x-succes-notification>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const notification = document.getElementById('success-notification-content');
-            const closeBtn = document.getElementById('close-notification');
-            
-            notification.classList.remove('hidden');
-            
-            closeBtn.addEventListener('click', () => {
-                notification.classList.add('hidden');
-            });
-        });
-    </script>
+        <x-succes-notification>
+            {{ session('success') }}
+        </x-succes-notification>
     @endif
-    <x-content-page>
+    <x-top-navbar-admin />
 
-        <div class="flex-1 p-6">
-            <div class="flex items-center px-4 py-2 text-gray-500 bg-[#fffe4a70] rounded-t-lg shadow-lg">
-                <h1 class="flex-1 text-2xl font-bold">Suivi des prestations</h1>
-            </div>
-            
-            
-            <div class="p-6 mx-auto mt-4 bg-white rounded-lg shadow-lg ">
+    <div id="sidebar" class="lg:block z-20 hidden bg-blue-800 w-64 h-screen fixed rounded-none border-none">
+        <x-sidebar id="logo-sidebar" />
+    </div>
+
+    <x-content-page-admin>
+        {{-- @section('breadcrumbs')
+            <x-breadcrumb :breadcrumbItems="$breadcrumbsItems" />
+        @endsection
+    --}}
+        <x-header>
+            {{ $pageTitle }}
+        </x-header>
+
+        <div class="md:p-6 p-2 mx-auto mt-4 bg-white rounded-lg shadow-lg">
+            <div class="">
                 <div id="tab-recapitulatif-content" class="mt-2 tab-content">
                     <h1 class="pb-3 text-xl font-bold text-center underline ">Suivi des consultations pour {{ $currentYear }}</h1>
                    
@@ -383,13 +378,8 @@
     
             </div>
             
+        
         </div>
-    </x-content-page>
-   
-    
-  
- 
-   
-    
-    
+    </x-content-page-admin>
 </x-app-layout>
+

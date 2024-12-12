@@ -267,6 +267,7 @@ class PrestationController extends Controller
     
     public function suivi(Request $request)
     {
+        $pageTitle = 'Suivi des prestations';
 
         $currentYear = $request->input('year', Carbon::now()->year);
         $adherentCodes = Adherent::pluck('code_carte')->toArray();
@@ -472,12 +473,12 @@ class PrestationController extends Controller
             'currentYear' => $currentYear,
         ];
 
-        return view('pages.backend.prestations.suivi', compact('tabulatorData', 'prestationsGroupedByAdherent', 'currentYear', 'prestationsAll', 'months' , 'data'));
+        return view('pages.backend.prestations.suivi', compact('tabulatorData', 'prestationsGroupedByAdherent', 'currentYear', 'prestationsAll', 'months' , 'data', 'pageTitle'));
     }
 
     public function suiviConsultation(Request $request)
     {
-
+        $pageTitle = 'Suivi des prestations';
         $currentYear = $request->input('year', Carbon::now()->year);
         $adherentCodes = Adherent::pluck('code_carte')->toArray();
 
@@ -664,13 +665,13 @@ class PrestationController extends Controller
             'currentYear' => $currentYear,
         ];
 
-        return view('pages.backend.prestations.suivi-consultation', compact('tabulatorData', 'currentYear', 'months' , 'data'));
+        return view('pages.backend.prestations.suivi-consultation', compact('tabulatorData', 'currentYear', 'months' , 'data', 'pageTitle'));
     }
 
 
     public function suiviRadio(Request $request)
     {
-
+        $pageTitle = 'Suivi des prestations';
         $currentYear = $request->input('year', Carbon::now()->year);
         $adherentCodes = Adherent::pluck('code_carte')->toArray();
         $prestationsAdherents = Prestation::join('adherents', 'prestations.adherentCode', '=', 'adherents.code_carte')
@@ -875,12 +876,12 @@ class PrestationController extends Controller
             'currentYear' => $currentYear,
         ];
 
-        return view('pages.backend.prestations.suivi-radio', compact('tabulatorData', 'prestationsGroupedByAdherent', 'currentYear', 'prestationsAll', 'months' , 'data'));
+        return view('pages.backend.prestations.suivi-radio', compact('tabulatorData', 'prestationsGroupedByAdherent', 'currentYear', 'prestationsAll', 'months' , 'data', 'pageTitle'));
     }
     
     public function suiviMaternite(Request $request)
     {
-
+        $pageTitle = 'Suivi des prestations';
         $currentYear = $request->input('year', Carbon::now()->year);
         $adherentCodes = Adherent::pluck('code_carte')->toArray();
         $prestationsAdherents = Prestation::join('adherents', 'prestations.adherentCode', '=', 'adherents.code_carte')
@@ -1084,13 +1085,13 @@ class PrestationController extends Controller
             'currentYear' => $currentYear,
         ];
 
-        return view('pages.backend.prestations.suivi-maternite', compact('tabulatorData', 'prestationsGroupedByAdherent', 'currentYear', 'prestationsAll', 'months' , 'data'));
+        return view('pages.backend.prestations.suivi-maternite', compact('tabulatorData', 'prestationsGroupedByAdherent', 'currentYear', 'prestationsAll', 'months' , 'data', 'pageTitle'));
     }
     
 
     public function suiviAllocation(Request $request)
     {
-
+        $pageTitle = 'Suivi des prestations';
         $currentYear = $request->input('year', Carbon::now()->year);
         $adherentCodes = Adherent::pluck('code_carte')->toArray();
         $prestationsAdherents = Prestation::join('adherents', 'prestations.adherentCode', '=', 'adherents.code_carte')
@@ -1292,13 +1293,13 @@ class PrestationController extends Controller
             'currentYear' => $currentYear,
         ];
 
-        return view('pages.backend.prestations.suivi-allocation', compact('tabulatorData', 'prestationsGroupedByAdherent', 'currentYear', 'prestationsAll', 'months' , 'data'));
+        return view('pages.backend.prestations.suivi-allocation', compact('tabulatorData', 'prestationsGroupedByAdherent', 'currentYear', 'prestationsAll', 'months' , 'data', 'pageTitle'));
     }
 
 
     public function suiviAnalyseBiomedicale(Request $request)
     {
-
+        $pageTitle = 'Suivi des prestations';
         $currentYear = $request->input('year', Carbon::now()->year);
         $adherentCodes = Adherent::pluck('code_carte')->toArray();
         $prestationsAdherents = Prestation::join('adherents', 'prestations.adherentCode', '=', 'adherents.code_carte')
@@ -1503,12 +1504,12 @@ class PrestationController extends Controller
             'currentYear' => $currentYear,
         ];
 
-        return view('pages.backend.prestations.suivi-analyse-biomedicale', compact('tabulatorData', 'prestationsGroupedByAdherent', 'currentYear', 'prestationsAll', 'months' , 'data'));
+        return view('pages.backend.prestations.suivi-analyse-biomedicale', compact('tabulatorData', 'prestationsGroupedByAdherent', 'currentYear', 'prestationsAll', 'months' , 'data', 'pageTitle'));
     }
 
     public function suiviPharmacie(Request $request)
     {
-
+        $pageTitle = 'Suivi des prestations';
         $currentYear = $request->input('year', Carbon::now()->year);
         $adherentCodes = Adherent::pluck('code_carte')->toArray();
         $prestationsAdherents = Prestation::join('adherents', 'prestations.adherentCode', '=', 'adherents.code_carte')
@@ -1713,12 +1714,12 @@ class PrestationController extends Controller
             'currentYear' => $currentYear,
         ];
 
-        return view('pages.backend.prestations.suivi-pharmacie', compact('tabulatorData', 'prestationsGroupedByAdherent', 'currentYear', 'prestationsAll', 'months' , 'data'));
+        return view('pages.backend.prestations.suivi-pharmacie', compact('tabulatorData', 'prestationsGroupedByAdherent', 'currentYear', 'prestationsAll', 'months' , 'data', 'pageTitle'));
     }
 
     public function suiviOptique(Request $request)
     {
-
+        $pageTitle = 'Suivi des prestations';
         $currentYear = $request->input('year', Carbon::now()->year);
         $adherentCodes = Adherent::pluck('code_carte')->toArray();
         $prestationsAdherents = Prestation::join('adherents', 'prestations.adherentCode', '=', 'adherents.code_carte')
@@ -1923,12 +1924,12 @@ class PrestationController extends Controller
             'currentYear' => $currentYear,
         ];
 
-        return view('pages.backend.prestations.suivi-optique', compact('tabulatorData', 'prestationsGroupedByAdherent', 'currentYear', 'prestationsAll', 'months' , 'data'));
+        return view('pages.backend.prestations.suivi-optique', compact('tabulatorData', 'prestationsGroupedByAdherent', 'currentYear', 'prestationsAll', 'months' , 'data', 'pageTitle'));
     }
 
     public function suiviDentaireAuditif(Request $request)
     {
-
+        $pageTitle = 'Suivi des prestations';
         $currentYear = $request->input('year', Carbon::now()->year);
         $adherentCodes = Adherent::pluck('code_carte')->toArray();
         $prestationsAdherents = Prestation::join('adherents', 'prestations.adherentCode', '=', 'adherents.code_carte')
@@ -2133,12 +2134,12 @@ class PrestationController extends Controller
             'currentYear' => $currentYear,
         ];
 
-        return view('pages.backend.prestations.suivi-dentaire-auditif', compact('tabulatorData', 'prestationsGroupedByAdherent', 'currentYear', 'prestationsAll', 'months' , 'data'));
+        return view('pages.backend.prestations.suivi-dentaire-auditif', compact('tabulatorData', 'prestationsGroupedByAdherent', 'currentYear', 'prestationsAll', 'months' , 'data', 'pageTitle'));
     }
 
     public function suiviAutre(Request $request)
     {
-
+        $pageTitle = 'Suivi des prestations';
         $currentYear = $request->input('year', Carbon::now()->year);
         $adherentCodes = Adherent::pluck('code_carte')->toArray();
         $prestationsAdherents = Prestation::join('adherents', 'prestations.adherentCode', '=', 'adherents.code_carte')
@@ -2343,7 +2344,7 @@ class PrestationController extends Controller
             'currentYear' => $currentYear,
         ];
 
-        return view('pages.backend.prestations.suivi-autre', compact('tabulatorData', 'prestationsGroupedByAdherent', 'currentYear', 'prestationsAll', 'months' , 'data'));
+        return view('pages.backend.prestations.suivi-autre', compact('tabulatorData', 'prestationsGroupedByAdherent', 'currentYear', 'prestationsAll', 'months' , 'data', 'pageTitle'));
     }
     
 }

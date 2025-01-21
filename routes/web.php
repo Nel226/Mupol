@@ -33,7 +33,9 @@ Route::get('/services', [AccueilController::class, 'services'])->name(name: 'ser
 Route::get('/en-construction', [AccueilController::class, 'enConstruction'])->name(name: 'en-construction');
 Route::get('/partenaires/liste', [AccueilController::class, 'partenaires'])->name('liste-partenaires');
 
-Route::get('/formulaire-adhesion', [AccueilController::class, 'newAdhesion'])->name(name: 'formulaire-adhesion');
+Route::get('/formulaire-adhesion/{adherentType}', [AccueilController::class, 'newAdhesion'])->name(name: 'formulaire-adhesion');
+Route::post('/final-old-adhesion', [AccueilController::class, 'oldAdhesion'])->name(name: 'final-old-adhesion');
+
 Route::get('/resume-adhesion/{id}', [AccueilController::class, 'resumeAdhesion'])->name('resume-adhesion');
 Route::get('/demande-adhesion/{id}/fiche-cession-volontaire', [AccueilController::class, 'downloadCessionFiche'])
     ->name('download-fiche-cession-volontaire');

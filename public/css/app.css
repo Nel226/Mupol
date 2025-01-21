@@ -17,16 +17,20 @@
     color:#fff;
 }
 .text-primary1{
+    color: #254569 !important;
+}
+
+.text-primary2{
     color: #4000FF !important;
 }
 .bg-primary1{
-    background-color: #4000FF !important;
+    background-color: #254569 !important;
 }
 .bg-primary2{
-    background-color: #4B45DC !important;
+    background-color: #254569 !important;
 }
 .border-primary1{
-    border-color: #4000FF;
+    border-color: #254569;
 }
 
 .layout-guest{

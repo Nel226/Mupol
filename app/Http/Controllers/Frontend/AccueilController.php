@@ -37,11 +37,57 @@ class AccueilController extends Controller
         return view('pages.frontend.accueil', compact('types', 'descriptions'));
     }
 
-    public function newAdhesion(Request $request){
+    public function newAdhesion(Request $request, $adherentType){
         return view('pages.frontend.adherents.formulaire_adhesion', [
             'type' => $request->query('type', 'nouveau'), // 'nouveau' par défaut
+            'adherentType' => $adherentType
         ]);
     }
+
+    public function oldAdhesion(Request $request)
+    {
+        try {
+            // Validation des données
+            $validatedData = $request->validate([
+                'nom' => 'required|string|max:255',
+                'prenom' => 'required|string|max:255',
+                'matricule' => 'required|string|max:20',
+                'telephone' => 'required|string|regex:/^(\+?[1-9][0-9]{0,2})?[0-9]{8,10}$/',
+                'email' => 'required|email|max:255',
+                'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:1024',
+            ]);
+
+            // Ajout d'une clé pour signaler une ancienne adhésion
+            $validatedData['is_new'] = false;
+
+            // Vérification et stockage de la photo
+            if ($request->hasFile('photo')) {
+                $photoPath = $request->file('photo')->store('photos/adherents', 'public');
+                $validatedData['photo'] = $photoPath;
+            }
+
+            // Enregistrement de la demande
+            DemandeAdhesion::create($validatedData);
+
+            // Retour en cas de succès
+            return redirect()
+                ->route('user.login')
+                ->with('success', 'Vos données ont été soumises avec succès et sont en cours de validation. Vous recevrez un email lorsque la création de votre compte sera approuvée.');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Retour des erreurs de validation
+            return redirect()
+                ->back()
+                ->withErrors($e->validator)
+                ->withInput();
+        } catch (\Exception $e) {
+            // Gestion des erreurs imprévues
+            return redirect()
+                ->back()
+                ->with('error', 'Une erreur inattendue s\'est produite. Veuillez réessayer plus tard.')
+                ->withInput();
+        }
+    }
+
 
     public function recapitulatifForm( Request $request)
     {
@@ -133,8 +179,9 @@ class AccueilController extends Controller
             'province' => $demandeAdhesion->province,
             'localite' => $demandeAdhesion->localite,
             'must_change_password' => true,
-            //'demande_id' => $demandeAdhesion->id,
+            'demande_id' => $demandeAdhesion->id,
             
+            'is_new' => true,
 
             'is_adherent' => false,
 

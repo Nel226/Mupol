@@ -104,7 +104,7 @@ class PrestationController extends Controller
                         'beneficiaire' => $data['beneficiaire'],
                         'idPrestation' => $data['idPrestation'],
                         'contactPrestation' => $data['contactPrestation'],
-                        'acte_medical_id' => $data["acte_medical_id"], // Modifie
+                        'acte' => $data["acte"], // Modifie
                         'date' => $data["date_$type$typeSuffix"],
                         'centre' => $data["centre_$type$typeSuffix"],
                         'montant' => $data["montant_$type$typeSuffix"],
@@ -265,6 +265,41 @@ class PrestationController extends Controller
         return PDFHelper::downloadPDF('pages.backend.prestations.prestation', $data, 'Recu_paiement_' . $prestation->id);
     }
     
+    public function suiviTous(Request $request)
+    {
+        $pageTitle = 'Prestations par adhérents';
+        $currentYear = $request->input('year', Carbon::now()->year);
+
+        $adherentCodes = Adherent::pluck('code_carte')->toArray();
+        $prestationsAdherents = Prestation::join('adherents', 'prestations.adherentCode', '=', 'adherents.code_carte')
+            ->whereYear('prestations.created_at', $currentYear)
+            ->select('prestations.*', 'adherents.id as adherent_id')
+            ->get();
+
+        $prestationsAyantsDroit = Prestation::join('ayant_droits', 'prestations.adherentCode', '=', 'ayant_droits.code')
+            ->join('adherents', 'ayant_droits.adherent_id', '=', 'adherents.id')
+            ->whereYear('prestations.created_at', $currentYear)
+            ->select('prestations.*', 'adherents.id as adherent_id')
+            ->distinct()
+            ->get();
+
+        
+
+        $prestationsAll = $prestationsAdherents->merge($prestationsAyantsDroit);
+
+
+        $prestationsGroupedByAdherent = $prestationsAll->groupBy('adherent_id');
+
+        $adherents = Adherent::whereYear('date_enregistrement', $currentYear)->get();
+        $ayantsDroit = AyantDroit::join('adherents', 'ayant_droits.adherent_id', '=', 'adherents.id')
+            ->whereYear('adherents.date_enregistrement', $currentYear)
+            ->select('ayant_droits.*')
+            ->get();
+        $prestations = Prestation::whereYear('created_at', $currentYear)->get();
+
+        return view('pages.backend.prestations.suivi.suivi-all', compact('pageTitle', 'prestationsGroupedByAdherent', 'prestationsAll', 'currentYear'));
+
+    }
     public function suivi(Request $request)
     {
         $pageTitle = 'Suivi des prestations';

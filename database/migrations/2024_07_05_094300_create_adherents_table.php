@@ -15,8 +15,8 @@ return new class extends Migration
         Schema::create('adherents', function (Blueprint $table) {
             $table->uuid('id')->primary(); 
             $table->string('matricule')->nullable(false);
-            $table->string('nip');
-            $table->string('cnib');
+            $table->string('nip')->nullable();
+            $table->string('cnib')->nullable();
             $table->date('delivree')->nullable();
             $table->date('expire')->nullable();
             $table->string('adresse')->nullable();
@@ -55,9 +55,10 @@ return new class extends Migration
             $table->integer('charge')->nullable();
             $table->string('mensualite')->nullable();
             $table->string('adhesion')->default(10000);
-            $table->string('password');
+            $table->string('password')->nullable();
             $table->boolean('must_change_password')->default(true);
             $table->boolean('is_adherent')->default(false);
+            $table->boolean('is_new');
             $table->uuid('demande_id')->nullable();
             $table->foreign('demande_id')->references('id')->on('demande_adhesions');
 

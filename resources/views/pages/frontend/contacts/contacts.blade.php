@@ -51,8 +51,9 @@
                                     </div>
                                     <div class="content">
                                         <h3 class="font-bold text-lg">E-MAIL</h3>
-                                        <p>
-                                            <a href="https://maps.app.goo.gl/pSGfdxcayY9y6fcCA">Lien Google Maps</a>
+                                        <p class=" text-primary1">
+                                            
+                                            contact@mupol.bf
                                         </p>
                                     </div>
                                 </div>

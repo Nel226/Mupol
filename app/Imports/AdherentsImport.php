@@ -45,18 +45,20 @@ class AdherentsImport implements ToModel, WithHeadingRow
         }
     
         return new Adherent([
-            'ordre'              => $row['ordre'],
+           
             'date_enregistrement'=> $dateEnregistrement,
             'nom'                => $row['nom'],
             'prenom'             => $row['prenom'],
             'genre'              => $row['genre'],
             'service'            => $row['service'],
-            'no_matricule'       => $row['no_matricule'],
+            'matricule'          => $row['no_matricule'],
             'code_carte'         => $this->calculateCodeCarte($row),
             'telephone'          => $row['telephone'],
             'charge'             => $row['charge'],
             'mensualite'         => $row['mensualite'],
-            'adhesion'           => $row['adhesion']
+            'adhesion'           => $row['adhesion'],
+            'is_new'             => false,
+
         ]);
     }
     

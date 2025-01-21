@@ -31,7 +31,7 @@
                     <div class="flex justify-between">
                         <div>
                             <p class="text-sm font-semibold">{{__('Adhérents')}}</p>
-                            <h5 class="font-bold">{{$adherentsCount}}</h5>
+                            <h5 class="font-bold"> {{ $adherentsCount1 }}</h5>
                         </div>
                         <div class="w-12 h-12 flex items-center justify-center rounded-lg bg-gradient-to-tl from-[#4000FF] to-[#e0d9f6] shadow-lg">
                             <i class="fa fa-user text-white text-lg"></i>
@@ -46,7 +46,7 @@
                     <div class="flex justify-between">
                         <div>
                             <p class="text-sm font-semibold">{{__('Ayants-droit')}}</p>
-                            <h5 class="font-bold">{{$ayantsDroitCount}}</h5>
+                            <h5 class="font-bold">{{$ayantsDroitCount1}}</h5>
                         </div>
                         <div class="w-12 h-12 flex items-center justify-center rounded-lg bg-gradient-to-tl from-[#4000FF] to-[#e0d9f6] shadow-lg">
                             <i class="fa fa-users text-white text-lg"></i>
@@ -61,9 +61,15 @@
                 <div class="bg-white shadow-xl rounded-2xl p-3">
                     <div class="flex justify-between">
                         <div>
-                            <p class="text-sm font-semibold">{{__('Paiements')}}</p>
-                            <h5 class="font-bold">{{$validatedPrestationsCount}}</h5>
+                            @role('administrateur')
+                                <p class="text-sm font-semibold">{{__('Utilisateurs')}}</p>
+                                <h5 class="font-bold">{{$totalUsers}}</h5>
+                            @else
+                                <p class="text-sm font-semibold">{{__('Paiements')}}</p>
+                                <h5 class="font-bold">{{$validatedPrestationsCount}}</h5>
+                            @endrole
                         </div>
+                        
                         <div class="w-12 h-12 flex items-center justify-center rounded-lg bg-gradient-to-tl from-[#4000FF] to-[#e0d9f6] shadow-lg">
                             <i class="fa fa-money text-white text-lg"></i>
                         </div>

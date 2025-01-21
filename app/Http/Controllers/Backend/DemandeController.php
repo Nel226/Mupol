@@ -1,11 +1,17 @@
 <?php
 
 namespace App\Http\Controllers\Backend;
-use App\Http\Controllers\Controller;
 
+use App\Helpers\DemandeCategorieHelper;
+use App\Helpers\PasswordHelper;
+use App\Http\Controllers\Controller;
+use App\Mail\ConfirmationCreationCompte;
 use App\Models\Adherent;
 use App\Models\DemandeAdhesion;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Request as FacadesRequest;
 
 class DemandeController extends Controller
 {
@@ -24,11 +30,22 @@ class DemandeController extends Controller
         ];
         $pageTitle = 'Liste des demandes d\'adhésions';
 
-        $demandes = DemandeAdhesion::whereNotNull('email')
-        ->orderBy('created_at', 'desc')
-        ->get();
+        $demandesNouveaux = DemandeAdhesion::whereNotNull('email')
+            ->where('is_new' , true )
+            ->where('etat' , false )
+
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        $demandesAnciens = DemandeAdhesion::whereNotNull('email')
+            ->where('is_new' , false )
+            ->where('etat' , false )
+
+            ->orderBy('created_at', 'desc')
+            ->get();
+
             
-        return view('pages.backend.demandes.index', compact('demandes', 'breadcrumbsItems', 'pageTitle'));
+        return view('pages.backend.demandes.index', compact('demandesAnciens', 'demandesNouveaux', 'breadcrumbsItems', 'pageTitle'));
     }
     
 
@@ -58,10 +75,18 @@ class DemandeController extends Controller
                 'active' => true
             ],
         ];
+        $message = "Aucun adhérent ne correspond à cette demande.";
+        $adherent = null;
+        if ($demande->is_new === 0) {
+            $adherent = Adherent::where('matricule', $demande->matricule)->first();
+            if ($adherent) {
+                $message = "Un adhérent correspond.";
+            }
+        }
         $pageTitle = 'Demande N°'.$demande->id;
         $demande->ayantsDroits = json_decode($demande->ayantsDroits, true); 
 
-        return view('pages.backend.demandes.show', compact('demande', 'breadcrumbsItems', 'pageTitle' ));
+        return view('pages.backend.demandes.show', compact('demande', 'adherent', 'message', 'breadcrumbsItems', 'pageTitle' ));
 
     }
 
@@ -71,32 +96,117 @@ class DemandeController extends Controller
     public function edit( $id)
     {
         $demande = DemandeAdhesion::findOrFail($id); 
+        $adherent = Adherent::where('demande_id', $id)->first();
+        $breadcrumbsItems = [
+            [
+                'name' => 'Demandes',
+                'url' => route('demandes.index'),
+                'active' => false
+            ],
+            [
+                'name' => $demande->nom,  
+                'url' => route('demandes.index'),
+                'active' => true
+            ],
+        ];
+
         $pageTitle = 'Modification demande N°'.$demande->id;
 
 
-        return view('pages.backend.demandes.edit',compact('demande', 'pageTitle'));
+        return view('pages.backend.demandes.edit',compact('demande','adherent',  'pageTitle', 'breadcrumbsItems'));
     }
+
+    public function update(Request $request, $id)
+    {
+        // Récupérer la demande ou renvoyer une erreur 404 si elle n'existe pas
+        $demande = DemandeAdhesion::findOrFail($id);
+
+        // Valider les données envoyées dans la requête
+        $validatedData = $request->validate([
+            'nom' => 'required|string|max:20', 
+            'prenom' => 'required|string|max:55',
+            'matricule' => 'required|string|max:10', // Validation unique avec exception pour l'enregistrement actuel
+            'telephone' => 'required|string|max:20|regex:/^(\+?[1-9][0-9]{0,2})?[0-9]{8,10}$/',
+            'email' => 'required|email|max:255', // Validation unique avec exception
+        ]);
+
+        // Mise à jour des données de la demande
+        try {
+            $demande->update($validatedData);
+            return redirect()->route('demandes.show', $id)->with('success', 'La demande a été mise à jour avec succès.');
+        } catch (\Exception $e) {
+            // Gestion des erreurs lors de la mise à jour
+            return redirect()->back()->withErrors(['error' => 'Une erreur est survenue lors de la mise à jour : ' . $e->getMessage()]);
+        }
+    }
+
 
     public function accept($id)
     {
-        $adherent = Adherent::find($id);
-
-        if ($adherent) {
-            $adherent->is_adherent = true;
-            $adherent->save();
-
-            $demande = $adherent->demande; 
-
-            if ($demande) {
-                $demande->etat = true;
-                $demande->save();
+        try {
+            // Vérification de l'existence de la demande
+            $demande = DemandeAdhesion::find($id);
+            if (!$demande) {
+                return redirect()->back()->withErrors(['error' => 'La demande avec l\'ID fourni est introuvable.']);
             }
-
-            return redirect()->back()->with('success', 'La demande a été acceptée avec succès.');
+    
+            // Recherche de l'adhérent lié à la demande
+            $adherent = Adherent::where('matricule', $demande->matricule)->first();
+            if (!$adherent) {
+                return redirect()->back()->withErrors(['error' => 'Aucun adhérent correspondant à cette demande n\'a été trouvé.']);
+            }
+    
+            // Vérification d'unicité de l'email
+            $emailExists = Adherent::where('email', $demande->email)->where('id', '!=', $adherent->id)->exists();
+            if ($emailExists) {
+                return redirect()->back()->withErrors(['error' => 'L\'e-mail fourni est déjà utilisé par un autre adhérent.']);
+            }
+    
+            if ($adherent->is_new === 0) {
+                $generatedPassword = PasswordHelper::generateSecurePassword();
+                $categorie = DemandeCategorieHelper::determineCategorie($adherent->charge);
+    
+                // Mise à jour de l'adhérent
+                $adherent->password = Hash::make($generatedPassword);
+                $adherent->email = $demande->email;
+                $adherent->telephone = $demande->telephone;
+                $adherent->nombreAyantsDroits = $adherent->charge;
+                $adherent->photo = $demande->photo;
+                $adherent->categorie = $categorie;
+            }
+    
+            $adherent->is_adherent = true;
+            $adherent->demande_id = $demande->id;
+            $adherent->save();
+    
+            if ($adherent->is_new === 0) {
+                Mail::to($adherent->email)->send(new ConfirmationCreationCompte($adherent->email, $generatedPassword));
+            }
+    
+            // Mise à jour de l'état de la demande
+            $demande->etat = true;
+            $demande->save();
+    
+            return redirect()->route('demandes.index')->with('success', 'La demande a été acceptée avec succès.');
+        } catch (\Exception $e) {
+            // Gestion des exceptions générales
+            return redirect()->back()->withErrors(['error' => 'Une erreur inattendue s\'est produite : ' . $e->getMessage()]);
         }
-
-        return redirect()->back()->withErrors(['error' => 'Adhérent non trouvé.']);
     }
+    
 
+    public function destroy($id)
+    {
+        $demande = DemandeAdhesion::find($id);
+
+        if (!$demande) {
+            return redirect()->back()->withErrors(['error' => 'Demande introuvable.']);
+        }
+    
+        $demande->delete();
+    
+        return redirect()->route('demandes.index')->with('success', 'La demande a été rejetée avec succès.');
+    }
+    
 
 }

@@ -1,26 +1,6 @@
 
 <div class="mx-auto w-full max-w-screen-lg px-3 sm:px-5 md:px-7 z-10">
     <div id="wizard-top" class="w-full md:w-5/6 mx-auto mt-0 md:mt-3">
-
-        @if (is_null($adherentType))
-            <div class="flex justify-center">
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-10 mt-2 sm:mt-4 mx-auto">
-                    <div>
-                        <label class="inline-flex items-center mt-2">
-                            <input name="type_adhérent" type="radio" wire:click="changeAdherentType('nouveau')" class="form-radio text-indigo-600">
-                            <span class="ml-2">Nouveau adhérent</span>
-                        </label>
-                    </div>
-                    <div>
-                        <label class="inline-flex items-center mt-2">
-                            <input name="type_adhérent" type="radio" wire:click="changeAdherentType('ancien')" class="form-radio text-indigo-600">
-                            <span class="ml-2">Ancien adhérent</span>
-                        </label>
-                    </div>
-                </div>
-            </div>
-        @endif
-
         @if ($adherentType === 'nouveau')
             <div>
                 <div class="text-center">
@@ -198,7 +178,7 @@
                                             <span class="text-red-500 text-xs">{{ $message }}</span>
                                         @enderror
                                     </div>
-                
+                                
                                     <!-- Email -->
                                     <div>
                                         <label class="block text-gray-700 text-sm font-bold mb-1" for="email">Email</label>
@@ -684,7 +664,6 @@
                                 :signature="$signature"
                                 :signature-image="$signatureImage"
                             />
-                            <!-- Affichage de l'iframe -->
                             {{-- <iframe 
                                 src="{{ route('formulaire.adhesion.recapitulatif', [
                                     'matricule' => $matricule,
@@ -772,74 +751,122 @@
             </div>
         @endif
 
-
-
-        <!-- Contenu pour les anciens adhérents -->
-        @if ($adherentType === 'ancien')
-            @if (!$adherentTrouve)
-            <div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-3 sm:gap-4">
-                    <!-- Matricule -->
-                    <div>
-                        <label class="block text-gray-700 text-sm font-bold mb-1" for="matricule">Matricule</label>
-                        <input wire:model="matricule" id="matricule" type="text"
-                            class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-0 sm:mb-4">
-                        @error('matricule')
-                            <span class="text-red-500 text-xs">{{ $message }}</span>
-                        @enderror
+        
+        @if ($adherentType === "ancien")
+            <form method="POST" action="{{ route('final-old-adhesion') }}" enctype="multipart/form-data">
+                @csrf
+                <div class="space-y-2">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-3 sm:gap-4">
+            
+                        <!-- Nom(s) -->
+                        <div>
+                            <label class="block text-gray-700 text-sm font-bold mb-1" for="nom">Nom</label>
+                            <input name="nom" id="nom" type="text" required value=""
+                                class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-0 sm:mb-4">
+                            @error('nom')
+                                <span class="text-red-500 text-xs">{{ $message }}</span>
+                            @enderror
+                        </div>
+            
+                        <!-- Prénom(s) -->
+                        <div>
+                            <label class="block text-gray-700 text-sm font-bold mb-1" for="prenom">Prénom(s)</label>
+                            <input name="prenom" id="prenom" type="text" required value=""
+                                class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-0 sm:mb-4">
+                            @error('prenom')
+                                <span class="text-red-500 text-xs">{{ $message }}</span>
+                            @enderror
+                        </div>
                     </div>
-                
-                    <!-- Service -->
-                    <div>
-                        <label class="block text-gray-700 text-sm font-bold mb-1">Service</label>
-                        <input wire:model="service" type="text" class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-0 sm:mb-4">
-                        @error('service')
-                            <span class="text-red-500 text-xs">{{ $message }}</span>
-                        @enderror
+            
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
+                        <!-- Matricule -->
+                        <div>
+                            <label class="block text-gray-700 text-sm font-bold mb-1" for="matricule">N° Matricule (sans la lettre)</label>
+                            <input name="matricule" id="matricule" type="number" required value=""
+                                class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-0 sm:mb-4">
+                            @error('matricule')
+                                <span class="text-red-500 text-xs">{{ $message }}</span>
+                            @enderror
+                        </div>
+            
+                        <!-- Téléphone -->
+                        <div>
+                            <label class="block text-gray-700 text-sm font-bold mb-1" for="telephone">Téléphone</label>
+                            <input name="telephone" id="telephone" type="tel" placeholder="Ex: 77112233"
+                                pattern="^(\+?[1-9][0-9]{0,2})?[0-9]{8,10}$"
+                                title="Ex. (numéro valide) : +22677020202 ou 77020202" required value=""
+                                class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-0 sm:mb-4">
+                            @error('telephone')
+                                <span class="text-red-500 text-xs">{{ $message }}</span>
+                            @enderror
+                        </div>
+            
+                        <!-- Email -->
+                        <div>
+                            <label class="block text-gray-700 text-sm font-bold mb-1" for="email">Email</label>
+                            <input name="email" id="email" type="email" required value=""
+                                class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-0 sm:mb-4">
+                            @error('email')
+                                <span class="text-red-500 text-xs">{{ $message }}</span>
+                            @enderror
+                        </div>
                     </div>
-                
-                    <!-- Nombre d'ayants-droits -->
-                    <div class="overflow-x-auto">
-                        <label class="block text-gray-700 text-sm font-bold mb-1" for="changeNombreAyantsDroits">Nombre d&apos;ayants-droits</label>
-                        <select wire:model="nombreAyantsDroits" class="border-2 bg-gray-50 rounded w-full py-1" wire:change="changeNombreAyantsDroits($event.target.value)">
-                            <option value="" disabled selected>Choisissez un nombre</option>
-                            <option value="0">0</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                        </select>
-                        @error('nombreAyantsDroits') 
-                            <span class="text-red-500 text-sm">{{ $message }}</span>
-                        @enderror
-                    </div>
+            
+                    <div class="grid grid-cols-1  gap-3 sm:gap-4">
+            
+                        <!-- Photo -->
+                        
+                        <div>
+                            <label class="block text-gray-700 text-sm font-bold mb-1" for="photo">Photo d&apos;identité</label>
+                            <input name="photo" id="photo" type="file" accept="image/*" required
+                                class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-0 sm:mb-4">
+                            <span>Taille max : 1Mo</span>
+                            <small class="text-gray-500">
+                                Veuillez télécharger une photo d&apos;identité (tête et épaules uniquement).
+                            </small>
+                            <span id="photo-error" class="text-red-500 text-xs hidden">La photo dépasse 1 Mo.</span>
+                            @error('photo')
+                                <span class="text-red-500 text-xs">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        
+                        <script>
+                            document.getElementById('photo').addEventListener('change', function(e) {
+                                const file = e.target.files[0];
+                                if (file && file.size > 1048576) { // 1 Mo = 1048576 octets
+                                    document.getElementById('photo-error').classList.remove('hidden');
+                                    e.target.value = ''; // Réinitialiser l'input file
+                                } else {
+                                    document.getElementById('photo-error').classList.add('hidden');
+                                }
+                            });
+                        </script>
+                        
 
+            
+                    
+                    </div>
+                    <!-- Bouton pour vérifier les données -->
+                    <div class="flex justify-between items-center py-2">
+                        <div class="text-red-500">
+                            @if (session()->has('error'))
+                                {{ session('error') }}
+                            @endif
+                        </div>
+            
+                        <button type="submit" class="bg-primary1 btn">
+                            Valider
+                        </button>
+                    </div>
                 </div>
-
-                <!-- Bouton pour vérifier les données -->
-                <div class="flex justify-between items-center py-2">
-                    <!-- Message d'erreur à gauche -->
-                    <div class="text-red-500">
-                        @if (session()->has('error'))
-                            {{ session('error') }}
-                        @endif
-                    </div>
-
-                    <!-- Bouton à droite -->
-                    <button wire:click="checkExistingData" class="bg-blue-500 text-white py-2 px-4 rounded">
-                        Valider
-                    </button>
-                </div>
-
-            </div>
-            @endif
-
+            </form>
+           
+           
             @if ($showConfirmationForm)
             <div>
                 <div class="text-center">
-                    <h2 class=" mb-2 text-sm sm:text-lg md:text-xl font-semibold">Mise à jour de l'adhésion</h2>
+                    <h2 class=" mb-2 text-sm sm:text-lg md:text-xl font-semibold">Mise à jour </h2>
                 </div>
                 <!-- Stepper -->
                 <!-- Stepper pour les petits écrans (<= 450px) -->

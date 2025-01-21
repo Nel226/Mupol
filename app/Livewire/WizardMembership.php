@@ -353,11 +353,10 @@ class WizardMembership extends Component
             'dateDepartARetraite' => $this->dateDepartARetraite,
             'direction' => $this->direction,
             'service' => $this->service,
+            'is_new' => true,
         ];
-
          // Si un adhérent existe déjà, on le met à jour, sinon on crée un nouvel enregistrement
         if ($this->adherent) {
-
             $demandeAdhesion = DemandeAdhesion::create($data);
 
             // Supprime l'ancien adhérent

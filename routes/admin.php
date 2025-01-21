@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\Backend\EstimationController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\RoleController;
@@ -58,9 +59,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/optique/suivi', [PrestationController::class, 'suiviOptique'])->name('suivi-optique');
     Route::get('/dentaire-auditif/suivi', [PrestationController::class, 'suiviDentaireAuditif'])->name('suivi-dentaire-auditif');
     Route::get('/autre/suivi', [PrestationController::class, 'suiviAutre'])->name('suivi-autre');
+    Route::get('/prestations/all/suivi', action: [PrestationController::class, 'suiviTous'])->name('suivi-prestations-all');
 
    
     Route::resource('adherents', AdherentController::class);
+    Route::get('/adherents-old/update', action: [AdherentController::class, 'oldUpdate'])->name('adherents.old.update');
+
     Route::resource('ayantsdroits', AyantDroitController::class);
     Route::resource('prestations', PrestationController::class);
     Route::resource('cotisations', CotisationController::class);
@@ -70,13 +74,14 @@ Route::middleware('auth')->group(function () {
     Route::resource('partenaires', PartenaireController::class);
     Route::resource('restrictions', RestrictionController::class);  
     Route::resource('prestations', PrestationController::class);
+    Route::resource('articles', ArticleController::class);
 
 
 
 
     //DEBUT COMPTABILITE
     Route::resource('demandes', DemandeController ::class);
-    Route::post('/adherents/{id}/accept', [DemandeController::class, 'accept'])->name('adherents.accept');
+    Route::match(['post', 'put'], '/adherents/{id}/accept', [DemandeController::class, 'accept'])->name('adherents.accept');
     Route::resource('recettes', RecetteController ::class);
     Route::get('recettes-categories', [RecetteController ::class, 'categories'])->name('recettes.categories');
     Route::resource('depenses', DepenseController ::class);
@@ -89,7 +94,6 @@ Route::middleware('auth')->group(function () {
     //FIN COMPTABILITE
 
 
-    Route::get('/edit-demande-adhesion/{id}', App\Livewire\EditMembership::class)->name('edit-demande-adhesion');
 
     Route::get('/get-data', [CotisationController::class, 'getData']);
 

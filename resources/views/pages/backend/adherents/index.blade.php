@@ -68,7 +68,6 @@
         <div class="md:p-6 p-2 mx-auto mt-4 bg-white rounded-lg shadow-lg">
             @role('agentsaisie|controleur')
                 <x-tabs :tabs="['Mutualistes', 'Adhérents', 'Ayants Droit']">
-                    <!-- Mutualistes Tab -->
                     <div id="tab-0" class="tab-pane  sm:p-4 p-1 bg-white rounded-md shadow-md">
                         <div class="bg-gray-300 mb-3 text-gray-600 rounded-lg p-4">
                             <div class="flex flex-col md:flex-row items-center gap-4">
@@ -82,9 +81,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="loader" class="flex items-center justify-center">
+                        {{-- <div id="loader" class="flex items-center justify-center">
                             <p>Chargement en cours...</p>
-                        </div>
+                        </div> --}}
                         
                         <x-data-table class="hidden" id="table-mutualistes" :headers="['N', 'Nom', 'Prénom(s)', 'Genre', 'Code carte', 'Date création']">
                             @foreach ($mutualistes as $index => $mutualiste)

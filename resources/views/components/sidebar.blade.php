@@ -213,7 +213,12 @@
                 </a>
                 <ul x-show="open" x-cloak x-transition class="ml-5 mt-1 shadow-lg border border-gray-50 rounded-lg">
                     <li>
-                        <a href="{{ route('suivi-consultation') }}" class="@if(Request::is('admin/consultation/suivi')) active @endif flex items-center px-3 py-2 text-gray-200 rounded-t-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
+                        <a href="{{ route('suivi-prestations-all') }}" class="@if(Request::is('admin/prestations/all/suivi')) active @endif flex items-center px-3 py-2 text-gray-200 rounded-t-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
+                            <span class="ml-3">Toutes</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('suivi-consultation') }}" class="@if(Request::is('admin/consultation/suivi')) active @endif flex items-center px-3 py-2 text-gray-200 hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
                             <span class="ml-3">Consultation</span>
                         </a>
                     </li>
@@ -265,7 +270,15 @@
                 </ul>
             </li>
             @endrole
-         
+            @role('communitymanager')
+            <li>
+                <a href="{{ route('articles.index') }}" class="@if(Request::is('admin/articles')) active @endif flex items-center px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
+                    <i class="fa  fa-newspaper-o w-5 h-5 dark:text-gray-400 group-hover:text-black"></i>
+                    <span class="ml-3">Articles</span>
+                </a>
+            </li>
+            @endrole
+
          
         </ul>
        

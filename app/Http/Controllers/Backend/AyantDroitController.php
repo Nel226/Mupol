@@ -107,43 +107,43 @@ class AyantDroitController extends Controller
     
     public function import(Request $request)
     {
-    $validator = Validator::make($request->all(), [
-        'excel-file-ayant-droit' => 'required|mimes:xlsx,xls,csv'
-    ]);
-    
-    // Si la validation échoue, retourner avec les erreurs
-    if ($validator->fails()) {
-        return back()->withErrors($validator)->withInput();
-    }
-    $headerAyantDroit = [
-            'nom', 'prenom', 'sexe', 'date_naissance', 'relation', 'code', 'matricule_id'
-    ];
-
-    // Récupérer le fichier depuis la requête
-    $file = $request->file('excel-file-ayant-droit');
-    try {
-        // Importer les données depuis le fichier Excel
-        Excel::import(new AyantDroitsImport, $file);
-
-        // Rediriger avec un message de succès
-        return redirect()->route('adherents.index')
-                         ->with('success', 'Ayant-droits importés avec succès.');
-    } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
-        $failures = $e->failures();
-        $messages = [];
-
-        // Collecter les messages d'erreur
-        foreach ($failures as $failure) {
-            $messages[] = 'Erreur à la ligne ' . $failure->row() . ': ' . implode(', ', $failure->errors());
+        $validator = Validator::make($request->all(), [
+            'excel-file-ayant-droit' => 'required|mimes:xlsx,xls,csv'
+        ]);
+        
+        // Si la validation échoue, retourner avec les erreurs
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
         }
+        $headerAyantDroit = [
+                'nom', 'prenom', 'sexe', 'date_naissance', 'relation', 'code', 'matricule_id'
+        ];
 
-        // Retourner avec les messages d'erreur
-        return back()->withErrors($messages)->withInput();
-    } catch (\Exception $e) {
-        Log::error('Erreur générale lors de l\'importation : ' . $e->getMessage());
-        // En cas d'erreur générale
-        return back()->withErrors(['error' => 'Erreur lors de l\'importation : ' . $e->getMessage()]);
-    }
+        // Récupérer le fichier depuis la requête
+        $file = $request->file('excel-file-ayant-droit');
+        try {
+            // Importer les données depuis le fichier Excel
+            Excel::import(new AyantDroitsImport, $file);
+
+            // Rediriger avec un message de succès
+            return redirect()->route('adherents.index')
+                            ->with('success', 'Ayant-droits importés avec succès.');
+        } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+            $failures = $e->failures();
+            $messages = [];
+
+            // Collecter les messages d'erreur
+            foreach ($failures as $failure) {
+                $messages[] = 'Erreur à la ligne ' . $failure->row() . ': ' . implode(', ', $failure->errors());
+            }
+
+            // Retourner avec les messages d'erreur
+            return back()->withErrors($messages)->withInput();
+        } catch (\Exception $e) {
+            Log::error('Erreur générale lors de l\'importation : ' . $e->getMessage());
+            // En cas d'erreur générale
+            return back()->withErrors(['error' => 'Erreur lors de l\'importation : ' . $e->getMessage()]);
+        }
     }
 
     /**

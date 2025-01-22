@@ -124,7 +124,7 @@
                             <div class="flex flex-wrap items-center justify-end my-4 space-x-2">
                                 <!-- Input de fichier -->
                                 <div class="w-full sm:w-auto mb-4 sm:mb-0">
-                                    <input type="file" name="excel-file-ayant-droit"
+                                    <input type="file" name="excel-file"
                                         class="block w-full text-sm text-gray-900 border border-gray-300 rounded-sm cursor-pointer bg-green-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                                         accept=".csv, .xlsx" />
                                 </div>

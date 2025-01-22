@@ -244,4 +244,6 @@ class AdherentController extends Controller
         }
     }
 
+    
+
 }

@@ -40,7 +40,21 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        //
+        $breadcrumbsItems = [
+            [
+                'name' => 'Articles',
+                'url' => route('articles.index'),
+                'active' => false
+            ],
+            [
+                'name' => 'Nouvel article',
+                'url' => route('articles.create'),
+                'active' => true
+            ],
+        ];
+        $pageTitle = 'Nouvel article';
+
+        return view('pages.backend.articles.create', compact('pageTitle', 'breadcrumbsItems'));
     }
 
     /**

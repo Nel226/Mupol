@@ -18,189 +18,386 @@
         <div class="">
             <div class="adhesion-form mx-auto">
                 <!-- Card container -->
-                <div class="max-w-3xl mx-auto space-y-6">
+                <div class=" mx-auto space-y-6">
                     
                     <!-- Références de l&apos;adhérent -->
-                    <div class="bg-white shadow-md rounded-lg p-6">
-                        <!-- Photo de l'adhérent -->
-                        <div class="flex items-center justify-center mb-6">
-                            <img src="{{ asset('storage/' . $demande->photo) }}" alt="Photo de l&apos;adhérent" class="w-24 h-24 rounded-full border-4 border-gray-200 shadow-md">
-                        </div>
-            
-                        <h3 class="text-xl font-semibold text-gray-800 mb-4 text-center">Références de l'adhérent</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-600 text-sm">
-                            <p><strong>Matricule :</strong> {{ $demande->matricule }}</p>
-                            <p><strong>NIP :</strong> {{ $demande->nip }}</p>
-                            <p><strong>CNIB :</strong> {{ $demande->cnib }}</p>
-                            <p><strong>Adresse :</strong> {{ $demande->adresse_permanente }}</p>
-                            <p><strong>Téléphone :</strong> {{ $demande->telephone }}</p>
-                            <p><strong>Email :</strong> {{ $demande->email }}</p>
-                        </div>
+                    <!-- Photo de -->
+                    <div class="flex items-center justify-center mb-6">
+                        <img src="{{ asset('storage/' . $demande->photo) }}" alt="Photo de l&apos;adhérent" class="w-24 h-24 rounded-full border-4 border-gray-200 shadow-md">
                     </div>
-            
-                    <!-- État civil -->
-                    <div class="bg-white shadow-md rounded-lg p-6">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-4">État civil</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-600 text-sm">
-                            <p><strong>Nom :</strong> {{ $demande->nom }}</p>
-                            <p><strong>Prénom(s) :</strong> {{ $demande->prenom }}</p>
-                            <p><strong>Lieu de naissance :</strong> {{ $demande->lieu_naissance }}</p>
-                            <p><strong>Genre :</strong> {{ $demande->genre == 'masculin' ? 'Masculin' : 'Féminin' }}</p>
-                            <p><strong>Nom du père :</strong> {{ $demande->nom_pere }}</p>
-                            <p><strong>Nom de la mère :</strong> {{ $demande->nom_mere }}</p>
+                    {{-- Messages d'erreur et de succès --}}
+                    @if ($errors->any())
+                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+                            <strong class="font-bold">Une erreur s&apos;est produite :</strong>
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
                         </div>
-                    </div>
-            
-                    <!-- Informations personnelles -->
-                    <div class="bg-white shadow-md rounded-lg p-6">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Informations personnelles</h3>
+                    @endif
 
-                        <!-- Situation matrimoniale -->
-                        <p class="text-gray-600 text-sm mb-2"><strong>Situation matrimoniale :</strong> {{ $demande->situation_matrimoniale }}</p>
+                    @if (session('success'))
+                        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
+                            <strong class="font-bold">Succès :</strong>
+                            <span>{{ session('success') }}</span>
+                        </div>
+                    @endif
+
+                    @if (session('error'))
+                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+                            <strong class="font-bold">Erreur :</strong>
+                            <span>{{ session('error') }}</span>
+                        </div>
+                    @endif
+
+                    @if ($demande->is_new === 0 )
+                        <div class="bg-white shadow-md rounded-lg p-6">
                     
-                        <!-- Personnes à prévenir en cas de besoin -->
-                        <div class="mt-6 bg-gray-50 shadow-md rounded-lg p-4">
-                            <h4 class="text-lg font-semibold text-gray-800 border-b border-gray-200 pb-2 mb-4">Personnes à prévenir en cas de besoin</h4>
+                            <h3 class="text-lg font-semibold text-gray-800 mb-4 text-left">Informations de la demande</h3>
                             
-                            <div class="flex items-center mb-3">
-                                <span class="material-icons text-gray-500 mr-2">person</span>
-                                <p class="text-gray-700 text-sm"><strong>Nom & Prénom(s) :</strong> {{ $demande->nom_prenom_personne_besoin }}</p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-600 text-sm">
+                                <p><strong>Nom :</strong> {{ $demande->nom  }}</p>
+                                <p><strong>Prénom (s) :</strong> {{ $demande->prenom }}</p>
+                                <p><strong>Matricule :</strong> {{ $demande->matricule }}</p>
+                                <p><strong>Téléphone :</strong> {{ $demande->telephone }}</p>
+                                <p><strong>Email :</strong> {{ $demande->email }}</p>
                             </div>
+                            <div class="flex justify-end mt-2">
 
-                            <div class="flex items-center mb-3">
-                                <span class="material-icons text-gray-500 mr-2">home</span>
-                                <p class="text-gray-700 text-sm"><strong>Lieu de résidence :</strong> {{ $demande->lieu_residence }}</p>
-                            </div>
-
-                            <div class="flex items-center">
-                                <span class="material-icons text-gray-500 mr-2">phone</span>
-                                <p class="text-gray-700 text-sm"><strong>Téléphone :</strong> {{ $demande->telephone_personne_prevenir }}</p>
+                                <a href="{{ route('demandes.edit', $demande->id) }}">
+    
+                                    <button class="btn">
+                                        <i class=" fa fa-pencil mr-2"></i>
+                                        Modifier la demande
+                                    </button>
+                                </a> 
                             </div>
                         </div>
+                        <div class="bg-white shadow-md rounded-lg p-6">
+                            @if (!is_null($adherent))
 
-                    </div>
+                                <div class="bg-green-100 border text-sm border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
+                                    <strong class="font-bold">Demande valide :</strong>
+                                    <span>{{ $message }}</span>
+                                </div>
+                                <dl class="grid gap-3 sm:grid-cols-2 grid-cols-1">
+
+                                    <!-- Nom -->
+                                    <div class="flex items-center space-x-2">
+                                        <dt class="text-sm font-medium text-gray-900 dark:text-white">Nom :</dt>
+                                        <dd class="text-sm font-semibold text-gray-700 dark:text-gray-300">
+                                            {{ old('nom', $adherent->nom) }}
+                                        </dd>
+                                    </div>
             
-                    <div class="bg-white shadow-md rounded-lg p-6">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Liste des ayants droits</h3>
-                        <div class="overflow-x-auto">
-                            @if ($demande->nombreAyantsDroits > 0)
-                            <table class="w-full border-collapse bg-white shadow-md rounded-lg overflow-hidden mt-6">
-                                <thead>
-                                    <tr class="bg-gray-100 text-gray-600 uppercase text-sm leading-normal">
-                                        <th class="py-3 px-4 text-center">Photo</th>
-                                        <th class="py-3 px-4">Nom</th>
-                                        <th class="py-3 px-4">Prénom(s)</th>
-                                        <th class="py-3 px-4">Sexe</th>
-                                        <th class="py-3 px-4">Lien de parenté</th>
-                                        <th class="py-3 px-4 text-center">CNIB</th>
-                                        <th class="py-3 px-4 text-center">Extrait</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($demande->ayantsDroits as $index => $ayantDroit)
-                                        <tr class="border-b border-gray-200 hover:bg-gray-100">
-                                            <!-- Photo -->
-                                            <td class="py-3 px-4 text-center">
-                                                {{-- <img 
-                                                    src="{{ asset($ayantDroit['photo']) }}" 
-                                                    alt="Photo de {{ $ayantDroit['nom'] }}" 
-                                                    class="w-10 h-10 rounded-full object-cover mx-auto"
-                                                /> --}}
-                                            </td>
+                                    
+            
+                                    <!-- Téléphone -->
+                                    <div class="flex items-center space-x-2">
+                                        <dt class="text-sm font-medium text-gray-900 dark:text-white">Téléphone :</dt>
+                                        <dd class="text-sm font-semibold text-gray-700 dark:text-gray-300">
+                                            {{ old('telephone', $adherent->telephone) }}
+                                        </dd>
+                                    </div>
+                                    <!-- Prénom(s) -->
+                                    <div class="flex items-center space-x-2">
+                                        <dt class="text-sm font-medium text-gray-900 dark:text-white">Prénom(s) :</dt>
+                                        <dd class="text-sm font-semibold text-gray-700 dark:text-gray-300">
+                                            {{ old('prenom', $adherent->prenom) }}
+                                        </dd>
+                                    </div>
+            
+                                    <!-- Code carte -->
+                                    <div class="flex items-center space-x-2">
+                                        <dt class="text-sm font-medium text-gray-900 dark:text-white">Code carte :</dt>
+                                        <dd class="text-sm font-semibold text-gray-700 dark:text-gray-300">
+                                            {{ old('code_carte', $adherent->code_carte) }}
+                                        </dd>
+                                    </div>
+                                   
+                                    <!-- Genre -->
+                                    <div class="flex items-center space-x-2">
+                                        <dt class="text-sm font-medium text-gray-900 dark:text-white">Genre :</dt>
+                                        <dd class="text-sm font-semibold text-gray-700 dark:text-gray-300">
+                                            {{ old('genre', $adherent->genre) }}
+                                        </dd>
+                                    </div>
+                                    <!-- Charges -->
+                                    <div class="flex items-center space-x-2">
+                                        <dt class="text-sm font-medium text-gray-900 dark:text-white">Nombre de charges :</dt>
+                                        <dd class="text-sm font-semibold text-gray-700 dark:text-gray-300">
+                                            {{ old('charge', $adherent->charge) }}
+                                        </dd>
+                                    </div>
+                                    <!-- Matricule -->
+                                    <div class="flex items-center space-x-2">
+                                        <dt class="text-sm font-medium text-gray-900 dark:text-white">Matricule :</dt>
+                                        <dd class="text-sm font-semibold text-gray-700 dark:text-gray-300">
+                                            {{ old('matricule', $adherent->matricule) }}
+                                        </dd>
+                                    </div>
+                                    <!-- Mensualite -->
+                                    <div class="flex items-center space-x-2">
+                                        <dt class="text-sm font-medium text-gray-900 dark:text-white">Mensualité :</dt>
+                                        <dd class="text-sm font-semibold text-gray-700 dark:text-gray-300">
+                                            {{ old('mensualite', $adherent->mensualite) }} F CFA
+                                        </dd>
+                                    </div>
+                                    
+                                    <!-- Service -->
+                                    <div class="flex items-center space-x-2">
+                                        <dt class="text-sm font-medium text-gray-900 dark:text-white">Service :</dt>
+                                        <dd class="text-sm font-semibold text-gray-700 dark:text-gray-300">
+                                            {{ old('service', $adherent->service) }}
+                                        </dd>
+                                    </div>
+                                    
+                                    <!-- Date -->
+                                    <div class="flex items-center space-x-2">
+                                        <dt class="text-sm font-medium text-gray-900 dark:text-white">Date d&apos;adhésion :</dt>
+                                        <dd class="text-sm font-semibold text-gray-700 dark:text-gray-300">
+                                            {{ old('date_enregistrement', $adherent->date_enregistrement) ? \Carbon\Carbon::parse(old('date_enregistrement', $adherent->date_enregistrement))->format('d/m/Y') : '' }}
+                                        </dd>
+                                    </div>
+                                                        
+                                </dl>
+                                
+                            @else
+                                <div class="bg-red-100 border text-sm border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+                                    <strong class="font-bold">Demande invalide :</strong>
+                                    <span>{{ $message }}</span>
+                                </div>
+                                
+                            @endif
+                            
+                        </div>
+                    @else
+                        <div class="bg-white shadow-md rounded-lg p-6">
+                
+                            <h3 class="text-lg font-semibold text-gray-800 mb-4 text-center">Références </h3>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-600 text-sm">
+                                <p><strong>Matricule :</strong> {{ $demande->matricule }}</p>
+                                <p><strong>NIP :</strong> {{ $demande->nip }}</p>
+                                <p><strong>CNIB :</strong> {{ $demande->cnib }}</p>
+                                <p><strong>Adresse :</strong> {{ $demande->adresse_permanente }}</p>
+                                <p><strong>Téléphone :</strong> {{ $demande->telephone }}</p>
+                                <p><strong>Email :</strong> {{ $demande->email }}</p>
+                            </div>
+                        </div>
+                
+                        <!-- État civil -->
+                        <div class="bg-white shadow-md rounded-lg p-6">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-4">État civil</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-600 text-sm">
+                                <p><strong>Nom :</strong> {{ $demande->nom }}</p>
+                                <p><strong>Prénom(s) :</strong> {{ $demande->prenom }}</p>
+                                <p><strong>Lieu de naissance :</strong> {{ $demande->lieu_naissance }}</p>
+                                <p><strong>Genre :</strong> {{ $demande->genre == 'masculin' ? 'Masculin' : 'Féminin' }}</p>
+                                <p><strong>Nom du père :</strong> {{ $demande->nom_pere }}</p>
+                                <p><strong>Nom de la mère :</strong> {{ $demande->nom_mere }}</p>
+                            </div>
+                        </div>
+                
+                        <!-- Informations personnelles -->
+                        <div class="bg-white shadow-md rounded-lg p-6">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-4">Informations personnelles</h3>
+
+                            <!-- Situation matrimoniale -->
+                            <p class="text-gray-600 text-sm mb-2"><strong>Situation matrimoniale :</strong> {{ $demande->situation_matrimoniale }}</p>
                         
-                                            <!-- Nom -->
-                                            <td class="py-3 px-4">{{ $ayantDroit['nom'] }}</td>
-                        
-                                            <!-- Prénom(s) -->
-                                            <td class="py-3 px-4">{{ $ayantDroit['prenom'] }}</td>
-                        
-                                            <!-- Sexe -->
-                                            <td class="py-3 px-4">{{ ucfirst($ayantDroit['sexe']) }}</td>
-                        
-                                            <!-- Lien de parenté -->
-                                            <td class="py-3 px-4">{{ $ayantDroit['relation'] }}</td>
-                        
-                                            {{-- <!-- CNIB -->
-                                            <td class="py-3 px-4 text-center">
-                                                @if($ayantDroit['cnib'])
-                                                    {{ $ayantDroit['cnib'] }}
-                                                @else
-                                                    <span class="text-gray-500">Non disponible</span>
-                                                @endif
-                                            </td> --}}
-                        
-                                            <!-- Extrait -->
-                                            <td class="py-3 px-4 text-center">
-                                                @if($ayantDroit['extrait'])
-                                                    <a 
-                                                        href="{{ asset($ayantDroit['extrait']) }}" 
-                                                        target="_blank" 
-                                                        class="text-blue-600 hover:underline"
-                                                    >
-                                                        Voir
-                                                    </a>
-                                                @else
-                                                    <span class="text-gray-500">Non disponible</span>
-                                                @endif
-                                            </td>
+                            <!-- Personnes à prévenir en cas de besoin -->
+                            <div class="mt-6 bg-gray-50 shadow-md rounded-lg p-4">
+                                <h4 class="text-lg font-semibold text-gray-800 border-b border-gray-200 pb-2 mb-4">Personnes à prévenir en cas de besoin</h4>
+                                
+                                <div class="flex items-center mb-3">
+                                    <span class="material-icons text-gray-500 mr-2">person</span>
+                                    <p class="text-gray-700 text-sm"><strong>Nom & Prénom(s) :</strong> {{ $demande->nom_prenom_personne_besoin }}</p>
+                                </div>
+
+                                <div class="flex items-center mb-3">
+                                    <span class="material-icons text-gray-500 mr-2">home</span>
+                                    <p class="text-gray-700 text-sm"><strong>Lieu de résidence :</strong> {{ $demande->lieu_residence }}</p>
+                                </div>
+
+                                <div class="flex items-center">
+                                    <span class="material-icons text-gray-500 mr-2">phone</span>
+                                    <p class="text-gray-700 text-sm"><strong>Téléphone :</strong> {{ $demande->telephone_personne_prevenir }}</p>
+                                </div>
+                            </div>
+
+                        </div>
+                
+                        <div class="bg-white shadow-md rounded-lg p-6">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-4">Liste des ayants droits</h3>
+                            <div class="overflow-x-auto">
+                                @if ($demande->nombreAyantsDroits > 0)
+                                <table class="w-full border-collapse bg-white shadow-md rounded-lg overflow-hidden mt-6">
+                                    <thead>
+                                        <tr class="bg-gray-100 text-gray-600 uppercase text-sm leading-normal">
+                                            <th class="py-3 px-4 text-center">Photo</th>
+                                            <th class="py-3 px-4">Nom</th>
+                                            <th class="py-3 px-4">Prénom(s)</th>
+                                            <th class="py-3 px-4">Sexe</th>
+                                            <th class="py-3 px-4">Lien de parenté</th>
+                                            <th class="py-3 px-4 text-center">CNIB</th>
+                                            <th class="py-3 px-4 text-center">Extrait</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        @else
-                            <p class="text-gray-600">Aucun ayant droit enregistré pour cette demande.</p>
-                        @endif
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($demande->ayantsDroits as $index => $ayantDroit)
+                                            <tr class="border-b border-gray-200 hover:bg-gray-100">
+                                                <!-- Photo -->
+                                                <td class="py-3 px-4 text-center">
+                                                    {{-- <img 
+                                                        src="{{ asset($ayantDroit['photo']) }}" 
+                                                        alt="Photo de {{ $ayantDroit['nom'] }}" 
+                                                        class="w-10 h-10 rounded-full object-cover mx-auto"
+                                                    /> --}}
+                                                </td>
+                            
+                                                <!-- Nom -->
+                                                <td class="py-3 px-4">{{ $ayantDroit['nom'] }}</td>
+                            
+                                                <!-- Prénom(s) -->
+                                                <td class="py-3 px-4">{{ $ayantDroit['prenom'] }}</td>
+                            
+                                                <!-- Sexe -->
+                                                <td class="py-3 px-4">{{ ucfirst($ayantDroit['sexe']) }}</td>
+                            
+                                                <!-- Lien de parenté -->
+                                                <td class="py-3 px-4">{{ $ayantDroit['relation'] }}</td>
+                            
+                                                {{-- <!-- CNIB -->
+                                                <td class="py-3 px-4 text-center">
+                                                    @if($ayantDroit['cnib'])
+                                                        {{ $ayantDroit['cnib'] }}
+                                                    @else
+                                                        <span class="text-gray-500">Non disponible</span>
+                                                    @endif
+                                                </td> --}}
+                            
+                                                <!-- Extrait -->
+                                                <td class="py-3 px-4 text-center">
+                                                    @if($ayantDroit['extrait'])
+                                                        <a 
+                                                            href="{{ asset($ayantDroit['extrait']) }}" 
+                                                            target="_blank" 
+                                                            class="text-blue-600 hover:underline"
+                                                        >
+                                                            Voir
+                                                        </a>
+                                                    @else
+                                                        <span class="text-gray-500">Non disponible</span>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            @else
+                                <p class="text-gray-600">Aucun ayant droit enregistré pour cette demande.</p>
+                            @endif
+                            
+                            </div>
+                        </div>
                         
-                        </div>
-                    </div>
-                    
 
-                    <!-- Informations profesionnelles -->
-                    <div class="bg-white shadow-md rounded-lg p-6">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Informations Professionnelles</h3>
-                        <!-- Personnel Retraité -->
-                        @if ($demande->statut === 'personnel_retraite')
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-600 text-sm">
-                            <p><strong>Statut :</strong> {{ $demande->statut }}</p>
-                            <p><strong>Grade :</strong> {{ $demande->grade }}</p>
-                            <p><strong>Date de départ à la retraite :</strong> {{ $demande->departARetraite }} <span class="text-xs">(JJ/MM/AAAA)</span></p>
-                            <p><strong>N° CARFO :</strong> {{ $demande->numeroCARFO }}</p>
-                        </div>
-                           
-                        @endif
-                        
-                        <!-- Personnel en Activité -->
-                        @if ($demande->statut === 'personnel_active')
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-600 text-sm">
-                            <p><strong>Statut :</strong> {{ $demande->statut }}</p>
+                        <!-- Informations profesionnelles -->
+                        <div class="bg-white shadow-md rounded-lg p-6">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-4">Informations Professionnelles</h3>
+                            <!-- Personnel Retraité -->
+                            @if ($demande->statut === 'personnel_retraite')
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-600 text-sm">
+                                <p><strong>Statut :</strong> {{ $demande->statut }}</p>
+                                <p><strong>Grade :</strong> {{ $demande->grade }}</p>
+                                <p><strong>Date de départ à la retraite :</strong> {{ $demande->departARetraite }} <span class="text-xs">(JJ/MM/AAAA)</span></p>
+                                <p><strong>N° CARFO :</strong> {{ $demande->numeroCARFO }}</p>
+                            </div>
+                            
+                            @endif
+                            
+                            <!-- Personnel en Activité -->
+                            @if ($demande->statut === 'personnel_active')
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-600 text-sm">
+                                <p><strong>Statut :</strong> {{ $demande->statut }}</p>
 
-                            <p><strong>Grade :</strong> {{ $demande->grade }}</p>
-                            <p><strong>Date d&apos;intégration :</strong> {{ $demande->dateIntegration }} <span class="text-xs">(JJ/MM/AAAA)</span></p>
-                            <p><strong>Date de départ à la retraite :</strong> {{ $demande->dateDepartARetraite }} </p>
-                            <p><strong>Direction :</strong> {{ $demande->direction }}</p>
-                            <p><strong>Service :</strong> {{ $demande->service }}</p>
+                                <p><strong>Grade :</strong> {{ $demande->grade }}</p>
+                                <p><strong>Date d&apos;intégration :</strong> {{ $demande->dateIntegration }} <span class="text-xs">(JJ/MM/AAAA)</span></p>
+                                <p><strong>Date de départ à la retraite :</strong> {{ $demande->dateDepartARetraite }} </p>
+                                <p><strong>Direction :</strong> {{ $demande->direction }}</p>
+                                <p><strong>Service :</strong> {{ $demande->service }}</p>
+                            </div>
+                            
+                            @endif
                         </div>
-                         
-                        @endif
-                    </div>
+                    @endif
                 </div>
 
         
-                <!-- Modifier les informations -->
+                {{-- <!-- Modifier les informations --> --}}
+                {{-- <div class=" flex justify-between text-right mt-6">
+                    <a href="{{ route('demandes.edit', $demande->id) }}">
+
+                        <button class="btn">
+                            <i class=" fa fa-pencil mr-2"></i>
+                            Compléter les informations
+                        </button>
+                    </a>
+                  
+                </div> --}}
                 <div class=" flex justify-between text-right mt-6">
-                    <a href="{{ route('edit-demande-adhesion', ['id'=>$demande->id]) }}">
+                    {{-- <a href="{{ route('demandes.edit', $demande->id) }}">
 
                         <button class="btn">
                             <i class=" fa fa-pencil mr-2"></i>
                             Modifier les informations
                         </button>
-                    </a>
+                    </a> --}}
                     @if ($demande->etat === 0)
-                        <form action="{{ route('adherents.accept', $demande->id) }}" method="post">
+                        <form action="{{ route('demandes.destroy', $demande->id) }}" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir rejeter cette demande ?')">
                             @csrf
-                            <button type="submit" class="btn">Approuver</button>
+                            @method('DELETE') <!-- Cette ligne simule une requête DELETE -->
+                            <button type="submit" class="btn bg-red-700">
+                                <i class="fa fa-times mr-2"></i>
+                                Rejeter
+                            </button>
                         </form>
+                    
+                        
+                        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                        <script>
+                            function confirmDeletion(id) {
+                                Swal.fire({
+                                    title: 'Êtes-vous sûr ?',
+                                    text: "Vous ne pourrez pas annuler cette action !",
+                                    icon: 'warning',
+                                    showCancelButton: true,
+                                    confirmButtonColor: '#d33',
+                                    cancelButtonColor: '#3085d6',
+                                    confirmButtonText: 'Oui, rejeter !',
+                                    cancelButtonText: 'Annuler'
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        document.getElementById(`delete-form-${id}`).submit();
+                                    }
+                                });
+                            }
+                        </script>
+                    
+                        @if (!is_null($adherent))
+                            <form action="{{ route('adherents.accept', $demande->id) }}" method="post">
+                                @csrf
+                                <button type="submit" class="btn">
+                                    <i class=" fa fa-check mr-2"></i>
+
+                                    Approuver
+                                </button>
+                            </form>
+                        @endif
                     @else
+                        
                         <i class="fa fa-check-circle text-green-600"></i>
                     @endif
                 </div>

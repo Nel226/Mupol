@@ -17,6 +17,7 @@ class RolesAndUsersSeeder extends Seeder
         $agentSaisieRole = Role::create(['name' => 'agentsaisie']);
         $controleurRole = Role::create(['name' => 'controleur']);
         $comptableRole = Role::create(['name' => 'comptable']);
+        $communityManagerRole = Role::create(['name' => 'communitymanager']);
 
         $admin = User::create([
             'name' => 'Administrateur',
@@ -45,5 +46,11 @@ class RolesAndUsersSeeder extends Seeder
             'password' => bcrypt('password'),
         ]);
         $comptable->assignRole($comptableRole);
+        $communityManager = User::create([
+            'name' => 'Community Manager',
+            'email' => 'communitymanager@example.com',
+            'password' => bcrypt('password'),
+        ]);
+        $communityManager->assignRole($communityManagerRole);
     }
 }

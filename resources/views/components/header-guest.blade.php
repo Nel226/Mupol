@@ -20,10 +20,10 @@
                 
                 <!-- Title and Slogan -->
                 <div class="flex-grow text-center">
-                    <h1 class="text-lg lg:text-xl font-bold text-primary1 uppercase tracking-tight">
+                    <h1 class="text-lg lg:text-xl font-bold text-primary2 uppercase tracking-tight">
                         Mutuelle de la Police
                     </h1>
-                    <p class="text-xs lg:text-sm text-primary1">
+                    <p class="text-xs lg:text-sm text-primary2">
                         Tous solidaires pour notre bien-être !
                     </p>
                 </div>
@@ -54,17 +54,23 @@
                                         <li class="{{ request()->routeIs('accueil') ? 'active' : '' }}">
                                             <a href="{{ route('accueil') }}" class="hover:text-gray-300 px-2">Accueil</a>
                                         </li>
-                                        <li class="{{ request()->routeIs('apropos') ? 'active' : '' }}">
+                                        {{-- <li class="{{ request()->routeIs('apropos') ? 'active' : '' }}">
                                             <a href="{{ route('apropos') }}" class="hover:text-gray-300 px-2">À Propos</a>
-                                        </li>
+                                        </li> --}}
                                         <li class="{{ request()->routeIs('services') ? 'active' : '' }}">
                                             <a href="{{ route('services') }}" class="hover:text-gray-300 px-2">Nos Services</a>
                                         </li>
                                         <li class="{{ request()->routeIs('formulaire-adhesion') ? 'active' : '' }}">
-                                            <a href="{{ route('formulaire-adhesion') }}" class="hover:text-gray-300 px-2">Adhérer</a>
+                                            <a href="{{ route('formulaire-adhesion', ['adherentType' => 'nouveau']) }}" class="hover:text-gray-300 px-2">Adhérer</a>
                                         </li>
+                                        {{-- <li class="{{ request()->routeIs('formulaire-adhesion') ? 'active' : '' }}">
+                                            <a href="{{ route('formulaire-adhesion') }}" class="hover:text-gray-300 px-2">Adhérer</a>
+                                        </li> --}}
                                         <li class="{{ request()->routeIs('contacts') ? 'active' : '' }}">
                                             <a href="{{ route('contacts') }}" class="hover:text-gray-300 px-2">Nous contacter</a>
+                                        </li>
+                                        <li class="{{ request()->routeIs('liste-partenaires') ? 'active' : '' }}">
+                                            <a href="{{ route('liste-partenaires') }}" class="hover:text-gray-300 px-2">Nos partenaires</a>
                                         </li>
                                         {{-- @if (Auth::guard('adherent')->check())
                                             <li class="{{ request()->routeIs('adherents.dashboard') ? 'active' : '' }}">

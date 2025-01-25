@@ -1357,13 +1357,13 @@ Version:	1.1
         margin-bottom: 15px;
         border-radius: 12px;
         background-color: #ffffff;
-        border: 2px solid #4000FF;
+        border: 2px solid #254569;
     }
 
     
     .custom-stepper-small .step-number {
         font-size: 20px;
-        color: #4000FF;
+        color: #254569;
     }
 
     .custom-stepper-small .step-title {

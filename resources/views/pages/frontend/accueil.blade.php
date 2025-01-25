@@ -3,15 +3,15 @@
 
     <x-header-guest/>
     <hr class=" w-full h-0.5 bg-white">
-
+    
     <!-- Slider Area -->
     <section class="slider">
         <div class="hero-slider">
             @php
                 $slides = [
                     
-                    ['image' => 'images/caroussel/caroussel8.jpg', 'title' => 'MU-POl, la Mutuelle de la Police Nationale', 'text_color' => 'white'],
-                    ['image' => 'images/caroussel/caroussel10.JPG', 'title' => 'MU-POl, la Mutuelle de la Police Nationale', 'text_color' => 'white'],
+                    ['image' => 'images/caroussel/caroussel8.jpg', 'title' => 'MU-POL, la Mutuelle de la Police Nationale', 'text_color' => 'white'],
+                    ['image' => 'images/caroussel/caroussel10.JPG', 'title' => 'MU-POL, la Mutuelle de la Police Nationale', 'text_color' => 'white'],
 
                 ];
             @endphp
@@ -31,10 +31,10 @@
                                 <p class="{{ $slide['text_color'] === 'white' ? 'text-white' : 'text-black' }}">Je suis policier (ère), j&apos;adhère ! Pour le bien-être des membres de ma famille (conjoint, enfants), je les adhère ! </p>
         
                                 <div class="button">
-                                    <a class="btn" href="{{ route('formulaire-adhesion') }}">
+                                    <a class="btn" href="{{ route('formulaire-adhesion', ['adherentType' => 'nouveau']) }}">
                                         Adhérer maintenant
                                     </a>
-                                    <a href="{{ route('apropos') }}" class="btn primary">A propos de nous</a>
+                                    <a href="{{ route('contacts') }}" class="btn primary">Nous contacter</a>
                                 </div>
                             </div>
                         </div>
@@ -98,7 +98,7 @@
                                         <span>{{ $service['subtitle'] }}</span>
                                         <h4>{{ $service['title'] }}</h4>
                                         <p>{{ $service['description'] }}</p>
-                                        <a href="{{ $service['link'] }}">{{ $service['link_text'] }}<i class="fa fa-long-arrow-right"></i></a>
+                                        {{-- <a href="{{ $service['link'] }}">{{ $service['link_text'] }}<i class="fa fa-long-arrow-right"></i></a> --}}
                                     </div>
                                 </div>
                             </div>
@@ -222,7 +222,20 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title who">
-                        <h2>Le mot du Président du Conseil d&apos;administration</h2>
+                        <h2>Le mot 
+                            <span class=" lowercase">
+                                du
+                            </span>   
+                            Président 
+                            <span class=" lowercase">
+                                du
+                            </span>     
+                            Conseil 
+                            <span class=" lowercase">
+                                d&apos;
+                            </span> 
+                            administration
+                        </h2>
                         <img  class="mx-auto" src="{{ asset('images/section-img.png') }}" alt="#">
                         <p>La Mutuelle de la Police Nationale propose des services variés pour votre bien-être et celui de votre famille.</p>
                     </div>
@@ -289,7 +302,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title">
-                        <h2>Nous offrons différents services de rembousements </h2>
+                        <h2>Nous offrons différents services de remboursements </h2>
                         <img  class="mx-auto" src="{{ asset('images/section-img.png') }}" alt="#">
                         <p>La Mutuelle vous accompagne dans le remboursement de différentes prestations.</p>
                     </div>

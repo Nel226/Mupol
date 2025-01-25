@@ -29,6 +29,8 @@
 
         <script src="{{ asset('js/cdn.min.js') }}" defer></script>
         <script src="{{ asset('js/regions.js') }}" defer></script>
+        <script src="{{ asset('js/grades.js') }}" defer></script>
+
         <script src="{{ asset('../node_modules/pagedone/src/js/pagedone.js') }}"></script>
         <script src="{{ asset('js/jquery.min.js') }}"></script>
 

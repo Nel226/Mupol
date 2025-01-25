@@ -14,33 +14,33 @@ return new class extends Migration
         Schema::create('demande_adhesions', function (Blueprint $table) {
             $table->uuid('id')->primary(); 
             $table->string('matricule');
-            $table->string('nip');
-            $table->string('cnib');
-            $table->date('delivree');
-            $table->date('expire');
-            $table->string('adresse');
+            $table->string('nip')->nullable();
+            $table->string('cnib')->nullable();
+            $table->date('delivree')->nullable();
+            $table->date('expire')->nullable();
+            $table->string('adresse')->nullable();
             $table->string('telephone');
             $table->string( 'email');
 
             $table->string('nom');
             $table->string('prenom');
-            $table->string('genre');
-            $table->string('departement');
-            $table->string('ville');
+            $table->string('genre')->nullable();
+            $table->string('departement')->nullable();
+            $table->string('ville')->nullable();
             $table->string('pays')->nullable();
-            $table->string('nom_pere');
-            $table->string('nom_mere');
-            $table->string('situation_matrimoniale');
+            $table->string('nom_pere')->nullable();
+            $table->string('nom_mere')->nullable();
+            $table->string('situation_matrimoniale')->nullable();
             $table->string('photo')->nullable();
 
-            $table->string('nom_prenom_personne_besoin');
-            $table->string('lieu_residence');
-            $table->string('telephone_personne_prevenir');
-            $table->integer('nombreAyantsDroits')->default(0);
-            $table->integer('categorie')->default(1);
+            $table->string('nom_prenom_personne_besoin')->nullable();
+            $table->string('lieu_residence')->nullable();
+            $table->string('telephone_personne_prevenir')->nullable();
+            $table->integer('nombreAyantsDroits')->nullable();
+            $table->integer('categorie')->nullable();
 
-            $table->json('ayantsDroits');
-            $table->string('statut');
+            $table->json('ayantsDroits')->nullable();
+            $table->string('statut')->nullable();
             $table->string('grade')->nullable();
             $table->date('departARetraite')->nullable();
             $table->string('numeroCARFO')->nullable();
@@ -57,6 +57,7 @@ return new class extends Migration
             $table->string('province')->nullable();
             $table->string('localite')->nullable();
             $table->boolean('etat')->default(false);
+            $table->boolean('is_new');
 
             
             $table->timestamps();

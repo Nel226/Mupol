@@ -12,15 +12,16 @@ use Carbon\Carbon;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Redis;
 
 class DashboardController extends Controller
 {
     public function index( Request $request )
     {
         
-        $adherentsCount = Adherent::count();
-        $ayantsDroitCount = AyantDroit::count();
-        $mutualistesCount = $adherentsCount + $ayantsDroitCount;
+        $adherentsCount1 = Adherent::count();
+        $ayantsDroitCount1 = AyantDroit::count();
+        $mutualistesCount = $adherentsCount1 + $ayantsDroitCount1;
         $adherents = Adherent::all();
         $pourcentageValidatedPrestationsCount = 0;
         $pourcentageInvalidatedPrestationsCount = 0;
@@ -141,7 +142,7 @@ class DashboardController extends Controller
         $recentUsers = User::latest()->take(5)->get();
 
         $roles = Role::withCount('users')->get();
-  
+        
         return view('pages.backend.dashboard', compact('monthlyPaymentsData', 
                                         'monthlyPayments' ,
                                         'pourcentageInvalidatedPrestationsCount', 
@@ -150,11 +151,15 @@ class DashboardController extends Controller
                                         'sumTotalMensualites', 
                                         'sumTotalAdhesions', 
                                         'adherentsCount',
+                                        'adherentsCount1',
+
                                         'mutualistesCount',
                                         'validatedPrestationsCount', 
                                         'invalidatedPrestationsCount', 
                                         'prestationsEnAttente',
                                         'ayantsDroitCount',
+                                        'ayantsDroitCount1',
+
                                         'newAdherentsCount',
                                         'adherentsPerWeek',
                                         'weeks',

@@ -9,11 +9,14 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles, HasUuids;
 
+    // Définir ce qui est logué
     protected $keyType = 'string'; 
     public $incrementing = false;
     /**
@@ -47,5 +50,11 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    
+    // public function getActivitylogOptions(): LogOptions
+    // {
+    //     return LogOptions::defaults()
+    //         ->logOnly(['name', 'email']) // Spécifiez ici les champs que vous souhaitez surveiller
+    //         ->logOnlyDirty(); // Enregistre uniquement les attributs modifiés
+    // }
+
 }

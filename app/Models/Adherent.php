@@ -47,9 +47,9 @@ class Adherent extends Authenticatable
         'numeroCARFO',
         'dateIntegration',
         'dateDepartARetraite',
-        'password', 'cle', 'code_carte', 'telephone', 'charge', 'mensualite', 'adhesion', 'photo',
+        'password', 'cle', 'code_carte', 'charge', 'mensualite', 'adhesion',
         'region', 'province', 'localite',
-        'must_change_password', 'is_adherent', 'demande_id'
+        'must_change_password', 'is_adherent','is_new', 'demande_id'
     ];
 
     /**

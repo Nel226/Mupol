@@ -22,10 +22,10 @@ class AyantDroitsImport implements ToModel, WithHeadingRow
             Log::info('Contenu de la ligne : ' . json_encode($row));
 
             // Vérifier la présence des clés avant d'essayer d'y accéder
-            $requiredKeys = [ 'matricule_adherent', 'nom_ayant_droit', 'prenom_ayant_droit', 'sexe', 'date_naissance', 'relation', 'code'];
+            $requiredKeys = [ 'matricule_adherant', 'nom_ayant_droit', 'prenom_ayant_droit', 'sexe', 'date_naissance', 'relation', 'code'];
 
             // Vérifier que l'ID d'adhérent existe
-            $adherentExists = Adherent::where('no_matricule', $row['matricule_adherent'])->exists();
+            $adherentExists = Adherent::where('matricule', $row['matricule_adherant'])->exists();
             if (!$adherentExists) {
                 Log::error("ID d'adhérent non trouvé pour la ligne: " . json_encode($row));
                 return null; // Skip this row
@@ -61,8 +61,8 @@ class AyantDroitsImport implements ToModel, WithHeadingRow
            
 
             // Générer le code
-            $data = Adherent::pluck('no_matricule')->toArray();
-            $code = $this->generateCode($row['matricule_adherent'], $data);
+            $data = Adherent::pluck('matricule')->toArray();
+            $code = $this->generateCode($row['matricule_adherant'], $data);
 
             // Création de l'objet AyantDroit
             $ayantDroit = new AyantDroit();
@@ -72,7 +72,7 @@ class AyantDroitsImport implements ToModel, WithHeadingRow
             $ayantDroit->date_naissance = $dateNaissance;
             $ayantDroit->relation = $row['relation'] ?? 'Non spécifiée';
             $ayantDroit->code = $code;
-            $ayantDroit->adherent_id = Adherent::where('no_matricule', $row['matricule_adherent'])->value('id');
+            $ayantDroit->adherent_id = Adherent::where('matricule', $row['matricule_adherant'])->value('id');
 
             return $ayantDroit;
 

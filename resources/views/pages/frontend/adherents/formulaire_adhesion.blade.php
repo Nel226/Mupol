@@ -5,6 +5,18 @@
 
     <section class="section bg-gray-100">
         <div class="container mx-auto px-4 lg:px-8">
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            @if (session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
+
             <div class="bg-white  rounded-lg overflow-hidden transform transition duration-500">
                 <!-- Image de fond atténuée avec Overlay translucide -->
                 <div class="relative h-64 bg-cover bg-center rounded-t-lg sm:block hidden" style="background-image: url('{{ asset('images/caroussel/caroussel7.jpeg') }}');">

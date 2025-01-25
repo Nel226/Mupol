@@ -106,20 +106,9 @@
                                                     <div class="col-12 col-md-9">
                                                         <h5 class="mb-1 font-bold">{{ $partenaire->nom }}</h5>
                                                         <p class="mb-0 text-sm">
-                                                            <strong>Téléphone :</strong> {{ $partenaire->telephone }}<br>
                                                             <strong>Adresse :</strong> {{ $partenaire->adresse }}<br>
                                                             <strong>Région :</strong> {{ $partenaire->region }}<br>
                                                             <strong>Province :</strong> {{ $partenaire->province }}
-                                                            @if($partenaire->geolocalisation !== 'aucun')
-                                                                <br>
-                                                                <strong>Localisation :</strong>
-                                                                <!-- Lien vers la localisation -->
-                                                                <a href="{{ $partenaire->geolocalisation }}" target="_blank" class="text-blue-500 hover:underline">
-                                                                    Cliquez ici
-                                                                </a>
-                                                            @endif
-
-
                                                         </p>
                                                     </div>
                                                 </div>

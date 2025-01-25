@@ -50,9 +50,10 @@
             <li><strong>Email :</strong> {{ $email }}</li>
             <li><strong>Mot de passe temporaire :</strong> {{ $password }}</li>
         </ul>
-        <p>Vous pouvez maintenant vous connecter à votre compte.</p>
-
-        <p>Si vous avez des questions, n'hésitez pas à nous contacter.</p>
+        <p>Vous pouvez maintenant vous connecter à votre compte en cliquant sur ce lien : https://mupol.bf/login/user .</p>
+        <p class=" text-justify">
+            Ci-joint, vous trouverez le manuel d'utilisation de l'application web, contenant toutes les instructions nécessaires pour naviguer et exploiter efficacement les fonctionnalités offertes. N'hésitez pas à nous contacter en cas de questions ou pour toute assistance supplémentaire. Bonne lecture !         
+        </p>
 
         <div class="footer">
             <p>Merci,</p>

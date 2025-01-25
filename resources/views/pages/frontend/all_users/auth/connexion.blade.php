@@ -4,7 +4,20 @@
     <x-preloader/>
     <x-header-guest/>
     <div class="">
-    
+        <!-- Modale -->
+        @if(session('success'))
+        <div x-data="{ open: true }" x-show="open" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+            <div class="bg-white z-50 rounded-lg shadow-lg p-4 max-w-sm">
+                <h2 class="text-xl font-semibold text-green-600">Envoyée !</h2>
+                <p class="mt-4 text-gray-700 text-sm">{{ session('success') }}</p>
+                <div class="mt-6 text-right">
+                    <button @click="open = false" class="bg-primary1 btn">
+                        Fermer
+                    </button>
+                </div>
+            </div>
+        </div>
+        @endif
         <section class="section min-h-screen ">
             <div class="container ">
                 <div class="">
@@ -80,9 +93,14 @@
                                     Se connecter
                                 </x-primary-button>
                             </form>
-                            <!-- Sign up  Link -->
+                            {{-- <!-- Sign up  Link -->
                             <div class="mt-6 text-primary1 text-center">
                                 <a href="{{ route('formulaire-adhesion') }}" class="hover:underline">Adhérer maintenant</a>
+                            </div> --}}
+                            <!-- Sign up  Link -->
+                            <div class="mt-6 text-primary1 text-center">
+                                
+                                <a href="{{ route('formulaire-adhesion', ['adherentType' => 'ancien']) }}" class="hover:underline">Vous êtes déjà membre? Créez votre compte</a>
                             </div>
                         </div>
                         

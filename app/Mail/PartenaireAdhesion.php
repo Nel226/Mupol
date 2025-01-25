@@ -52,4 +52,17 @@ class PartenaireAdhesion extends Mailable
             ],
         );
     }
+
+    public function build()
+    {
+        return $this
+            ->subject('Confirmation de votre adhésion')
+            ->view('emails.partenaire-adhesion')
+            ->with([
+                'email' => $this->email,
+                'password' => $this->password,
+                'logoUrl' => asset('images/logo.png'),
+            ])
+            ->attach(public_path('pdf/Manuel_utilisation_appli_Mupol_partenaires.pdf')); // Pièce jointe PDF
+    }
 }

@@ -3,7 +3,7 @@ const regions = {
         chefLieu: "Dédougou",
         provinces: ["Balés", "Banwa", "Kossi", "Mouhoun", "Nayala", "Sourou"]
     },
-    "Cascade": {
+    "Cascades": {
         chefLieu: "Banfora",
         provinces: ["Comoé", "Léraba"]
     },
@@ -31,7 +31,7 @@ const regions = {
         chefLieu: "Fada N’gourma",
         provinces: ["Gnagna", "Gourma", "Komandjari", "Kompienga", "Tapoa"]
     },
-    "Haut-Bassins": {
+    "Hauts-Bassins": {
         chefLieu: "Bobo-Dioulasso",
         provinces: ["Houet", "Kénédougou", "Tuy"]
     },
@@ -39,7 +39,7 @@ const regions = {
         chefLieu: "Ouahigouya",
         provinces: ["Loroum", "Passoré", "Yatenga", "Zondoma"]
     },
-    "Plateau Central": {
+    "Plateau-Central": {
         chefLieu: "Ziniaré",
         provinces: ["Ganzourgou", "Kourwéogo", "Oubritenga"]
     },

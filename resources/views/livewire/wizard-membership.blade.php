@@ -104,8 +104,9 @@
                     @endfor
                 </div>
 
-                <!-- Contenu des étapes -->
-                <div  class="shadow-lg border rounded-lg border-gray-200 px-4 md:px-5 pt-2 md:pt-6 pb-6 md:pb-8 mb-4">
+                <!-- Formulaire englobant le contenu des étapes - nouvelle adhésion -->
+                <form wire:submit.prevent="submitAdhesion" enctype="multipart/form-data" class="shadow-lg border rounded-lg border-gray-200 px-4 md:px-5 pt-2 md:pt-6 pb-6 md:pb-8 mb-4">
+                    <!-- Titre de l'étape active -->
                     <h2 class="text-lg sm:text-xl font-bold mb-2 md:mb-5 rounded-md text-center {{ $currentStep ? 'bg-primary1' : 'bg-gray-300' }} {{ $currentStep ? 'text-white' : 'text-gray-800' }}">
                         @if ($currentStep == 1) 1. Références de l&apos;adhérent
                         @elseif ($currentStep == 2) 2. Etat civil
@@ -392,7 +393,7 @@
                                         </fieldset>
                                     </div>
         
-                                    <div class="col-span-1">
+                                    {{-- <div class="col-span-1">
                                         <label class="block text-gray-700 text-sm font-bold mb-1" for="photo">Photo</label>
                                         <div class="w-full justify-center border rounded-md p-1 border-gray-500 row-span-3">
                                             @if ($photo)
@@ -407,9 +408,46 @@
                                         @error('photo') 
                                             <span class="text-red-500 text-sm">{{ $message }}</span>
                                         @enderror
+                                    </div> 
+                                    <x-image-adherent/>--}}
+                                    <div class="col-span-1">
+                                        <label class="block text-gray-700 text-sm font-bold mb-1" for="photo">Photo</label>
+                                        <div class="w-full justify-center border rounded-md p-1 border-gray-500 row-span-3" x-data="{ selectedPhoto: null, photoUrl: @entangle('photo') }">
+                                            <!-- Prévisualisation avec Alpine.js -->
+                                            <template x-if="selectedPhoto">
+                                                <img :src="URL.createObjectURL(selectedPhoto)" alt="Preview" class="w-48 h-48 object-cover mx-auto rounded-full">
+                                            </template>
+                                            <template x-if="!selectedPhoto && photoUrl">
+                                                <img :src="photoUrl" alt="Preview" class="w-48 h-48 object-cover mx-auto rounded-full">
+                                            </template>
+                                            <template x-if="!selectedPhoto && !photoUrl">
+                                                <img src="{{ asset('images/user-90.png') }}" alt="Default profile photo" class="w-36 h-36 object-cover mx-auto rounded-full">
+                                            </template>
+                                        </div>
+                                        
+                                        <!-- Champ de fichier pour Alpine.js -->
+                                        <input type="file" id="photo" accept="image/*" class="my-1 block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 
+                                            file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 
+                                            file:text-blue-700 hover:file:bg-violet-100"
+                                            x-on:change="selectedPhoto = $event.target.files[0]; 
+                                                       $wire.upload('photo', selectedPhoto, {
+                                                           onSuccess: () => { photoUrl = selectedPhoto ? URL.createObjectURL(selectedPhoto) : ''; }
+                                                       })" />
+                                        
+                                        @error('photo') 
+                                            <span class="text-red-500 text-sm">{{ $message }}</span>
+                                        @enderror
                                     </div>
+                                    
+                                    
+                                    
+                                    
+
+
+
                                 </div>
         
+                                <!-- Nombre ayants droits -->
                                 <div class="overflow-x-auto">
                                     <label class="block text-gray-700 text-sm font-bold mb-1" for="changeNombreAyantsDroits">Nombre d&apos;ayants-droits (Charge)</label>
                                     <select class="border-2 bg-gray-50 rounded w-full py-1" wire:change="changeNombreAyantsDroits($event.target.value)">
@@ -485,17 +523,18 @@
         
                                                 <!-- Champ pour la photo de la CNIB si le lien de parenté est "conjoint" -->
                                                 @if (isset($ayantsDroits[$i]['relation']) && strtolower($ayantsDroits[$i]['relation']) === 'conjoint')
-                                                <div class="mt-4">
-                                                    <label class="block text-gray-700 text-sm font-bold mb-1">CNIB (en PDF)</label>
-                                                    <div class="w-full justify-center border-2 rounded-md p-1 border-gray-700">
-                                                        <input type="file" wire:model="ayantsDroits.{{ $i }}.cnib" class="w-full py-2"  accept='.pdf'>
-                                                        
-                                                        @error('ayantsDroits.' . $i . '.cnib')
-                                                            <span class="text-red-500 text-xs">{{ $message }}</span>
-                                                        @enderror
+                                                    <div class="mt-4">
+                                                        <label class="block text-gray-700 text-sm font-bold mb-1">CNIB (en PDF)</label>
+                                                        <div class="w-full justify-center border-2 rounded-md p-1 border-gray-700">
+                                                            <input type="file" wire:model="ayantsDroits.{{ $i }}.cnib" class="w-full py-2"  accept='.pdf'>
+                                                            
+                                                            @error('ayantsDroits.' . $i . '.cnib')
+                                                                <span class="text-red-500 text-xs">{{ $message }}</span>
+                                                            @enderror
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            @endif
+                                                @endif
+                                            </div>
         
                                             <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4" wire:key="ayantDroit-{{ $i }}">
                                                 <!-- Photo ayant droit -->
@@ -684,50 +723,7 @@
                                 :signature="$signature"
                                 :signature-image="$signatureImage"
                             />
-                            <!-- Affichage de l'iframe -->
-                            {{-- <iframe 
-                                src="{{ route('formulaire.adhesion.recapitulatif', [
-                                    'matricule' => $matricule,
-                                    'nip' => $nip,
-                                    'cnib' => $cnib,
-                                    'delivree' => $delivree,
-                                    'expire' => $expire,
-                                    'adresse_permanente' => $adresse_permanente,
-                                    'telephone' => $telephone,
-                                    'email' => $email,
-                                    'nom' => $nom,
-                                    'prenom' => $prenom,
-                                    'genre' => $genre,
-                                    'departement' => $departement,
-                                    'ville' => $ville,
-                                    'pays' => $pays,
-                                    'nom_pere' => $nom_pere,
-                                    'nom_mere' => $nom_mere,
-                                    'situation_matrimoniale' => $situation_matrimoniale,
-                                    'nom_prenom_personne_besoin' => $nom_prenom_personne_besoin,
-                                    'lieu_residence' => $lieu_residence,
-                                    'telephone_personne_prevenir' => $telephone_personne_prevenir,
-                                    'photo' => $photo,
-                                    'photo_path_adherent' => $photo_path_adherent,
-                                    'photo_path_ayantdroit' => $photo_path_ayantdroit,
-                                    'date_integration' => $dateIntegration,
-                                    'date_depart_a_retraite' => $dateDepartARetraite,
-                                    'direction' => $direction,
-                                    'service' => $service,
-                                    'statut' => $statut,
-                                    'grade' => $grade,
-                                    'depart_a_retraite' => $departARetraite,
-                                    'numero_carfo' => $numeroCARFO,
-                                    'nombre_ayants_droits' => $nombreAyantsDroits,
-                                    'ayants_droits' => $ayantsDroits,
-                                    'signature' => $signature,
-                                    'signature_image' => $signatureImage
-                                ]) }}" 
-                                width="100%" 
-                                height="800px" 
-                                style="border: none;">
-                            </iframe> --}}
-        
+
                         @endif
                     </div>
         
@@ -750,7 +746,7 @@
                                 Suivant
                             </button>
                         @else
-                            <button wire:click="submit" onclick="scrollToTop()"
+                            <button wire:click="submitAdhesion" onclick="scrollToTop()"
                                 class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                                 Soumettre
                             </button>
@@ -768,7 +764,7 @@
                             {{ session('message') }}
                         </div>
                     @endif
-                </div>
+                </form>
             </div>
         @endif
 

@@ -18,6 +18,8 @@ use App\Mail\AdherentRegistrationMail;
 use App\Models\AyantDroit;
 use App\Helpers\PasswordHelper;
 use App\Models\Partenaire;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Validator;
 
 class AccueilController extends Controller
 {
@@ -42,6 +44,177 @@ class AccueilController extends Controller
             'type' => $request->query('type', 'nouveau'), // 'nouveau' par défaut
         ]);
     }
+
+    // ************************************************************************************************
+    public function validateStepMembership(Request $request){
+        $step = $request->input('step');
+        $data = $request->all();
+
+        $rules = [];
+        $messages = [];
+
+        // Définir les règles de validation pour chaque étape
+        switch ($step) {
+            case 1:
+                $rules = [
+                    'matricule' => 'required|string|max:10',
+                    'nip' => 'required|numeric',
+                    'cnib' => 'required|string',
+                    'delivree' => 'required|date',
+                    'expire' => 'required|date|after:delivree',
+                    'adresse_permanente' => 'required|string|max:255',
+                    'telephone' => 'required|regex:/^[0-9]{8}$/',
+                ];
+                $messages = [
+                    'matricule.required' => 'Le matricule est obligatoire.',
+                    'telephone.regex' => 'Le numéro de téléphone doit contenir 8 chiffres.',
+                ];
+                break;
+
+            case 2:
+                $rules = [
+                    'nom' => 'required|string|max:50',
+                    'prenom' => 'required|string|max:50',
+                    'date_naissance' => 'required|date',
+                ];
+                break;
+
+            case 3:
+                $rules = [
+                    'email' => 'required|email',
+                    'situation_matrimoniale' => 'required|string',
+                ];
+                break;
+
+            // Ajouter des règles pour les autres étapes si nécessaire
+        }
+
+        // Valider les données
+        $validator = Validator::make($data, $rules, $messages);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        return response()->json(['message' => 'Validation réussie pour l\'étape ' . $step], 200);
+    
+
+        /*$rules = [
+            'matricule' => 'required|string',
+            'nip' => 'required|string',
+            'cnib' => 'required|string',
+            'telephone' => 'required|string',
+        ];
+
+        // Validation des données
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            // Si la validation échoue, renvoyer les erreurs
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        // Si la validation passe, effectuer les actions nécessaires (par exemple, sauvegarder les données)
+        // Vous pouvez sauvegarder les données ici si vous le souhaitez
+
+        // Retourner une réponse de succès
+        return response()->json(['success' => true], 200);*/
+
+
+        /*if ($request->input('currentStep') == 1) {
+            $validator = Validator::make($request->all(), [
+                'matricule' => [
+                    'required',
+                    'min:3',
+                    Rule::unique('adherents', 'matricule')->ignore($request->adherent_id),
+                ],
+                'nip' => [
+                    'required',
+                    Rule::unique('adherents', 'nip')->ignore($request->adherent_id),
+                ],
+                'cnib' => [
+                    'required',
+                    Rule::unique('adherents', 'cnib')->ignore($request->adherent_id),
+                ],
+                'delivree' => 'required|date',
+                'expire' => 'required|date|after:delivree',
+                'adresse_permanente' => 'required',
+                'telephone' => [
+                    'required',
+                    'regex:/^(\+?[0-9]{1,3})?[0-9]{8,10}$/',
+                ],
+                'email' => [
+                    'required',
+                    'email',
+                    Rule::unique('adherents', 'email')->ignore($request->adherent_id),
+                    Rule::unique('partenaires', 'email')->ignore($request->adherent_id),
+                ],
+            ], [
+                'email.unique' => 'L\'email est déjà utilisé.',
+                'telephone.required' => 'Numéro de téléphone requis.',
+                'telephone.regex' => 'Numéro de téléphone invalide.',
+            ]);
+
+            // Si la validation échoue, renvoyer les erreurs
+            if ($validator->fails()) {
+                return response()->json([
+                    'success' => false,
+                    'errors' => $validator->errors()->toArray()
+                ]);
+            }
+
+            // Si la validation est réussie, vous pouvez traiter les données et renvoyer une réponse positive
+            return response()->json([
+                'success' => true
+            ]);
+        }*/
+    }
+
+
+    public function submitMembership(Request $request){
+
+        $validatedData = $request->validate([
+            // Etape 1
+            'matricule' => 'required|string|max:255',
+            'nip' => 'required|string|max:255',
+            'cnib' => 'required|string|max:255',
+            'delivree' => 'required|date',
+            'expire' => 'required|date',
+            'adresse_permanente' => 'required|string|max:255',
+            'telephone' => 'required|regex:/^(\+?[1-9][0-9]{0,2})?[0-9]{8,10}$/',
+            'email' => 'required|email|max:255',
+        ]);
+    }
+
+    public function submit(Request $request)
+    {
+        
+        //pensdd($request->all());
+        $currentStep = $request->input('current_step');
+        // Validation des données
+        // Etape 1
+        $validatedData = $request->validate([
+            // Etape 1
+            'matricule' => 'required|string|max:255',
+            'nip' => 'required|string|max:255',
+            'cnib' => 'required|string|max:20',
+            'delivree' => 'required|date',
+            'expire' => 'required|date|after:delivree',
+            'adresse_permanente' => 'required|string|max:255',
+            'telephone' => 'required|string|regex:/^(\+?[1-9][0-9]{0,2})?[0-9]{8,10}$/',
+            'email' => 'required|email|max:255',
+
+            // Etape 2
+        ]);
+        // if ($currentStep === 3){
+        //     dd($request->all());
+        // }
+
+        // Redirection avec un message de succès
+        return redirect()->back()->with('success', 'Adhésion enregistrée avec succès.');
+    }
+    // ************************************************************************************************
+
 
     public function recapitulatifForm( Request $request)
     {
@@ -78,7 +251,7 @@ class AccueilController extends Controller
     {
 
         $demandeAdhesion = DemandeAdhesion::findOrFail($request->input('demande_adhesion_id'));
-       
+    
         $demandeAdhesion->region = $request->input('region');
         $demandeAdhesion->province = $request->input('province');
         $demandeAdhesion->localite = $request->input('localite');

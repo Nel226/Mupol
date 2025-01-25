@@ -40,6 +40,11 @@
                                     <option value="hopital">Hôpital</option>
                                     <option value="clinique">Clinique</option>
                                     <option value="pharmacie">Pharmacie</option>
+                                    <option value="laboratoire">Laboratoire d&apos;analyses médicales</option>
+                                    <option value="opticien">Opticien</option>
+                                    <option value="dentaire">Cabinet dentaire</option>
+                                    <option value="autre">Autre</option>
+
                                 </select>
                                 @error('type')
                                     <p class="text-sm text-red-600">{{ $message }}</p>
@@ -67,7 +72,7 @@
                             <!-- Téléphone -->
                             <div>
                                 <label for="telephone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Téléphone</label>
-                                <input type="number" name="telephone" id="telephone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Numéro de téléphone" required>
+                                <input type="tel" name="telephone" id="telephone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Numéro de téléphone" required>
                                 @error('telephone')
                                     <p class="text-sm text-red-600">{{ $message }}</p>
                                 @enderror
@@ -103,7 +108,43 @@
                                     <p class="text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
+                            <script>
                         
+                        
+                                document.addEventListener("DOMContentLoaded", function() {
+                                    const regionSelect = document.getElementById("region");
+                                    const provinceSelect = document.getElementById("province");
+                                
+                                    for (const region in regions) {
+                                        const option = document.createElement("option");
+                                        option.value = region;
+                                        option.textContent = region;
+                                        regionSelect.appendChild(option);
+                                    }
+                                
+                                    regionSelect.addEventListener("change", function() {
+                                        const selectedRegion = regionSelect.value;
+                                
+                                        provinceSelect.innerHTML = "";
+                                        provinceSelect.disabled = false;
+                                
+                                        const defaultOption = document.createElement("option");
+                                        defaultOption.value = "";
+                                        defaultOption.disabled = true;
+                                        defaultOption.selected = true;
+                                        defaultOption.textContent = "Choisissez votre province";
+                                        provinceSelect.appendChild(defaultOption);
+                                
+                                        regions[selectedRegion].provinces.forEach(province => {
+                                            const option = document.createElement("option");
+                                            option.value = province;
+                                            option.textContent = province;
+                                            provinceSelect.appendChild(option);
+                                        });
+                                    });
+                                });
+                                
+                            </script>
                             <!-- Photo -->
                             <div class="col-span-2">
                                 <label for="photo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Photo</label>
@@ -116,6 +157,13 @@
                                 </div>
                             </div>
                         </div>
+                        {{-- <div class="mt-4"> --}}
+                            {{-- Affiche le reCAPTCHA --}}
+                            {{-- {!! NoCaptcha::display() !!} --}}
+                        {{-- </div> --}}
+                        
+                        {{-- Charge le script JavaScript de reCAPTCHA --}}
+                        {{-- {!! NoCaptcha::renderJs() !!} --}}
                         
                         <div class="flex justify-end">
                             <button type="submit" class="btn mt-5 ">

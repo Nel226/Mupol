@@ -289,7 +289,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title">
-                        <h2>Nous offrons différentes services de rembousements </h2>
+                        <h2>Nous offrons différents services de rembousements </h2>
                         <img  class="mx-auto" src="{{ asset('images/section-img.png') }}" alt="#">
                         <p>La Mutuelle vous accompagne dans le remboursement de différentes prestations.</p>
                     </div>

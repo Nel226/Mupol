@@ -14,7 +14,6 @@ class WizardMembership extends Component
 {
     use WithFileUploads; 
 
-
     public $currentStep = 1; // Étape actuelle du wizard
     public $totalSteps = 5;   // Nombre total d'étapes  
 
@@ -134,7 +133,6 @@ class WizardMembership extends Component
         }
     }
 
-
     public function nextStep()
     {
         $this->validateStep(); // Valider l'étape avant de passer à la suivante
@@ -165,7 +163,6 @@ class WizardMembership extends Component
         }
     }
     
-
     // Méthode de validation par étape
     public function validateStep()
     {
@@ -239,11 +236,10 @@ class WizardMembership extends Component
             ]);
 
             if ($this->photo) {
-                $fileName = uniqid('adherent_', true) . '.' . $this->photo->getClientOriginalExtension();
-
-                $path = $this->photo->storeAs('public/photos/adherents', $fileName);
-                $this->photo_path_adherent = 'photos/adherents/' . $fileName;
+                $path = $this->photo->store('public/photos/adherents');
+                $this->photo_path_adherent = str_replace('public/', '', $path); // Supprime 'public/' pour une utilisation plus propre
             }
+            
         
             if ($this->nombreAyantsDroits > 0) {
                 foreach ($this->ayantsDroits as $index => $ayantDroit) {
@@ -312,7 +308,7 @@ class WizardMembership extends Component
     }
 
     // Méthode de soumission finale du wizard
-    public function submit()
+    public function submitAdhesion()
     {
         $this->validateStep(); // Assurez-vous de valider la dernière étape
 

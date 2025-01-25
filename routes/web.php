@@ -10,6 +10,8 @@ use App\Http\Controllers\Frontend\AyantDroitController;
 use App\Http\Controllers\Frontend\RestrictionController;
 use App\Http\Controllers\Frontend\ActeMedicalController;
 
+use App\Http\Controllers\Frontend\MembershipController;
+
 
 use App\Http\Controllers\Frontend\PrestationController;
 use App\Http\Controllers\Frontend\PartenaireController;
@@ -33,7 +35,17 @@ Route::get('/services', [AccueilController::class, 'services'])->name(name: 'ser
 Route::get('/en-construction', [AccueilController::class, 'enConstruction'])->name(name: 'en-construction');
 Route::get('/partenaires/liste', [AccueilController::class, 'partenaires'])->name('liste-partenaires');
 
-Route::get('/formulaire-adhesion', [AccueilController::class, 'newAdhesion'])->name(name: 'formulaire-adhesion');
+Route::get('/formulaire-adhesion/{adherentType}', [AccueilController::class, 'newAdhesion'])->name(name: 'formulaire-adhesion');
+Route::post('/final-old-adhesion', [AccueilController::class, 'oldAdhesion'])->name(name: 'final-old-adhesion');
+
+
+// Route::view('/form', 'form');
+// // Route::post('/form/step/{step}', [MembershipController::class, 'handleStep'])->name('form.step');
+// Route::post('/membership/step/{step}', [MembershipController::class, 'validateStep'])->name('membership.step');
+// Route::post('/membership/submit', [MembershipController::class, 'submit'])->name('membership.submit');
+Route::post('/test/submit', [MembershipController::class, 'submit'])->name('test.submit');
+
+
 Route::get('/resume-adhesion/{id}', [AccueilController::class, 'resumeAdhesion'])->name('resume-adhesion');
 Route::get('/demande-adhesion/{id}/fiche-cession-volontaire', [AccueilController::class, 'downloadCessionFiche'])
     ->name('download-fiche-cession-volontaire');

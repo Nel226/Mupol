@@ -373,56 +373,69 @@
                                         </fieldset>
                                     </div>
         
-                                    {{-- <div class="col-span-1">
+                                    <!-- -------------------------- Photo -------------------------------------->
+                                    <div id="photoUpload" class="col-span-1">
                                         <label class="block text-gray-700 text-sm font-bold mb-1" for="photo">Photo</label>
                                         <div class="w-full justify-center border rounded-md p-1 border-gray-500 row-span-3">
-                                            @if ($photo)
-                                                <img src="{{ $photo->temporaryUrl() }}" alt="Preview" class="w-48 h-48 object-cover mx-auto rounded-full">
-                                            @else
-                                                <img src="{{ asset('images/user-90.png') }}" alt="Default profile photo" class="w-36 h-36 object-cover mx-auto rounded-full">
-                                            @endif
+                                            <img id="photoPreview" src="{{ asset('images/user-90.png') }}" alt="Profile photo preview" class="w-48 h-48 object-cover mx-auto rounded-full">
                                         </div>
-                                        <input type="file" wire:model="photo" id="photo" accept="image/*" class="my-1 block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 
-                                            file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 
-                                            file:text-blue-700 hover:file:bg-violet-100"/>
-                                        @error('photo') 
-                                            <span class="text-red-500 text-sm">{{ $message }}</span>
-                                        @enderror
-                                    </div> 
-                                    <x-image-adherent/>--}}
-                                    <div class="col-span-1">
-                                        <label class="block text-gray-700 text-sm font-bold mb-1" for="photo">Photo</label>
-                                        <div class="w-full justify-center border rounded-md p-1 border-gray-500 row-span-3" x-data="{ selectedPhoto: null, photoUrl: @entangle('photo') }">
-                                            <!-- Prévisualisation avec Alpine.js -->
-                                            <template x-if="selectedPhoto">
-                                                <img :src="URL.createObjectURL(selectedPhoto)" alt="Preview" class="w-48 h-48 object-cover mx-auto rounded-full">
-                                            </template>
-                                            <template x-if="!selectedPhoto && photoUrl">
-                                                <img :src="photoUrl" alt="Preview" class="w-48 h-48 object-cover mx-auto rounded-full">
-                                            </template>
-                                            <template x-if="!selectedPhoto && !photoUrl">
-                                                <img src="{{ asset('images/user-90.png') }}" alt="Default profile photo" class="w-36 h-36 object-cover mx-auto rounded-full">
-                                            </template>
-                                        </div>
-                                        
-                                        <!-- Champ de fichier pour Alpine.js -->
-                                        <input type="file" id="photo" accept="image/*" class="my-1 block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 
-                                            file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 
-                                            file:text-blue-700 hover:file:bg-violet-100"
-                                            x-on:change="selectedPhoto = $event.target.files[0]; 
-                                                       $wire.upload('photo', selectedPhoto, {
-                                                           onSuccess: () => { photoUrl = selectedPhoto ? URL.createObjectURL(selectedPhoto) : ''; }
-                                                       })" />
-                                        
-                                        @error('photo') 
-                                            <span class="text-red-500 text-sm">{{ $message }}</span>
-                                        @enderror
+                                    
+                                        <!-- Input photo visible -->
+                                        <input type="file" id="photoVisible" accept="image/jpg, image/jpeg, image/png" 
+                                            class="my-1 block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-violet-100" />
+                                    
+                                        <!-- Input Livewire caché -->
+                                        <input type="file" id="photo" wire:model="photo" accept="image/jpg, image/jpeg, image/png" style="display: none;">
+                                    
+                                        <!-- Message d'erreur -->
+                                        <span id="photoError" class="text-red-500 text-sm" style="display: none;">Veuillez télécharger une photo valide.</span>
                                     </div>
                                     
                                     
-                                    
-                                    
+                                    <script>
+                                        document.getElementById('photoVisible').addEventListener('change', function(event) {
+                                            const photoPreview = document.getElementById('photoPreview');
+                                            const photoError = document.getElementById('photoError');
+                                            const livewireInput = document.getElementById('photo');
+                                            const file = event.target.files[0];
 
+                                            console.log(file);  // Ajoutez ceci pour vérifier le fichier sélectionné.
+
+                                            if (file) {
+                                                const validTypes = ['image/jpg', 'image/jpeg', 'image/png'];
+                                                if (!validTypes.includes(file.type)) {
+                                                    photoError.style.display = 'block';
+                                                    photoError.textContent = 'Veuillez télécharger une image au format JPG ou PNG.';
+                                                    return;
+                                                }
+
+                                                photoError.style.display = 'none';
+
+                                                const reader = new FileReader();
+                                                reader.onload = () => {
+                                                    photoPreview.src = reader.result;
+                                                };
+                                                reader.readAsDataURL(file);
+
+                                                const dataTransfer = new DataTransfer();
+                                                dataTransfer.items.add(file);
+                                                livewireInput.files = dataTransfer.files;
+                                                livewireInput.dispatchEvent(new Event('change', { bubbles: true }));
+
+                                                console.log('Photo mise à jour via Livewire');  // Ajoutez ceci pour déboguer.
+                                            }
+
+                                            Livewire.on('photoUpdated', (photoUrl) => {
+                                                console.log('Nouvelle photo mise à jour:', photoUrl);  // Vérifiez ici si l'URL est bien reçue.
+                                            });
+                                        });
+
+                                    </script>
+
+                                    <!-- -------------------------- Photo -------------------------------------->
+
+                                    
+                                    
 
 
                                 </div>
@@ -813,7 +826,6 @@
                     <div class="grid grid-cols-1  gap-3 sm:gap-4">
             
                         <!-- Photo -->
-                        
                         <div>
                             <label class="block text-gray-700 text-sm font-bold mb-1" for="photo">Photo d&apos;identité</label>
                             <input name="photo" id="photo" type="file" accept="image/*" required
@@ -840,10 +852,8 @@
                             });
                         </script>
                         
-
-            
-                    
                     </div>
+
                     <!-- Bouton pour vérifier les données -->
                     <div class="flex justify-between items-center py-2">
                         <div class="text-red-500">
@@ -858,8 +868,7 @@
                     </div>
                 </div>
             </form>
-           
-           
+
             @if ($showConfirmationForm)
             <div>
                 <div class="text-center">

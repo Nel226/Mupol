@@ -12,6 +12,8 @@ use App\Http\Controllers\Frontend\ActeMedicalController;
 
 use App\Http\Controllers\Frontend\MembershipController;
 
+use App\Http\Controllers\TestController;
+
 
 use App\Http\Controllers\Frontend\PrestationController;
 use App\Http\Controllers\Frontend\PartenaireController;
@@ -39,11 +41,20 @@ Route::get('/formulaire-adhesion/{adherentType}', [AccueilController::class, 'ne
 Route::post('/final-old-adhesion', [AccueilController::class, 'oldAdhesion'])->name(name: 'final-old-adhesion');
 
 
+
 // Route::view('/form', 'form');
 // // Route::post('/form/step/{step}', [MembershipController::class, 'handleStep'])->name('form.step');
 // Route::post('/membership/step/{step}', [MembershipController::class, 'validateStep'])->name('membership.step');
 // Route::post('/membership/submit', [MembershipController::class, 'submit'])->name('membership.submit');
-Route::post('/test/submit', [MembershipController::class, 'submit'])->name('test.submit');
+
+Route::post('/test/submit', [MembershipController::class, 'submit'])->name('test.submit'); // ok
+// Route::post('/test', [TestController::class, 'submit'])->name('test.sub');
+
+//Route::post('/test/submit', [TestController::class, 'submit'])->name('test.submit.test');
+
+
+
+
 
 
 Route::get('/resume-adhesion/{id}', [AccueilController::class, 'resumeAdhesion'])->name('resume-adhesion');

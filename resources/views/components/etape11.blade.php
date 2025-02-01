@@ -1,101 +1,16 @@
-
 <div>
-    <!-- Situation matrimoniale -->
-    <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div class="col-span-2">
-            <label class="block text-gray-700 text-sm font-bold mb-1">Situation matrimoniale</label>
-            <div class="flex flex-wrap gap-3 items-center mb-4">
-                <label class="inline-flex items-center mt-2">
-                    <input type="radio" name="situation_matrimoniale" value="Célibataire" class="form-radio text-indigo-600">
-                    <span class="ml-2">Célibataire</span>
-                </label>
-                <label class="inline-flex items-center mt-2">
-                    <input type="radio" name="situation_matrimoniale" value="Marié(e)" class="form-radio text-indigo-600">
-                    <span class="ml-2">Marié(e)</span>
-                </label>
-                <label class="inline-flex items-center mt-2">
-                    <input type="radio" name="situation_matrimoniale" value="Divorcé(e)" class="form-radio text-indigo-600">
-                    <span class="ml-2">Divorcé(e)</span>
-                </label>
-                <label class="inline-flex items-center mt-2">
-                    <input type="radio" name="situation_matrimoniale" value="Veuf(ve)" class="form-radio text-indigo-600">
-                    <span class="ml-2">Veuf(ve)</span>
-                </label>
-            </div>
-            <span id="situation_matrimoniale_error" class="text-red-500 text-xs"></span>
-            
-            <!-- Personne à prévenir en cas de besoin -->
-            <fieldset class="border-2 border-gray-300 shadow-sm p-2 mt-1 mb-3 rounded-md bg-gray-100">
-                <legend class="block text-gray-700 text-sm font-bold mb-2">Personne à prévenir en cas de besoin</legend>
-                <div>
-                    <label class="block text-gray-700 text-sm font-bold mb-1" for="nom_prenom_personne_besoin">Nom et prénoms (s)</label>
-                    <input name="nom_prenom_personne_besoin" id="nom_prenom_personne_besoin" type="text"
-                        class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-0 sm:mb-4">
-                    <span id="nom_prenom_personne_besoin_error" class="text-red-500 text-xs"></span>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mt-2">
-                    <!-- Lieu de résidence -->
-                    <div>
-                        <label class="block text-gray-700 text-sm font-bold mb-1" for="lieu_residence">Lieu de résidence</label>
-                        <input name="lieu_residence" id="lieu_residence" type="text"
-                            class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-0 sm:mb-4">
-                        <span id="lieu_residence_error" class="text-red-500 text-xs"></span>
-                    </div>
 
-                    <!-- Téléphone -->
-                    <div>
-                        <label class="block text-gray-700 text-sm font-bold mb-1" for="telephone_personne_prevenir">Téléphone</label>
-                        <input name="telephone_personne_prevenir" id="telephone_personne_prevenir" 
-                            type="tel" placeholder="Ex: 77112233"
-                            pattern="^(\+?[1-9][0-9]{0,2})?[0-9]{8,10}$"
-                            title="Ex. (numéro valide) : +22677020202 ou 77020202"
-                            class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-0 sm:mb-4">
-                        <span id="telephone_personne_prevenir_error" class="text-red-500 text-xs"></span>
-                    </div>
-                </div>
-            </fieldset>
+    <div id="photoUpload" class="col-span-1">
+        <label class="block text-gray-700 text-sm font-bold mb-1" for="photo">Photo</label>
+        <div class="w-full justify-center border rounded-md p-1 border-gray-500 row-span-3">
+            <img id="photoPreview" src="{{ asset('images/user-90.png') }}" alt="Profile photo preview" class="w-48 h-48 object-cover mx-auto rounded-full">
         </div>
+    
+        <!-- Input photo -->
+        <input type="file" id="photo" name="photo" accept="image/jpg, image/jpeg, image/png" 
+            class="my-1 block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-violet-100"/>
 
-        <div id="photoUpload" class="col-span-1">
-            <label class="block text-gray-700 text-sm font-bold mb-1" for="photo">Photo</label>
-            <div class="w-full justify-center border rounded-md p-1 border-gray-500 row-span-3">
-                <img id="photoPreview" src="{{ asset('images/user-90.png') }}" alt="Profile photo preview" class="w-48 h-48 object-cover mx-auto rounded-full">
-            </div>
-        
-            <!-- Input photo -->
-            <input type="file" id="photo" name="photo" accept="image/jpg, image/jpeg, image/png" 
-                class="my-1 block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-violet-100"/>
-            
-            <!-- Error message -->
-            {{-- <span id="photoError" class="text-red-500 text-sm" style="display: none;">Veuillez télécharger une photo valide.</span> --}}
-        </div>
-        
-        <script>
-            document.getElementById('photo').addEventListener('change', function(event) {
-                const photoPreview = document.getElementById('photoPreview');
-                const file = event.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = () => {
-                        photoPreview.src = reader.result;
-                    };
-                    reader.readAsDataURL(file);
-                }
-            });
-
-            // Function to handle situation matrimoniale radio button change
-            document.querySelectorAll('input[name="situation_matrimoniale"]').forEach(input => {
-                input.addEventListener('change', function() {
-                    const selectedValue = document.querySelector('input[name="situation_matrimoniale"]:checked')?.value;
-                    console.log('Situation matrimoniale selected:', selectedValue);
-                });
-            });
-
-            // Function to show/hide step 3 based on condition
-            function showStep3() {
-                document.getElementById('step3').style.display = 'block';
-            }
-        </script>
+        <!-- Error message -->
     </div>
 
     <div class="space-y-4">
@@ -198,5 +113,4 @@
             }
         </script>
     </div>
-    
 </div>

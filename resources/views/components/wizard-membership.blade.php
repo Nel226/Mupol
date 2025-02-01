@@ -167,8 +167,9 @@
         const data = await response.json();
         if (data.success) {
             // Rediriger ou afficher un message de succès
-            alert('Formulaire soumis avec succès!');
-            window.location.href = data.redirect_url; 
+            //alert('Formulaire soumis avec succès!');
+            window.location.href = data.redirect_url;
+            resetForm();
         } else {
             // Afficher les erreurs
             alert('Une erreur s\'est produite.');
@@ -277,6 +278,27 @@
         updateStepper(); 
         showStep(); 
     }
+
+    function resetForm() {
+        const form = document.getElementById('membership-form');
+        const inputs = form.querySelectorAll('input, select, textarea');
+        
+        inputs.forEach(input => {
+            if (input.type === 'file') {
+                input.value = ''; // Réinitialiser les fichiers
+            } else if (input.type === 'checkbox' || input.type === 'radio') {
+                input.checked = false; // Réinitialiser les cases à cocher et les boutons radio
+            } else {
+                input.value = ''; // Réinitialiser les autres champs
+            }
+        });
+
+        // Réinitialiser l'étape courante à 1
+        currentStep = 1;
+        updateStepper();
+        showStep();
+    }
+
 
     // Fonction de navigation vers l'étape précédente
     document.getElementById('prevBtn').addEventListener('click', function () {

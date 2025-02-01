@@ -47,7 +47,6 @@ class MembershipController extends Controller
             'nip.required' => 'Le NIP est requis.',
         ];
 
-    
     }
     // Étape 2 : Détails supplémentaires
     elseif ($currentStep == 2) {
@@ -108,10 +107,9 @@ class MembershipController extends Controller
     }
     // Étape 5 : Ajouter les données à validatedData et créer la demande
     elseif ($currentStep == 5) {
-        $rules = [
-            'prenomEtape5' => 'required|string|max:255',
-        ];
-
+        // $rules = [
+        //     'prenomEtape5' => 'required|string|max:255',
+        // ];
 
         if ($request->hasFile('photo')) {
             $photoName = uniqid() . '.' . $request->file('photo')->getClientOriginalExtension();
@@ -142,7 +140,28 @@ class MembershipController extends Controller
             }
         }
 
+        // Mettre à jour les données avec celles de validatedData
         $data = $request->all();
+        foreach ($validatedData as $key => $value) {
+            // Vérifier si la clé concerne un ayant droit (exemple: "ayantsDroits.0.nom")
+            if (strpos($key, 'ayantsDroits') === 0) {
+                // Identifier l'index de l'ayant droit
+                preg_match('/ayantsDroits\.(\d+)/', $key, $matches);
+                $index = isset($matches[1]) ? $matches[1] : null;
+        
+                if ($index !== null && isset($data["ayantsDroits"][$index])) {
+                    // Si l'attribut de l'ayant droit existe, on remplace la valeur avec celle validée
+                    $data["ayantsDroits"][$index][$key] = $value;
+                }
+            } 
+            // Pour les autres données qui ne sont pas liées aux ayants droits
+            elseif (isset($data[$key])) {
+                $data[$key] = $value; // Remplacer la valeur par celle validée
+            }
+        }
+        
+        
+        Log:info('Données traitées :', $data);
         // Vérifier si le token est présent dans les données
         if (isset($data['_token'])) {
             // Convertir le tableau d'ayants droits en une chaîne JSON
@@ -154,26 +173,29 @@ class MembershipController extends Controller
             if (isset($data['adresse_permanente'])) {
                 $data['adresse'] = $data['adresse_permanente'];
             } else {
-                // Vous pouvez définir une valeur par défaut ou gérer ce cas selon vos besoins
-                $data['adresse'] = 'Adresse non spécifiée'; // Exemple de valeur par défaut
+                $data['adresse'] = 'Adresse non spécifiée';
             }
+
+            // Ajouter la clé 'is_new' avant de créer la demande d'adhésion
+            $data['is_new'] = true;
+
             Log::info('toutes les données', $validatedData);
 
-            // Effectuer la création de la demande d'adhésion
             $demandeAdhesion = DemandeAdhesion::create($data);
 
             // Ajouter un log indiquant que la demande a été créée avec succès
             Log::info('Demande d\'adhésion créée :', ['demande' => $demandeAdhesion]);
 
+            // Retourner une réponse JSON avec l'URL de redirection
+            return response()->json([
+                'success' => true,
+                'message' => 'Demande d\'adhésion créée avec succès.',
+                'redirect_url' => route('resume-adhesion', ['id' => $demandeAdhesion->id])
+            ]);
+
         }
 
-        //return redirect()->route('resume-adhesion', ['id' => $demandeAdhesion->id]);
-        // Retourner une réponse JSON avec l'URL de redirection
-        return response()->json([
-            'success' => true,
-            'message' => 'Demande d\'adhésion créée avec succès.',
-            'redirect_url' => route('resume-adhesion', ['id' => $demandeAdhesion->id])
-        ]);
+        
     }
 
     // Si aucune étape n'est valide

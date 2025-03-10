@@ -22,10 +22,13 @@ return new class extends Migration
         Schema::create('articles', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('titre'); 
-            $table->text('contenu'); 
+            $table->longText('contenu'); 
             $table->string('image_principal'); 
+            $table->string('resume'); 
+            $table->string('categorie'); 
+            $table->date('date');
+
             // $table->foreignId('categorie_id')->constrained()->onDelete('cascade');
-            $table->timestamp('date_publication')->nullable();
             
             $table->unsignedInteger('views')->default(0); 
             $table->timestamps();

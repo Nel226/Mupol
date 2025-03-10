@@ -8,6 +8,8 @@ use App\Models\Adherent;
 use App\Models\AyantDroit;
 use App\Models\Prestation;
 use App\Models\User;
+use App\Models\Article;
+
 use Carbon\Carbon;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\DB;
@@ -140,11 +142,25 @@ class DashboardController extends Controller
         $totalUsers = User::count();
         $totalRoles = Role::count();
         $recentUsers = User::latest()->take(5)->get();
+        $totalArticles = Article::count();
 
         $roles = Role::withCount('users')->get();
+
+        $monthlyViews = DB::table('articles')
+            ->select(DB::raw('MONTH(created_at) as month'), DB::raw('SUM(views) as total_views'))
+            ->groupBy(DB::raw('MONTH(created_at)'))
+            ->pluck('total_views', 'month')->toArray();
+
+        // Initialiser les données pour tous les mois (pour éviter les valeurs nulles)
+        $monthlyViewsData = [];
+        for ($i = 1; $i <= 12; $i++) {
+            $monthlyViewsData[$i] = $monthlyViews[$i] ?? 0;
+        }
         
         return view('pages.backend.dashboard', compact('monthlyPaymentsData', 
                                         'monthlyPayments' ,
+                                        'monthlyViewsData', 
+                                        'totalArticles',
                                         'pourcentageInvalidatedPrestationsCount', 
                                         'pourcentageValidatedPrestationsCount', 
                                         'sumTotalCotisations', 'sumTotalPrestations', 

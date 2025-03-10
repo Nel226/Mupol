@@ -275,3 +275,14 @@ div.dt-container .dt-paging .dt-paging-button.current, div.dt-container .dt-pagi
 .toggle-option-2 {
     transition: color 150ms cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+
+.dropzone {
+    background: white;
+    border-radius: 5px;
+    border: 2px dashed rgb(0, 135, 247);
+    border-image: none;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}

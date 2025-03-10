@@ -24,14 +24,13 @@
         <div class="md:p-6 p-2 mx-auto  mt-4 bg-white rounded-lg shadow-lg ">
             <x-tabs :tabs="['Nouveaux adhérents', 'Anciens adhérents']">
                 <div id="tab-new-demandes" class="tab-pane sm:p-4 p-1 bg-white rounded-md shadow-md">
-                    <x-data-table id="table_demandes" :headers="['N', 'Matricule', 'Nom', 'Prénom(s)', 'Catégorie', 'Date']">
+                    <x-data-table id="table_demandes" :headers="['N', 'Matricule', 'Nom', 'Prénom(s)', 'Date']">
                         @forelse ($demandesNouveaux as $index => $demande)
                             <tr onclick="redirectTo('{{ route('demandes.show', ['demande' => $demande->id]) }}')" class="cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700">
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $demande->matricule }}</td>
                                 <td>{{ $demande->nom }}</td>
                                 <td>{{ $demande->prenom }}</td>
-                                <td>{{ $demande->categorie }}</td>
                                 <td>{{ $demande->created_at }}</td>
                                 
                             </tr>

@@ -275,6 +275,8 @@
     </section>
     <!--/ End Why choose -->
 
+
+    
     
     {{--  <!-- Start Call to action -->
     <section class="call-action overlay" data-stellar-background-ratio="0.5">
@@ -386,63 +388,131 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-4 col-md-6 col-12">
-                    <!-- Single Blog -->
-                    <div class="single-news">
-                        <div class="news-head">
-                            <img src="{{ asset('images/actualites/actualite5.jpg') }}" alt="Actualité">
-                        </div>
-                        <div class="news-body">
-                            <div class="news-content">
-                                <div class="date">05/12/2023</div>
-                                <h2>Processus d’opérationnalisation de la MU-POL : Le 1er Directeur Général installé</h2>
-                                {{-- <p class="text">Lorem ipsum dolor a sit ameti, consectetur adipisicing elit, sed do eiusmod tempor incididunt sed do incididunt sed.</p> --}}
+            <div class="article-slider overflow-hidden">
+                <div class="row mx-0">
+                    @foreach($articles as $article)
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <!-- Single Blog -->
+                            <div class="single-news">
+                                <div class="news-head">
+                                    <img src="{{ asset('storage/'.$article->image_principal) }}" alt="Actualité">
+                                </div>
+                                <div class="news-body">
+                                    <div class="news-content">
+                                        <div class="date">{{ \Carbon\Carbon::parse($article->date)->format('d/m/Y') }}</div>
+                                        <h2>
+                                            <a href="{{ route('articles-details', $article->id ) }}">
+                                                {{ $article->titre }}
+                                            </a>
+                                        </h2>
+                                    </div>
+                                </div>
                             </div>
+                            <!-- End Single Blog -->
                         </div>
-                    </div>
-                    <!-- End Single Blog -->
+                    @endforeach
                 </div>
-                <div class="col-lg-4 col-md-6 col-12">
-                    <!-- Single Blog -->
-                    <div class="single-news">
-                        <div class="news-head">
-                            <img src="{{ asset('images/actualites/actualite8.jpg') }}" alt="Actualité">
-                        </div>
-                        <div class="news-body">
-                            <div class="news-content">
-                                <div class="date">01/06/2024</div>
-                                <h2>Formation en protection sociale et gestion d&apos;une mutuelle sociale</h2>
-                                {{-- <p class="text">Lorem ipsum dolor a sit ameti, consectetur adipisicing elit, sed do eiusmod tempor incididunt sed do incididunt sed.</p> --}}
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Single Blog -->
-                </div>
-                
-                <div class="col-lg-4 col-md-6 col-12">
-                    <!-- Single Blog -->
-                    <div class="single-news">
-                        <div class="news-head">
-                            <img src="{{ asset('images/actualites/actualite3.jpg') }}" alt="Actualité">
-                        </div>
-                        <div class="news-body">
-                            <div class="news-content">
-                                <div class="date">27/09/2024</div>
-                                <h2>Les femmes de la Police nationale discute du rôle et du leadership de la gente féminine dans l&apos;armée.</h2>
-                                {{-- <p class="text">Lorem ipsum dolor a sit ameti, consectetur adipisicing elit, sed do eiusmod tempor incididunt sed do incididunt sed.</p> --}}
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Single Blog -->
-                </div>
-               
             </div>
+            
+            <!-- jQuery -->
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            
+            <!-- Slick Carousel CSS -->
+            <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
+            <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"/>
+            
+            <!-- Slick Carousel JS -->
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+            
+            <script>
+                $(document).ready(function(){
+                    $('.article-slider .row').slick({
+                        infinite: true,          // Permet au slider de tourner en boucle
+                        slidesToShow: 3,         // Affiche 3 articles à la fois par défaut
+                        slidesToScroll: 1,       // Fait défiler 1 article à la fois
+                        autoplay: true,          // Active le défilement automatique
+                        autoplaySpeed: 3000,   
+                        responsive: [
+                            {
+                                breakpoint: 1200,
+                                settings: {
+                                    slidesToShow: 2,  // Affiche 2 articles sur des écrans plus petits
+                                    slidesToScroll: 1
+                                }
+                            },
+                            {
+                                breakpoint: 768,
+                                settings: {
+                                    slidesToShow: 1,  // Affiche 1 article sur les petits écrans
+                                    slidesToScroll: 1
+                                }
+                            }
+                        ]
+                    });
+                });
+            </script>
+            
+            
         </div>
     </section>
     <!-- End Blog Area -->
     
-    
+   
+    <!-- Start Why choose -->
+    <section class="why-choose section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title">
+                        <h2>Apprenez à utiliser notre application avec nos tutoriels</h2>
+                        <img  class="mx-auto" src="{{ asset('images/section-img.png') }}" alt="#">
+                        <p>Mutualiste, découvrez comment utiliser efficacement la plateforme de la MU-POL grâce à nos vidéos explicatives.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-12">
+                    <!-- Start Choose Left -->
+                    <div class="choose-left">
+                        <h3>Des guides pratiques pour vous accompagner</h3>
+                        <p>Nous mettons à votre disposition des tutoriels vidéo détaillés pour vous aider à comprendre le fonctionnement de la MU-POL et à utiliser toutes ses fonctionnalités.</p>
+                        <p>Accédez facilement aux informations essentielles et apprenez à effectuer vos démarches en ligne en toute simplicité.</p>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <ul class="list">
+                                    <li><i class="fa fa-caret-right"></i>Créer et gérer votre compte mutualiste</li>
+                                    <li><i class="fa fa-caret-right"></i>Soumettre une demande d’adhésion</li>
+                                    <li><i class="fa fa-caret-right"></i>Accéder à vos documents et attestations</li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-6">
+                                <ul class="list">
+                                    <li><i class="fa fa-caret-right"></i>Contacter l’assistance en cas de besoin</li>
+                                    <li><i class="fa fa-caret-right"></i>Découvrir toutes les fonctionnalités de l’application</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Choose Left -->
+                </div>
+                <div class="col-lg-6 col-12">
+                    <!-- Start Choose Right -->
+                    <div class="choose-right">
+                        <div class="video-container">
+                            <iframe width="100%" height="315" 
+                                src="https://www.youtube.com/embed/leItTLjojuo?rel=0&showinfo=0&autoplay=0" 
+                                frameborder="0" allowfullscreen>
+                            </iframe>
+                        </div>
+                    </div>
+                    
+                    <!-- End Choose Right -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--/ End Why choose -->
+
       
 
 </x-guest-layout>

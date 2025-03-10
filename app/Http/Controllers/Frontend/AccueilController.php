@@ -18,6 +18,9 @@ use App\Mail\AdherentRegistrationMail;
 use App\Models\AyantDroit;
 use App\Helpers\PasswordHelper;
 use App\Models\Partenaire;
+use App\Models\Article;
+use Mews\Purifier\Facades\Purifier;
+
 
 class AccueilController extends Controller
 {
@@ -34,7 +37,8 @@ class AccueilController extends Controller
             'optique' => 'Nos services d\'optique incluent des examens de la vue et des solutions pour améliorer votre confort visuel.',
             'dentaire_auditif' => 'Soins dentaires et auditifs personnalisés pour garantir une santé bucco-dentaire et auditive optimale.',
         ];
-        return view('pages.frontend.accueil', compact('types', 'descriptions'));
+        $articles = Article::latest()->get();
+        return view('pages.frontend.accueil', compact('types', 'descriptions', 'articles'));
     }
 
     public function newAdhesion(Request $request, $adherentType){
@@ -51,10 +55,12 @@ class AccueilController extends Controller
             $validatedData = $request->validate([
                 'nom' => 'required|string|max:255',
                 'prenom' => 'required|string|max:255',
-                'matricule' => 'required|string|max:20',
+                'matricule' => 'required|string|max:20|unique:demande_adhesions,matricule',
                 'telephone' => 'required|string|regex:/^(\+?[1-9][0-9]{0,2})?[0-9]{8,10}$/',
                 'email' => 'required|email|max:255',
                 'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:1024',
+            ], [
+                'matricule.unique' => 'Vous avez déjà soumis une demande de création de compte qui est actuellement en attente de validation.',
             ]);
 
             // Ajout d'une clé pour signaler une ancienne adhésion
@@ -74,7 +80,14 @@ class AccueilController extends Controller
                 ->route('user.login')
                 ->with('success', 'Vos données ont été soumises avec succès et sont en cours de validation. Vous recevrez un email lorsque la création de votre compte sera approuvée.');
         } catch (\Illuminate\Validation\ValidationException $e) {
-            // Retour des erreurs de validation
+            // Gestion spécifique des erreurs de validation
+            if ($e->validator->errors()->has('matricule')) {
+                return redirect()
+                    ->back()
+                    ->with('error', 'Erreur : ' . $e->validator->errors()->first('matricule'))
+                    ->withInput();
+            }
+
             return redirect()
                 ->back()
                 ->withErrors($e->validator)
@@ -89,9 +102,11 @@ class AccueilController extends Controller
     }
 
 
+
     public function recapitulatifForm( Request $request)
     {
         $data = $request->all();
+
         $totalSteps = 5;
         return view('components.wizard-membership', [
             'step' => 5, 
@@ -120,15 +135,11 @@ class AccueilController extends Controller
         return view('pages.frontend.adherents.fiches.cession_volontaire', compact('demandeAdhesion', 'cotisations'));
     }
     
-    public function finalAdhesion(Request $request)
+    public function finalAdhesion($id)
     {
 
-        $demandeAdhesion = DemandeAdhesion::findOrFail($request->input('demande_adhesion_id'));
+        $demandeAdhesion = DemandeAdhesion::findOrFail($id);
        
-        $demandeAdhesion->region = $request->input('region');
-        $demandeAdhesion->province = $request->input('province');
-        $demandeAdhesion->localite = $request->input('localite');
-        $demandeAdhesion->signature = $request->input('signature'); 
         $demandeAdhesion->save();
         $cotisations = DemandeCategorieHelper::calculerCotisationMensuelleTotale($demandeAdhesion->nombreAyantsDroits, $demandeAdhesion->statut);
         $mensualite = $cotisations['cotisationTotale'];
@@ -185,6 +196,7 @@ class AccueilController extends Controller
 
             'is_adherent' => false,
 
+
         ];
         $adherent = Adherent::create($data);
         
@@ -198,9 +210,9 @@ class AccueilController extends Controller
                         'nom' => $ayantDroitData['nom'],
                         'prenom' => $ayantDroitData['prenom'],
                         'sexe' => $ayantDroitData['sexe'],
-                        'photo' => !empty($ayantDroitData['photo_path']) ? $ayantDroitData['photo_path'] : null,
-                        'cnib' => !empty($ayantDroitData['cnib_path']) ? $ayantDroitData['cnib_path'] : null,
-                        'extrait' => !empty($ayantDroitData['extrait_path']) ? $ayantDroitData['extrait_path'] : null,
+                        'photo' => !empty($ayantDroitData['photo']) ? $ayantDroitData['photo'] : null,
+                        'cnib' => !empty($ayantDroitData['cnib']) ? $ayantDroitData['cnib'] : null,
+                        'extrait' => !empty($ayantDroitData['extrait']) ? $ayantDroitData['extrait'] : null,
                         'adherent_id' => $adherent->id ,
     
                         'date_naissance' => $ayantDroitData['date_naissance'],
@@ -292,4 +304,16 @@ class AccueilController extends Controller
         return view('pages.frontend.partenaires.liste-partenaires', compact('partenaires', 'groupedPartenaires'));
     }
 
+    public function articleDetails($id)
+    {
+
+        $article = Article::findOrFail($id);
+        $article->increment('views');
+        $article->contenu = Purifier::clean($article->contenu);
+        $recentArticles = Article::latest()->take(3)->get();
+        $previousArticle = Article::where('id', '<', $article->id)->latest()->first();
+        $nextArticle = Article::where('id', '>', $article->id)->first();
+        
+        return view('pages.frontend.articles.details', compact('article', 'recentArticles', 'previousArticle', 'nextArticle'));
+    }
 }

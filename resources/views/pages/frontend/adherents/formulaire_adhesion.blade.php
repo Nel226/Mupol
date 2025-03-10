@@ -27,13 +27,18 @@
                 <div class="px-0 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-12 text-gray-700">
                     @if ($adherentType === "ancien")
                         <h3 class="text-lg sm:text-xl lg:text-2xl font-semibold text-center text-gray-800 mb-4 sm:mb-6">Création de compte MU-POL</h3>
+
+                        <div class="relative z-10">
+                            <livewire-wizard-membership :adherentType="$adherentType" />
+                        </div>
                     @else
                         <h3 class="text-lg sm:text-xl lg:text-2xl font-semibold text-center text-gray-800 mb-4 sm:mb-6">Formulaire d&apos;adhésion</h3>
+                        <div class="relative z-10">
+                            <x-wizard-membership :adherentType="$adherentType" />
+                        </div>
                     @endif
                     
-                    <div class="relative z-10">
-                        <livewire:wizard-membership :adherentType="$adherentType" />
-                    </div>
+                    
 
                 </div>
             </div>

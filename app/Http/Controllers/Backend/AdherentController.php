@@ -11,12 +11,14 @@ use App\Http\Requests\StoreAdherentRequest;
 use App\Http\Requests\UpdateAdherentRequest;
 use App\Mail\ConfirmationCreationCompte;
 use App\Mail\ConfirmationDemandeAdhesion;
+use App\Mail\CreationAdherent;
 use App\Models\AyantDroit;
 use App\Models\DemandeAdhesion;
 use App\Models\Prestation;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class AdherentController extends Controller
 {
@@ -36,8 +38,15 @@ class AdherentController extends Controller
         ];
         $pageTitle = 'Liste des adhésions';
 
-        $adherents = Adherent::all();
-        $ayantsDroit = AyantDroit::with('adherent')->get();        
+        $adherents = Adherent::all()->map(function ($adherent) {
+            $adherent->type = 'adherent'; // Ajoute le type
+            return $adherent;
+        });
+    
+        $ayantsDroit = AyantDroit::with('adherent')->get()->map(function ($ayantDroit) {
+            $ayantDroit->type = 'ayant_droit'; // Ajoute le type
+            return $ayantDroit;
+        });    
         $mutualistes = $adherents->concat($ayantsDroit);
 
         return view('pages.backend.adherents.index', compact( 'mutualistes', 'ayantsDroit','adherents', 'pageTitle', 'breadcrumbsItems'));
@@ -72,14 +81,8 @@ class AdherentController extends Controller
      */
     public function store(StoreAdherentRequest $request)
     {
-        $header = [
-            'ordre', 'date_enregistrement', 'nom', 'prenom', 'genre', 'service', 'no_matricule',
-             'code_carte', 'telephone', 'charge', 'mensualite', 'adhesion'
-        ];
-        $headerAyantDroit = [
-            'nom', 'prenom', 'sexe', 'date_naissance', 'relation', 'code', 'matricule_adherent'
-        ];
-    
+        $validatedData = $request->validated();
+
         $adherents = Adherent::all();
         $ayantsDroit = AyantDroit::with('adherent')->get()->map(function($ayantDroit) {
             return [
@@ -93,31 +96,30 @@ class AdherentController extends Controller
                 'matricule_adherent' => $ayantDroit->adherent->no_matricule, // Matricule de l'adhérent
             ];
         });
-        $validatedData = $request->validate([
-            'nom' => 'required',
-            'prenom' => 'required',
-            'genre' => 'required',
-            'service' => 'required',
-            'no_matricule' => 'required',
-            'code_carte' => 'required',
-            'telephone' => 'required',
-            'charge' => 'required',
-            'mensualite' => 'required',
-            'adhesion' => 'required',
-            'photo' => 'image', 
-            'date_enregistrement'=>'required',
-        ]);
 
         if ($request->hasFile('photo')) {
-            $photoPath = $request->file('photo')->store('photos', 'public');
+            $photoPath = $request->file('photo')->store('photos/adherents', 'public');
             $validatedData['photo'] = $photoPath;
         }
 
-        $validatedData['ordre'] = $validatedData['ordre'] ?? 0; 
-
+        $validatedData['is_adherent'] = true; 
+        $validatedData['is_new'] = true; 
+        $validatedData['must_change_password'] = true; 
+        $generatedPassword = PasswordHelper::generateSecurePassword();
+        $validatedData['password'] = $generatedPassword; 
+        $validatedData['charge'] = $validatedData['nombreAyantsDroits']; 
+        $categorie = DemandeCategorieHelper::determineCategorie($validatedData['charge']);
+        $validatedData['categorie'] = $categorie; 
+        $validatedData['code_carte'] = $validatedData['matricule'].'/00';
+        if ($request->ayantsDroits) {
+            $validatedData['ayantsDroits'] = $request->ayantsDroits;
+        }
         $adherent = Adherent::create($validatedData);
-        session()->flash('header', $header);
-        session()->flash('adherents', $adherents);
+        $pdf = Pdf::loadView('pages.frontend.adherents.fiches.cession_volontaire', ['adherent' => $adherent]);
+
+        Mail::to($request->email)->send(new CreationAdherent($adherent, $pdf, $generatedPassword));
+
+        dd($adherent);
         return redirect()->route('adherents.index')->with('success', 'Adhérent ajouté avec succès.');
     
     
@@ -126,14 +128,20 @@ class AdherentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Adherent $adherent)
+    public function show($id)
     {
+        // Rechercher l'adhérent par ID ou UUID
+        $adherent = Adherent::where('id', $id)
+                            ->firstOrFail(); // Génère une 404 si non trouvé
+
         $pageTitle = 'Informations mutualiste';
 
-        $pretations = Prestation::where('adherentCode' == $adherent->code_carte);
-        return view('pages.backend.adherents.show', compact('adherent', 'pretations', 'pageTitle'));
+        // Corriger la requête Prestation (mauvaise syntaxe)
+        $pretations = Prestation::where('adherentCode', $adherent->code_carte)->get();
 
+        return view('pages.backend.adherents.show', compact('adherent', 'pretations', 'pageTitle'));
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -141,8 +149,22 @@ class AdherentController extends Controller
     public function edit( $id)
     {
         $adherent = Adherent::findOrFail($id); // Trouver l'ayant droit par ID
+        $ayantsDroit = AyantDroit::where('adherent_id', $adherent->id)->get();
+        $breadcrumbsItems = [
+            [
+                'name' => 'Adhésions',
+                'url' => route('adherents.index'),
+                'active' => false
+            ],
+            [
+                'name' => 'Modification adhérent',
+                'url' => route('adherents.edit', $adherent->id ),
+                'active' => true
+            ],
+        ];
+        $pageTitle = 'Modifier adhérent';
 
-        return view('pages.backend.adherents.edit',compact('adherent'));
+        return view('pages.backend.adherents.edit',compact('adherent', 'ayantsDroit', 'breadcrumbsItems', 'pageTitle'));
     }
 
     /**
@@ -156,56 +178,25 @@ class AdherentController extends Controller
     
         // Trouver l'adhérent à mettre à jour
         $adherent = Adherent::findOrFail($id);
-        $matricule =  $adherent->matricule;
-        $cotisations = DemandeCategorieHelper::calculerCotisationMensuelleTotale($request->nombreAyantsDroits, $request->statut);
-        $mensualite = $cotisations['cotisationTotale'];
-        $charge = $request->nombreAyantsDroits;
+       
         $categorie = DemandeCategorieHelper::determineCategorie($request->nombreAyantsDroits);
-        $generatedPassword = PasswordHelper::generateSecurePassword();
-
-        $validatedData['mensualite'] = $mensualite;
-        $validatedData['charge'] = $charge;
         $validatedData['categorie'] = $categorie;
         // Mettre à jour les informations de l'adhérent
         $adherent->update([
-            'nip' => $validatedData['nip'],
-            'cnib' => $validatedData['cnib'],
-            'delivree' => $validatedData['delivree'],
-            'expire' => $validatedData['expire'],
-            'adresse' => $validatedData['adresse'],
+            'nom' => $validatedData['nom'],
+            'prenom' => $validatedData['prenom'],
+            'telephone' => $validatedData['telephone'],
             'genre' => $validatedData['genre'],
-            'ville' => $validatedData['ville'],
-            'departement' => $validatedData['departement'],
-            'pays' => $validatedData['pays'],
-            'nom_pere' => $validatedData['nom_pere'],
-            'nom_mere' => $validatedData['nom_mere'],
-            'situation_matrimoniale' => $validatedData['situation_matrimoniale'],
-            'nom_prenom_personne_besoin' => $validatedData['nom_prenom_personne_besoin'],
-            'lieu_residence' => $validatedData['lieu_residence'],
-            'telephone_personne_prevenir' => $validatedData['telephone_personne_prevenir'],
-            'statut' => $validatedData['statut'],
-            'dateDepartARetraite' => $validatedData['dateDepartARetraite'],
-            'grade' => $validatedData['grade'],
             'service' => $validatedData['service'],
-            'direction' => $validatedData['direction'],
+            'nombreAyantsDroits' => $validatedData['nombreAyantsDroits'],
+
             'date_enregistrement' => $validatedData['date_enregistrement'],
-            'region' => $validatedData['region'],
-            'province' => $validatedData['province'],
-            'localite' => $validatedData['localite'],
+            'charge' => $request->nombreAyantsDroits,
             'is_adherent' => true,
-            'code_carte' => $matricule.'/00',
-            'password' => $generatedPassword,
             'mensualite' => $validatedData['mensualite'],
-            'charge' => $validatedData['charge'],
             'categorie' => $validatedData['categorie'],
         ]);
-        Mail::to($adherent->email)->send(new ConfirmationCreationCompte($adherent->email, $generatedPassword));
-        $demande = DemandeAdhesion::find($adherent->demande_id);
-
-        if ($demande) {
-            $demande->etat = true;
-            $demande->save();
-        }
+      
         // if (isset($validatedData['ayantsDroits'])) {
         //     foreach ($validatedData['ayantsDroits'] as $ayantDroit) {
         //         $adherent->ayantsDroits()->updateOrCreate(
@@ -223,7 +214,7 @@ class AdherentController extends Controller
     
         
 
-        return redirect()->route('demandes.index')->with('success', 'Adhérent mis à jour avec succès.');
+        return redirect()->route('adherents.index')->with('success', 'Adhérent mis à jour avec succès.');
     }
 
 

@@ -54,11 +54,11 @@
         }
 
         .title-form {
-            
+            font-size: 16px !important;
         }
 
         h4.highlight {
-            font-size: 14px;
+            font-size: 12px;
             color: white;
             background-color: black;
             display: inline-block;
@@ -94,7 +94,7 @@
         
         
         h2 {
-            font-size: 20px;
+            font-size: 15px;
             margin: 0;
         }
         
@@ -116,7 +116,7 @@
         }
         
         h3 {
-            font-size: 16px;
+            font-size: 14px;
             margin: 10px 0;
         }
 
@@ -132,7 +132,7 @@
         }
 
         .section-title {
-            font-size: 1rem; /* text-1xl */
+            font-size: 0.7rem; 
             font-weight: 600; /* font-semibold */
             
         }
@@ -243,14 +243,14 @@
         }
 
         .signature-conseil-admin-title {
-            font-size: 12px;
+            font-size: 10px;
             text-align: center;
             text-decoration: underline;
         }
 
         .signature-conseil-admin-box {
             width: 100%;
-            height: 8rem;
+            height: 4rem;
             border: 2px solid black;
             display: flex;
             justify-content: center;
@@ -259,6 +259,7 @@
 
         .footer-table tr,
         .footer-table {
+            margin-top: 2px;
             border: 1px solid black; 
 
         }
@@ -288,7 +289,7 @@
                     <td style="padding: 0px; text-align: right; vertical-align: top; width: 33%; white-space: nowrap;">
                         <div style="display: inline-block; text-align: center;">
                             <p>BURKINA FASO</p>
-                            <p>Unité - Progrès - Justice</p>
+                            <p>La Patrie ou la mort, nous vaincrons</p>
                         <div>
                     </td>
                 </tr>
@@ -357,7 +358,7 @@
 
                 <tr>
                     <td>
-                        <p><strong>Adresse permanente :</strong> {{ $demandeAdhesion->adresse_permanente }}</p>
+                        <p><strong>Adresse permanente :</strong> {{ $demandeAdhesion->adresse }}</p>
                     </td>
                 </tr>
                 
@@ -505,10 +506,10 @@
                                 <td> {{ $ayantDroit['nom'] }} </td>
                                 <td> {{ $ayantDroit['prenom'] }} </td>
                                 <td>
-                                    @if ($ayantDroit['sexe'] === 'H')
-                                        Homme
+                                    @if ($ayantDroit['sexe'] === 'M')
+                                        M
                                     @elseif ($ayantDroit['sexe'] === 'F')
-                                        Femme
+                                        F
                                     @else
                                         Non spécifié
                                     @endif
@@ -557,7 +558,7 @@
             </table>
 
             <!-- Personnel retraite -->
-            @if ($demandeAdhesion->statut === 'personnel_retraite')
+            @if ($demandeAdhesion->statut === 'Retraité(e)')
                 <table>
                     <tr>
                         <td> <strong>Statut : </strong></td>
@@ -578,7 +579,7 @@
 
             
             <!-- Personnel en activite -->
-            @if ($demandeAdhesion->statut === 'personnel_active')
+            @if ($demandeAdhesion->statut === 'Actif(ve)')
                 <table>
                     <tr>
                         <td style="width: 7%"> <strong>Statut : </strong></td>
@@ -610,10 +611,10 @@
 
         <table class="footer-table">
             <tr>
-                <td style="width: 60%;">
+                <td style="width: 65%;">
                     <div class="text-photo">
                         <div class="text-photo-content">
-                            <h3> <strong>JOINDRE DES PHOTOS RÉCENTES DE L'ADHÉRENT ET DES AYANTS DROITS</strong></h3>
+                            <h''> <strong>JOINDRE DES PHOTOS RÉCENTES DE L'ADHÉRENT ET DES AYANTS DROITS</strong></h''>
                             <ul style="list-style-type:disc;" class="instructions">
                                 <li>Joindre une copie de l’extrait de naissance de chaque enfant</li>
                                 <li>Joindre une copie de l’extrait de naissance et de la CNIB pour la ou le(s) conjoint(es)</li>
@@ -629,7 +630,7 @@
                     </div>
                 </td>
                 
-                <td style="width: 10%;"></td>
+                <td style="width: 5%;"></td>
 
                 <td style="width: 25%;">
                     <!-- Colonne Signature -->

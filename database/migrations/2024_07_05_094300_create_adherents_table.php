@@ -38,6 +38,8 @@ return new class extends Migration
             $table->integer('nombreAyantsDroits')->nullable();
             $table->json('ayantsDroits')->nullable(); 
             $table->string('categorie')->nullable();
+            $table->longText('signature')->nullable();
+
             $table->string('statut')->nullable();
             $table->string('grade')->nullable();
             $table->date('departARetraite')->nullable();

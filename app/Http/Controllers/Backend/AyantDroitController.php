@@ -164,9 +164,23 @@ class AyantDroitController extends Controller
     public function edit($id)
     {
         $ayantDroit = AyantDroit::findOrFail($id); // Trouver l'ayant droit par ID
-        $adherents = Adherent::all(); 
-
-        return view('pages.backend.ayantsdroits.edit',compact('adherents', 'ayantDroit'));
+        $breadcrumbsItems = [
+            [
+                'name' => 'Adhésions',
+                'url' => route('adherents.index'),
+                'active' => false
+            ],
+            [
+                'name' => 'Modification ayant droit',
+                'url' => route('ayantsdroits.edit', $ayantDroit->id ),
+                'active' => true
+            ],
+        ];
+        $pageTitle = 'Edition ayant droit';
+        $autresAyantsDroit = AyantDroit::where('adherent_id', $ayantDroit->adherent_id)
+                ->orderBy('position') // Optionnel : trier par position
+                ->get();
+        return view('pages.backend.ayantsdroits.edit',compact( 'ayantDroit', 'breadcrumbsItems', 'pageTitle', 'autresAyantsDroit'));
 
     }
     
@@ -175,34 +189,15 @@ class AyantDroitController extends Controller
     */
     public function update(UpdateAyantDroitRequest $request, $id)
     {
-        $validatedData = $request->validate([
-            'nom' => 'required',
-            'prenom' => 'required',
-            'sexe' => 'required',
-            'date_naissance' => 'required|date',
-            'relation' => 'required',
-            'adherent_id' => 'required',
-            'code' => 'required',
-        ]);
-
         $ayantDroit = AyantDroit::findOrFail($id);
-
-        $ayantDroit->nom = $validatedData['nom'];
-        $ayantDroit->prenom = $validatedData['prenom'];
-        $ayantDroit->sexe = $validatedData['sexe'];
-        $ayantDroit->date_naissance = $validatedData['date_naissance'];
-        $ayantDroit->relation = $validatedData['relation'];
-
-        $adherent = Adherent::where('no_matricule', $request->adherent_id)->firstOrFail();
-        $ayantDroit->adherent_id = $adherent->id; 
-        $ayantDroit->code = $validatedData['code'];
-
-        $ayantDroit->save();
-
+    
+        $ayantDroit->update($request->validated());
+    
+        $ayantDroit->code = $ayantDroit->adherent->matricule.'/0'.$request->position;
+        $ayantDroit->save(); 
         return redirect()->route('adherents.index')->with('success', 'Ayant droit mis à jour avec succès.');
     }
-
-
+    
     
     /**
     * Remove the specified resource from storage.
@@ -219,5 +214,6 @@ class AyantDroitController extends Controller
             return response()->json(['error' => 'Erreur lors de la suppression: ' . $e->getMessage()], 500);
         }
     }
+
 
 }

@@ -22,32 +22,14 @@ class UpdateAdherentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nip' => 'required',
-            'cnib' => 'required',
-            'delivree' => 'required|date', 
-            'expire' => 'required|date',   
-            'adresse' => 'required',
+
+            'nom' => 'required',
+            'prenom' => 'required',
             'genre' => 'required',
-            'ville' => 'required',
-            'departement' => 'required',
-            'pays' => 'required',
-            'nom_pere' => 'required',
-            'nom_mere' => 'required',
-            'situation_matrimoniale' => 'required',
             'nombreAyantsDroits' => 'required|integer',
-            'nom_prenom_personne_besoin' => 'required',
-
-            'lieu_residence' => 'required',
-            'telephone_personne_prevenir' => 'required',
-            'statut' => 'required',
-            'dateDepartARetraite' => 'required',
-            'grade' => 'required',
-
             'service' => 'required',
-            'direction' => 'required',
-            'region' => 'required',
-            'province' => 'required',
-            'localite' => 'required',
+            'telephone' => 'required',
+            'mensualite' => 'required',
 
             'date_enregistrement' => 'required|date',
         ];

@@ -114,24 +114,21 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
-            'table' => 'password_reset_tokens',
+            'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,
-
         ],
         'adherents' => [
             'provider' => 'adherents',
-            'table' => 'password_reset_tokens',
+            'table' => 'password_resets_adherents_partenaires',
             'expire' => 60,
             'throttle' => 60,
-
         ],
         'partenaires' => [
             'provider' => 'partenaires',
-            'table' => 'password_reset_tokens',
+            'table' => 'password_resets_adherents_partenaires',
             'expire' => 60,
             'throttle' => 60,
-
         ],
     ],
     

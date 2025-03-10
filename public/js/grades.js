@@ -3,7 +3,7 @@ console.log("Le fichier grades.js est chargé");
 
 const grades = [
     "Commissaire de Police",
-    "Commissaire Principale de Police",
+    "Commissaire Principal de Police",
     "Commissaire Divisionnaire de Police",
     "Contrôleur Général de Police",
     "Inspecteur Général de Police",

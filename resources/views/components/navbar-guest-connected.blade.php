@@ -56,10 +56,14 @@
               </li>
 
               <li>
-                <a href="{{  route('adherent.logout') }}" class=" flex items-center p-2 text-gray-800 hover:bg-gray-700 hover:text-white rounded-md">
-                    <i class="fa fa-sign-out-alt mr-3"></i>
-                    <span>Déconnexion</span>
-                </a>
+                <form method="POST" action="{{ route('adherent.logout') }}" class="flex items-center p-2 text-gray-800 hover:bg-gray-700 hover:text-white rounded-md">
+                    @csrf
+                    <button type="submit" class="text-gray-600" id="dropdownNotification" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-sign-out-alt mr-3"></i>
+                        <span>Déconnexion</span>
+                    </button>
+                </form>
+                
               </li>
               
               

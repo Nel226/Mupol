@@ -26,7 +26,7 @@ class DemandeAdhesion extends Model
         'telephone_personne_prevenir', 'nombreAyantsDroits', 'ayantsDroits', 'categorie', 
         'statut', 'grade', 'departARetraite', 'numeroCARFO',
         'dateIntegration', 'dateDepartARetraite', 'direction', 'service',
-        'region', 'province', 'localité','code_carte',
+        'region', 'province', 'localite','code_carte', 'signature',
         'etat', 'is_new',
     ];
     

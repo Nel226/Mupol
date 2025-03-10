@@ -374,20 +374,43 @@
         
                                     <div class="col-span-1">
                                         <label class="block text-gray-700 text-sm font-bold mb-1" for="photo">Photo</label>
-                                        <div class="w-full justify-center border rounded-md p-1 border-gray-500 row-span-3">
-                                            @if ($photo)
-                                                <img src="{{ $photo->temporaryUrl() }}" alt="Preview" class="w-48 h-48 object-cover mx-auto rounded-full">
-                                            @else
-                                                <img src="{{ asset('images/user-90.png') }}" alt="Default profile photo" class="w-36 h-36 object-cover mx-auto rounded-full">
-                                            @endif
-                                        </div>
-                                        <input type="file" wire:model="photo" id="photo" accept="image/*" class="my-1 block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 
-                                            file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 
-                                            file:text-blue-700 hover:file:bg-violet-100"/>
-                                        @error('photo') 
-                                            <span class="text-red-500 text-sm">{{ $message }}</span>
-                                        @enderror
+                                    
+                                        <!-- Input de fichier -->
+                                        <input type="file" id="photoInput" class="w-full py-2" accept="image/jpg, image/jpeg" onchange="previewImage(event)">
+                                    
+                                        <!-- Zone pour afficher la prévisualisation -->
+                                        <img id="preview" class="w-20 h-20 mt-2 hidden" />
+                                    
+                                        <span id="errorMessage" class="text-red-500 text-sm hidden"></span>
                                     </div>
+                                    
+                                    <script>
+                                    function previewImage(event) {
+                                        const file = event.target.files[0];
+                                        const preview = document.getElementById("preview");
+                                        const errorMessage = document.getElementById("errorMessage");
+                                    
+                                        if (file) {
+                                            // Vérifier si le fichier est une image JPG/JPEG
+                                            if (!file.type.match('image/jpeg') && !file.type.match('image/jpg')) {
+                                                errorMessage.innerText = "Seules les images JPG/JPEG sont acceptées.";
+                                                errorMessage.classList.remove("hidden");
+                                                preview.classList.add("hidden");
+                                                return;
+                                            }
+                                    
+                                            // Afficher la prévisualisation
+                                            const reader = new FileReader();
+                                            reader.onload = function(e) {
+                                                preview.src = e.target.result;
+                                                preview.classList.remove("hidden");
+                                                errorMessage.classList.add("hidden");
+                                            }
+                                            reader.readAsDataURL(file);
+                                        }
+                                    }
+                                    </script>
+                                    
                                 </div>
         
                                 <div class="overflow-x-auto">
@@ -535,7 +558,7 @@
                                 </div>
         
                                 <!-- Champs pour Personnel Retraité -->
-                                @if ($statut === 'personnel_retraite')
+                                @if ($statut === 'Retraité(e)')
                                     <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                                         {{-- Grade --}}
                                         <div>
@@ -753,9 +776,25 @@
 
         
         @if ($adherentType === "ancien")
+       
+
             <form method="POST" action="{{ route('final-old-adhesion') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="space-y-2">
+                    <!-- Modale pour les erreurs -->
+                    @if(session('error'))
+                    <div x-data="{ open: true }" x-show="open" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+                        <div class="bg-white z-50 rounded-lg shadow-lg p-4 max-w-sm  mx-0.5" >
+                            <h2 class="text-xl font-semibold text-red-600">Échec !</h2>
+                            <p class="mt-4 text-gray-700 text-sm">{{ session('error') }}</p>
+                            <div class="mt-6 text-right">
+                                <button @click="open = false" class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600">
+                                    Fermer
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-3 sm:gap-4">
             
                         <!-- Nom(s) -->
@@ -1242,6 +1281,7 @@
                                                 <img src="{{ asset('images/user-90.png') }}" alt="Default profile photo" class="w-36 h-36 object-cover mx-auto rounded-full">
                                             @endif
                                         </div>
+                                        
                                         <input type="file" wire:model="photo" id="photo" accept="image/jpg, image/jpeg" class="my-1 block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 
                                             file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 
                                             file:text-blue-700 hover:file:bg-violet-100"/>
@@ -1397,7 +1437,7 @@
                                 </div>
         
                                 <!-- Champs pour Personnel Retraité -->
-                                @if ($statut === 'personnel_retraite')
+                                @if ($statut === 'Retraité(e)')
                                     <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                                         {{-- Grade --}}
                                         <div>

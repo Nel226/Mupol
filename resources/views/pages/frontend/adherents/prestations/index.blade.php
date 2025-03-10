@@ -24,7 +24,7 @@
         <!-- app layout content -->
         <div 
         id="app-layout-content" 
-        class="layout-guest min-h-screen w-full lg:pl-[15.625rem] transition-all duration-300 ease-out">
+        class="layout-guest min-h-screen w-full lg:pl-[5.625rem] transition-all duration-300 ease-out">
      
             @include("components.top-navbar-guest-connected")
 

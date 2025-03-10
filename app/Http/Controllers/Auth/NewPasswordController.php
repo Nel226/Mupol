@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
@@ -9,16 +10,18 @@ use Illuminate\Support\Facades\Hash;
 
 class NewPasswordController extends Controller
 {
-    public function create($type, $token)
-    {
-        return view('auth.passwords.reset', ['token' => $token, 'type' => $type]);
-    }
+    public function create($token)
+{
+    return view('auth.passwords.reset', ['token' => $token]);
+}
+
 
     public function store(Request $request, $type)
     {
         $request->validate([
             'email' => 'required|email',
             'password' => 'required|min:8|confirmed',
+            'token' => 'required'
         ]);
 
         $broker = $this->getPasswordBroker($type);
@@ -33,8 +36,8 @@ class NewPasswordController extends Controller
         );
 
         return $status === Password::PASSWORD_RESET
-                    ? redirect()->route('login')->with('status', __($status))
-                    : back()->withErrors(['email' => [__($status)]]);
+            ? redirect()->route('login')->with('status', __($status))
+            : back()->withErrors(['email' => [__($status)]]);
     }
 
     private function getPasswordBroker($type)

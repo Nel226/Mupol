@@ -216,6 +216,8 @@ class WizardMembership extends Component
                 'nom_mere' => 'required|string',
             ]);
         } elseif ($this->currentStep == 3) {
+            dd($this->photo);
+
             $this->validate([
                 'situation_matrimoniale' => 'required|string',
                 'photo' => 'required|image|mimes:jpeg,png,jpg|max:1024',
@@ -238,12 +240,12 @@ class WizardMembership extends Component
 
             ]);
 
-            if ($this->photo) {
+            if (isset($this->photo) ){
                 $fileName = uniqid('adherent_', true) . '.' . $this->photo->getClientOriginalExtension();
-
                 $path = $this->photo->storeAs('public/photos/adherents', $fileName);
                 $this->photo_path_adherent = 'photos/adherents/' . $fileName;
             }
+           
         
             if ($this->nombreAyantsDroits > 0) {
                 foreach ($this->ayantsDroits as $index => $ayantDroit) {

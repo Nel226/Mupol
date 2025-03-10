@@ -63,9 +63,10 @@
                             </div>
 
                             <!-- Adresse -->
-                            <div class="w-full col-span-2">
+                            <div class="w-full">
                                 <label for="adresse" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Adresse</label>
-                                <textarea name="adresse" id="adresse" rows="4" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Adresse du partenaire" required>{{ old('adresse', $partenaire->adresse) }}</textarea>
+                                <input type="text" name="adresse" id="adresse" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Adresse" value="{{ old('adresse', $partenaire->adresse) }}" required>
+
                                 @error('adresse')
                                     <p class="text-sm text-red-600">{{ $message }}</p>
                                 @enderror
@@ -74,26 +75,18 @@
                             <!-- Téléphone -->
                             <div class="w-full">
                                 <label for="telephone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Téléphone</label>
-                                <input type="number" name="telephone" id="telephone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Numéro de téléphone" value="{{ old('telephone', $partenaire->telephone) }}" required>
+                                <input type="text" name="telephone" id="telephone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Numéro de téléphone" value="{{ old('telephone', $partenaire->telephone) }}" required>
                                 @error('telephone')
                                     <p class="text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
 
-                            <!-- Email -->
-                            <div class="w-full">
-                                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                                <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Email du partenaire" value="{{ old('email', $partenaire->email) }}" required>
-                                @error('email')
-                                    <p class="text-sm text-red-600">{{ $message }}</p>
-                                @enderror
-                            </div>
 
                             <!-- Région -->
                             <div class="w-full">
                                 <label for="region" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Région</label>
                                 <select name="region" id="region" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
-                                    <option value="" disabled selected>Sélectionnez une région</option>
+                                    <option value="{{ $partenaire->region }}" {{ old('region') == $partenaire->region ? 'selected' : '' }}>{{ $partenaire->region }}</option>
                                 </select>
                                 @error('region')
                                     <p class="text-sm text-red-600">{{ $message }}</p>
@@ -104,51 +97,57 @@
                             <div class="w-full">
                                 <label for="province" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Province</label>
                                 <select name="province" id="province" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
-                                    <option value="" disabled selected>Choisissez d&apos;abord votre région</option>
-                                </select>
+                                    <option value="{{ $partenaire->province }}" {{ old('province') == $partenaire->province ? 'selected' : '' }}>{{ $partenaire->province }}</option>                                </select>
                                 @error('province')
                                     <p class="text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
 
-                            <!-- Photo  -->
-                            <div class="w-full col-span-2">
-                                <label for="photo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Photo </label>
-                                <input type="file" name="photo" id="photo" accept="image/*" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                @error('photo')
-                                    <p class="text-sm text-red-600">{{ $message }}</p>
-                                @enderror
-
-                                <div class="mt-4">
-                                    <img id="preview" src="{{ $partenaire->photo ? asset('storage/photos/partenaires/'.$partenaire->photo) : '' }}" alt="Prévisualisation de l'image" class="max-w-full h-auto border border-gray-300 rounded-lg">
-                                </div>
-                            </div>
-
-
                             <script>
-                                document.getElementById('photo').addEventListener('change', function(event) {
-                                    const file = event.target.files[0];
-                                    const reader = new FileReader();
-                                    const preview = document.getElementById('preview');
-                            
-
-                                    reader.onload = function(e) {
-                                        preview.src = e.target.result;
-                                        preview.classList.remove('hidden');
+                        
+                        
+                                document.addEventListener("DOMContentLoaded", function() {
+                                    const regionSelect = document.getElementById("region");
+                                    const provinceSelect = document.getElementById("province");
+                                
+                                    for (const region in regions) {
+                                        const option = document.createElement("option");
+                                        option.value = region;
+                                        option.textContent = region;
+                                        regionSelect.appendChild(option);
                                     }
-                                    
-                                    if (file) {
-                                        reader.readAsDataURL(file);
-                                    }
+                                
+                                    regionSelect.addEventListener("change", function() {
+                                        const selectedRegion = regionSelect.value;
+                                
+                                        provinceSelect.innerHTML = "";
+                                        provinceSelect.disabled = false;
+                                
+                                        const defaultOption = document.createElement("option");
+                                        defaultOption.value = "";
+                                        defaultOption.disabled = true;
+                                        defaultOption.selected = true;
+                                        defaultOption.textContent = "Choisissez votre province";
+                                        provinceSelect.appendChild(defaultOption);
+                                
+                                        regions[selectedRegion].provinces.forEach(province => {
+                                            const option = document.createElement("option");
+                                            option.value = province;
+                                            option.textContent = province;
+                                            provinceSelect.appendChild(option);
+                                        });
+                                    });
                                 });
+                                
                             </script>
                             
-                            <div class="flex justify-end">
-                                <x-primary-button type="submit" class="mt-5 ">
-                                    Modifier le partenaire de santé
-                                </x-primary-button>
-    
-                            </div>
+                            
+                        </div>
+                        <div class="flex justify-end">
+                            <x-primary-button type="submit" class="mt-5 ">
+                                Valider
+                            </x-primary-button>
+
                         </div>
                     </form>
                 </div>

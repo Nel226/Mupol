@@ -5,12 +5,14 @@
 namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 
+use App\Mail\Users\CreateUserMail;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
-
+use Illuminate\Support\Facades\Mail;
+use App\Mail\UserCreatedMail;
 class UserController extends Controller
 {
     public function index()
@@ -32,11 +34,12 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
+      
         $request->validate([
-            // 'name' => 'required|string|max:255',
-            // 'email' => 'required|string|email|max:255|unique:users',
-            'password' => ['required', 'confirmed', Password::min(8)],
-            // 'roles' => 'array'
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:8|confirmed',
+            'role' => 'required'
         ]);
         
         $user = User::create([
@@ -44,11 +47,11 @@ class UserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-        $role = Role::findOrFail($request->role); 
-        
 
+        $role = Role::findOrFail($request->role); 
         $user->assignRole($role);
-        
+        // Envoyer l'email de confirmation
+        Mail::to($user->email)->send( new CreateUserMail($user, $role) );
         
         return redirect()->route('users.index')->with('success', 'Utilisateur créé avec succès.');
     }

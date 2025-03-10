@@ -16,6 +16,11 @@
         </x-header>
 
         <div class="md:p-6 p-2 mx-auto mt-4 bg-white rounded-lg shadow-lg">
+            <div class="flex flex-wrap items-center justify-end py-2 gap-2">
+                <a href="{{ route('ayantsdroits.edit', $ayantDroit->id) }}">
+                    <button class="btn">{{ __('Modifier') }}</button>
+                </a>
+            </div>
             <div class="flex flex-col sm:flex-row p-2 gap-2">
                 <div class="sm:w-1/3 w-32 h-32 sm:h-48 mb-4 sm:mb-0">
                     <img src="{{ asset('storage/' . ($ayantDroit->photo ?? 'default-photo.jpg')) }}" alt="Photo de {{ $ayantDroit->nom }}"

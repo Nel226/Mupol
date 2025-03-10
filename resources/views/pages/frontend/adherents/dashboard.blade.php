@@ -17,27 +17,33 @@
         </script>
     @endif
     @if (Auth::guard('adherent')->user()->is_adherent === 0)
-        <div class=" h-screen">
+    
+    <x-header-guest/>
+    <hr class=" w-full h-0.5 bg-white">
+    
+    <div class=" h-screen">
 
-            <section class="contact-us section">
-                <div class="container">
-                    <div class="inner">
-                        <div class="row d-flex justify-content-center"> 
+        <section class="contact-us section">
+            <div class="container">
+                <div class="inner">
+                    <div class="row d-flex justify-content-center"> 
+                        
+                        <div class="col-lg-6  col-md-8 col-12 mx-auto">
+                            <div class="contact-us-form  bg-green-100 border border-green-400 text-green-700">
+                                <h2 class=" !text-xl">Votre demande d&apos;adhésion a été bien reçue !</h2>
+                                <p class=" text-justify">Elle est en cours de traitement. Veuillez contacter le <strong>{{ config('contact.phone_mupol') }}</strong>  si vous ne recevez pas de réponse dans les <strong>72 heures (jours ouvrables)</strong> qui suivent votre demande. </p>
                             
-                            <div class="col-lg-6  col-md-8 col-12 mx-auto">
-                                <div class="contact-us-form  bg-green-100 border border-green-400 text-green-700">
-                                    <h2 class=" !text-xl">Votre demande d&apos;adhésion a été bien reçue !</h2>
-                                    <p class=" text-justify">Elle est en cours de traitement. Veuillez contacter le <strong>{{ config('contact.phone_mupol') }}</strong>  si vous ne recevez pas de réponse dans les <strong>72 heures (jours ouvrables)</strong> qui suivent votre demande. </p>
-                                
-                                </div>
                             </div>
                         </div>
                     </div>
-                
                 </div>
-            </section>
+            
+            </div>
+        </section>
+    
+    </div>
+   
         
-        </div>
     @else
     
         <div id="app-layout" class="layout-guest overflow-x-hidden flex">
@@ -45,7 +51,7 @@
            <!-- app layout content -->
            <div 
            id="app-layout-content" 
-           class="min-h-screen w-full lg:pl-[15.625rem] transition-all duration-300 ease-out">
+           class="min-h-screen w-full lg:pl-[5.625rem] transition-all duration-300 ease-out">
         
                @include("components.top-navbar-guest-connected")
 
@@ -96,8 +102,8 @@
                                           <ul class="categor-list">
                                               <li><strong>Nom :</strong> {{ $adherent->nom }}</li>
                                               <li><strong>Prénom (s) :</strong> {{ $adherent->prenom }}</li>
-                                              <li><strong>Genre :</strong> {{ $adherent->genre == 'masculin' ? 'Masculin' : 'Féminin' }}</li>
-                                              <li><strong>Lieu de naissance :</strong> {{ $adherent->lieu_naissance }}</li>
+                                              <li><strong>Genre :</strong> {{ $adherent->genre }}</li>
+                                              <li><strong>Lieu de naissance :</strong>  {{ $adherent->ville }}</li>
                                               <li><strong>Nom et prénom (s) du père :</strong> {{ $adherent->nom_pere }}</li>
                                               <li><strong>Nom et prénom (s) de la mère :</strong> {{ $adherent->nom_mere }}</li>
                                           </ul>
@@ -134,7 +140,7 @@
                                       <div class="single-widget side-tags">
                                           <h3 class="title">Informations profesionnelles</h3>
                                           <ul class="categor-list">
-                                              @if ($adherent->statut === 'personnel_retraite')
+                                              @if ($adherent->statut === 'Retraité(e)')
                                   
                                               <li><strong>Statut :</strong> Personnel retraité</li>
                                               <li><strong>Grade :</strong> {{ $adherent->grade }}</li>
@@ -146,7 +152,7 @@
                                               <li><strong>Date d&apos;intégration :</strong> {{ $adherent->dateIntegration }}</li>
                                               <li><strong>Date de départ à la retraite :</strong> {{ $adherent->dateDepartARetraite }}</li>
                                               <li><strong>N° CARFO :</strong> {{ $adherent->numeroCARFO }}</li>
-                                              <li><strong>Direction :</strong> {{ $adherent->direction }}</li>
+                                              {{-- <li><strong>Direction :</strong> {{ $adherent->direction }}</li> --}}
                                               <li><strong>Service :</strong> {{ $adherent->service }}</li>
           
                                               @endif
@@ -155,10 +161,36 @@
                                   </div>
                               </div>
                           </div>
+
+                          <div class="row ">
+                            <!-- Première colonne -->
+                            <div class="col-lg-12 col-12 mb-4 px-0 px-lg-3 no-gutter-mobile">
+                                <div class="main-sidebar">
+                                    <div class="single-widget category">
+                                        <h3 class="title">Fiches</h3>
+                                        <ul class="categor-list">
+                                            <li><strong>Situation matrimoniale :</strong> 
+                                                <a class="text-primary1 underline" href="{{ route('download-form-adhesion', ['id' => $demandeAdhesion->id]) }}">
+                                                    Télécharger le formulaire d&apos;adhésion
+                                                </a>
+                                            </li>
+                                            <li><strong>Personne à prévenir en cas de besoin :</strong> 
+                                                <a class="text-primary1 underline" href="{{ route('download-fiche-cession-volontaire', ['id' => $demandeAdhesion->id]) }}">
+                                                    Télécharger la fiche de cession volontaire
+                                                </a>
+                                            </li>
+                                            
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                
+                          
+                        </div>
                       </div>
                   </div>
                   
-                
+                 
               </div>
               
               @include("components.footer-guest-connected")

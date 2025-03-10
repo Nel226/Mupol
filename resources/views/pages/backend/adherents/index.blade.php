@@ -87,7 +87,8 @@
                         
                         <x-data-table class="hidden" id="table-mutualistes" :headers="['N', 'Nom', 'Prénom(s)', 'Genre', 'Code carte', 'Date création']">
                             @foreach ($mutualistes as $index => $mutualiste)
-                                <tr class=" hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                                <tr onclick="redirectTo('{{ route($mutualiste->type == 'adherent' ? 'adherents.show' : 'ayantsdroits.show', $mutualiste->id) }}')">
+
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $mutualiste->nom }}</td>
                                     <td>{{ $mutualiste->prenom }}</td>

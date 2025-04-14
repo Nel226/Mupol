@@ -139,7 +139,8 @@ class PrestationController extends Controller
             if ($request->hasFile('preuve')) {
                 $files = [];
                 foreach ($request->file('preuve') as $file) {
-                    $path = $file->store('preuves', 'public');
+                    $path = $file->store("preuves/{$adherentCode}", 'public');
+                    
                     $files[] = $path; 
                 }
                 $prestation->preuve = json_encode($files); 

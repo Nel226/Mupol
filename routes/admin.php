@@ -63,6 +63,9 @@ Route::middleware('auth')->group(function () {
 
    
     Route::resource('adherents', AdherentController::class);
+    Route::get('/envoi-fiche-cession-salaire/{id}', [DemandeController::class, 'envoiFicheCessionSalaire'])
+        ->name('adherents.envoi-fiche-cession-salaire');
+
     Route::get('/adherents-old/update', action: [AdherentController::class, 'oldUpdate'])->name('adherents.old.update');
 
     Route::resource('ayantsdroits', AyantDroitController::class);

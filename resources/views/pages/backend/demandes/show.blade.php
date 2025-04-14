@@ -182,7 +182,16 @@
                                 <i class="fa fa-list-alt"></i>
                                 Fiche de cession volontaire
                             </a>
+                            
                         </p>
+                        <p class="text-sm font-semibold text-right space-x-1">
+                            
+                            <a href="{{ route('adherents.envoi-fiche-cession-salaire', $demande->id) }}">
+                                <button class="btn">{{ __('Envoyer la fiche de cession de salaire') }}</button>
+                            </a>
+                            
+                        </p>
+                        
                         
                         <div id="filePreview" class="mt-1 hidden transition-opacity duration-300 ease-in-out">
                             <div class="flex justify-between items-center bg-gray-100 px-4 py-2 border-b">

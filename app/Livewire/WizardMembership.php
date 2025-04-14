@@ -14,7 +14,6 @@ class WizardMembership extends Component
 {
     use WithFileUploads; 
 
-
     public $currentStep = 1; // Étape actuelle du wizard
     public $totalSteps = 5;   // Nombre total d'étapes  
 
@@ -134,7 +133,6 @@ class WizardMembership extends Component
         }
     }
 
-
     public function nextStep()
     {
         $this->validateStep(); // Valider l'étape avant de passer à la suivante
@@ -165,7 +163,6 @@ class WizardMembership extends Component
         }
     }
     
-
     // Méthode de validation par étape
     public function validateStep()
     {
@@ -314,7 +311,7 @@ class WizardMembership extends Component
     }
 
     // Méthode de soumission finale du wizard
-    public function submit()
+    public function submitAdhesion()
     {
         $this->validateStep(); // Assurez-vous de valider la dernière étape
 

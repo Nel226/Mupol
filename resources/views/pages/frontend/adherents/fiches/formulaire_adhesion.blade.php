@@ -436,7 +436,7 @@
                     </td>
                     <td style="width: 25%; justify-content: center; align-items: center;">
                         <div class="gender-box">
-                            <strong class="genre-infoperson">Genre :</strong>{{ $demandeAdhesion->genre == 'masculin' ? 'Masculin' : 'Féminin' }}
+                            <strong class="genre-infoperson">Genre :</strong>{{ $demandeAdhesion->genre }}
                         </div>
                     </td>
                 </tr>

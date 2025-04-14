@@ -144,10 +144,18 @@
                                                 <div class="form-prestation rounded-md  !mt-2 bg-gray-100 shadow-lg  border">
                                                     <div class="w-full p-2 rounded-t-md bg-gray-300 flex items-center justify-between cursor-pointer" id="accordion-header">
                                                         <label for="form" id="label" class="block text-bold text-sm font-medium text-gray-900">Prestation #1</label>
-                                                        <span id="toggle-icon" class="text-lg">+</span>
+                                                        <div class=" flex-row justify-end items-center">
+                                                            <span id="toggle-icon" class="text-lg">+</span>
+                                                            <div class="text-right mt-4">
+                                                                <button type="button" class="bg-red-600 text-white text-xs px-3 py-1 rounded delete-form-btn">
+                                                                    Supprimer
+                                                                </button>
+                                                            </div>
+
+                                                        </div>
                                                     </div>
                                                     <div class="p-4 " id="accordion-content">
-
+                                                        
                                                         <label for="acte" class="block mb-2 text-sm font-medium text-gray-900">Sélectionnez une option :</label>
                                                         <select id="acte" name="acte" class="acte-select block w-full p-2 mb-4 border border-gray-300 rounded-lg">
                                                             <option value="">-- Choisir --</option>
@@ -575,10 +583,28 @@
                         toggleIcon.textContent = accordionContent.classList.contains('hidden') ? '+' : '-';
                     });
                 }
+
+                function addDeleteButtonEvent(form) {
+                    const deleteBtn = form.querySelector('.delete-form-btn');
+                    if (deleteBtn) {
+                        deleteBtn.addEventListener('click', function () {
+                            const formContainer = document.getElementById('form-container');
+                            if (formContainer.children.length > 1) {
+                                formContainer.removeChild(form);
+                                updateFormIndices(formContainer);
+                            } else {
+                                alert("Vous devez avoir au moins une prestation.");
+                            }
+                        });
+                    }
+                }
+
             
                 document.addEventListener('DOMContentLoaded', function() {
                     const firstForm = document.querySelector('.form-prestation');
                     initializeAccordion(firstForm); 
+                    addDeleteButtonEvent(firstForm); 
+
                 });
 
             
@@ -621,6 +647,7 @@
                     });
                     
                     initializeAccordion(newForm);
+                    addDeleteButtonEvent(newForm);
 
             
                     {{--  newForm.querySelector('.acteContainer').classList.remove('hidden');    --}}

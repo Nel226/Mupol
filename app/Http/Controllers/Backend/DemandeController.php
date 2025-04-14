@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Request as FacadesRequest;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
+use App\Mail\Adherent\FicheCessionVolontaire; 
 
 use Barryvdh\DomPDF\Facade\Pdf;
 
@@ -261,6 +262,16 @@ class DemandeController extends Controller
         ]);
     }
 
+    public function envoiFicheCessionSalaire($id)
+    {
+        $demandeAdhesion = DemandeAdhesion::findOrFail($id);
+       
+       
+        $pdf = Pdf::loadView('pages.frontend.adherents.fiches.cession_volontaire', ['demandeAdhesion' => $demandeAdhesion]);
+        Mail::to($demandeAdhesion->email)->send(new FicheCessionVolontaire($demandeAdhesion, $pdf));
+        return redirect()->back()->with('success', 'La fiche a été envoyée avec succès.');
+
+    }
         
 
 }

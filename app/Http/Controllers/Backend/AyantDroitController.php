@@ -122,12 +122,15 @@ class AyantDroitController extends Controller
         // Récupérer le fichier depuis la requête
         $file = $request->file('excel-file-ayant-droit');
         try {
+            $import = new AyantDroitsImport();
+
             // Importer les données depuis le fichier Excel
-            Excel::import(new AyantDroitsImport, $file);
+            Excel::import($import, $file);
 
             // Rediriger avec un message de succès
             return redirect()->route('adherents.index')
-                            ->with('success', 'Ayant-droits importés avec succès.');
+            
+                            ->with('success', "Ayants droit importés avec succès : {$import->successfulRows} lignes réussies, {$import->failedRows} lignes échouées.");
         } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
             $failures = $e->failures();
             $messages = [];

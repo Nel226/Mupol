@@ -20,6 +20,7 @@
                 <a href="{{ route('adherents.edit', $adherent->id) }}">
                     <button class="btn">{{ __('Modifier') }}</button>
                 </a>
+                
             </div>
             <div class="flex flex-col sm:flex-row p-2 gap-2">
                 <!-- Image div -->

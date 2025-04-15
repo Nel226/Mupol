@@ -91,25 +91,36 @@ class MembershipController extends Controller
     elseif ($currentStep == 4) {
         $rules = [
             'statut' => 'required|in:personnel_retraite,personnel_active',
-            'grade' => 'required|string|max:255',
         ];
 
         if ($request->statut === 'personnel_retraite') {
+            $rules['grade'] = 'required|string|max:255';
             $rules['departARetraite'] = 'required|date';
             $rules['numeroCARFO'] = 'required|string|max:255';
         } elseif ($request->statut === 'personnel_active') {
+            $rules['grade'] = 'required|string|max:255';
             $rules['dateIntegration'] = 'required|date';
             $rules['dateDepartARetraite'] = 'required|date|after_or_equal:dateIntegration';
             $rules['direction'] = 'required|string|max:255';
             $rules['service'] = 'required|string|max:255';
         }
 
+        // Validation des données
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            Log::error('Erreur de validation :', $validator->errors()->toArray());
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        return response()->json([
+            'success' => true,
+            'view' => $this->recapt($request) // Retourner la vue générée par la méthode recapt
+        ]);
+        
+
     }
     // Étape 5 : Ajouter les données à validatedData et créer la demande
     elseif ($currentStep == 5) {
-        // $rules = [
-        //     'prenomEtape5' => 'required|string|max:255',
-        // ];
 
         if ($request->hasFile('photo')) {
             $photoName = uniqid() . '.' . $request->file('photo')->getClientOriginalExtension();
@@ -217,4 +228,30 @@ class MembershipController extends Controller
     return response()->json(['success' => true, 'data' => $validatedData]);
 }
 
+
+// ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+public function recapt(Request $request)
+{
+    try {
+        $data = $request->all();
+        Log::info('Données recapt :', $data);
+
+        // Assurez-vous que la vue est correctement retournée
+        return response()->json([
+            'success' => true,
+            'view' => view('components.formulaire-adhesion', ['data' => $data])->render(),
+        ]);
+    } catch (\Exception $e) {
+        // Log l'erreur et retourner un message d'erreur JSON
+        Log::error('Erreur dans recapt :', ['exception' => $e->getMessage()]);
+        return response()->json([
+            'success' => false,
+            'message' => 'Une erreur est survenue lors de la récupération des données.',
+        ], 500);
+    }
 }
+
+
+}
+
+

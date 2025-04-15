@@ -48,6 +48,7 @@ Route::post('/final-old-adhesion', [AccueilController::class, 'oldAdhesion'])->n
 // Route::post('/membership/submit', [MembershipController::class, 'submit'])->name('membership.submit');
 
 Route::post('/test/submit', [MembershipController::class, 'submit'])->name('test.submit'); // ok
+Route::post('/recapt/data', [MembershipController::class, 'recapt'])->name('recapt.data');
 // Route::post('/test', [TestController::class, 'submit'])->name('test.sub');
 
 //Route::post('/test/submit', [TestController::class, 'submit'])->name('test.submit.test');

@@ -21,6 +21,7 @@
         "spatie/laravel-permission": "^6.9"
     },
     "require-dev": {
+        "beyondcode/laravel-er-diagram-generator": "^4.0",
         "fakerphp/faker": "^1.9.1",
         "laravel-lang/common": "^6.4",
         "laravel/breeze": "^1.29",

@@ -1,0 +1,391 @@
+digraph G {
+	graph [bb="0,0,881.5,1527",
+		bgcolor="#F7F7F7",
+		concentrate=1,
+		esep=1,
+		fontname="Helvetica Neue",
+		fontsize=12,
+		labelloc=t,
+		nodesep=1,
+		overlap="",
+		pad=0.5,
+		rankdir=LR,
+		ranksep=2,
+		splines=polyline,
+		style=filled
+	];
+	node [label="\N"];
+	appmodelsactemedical	[fontname="Helvetica Neue",
+		height=1.3889,
+		label=<<table width="100%" height="100%" border="0" margin="0" cellborder="1" cellspacing="0" cellpadding="10">
+<tr width="100%"><td width="100%" bgcolor="#d3d3d3"><font color="#333333">ActeMedical</font></td></tr>
+</table>>,
+		margin=0,
+		pos="316.5,598",
+		shape=rectangle,
+		width=1.3889];
+	appmodelsprestation	[fontname="Helvetica Neue",
+		height=1.3889,
+		label=<<table width="100%" height="100%" border="0" margin="0" cellborder="1" cellspacing="0" cellpadding="10">
+<tr width="100%"><td width="100%" bgcolor="#d3d3d3"><font color="#333333">Prestation</font></td></tr>
+</table>>,
+		margin=0,
+		pos="583,481",
+		shape=rectangle,
+		width=1.3889];
+	appmodelsactemedical:id -> appmodelsprestation:acte_medical_id	[arrowhead=crow,
+		arrowtail=none,
+		color="#FCBF49",
+		dir=both,
+		fontname="Helvetica Neue",
+		label=" ",
+		lp="458.75,565.8",
+		penwidth=1.8,
+		pos="e,532.78,511.51 366.88,583.55 408.39,571.4 461,556 461,556 461,556 492.71,536.34 523.67,517.15",
+		xlabel="HasMany
+prestations",
+		xlp="415.95,576.67"];
+	appmodelsprestation:acte_medical_id -> appmodelsactemedical:id	[arrowhead=tee,
+		arrowtail=crow,
+		color="#F77F00",
+		dir=both,
+		fontname="Helvetica Neue",
+		label=" ",
+		lp="458.75,539.38",
+		penwidth=1.8,
+		pos="s,532.76,500.52 e,366.9,574.1 522.75,504.49 490.25,517.37 456.5,530.75 456.5,530.75 456.5,530.75 410.28,553.11 371.14,572.05",
+		xlabel="BelongsTo
+acteMedical",
+		xlp="409.9,518.63"];
+	appmodelspartenaire	[fontname="Helvetica Neue",
+		height=1.3889,
+		label=<<table width="100%" height="100%" border="0" margin="0" cellborder="1" cellspacing="0" cellpadding="10">
+<tr width="100%"><td width="100%" bgcolor="#d3d3d3"><font color="#333333">Partenaire</font></td></tr>
+</table>>,
+		margin=0,
+		pos="831.5,481",
+		shape=rectangle,
+		width=1.3889];
+	appmodelsprestation:partenaire_id -> appmodelspartenaire:id	[arrowhead=tee,
+		arrowtail=crow,
+		color="#F77F00",
+		dir=both,
+		fontname="Helvetica Neue",
+		label=" ",
+		lp="707.25,489.62",
+		penwidth=1.8,
+		pos="s,633.29,481 e,781.29,481 643.97,481 684.45,481 737.44,481 776.59,481",
+		xlabel="BelongsTo
+partenaire",
+		xlp="678.78,463.75"];
+	appmodelsadherent	[fontname="Helvetica Neue",
+		height=1.3889,
+		label=<<table width="100%" height="100%" border="0" margin="0" cellborder="1" cellspacing="0" cellpadding="10">
+<tr width="100%"><td width="100%" bgcolor="#d3d3d3"><font color="#333333">Adherent</font></td></tr>
+</table>>,
+		margin=0,
+		pos="50,230",
+		shape=rectangle,
+		width=1.3889];
+	appmodelsadherent:code_carte -> appmodelsprestation:adherentCode	[arrowhead=crow,
+		arrowtail=none,
+		color="#FCBF49",
+		dir=both,
+		fontname="Helvetica Neue",
+		label=" ",
+		lp="316.5,393.17",
+		penwidth=1.8,
+		pos="e,532.84,457.76 100.48,253.39 198.72,299.83 417.99,403.47 523.32,453.26",
+		xlabel="HasMany
+prestations",
+		xlp="278.52,336.07"];
+	appmodelsayantdroit	[fontname="Helvetica Neue",
+		height=1.3889,
+		label=<<table width="100%" height="100%" border="0" margin="0" cellborder="1" cellspacing="0" cellpadding="10">
+<tr width="100%"><td width="100%" bgcolor="#d3d3d3"><font color="#333333">AyantDroit</font></td></tr>
+</table>>,
+		margin=0,
+		pos="316.5,230",
+		shape=rectangle,
+		width=1.3889];
+	appmodelsadherent:id -> appmodelsayantdroit:adherent_id	[arrowhead=crow,
+		arrowtail=none,
+		color="#FCBF49",
+		dir=both,
+		fontname="Helvetica Neue",
+		label=" ",
+		lp="174.25,256.62",
+		penwidth=1.8,
+		pos="e,266.1,236.4 100.22,237.32 133.71,242.3 172,248 172,248 172,248 176.5,248 176.5,248 176.5,248 217.98,242.63 255.62,237.75",
+		xlabel="HasMany
+ayantsDroits",
+		xlp="215.72,265.08"];
+	appmodelsdemandeadhesion	[fontname="Helvetica Neue",
+		height=1.3889,
+		label=<<table width="100%" height="100%" border="0" margin="0" cellborder="1" cellspacing="0" cellpadding="10">
+<tr width="100%"><td width="100%" bgcolor="#d3d3d3"><font color="#333333">DemandeAdhesion</font></td></tr>
+</table>>,
+		margin=0,
+		pos="316.5,50",
+		shape=rectangle,
+		width=1.8889];
+	appmodelsadherent:demande_id -> appmodelsdemandeadhesion:id	[arrowhead=tee,
+		arrowtail=crow,
+		color="#F77F00",
+		dir=both,
+		fontname="Helvetica Neue",
+		label=" ",
+		lp="174.25,154.02",
+		penwidth=1.8,
+		pos="s,100.44,196.35 e,248.34,95.704 109.24,190.36 149.03,163.29 201.99,127.25 244.28,98.466",
+		xlabel="BelongsTo
+demande",
+		xlp="207.51,127.17"];
+	appmodelsayantdroit:code_carte -> appmodelsprestation:adherentCode	[arrowhead=crow,
+		arrowtail=none,
+		color="#FCBF49",
+		dir=both,
+		fontname="Helvetica Neue",
+		label=" ",
+		lp="458.75,360.38",
+		penwidth=1.8,
+		pos="e,534.87,430.66 366.88,271.9 408.39,307.12 461,351.75 461,351.75 461,351.75 495.48,388.58 527.63,422.93",
+		xlabel="HasMany
+prestations",
+		xlp="417.74,326.11"];
+	appmodelsayantdroit:adherent_id -> appmodelsadherent:id	[arrowhead=tee,
+		arrowtail=crow,
+		color="#F77F00",
+		dir=both,
+		fontname="Helvetica Neue",
+		label=" ",
+		lp="174.25,231.38",
+		penwidth=1.8,
+		pos="s,266.1,227.42 e,100.22,227.05 255.62,226.88 217.98,224.91 176.5,222.75 176.5,222.75 176.5,222.75 172,222.75 172,222.75 172,222.75 \
+137.22,224.83 104.95,226.77",
+		xlabel="BelongsTo
+adherent",
+		xlp="149.53,205.7"];
+	appmodelsdemandeadhesion:id -> appmodelsadherent:demande_adhesion_id	[arrowhead=tee,
+		arrowtail=none,
+		color="#D62828",
+		dir=both,
+		fontname="Helvetica Neue",
+		label=" ",
+		lp="174.25,118.38",
+		penwidth=1.8,
+		pos="e,100.22,181.09 248.37,77.951 211.02,93.501 172,109.75 172,109.75 172,109.75 136.07,145.46 103.37,177.96",
+		xlabel="HasOne
+adherent",
+		xlp="139.65,97.445"];
+	appmodelscategorie	[fontname="Helvetica Neue",
+		height=1.3889,
+		label=<<table width="100%" height="100%" border="0" margin="0" cellborder="1" cellspacing="0" cellpadding="10">
+<tr width="100%"><td width="100%" bgcolor="#d3d3d3"><font color="#333333">Categorie</font></td></tr>
+</table>>,
+		margin=0,
+		pos="316.5,961",
+		shape=rectangle,
+		width=1.3889];
+	appmodelscategorie:uuid -> appmodelscategorie:parent_id	[arrowhead=crow,
+		arrowtail=none,
+		color="#FCBF49",
+		dir=both,
+		fontname="Helvetica Neue",
+		label=" ",
+		lp="316.5,1091.6",
+		penwidth=1.8,
+		pos="e,324.46,1011.4 308.54,1011.4 306,1047.3 308.65,1083 316.5,1083 323.58,1083 326.43,1054 325.05,1021.9",
+		xlabel="HasMany
+sousCategories",
+		xlp="270.18,1060.6"];
+	appmodelscategorie:parent_id -> appmodelscategorie:uuid	[arrowhead=tee,
+		arrowtail=crow,
+		color="#F77F00",
+		dir=both,
+		fontname="Helvetica Neue",
+		label=" ",
+		lp="316.5,1163.6",
+		penwidth=1.8,
+		pos="s,304.27,1011.2 e,328.73,1011.2 302.75,1021.6 294.42,1084.5 299,1155 316.5,1155 334.54,1155 338.85,1080.1 329.43,1015.8",
+		xlabel="BelongsTo
+parent",
+		xlp="286.01,1134.9"];
+	appmodelscategorie:uuid -> appmodelscategorie:parent_id	[arrowhead=crow,
+		arrowtail=none,
+		color="#FCBF49",
+		dir=both,
+		fontname="Helvetica Neue",
+		label=" ",
+		lp="316.5,1235.6",
+		penwidth=1.8,
+		pos="e,331.27,1011.3 301.73,1011.3 281.92,1103.7 286.84,1227 316.5,1227 345.06,1227 350.68,1112.6 333.37,1021.7",
+		xlabel="HasMany
+children",
+		xlp="288.4,1204.7"];
+	appmodelsrecette	[fontname="Helvetica Neue",
+		height=1.3889,
+		label=<<table width="100%" height="100%" border="0" margin="0" cellborder="1" cellspacing="0" cellpadding="10">
+<tr width="100%"><td width="100%" bgcolor="#d3d3d3"><font color="#333333">Recette</font></td></tr>
+</table>>,
+		margin=0,
+		pos="583,1102",
+		shape=rectangle,
+		width=1.3889];
+	appmodelscategorie:uuid -> appmodelsrecette:categorie_id	[arrowhead=crow,
+		arrowtail=none,
+		color="#FCBF49",
+		dir=both,
+		fontname="Helvetica Neue",
+		label=" ",
+		lp="458.75,1128.6",
+		penwidth=1.8,
+		pos="e,532.78,1109.3 361.48,1011.3 402.2,1057.9 456.5,1120 456.5,1120 456.5,1120 461,1120 461,1120 461,1120 491.9,1115.4 522.47,1110.9",
+		xlabel="HasMany
+recettes",
+		xlp="403.17,1073.5"];
+	appmodelsdepense	[fontname="Helvetica Neue",
+		height=1.3889,
+		label=<<table width="100%" height="100%" border="0" margin="0" cellborder="1" cellspacing="0" cellpadding="10">
+<tr width="100%"><td width="100%" bgcolor="#d3d3d3"><font color="#333333">Depense</font></td></tr>
+</table>>,
+		margin=0,
+		pos="583,820",
+		shape=rectangle,
+		width=1.3889];
+	appmodelscategorie:uuid -> appmodelsdepense:categorie_id	[arrowhead=crow,
+		arrowtail=none,
+		color="#FCBF49",
+		dir=both,
+		fontname="Helvetica Neue",
+		label=" ",
+		lp="458.75,894.9",
+		penwidth=1.8,
+		pos="e,532.8,846.23 366.94,934.64 411.28,911.01 476.41,876.29 523.37,851.26",
+		xlabel="HasMany
+depenses",
+		xlp="416.65,910.2"];
+	appmodelsrecette:categorie_id -> appmodelscategorie:uuid	[arrowhead=tee,
+		arrowtail=crow,
+		color="#F77F00",
+		dir=both,
+		fontname="Helvetica Neue",
+		label=" ",
+		lp="458.75,1044.4",
+		penwidth=1.8,
+		pos="s,532.8,1075.8 e,366.94,987.36 523.37,1070.7 477.88,1046.5 415.34,1013.2 371.17,989.61",
+		xlabel="BelongsTo
+categorie",
+		xlp="416.52,1012.9"];
+	appmodelsrecette:sous_categorie_id -> appmodelscategorie:uuid	[arrowhead=tee,
+		arrowtail=crow,
+		color="#F77F00",
+		dir=both,
+		fontname="Helvetica Neue",
+		label=" ",
+		lp="458.75,1009.4",
+		penwidth=1.8,
+		pos="s,532.78,1060.8 e,366.88,974.68 524.87,1054.2 493.54,1028 461,1000.8 461,1000.8 461,1000.8 412.03,987.18 371.3,975.9",
+		xlabel="BelongsTo
+sousCategorie",
+		xlp="499.03,982.19"];
+	appmodelsdepense:categorie_id -> appmodelscategorie:uuid	[arrowhead=tee,
+		arrowtail=crow,
+		color="#F77F00",
+		dir=both,
+		fontname="Helvetica Neue",
+		label=" ",
+		lp="458.75,859.38",
+		penwidth=1.8,
+		pos="s,532.76,832.06 e,366.9,921.82 522.33,834.62 489.96,842.55 456.5,850.75 456.5,850.75 456.5,850.75 409.9,887.71 370.67,918.83",
+		xlabel="BelongsTo
+categorie",
+		xlp="409.39,846.48"];
+	appmodelsdepense:sous_categorie_id -> appmodelscategorie:uuid	[arrowhead=tee,
+		arrowtail=crow,
+		color="#F77F00",
+		dir=both,
+		fontname="Helvetica Neue",
+		label=" ",
+		lp="458.75,823.38",
+		penwidth=1.8,
+		pos="s,532.78,817.86 e,365.34,910.67 522.08,817.4 491.64,816.08 461,814.75 461,814.75 461,814.75 456.5,814.75 456.5,814.75 456.5,814.75 \
+408.29,865.47 368.66,907.17",
+		xlabel="BelongsTo
+sousCategorie",
+		xlp="477.94,819.93"];
+	appmodelsestimatione	[fontname="Helvetica Neue",
+		height=1.3889,
+		label=<<table width="100%" height="100%" border="0" margin="0" cellborder="1" cellspacing="0" cellpadding="10">
+<tr width="100%"><td width="100%" bgcolor="#d3d3d3"><font color="#333333">Estimatione</font></td></tr>
+</table>>,
+		margin=0,
+		pos="50,961",
+		shape=rectangle,
+		width=1.3889];
+	appmodelsestimatione:categorie_id -> appmodelscategorie:uuid	[arrowhead=tee,
+		arrowtail=crow,
+		color="#F77F00",
+		dir=both,
+		fontname="Helvetica Neue",
+		label=" ",
+		lp="174.25,969.62",
+		penwidth=1.8,
+		pos="s,100.44,961 e,266.3,961 111.07,961 156.26,961 217.65,961 261.33,961",
+		xlabel="BelongsTo
+categorie",
+		xlp="216.95,943.75"];
+	appmodelsestimatione:sous_categorie_id -> appmodelscategorie:uuid	[arrowhead=tee,
+		arrowtail=crow,
+		color="#F77F00",
+		dir=both,
+		fontname="Helvetica Neue",
+		label=" ",
+		lp="174.25,934.38",
+		penwidth=1.8,
+		pos="s,100.22,946.66 e,266.1,948.47 110.53,943.66 141.1,934.75 172,925.75 172,925.75 172,925.75 176.5,925.75 176.5,925.75 176.5,925.75 \
+222.35,937.38 261.38,947.28",
+		xlabel="BelongsTo
+sousCategorie",
+		xlp="142.98,910.84"];
+	appmodelspartenaire:id -> appmodelsprestation:partenaire_id	[arrowhead=crow,
+		arrowtail=none,
+		color="#FCBF49",
+		dir=both,
+		fontname="Helvetica Neue",
+		label=" ",
+		lp="707.25,435.38",
+		penwidth=1.8,
+		pos="e,633.22,458.93 781.28,458.93 747.79,443.92 709.5,426.75 709.5,426.75 709.5,426.75 705,426.75 705,426.75 705,426.75 673.56,440.85 \
+642.73,454.67",
+		xlabel="HasMany
+prestations",
+		xlp="745.58,410.71"];
+	appmodelsarticle	[fontname="Helvetica Neue",
+		height=1.3889,
+		label=<<table width="100%" height="100%" border="0" margin="0" cellborder="1" cellspacing="0" cellpadding="10">
+<tr width="100%"><td width="100%" bgcolor="#d3d3d3"><font color="#333333">Article</font></td></tr>
+</table>>,
+		margin=0,
+		pos="50,1133",
+		shape=rectangle,
+		width=1.3889];
+	appmodelsparametre	[fontname="Helvetica Neue",
+		height=1.3889,
+		label=<<table width="100%" height="100%" border="0" margin="0" cellborder="1" cellspacing="0" cellpadding="10">
+<tr width="100%"><td width="100%" bgcolor="#d3d3d3"><font color="#333333">Parametre</font></td></tr>
+</table>>,
+		margin=0,
+		pos="50,1305",
+		shape=rectangle,
+		width=1.3889];
+	appmodelsuser	[fontname="Helvetica Neue",
+		height=1.3889,
+		label=<<table width="100%" height="100%" border="0" margin="0" cellborder="1" cellspacing="0" cellpadding="10">
+<tr width="100%"><td width="100%" bgcolor="#d3d3d3"><font color="#333333">User</font></td></tr>
+</table>>,
+		margin=0,
+		pos="50,1477",
+		shape=rectangle,
+		width=1.3889];
+}

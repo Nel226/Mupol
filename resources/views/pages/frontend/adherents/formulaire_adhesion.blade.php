@@ -37,8 +37,6 @@
                             <x-wizard-membership :adherentType="$adherentType" />
                         </div>
                     @endif
-                    
-                    
 
                 </div>
             </div>

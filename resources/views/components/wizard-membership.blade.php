@@ -37,7 +37,7 @@
 
                 <!-- Contenu de l'étape 5 -->
                 <div id="step5" class="step" style="display:none;">
-                    <x-etape-cinq />
+                    <x-formulaire-adhesion :data:$data />
                 </div>
 
                 <input type="hidden" name="currentStep" id="currentStep">
@@ -64,6 +64,7 @@
 <script>
     const totalSteps = 5;
     let currentStep = 1;
+    let allStepData = {};
 
     // **********************************************  Stepper  ******************************************************************
     // Fonction pour mettre à jour l'affichage du stepper
@@ -153,26 +154,38 @@
     // Fonction pour soumettre le formulaire
     async function handleSubmit(event) {
         event.preventDefault();
+        
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.disabled = true; // Désactiver le bouton
+        submitBtn.innerHTML = 'Envoi en cours...'; // Ajouter un indicateur de chargement
+
         const formData = new FormData(document.getElementById('membership-form'));
         formData.append('currentStep', currentStep);
 
-        const response = await fetch('{{ route('test.submit') }}', {
-            method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-            },
-            body: formData,
-        });
+        try {
+            const response = await fetch('{{ route('test.submit') }}', {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                },
+                body: formData,
+            });
 
-        const data = await response.json();
-        if (data.success) {
-            // Rediriger ou afficher un message de succès
-            //alert('Formulaire soumis avec succès!');
-            window.location.href = data.redirect_url;
-            resetForm();
-        } else {
-            // Afficher les erreurs
-            alert('Une erreur s\'est produite.');
+            const data = await response.json();
+
+            if (data.success) {
+                window.location.href = data.redirect_url;
+                resetForm();
+            } else {
+                showErrors(data.errors);
+                alert('Une erreur s\'est produite.');
+            }
+        } catch (error) {
+            console.error('Erreur lors de la soumission :', error);
+            alert('Une erreur réseau est survenue.');
+        } finally {
+            submitBtn.disabled = false; // Réactiver le bouton
+            submitBtn.innerHTML = 'Soumettre'; // Réinitialiser le texte du bouton
         }
     }
 
@@ -188,14 +201,14 @@
     // Collecte des données par étape
 
     function collectStepData() {
-        let data = new FormData(); // Utilisation de FormData pour permettre l'envoi de fichiers
-        const stepId = `step${currentStep}`; // L'ID de l'étape courante
+        let data = new FormData(); 
+        const stepId = `step${currentStep}`; 
         const stepElement = document.getElementById(stepId);
 
         // Parcours de tous les champs de l'étape courante (input, select, textarea)
         const inputs = stepElement.querySelectorAll('input, select, textarea');
         inputs.forEach(input => {
-            if (input.name) { // S'assurer que le champ a un nom
+            if (input.name) { 
                 if (input.type === "file") {
                     // Si c'est un fichier, on ajoute le fichier à FormData
                     const files = input.files;
@@ -218,6 +231,73 @@
 
         return data;
     }
+    function collectAllStepsData() {
+        if (currentStep === 4) { // Ne collecte les données que lorsque l'on est à l'étape 4
+            let allStepData = {}; // Initialiser un objet vide pour les données
+
+            // Collecte des données des étapes 1, 2, 3 et 4
+            for (let step = 1; step <= 4; step++) {
+                const stepId = `step${step}`;
+                const stepElement = document.getElementById(stepId);
+
+                // Si l'élément de l'étape existe, on collecte les données
+                if (stepElement) {
+                    const inputs = stepElement.querySelectorAll('input, select, textarea');
+                    inputs.forEach(input => {
+                        if (input.name) {
+                            if (input.type === "file") {
+                                // Si c'est un fichier, on stocke le nom du fichier
+                                const files = input.files;
+                                let fileData = [];
+                                for (let i = 0; i < files.length; i++) {
+                                    fileData.push(files[i].name); // On ajoute le nom du fichier ici
+                                }
+                                allStepData[input.name] = fileData;
+                            } else {
+                                // Sinon, on ajoute la valeur du champ
+                                allStepData[input.name] = input.value;
+                            }
+                        }
+                    });
+                }
+            }
+
+            // Ajouter l'étape courante aux données
+            allStepData.currentStep = currentStep;
+
+            // Affichage du log des données collectées dans la console
+            console.log("Données collectées pour les étapes 1 à 4 :");
+            console.table(allStepData);
+
+            // Envoi des données à la fonction souhaitée
+            sendDataToRecapt(allStepData); // Envoi des données au composant à l'étape 5
+        }
+    }
+
+    // Fonction pour envoyer les données collectées au contrôleur
+async function sendDataToRecapt(allStepData) {
+    try {
+        const response = await fetch("{{ route('recapt.data') }}", {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content, // CSRF token pour sécurité
+                'Content-Type': 'application/json', // Envoyer des données au format JSON
+            },
+            body: JSON.stringify(allStepData), // Convertir les données en JSON avant l'envoi
+        });
+
+        const data = await response.json(); // Attendre la réponse JSON du serveur
+
+        if (data.success) {
+            console.log("Données envoyées avec succès !");
+            // Vous pouvez rediriger ou traiter la réponse comme nécessaire
+        } else {
+            console.log("Erreur lors de l'envoi des données :", data.errors);
+        }
+    } catch (error) {
+        console.error("Erreur lors de l'envoi des données au serveur :", error);
+    }
+}
 
 
 
@@ -225,26 +305,26 @@
 
     // Envoi des données au serveur ----------------------------------------------------
     async function sendStepDataToServer() {
-    const data = collectStepData(); // Collecte des données de l'étape en cours (y compris les fichiers)
+        const data = collectStepData(); // Collecte des données de l'étape en cours (y compris les fichiers)
 
-    const response = await fetch('{{ route('test.submit') }}', {
-        method: 'POST',
-        headers: {
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content, // CSRF token pour sécurité
-        },
-        body: data, // Envoi de FormData directement, pas besoin de JSON.stringify
-    });
+        const response = await fetch('{{ route('test.submit') }}', {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content, // CSRF token pour sécurité
+            },
+            body: data, // Envoi de FormData directement, pas besoin de JSON.stringify
+        });
 
-    const responseData = await response.json(); // Récupération de la réponse JSON du serveur
+        const responseData = await response.json(); // Récupération de la réponse JSON du serveur
 
-    if (responseData.success) {
-        // Si les données sont validées, passer à l'étape suivante
-        goToNextStep();
-    } else {
-        // Afficher les erreurs de validation
-        showErrors(responseData.errors);
+        if (responseData.success) {
+            // Si les données sont validées, passer à l'étape suivante
+            goToNextStep();
+        } else {
+            // Afficher les erreurs de validation
+            showErrors(responseData.errors);
+        }
     }
-}
 
 
     // Afficher les erreurs -----------------------------------------------------------
@@ -279,17 +359,18 @@
         showStep(); 
     }
 
+    // Renitialiser le formulaire --------------------------------------------------------
     function resetForm() {
         const form = document.getElementById('membership-form');
         const inputs = form.querySelectorAll('input, select, textarea');
         
         inputs.forEach(input => {
             if (input.type === 'file') {
-                input.value = ''; // Réinitialiser les fichiers
+                input.value = ''; 
             } else if (input.type === 'checkbox' || input.type === 'radio') {
-                input.checked = false; // Réinitialiser les cases à cocher et les boutons radio
+                input.checked = false; 
             } else {
-                input.value = ''; // Réinitialiser les autres champs
+                input.value = ''; 
             }
         });
 
@@ -299,13 +380,13 @@
         showStep();
     }
 
-
     // Fonction de navigation vers l'étape précédente
     document.getElementById('prevBtn').addEventListener('click', function () {
         goToPreviousStep();
     });
     // Événement pour le bouton "Suivant"
     document.getElementById('nextBtn').addEventListener('click', function () {
+        collectAllStepsData(); 
         sendStepDataToServer();
     });
 

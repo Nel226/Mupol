@@ -4,6 +4,23 @@
             {{ session('success') }}
         </x-succes-notification>
     @endif
+    @if (session('failedDetails'))
+        <x-succes-notification>
+            {{ session('failedDetails') }}
+        </x-succes-notification>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const errors = @json(session('failedDetails'));
+                if (errors && errors.length > 0) {
+                    let message = errors.join('\n');
+                    alert('Détails des lignes échouées:\n' + message);
+                } else {
+                    console.error('Aucune erreur trouvée ou format incorrect.');
+                }
+            });
+        </script>
+    @endif
+
     <x-top-navbar-admin />
 
     <div id="sidebar" class="lg:block z-20 hidden bg-blue-800 w-64 h-screen fixed rounded-none border-none">
@@ -87,7 +104,8 @@
                         
                         <x-data-table class="hidden" id="table-mutualistes" :headers="['N', 'Nom', 'Prénom(s)', 'Genre', 'Code carte', 'Date création']">
                             @foreach ($mutualistes as $index => $mutualiste)
-                                <tr class=" hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                                <tr onclick="redirectTo('{{ route($mutualiste->type == 'adherent' ? 'adherents.show' : 'ayantsdroits.show', $mutualiste->id) }}')">
+
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $mutualiste->nom }}</td>
                                     <td>{{ $mutualiste->prenom }}</td>
@@ -149,7 +167,7 @@
                                 <button class="btn">{{ __('Ajouter Ayant Droit') }}</button>
                             </a>
                         </div>
-                        <x-data-table id="table_ayantsdroit" :headers="['N', 'Nom', 'Prénom(s)', 'Genre', 'Date de naissance', 'Relation', 'Date de création']">
+                        <x-data-table id="table_ayantsdroit" :headers="['N', 'Nom', 'Prénom(s)', 'Genre', 'Date de naissance', 'Relation', 'Date de création', 'Code']">
                             @foreach ($ayantsDroit as $index => $ayantDroit)
                                 <tr onclick="redirectTo('{{ route('ayantsdroits.show', $ayantDroit->id) }}')" class="cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700">
                                     <td>{{ $loop->iteration }}</td>
@@ -159,6 +177,8 @@
                                     <td>{{ $ayantDroit->date_naissance }}</td>
                                     <td>{{ $ayantDroit->relation }}</td>
                                     <td>{{ $ayantDroit->created_at }}</td>
+                                    <td>{{ $ayantDroit->code }}</td>
+
                                 </tr>
                             @endforeach
                         </x-data-table>
@@ -184,6 +204,7 @@
                         
                     </div>
                 </x-tabs>
+               
             @endrole
         </div>
        

@@ -1032,7 +1032,8 @@ body{
 .why-choose .choose-right{
 	height:100%;
 	width:100%;
-	background-image:url('img/video-bg.jpg');
+	background-image: url('https://mupol.bf/videos/capture_video.png'); /* URL complète */
+
 	background-size:cover;
 	background-position:center;
 	background-repeat:no-repeat;
@@ -2428,8 +2429,8 @@ body{
 .news-single .social-share li.facebook a{
 	background:#5d82d1;
 }
-.news-single .social-share li.twitter a{
-	background:#40bff5;
+.news-single .social-share li.whatsapp a{
+	background:#4ea56e !important;
 }
 .news-single .social-share li.google-plus a{
 	background:#eb5e4c;

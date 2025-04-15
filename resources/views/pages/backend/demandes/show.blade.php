@@ -173,15 +173,72 @@
                             
                         </div>
                     @else
+                        <p class="text-sm font-semibold text-right space-x-1">
+                            <a class="text-primary1 underline cursor-pointer" onclick="previewFile('{{ route('preview-formulaire-adhesion', ['id' => $demande->id]) }}', 'Formulaire d’adhésion')">
+                                <i class="fa fa-list-alt"></i>
+                                Formulaire d’adhésion
+                            </a>
+                            <a class="text-primary1 underline cursor-pointer" onclick="previewFile('{{ route('preview-fiche-cession-volontaire', ['id' => $demande->id]) }}', 'Fiche de cession volontaire')">
+                                <i class="fa fa-list-alt"></i>
+                                Fiche de cession volontaire
+                            </a>
+                            
+                        </p>
+                        <p class="text-sm font-semibold text-right space-x-1">
+                            
+                            <a href="{{ route('adherents.envoi-fiche-cession-salaire', $demande->id) }}">
+                                <button class="btn">{{ __('Envoyer la fiche de cession de salaire') }}</button>
+                            </a>
+                            
+                        </p>
+                        
+                        
+                        <div id="filePreview" class="mt-1 hidden transition-opacity duration-300 ease-in-out">
+                            <div class="flex justify-between items-center bg-gray-100 px-4 py-2 border-b">
+                                <h3 id="previewTitle" class="text-sm font-semibold"></h3>
+                                <button onclick="closePreview()" class="text-red-500 hover:text-red-700 font-bold text-xl">&times;</button>
+                            </div>
+                            <iframe id="previewFrame" src="" class="w-full h-screen  border"></iframe>
+                        </div>
+                        
+                        <script>
+                            function previewFile(fileUrl, title) {
+                                fetch(fileUrl, { method: 'HEAD' }) // Vérifie si le fichier existe
+                                    .then(response => {
+                                        if (response.ok) {
+                                            document.getElementById('previewFrame').src = fileUrl;
+                                            document.getElementById('previewTitle').innerText = title;
+                                            document.getElementById('filePreview').classList.remove('hidden');
+                                        } else {
+                                            alert("Le fichier demandé n'existe pas encore.");
+                                        }
+                                    })
+                                    .catch(error => {
+                                        alert("Erreur lors de la récupération du fichier.");
+                                    });
+                            }
+                        
+                            function closePreview() {
+                                document.getElementById('filePreview').classList.add('hidden');
+                                document.getElementById('previewFrame').src = ""; // Réinitialise l'iframe
+                            }
+                        </script>
+                    
+                        
+                    
+                        
                         <div class="bg-white shadow-md rounded-lg p-6">
                 
-                            <h3 class="text-lg font-semibold text-gray-800 mb-4 text-center">Références </h3>
+                            <h3 class="text-base font-semibold text-gray-800 mb-4 ">
+                                <span class="text-white bg-blue-800 rounded-full py-0.5 px-2">1</span>
+                                Références 
+                            </h3>
                             
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-600 text-sm">
                                 <p><strong>Matricule :</strong> {{ $demande->matricule }}</p>
                                 <p><strong>NIP :</strong> {{ $demande->nip }}</p>
                                 <p><strong>CNIB :</strong> {{ $demande->cnib }}</p>
-                                <p><strong>Adresse :</strong> {{ $demande->adresse_permanente }}</p>
+                                <p><strong>Adresse :</strong> {{ $demande->adresse }}</p>
                                 <p><strong>Téléphone :</strong> {{ $demande->telephone }}</p>
                                 <p><strong>Email :</strong> {{ $demande->email }}</p>
                             </div>
@@ -189,11 +246,14 @@
                 
                         <!-- État civil -->
                         <div class="bg-white shadow-md rounded-lg p-6">
-                            <h3 class="text-xl font-semibold text-gray-800 mb-4">État civil</h3>
+                            <h3 class="text-base font-semibold text-gray-800 mb-4">
+                                <span class="text-white bg-blue-800 rounded-full py-0.5 px-2">2</span>
+                                État civil
+                            </h3>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-600 text-sm">
                                 <p><strong>Nom :</strong> {{ $demande->nom }}</p>
                                 <p><strong>Prénom(s) :</strong> {{ $demande->prenom }}</p>
-                                <p><strong>Lieu de naissance :</strong> {{ $demande->lieu_naissance }}</p>
+                                <p><strong>Lieu de naissance :</strong> {{ $demande->departement }}, {{ $demande->ville }}</p>
                                 <p><strong>Genre :</strong> {{ $demande->genre == 'masculin' ? 'Masculin' : 'Féminin' }}</p>
                                 <p><strong>Nom du père :</strong> {{ $demande->nom_pere }}</p>
                                 <p><strong>Nom de la mère :</strong> {{ $demande->nom_mere }}</p>
@@ -202,27 +262,30 @@
                 
                         <!-- Informations personnelles -->
                         <div class="bg-white shadow-md rounded-lg p-6">
-                            <h3 class="text-xl font-semibold text-gray-800 mb-4">Informations personnelles</h3>
+                            <h3 class="text-base font-semibold text-gray-800 mb-4">
+                                <span class="text-white bg-blue-800 rounded-full py-0.5 px-2">3</span>
+                                Informations personnelles
+                            </h3>
 
                             <!-- Situation matrimoniale -->
                             <p class="text-gray-600 text-sm mb-2"><strong>Situation matrimoniale :</strong> {{ $demande->situation_matrimoniale }}</p>
                         
                             <!-- Personnes à prévenir en cas de besoin -->
                             <div class="mt-6 bg-gray-50 shadow-md rounded-lg p-4">
-                                <h4 class="text-lg font-semibold text-gray-800 border-b border-gray-200 pb-2 mb-4">Personnes à prévenir en cas de besoin</h4>
+                                <h4 class="text-sm font-semibold text-gray-800 border-b border-gray-200 pb-2 mb-4">Personne à prévenir en cas de besoin</h4>
                                 
                                 <div class="flex items-center mb-3">
-                                    <span class="material-icons text-gray-500 mr-2">person</span>
+                                    <i class=" fa fa-user text-gray-500 mr-2"></i>
                                     <p class="text-gray-700 text-sm"><strong>Nom & Prénom(s) :</strong> {{ $demande->nom_prenom_personne_besoin }}</p>
                                 </div>
 
                                 <div class="flex items-center mb-3">
-                                    <span class="material-icons text-gray-500 mr-2">home</span>
+                                    <i class=" fa fa-home text-gray-500 mr-2"></i>
                                     <p class="text-gray-700 text-sm"><strong>Lieu de résidence :</strong> {{ $demande->lieu_residence }}</p>
                                 </div>
 
                                 <div class="flex items-center">
-                                    <span class="material-icons text-gray-500 mr-2">phone</span>
+                                    <i class=" fa fa-phone text-gray-500 mr-2"></i>
                                     <p class="text-gray-700 text-sm"><strong>Téléphone :</strong> {{ $demande->telephone_personne_prevenir }}</p>
                                 </div>
                             </div>
@@ -230,70 +293,85 @@
                         </div>
                 
                         <div class="bg-white shadow-md rounded-lg p-6">
-                            <h3 class="text-xl font-semibold text-gray-800 mb-4">Liste des ayants droits</h3>
+                            <h3 class="text-base font-semibold text-gray-800 mb-4">
+                                Liste des ayants droit
+                            </h3>
                             <div class="overflow-x-auto">
                                 @if ($demande->nombreAyantsDroits > 0)
                                 <table class="w-full border-collapse bg-white shadow-md rounded-lg overflow-hidden mt-6">
                                     <thead>
-                                        <tr class="bg-gray-100 text-gray-600 uppercase text-sm leading-normal">
-                                            <th class="py-3 px-4 text-center">Photo</th>
-                                            <th class="py-3 px-4">Nom</th>
-                                            <th class="py-3 px-4">Prénom(s)</th>
-                                            <th class="py-3 px-4">Sexe</th>
-                                            <th class="py-3 px-4">Lien de parenté</th>
-                                            <th class="py-3 px-4 text-center">CNIB</th>
-                                            <th class="py-3 px-4 text-center">Extrait</th>
+                                        <tr class="bg-gray-100 text-gray-600 uppercase text-xs leading-normal">
+                                            <th class="py-1 px-4 text-center">Photo</th>
+                                            <th class="py-1 px-4">Nom</th>
+                                            <th class="py-1 px-4">Prénom(s)</th>
+                                            <th class="py-1 px-4">Sexe</th>
+                                            <th class="py-1 px-4">Lien de parenté</th>
+                                            <th class="py-1 px-4 text-center">CNIB</th>
+                                            <th class="py-1 px-4 text-center">Extrait</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($demande->ayantsDroits as $index => $ayantDroit)
-                                            <tr class="border-b border-gray-200 hover:bg-gray-100">
-                                                <!-- Photo -->
-                                                <td class="py-3 px-4 text-center">
-                                                    {{-- <img 
-                                                        src="{{ asset($ayantDroit['photo']) }}" 
-                                                        alt="Photo de {{ $ayantDroit['nom'] }}" 
-                                                        class="w-10 h-10 rounded-full object-cover mx-auto"
-                                                    /> --}}
-                                                </td>
-                            
-                                                <!-- Nom -->
-                                                <td class="py-3 px-4">{{ $ayantDroit['nom'] }}</td>
-                            
-                                                <!-- Prénom(s) -->
-                                                <td class="py-3 px-4">{{ $ayantDroit['prenom'] }}</td>
-                            
-                                                <!-- Sexe -->
-                                                <td class="py-3 px-4">{{ ucfirst($ayantDroit['sexe']) }}</td>
-                            
-                                                <!-- Lien de parenté -->
-                                                <td class="py-3 px-4">{{ $ayantDroit['relation'] }}</td>
-                            
-                                                {{-- <!-- CNIB -->
-                                                <td class="py-3 px-4 text-center">
-                                                    @if($ayantDroit['cnib'])
-                                                        {{ $ayantDroit['cnib'] }}
-                                                    @else
-                                                        <span class="text-gray-500">Non disponible</span>
-                                                    @endif
-                                                </td> --}}
-                            
-                                                <!-- Extrait -->
-                                                <td class="py-3 px-4 text-center">
-                                                    @if($ayantDroit['extrait'])
-                                                        <a 
-                                                            href="{{ asset($ayantDroit['extrait']) }}" 
-                                                            target="_blank" 
-                                                            class="text-blue-600 hover:underline"
-                                                        >
-                                                            Voir
-                                                        </a>
-                                                    @else
-                                                        <span class="text-gray-500">Non disponible</span>
-                                                    @endif
+                                        @if (!empty($demande->ayantsDroits) && is_iterable($demande->ayantsDroits))
+                                            @foreach ($demande->ayantsDroits as $index => $ayantDroit)
+                                                <tr class="border-b border-gray-200 hover:bg-gray-100">
+                                                    <!-- Photo -->
+                                                    <td class="py-3 px-4 text-center">
+                                                        {{-- <img 
+                                                            src="{{ asset($ayantDroit['photo']) }}" 
+                                                            alt="Photo de {{ $ayantDroit['nom'] }}" 
+                                                            class="w-10 h-10 rounded-full object-cover mx-auto"
+                                                        /> --}}
+                                                    </td>
+                                
+                                                    <!-- Nom -->
+                                                    <td class="py-3 px-4">{{ $ayantDroit['nom'] }}</td>
+                                
+                                                    <!-- Prénom(s) -->
+                                                    <td class="py-3 px-4">{{ $ayantDroit['prenom'] }}</td>
+                                
+                                                    <!-- Sexe -->
+                                                    <td class="py-3 px-4">{{ ucfirst($ayantDroit['sexe']) }}</td>
+                                
+                                                    <!-- Lien de parenté -->
+                                                    <td class="py-3 px-4">{{ $ayantDroit['relation'] }}</td>
+                                
+                                                    {{-- <!-- CNIB -->
+                                                    <td class="py-3 px-4 text-center">
+                                                        @if($ayantDroit['cnib'])
+                                                            {{ $ayantDroit['cnib'] }}
+                                                        @else
+                                                            <span class="text-gray-500">Non disponible</span>
+                                                        @endif
+                                                    </td> --}}
+                                
+                                                    <!-- Extrait -->
+                                                    <td class="py-3 px-4 text-center">
+                                                        @php
+                                                            $extrait = $ayantDroit['extrait'] ?? $ayantDroit['extrait_path'] ?? null;
+                                                        @endphp
+                                                    
+                                                        @if($extrait)
+                                                            <a 
+                                                                href="{{ asset($extrait) }}" 
+                                                                target="_blank" 
+                                                                class="text-blue-600 hover:underline"
+                                                            >
+                                                                Voir
+                                                            </a>
+                                                        @else
+                                                            <span class="text-gray-500">Non disponible</span>
+                                                        @endif
+                                                    </td>
+                                                    
+                                                </tr>
+                                            @endforeach
+                                        @else
+                                            <tr>
+                                                <td colspan="5" class="py-3 px-4 text-center text-gray-500">
+                                                    Aucun ayant droit disponible
                                                 </td>
                                             </tr>
-                                        @endforeach
+                                        @endif
                                     </tbody>
                                 </table>
                             @else
@@ -306,31 +384,28 @@
 
                         <!-- Informations profesionnelles -->
                         <div class="bg-white shadow-md rounded-lg p-6">
-                            <h3 class="text-xl font-semibold text-gray-800 mb-4">Informations Professionnelles</h3>
-                            <!-- Personnel Retraité -->
-                            @if ($demande->statut === 'personnel_retraite')
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-600 text-sm">
-                                <p><strong>Statut :</strong> {{ $demande->statut }}</p>
-                                <p><strong>Grade :</strong> {{ $demande->grade }}</p>
-                                <p><strong>Date de départ à la retraite :</strong> {{ $demande->departARetraite }} <span class="text-xs">(JJ/MM/AAAA)</span></p>
-                                <p><strong>N° CARFO :</strong> {{ $demande->numeroCARFO }}</p>
-                            </div>
-                            
-                            @endif
-                            
-                            <!-- Personnel en Activité -->
-                            @if ($demande->statut === 'personnel_active')
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-600 text-sm">
-                                <p><strong>Statut :</strong> {{ $demande->statut }}</p>
+                            <h3 class="text-base font-semibold text-gray-800 mb-4">
+                                <span class="text-white bg-blue-800 rounded-full py-0.5 px-2">4</span>
 
+                                Informations Professionnelles
+                            </h3>
+                            <!-- Personnel Retraité -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-600 text-sm">
+                                <p><strong>Statut :</strong> {{ $demande->statut }}</p>
                                 <p><strong>Grade :</strong> {{ $demande->grade }}</p>
-                                <p><strong>Date d&apos;intégration :</strong> {{ $demande->dateIntegration }} <span class="text-xs">(JJ/MM/AAAA)</span></p>
-                                <p><strong>Date de départ à la retraite :</strong> {{ $demande->dateDepartARetraite }} </p>
-                                <p><strong>Direction :</strong> {{ $demande->direction }}</p>
-                                <p><strong>Service :</strong> {{ $demande->service }}</p>
+                                @if ($demande->statut === 'Retraité(e)')
+                                    <p><strong>Date de départ à la retraite :</strong> {{ $demande->departARetraite }} <span class="text-xs">(JJ/MM/AAAA)</span></p>
+                                    <p><strong>N° CARFO :</strong> {{ $demande->numeroCARFO }}</p>
+                                @else
+                                    <p><strong>Date d&apos;intégration :</strong> {{ $demande->dateIntegration }} <span class="text-xs">(JJ/MM/AAAA)</span></p>
+                                    <p><strong>Date de départ à la retraite :</strong> {{ $demande->dateDepartARetraite }} </p>
+                                    <p><strong>Direction :</strong> {{ $demande->direction }}</p>
+                                    <p><strong>Service :</strong> {{ $demande->service }}</p>
+                                @endif
                             </div>
                             
-                            @endif
+                            
+                            
                         </div>
                     @endif
                 </div>
@@ -386,16 +461,15 @@
                             }
                         </script>
                     
-                        @if (!is_null($adherent))
-                            <form action="{{ route('adherents.accept', $demande->id) }}" method="post">
-                                @csrf
-                                <button type="submit" class="btn">
-                                    <i class=" fa fa-check mr-2"></i>
+                        <form action="{{ route('adherents.accept', $demande->id) }}" method="post">
+                            @csrf
+                            <button type="submit" class="btn">
+                                <i class=" fa fa-check mr-2"></i>
 
-                                    Approuver
-                                </button>
-                            </form>
-                        @endif
+                                Approuver
+                            </button>
+                        </form>
+                       
                     @else
                         
                         <i class="fa fa-check-circle text-green-600"></i>

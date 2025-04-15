@@ -304,46 +304,70 @@ async function sendDataToRecapt(allStepData) {
 
 
     // Envoi des données au serveur ----------------------------------------------------
-    async function sendStepDataToServer() {
-        const data = collectStepData(); // Collecte des données de l'étape en cours (y compris les fichiers)
+async function sendStepDataToServer() {
+    const data = collectStepData(); // Collecte des données de l'étape en cours (y compris les fichiers)
 
-        const response = await fetch('{{ route('test.submit') }}', {
-            method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content, // CSRF token pour sécurité
-            },
-            body: data, // Envoi de FormData directement, pas besoin de JSON.stringify
-        });
+    const response = await fetch('{{ route('test.submit') }}', {
+        method: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content, // CSRF token pour sécurité
+        },
+        body: data, // Envoi de FormData directement, pas besoin de JSON.stringify
+    });
 
-        const responseData = await response.json(); // Récupération de la réponse JSON du serveur
+    const responseData = await response.json(); // Récupération de la réponse JSON du serveur
 
-        if (responseData.success) {
-            // Si les données sont validées, passer à l'étape suivante
-            goToNextStep();
-        } else {
-            // Afficher les erreurs de validation
-            showErrors(responseData.errors);
-        }
+    if (responseData.success) {
+        // Si les données sont validées, passer à l'étape suivante
+        goToNextStep();
+    } else {
+        // Afficher les erreurs de validation
+        showErrors(responseData.errors);
     }
+}
 
 
     // Afficher les erreurs -----------------------------------------------------------
-    function showErrors(errors) {
-        // Réinitialiser les erreurs de la précédente étape
-        const errorMessages = document.querySelectorAll('.error-message');
-        errorMessages.forEach(message => message.remove());
+    // Fonction qui convertit une clé d'erreur (format dot) en sélecteur correspondant au nom de l'input
+function convertErrorKeyToInputName(key) {
+    // Si la clé contient un point, on la transforme
+    if (key.indexOf('.') !== -1) {
+        const parts = key.split('.');
+        // Le premier élément reste tel quel, puis on enveloppe chaque partie suivante entre crochets
+        return parts.shift() + parts.map(part => `[${part}]`).join('');
+    }
+    return key;
+}
 
-        // Afficher les erreurs pour les champs spécifiques
+// Fonction pour afficher les erreurs sur le formulaire
+    function showErrors(errors) {
+        // Supprimer les anciens messages d'erreur
+        document.querySelectorAll('.error-message').forEach(message => message.remove());
+
+        // Parcourir chaque champ ayant une erreur
         Object.keys(errors).forEach(field => {
-            const input = document.querySelector(`[name="${field}"]`);
+            const errorMessages = errors[field].join(', ');
+
+            // Essayer de récupérer l'input avec le nom tel quel
+            let input = document.querySelector(`[name="${field}"]`);
+
+            // Si l'input n'est pas trouvé et que la clé contient un point, essayer la conversion
+            if (!input && field.indexOf('.') !== -1) {
+                const convertedName = convertErrorKeyToInputName(field);
+                input = document.querySelector(`[name="${convertedName}"]`);
+            }
+
+            // Si l'input est trouvé, ajouter un élément pour l'erreur
             if (input) {
                 const errorDiv = document.createElement('div');
-                errorDiv.classList.add('error-message', 'text-red-500', 'mt-2');
-                errorDiv.textContent = errors[field].join(', ');
+                errorDiv.className = "error-message text-red-500 text-xs mt-2";
+                errorDiv.innerText = errorMessages;
+                // Vous pouvez ajuster l'endroit où l'erreur est affichée (ici, on l'ajoute dans le parent direct)
                 input.parentElement.appendChild(errorDiv);
             }
         });
     }
+
 
     // Navigation vers l'étape suivante ----------------------------------------------
     function goToNextStep() {

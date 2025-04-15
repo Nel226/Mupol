@@ -7,7 +7,7 @@
         <!-- Modale -->
         @if(session('success'))
         <div x-data="{ open: true }" x-show="open" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-            <div class="bg-white z-50 rounded-lg shadow-lg p-4 max-w-sm">
+            <div class="bg-white z-50 rounded-lg shadow-lg p-4 max-w-sm mx-0.5">
                 <h2 class="text-xl font-semibold text-green-600">Envoyée !</h2>
                 <p class="mt-4 text-gray-700 text-sm">{{ session('success') }}</p>
                 <div class="mt-6 text-right">
@@ -56,6 +56,7 @@
                                     placeholder="Entrez votre email" />
                                     <i class="fa fa-envelope absolute right-4 text-gray-400"></i>
                                 </div>
+                                
                                 <label for="password" class="block text-gray-600">Mot de passe</label>
                                 <div class="relative flex items-center">
                                     
@@ -64,6 +65,13 @@
                                     placeholder="Entrez votre mot de passe" />
     
                                     <i class="fa fa-eye absolute right-4 text-gray-400 cursor-pointer" onclick="togglePasswordVisibility()"></i>
+                                </div>
+                                <div class="flex justify-end">
+
+                                    <!-- Forgot password -->
+                                    <div class=" text-primary1 text-center text-sm">
+                                        <a href="{{ route('all-users.password.request') }}" class="hover:underline">Mot de passe oublié ?</a>
+                                    </div>
                                 </div>
                                 <script>
                                     function togglePasswordVisibility() {
@@ -93,10 +101,7 @@
                                     Se connecter
                                 </x-primary-button>
                             </form>
-                            {{-- <!-- Sign up  Link -->
-                            <div class="mt-6 text-primary1 text-center">
-                                <a href="{{ route('formulaire-adhesion') }}" class="hover:underline">Adhérer maintenant</a>
-                            </div> --}}
+                            
                             <!-- Sign up  Link -->
                             <div class="mt-6 text-primary1 text-center">
                                 

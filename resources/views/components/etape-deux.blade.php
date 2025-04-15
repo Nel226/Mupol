@@ -4,7 +4,7 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         <!-- Nom(s) -->
         <div>
-            <label class="block text-gray-700 text-sm font-bold mb-1" for="nom">Nom(s)</label>
+            <label class="block text-gray-700 text-sm font-bold mb-1" for="nom">Nom</label>
             <input required name="nom" id="nom" type="text"
                 class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-0 sm:mb-4">
             <span id="error-nom" class="text-red-500 text-xs"></span>
@@ -22,14 +22,27 @@
         <div>
             <label class="block text-gray-700 text-sm font-bold mb-1">Genre</label>
             <div class="flex items-center mb-4">
-                <input required name="genre" id="masculin" type="radio" value="Masculin" class="mr-2">
+                <input  name="genre" id="masculin" type="radio" value="M" class="mr-2">
                 <label for="masculin" class="mr-6">Masculin</label>
 
-                <input name="genre" id="feminin" type="radio" value="Féminin" class="mr-2">
+                <input  name="genre" id="feminin" type="radio" value="F" class="mr-2">
                 <label for="feminin">Féminin</label>
             </div>
             <span id="error-genre" class="text-red-500 text-xs"></span>
         </div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const genreChecked = document.querySelector('input[name="genre"]:checked');
+                
+                if (genreChecked) {
+                    console.log("Une valeur est sélectionnée par défaut : ", genreChecked.value);
+                } else {
+                    console.log("Aucune valeur sélectionnée par défaut.");
+                }
+            });
+            
+        </script>
+
     </div>
 
     <!-- Lieu de naissance -->

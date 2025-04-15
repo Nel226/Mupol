@@ -236,7 +236,7 @@
             <p>Devant nous, <strong>..........................................................</strong>, Président(e) du Tribunal de Grande Instance<br>
             Assisté de <strong>..........................................................</strong>, Greffier audit Tribunal<br>
             A comparu Mr/Mme <strong>{{$demandeAdhesion->nom}} {{$demandeAdhesion->prenom}}</strong>, Grade : <strong>{{$demandeAdhesion->grade}}</strong><br>
-            Matricule <strong>{{$demandeAdhesion->matricule}}</strong> en service <strong>{{$demandeAdhesion->matricule}}</strong>.</p>
+            Matricule <strong>{{$demandeAdhesion->matricule}}</strong> en service à <strong>{{$demandeAdhesion->direction}}</strong>.</p>
             <p>Qui déclare qu'il/elle est employé(e) par le MATDS<br>
             Qu'il/elle désire céder librement et de manière permanente ou non permanente par les présentes à la MU-POL les sommes indiquées dans le tableau ci-dessous :</p>
         </div>

@@ -18,6 +18,10 @@ use App\Http\Controllers\TestController;
 use App\Http\Controllers\Frontend\PrestationController;
 use App\Http\Controllers\Frontend\PartenaireController;
 
+use App\Http\Controllers\Frontend\ForgotPasswordController;
+
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -36,6 +40,7 @@ Route::get('/contacts', [AccueilController::class, 'contacts'])->name(name: 'con
 Route::get('/services', [AccueilController::class, 'services'])->name(name: 'services');
 Route::get('/en-construction', [AccueilController::class, 'enConstruction'])->name(name: 'en-construction');
 Route::get('/partenaires/liste', [AccueilController::class, 'partenaires'])->name('liste-partenaires');
+Route::get('/articles/{id}', [AccueilController::class, 'articleDetails'])->name('articles-details');
 
 Route::get('/formulaire-adhesion/{adherentType}', [AccueilController::class, 'newAdhesion'])->name(name: 'formulaire-adhesion');
 Route::post('/final-old-adhesion', [AccueilController::class, 'oldAdhesion'])->name(name: 'final-old-adhesion');
@@ -67,7 +72,7 @@ Route::get('/formulaire-adhesion-recapitulatif', function () {
     return view('components.formulaire-adhesion'); 
 })->name('formulaire.adhesion.recapitulatif');
 
-Route::post('/finalisation-adhesion', [AccueilController::class, 'finalAdhesion'])->name('finalisation-adhesion');
+Route::get('/finalisation-adhesion/{id}', [AccueilController::class, 'finalAdhesion'])->name('finalisation-adhesion');
 Route::get('/final-demande-adhesion', [AccueilController::class, 'confirmationAdhesion'])->name('final-demande-adhesion');
 
 Route::get('/cession-volontaire/{id}', [AccueilController::class, 'showCessionVolontaire'])->name('showCessionVolontaire');
@@ -77,6 +82,15 @@ Route::get('/impression-fiche-cession/{id}', [AccueilController::class, 'imprime
 // Detection automatique du Controller en fonction du User
 Route::get('/login/user', [UserLoginDetectorController::class, 'showLoginForm'])->name('user.login');
 Route::post('/login/user', [UserLoginDetectorController::class, 'authenticate']);
+   
+
+Route::get('all-users/password/forgot', [ForgotPasswordController::class, 'showForgotPasswordForm'])->name('all-users.password.request');
+Route::post('all-users/password/email', [ForgotPasswordController::class, 'sendResetLink'])->name('all-users.password.email');
+Route::get('all-users/password/reset/{token}', [ForgotPasswordController::class, 'showResetForm'])->name('all-users.password.reset');
+Route::post('all-users/password/reset', [ForgotPasswordController::class, 'resetPassword'])->name('all-users.password.update');
+
+
+
 
 Route::middleware('auth:partenaire')->group(function () {
     

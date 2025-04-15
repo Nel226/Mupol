@@ -7,11 +7,18 @@ use App\Helpers\PasswordHelper;
 use App\Http\Controllers\Controller;
 use App\Mail\ConfirmationCreationCompte;
 use App\Models\Adherent;
+use App\Models\AyantDroit;
 use App\Models\DemandeAdhesion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Request as FacadesRequest;
+use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\Response;
+use App\Mail\Adherent\FicheCessionVolontaire; 
+
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class DemandeController extends Controller
 {
@@ -202,11 +209,69 @@ class DemandeController extends Controller
         if (!$demande) {
             return redirect()->back()->withErrors(['error' => 'Demande introuvable.']);
         }
-    
+
+        AyantDroit::whereIn('adherent_id', Adherent::where('demande_id', $demande->id)->pluck('id'))->delete();
+
+        Adherent::where('demande_id', $demande->id)->delete();
+        
         $demande->delete();
     
         return redirect()->route('demandes.index')->with('success', 'La demande a été rejetée avec succès.');
     }
-    
+
+
+    public function previewForm($id)
+    {
+        $demandeAdhesion = demandeAdhesion::findOrFail($id);
+
+        $data = [
+            'demandeAdhesion' => $demandeAdhesion,
+            'logoPath' => public_path('images/logofinal.png'), // Path to your logo image
+            'ayantsDroits' => json_decode($demandeAdhesion->ayantsDroits, true),
+        ];
+        $pdf = Pdf::loadView('pages.frontend.adherents.fiches.formulaire_adhesion', $data);
+
+        $fileName = "Formulaire_adhesion{$id}.pdf";
+        $filePath = "temp/{$fileName}";
+        Storage::put($filePath, $pdf->output());
+
+        return response()->file(storage_path("app/$filePath"), [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="'.$fileName.'"'
+        ]);
+    }
+
+    public function previewFiche($id)
+    {
+        $demandeAdhesion = demandeAdhesion::findOrFail($id);
+
+        $data = [
+            'demandeAdhesion' => $demandeAdhesion,
+            'logoPath' => public_path('images/logofinal.png'), // Path to your logo image
+            'ayantsDroits' => json_decode($demandeAdhesion->ayantsDroits, true),
+        ];
+        $pdf = Pdf::loadView('pages.frontend.adherents.fiches.cession_volontaire', $data);
+
+        $fileName = "Fiche_cession_volontaire_salaire{$id}.pdf";
+        $filePath = "temp/{$fileName}";
+        Storage::put($filePath, $pdf->output());
+
+        return response()->file(storage_path("app/$filePath"), [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="'.$fileName.'"'
+        ]);
+    }
+
+    public function envoiFicheCessionSalaire($id)
+    {
+        $demandeAdhesion = DemandeAdhesion::findOrFail($id);
+       
+       
+        $pdf = Pdf::loadView('pages.frontend.adherents.fiches.cession_volontaire', ['demandeAdhesion' => $demandeAdhesion]);
+        Mail::to($demandeAdhesion->email)->send(new FicheCessionVolontaire($demandeAdhesion, $pdf));
+        return redirect()->back()->with('success', 'La fiche a été envoyée avec succès.');
+
+    }
+        
 
 }

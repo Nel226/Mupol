@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Helpers\DemandeCategorieHelper;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
@@ -33,18 +34,23 @@ class MembershipController extends Controller
     // Étape 1 : Informations personnelles
     if ($currentStep == 1) {
         $rules = [
-            'matricule' => 'required|string|max:255',
+            'matricule' => 'required|integer|unique:adherents,matricule',
             'nip' => 'required|string|max:255',
             'cnib' => 'required|string|max:255',
             'delivree' => 'required|date',
-            'expire' => 'nullable|date',
+            'expire' => 'required|date',
             'adresse_permanente' => 'required|string|max:255',
             'telephone' => 'required|numeric',
-            'email' => 'required|email|max:255',
+            'email' => 'required|email|max:255|unique:adherents,email',
+
         ];
         $messages = [
             'matricule.required' => 'Le matricule est requis.',
             'nip.required' => 'Le NIP est requis.',
+            'email.unique' => 'Cet email est déjà utilisé. Veuillez en choisir un autre.',
+            'matricule.unique' => 'Matricule déjà inscrit.',
+
+
         ];
 
     }
@@ -53,7 +59,7 @@ class MembershipController extends Controller
         $rules = [
             'nom' => 'required|string|max:255',
             'prenom' => 'required|string|max:255',
-            'genre' => 'required|string|max:255',
+            'genre' => 'required|string|max:10',
             'departement' => 'required|string|max:255',
             'ville' => 'required|string|max:255',
             'pays' => 'required|string|max:255',
@@ -71,6 +77,8 @@ class MembershipController extends Controller
             'telephone_personne_prevenir' => 'required|regex:/^(\+?[1-9][0-9]{0,2})?[0-9]{8,10}$/',
             'photo' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'nombreAyantsDroits' => 'required|integer|min:0|max:6',
+            'signature' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+
         ];
 
         if ($nombreAyantsDroits > 0) {
@@ -79,25 +87,42 @@ class MembershipController extends Controller
                 $rules["ayantsDroits.$i.prenom"] = 'required|string|max:255';
                 $rules["ayantsDroits.$i.sexe"] = 'required|in:M,F';
                 $rules["ayantsDroits.$i.date_naissance"] = 'required|date';
-                $rules["ayantsDroits.$i.relation"] = 'required|in:conjoint,enfant';
-                $rules["ayantsDroits.$i.cnib"] = ($ayantDroit['relation'] === 'conjoint') ? 'nullable|file|mimes:pdf|max:2048' : 'nullable';
-                $rules["ayantsDroits.$i.photo"] = 'nullable|image|mimes:jpeg,png,jpg|max:2048';
-                $rules["ayantsDroits.$i.extrait"] = 'nullable|file|mimes:pdf|max:2048';
+                $rules["ayantsDroits.$i.relation"] = 'required';
+                $rules["ayantsDroits.$i.cnib"] = ($ayantDroit['relation'] === 'Conjoint(e)') 
+                    ? 'required|file|mimes:pdf|max:2048' 
+                    : 'nullable|file|mimes:pdf|max:2048';
+                $rules["ayantsDroits.$i.photo"] = 'required|image|mimes:jpeg,png,jpg|max:2048';
+                
+                $rules["ayantsDroits.$i.extrait"] = 'required|file|mimes:pdf|max:2048';
             }
         }
+
+        // Définition des messages personnalisés
+        $messages = [
+            'photo.max' => 'La taille de la photo ne doit pas dépasser 2 Mo.',
+            'ayantsDroits.*.photo.max' => 'La taille de la photo de l\'ayant droit ne doit pas dépasser 2 Mo.',
+            'signature.max' => 'La taille de la photo de la signature ne doit pas dépasser 2 Mo.',
+
+            'ayantsDroits.*.extrait.max' => 'La taille de l\'extrait d\'acte de naissance ne doit pas dépasser 2 Mo.',
+            'ayantsDroits.*.cnib.max' => 'La taille du fichier CNIB ne doit pas dépasser 2 Mo.',
+        ];
 
     }
     // Étape 4 : Situation matrimoniale et Ayants-droits
     elseif ($currentStep == 4) {
         $rules = [
-            'statut' => 'required|in:personnel_retraite,personnel_active',
+            'statut' => 'required',
+            'region' => 'required',
+            'province' => 'required',
+            'localite' => 'required',
+
         ];
 
-        if ($request->statut === 'personnel_retraite') {
+        if ($request->statut === 'Retraité(e)') {
             $rules['grade'] = 'required|string|max:255';
             $rules['departARetraite'] = 'required|date';
             $rules['numeroCARFO'] = 'required|string|max:255';
-        } elseif ($request->statut === 'personnel_active') {
+        } elseif ($request->statut === 'Actif(ve)') {
             $rules['grade'] = 'required|string|max:255';
             $rules['dateIntegration'] = 'required|date';
             $rules['dateDepartARetraite'] = 'required|date|after_or_equal:dateIntegration';
@@ -121,92 +146,81 @@ class MembershipController extends Controller
     }
     // Étape 5 : Ajouter les données à validatedData et créer la demande
     elseif ($currentStep == 5) {
+        $validatedData = [];
 
-        if ($request->hasFile('photo')) {
-            $photoName = uniqid() . '.' . $request->file('photo')->getClientOriginalExtension();
-            $photoPath = $request->file('photo')->storeAs('public/photos/adherents', $photoName);
-            $validatedData['photo'] = 'photos/adherents/' . $photoName;
+        // Fonction pour gérer l'upload et lever une erreur si un fichier obligatoire est manquant
+        function uploadFile($file, $directory, $required = false)
+        {
+            if ($file) {
+                $fileName = uniqid() . '.' . $file->getClientOriginalExtension();
+                $file->storeAs("public/$directory", $fileName);
+                return "$directory/$fileName";
+            } elseif ($required) {
+                throw new \Exception("Le fichier dans '$directory' est obligatoire mais n'a pas été fourni.");
+            }
+            return null; // Retourne null si le fichier est optionnel et non fourni
         }
 
+        // Gestion des fichiers du demandeur
+        $validatedData['photo'] = uploadFile($request->file('photo'), 'adherents/photos', true);
+        $validatedData['signature'] = uploadFile($request->file('signature'), 'adherents/signatures', true);
+
+        // Gestion des fichiers des ayants droits
+        $nombreAyantsDroits = $request->input('nombreAyantsDroits', 0);
         if ($nombreAyantsDroits > 0) {
             for ($i = 0; $i < $nombreAyantsDroits; $i++) {
-                // Sauvegarder les fichiers des ayants droits
-                if ($request->hasFile("ayantsDroits.$i.photo")) {
-                    $photoName = uniqid() . '.' . $request->file("ayantsDroits.$i.photo")->getClientOriginalExtension();
-                    $photoPath = $request->file("ayantsDroits.$i.photo")->storeAs('public/photos/ayants_droits', $photoName);
-                    $validatedData["ayantsDroits.$i.photo"] = 'photos/ayants_droits/' . $photoName;
-                }
-    
-                if ($request->hasFile("ayantsDroits.$i.cnib")) {
-                    $cnibName = uniqid() . '.' . $request->file("ayantsDroits.$i.cnib")->getClientOriginalExtension();
-                    $cnibPath = $request->file("ayantsDroits.$i.cnib")->storeAs('public/pdf/cnibs', $cnibName);
-                    $validatedData["ayantsDroits.$i.cnib"] = 'pdf/cnibs/' . $cnibName;
-                }
-    
-                if ($request->hasFile("ayantsDroits.$i.extrait")) {
-                    $extraitName = uniqid() . '.' . $request->file("ayantsDroits.$i.extrait")->getClientOriginalExtension();
-                    $extraitPath = $request->file("ayantsDroits.$i.extrait")->storeAs('public/pdf/extraits', $extraitName);
-                    $validatedData["ayantsDroits.$i.extrait"] = 'pdf/extraits/' . $extraitName;
-                }
+                $validatedData["ayantsDroits.$i.photo"] = uploadFile(
+                    $request->file("ayantsDroits.$i.photo"),
+                    'ayants_droits/photos',
+                    true
+                );
+                $validatedData["ayantsDroits.$i.cnib"] = uploadFile(
+                    $request->file("ayantsDroits.$i.cnib"),
+                    'ayants_droits/cnibs'
+                );
+                $validatedData["ayantsDroits.$i.extrait"] = uploadFile(
+                    $request->file("ayantsDroits.$i.extrait"),
+                    'ayants_droits/extraits'
+                );
             }
         }
 
-        // Mettre à jour les données avec celles de validatedData
+        // Fusion des données avec celles validées
         $data = $request->all();
         foreach ($validatedData as $key => $value) {
-            // Vérifier si la clé concerne un ayant droit (exemple: "ayantsDroits.0.nom")
-            if (strpos($key, 'ayantsDroits') === 0) {
-                // Identifier l'index de l'ayant droit
-                preg_match('/ayantsDroits\.(\d+)/', $key, $matches);
-                $index = isset($matches[1]) ? $matches[1] : null;
-        
-                if ($index !== null && isset($data["ayantsDroits"][$index])) {
-                    // Si l'attribut de l'ayant droit existe, on remplace la valeur avec celle validée
-                    $data["ayantsDroits"][$index][$key] = $value;
+            if ($value) {
+                if (strpos($key, 'ayantsDroits') === 0) {
+                    preg_match('/ayantsDroits\.(\d+)/', $key, $matches);
+                    $index = $matches[1] ?? null;
+                    if ($index !== null && isset($data["ayantsDroits"][$index])) {
+                        $data["ayantsDroits"][$index][$key] = $value;
+                    }
+                } else {
+                    $data[$key] = $value;
                 }
-            } 
-            // Pour les autres données qui ne sont pas liées aux ayants droits
-            elseif (isset($data[$key])) {
-                $data[$key] = $value; // Remplacer la valeur par celle validée
             }
         }
-        
-        
-        Log:info('Données traitées :', $data);
-        // Vérifier si le token est présent dans les données
-        if (isset($data['_token'])) {
-            // Convertir le tableau d'ayants droits en une chaîne JSON
-            if (isset($data['ayantsDroits'])) {
-                $data['ayantsDroits'] = json_encode($data['ayantsDroits']);
-            }
 
-            // Ajoutez l'adresse si elle est disponible
-            if (isset($data['adresse_permanente'])) {
-                $data['adresse'] = $data['adresse_permanente'];
-            } else {
-                $data['adresse'] = 'Adresse non spécifiée';
-            }
-
-            // Ajouter la clé 'is_new' avant de créer la demande d'adhésion
-            $data['is_new'] = true;
-
-            Log::info('toutes les données', $validatedData);
-
-            $demandeAdhesion = DemandeAdhesion::create($data);
-
-            // Ajouter un log indiquant que la demande a été créée avec succès
-            Log::info('Demande d\'adhésion créée :', ['demande' => $demandeAdhesion]);
-
-            // Retourner une réponse JSON avec l'URL de redirection
-            return response()->json([
-                'success' => true,
-                'message' => 'Demande d\'adhésion créée avec succès.',
-                'redirect_url' => route('resume-adhesion', ['id' => $demandeAdhesion->id])
-            ]);
-
+        // Vérification et transformation des ayants droits en JSON
+        if (isset($data['ayantsDroits'])) {
+            $data['ayantsDroits'] = json_encode($data['ayantsDroits']);
         }
 
-        
+        // Ajout des informations supplémentaires
+        $data['adresse'] = $data['adresse_permanente'] ?? 'Adresse non spécifiée';
+        $data['is_new'] = true;
+        $data['categorie'] = DemandeCategorieHelper::determineCategorie($nombreAyantsDroits);
+        $data['code_carte'] = $data['matricule'] . '/00';
+
+        // Création de la demande d'adhésion
+        $demandeAdhesion = DemandeAdhesion::create($data);
+        Log::info('Demande d\'adhésion créée avec succès', ['demande' => $demandeAdhesion]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Demande d\'adhésion créée avec succès.',
+            'redirect_url' => route('finalisation-adhesion', ['id' => $demandeAdhesion->id])
+        ]);
     }
 
     // Si aucune étape n'est valide

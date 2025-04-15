@@ -62,13 +62,19 @@
                     <div class="flex justify-between">
                         <div>
                             @role('administrateur')
-                                <p class="text-sm font-semibold">{{__('Utilisateurs')}}</p>
-                                <h5 class="font-bold">{{$totalUsers}}</h5>
+                                <p class="text-sm font-semibold">{{ __('Utilisateurs') }}</p>
+                                <h5 class="font-bold">{{ $totalUsers }}</h5>
+                            @endrole
+                        
+                            @role('communitymanager')
+                                <p class="text-sm font-semibold">{{ __('Articles') }}</p>
+                                <h5 class="font-bold">{{ $totalArticles }}</h5>
                             @else
-                                <p class="text-sm font-semibold">{{__('Paiements')}}</p>
-                                <h5 class="font-bold">{{$validatedPrestationsCount}}</h5>
+                                <p class="text-sm font-semibold">{{ __('Paiements') }}</p>
+                                <h5 class="font-bold">{{ $validatedPrestationsCount }}</h5>
                             @endrole
                         </div>
+                        
                         
                         <div class="w-12 h-12 flex items-center justify-center rounded-lg bg-gradient-to-tl from-[#4000FF] to-[#e0d9f6] shadow-lg">
                             <i class="fa fa-money text-white text-lg"></i>
@@ -226,6 +232,43 @@
             </div>
             
             
+            @endrole
+
+            @role('communitymanager')
+            <div class="col-span-1 md:col-span-2 bg-white p-6 shadow-lg rounded-lg">
+                <h3 class="text-lg font-semibold text-gray-900">Statistiques sur les nombres de vues des articles</h3>
+                <div class="flex justify-center items-center h-64">
+                    <canvas id="viewsChart"></canvas>
+                </div>
+                <script>
+                    document.addEventListener("DOMContentLoaded", function() {
+                        const ctx = document.getElementById('viewsChart').getContext('2d');
+                        const monthlyViewsData = @json(array_values($monthlyViewsData));
+                        const months = ["Jan", "Fév", "Mar", "Avr", "Mai", "Juin", "Juil", "Août", "Sep", "Oct", "Nov", "Déc"];
+                    
+                        new Chart(ctx, {
+                            type: 'bar',
+                            data: {
+                                labels: months,
+                                datasets: [{
+                                    label: "Nombre de vues par mois",
+                                    data: monthlyViewsData,
+                                    backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                                    borderColor: 'rgba(54, 162, 235, 1)',
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                scales: {
+                                    y: { beginAtZero: true }
+                                }
+                            }
+                        });
+                    });
+                </script>
+            </div>
             @endrole
         
         </div>

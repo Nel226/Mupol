@@ -16,6 +16,12 @@
         </x-header>
 
         <div class="md:p-6 p-2 mx-auto mt-4 bg-white rounded-lg shadow-lg">
+            <div class="flex flex-wrap items-center justify-end py-2 gap-2">
+                <a href="{{ route('adherents.edit', $adherent->id) }}">
+                    <button class="btn">{{ __('Modifier') }}</button>
+                </a>
+                
+            </div>
             <div class="flex flex-col sm:flex-row p-2 gap-2">
                 <!-- Image div -->
 

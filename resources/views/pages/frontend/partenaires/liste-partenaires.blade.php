@@ -7,20 +7,19 @@
         <section class="contact-us section">
             <div class="container">
                 <div class="inner">
-                    <div class="">
+                    <div>
                         @php
                             $typeLabels = [
-                                'hopital' => 'Hôpitaux',
-                                'clinique' => 'Cliniques',
-                                'pharmacie' => 'Pharmacies',
-                                'laboratoire' => 'Laboratoire d\'analyses médicales',
-                                'opticien' => 'Opticiens',
-                                'dentaire' => 'Cabinet dentaire',
-                                'autre' => 'Autre',
+                                'hopital'    => 'Hôpitaux',
+                                'clinique'   => 'Cliniques',
+                                'pharmacie'  => 'Pharmacies',
+                                'laboratoire'=> 'Laboratoire d\'analyses médicales',
+                                'opticien'   => 'Opticiens',
+                                'dentaire'   => 'Cabinet dentaire',
+                                'autre'      => 'Autre',
                             ];
                         @endphp
                         <div class="pt-2">
-
                             <!-- Barre de recherche et filtres -->
                             <div class="col-12 mb-4">
                                 <h4 class="mb-3 font-bold sm:text-base text-sm">Recherche et filtres</h4>
@@ -31,7 +30,7 @@
                                         <input 
                                             type="text" 
                                             id="searchBar" 
-                                            placeholder="Entrez un nom, une région, etc." 
+                                            placeholder="Entrez un nom." 
                                             class="border rounded p-2 w-full text-xs"
                                             onkeyup="filterPartners()"
                                         >
@@ -48,24 +47,21 @@
                                         </select>
                                     </div>
     
-                                    <!-- Filtre par région -->
+                                    <!-- Filtre par région (généré dynamiquement) -->
                                     <div class="w-full sm:w-auto">
                                         <label for="filterRegion" class="block mb-1 text-sm font-medium">Filtrer par région :</label>
-                                        <select id="filterRegion" class="border rounded p-2 w-full text-xs" onchange="filterPartners()">
+                                        <select id="filterRegion" class="border rounded p-2 w-full text-xs" onchange="onRegionChange()">
                                             <option value="">Toutes les régions</option>
-                                            <option value="Boucle du Mouhoun">Boucle du Mouhoun</option>
-                                            <option value="Cascades">Cascades</option>
-                                            <option value="Centre">Centre</option>
-                                            <option value="Centre-Est">Centre-Est</option>
-                                            <option value="Centre-Nord">Centre-Nord</option>
-                                            <option value="Centre-Ouest">Centre-Ouest</option>
-                                            <option value="Centre-Sud">Centre-Sud</option>
-                                            <option value="Est">Est</option>
-                                            <option value="Hauts-Bassins">Hauts-Bassins</option>
-                                            <option value="Nord">Nord</option>
-                                            <option value="Plateau-Central">Plateau-Central</option>
-                                            <option value="Sahel">Sahel</option>
-                                            <option value="Sud-Ouest">Sud-Ouest</option>
+                                            <!-- Options ajoutées dynamiquement -->
+                                        </select>
+                                    </div>
+    
+                                    <!-- Filtre par province -->
+                                    <div class="w-full sm:w-auto">
+                                        <label for="filterProvince" class="block mb-1 text-sm font-medium">Filtrer par province :</label>
+                                        <select id="filterProvince" class="border rounded p-2 w-full text-xs" onchange="filterPartners()">
+                                            <option value="">Toutes les provinces</option>
+                                            <!-- Options ajoutées dynamiquement -->
                                         </select>
                                     </div>
                                 </div>
@@ -77,6 +73,7 @@
                                     <span class="visually-hidden">...</span>
                                 </div>
                             </div>
+    
                             <div class="col-12 mb-4">
                                 <!-- Liste des partenaires -->
                                 <div id="partnerList" class="row">
@@ -86,6 +83,7 @@
                                                 class="col-12 col-md-6 mb-4 partner-item opacity-0 transition-opacity duration-500 ease-in-out"
                                                 data-type="{{ $type }}"
                                                 data-region="{{ $partenaire->region }}"
+                                                data-province="{{ $partenaire->province }}"
                                                 data-name="{{ strtolower($partenaire->nom) }}"
                                             >
                                                 <div class="d-flex flex-wrap align-items-center border rounded shadow-sm p-3">
@@ -108,7 +106,8 @@
                                                         <p class="mb-0 text-sm">
                                                             <strong>Adresse :</strong> {{ $partenaire->adresse }}<br>
                                                             <strong>Région :</strong> {{ $partenaire->region }}<br>
-                                                            <strong>Province :</strong> {{ $partenaire->province }}
+                                                            <strong>Province :</strong> {{ $partenaire->province }}<br>
+                                                            <strong>Géolocalisation :</strong> <a href="{{ $partenaire->geolocalisation }}" class="underline text-primary1">Cliquez ici</a>
                                                         </p>
                                                     </div>
                                                 </div>
@@ -122,7 +121,7 @@
                                     <p class="text-gray-500">Aucun résultat trouvé pour vos critères de recherche.</p>
                                 </div>
                             </div>
-
+    
                         </div>
                     </div>
                 </div>
@@ -130,55 +129,118 @@
         </section>
     </div>
     <!--/ End Contact Us -->
-
+    
     <!-- Scripts pour la recherche et les filtres -->
     <script>
+        
+        // Génère dynamiquement les options du sélecteur des régions
+        function populateRegions() {
+            const regionSelect = document.getElementById("filterRegion");
+            regionSelect.innerHTML = '<option value="">Toutes les régions</option>';
+            Object.keys(regions).forEach(region => {
+                const option = document.createElement("option");
+                option.value = region;
+                option.textContent = region;
+                regionSelect.appendChild(option);
+            });
+        }
+
+        // Génère les options du sélecteur des provinces pour **toutes** les régions (triées par ordre alphabétique)
+        function populateProvinces() {
+            const provinceSelect = document.getElementById("filterProvince");
+            let allProvinces = [];
+            Object.keys(regions).forEach(region => {
+                allProvinces = allProvinces.concat(regions[region].provinces);
+            });
+            // Supprime les doublons
+            allProvinces = [...new Set(allProvinces)];
+            // Trie par ordre alphabétique
+            allProvinces.sort((a, b) => a.localeCompare(b));
+            provinceSelect.innerHTML = '<option value="">Toutes les provinces</option>';
+            allProvinces.forEach(province => {
+                const option = document.createElement("option");
+                option.value = province;
+                option.textContent = province;
+                provinceSelect.appendChild(option);
+            });
+        }
+
+        // Met à jour le sélecteur des provinces pour une région donnée (trié par ordre alphabétique)
+        function updateProvinces(region) {
+            const provinceSelect = document.getElementById("filterProvince");
+            let provinces = regions[region] ? regions[region].provinces.slice() : [];
+            provinces.sort((a, b) => a.localeCompare(b));
+            provinceSelect.innerHTML = '<option value="">Toutes les provinces</option>';
+            provinces.forEach(province => {
+                const option = document.createElement("option");
+                option.value = province;
+                option.textContent = province;
+                provinceSelect.appendChild(option);
+            });
+        }
+
+        // Lorsque la région est modifiée : si une région est sélectionnée, afficher ses provinces, sinon afficher toutes les provinces
+        function onRegionChange() {
+            const selectedRegion = document.getElementById("filterRegion").value;
+            if (selectedRegion) {
+                updateProvinces(selectedRegion);
+            } else {
+                populateProvinces();
+            }
+            filterPartners();
+        }
+
+        // Filtre les partenaires en fonction des critères de recherche et de filtre
         function filterPartners() {
             document.getElementById("loading").classList.remove("hidden");
 
-            const searchQuery = document.getElementById('searchBar').value.toLowerCase();
-            const filterType = document.getElementById('filterType').value;
-            const filterRegion = document.getElementById('filterRegion').value;
+            const searchQuery   = document.getElementById('searchBar').value.toLowerCase();
+            const filterType    = document.getElementById('filterType').value;
+            const filterRegion  = document.getElementById('filterRegion').value;
+            const filterProvince= document.getElementById('filterProvince').value;
 
             const partners = document.querySelectorAll('.partner-item');
             let visibleCount = 0;
 
-            if (!searchQuery && !filterType && !filterRegion) {
-                partners.forEach(partner => {
+            partners.forEach(partner => {
+                const name     = partner.getAttribute('data-name');
+                const type     = partner.getAttribute('data-type');
+                const region   = partner.getAttribute('data-region');
+                const province = partner.getAttribute('data-province');
+
+                const matchesSearch  = name.includes(searchQuery);
+                const matchesType    = !filterType || type === filterType;
+                const matchesRegion  = !filterRegion || region === filterRegion;
+                const matchesProvince= !filterProvince || province === filterProvince;
+
+                if (matchesSearch && matchesType && matchesRegion && matchesProvince) {
                     partner.style.display = 'block';
                     partner.classList.remove('opacity-0');
                     partner.classList.add('opacity-100');
-                });
-                document.getElementById('noResults').style.display = 'none';
-            } else {
-                partners.forEach(partner => {
-                    const name = partner.getAttribute('data-name');
-                    const type = partner.getAttribute('data-type');
-                    const region = partner.getAttribute('data-region');
+                    visibleCount++;
+                } else {
+                    partner.style.display = 'none';
+                }
+            });
 
-                    const matchesSearch = name.includes(searchQuery);
-                    const matchesType = !filterType || type === filterType;
-                    const matchesRegion = !filterRegion || region === filterRegion;
-
-                    if (matchesSearch && matchesType && matchesRegion) {
-                        partner.style.display = 'block';
-                        partner.classList.remove('opacity-0');
-                        partner.classList.add('opacity-100');
-                        visibleCount++;
-                    } else {
-                        partner.style.display = 'none';
-                    }
-                });
-                // Affiche ou masque le message "Aucun résultat trouvé"
-                const noResults = document.getElementById('noResults');
-                noResults.style.display = visibleCount > 0 ? 'none' : 'block';
-            }
+            document.getElementById('noResults').style.display = visibleCount > 0 ? 'none' : 'block';
 
             setTimeout(function() {
                 document.getElementById("loading").classList.add("hidden");
             }, 500);
         }
 
-        document.addEventListener('DOMContentLoaded', filterPartners);
+        // Initialisation à la charge du document
+        document.addEventListener('DOMContentLoaded', function() {
+            populateRegions(); // Remplit le sélecteur des régions
+            // Si aucune région n'est sélectionnée, affiche toutes les provinces, sinon celles de la région sélectionnée
+            const selectedRegion = document.getElementById('filterRegion').value;
+            if (selectedRegion) {
+                updateProvinces(selectedRegion);
+            } else {
+                populateProvinces();
+            }
+            filterPartners(); // Applique le filtre initial
+        });
     </script>
 </x-guest-layout>

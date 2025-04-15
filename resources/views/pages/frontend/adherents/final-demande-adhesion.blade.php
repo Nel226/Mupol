@@ -38,7 +38,6 @@
                                 </p>
                                 <p>
                                     <a class="text-primary1 underline" href="{{ route('download-fiche-cession-volontaire', ['id' => $demandeAdhesion->id]) }}">
-                                    <a class="text-primary1 underline" href="{{ route('download-fiche-cession-volontaire', ['id' => $demandeAdhesion->id]) }}">
                                         Télécharger la fiche de cession volontaire
                                     </a>
                                 </p>

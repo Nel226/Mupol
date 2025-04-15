@@ -12,54 +12,78 @@ use Illuminate\Support\Facades\Log;
 
 class AdherentsImport implements ToModel, WithHeadingRow
 {
+    public $successfulRows = 0;
+    public $failedRows = 0;
+    public $errorMessages = []; // Ajout d'un tableau pour stocker les erreurs
+
     public function model(array $row)
     {
-        Log::info('Début de traitement d\'une ligne du fichier.', ['row' => $row]);
-    
-        // Vérifiez si la clé 'date_enregistrement' existe
+        // Log::info('Début de traitement d\'une ligne du fichier.', ['row' => $row]);
+
         if (!array_key_exists('date_enregistrement', $row) || empty(trim($row['date_enregistrement']))) {
             Log::warning('Clé "date_enregistrement" manquante ou vide.', ['row' => $row]);
-            return null; // Ignorer la ligne si la clé n'existe pas ou si elle est vide
+            $this->failedRows++;
+            
+            return null;
         }
-    
+
         $dateExcel = trim($row['date_enregistrement']);
         $dateEnregistrement = null;
-    
+
         try {
-            // Vérifier si c'est un nombre (date Excel)
+            if (empty($dateExcel)) {
+                Log::warning('Date vide ou nulle reçue.');
+                $this->failedRows++;
+                return null;
+            }
+
             if (is_numeric($dateExcel)) {
-                $date = Date::excelToDateTimeObject($dateExcel);
-                $dateEnregistrement = Carbon::instance($date)->format('Y-m-d');
-                Log::info('Date Excel convertie avec succès.', ['date_enregistrement' => $dateEnregistrement]);
+                $date = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($dateExcel);
+                $dateEnregistrement = \Carbon\Carbon::instance($date)->format('Y-m-d');
+                // Log::info('Date Excel convertie avec succès.', ['date_enregistrement' => $dateEnregistrement]);
             } else {
-                // Traitement des dates au format texte
-                $dateEnregistrement = Carbon::createFromFormat('d/m/y', $dateExcel)->format('Y-m-d');
-                Log::info('Date texte convertie avec succès.', ['date_enregistrement' => $dateEnregistrement]);
+                if (\Carbon\Carbon::hasFormat($dateExcel, 'd/m/Y')) {
+                    $dateEnregistrement = \Carbon\Carbon::createFromFormat('d/m/Y', $dateExcel)->format('Y-m-d');
+                    // Log::info('Date texte convertie avec succès.', ['date_enregistrement' => $dateEnregistrement]);
+                } else {
+                    Log::error('Format de date texte invalide.', ['date_enregistrement' => $dateExcel]);
+                    $this->failedRows++;
+                    return null;
+                }
             }
         } catch (\Exception $e) {
             Log::error('Erreur de conversion de date.', [
                 'exception' => $e->getMessage(),
                 'date_enregistrement' => $dateExcel,
             ]);
+            $this->failedRows++;
             return null;
         }
-    
-        // Vérification des champs obligatoires
+
         if (empty($row['nom']) || empty($row['prenom']) || empty($row['no_matricule'])) {
             Log::warning('Un ou plusieurs champs obligatoires sont manquants.', [
                 'nom' => $row['nom'] ?? null,
                 'prenom' => $row['prenom'] ?? null,
                 'no_matricule' => $row['no_matricule'] ?? null,
             ]);
-            return null; // Ignorer la ligne si les champs sont incomplets
+            $this->failedRows++;
+            return null;
         }
-    
-        Log::info('Création d\'un nouvel adhérent.', [
-            'nom' => $row['nom'],
-            'prenom' => $row['prenom'],
-            'matricule' => $row['no_matricule'],
-        ]);
-    
+
+        if (Adherent::where('matricule', $row['no_matricule'])->exists()) {
+            Log::warning('Matricule déjà existant, importation ignorée.', ['no_matricule' => $row['no_matricule']]);
+            $this->failedRows++;
+            return null;
+        }
+
+        $this->successfulRows++;
+
+        // Log::info('Création d\'un nouvel adhérent.', [
+        //     'nom' => $row['nom'],
+        //     'prenom' => $row['prenom'],
+        //     'matricule' => $row['no_matricule'],
+        // ]);
+
         return new Adherent([
             'date_enregistrement' => $dateEnregistrement,
             'nom' => $row['nom'],
@@ -75,7 +99,6 @@ class AdherentsImport implements ToModel, WithHeadingRow
             'is_new' => false,
         ]);
     }
-    
 
     /**
      * Calculer le code carte
@@ -85,7 +108,7 @@ class AdherentsImport implements ToModel, WithHeadingRow
      */
     private function calculateCodeCarte(array $row)
     {
-        Log::info('Calcul du code carte.', ['no_matricule' => $row['no_matricule']]);
+        // Log::info('Calcul du code carte.', ['no_matricule' => $row['no_matricule']]);
         return "{$row['no_matricule']}/00";
     }
 }

@@ -48,11 +48,12 @@
         <p>Nous vous remercions d'avoir soumis votre demande d'adhésion.</p>
 
         <p>Nous vous informerons dès que votre demande sera traitée.</p>
-        <p>Télécharger votre fiche de cession volontaire de salaire en pièce jointe en dessous..</p>
+        <p>Télécharger votre fiche de cession volontaire de salaire en pièce jointe en ci-dessous.</p>
         <p>Voici vos informations de connexion :</p>
         <p><strong>Email :</strong> {{ $demandeAdhesion->email }}</p>
         <p><strong>Mot de passe :</strong> {{ $generatedPassword }}</p>
-        <p>Vous pouvez maintenant vous connecter à votre compte.</p>
+        <p>Vous pouvez maintenant vous connecter à votre compte en cliquant sur ce lien : https://mupol.bf/login/user .</p>
+
         <p>Si vous avez des questions, n'hésitez pas à nous contacter.</p>
 
         <div class="footer">

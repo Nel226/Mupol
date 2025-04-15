@@ -25,7 +25,6 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         @livewireStyles
-        <script src="https://cdn.jsdelivr.net/npm/pagedone@1.2.2/src/js/pagedone.js"></script>
 
         <script src="{{ asset('js/cdn.min.js') }}" defer></script>
         <script src="{{ asset('js/regions.js') }}" defer></script>

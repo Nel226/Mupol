@@ -20,150 +20,149 @@
                 <div class="md:w-3/4 mx-auto">
                     <h2 class="mb-4 text-sm md:text-lg lg:text-xl font-bold text-gray-900 dark:text-white">Créer un nouvel article</h2>
                     
-                    <form method="POST" action="{{ route('partenaires.store') }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('articles.store') }}" enctype="multipart/form-data">
+                        @csrf
+
                         <!-- Titre -->
                         <div>
-                            <label for="titre" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nom</label>
-                            <input type="text" name="titre" id="titre" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Titre de l\'article" required>
+                            <label for="titre" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Titre</label>
+                            <input type="text" name="titre" id="titre" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Titre de l'article" required>
                             @error('titre')
                                 <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
                     
-                        <!-- Categories -->
-                        <div>
-                            <label for="type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Type</label>
-                            <select name="type" id="type" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
-                                <option value="" disabled selected>Sélectionnez le type de partenaire</option>
-                                <option value="hopital">Hôpital</option>
-                                <option value="clinique">Clinique</option>
-                                <option value="pharmacie">Pharmacie</option>
-                                <option value="laboratoire">Laboratoire d&apos;analyses médicales</option>
-                                <option value="opticien">Opticien</option>
-                                <option value="dentaire">Cabinet dentaire</option>
-                                <option value="autre">Autre</option>
+                       
+                        <!-- Categorie -->
+                        <div class="grid grid-cols-1 sm:grid-cols-3">
+                            <div class=" col-span-2 text-xs">
+                                <label class="block my-2 text-sm font-medium text-gray-900 dark:text-white">Catégorie</label>
+                                <div class="flex items-center space-x-4">
+                                    <div>
+                                        <input type="radio" id="categorie_sante" name="categorie" value="Santé"  required>
+                                        <label for="categorie_sante" class="text-sm text-gray-900 dark:text-white">Santé</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" id="categorie_social" name="categorie" value="Social"  required>
+                                        <label for="categorie_social" class="text-sm text-gray-900 dark:text-white">Social</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" id="categorie_administration" name="categorie" value="Administration"  required>
+                                        <label for="categorie_administration" class="text-sm text-gray-900 dark:text-white">Administration</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" id="categorie_sport" name="categorie" value="Sport"  required>
+                                        <label for="categorie_sport" class="text-sm text-gray-900 dark:text-white">Sport</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" id="categorie_divers" name="categorie" value="Divers"  required>
+                                        <label for="categorie_divers" class="text-sm text-gray-900 dark:text-white">Divers</label>
+                                    </div>
+                                </div>
+                                @error('categorie')
+                                    <p class="text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div> 
+                            <div class="col-span-1">
 
-                            </select>
-                            @error('type')
-                                <p class="text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label> Image </label>
-                            <div class="input-group">
-                              
-                              <span class="input-group-btn">
-                                <span class="btn btn-primary btn-file">
-                                  Browse <input type="file" name="bimgs" multiple>
-                                </span>
-                               </span>
-                              <input type="text" class="form-control" readonly>
+                                <label for="date" class="block my-2 text-sm font-medium text-gray-900 dark:text-white">Date</label>
+                                <input type="date" name="date" id="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="" required>
+                                @error('date')
+                                    <p class="text-sm text-red-600">{{ $message }}</p>
+                                @enderror
                             </div>
+
                         </div>
-                        <style>
-                            .btn-file {
-                                position: relative;
-                                overflow: hidden;
-                            }
-                            
-                            .btn-file input[type=file] {
-                                position: absolute;
-                                top: 0;
-                                right: 0;
-                                min-width: 100%;
-                                min-height: 100%;
-                                font-size: 100px;
-                                text-align: right;
-                                filter: alpha(opacity=0);
-                                opacity: 0;
-                                outline: none;
-                                background: white;
-                                cursor: inherit;
-                                display: block;
-                            }
-
-                            .btn-file {
-                                position: relative;
-                                overflow: hidden;
-                            }
-                            
-                            .btn-file input[type=file] {
-                                position: absolute;
-                                top: 0;
-                                right: 0;
-                                min-width: 100%;
-                                min-height: 100%;
-                                font-size: 100px;
-                                text-align: right;
-                                filter: alpha(opacity=0);
-                                opacity: 0;
-                                outline: none;
-                                background: white;
-                                cursor: inherit;
-                                display: block;
-                            }
-                            
-                            input[readonly] {
-                              background-color: white !important;
-                              cursor: text !important;
-                            }
-                            
-                            /* this is only due to codepen display don't use this outside of codepen */
-                            .container {
-                              padding-top: 20px;
-                            }
-                            
-                        </style>
-
-                        <div class="container">
-                            <div class="row">
-                              <div class="col-md-12">
-                                <form method="post" role="form">
-                                  <div class="form-group">
-                                    <input type="text" class="form-control" name="title" placeholder="Title"/>
-                                  </div>
-                                  <div class="form-group">
-                                    <label> Image </label>
-                                    <div class="input-group">
-                                      
-                                      <span class="input-group-btn">
-                                        <span class="btn btn-primary btn-file">
-                                          Browse <input type="file" name="bimgs" multiple>
-                                        </span>
-                                       </span>
-                                      <input type="text" class="form-control" readonly>
-                                     </div>
-                                  </div>
-                                  <div class="form-group">
-                                    <textarea class="form-control bcontent" name="content"></textarea>
-                                  </div>
-                                  <div class="form-group">
-                                     <input type="submit" name="Submit" value="Publish" class="btn btn-primary form-control" />
-                                  </div>
-                                </form>
-                              </div>
-                            </div>
-                          </div>
-
                         <!-- Photo -->
                         <div class="col-span-2">
-                            <label for="photo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Photo</label>
-                            <input type="file" name="photo" id="photo" accept="image/*" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                            @error('photo')
+                            <label for="image_principal" class="block my-2 text-sm font-medium text-gray-900 dark:text-white">Photo principale</label>
+                            <div id="uploadPhoto" class="flex flex-col h-full shadow-sm">
+                              <div class="border-dashed border-2 border-gray-300 rounded-md p-1 flex-grow flex justify-center items-center">
+                                  <div class="text-center w-full h-full text-xs">
+                                      <img id="previewImage" class="w-full h-auto  max-h-72 object-cover mb-4" src="default-image.jpg" alt="Aperçu de l'image" />
+                                      
+                                      <p class="text-gray-500">Déposez votre image ici ou</p>
+                                      <label for="image_principal" class="cursor-pointer text-blue-500 hover:underline">
+                                          cliquez pour choisir une image
+                                      </label>
+                                      <input type="file" id="image_principal" class="hidden" accept="image/*" name="image_principal">
+                                  </div>
+                              </div>
+                            </div>
+                            
+                            <script>
+                                document.addEventListener('DOMContentLoaded', function () {
+                                    const fileInput = document.getElementById('image_principal');
+                                    const previewImage = document.getElementById('previewImage');
+                                    const defaultImage = "{{ asset('images/default-image.jpg') }}"; // Chemin correct
+
+                                    previewImage.src = defaultImage;
+
+                                    fileInput.addEventListener('change', function () {
+                                        const file = this.files[0];
+                            
+                                        if (file) {
+                                            const reader = new FileReader();
+                                            reader.onload = function (e) {
+                                                previewImage.src = e.target.result;
+                                            };
+                                            reader.readAsDataURL(file);
+                                        } else {
+                                            // Remettre l'image par défaut si aucun fichier n'est sélectionné
+                                            previewImage.src = defaultImage;
+                                        }
+                                    });
+                                });
+                            </script>
+                            @error('image_principal')
                                 <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
-                            <div class="mt-4">
-                                <img id="preview" src="#" alt="Prévisualisation de l'image" class="hidden max-w-full h-auto border border-gray-300 rounded-lg">
-                            </div>
+                            
                         </div>
-                        
+                        <!-- resume -->
+                        <div class="col-span-2">
+                            <label for="resume" class="block my-2 text-sm font-medium text-gray-900 dark:text-white">Résumé</label>
+                            <textarea type="text" name="resume" id="resume"  class="bg-gray-50  border border-gray-300 text-gray-900  rounded-lg text-sm block w-full  dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"> 
+                            </textarea> 
+
+                            @error('resume')
+                                <p class="text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                           
+                        </div>
+                        <!-- CONTENU -->
+                        <div class="col-span-2">
+                            <label for="contenu" class="block my-2 text-sm font-medium text-gray-900 dark:text-white">Contenu</label>
+                            <textarea type="text" name="contenu" id="editor2"  class="bg-gray-50  border border-gray-300 text-gray-900  rounded-lg text-sm block w-full  dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"> 
+                            </textarea> 
+
+                            @error('contenu')
+                                <p class="text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                           
+                        </div>
+
+
+                        <script src="{{ asset('js/ckeditor_4.22.1_standard/ckeditor.js') }} "></script>
+                        <script>
+                          CKEDITOR.replace( 'editor2', {
+                            filebrowserBrowseUrl: "{{ asset('js/ckfinder/ckfinder.html') }}",
+                            filebrowserUploadUrl: "{{ asset('js/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files') }}"
+                          } );
+                           
+                        </script>
+ 
+                      
                         <div class="flex justify-end">
                             <button type="submit" class="btn mt-5 ">
-                                Ajouter partenaire
+                                Publier
                             </button>
 
                         </div>
                     </form>
+
+                   
+                
                 </div>
             @endrole
         </div>

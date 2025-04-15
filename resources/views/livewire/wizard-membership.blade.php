@@ -376,71 +376,45 @@
                                     <!-- -------------------------- Photo -------------------------------------->
                                     <div id="photoUpload" class="col-span-1">
                                         <label class="block text-gray-700 text-sm font-bold mb-1" for="photo">Photo</label>
-                                        <div class="w-full justify-center border rounded-md p-1 border-gray-500 row-span-3">
-                                            <img id="photoPreview" src="{{ asset('images/user-90.png') }}" alt="Profile photo preview" class="w-48 h-48 object-cover mx-auto rounded-full">
-                                        </div>
                                     
-                                        <!-- Input photo visible -->
-                                        <input type="file" id="photoVisible" accept="image/jpg, image/jpeg, image/png" 
-                                            class="my-1 block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-violet-100" />
+                                        <!-- Input de fichier -->
+                                        <input type="file" id="photoInput" class="w-full py-2" accept="image/jpg, image/jpeg" onchange="previewImage(event)">
                                     
-                                        <!-- Input Livewire caché -->
-                                        <input type="file" id="photo" wire:model="photo" accept="image/jpg, image/jpeg, image/png" style="display: none;">
+                                        <!-- Zone pour afficher la prévisualisation -->
+                                        <img id="preview" class="w-20 h-20 mt-2 hidden" />
                                     
-                                        <!-- Message d'erreur -->
-                                        <span id="photoError" class="text-red-500 text-sm" style="display: none;">Veuillez télécharger une photo valide.</span>
+                                        <span id="errorMessage" class="text-red-500 text-sm hidden"></span>
                                     </div>
                                     
-                                    
                                     <script>
-                                        document.getElementById('photoVisible').addEventListener('change', function(event) {
-                                            const photoPreview = document.getElementById('photoPreview');
-                                            const photoError = document.getElementById('photoError');
-                                            const livewireInput = document.getElementById('photo');
-                                            const file = event.target.files[0];
-
-                                            console.log(file);  // Ajoutez ceci pour vérifier le fichier sélectionné.
-
-                                            if (file) {
-                                                const validTypes = ['image/jpg', 'image/jpeg', 'image/png'];
-                                                if (!validTypes.includes(file.type)) {
-                                                    photoError.style.display = 'block';
-                                                    photoError.textContent = 'Veuillez télécharger une image au format JPG ou PNG.';
-                                                    return;
-                                                }
-
-                                                photoError.style.display = 'none';
-
-                                                const reader = new FileReader();
-                                                reader.onload = () => {
-                                                    photoPreview.src = reader.result;
-                                                };
-                                                reader.readAsDataURL(file);
-
-                                                const dataTransfer = new DataTransfer();
-                                                dataTransfer.items.add(file);
-                                                livewireInput.files = dataTransfer.files;
-                                                livewireInput.dispatchEvent(new Event('change', { bubbles: true }));
-
-                                                console.log('Photo mise à jour via Livewire');  // Ajoutez ceci pour déboguer.
+                                    function previewImage(event) {
+                                        const file = event.target.files[0];
+                                        const preview = document.getElementById("preview");
+                                        const errorMessage = document.getElementById("errorMessage");
+                                    
+                                        if (file) {
+                                            // Vérifier si le fichier est une image JPG/JPEG
+                                            if (!file.type.match('image/jpeg') && !file.type.match('image/jpg')) {
+                                                errorMessage.innerText = "Seules les images JPG/JPEG sont acceptées.";
+                                                errorMessage.classList.remove("hidden");
+                                                preview.classList.add("hidden");
+                                                return;
                                             }
-
-                                            Livewire.on('photoUpdated', (photoUrl) => {
-                                                console.log('Nouvelle photo mise à jour:', photoUrl);  // Vérifiez ici si l'URL est bien reçue.
-                                            });
-                                        });
-
+                                    
+                                            // Afficher la prévisualisation
+                                            const reader = new FileReader();
+                                            reader.onload = function(e) {
+                                                preview.src = e.target.result;
+                                                preview.classList.remove("hidden");
+                                                errorMessage.classList.add("hidden");
+                                            }
+                                            reader.readAsDataURL(file);
+                                        }
+                                    }
                                     </script>
-
-                                    <!-- -------------------------- Photo -------------------------------------->
-
                                     
-                                    
-
-
                                 </div>
         
-                                <!-- Nombre ayants droits -->
                                 <div class="overflow-x-auto">
                                     <label class="block text-gray-700 text-sm font-bold mb-1" for="changeNombreAyantsDroits">Nombre d&apos;ayants-droits (Charge)</label>
                                     <select class="border-2 bg-gray-50 rounded w-full py-1" wire:change="changeNombreAyantsDroits($event.target.value)">
@@ -587,7 +561,7 @@
                                 </div>
         
                                 <!-- Champs pour Personnel Retraité -->
-                                @if ($statut === 'personnel_retraite')
+                                @if ($statut === 'Retraité(e)')
                                     <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                                         {{-- Grade --}}
                                         <div>
@@ -763,9 +737,25 @@
 
         
         @if ($adherentType === "ancien")
+       
+
             <form method="POST" action="{{ route('final-old-adhesion') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="space-y-2">
+                    <!-- Modale pour les erreurs -->
+                    @if(session('error'))
+                    <div x-data="{ open: true }" x-show="open" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+                        <div class="bg-white z-50 rounded-lg shadow-lg p-4 max-w-sm  mx-0.5" >
+                            <h2 class="text-xl font-semibold text-red-600">Échec !</h2>
+                            <p class="mt-4 text-gray-700 text-sm">{{ session('error') }}</p>
+                            <div class="mt-6 text-right">
+                                <button @click="open = false" class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600">
+                                    Fermer
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-3 sm:gap-4">
             
                         <!-- Nom(s) -->
@@ -1248,6 +1238,7 @@
                                                 <img src="{{ asset('images/user-90.png') }}" alt="Default profile photo" class="w-36 h-36 object-cover mx-auto rounded-full">
                                             @endif
                                         </div>
+                                        
                                         <input type="file" wire:model="photo" id="photo" accept="image/jpg, image/jpeg" class="my-1 block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 
                                             file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 
                                             file:text-blue-700 hover:file:bg-violet-100"/>
@@ -1403,7 +1394,7 @@
                                 </div>
         
                                 <!-- Champs pour Personnel Retraité -->
-                                @if ($statut === 'personnel_retraite')
+                                @if ($statut === 'Retraité(e)')
                                     <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                                         {{-- Grade --}}
                                         <div>

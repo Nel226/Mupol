@@ -4,8 +4,8 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-3 sm:gap-4">
         <!-- Matricule -->
         <div>
-            <label class="block text-gray-700 text-sm font-bold mb-1" for="matricule">Matricule</label>
-            <input name="matricule" id="matricule" type="text"
+            <label class="block text-gray-700 text-sm font-bold mb-1" for="matricule">N° Matricule</label>
+            <input name="matricule" id="matricule" type="number"
                 class="bg-gray-50 appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-0 sm:mb-4"
                 value="{{ old('matricule') }}">
             <span id="matricule-error" class="text-red-500 text-xs"></span>
@@ -89,6 +89,7 @@
             if (delivree) {
                 const expire = new Date(delivree); // Convertit en objet Date
                 expire.setFullYear(expire.getFullYear() + 10); // Ajoute 10 ans
+                expire.setDate(expire.getDate() - 1); 
                 const expireFormatted = expire.toISOString().split('T')[0]; // Formate la date
                 document.getElementById('expire').value = expireFormatted; // Met à jour le champ "expire"
             }

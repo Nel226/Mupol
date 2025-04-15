@@ -382,10 +382,10 @@
             <h3 class="text-1xl font-semibold mb-2 bg-gray-500 px-auto px-1 py-1">INFORMATIONS PROFESSIONELLES</h3>
             
             <!-- Personnel Retraité -->
-            @if ($this->statut === 'personnel_retraite')
+            @if ($this->statut === 'Retraité(e)')
                 <div class="border text-10pt p-2 rounded-lg mb-2 leading-none">
                     <div class="text-center">
-                        <p><strong>{{ $this->statut == 'personnel_active' ? 'Personnel en activité' : 'Personnel retraité' }}</strong></p>
+                        <p><strong>{{ $this->statut == 'Actif(ve)' ? 'Personnel en activité' : 'Personnel retraité' }}</strong></p>
                     </div>
                     <div>
                         <div>
@@ -415,10 +415,10 @@
             @endif
             
             <!-- Personnel en Activité -->
-            @if ($this->statut === 'personnel_active')
+            @if ($this->statut === 'Actif(ve)')
                 <div class="border text-10pt px-2 rounded-lg leading-none">
                     <div class="text-center">
-                        <p><strong>{{ $this->statut == 'personnel_active' ? 'Personnel en activité' : 'Personnel retraité' }}</strong></p>
+                        <p><strong>{{ $this->statut == 'Actif(ve)' ? 'Personnel en activité' : 'Personnel retraité' }}</strong></p>
                     </div>
                     <div>
                         <div>

@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\Backend\ArticleController;
 use App\Http\Controllers\Backend\EstimationController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\RoleController;
@@ -63,6 +63,9 @@ Route::middleware('auth')->group(function () {
 
    
     Route::resource('adherents', AdherentController::class);
+    Route::get('/envoi-fiche-cession-salaire/{id}', [DemandeController::class, 'envoiFicheCessionSalaire'])
+        ->name('adherents.envoi-fiche-cession-salaire');
+
     Route::get('/adherents-old/update', action: [AdherentController::class, 'oldUpdate'])->name('adherents.old.update');
 
     Route::resource('ayantsdroits', AyantDroitController::class);
@@ -77,6 +80,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('articles', ArticleController::class);
 
 
+
+    Route::get('/preview-fiche-cession-volontaire/{id}', [DemandeController::class, 'previewFiche'])->name('preview-fiche-cession-volontaire');
+    Route::get('/preview-formulaire-adhesion/{id}', [DemandeController::class, 'previewForm'])->name('preview-formulaire-adhesion');
 
 
     //DEBUT COMPTABILITE

@@ -12,10 +12,12 @@ import {Tabulator} from 'tabulator-tables';
 import * as XLSX from 'xlsx';
 import SignaturePad from 'signature_pad';
 
+// Importer Slick JS
+import 'slick-carousel';
+
 
 // Ensure jQuery is available globally
 window.$ = window.jQuery = $;
-
 
 
 

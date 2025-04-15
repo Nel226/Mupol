@@ -22,7 +22,13 @@ class UpdateAyantDroitRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nom' => 'required|string|max:255',
+            'prenom' => 'required|string|max:255',
+            'sexe' => 'required',
+            'relation' => 'required',
+
+            'date_naissance' => 'required|date',
+            'position' => 'required|integer|max:10',
         ];
     }
 }

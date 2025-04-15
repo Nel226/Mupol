@@ -4,22 +4,24 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 
 class Article extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUuids;
 
-    protected $primaryKey = 'uuid';
+    // protected $primaryKey = 'uuid';
     public $incrementing = false;
     protected $keyType = 'string';
     protected $fillable = [
-        'uuid',
+      
         'titre',
-        'contenu',
+        'categorie',
         'image_principal',
-        'categorie_id',
-        'date_publication',
+        'resume',
+        'contenu',
         'views',
+        'date',
     ];
 
 }

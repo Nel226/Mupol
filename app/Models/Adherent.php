@@ -8,10 +8,12 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Contracts\Auth\CanResetPassword;
+use Illuminate\Auth\Passwords\CanResetPassword as CanResetPasswordTrait;
 
-class Adherent extends Authenticatable
+class Adherent extends Authenticatable implements CanResetPassword
 {
-    use HasFactory, Notifiable, HasUuids;
+    use HasFactory, Notifiable, HasUuids, CanResetPasswordTrait;
     protected $keyType = 'string'; 
     public $incrementing = false; 
     protected $fillable = [
@@ -20,6 +22,8 @@ class Adherent extends Authenticatable
         'prenom',
         'genre',
         'service',
+        'direction',
+
         'matricule',
         'nip',
         'cnib',
@@ -41,6 +45,8 @@ class Adherent extends Authenticatable
         'nombreAyantsDroits',
         'ayantsDroits',
         'categorie',
+        'signature',
+
         'statut',
         'grade',
         'departARetraite',

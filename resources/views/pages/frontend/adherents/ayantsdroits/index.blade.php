@@ -24,7 +24,7 @@
         <!-- app layout content -->
         <div 
         id="app-layout-content" 
-        class="layout-guest min-h-screen w-full lg:pl-[15.625rem] transition-all duration-300 ease-out">
+        class="layout-guest min-h-screen w-full lg:pl-[5.625rem] transition-all duration-300 ease-out">
      
             @include("components.top-navbar-guest-connected")
 
@@ -71,7 +71,7 @@
                                <th scope="col" class="border-b bg-gray-100 px-6 py-3">Date de naissance</th>
                                <th scope="col" class="border-b bg-gray-100 px-6 py-3">Lien de parenté</th>
                                <th scope="col" class="border-b bg-gray-100 px-6 py-3">Code carte</th>
-                               <th scope="col" class="border-b bg-gray-100 px-6 py-3">Documents</th>
+                               {{-- <th scope="col" class="border-b bg-gray-100 px-6 py-3">Documents</th> --}}
                                <th scope="col" class="border-b bg-gray-100 px-6 py-3"></th>
 
 
@@ -83,11 +83,11 @@
                                 <tr>
                                     <td class="border-b border-gray-300 font-medium py-3 px-6 text-left">
                                         <div class="flex items-center">
-                                            <div>
+                                            {{-- <div>
                                                 <a href="#" class="h-10 w-10 inline-block">
                                                     <img src="{{ asset('storage/' . $ayantDroit->photo) }}" alt="Photo" class="rounded-full" />
                                                 </a>
-                                            </div>
+                                            </div> --}}
                                             <div class="ml-3 leading-4">
                                                 <h5 class="mb-1">
                                                     <a href="#!">{{ $ayantDroit->nom }} {{ $ayantDroit->prenom }}</a>
@@ -98,8 +98,8 @@
                                     </td>
                                     <td class="border-b border-gray-300 font-medium py-3 px-6 text-left">{{ $ayantDroit->date_naissance }}</td>
                                     <td class="border-b border-gray-300 font-medium py-3 px-6 text-left">{{ $ayantDroit->relation }}</td>
-                                    <td class="border-b border-gray-300 font-medium py-3 px-6 text-left">{{ $ayantDroit->relation }}</td>
-                                    <td class="border-b border-gray-300 font-medium py-3 px-6 text-left">
+                                    <td class="border-b border-gray-300 font-medium py-3 px-6 text-left">{{ $ayantDroit->code }}</td>
+                                    {{-- <td class="border-b border-gray-300 font-medium py-3 px-6 text-left">
                                         <div class="flex space-y-2 flex-col">
                                             @if ($ayantDroit->extrait)
                                                 <a href="{{ asset('storage/' . $ayantDroit->extrait) }}" target="_blank" class="text-primary1 underline">
@@ -119,7 +119,7 @@
                                                 @endif
                                             @endif
                                         </div>
-                                    </td>
+                                    </td> --}}
                                     <td class="border-b border-gray-300 font-medium py-3 px-6 text-left">
                                         <form action="{{ route('adherents.delete-ayantdroit', $ayantDroit->id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet ayant droit ?');">
                                             @csrf

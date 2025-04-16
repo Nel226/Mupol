@@ -454,6 +454,7 @@ class PrestationController extends Controller
 
             // Taux d’utilisation mensuel % (C)
             if ($data['Nombre de bénéficiaires (A)'][$month] > 0) {
+                
                 $data['Taux d’utilisation mensuel % C (C)'][$month] = number_format(($data['Nombre d’hospitalisation (B)'][$month] / $data['Nombre de bénéficiaires (A)'][$month])*$previousMonths * 100, 2);
             }
             if ($beneficiairesCumulative > 0) {
@@ -511,6 +512,8 @@ class PrestationController extends Controller
 
         return view('pages.backend.prestations.suivi', compact('tabulatorData', 'prestationsGroupedByAdherent', 'currentYear', 'prestationsAll', 'months' , 'data', 'pageTitle'));
     }
+
+
 
     public function suiviConsultation(Request $request)
     {

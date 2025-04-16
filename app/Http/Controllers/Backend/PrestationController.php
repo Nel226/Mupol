@@ -139,7 +139,8 @@ class PrestationController extends Controller
             if ($request->hasFile('preuve')) {
                 $files = [];
                 foreach ($request->file('preuve') as $file) {
-                    $path = $file->store('preuves', 'public');
+                    $path = $file->store("preuves/{$adherentCode}", 'public');
+                    
                     $files[] = $path; 
                 }
                 $prestation->preuve = json_encode($files); 
@@ -453,6 +454,7 @@ class PrestationController extends Controller
 
             // Taux d’utilisation mensuel % (C)
             if ($data['Nombre de bénéficiaires (A)'][$month] > 0) {
+                
                 $data['Taux d’utilisation mensuel % C (C)'][$month] = number_format(($data['Nombre d’hospitalisation (B)'][$month] / $data['Nombre de bénéficiaires (A)'][$month])*$previousMonths * 100, 2);
             }
             if ($beneficiairesCumulative > 0) {
@@ -510,6 +512,8 @@ class PrestationController extends Controller
 
         return view('pages.backend.prestations.suivi', compact('tabulatorData', 'prestationsGroupedByAdherent', 'currentYear', 'prestationsAll', 'months' , 'data', 'pageTitle'));
     }
+
+
 
     public function suiviConsultation(Request $request)
     {
@@ -679,7 +683,12 @@ class PrestationController extends Controller
 
         // Calcul des moyennes totales pour chaque catégorie
         foreach ($categories as $category) {
-            $data[$category]['Moyenne'] = number_format($data[$category]['Total'] / count($months), 2, ',', ' ');
+            //$data[$category]['Moyenne'] = number_format($data[$category]['Total'] / count($months), 2, ',', ' ');
+            $data[$category]['Moyenne'] = number_format(
+                (float) ($data[$category]['Total'] ?? 0) / max(count($months), 1),
+                2, ',', ' '
+            );
+
         }
 
         // Convertir les données pour Tabulator
@@ -890,7 +899,12 @@ class PrestationController extends Controller
 
         // Calcul des moyennes totales pour chaque catégorie
         foreach ($categories as $category) {
-            $data[$category]['Moyenne'] = number_format($data[$category]['Total'] / count($months), 2, ',', ' ');
+            //$data[$category]['Moyenne'] = number_format($data[$category]['Total'] / count($months), 2, ',', ' ');
+            $data[$category]['Moyenne'] = number_format(
+                (float) ($data[$category]['Total'] ?? 0) / max(count($months), 1),
+                2, ',', ' '
+            );
+
         }
 
         // Convertir les données pour Tabulator
@@ -1518,7 +1532,12 @@ class PrestationController extends Controller
 
         // Calcul des moyennes totales pour chaque catégorie
         foreach ($categories as $category) {
-            $data[$category]['Moyenne'] = number_format($data[$category]['Total'] / count($months), 2, ',', ' ');
+            //$data[$category]['Moyenne'] = number_format($data[$category]['Total'] / count($months), 2, ',', ' ');
+            $data[$category]['Moyenne'] = number_format(
+                (float) ($data[$category]['Total'] ?? 0) / max(count($months), 1),
+                2, ',', ' '
+            );
+
         }
 
         // Convertir les données pour Tabulator
@@ -1728,9 +1747,14 @@ class PrestationController extends Controller
 
         // Calcul des moyennes totales pour chaque catégorie
         foreach ($categories as $category) {
-            $data[$category]['Moyenne'] = number_format($data[$category]['Total'] / count($months), 2, ',', ' ');
-        }
+            //$data[$category]['Moyenne'] = number_format($data[$category]['Total'] / count($months), 2, ',', ' ');
+            $data[$category]['Moyenne'] = number_format(
+                (float) ($data[$category]['Total'] ?? 0) / max(count($months), 1),
+                2, ',', ' '
+            );
 
+        }
+		
         // Convertir les données pour Tabulator
         $tabulatorData = [];
         foreach ($categories as $category) {
@@ -2358,9 +2382,14 @@ class PrestationController extends Controller
 
         // Calcul des moyennes totales pour chaque catégorie
         foreach ($categories as $category) {
-            $data[$category]['Moyenne'] = number_format($data[$category]['Total'] / count($months), 2, ',', ' ');
-        }
+            //$data[$category]['Moyenne'] = number_format($data[$category]['Total'] / count($months), 2, ',', ' ');
+            $data[$category]['Moyenne'] = number_format(
+                (float) ($data[$category]['Total'] ?? 0) / max(count($months), 1),
+                2, ',', ' '
+            );
 
+        }
+		
         // Convertir les données pour Tabulator
         $tabulatorData = [];
         foreach ($categories as $category) {

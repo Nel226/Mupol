@@ -125,7 +125,8 @@
     
 </style>
 
-<div class="overflow-x-auto border-4 bg-gray-500 custom-scroll">
+<div id="formulaire-adhesion" x-data="{}" x-init="data = JSON.parse($el.getAttribute('data'))"
+    class="overflow-x-auto border-4 bg-gray-500 custom-scroll">
 
     <div class="  adhesion-form max-w-4xl border mx-auto p-10 bg-white shadow-lg rounded-lg" style="min-width: 640px;">
         <div class="flex justify-between items-center mx-auto pb-2 w-11/12 mb-2">
@@ -168,7 +169,7 @@
                     <h3 class="text-1xl font-semibold bg-gray-500 px-auto px-1 py-1">RÉFÉRENCES DE L'ADHÉRENT</h3>
     
                     <div>
-                        <p><strong>MATRICULE :</strong> {{ $this->matricule }}</p>
+                        <p><strong>MATRICULE :</strong> {{ $matricule }}</p>
                     </div>
     
                     <!-- NIP et CNIB sur la même ligne -->

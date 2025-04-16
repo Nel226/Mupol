@@ -162,6 +162,11 @@ class WizardMembership extends Component
             session()->put('currentStep', $this->currentStep);
         }
     }
+    public function updatedPhoto()
+    {
+        // Logique de mise à jour de la photo ici
+        $this->emit('photoUpdated', $this->photo->temporaryUrl());
+    }
     
     // Méthode de validation par étape
     public function validateStep()

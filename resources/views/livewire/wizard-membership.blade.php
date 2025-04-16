@@ -373,7 +373,8 @@
                                         </fieldset>
                                     </div>
         
-                                    {{-- <div class="col-span-1">
+                                    <!-- -------------------------- Photo -------------------------------------->
+                                    <div id="photoUpload" class="col-span-1">
                                         <label class="block text-gray-700 text-sm font-bold mb-1" for="photo">Photo</label>
                                     
                                         <!-- Input de fichier -->
@@ -815,7 +816,6 @@
                     <div class="grid grid-cols-1  gap-3 sm:gap-4">
             
                         <!-- Photo -->
-                        
                         <div>
                             <label class="block text-gray-700 text-sm font-bold mb-1" for="photo">Photo d&apos;identité</label>
                             <input name="photo" id="photo" type="file" accept="image/*" required
@@ -842,10 +842,8 @@
                             });
                         </script>
                         
-
-            
-                    
                     </div>
+
                     <!-- Bouton pour vérifier les données -->
                     <div class="flex justify-between items-center py-2">
                         <div class="text-red-500">
@@ -860,8 +858,7 @@
                     </div>
                 </div>
             </form>
-           
-           
+
             @if ($showConfirmationForm)
             <div>
                 <div class="text-center">

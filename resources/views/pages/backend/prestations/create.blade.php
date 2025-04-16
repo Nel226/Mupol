@@ -142,10 +142,13 @@
                                             
                                             <div id="form-container">
                                                 <div class="form-prestation rounded-md  !mt-2 bg-gray-100 shadow-lg  border">
-                                                    <div class="w-full p-2 rounded-t-md bg-gray-300 flex items-center justify-between cursor-pointer" id="accordion-header">
+                                                    <div class="w-full p-2 rounded-t-md bg-gray-300 flex items-center justify-between cursor-pointer" >
+                                                        <button id="accordion-header" >          
+                                                            <span id="toggle-icon" class="text-xs" >▼ Masquer</span>
+                                                        </button>
                                                         <label for="form" id="label" class="block text-bold text-sm font-medium text-gray-900">Prestation #1</label>
-                                                        <div class=" flex-row justify-end items-center">
-                                                            <span id="toggle-icon" class="text-lg">+</span>
+                                                        <div class=" flex justify-end items-center">
+                                                            
                                                             <div class="text-right mt-4">
                                                                 <button type="button" class="bg-red-600 text-white text-xs px-3 py-1 rounded delete-form-btn">
                                                                     Supprimer
@@ -229,7 +232,7 @@
                                                                 
                                                                 <div class="w-full">
                                                                     <label for="preuve" class="block mb-2 text-sm font-medium text-gray-900">Preuve :</label>
-                                                                    <input id="preuve" name="preuve[]" type="file" multiple class="block w-full p-2 mb-4 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
+                                                                    <input id="preuve" name="preuve[]" type="file" accept="image/*" multiple class="block w-full p-2 mb-4 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
                                                                 </div>
                                                                 
                                                             </div>
@@ -264,8 +267,8 @@
                                                                 </div>
                                                                 
                                                                 <div class="w-1/2">
-                                                                    <label for="preuve" class="block mb-2 text-sm font-medium text-gray-900">Preuve :</label>
-                                                                    <input id="preuve" name="preuve[]" type="file" multiple accept=".pdf" class="block w-full p-2 mb-4 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
+                                                                    <label for="preuve" class="block mb-2 text-sm font-medium text-gray-900">Preuve(s) :</label>
+                                                                    <input id="preuve" name="preuve[]" type="file" multiple accept="image/*" class="block w-full p-2 mb-4 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
                                                                 </div>
                                                                 
                                                             </div>
@@ -295,8 +298,8 @@
                                                                 </div>
                                                                 
                                                                 <div class="w-1/2">
-                                                                    <label for="preuve" class="block mb-2 text-sm font-medium text-gray-900">Preuve :</label>
-                                                                    <input id="preuve" name="preuve[]" type="file" multiple class="block w-full p-2 mb-4 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
+                                                                    <label for="preuve" class="block mb-2 text-sm font-medium text-gray-900">Preuve(s) :</label>
+                                                                    <input id="preuve" name="preuve[]" type="file" accept="image/*" multiple class="block w-full p-2 mb-4 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
                                                                 </div>
                                                                 
                                                             </div>
@@ -334,8 +337,8 @@
                                                                 </div>
                                                                 
                                                                 <div class="w-1/2">
-                                                                    <label for="preuve" class="block mb-2 text-sm font-medium text-gray-900">Preuve :</label>
-                                                                    <input id="preuve" name="preuve[]" type="file" multiple class="block w-full p-2 mb-4 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
+                                                                    <label for="preuve" class="block mb-2 text-sm font-medium text-gray-900">Preuve(s) :</label>
+                                                                    <input id="preuve" name="preuve[]" type="file" accept="image/*" multiple class="block w-full p-2 mb-4 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
                                                                 </div>
                                                                 
                                                             </div>
@@ -364,8 +367,8 @@
                                                                 </div>
                                                                 
                                                                 <div class="w-1/2">
-                                                                    <label for="preuve" class="block mb-2 text-sm font-medium text-gray-900">Preuve :</label>
-                                                                    <input id="preuve" name="preuve[]" type="file" multiple class="block w-full p-2 mb-4 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
+                                                                    <label for="preuve" class="block mb-2 text-sm font-medium text-gray-900">Preuve(s) :</label>
+                                                                    <input id="preuve" name="preuve[]" type="file" accept="image/*" multiple class="block w-full p-2 mb-4 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
                                                                 </div>
                                                                 
                                                             </div>
@@ -399,8 +402,8 @@
                                                                 </div>
                                                                 
                                                                 <div class="w-1/2">
-                                                                    <label for="preuve" class="block mb-2 text-sm font-medium text-gray-900">Preuve :</label>
-                                                                    <input id="preuve" name="preuve[]" type="file" multiple class="block w-full p-2 mb-4 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
+                                                                    <label for="preuve" class="block mb-2 text-sm font-medium text-gray-900">Preuve(s) :</label>
+                                                                    <input id="preuve" name="preuve[]" type="file" accept="image/*" multiple class="block w-full p-2 mb-4 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
                                                                 </div>
                                                                 
                                                             </div>
@@ -429,8 +432,8 @@
                                                                 </div>
                                                                 
                                                                 <div class="w-1/2">
-                                                                    <label for="preuve" class="block mb-2 text-sm font-medium text-gray-900">Preuve :</label>
-                                                                    <input id="preuve" name="preuve[]" type="file" multiple class="block w-full p-2 mb-4 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
+                                                                    <label for="preuve" class="block mb-2 text-sm font-medium text-gray-900">Preuve(s) :</label>
+                                                                    <input id="preuve" name="preuve[]" type="file" accept="image/*" multiple class="block w-full p-2 mb-4 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
                                                                 </div>
                                                                 
                                                             </div>
@@ -459,8 +462,8 @@
                                                                 </div>
                                                                 
                                                                 <div class="w-1/2">
-                                                                    <label for="preuve" class="block mb-2 text-sm font-medium text-gray-900">Preuve :</label>
-                                                                    <input id="preuve" name="preuve[]" type="file" multiple class="block w-full p-2 mb-4 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
+                                                                    <label for="preuve" class="block mb-2 text-sm font-medium text-gray-900">Preuve(s) :</label>
+                                                                    <input id="preuve" name="preuve[]" type="file" accept="image/*" multiple class="block w-full p-2 mb-4 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
                                                                 </div>
                                                                 
                                                             </div>
@@ -505,8 +508,8 @@
                                                                 </div>
                                                                 
                                                                 <div class="w-1/2">
-                                                                    <label for="preuve" class="block mb-2 text-sm font-medium text-gray-900">Preuve :</label>
-                                                                    <input id="preuve" name="preuve[]" type="file" multiple accept=".pdf" class="block w-full p-2 mb-4 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
+                                                                    <label for="preuve" class="block mb-2 text-sm font-medium text-gray-900">Preuve(s) :</label>
+                                                                    <input id="preuve" name="preuve[]" type="file" multiple accept="image/*" class="block w-full p-2 mb-4 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
                                                                 </div>
                                                                 
                                                             </div>
@@ -539,8 +542,8 @@
                                                                 </div>
                                                                 
                                                                 <div class="w-1/2">
-                                                                    <label for="preuve" class="block mb-2 text-sm font-medium text-gray-900">Preuve :</label>
-                                                                    <input id="preuve" name="preuve[]" type="file" multiple class="block w-full p-2 mb-4 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
+                                                                    <label for="preuve" class="block mb-2 text-sm font-medium text-gray-900">Preuve(s) :</label>
+                                                                    <input id="preuve" name="preuve[]" type="file" accept="image/*" multiple class="block w-full p-2 mb-4 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
                                                                 </div>
                                                                 
                                                             </div>
@@ -552,7 +555,7 @@
                             
                                     
                                 </div>
-                                <div class=" flex justify-end">
+                                <div class=" flex justify-start">
                                     <x-primary-button type="button" id="add-form" class="mt-4">
                                         Ajouter une autre prestation
                                     </x-primary-button>
@@ -571,128 +574,60 @@
                 </div>
             </form>
             <script>
-                let formIndex = 1; 
-
+                let formIndex = 1;
+            
                 function initializeAccordion(form) {
-                    const accordionHeader = form.querySelector('#accordion-header'); 
+                    const accordionHeader = form.querySelector('#accordion-header');
                     const accordionContent = form.querySelector('#accordion-content');
-                    const toggleIcon = form.querySelector('.toggle-icon');
+                    const toggleIcon = form.querySelector('#toggle-icon');
             
-                    accordionHeader.addEventListener('click', function() {
+                    accordionHeader.addEventListener('click', function () {
                         accordionContent.classList.toggle('hidden');
-                        toggleIcon.textContent = accordionContent.classList.contains('hidden') ? '+' : '-';
+                        toggleIcon.textContent = accordionContent.classList.contains('hidden') ? '▶ Afficher' : '▼ Masquer';
                     });
                 }
-
-                function addDeleteButtonEvent(form) {
-                    const deleteBtn = form.querySelector('.delete-form-btn');
-                    if (deleteBtn) {
-                        deleteBtn.addEventListener('click', function () {
-                            const formContainer = document.getElementById('form-container');
-                            if (formContainer.children.length > 1) {
-                                formContainer.removeChild(form);
-                                updateFormIndices(formContainer);
-                            } else {
-                                alert("Vous devez avoir au moins une prestation.");
-                            }
-                        });
+            
+                function addDeleteButton(form) {
+                    let deleteBtn = form.querySelector('.delete-form-btn');
+            
+                    // Si le bouton n'existe pas, on le crée
+                    if (!deleteBtn) {
+                        deleteBtn = document.createElement('button');
+                        deleteBtn.className = 'bg-red-500 text-white p-2 text-xs rounded delete-form-btn mt-2';
+                        deleteBtn.textContent = 'Supprimer';
+            
+                        form.appendChild(deleteBtn);
                     }
+            
+                    deleteBtn.addEventListener('click', function () {
+                        const formContainer = document.getElementById('form-container');
+                        if (formContainer.children.length > 1) {
+                            form.remove();
+                            updateFormIndices(formContainer);
+                        } else {
+                            alert("Vous devez avoir au moins une prestation.");
+                        }
+                    });
                 }
-
             
-                document.addEventListener('DOMContentLoaded', function() {
-                    const firstForm = document.querySelector('.form-prestation');
-                    initializeAccordion(firstForm); 
-                    addDeleteButtonEvent(firstForm); 
-
-                });
-
-            
-                document.getElementById('add-form').addEventListener('click', function() {
-                    const formContainer = document.getElementById('form-container');
-                    const newForm = document.querySelector('.form-prestation').cloneNode(true);
-                    
-                    // Créer un bouton "Supprimer" pour le nouveau formulaire
-                    const deleteButton = document.createElement('button');
-                    deleteButton.className = 'bg-red-500 text-white p-2 text-xs rounded delete-form-btn';
-                    deleteButton.textContent = 'Supprimer';
-                    
-                    formIndex++;
-
-                    // Réinitialiser les champs du nouveau formulaire
-                    newForm.querySelectorAll('input, select').forEach(function(element) {
-                        const name = element.getAttribute('name');
-                        const id = element.getAttribute('id');
-                        const label = newForm.querySelector('label'); 
-
-                        label.textContent = `Prestation #${formIndex}`;
-                        if (name) {
-                            element.setAttribute('name', `${name}-${formIndex}`);
-                        }
-                        if (id) {
-                            element.setAttribute('id', `${id}-${formIndex}`);
-                        }
-                    
-                        if (element.tagName === 'SELECT') {
-                            element.selectedIndex = 0;
-                        } else if (element.type === 'text' || element.type === 'number' || element.type === 'file' || element.type === 'date') {
-                            element.value = ''; 
-                        } else if (element.type === 'checkbox' || element.type === 'radio') {
-                            element.checked = false; 
-                        }
-                    
-                        if (element.id === 'contactPrestation-1') {
-                            console.log("ID du champ contactPrestation:", element.id);
+                function updateFormIndices(container) {
+                    const forms = container.querySelectorAll('.form-prestation');
+                    forms.forEach((form, index) => {
+                        const label = form.querySelector('label');
+                        if (label) {
+                            label.textContent = `Prestation #${index + 1}`;
                         }
                     });
-                    
-                    initializeAccordion(newForm);
-                    addDeleteButtonEvent(newForm);
-
+                    formIndex = forms.length;
+                }
             
-                    {{--  newForm.querySelector('.acteContainer').classList.remove('hidden');    --}}
-                    formContainer.appendChild(newForm);
-
-
-                    {{--  let acteSelect = null;   --}}
-                    hideAllOptions(newForm); 
-
-                    acteSelect = newForm.querySelector('.acte-select'); 
-                    console.log('Acte sélectionné:', acteSelect);
-
-                    if (acteSelect) {
-                        acteSelect.addEventListener('change', function() {
-                            {{--  if (acteTitle) {
-                                acteTitle.textContent = this.value || ''; // Mettre à jour le titre
-                            }  --}}
-                        });
-                    }
-                    if (acteSelect) {
-                        acteSelect.addEventListener('change', function() {
-                            showSelectedOption(acteSelect); 
-                        });
-                        console.log('Acte selectionné:', acteSelect);
-                        if (acteSelect.value) {
-                            showSelectedOption(acteSelect); 
-                        }
-                    }
-
-                    deleteButton.addEventListener('click', function() {
-                        formContainer.removeChild(newForm);
-                        updateFormIndices(formContainer);
-
-                    });
-            
-                });
-
                 function showSelectedOption(acteSelect) {
-                    const form = acteSelect.closest('.form-prestation'); 
-                    
-                    hideAllOptions(form); 
+                    const form = acteSelect.closest('.form-prestation');
+                    hideAllOptions(form);
             
                     const selectedOption = acteSelect.value;
                     if (selectedOption) {
-                        const optionToShow = form.querySelector('.' + selectedOption); 
+                        const optionToShow = form.querySelector('.' + selectedOption);
                         if (optionToShow) {
                             optionToShow.classList.remove('hidden');
                         } else {
@@ -702,19 +637,76 @@
                 }
             
                 function hideAllOptions(form) {
-                    form.querySelectorAll('.options').forEach(function(option) {
-                        option.classList.add('hidden'); 
+                    form.querySelectorAll('.options').forEach(function (option) {
+                        option.classList.add('hidden');
                     });
                 }
             
-                document.querySelectorAll('.acte-select').forEach(function(acteSelect) {
-                    acteSelect.selectedIndex = 0;
-                    acteSelect.addEventListener('change', function() {
-                        showSelectedOption(acteSelect); 
+                document.addEventListener('DOMContentLoaded', function () {
+                    const firstForm = document.querySelector('.form-prestation');
+                    initializeAccordion(firstForm);
+                    addDeleteButton(firstForm);
+            
+                    document.getElementById('add-form').addEventListener('click', function () {
+                        const formContainer = document.getElementById('form-container');
+                        const originalForm = document.querySelector('.form-prestation');
+                        const newForm = originalForm.cloneNode(true);
+            
+                        formIndex++;
+                        const label = newForm.querySelector('label');
+                        if (label) {
+                            label.textContent = `Prestation #${formIndex}`;
+                        }
+            
+                        // Réinitialiser les champs
+                        newForm.querySelectorAll('input, select').forEach(function (element) {
+                            if (element.name) {
+                                element.name = `${element.name.split('-')[0]}-${formIndex}`;
+                            }
+                            if (element.id) {
+                                element.id = `${element.id.split('-')[0]}-${formIndex}`;
+                            }
+            
+                            if (element.tagName === 'SELECT') {
+                                element.selectedIndex = 0;
+                            } else if (['text', 'number', 'file', 'date'].includes(element.type)) {
+                                element.value = '';
+                            } else if (['checkbox', 'radio'].includes(element.type)) {
+                                element.checked = false;
+                            }
+                        });
+            
+                        initializeAccordion(newForm);
+                        hideAllOptions(newForm);
+                        addDeleteButton(newForm);
+            
+                        const acteSelect = newForm.querySelector('.acte-select');
+                        if (acteSelect) {
+                            acteSelect.selectedIndex = 0;
+                            acteSelect.addEventListener('change', function () {
+                                showSelectedOption(acteSelect);
+                            });
+            
+                            if (acteSelect.value) {
+                                showSelectedOption(acteSelect);
+                            }
+                        }
+            
+                        formContainer.appendChild(newForm);
+                        updateFormIndices(formContainer);
+
                     });
             
+                    // Initialiser les événements sur les select existants
+                    document.querySelectorAll('.acte-select').forEach(function (acteSelect) {
+                        acteSelect.selectedIndex = 0;
+                        acteSelect.addEventListener('change', function () {
+                            showSelectedOption(acteSelect);
+                        });
+                    });
                 });
             </script>
+            
             
             
             <script defer>
@@ -752,7 +744,7 @@
                             document.getElementById('adherentNom').value = selectedAdherent.nom;
                             document.getElementById('adherentPrenom').value = selectedAdherent.prenom;
                             document.getElementById('adherentSexe').value = selectedAdherent.genre;
-                            beneficiaireIndicator.value = 'Adhérant';
+                            beneficiaireIndicator.value = 'Adhérent';
                 
                             acteContainer.classList.remove('hidden');
                             adherentInfo.classList.remove('hidden');
@@ -764,7 +756,7 @@
                             if (selectedAyantDroit) {
                                 document.getElementById('adherentNom').value = selectedAyantDroit.nom;
                                 document.getElementById('adherentPrenom').value = selectedAyantDroit.prenom;
-                                document.getElementById('adherentSexe').value = selectedAyantDroit.genre;
+                                document.getElementById('adherentSexe').value = selectedAyantDroit.sexe;
                                 beneficiaireIndicator.value = 'Ayant Droit';
                 
                                 acteContainer.classList.remove('hidden');

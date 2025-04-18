@@ -185,8 +185,23 @@
                                                                 
                                                                 <div class="w-full">
                                                                     <label for="centre" class="block mb-2 text-sm font-medium text-gray-900">Centre de santé :</label>
-                                                                    <input id="centre" name="centre_consultation" type="text" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
+                                                                    <select  name="centre_consultation" class="centre-select block w-full p-2 mb-4 border border-gray-300 rounded-lg select2">
+                                                                        @foreach($partenaires as $partenaire)
+                                                                            <option value="{{ $partenaire->id }}">{{ $partenaire->nom }}</option>
+                                                                        @endforeach
+                                                                    </select>
                                                                 </div>
+                                                                <script>
+                                                                    $(document).ready(function() {
+                                                                        $('.centre-select').select2({
+                                                                            placeholder: "Sélectionner un centre de santé",
+                                                                            allowClear: true,
+                                                                            width: '100%'
+                                                                        });
+                                                                    });
+                                                                </script>
+                                                                
+                                                                
                                                                 
                                                             </div>
                                                             <label class="block mb-2 text-sm font-medium text-gray-900">Type de consultation :</label>
@@ -248,7 +263,11 @@
                                                                 
                                                                 <div class="w-full">
                                                                     <label for="centre" class="block mb-2 text-sm font-medium text-gray-900">Centre de santé :</label>
-                                                                    <input id="centre" name="centre_hospitalisation" type="text" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
+                                                                    <select  name="centre_hospitalisation" class="centre-select block w-full p-2 mb-4 border border-gray-300 rounded-lg select2">
+                                                                        @foreach($partenaires as $partenaire)
+                                                                            <option value="{{ $partenaire->id }}">{{ $partenaire->nom }}</option>
+                                                                        @endforeach
+                                                                    </select>
                                                                 </div>
                                                                 
                                                             </div>
@@ -286,7 +305,11 @@
                                                                 
                                                                 <div class="w-1/2">
                                                                     <label for="centre" class="block mb-2 text-sm font-medium text-gray-900">Centre de santé :</label>
-                                                                    <input id="centre" name="centre_analyse_biomedicale" type="text" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
+                                                                    <select  name="centre_analyse_biomedicale" class="centre-select block w-full p-2 mb-4 border border-gray-300 rounded-lg select2">
+                                                                        @foreach($partenaires as $partenaire)
+                                                                            <option value="{{ $partenaire->id }}">{{ $partenaire->nom }}</option>
+                                                                        @endforeach
+                                                                    </select>
                                                                 </div>
                                                                 
                                                             </div>
@@ -315,7 +338,11 @@
                                                                 
                                                                 <div class="w-1/2">
                                                                     <label for="centre" class="block mb-2 text-sm font-medium text-gray-900">Centre de santé :</label>
-                                                                    <input id="centre" name="centre_radio" type="text" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
+                                                                    <select  name="centre_radio" class="centre-select block w-full p-2 mb-4 border border-gray-300 rounded-lg select2">
+                                                                        @foreach($partenaires as $partenaire)
+                                                                            <option value="{{ $partenaire->id }}">{{ $partenaire->nom }}</option>
+                                                                        @endforeach
+                                                                    </select>
                                                                 </div>
                                                                 
                                                             </div>
@@ -355,7 +382,11 @@
                                                                 
                                                                 <div class="w-1/2">
                                                                     <label for="centre" class="block mb-2 text-sm font-medium text-gray-900">Centre de santé :</label>
-                                                                    <input id="centre" name="centre_pharmacie" type="text" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
+                                                                    <select  name="centre_pharmacie" class="centre-select block w-full p-2 mb-4 border border-gray-300 rounded-lg select2">
+                                                                        @foreach($partenaires as $partenaire)
+                                                                            <option value="{{ $partenaire->id }}">{{ $partenaire->nom }}</option>
+                                                                        @endforeach
+                                                                    </select>
                                                                 </div>
                                                                 
                                                             </div>
@@ -385,7 +416,11 @@
                                                                 
                                                                 <div class="w-1/2">
                                                                     <label for="centre" class="block mb-2 text-sm font-medium text-gray-900">Centre de santé :</label>
-                                                                    <input id="centre" name="centre_maternite" type="text" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
+                                                                    <select  name="centre_maternite" class="centre-select block w-full p-2 mb-4 border border-gray-300 rounded-lg select2">
+                                                                        @foreach($partenaires as $partenaire)
+                                                                            <option value="{{ $partenaire->id }}">{{ $partenaire->nom }}</option>
+                                                                        @endforeach
+                                                                    </select>
                                                                 </div>
                                                                 
                                                             </div>
@@ -420,7 +455,11 @@
                                                                 
                                                                 <div class="w-1/2">
                                                                     <label for="centre" class="block mb-2 text-sm font-medium text-gray-900">Centre de santé :</label>
-                                                                    <input id="centre" name="centre_optique" type="text" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
+                                                                    <select name="centre_optique" class="centre-select block w-full p-2 mb-4 border border-gray-300 rounded-lg select2">
+                                                                        @foreach($partenaires as $partenaire)
+                                                                            <option value="{{ $partenaire->id }}">{{ $partenaire->nom }}</option>
+                                                                        @endforeach
+                                                                    </select>
                                                                 </div>
                                                                 
                                                             </div>
@@ -450,7 +489,11 @@
                                                                 
                                                                 <div class="w-1/2">
                                                                     <label for="centre" class="block mb-2 text-sm font-medium text-gray-900">Centre de santé :</label>
-                                                                    <input id="centre" name="centre_dentaire_auditif" type="text" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
+                                                                    <select  name="centre_dentaire_auditif" class="centre-select block w-full p-2 mb-4 border border-gray-300 rounded-lg select2">
+                                                                        @foreach($partenaires as $partenaire)
+                                                                            <option value="{{ $partenaire->id }}">{{ $partenaire->nom }}</option>
+                                                                        @endforeach
+                                                                    </select>
                                                                 </div>
                                                                 
                                                             </div>
@@ -479,7 +522,11 @@
                                                                 
                                                                 <div class="w-1/2">
                                                                     <label for="centre" class="block mb-2 text-sm font-medium text-gray-900">Centre de santé :</label>
-                                                                    <input id="centre" name="centre_allocation" type="text" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
+                                                                    <select  name="centre_allocation" class="centre-select block w-full p-2 mb-4 border border-gray-300 rounded-lg select2">
+                                                                        @foreach($partenaires as $partenaire)
+                                                                            <option value="{{ $partenaire->id }}">{{ $partenaire->nom }}</option>
+                                                                        @endforeach
+                                                                    </select>
                                                                 </div>
                                                                 
                                                             </div>
@@ -525,7 +572,11 @@
                                                                 
                                                                 <div class="w-1/2">
                                                                     <label for="centre" class="block mb-2 text-sm font-medium text-gray-900">Centre de santé :</label>
-                                                                    <input id="centre" name="centre_autre" type="text" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
+                                                                    <select  name="centre_autre" class="centre-select block w-full p-2 mb-4 border border-gray-300 rounded-lg select2">
+                                                                        @foreach($partenaires as $partenaire)
+                                                                            <option value="{{ $partenaire->id }}">{{ $partenaire->nom }}</option>
+                                                                        @endforeach
+                                                                    </select>
                                                                 </div>
                                                                 
                                                             </div>

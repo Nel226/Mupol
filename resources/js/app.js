@@ -8,7 +8,7 @@ import 'select2/dist/css/select2.min.css';
 import 'select2';
 import Chart from 'chart.js/auto';
 import $ from 'jquery';
-import {Tabulator} from 'tabulator-tables';
+import { TabulatorFull as Tabulator } from 'tabulator-tables';
 import * as XLSX from 'xlsx';
 import SignaturePad from 'signature_pad';
 
@@ -26,6 +26,7 @@ window.Alpine = Alpine;
 
 Alpine.start();
 window.XLSX = XLSX; 
+
 window.SignaturePad = SignaturePad;
 
 

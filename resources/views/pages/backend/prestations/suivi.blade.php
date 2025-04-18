@@ -243,7 +243,7 @@
                                 {{ __('Imprimer') }}
                             </x-primary-button>
                             
-                            <x-primary-button id="export-suivi" class="ms-3">
+                            <x-primary-button id="export-suivi-hospitalisation" class="ms-3">
                                 {{ __('Exporter en XLSX') }}
                             </x-primary-button>
                         </div>
@@ -460,7 +460,7 @@
                             {title: "Référence", field: "Référence"}
                         ],
                     });
-                    document.getElementById('export-suivi').addEventListener('click', function() {
+                    document.getElementById('export-suivi-hospitalisation').addEventListener('click', function() {
                         tableSuivi.download("xlsx", "Suivi.xlsx", {});
                     });    
                 </script>

@@ -81,11 +81,10 @@
                         
                     <!-- Liste des adhérents -->
                     <div id="prestationsContainer" class="container p-4 mx-auto">
-                        <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
 
                         @foreach ($prestationsGroupedByAdherent as $adherentId => $prestations)
                             @php
-                                $adherent = App\Models\Adherent::find($adherentId);
+                                $adherent = $adherents[$adherentId] ?? null;
                                 $totalMontant = $prestations->sum('montant');
                             @endphp
 

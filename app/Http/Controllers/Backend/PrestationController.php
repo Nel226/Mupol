@@ -9,6 +9,7 @@ use App\Http\Requests\StorePrestationRequest;
 use App\Http\Requests\UpdatePrestationRequest;
 use App\Models\Adherent;
 use App\Models\AyantDroit;
+use App\Models\Partenaire;
 use App\Models\Categorie;
 use App\Models\Depense;
 use Illuminate\Support\Facades\Auth;
@@ -64,6 +65,7 @@ class PrestationController extends Controller
 
         
         $adherentsValides = Adherent::all();
+        $partenaires = Partenaire::all();
 
     
 
@@ -74,7 +76,7 @@ class PrestationController extends Controller
         $prestationsValides = Prestation::where('validite', 'accepté')->get();
         $pageTitle = 'Nouvelle prestation';
 
-        return view('pages.backend.prestations.create', compact('adherents', 'ayantsDroit', 'prestations', 'prestationsValides', 'adherentsValides', 'ayantsDroitValides', 'pageTitle'));
+        return view('pages.backend.prestations.create', compact('adherents', 'ayantsDroit', 'prestations', 'partenaires', 'prestationsValides', 'adherentsValides', 'ayantsDroitValides', 'pageTitle'));
 
     }
 
@@ -205,6 +207,23 @@ class PrestationController extends Controller
 
         return redirect()->route('prestations.index')->with('success', 'La prestation a été validée avec succès.');
     }
+
+    public function validerMultiple(Request $request)
+    {
+        $ids = $request->input('ids', []);
+        dd($request->all());
+        if (empty($ids)) {
+            return redirect()->back()->with('error', 'Aucune prestation sélectionnée.');
+        }
+
+        Prestation::whereIn('id', $ids)->update([
+            'validite' => 'accepté', // ou autre champ selon ta logique
+        ]);
+
+        return redirect()->back()->with('success', 'Les prestations ont été validées avec succès.');
+    }
+
+    
     public function rejeter($id)
     {
         $prestation = Prestation::findOrFail($id);

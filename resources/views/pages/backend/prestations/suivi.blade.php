@@ -94,7 +94,7 @@
                     <script>
                         const months = @json($months);
                         const beneficiairesData = @json(array_values($data['Nombre de bénéficiaires (A)']));
-                        const hospitalisationsData = @json(array_values($data['Nombre d’hospitalisation (B)']));
+                        const hospitalisationsData = @json(array_values($data['Nombre d’hospitalisations (B)']));
                         const prestationsCostData = @json(array_values($data['Coût total des hospitalisations (E)']));
                         const avgHospitalizationCostData = @json(array_values($data['Coût moyen mensuel d’une hospitalisation (F)']));
 

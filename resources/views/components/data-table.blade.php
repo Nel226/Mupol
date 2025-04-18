@@ -4,7 +4,6 @@
     <table id="{{ $id }}" class="w-full text-sm text-left text-gray-500 border rtl:text-right dark:text-gray-400 display">
         <thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-                <th><input type="checkbox" id="select-all" class="form-checkbox w-4 h-4" /></th>
                 @foreach ($headers as $header)
                     <th>{{ $header }}</th>
                 @endforeach

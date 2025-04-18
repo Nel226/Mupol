@@ -85,7 +85,7 @@
                     <script>
                         const months = @json($months);
                         const beneficiairesData = @json(array_values($data['Nombre de bénéficiaires (A)']));
-                        const consultationsData = @json(array_values($data['Nombre de consultation (B)']));
+                        const consultationsData = @json(array_values($data['Nombre de consultations (B)']));
                         const prestationsCostData = @json(array_values($data['Coût total des consultations (E)']));
                         const avgConsultationCostData = @json(array_values($data['Coût moyen mensuel d’une consultation (F)']));
 
@@ -337,7 +337,13 @@
                     }
                 </script>
 
-                
+<style>
+    @media print {
+        thead, tfoot {
+            display: none !important;
+        }
+    }
+</style>
                 <script>
                     function showSpinner() {
                         document.getElementById('spinner').classList.remove('hidden');

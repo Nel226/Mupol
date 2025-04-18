@@ -60,8 +60,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/dentaire-auditif/suivi', [PrestationController::class, 'suiviDentaireAuditif'])->name('suivi-dentaire-auditif');
     Route::get('/autre/suivi', [PrestationController::class, 'suiviAutre'])->name('suivi-autre');
     Route::get('/all/suivi', action: [PrestationController::class, 'suiviTous'])->name('suivi-all');
-    //Route::get('/prestations/search', [PrestationController::class, 'search'])->name('prestations.search');
-
 
     Route::resource('adherents', AdherentController::class);
     Route::get('/envoi-fiche-cession-salaire/{id}', [DemandeController::class, 'envoiFicheCessionSalaire'])
@@ -80,8 +78,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('prestations', PrestationController::class);
     Route::resource('articles', ArticleController::class);
 
-
-
     Route::get('/preview-fiche-cession-volontaire/{id}', [DemandeController::class, 'previewFiche'])->name('preview-fiche-cession-volontaire');
     Route::get('/preview-formulaire-adhesion/{id}', [DemandeController::class, 'previewForm'])->name('preview-formulaire-adhesion');
 
@@ -99,8 +95,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('estimations', EstimationeController ::class);
 
     //FIN COMPTABILITE
-
-
 
     Route::get('/get-data', [CotisationController::class, 'getData']);
 

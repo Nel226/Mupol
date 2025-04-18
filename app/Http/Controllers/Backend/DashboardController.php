@@ -105,12 +105,16 @@ class DashboardController extends Controller
             'dentaire_auditif' => 0,
             'autre' => 0,
         ];
+
         foreach ($prestations as $prestation) {
-            $sumTotalPrestations += $prestation->montant * 80 / 100;
-    
-            $typeActe = $prestation->acte;
-            if (isset($prestationsCostsByAct[$typeActe])) {
-                $prestationsCostsByAct[$typeActe] += $prestation->montant * 80 / 100;
+            // Vérifier que l'état de paiement est 1
+            if ($prestation->etat_paiement == 1) {
+                $sumTotalPrestations += $prestation->montant * 80 / 100;
+        
+                $typeActe = $prestation->acte;
+                if (isset($prestationsCostsByAct[$typeActe])) {
+                    $prestationsCostsByAct[$typeActe] += $prestation->montant * 80 / 100;
+                }
             }
         }
         $selectedYear = $request->input('year', Carbon::now()->year);

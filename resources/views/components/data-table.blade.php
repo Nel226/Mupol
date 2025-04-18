@@ -25,5 +25,8 @@
             event.stopPropagation();
         });
     });
-    
+    $(document).on('click', '.row-checkbox', function (e) {
+        e.stopPropagation();
+    });
+
 </script>

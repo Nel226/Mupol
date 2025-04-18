@@ -93,7 +93,7 @@
                     <div id="results-container">
                         @foreach ($paginatedPrestations as $adherentId => $prestations)
                             @php
-                                $adherent = App\Models\Adherent::find($adherentId);
+                                $adherent = $adherents[$adherentId] ?? null;
                                 $totalMontant = $prestations->sum('montant');
                             @endphp
 

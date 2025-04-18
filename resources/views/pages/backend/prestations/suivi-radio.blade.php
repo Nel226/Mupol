@@ -373,16 +373,44 @@
                     function showSpinner() {
                         document.getElementById('spinner').classList.remove('hidden');
                     }
-                    document.getElementById("print-table").addEventListener("click", function(){
-                        tableSuivi.print(false, true);
+                    document.getElementById('print-table').addEventListener('click', function () {
+                        const logo = new Image();
+                        logo.src = logoUrl;
+
+                        logo.onload = function () {
+                            tableSuivi.print(false, true); // false = all rows, true = use HTML
+                        };
                     });
+                
+                    const logoUrl = "{{ url('images/logo.png') }}";
+                    const currentYear = @json($currentYear);
+                    
             
                     const tableData = @json($tabulatorData);
             
                     const tableSuivi = new Tabulator("#prestations-table", {
-                        data: tableData, 
-                        layout: "fitData", 
-                        printAsHtml:true,
+                        data: tableData,
+                        layout: "fitDataStretch",
+                        printAsHtml : true , // activer l'impression du tableau HTML 
+                        printStyled : true , 
+                       
+                        printHeader: `
+                            <div style="text-align:center; margin-bottom:20px;">
+                                <img src="${logoUrl}" alt="Logo MU-POL" style="display:inline-block; height:60px; margin-bottom:5px;">
+                                <h5 style="margin:0; font-size:16px; color:#111827;">Mutuelle de la Police Nationale (MU-POL)</h5>
+
+                                <h2 style="margin:0; font-size:20px; color:#111827; font-weight:bold;">Tableau de suivi des soins de Radiologie</h2>
+                                <p style="margin:5px 0; font-size:16px;">Année ${currentYear}</p>
+                                <hr style="border:1px solid #4B5563; margin-top:10px;">
+                            </div>
+
+                        `,
+                        printFooter: `
+                            <div style="text-align:center; margin-top:30px;">
+                                <hr style="border:1px solid #4B5563;">
+                                <p style="font-size:14px;">Mutuelle de la Police Nationale | Généré le ${new Date().toLocaleDateString()}</p>
+                            </div>
+                         `,
                         columns: [
                             {title: "Catégorie", field: "Category", width: 250},
                             {title: "Janvier", field: "Janvier"},
@@ -399,7 +427,7 @@
                             {title: "Décembre", field: "Décembre"},
                             {title: "Total", field: "Total"},
                             {title: "Moyenne", field: "Moyenne"},
-                            {title: "Référence", field: "Référence"}
+                            // {title: "Référence", field: "Référence"}
                         ],
                     });
                     document.getElementById('export-suivi').addEventListener('click', function() {
@@ -407,7 +435,13 @@
                     });    
                 </script>
                 
-
+                <style>
+                    @media print {
+                        thead, tfoot {
+                            display: none !important;
+                        }
+                    }
+                </style>
 
             </div>
         

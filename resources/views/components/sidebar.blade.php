@@ -171,7 +171,7 @@
                     <span class="ml-3">Gestion des évènements</span>
                 </a>
             </li>  --}}
-            @role('agentsaisie|controleur')
+            @role('agentsaisie|controleur|comptable')
 
             <li>
                 <a href="{{ route('prestations.index') }}" class="@if(Request::is('admin/prestations') || Request::is('admin/prestations/*')) active @endif flex items-center px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
@@ -248,12 +248,12 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('suivi-analyse-biomedicale') }}" class="@if(Request::is('admin/analyse_biomedicale/suivi')) active @endif flex items-center px-3 py-2 text-gray-200 hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
+                        <a href="{{ route('suivi-analyse-biomedicale') }}" class="@if(Request::is('admin/analyse-biomedicale/suivi')) active @endif flex items-center px-3 py-2 text-gray-200 hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
                             <span class="ml-3">Analyse Biomédicale</span>
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('suivi-dentaire-auditif') }}" class="@if(Request::is('admin/dentaire_auditif/suivi')) active @endif flex items-center px-3 py-2 text-gray-200  hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
+                        <a href="{{ route('suivi-dentaire-auditif') }}" class="@if(Request::is('admin/dentaire-auditif/suivi')) active @endif flex items-center px-3 py-2 text-gray-200  hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
                             <span class="ml-3">Dentaire et auditif</span>
                         </a>
                     </li>

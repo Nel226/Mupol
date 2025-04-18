@@ -452,7 +452,7 @@
                         ],
                     });
                     document.getElementById('export-suivi').addEventListener('click', function() {
-                        tableSuivi.download("xlsx", "Suivi.xlsx", {});
+                        tableSuivi.download("xlsx", `Suivi_dentaire&auditif_${currentYear}.xlsx`, {});
                     });    
                 </script>
                 <style>

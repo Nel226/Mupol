@@ -451,7 +451,7 @@
                         ],
                     });
                     document.getElementById('export-suivi').addEventListener('click', function() {
-                        tableSuivi.download("xlsx", "Suivi.xlsx", {});
+                        tableSuivi.download("xlsx", `Suivi_pharmacies_${currentYear}.xlsx`, {});
                     });    
                 </script>
                 <style>

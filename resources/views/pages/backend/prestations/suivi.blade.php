@@ -489,7 +489,7 @@
                         ],
                     });
                     document.getElementById('export-suivi-hospitalisation').addEventListener('click', function() {
-                        tableSuivi.download("xlsx", "Suivi.xlsx", {});
+                        tableSuivi.download("xlsx", `Suivi_hospitalisations_${currentYear}.xlsx`, {});
                     });
                 </script>
                 <style>

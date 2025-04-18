@@ -44,20 +44,6 @@
                     </div>
                 </div>
 
-                <!-- Zone de recherche -->
-                <div class="flex items-center justify-end py-4 text-sm">
-                    <div class="relative mt-1">
-                        <input type="text" id="searchMembres" name="searchMembres"
-                            class="block pt-2 text-sm text-gray-900 border border-gray-300 rounded-lg ps-10 w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
-                            placeholder="Rechercher par nom ou matricule">
-                        <div class="absolute inset-y-0 flex items-center pointer-events-none start-0 ps-3">
-                            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" fill="none" viewBox="0 0 20 20">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                            </svg>
-                        </div>
-                    </div>
-                </div>
 
                 <!-- Spinner -->
                 <div id="loading-spinner" class="flex justify-center my-4 hidden">
@@ -69,8 +55,41 @@
                     </svg>
                 </div>
 
+
+
+
+
                 <!-- Résultats -->
                 <div id="prestationsContainer" class="container p-4 mx-auto">
+                    <!-- Zone de recherche -->
+                    <div class="flex items-center justify-end py-4 text-sm">
+                        <div class="relative mt-1">
+                            <input type="text" id="searchMembres" name="searchMembres"
+                                class="block pt-2 text-sm text-gray-900 border border-gray-300 rounded-lg ps-10 w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+                                placeholder="Rechercher par nom ou matricule">
+                            <div class="absolute inset-y-0 flex items-center pointer-events-none start-0 ps-3">
+                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" fill="none" viewBox="0 0 20 20">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Statistiques du centre -->
+                    @if ($centre && $nombreAdherentsCentre !== null && $nombrePrestationsCentre !== null)
+                    <div id="centre-stats" class="p-4 mb-4 text-sm text-blue-800 bg-blue-100 border border-blue-300 rounded-lg" role="alert">
+                        <div class="flex flex-col md:flex-row justify-between gap-3">
+                            <span><strong>Centre sélectionné :</strong> {{ $centre }}</span>
+                            <span><strong>Nombre d'adhérents ayant des prestations :</strong> {{ $nombreAdherentsCentre }}</span>
+                            <span><strong>Nombre total de prestations :</strong> {{ $nombrePrestationsCentre }}</span>
+                        </div>
+                    </div>
+                    @else
+                        <div id="centre-stats"></div>
+                    @endif
+
+                    <!-- Affichage des résultats -->
                     <div id="results-container">
                         @foreach ($paginatedPrestations as $adherentId => $prestations)
                             @php
@@ -170,7 +189,7 @@
                 const url = new URL("{{ route('suivi-all') }}", window.location.origin);
                 url.searchParams.set('search', query);
                 url.searchParams.set('year', year);
-                if (centre) url.searchParams.set('centre', centre);
+                url.searchParams.set('centre', centre); // toujours envoyer le centre même vide
 
                 window.history.pushState({}, '', url);
 
@@ -186,6 +205,12 @@
                     document.querySelector('#results-container').innerHTML = doc.querySelector('#results-container').innerHTML;
                     document.querySelector('#pagination-links').innerHTML = doc.querySelector('#pagination-links').innerHTML;
                     document.querySelector('#no-results-message').innerHTML = doc.querySelector('#no-results-message').innerHTML;
+                    const stats = doc.querySelector('#centre-stats');
+                    if (stats) {
+                        document.querySelector('#centre-stats')?.replaceWith(stats);
+                    } else {
+                        document.querySelector('#centre-stats')?.replaceWith(document.createElement('div'));
+                    }
                 })
                 .finally(() => {
                     spinner.classList.add('hidden');
@@ -200,8 +225,9 @@
                 if (link) {
                     e.preventDefault();
                     const url = new URL(link.getAttribute('href'));
-                    const centre = centreSelect.value;
-                    if (centre) url.searchParams.set('centre', centre);
+                    url.searchParams.set('search', searchInput.value.trim());
+                    url.searchParams.set('year', yearSelect.value);
+                    url.searchParams.set('centre', centreSelect.value);
 
                     spinner.classList.remove('hidden');
 
@@ -215,6 +241,12 @@
                         document.querySelector('#results-container').innerHTML = doc.querySelector('#results-container').innerHTML;
                         document.querySelector('#pagination-links').innerHTML = doc.querySelector('#pagination-links').innerHTML;
                         document.querySelector('#no-results-message').innerHTML = doc.querySelector('#no-results-message').innerHTML;
+                        const stats = doc.querySelector('#centre-stats');
+                        if (stats) {
+                            document.querySelector('#centre-stats')?.replaceWith(stats);
+                        } else {
+                            document.querySelector('#centre-stats')?.replaceWith(document.createElement('div'));
+                        }
                     })
                     .finally(() => {
                         spinner.classList.add('hidden');
@@ -223,4 +255,5 @@
             });
         });
     </script>
+
 </x-app-layout>

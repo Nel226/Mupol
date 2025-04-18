@@ -281,8 +281,8 @@ class PrestationController extends Controller
             ->when($search, function ($query, $search) {
                 $query->where(function ($q) use ($search) {
                     $q->where('adherents.nom', 'like', "%$search%")
-                      ->orWhere('adherents.prenom', 'like', "%$search%")
-                      ->orWhere('adherents.code_carte', 'like', "%$search%");
+                        ->orWhere('adherents.prenom', 'like', "%$search%")
+                        ->orWhere('adherents.code_carte', 'like', "%$search%");
                 });
             })
             ->when($centre, function ($query, $centre) {
@@ -298,8 +298,8 @@ class PrestationController extends Controller
             ->when($search, function ($query, $search) {
                 $query->where(function ($q) use ($search) {
                     $q->where('adherents.nom', 'like', "%$search%")
-                      ->orWhere('adherents.prenom', 'like', "%$search%")
-                      ->orWhere('adherents.code_carte', 'like', "%$search%");
+                        ->orWhere('adherents.prenom', 'like', "%$search%")
+                        ->orWhere('adherents.code_carte', 'like', "%$search%");
                 });
             })
             ->when($centre, function ($query, $centre) {
@@ -343,13 +343,24 @@ class PrestationController extends Controller
             ->orderBy('centre')
             ->pluck('centre');
 
+        // Statistiques pour le centre sélectionné
+        $nombreAdherentsCentre = null;
+        $nombrePrestationsCentre = null;
+
+        if ($centre) {
+            $nombreAdherentsCentre = $prestationsAll->pluck('adherent_id')->unique()->count();
+            $nombrePrestationsCentre = $prestationsAll->count();
+        }
+
         // Vue AJAX ou complète
         $view = view('pages.backend.prestations.suivi.suivi-all', compact(
             'pageTitle',
             'paginatedPrestations',
             'currentYear',
             'centre',
-            'centresDisponibles'
+            'centresDisponibles',
+            'nombreAdherentsCentre',
+            'nombrePrestationsCentre'
         ));
 
         return $request->ajax() ? response()->view('pages.backend.prestations.suivi.suivi-all', $view->getData()) : $view;

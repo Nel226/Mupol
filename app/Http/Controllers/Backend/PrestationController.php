@@ -42,6 +42,7 @@ class PrestationController extends Controller
 
         $prestations = Prestation::orderBy('created_at', 'desc')->get();
         $prestationsValides = Prestation::where('validite', 'accepté')->get();
+        
         $pageTitle = 'Liste des prestations';
         $breadcrumbsItems = [
             [
@@ -76,6 +77,7 @@ class PrestationController extends Controller
 
         $prestations = Prestation::all();
         $prestationsValides = Prestation::where('validite', 'accepté')->get();
+        
         $pageTitle = 'Nouvelle prestation';
 
         return view('pages.backend.prestations.create', compact('adherents', 'ayantsDroit', 'prestations', 'partenaires', 'prestationsValides', 'adherentsValides', 'ayantsDroitValides', 'pageTitle'));
@@ -213,13 +215,14 @@ class PrestationController extends Controller
     public function validerMultiple(Request $request)
     {
         $ids = $request->input('ids', []);
-        dd($request->all());
+        
         if (empty($ids)) {
             return redirect()->back()->with('error', 'Aucune prestation sélectionnée.');
         }
 
         Prestation::whereIn('id', $ids)->update([
             'validite' => 'accepté', // ou autre champ selon ta logique
+            'etat_paiement' => 1,
         ]);
 
         return redirect()->back()->with('success', 'Les prestations ont été validées avec succès.');
@@ -419,9 +422,9 @@ class PrestationController extends Controller
         $categories = [
             'Nombre de nouveaux bénéficiaires',
             'Nombre de bénéficiaires (A)',
-            'Nombre moyen de bénéficiaire (A1)',
-            'Nombre d’hospitalisation (B)',
-            'Nombre d’hospitalisation Cumulée (B1)',
+            'Nombre moyen de bénéficiaires (A1)',
+            'Nombre d’hospitalisations (B)',
+            'Nombre d’hospitalisations Cumulées (B1)',
             'Taux d’utilisation mensuel % C (C)',
             'Taux d’utilisation cumulée %(D)',
             'Coût total des hospitalisations (E)',
@@ -477,8 +480,8 @@ class PrestationController extends Controller
             $data['Nombre de bénéficiaires (A)'][$month] = $beneficiairesCumulative;
 
             // Calculer A1 = A / nombre de mois déjà écoulés
-            $data['Nombre moyen de bénéficiaire (A1)'][$month] = floor($beneficiairesCumulative / ($index + 1));
-            $data['Nombre moyen de bénéficiaire (A1)']['Total'] = $data['Nombre moyen de bénéficiaire (A1)'][$month];
+            $data['Nombre moyen de bénéficiaires (A1)'][$month] = floor($beneficiairesCumulative / ($index + 1));
+            $data['Nombre moyen de bénéficiaires (A1)']['Total'] = $data['Nombre moyen de bénéficiaires (A1)'][$month];
         }
 
         // Calculer les statistiques à pfartir des prestations
@@ -488,13 +491,13 @@ class PrestationController extends Controller
 
             // Nombre d’hospitalisations (B)
             if ($prestation->acte == 'hospitalisation') {
-                $data['Nombre d’hospitalisation (B)'][$month]++;
-                $data['Nombre d’hospitalisation (B)']['Total']++;
+                $data['Nombre d’hospitalisations (B)'][$month]++;
+                $data['Nombre d’hospitalisations (B)']['Total']++;
 
                 // Cumul des hospitalisations (B1)
                 $hospitalisationsCumulative++;
-                $data['Nombre d’hospitalisation Cumulée (B1)'][$month] = $hospitalisationsCumulative;
-                $data['Nombre d’hospitalisation Cumulée (B1)']['Total'] = $hospitalisationsCumulative;
+                $data['Nombre d’hospitalisations Cumulées (B1)'][$month] = $hospitalisationsCumulative;
+                $data['Nombre d’hospitalisations Cumulées (B1)']['Total'] = $hospitalisationsCumulative;
 
                 // Coût total des hospitalisations (E)
                 if (!isset($data['Coût total des hospitalisations (E)'][$month])) {
@@ -510,7 +513,7 @@ class PrestationController extends Controller
         // Calculer le cumul par mois pour B1
         foreach ($months as $index => $month) {
             if ($index > 0) {
-                $data['Nombre d’hospitalisation Cumulée (B1)'][$month] = $data['Nombre d’hospitalisation Cumulée (B1)'][$months[$index - 1]] + $data['Nombre d’hospitalisation (B)'][$month];
+                $data['Nombre d’hospitalisations Cumulées (B1)'][$month] = $data['Nombre d’hospitalisations Cumulées (B1)'][$months[$index - 1]] + $data['Nombre d’hospitalisations (B)'][$month];
             }
 
             // Cumul du coût total des hospitalisations (E1)
@@ -522,12 +525,12 @@ class PrestationController extends Controller
             $data['Coût Cumulé total des hospitalisations (E1)']['Total'] = $data['Coût Cumulé total des hospitalisations (E1)'][$month] ;
 
             // Coût moyen cumulé d’une hospitalisation (G)
-            if ($data['Nombre d’hospitalisation Cumulée (B1)'][$month] > 0) {
-                $data['Coût moyen cumulé d’une hospitalisation (G)'][$month] = number_format((float)$data['Coût Cumulé total des hospitalisations (E1)'][$month] / $data['Nombre d’hospitalisation Cumulée (B1)'][$month], 2, ',', ' ');
+            if ($data['Nombre d’hospitalisations Cumulées (B1)'][$month] > 0) {
+                $data['Coût moyen cumulé d’une hospitalisation (G)'][$month] = number_format((float)$data['Coût Cumulé total des hospitalisations (E1)'][$month] / $data['Nombre d’hospitalisations Cumulées (B1)'][$month], 2, ',', ' ');
             }
         }
-        if ($data['Nombre d’hospitalisation Cumulée (B1)']['Total'] > 0) {
-            $data['Coût moyen cumulé d’une hospitalisation (G)']['Total'] = number_format((float)$data['Coût Cumulé total des hospitalisations (E1)']['Total']  / $data['Nombre d’hospitalisation Cumulée (B1)']['Total'], 2, ',', ' ');
+        if ($data['Nombre d’hospitalisations Cumulées (B1)']['Total'] > 0) {
+            $data['Coût moyen cumulé d’une hospitalisation (G)']['Total'] = number_format((float)$data['Coût Cumulé total des hospitalisations (E1)']['Total']  / $data['Nombre d’hospitalisations Cumulées (B1)']['Total'], 2, ',', ' ');
         } else {
             $data['Coût moyen cumulé d’une hospitalisation (G)']['Total'] = 0;
         }
@@ -539,7 +542,7 @@ class PrestationController extends Controller
             // Taux d’utilisation mensuel % (C)
             if ($data['Nombre de bénéficiaires (A)'][$month] > 0) {
 
-                $data['Taux d’utilisation mensuel % C (C)'][$month] = number_format(($data['Nombre d’hospitalisation (B)'][$month] / $data['Nombre de bénéficiaires (A)'][$month])*$previousMonths * 100, 2);
+                $data['Taux d’utilisation mensuel % C (C)'][$month] = number_format(($data['Nombre d’hospitalisations (B)'][$month] / $data['Nombre de bénéficiaires (A)'][$month])*$previousMonths * 100, 2);
             }
             if ($beneficiairesCumulative > 0) {
                 $data['Taux d’utilisation mensuel % C (C)']['Total'] = number_format(($hospitalisationsCumulative / $beneficiairesCumulative)*12 * 100, 2);
@@ -547,26 +550,26 @@ class PrestationController extends Controller
                 $data['Taux d’utilisation mensuel % C (C)']['Total'] = 0;
             }
             // Taux d’utilisation cumulée % (D)
-            if ($data['Nombre moyen de bénéficiaire (A1)'][$month] > 0) {
-                $data['Taux d’utilisation cumulée %(D)'][$month] = number_format(($data['Nombre d’hospitalisation Cumulée (B1)'][$month] / $data['Nombre moyen de bénéficiaire (A1)'][$month])*$previousMonths * 100, 2);
+            if ($data['Nombre moyen de bénéficiaires (A1)'][$month] > 0) {
+                $data['Taux d’utilisation cumulée %(D)'][$month] = number_format(($data['Nombre d’hospitalisations Cumulées (B1)'][$month] / $data['Nombre moyen de bénéficiaires (A1)'][$month])*$previousMonths * 100, 2);
 
             }
-            if ($data['Nombre moyen de bénéficiaire (A1)']['Total'] > 0) {
-                $data['Taux d’utilisation cumulée %(D)']['Total'] = number_format(($hospitalisationsCumulative / $data['Nombre moyen de bénéficiaire (A1)']['Total'])*12 * 100, 2);
+            if ($data['Nombre moyen de bénéficiaires (A1)']['Total'] > 0) {
+                $data['Taux d’utilisation cumulée %(D)']['Total'] = number_format(($hospitalisationsCumulative / $data['Nombre moyen de bénéficiaires (A1)']['Total'])*12 * 100, 2);
             } else {
                 $data['Taux d’utilisation cumulée %(D)']['Total'] = 0;
             }
 
             // Coût moyen mensuel d’une hospitalisation (F)
-            if ($data['Nombre d’hospitalisation (B)'][$month] > 0) {
-            $data['Coût moyen mensuel d’une hospitalisation (F)'][$month] = number_format($data['Coût total des hospitalisations (E)'][$month] / $data['Nombre d’hospitalisation (B)'][$month], 2, ',', ' ');
+            if ($data['Nombre d’hospitalisations (B)'][$month] > 0) {
+            $data['Coût moyen mensuel d’une hospitalisation (F)'][$month] = number_format($data['Coût total des hospitalisations (E)'][$month] / $data['Nombre d’hospitalisations (B)'][$month], 2, ',', ' ');
             }
 
 
 
         }
-        if ($data['Nombre d’hospitalisation (B)']['Total'] > 0) {
-            $data['Coût moyen mensuel d’une hospitalisation (F)']['Total'] = number_format($data['Coût total des hospitalisations (E)']['Total']  / $data['Nombre d’hospitalisation (B)']['Total'], 2, ',', ' ');
+        if ($data['Nombre d’hospitalisations (B)']['Total'] > 0) {
+            $data['Coût moyen mensuel d’une hospitalisation (F)']['Total'] = number_format($data['Coût total des hospitalisations (E)']['Total']  / $data['Nombre d’hospitalisations (B)']['Total'], 2, ',', ' ');
         } else {
             $data['Coût moyen mensuel d’une hospitalisation (F)']['Total'] = 0;
         }
@@ -636,9 +639,9 @@ class PrestationController extends Controller
         $categories = [
             'Nombre de nouveaux bénéficiaires',
             'Nombre de bénéficiaires (A)',
-            'Nombre moyen de bénéficiaire (A1)',
-            'Nombre de consultation (B)',
-            'Nombre de consultation Cumulée (B1)',
+            'Nombre moyen de bénéficiaires (A1)',
+            'Nombre de consultations (B)',
+            'Nombre de consultations Cumulées (B1)',
             'Taux d’utilisation mensuel % C (C)',
             'Taux d’utilisation cumulée %(D)',
             'Coût total des consultations (E)',
@@ -694,8 +697,8 @@ class PrestationController extends Controller
             $data['Nombre de bénéficiaires (A)'][$month] = $beneficiairesCumulative;
 
             // Calculer A1 = A / nombre de mois déjà écoulés
-            $data['Nombre moyen de bénéficiaire (A1)'][$month] = floor($beneficiairesCumulative / ($index + 1));
-            $data['Nombre moyen de bénéficiaire (A1)']['Total'] = $data['Nombre moyen de bénéficiaire (A1)'][$month];
+            $data['Nombre moyen de bénéficiaires (A1)'][$month] = floor($beneficiairesCumulative / ($index + 1));
+            $data['Nombre moyen de bénéficiaires (A1)']['Total'] = $data['Nombre moyen de bénéficiaires (A1)'][$month];
         }
 
         // Calculer les statistiques à partir des prestations
@@ -703,15 +706,15 @@ class PrestationController extends Controller
             $date = Carbon::parse($prestation->created_at);
             $month = $months[$date->month - 1];
 
-            // Nombre de consultation (B)
+            // Nombre de consultations (B)
             if ($prestation->acte == 'consultation') {
-                $data['Nombre de consultation (B)'][$month]++;
-                $data['Nombre de consultation (B)']['Total']++;
+                $data['Nombre de consultations (B)'][$month]++;
+                $data['Nombre de consultations (B)']['Total']++;
 
                 // Cumul des hospitalisations (B1)
                 $consultationsCumulative++;
-                $data['Nombre de consultation Cumulée (B1)'][$month] = $consultationsCumulative;
-                $data['Nombre de consultation Cumulée (B1)']['Total'] = $consultationsCumulative;
+                $data['Nombre de consultations Cumulées (B1)'][$month] = $consultationsCumulative;
+                $data['Nombre de consultations Cumulées (B1)']['Total'] = $consultationsCumulative;
 
                 // Coût total des hospitalisations (E)
                 if (!isset($data['Coût total des consultations (E)'][$month])) {
@@ -727,7 +730,7 @@ class PrestationController extends Controller
         // Calculer le cumul par mois pour B1
         foreach ($months as $index => $month) {
             if ($index > 0) {
-                $data['Nombre de consultation Cumulée (B1)'][$month] = $data['Nombre de consultation Cumulée (B1)'][$months[$index - 1]] + $data['Nombre de consultation (B)'][$month];
+                $data['Nombre de consultations Cumulées (B1)'][$month] = $data['Nombre de consultations Cumulées (B1)'][$months[$index - 1]] + $data['Nombre de consultations (B)'][$month];
             }
 
             // Cumul du coût total des consultations (E1)
@@ -739,12 +742,12 @@ class PrestationController extends Controller
             $data['Coût Cumulé total des consultations (E1)']['Total'] = $data['Coût Cumulé total des consultations (E1)'][$month] ;
 
             // Coût moyen cumulé d’une consultations (G)
-            if ($data['Nombre de consultation Cumulée (B1)'][$month] > 0) {
-                $data['Coût moyen cumulé d’une consultation (G)'][$month] = $data['Coût Cumulé total des consultations (E1)'][$month] / $data['Nombre de consultation Cumulée (B1)'][$month];
+            if ($data['Nombre de consultations Cumulées (B1)'][$month] > 0) {
+                $data['Coût moyen cumulé d’une consultation (G)'][$month] = $data['Coût Cumulé total des consultations (E1)'][$month] / $data['Nombre de consultations Cumulées (B1)'][$month];
             }
         }
-        if ($data['Nombre de consultation Cumulée (B1)']['Total'] > 0) {
-            $data['Coût moyen cumulé d’une consultation (G)']['Total'] = $data['Coût Cumulé total des consultations (E1)']['Total']  / $data['Nombre de consultation Cumulée (B1)']['Total'];
+        if ($data['Nombre de consultations Cumulées (B1)']['Total'] > 0) {
+            $data['Coût moyen cumulé d’une consultation (G)']['Total'] = $data['Coût Cumulé total des consultations (E1)']['Total']  / $data['Nombre de consultations Cumulées (B1)']['Total'];
         } else {
             $data['Coût moyen cumulé d’une consultation (G)']['Total'] = 0;
         }
@@ -755,7 +758,7 @@ class PrestationController extends Controller
 
             // Taux d’utilisation mensuel % (C)
             if ($data['Nombre de bénéficiaires (A)'][$month] > 0) {
-                $data['Taux d’utilisation mensuel % C (C)'][$month] = number_format(($data['Nombre de consultation (B)'][$month] / $data['Nombre de bénéficiaires (A)'][$month])*$previousMonths * 100, 2);
+                $data['Taux d’utilisation mensuel % C (C)'][$month] = number_format(($data['Nombre de consultations (B)'][$month] / $data['Nombre de bénéficiaires (A)'][$month])*$previousMonths * 100, 2);
             }
             if ($beneficiairesCumulative > 0) {
                 $data['Taux d’utilisation mensuel % C (C)']['Total'] = number_format(($consultationsCumulative / $beneficiairesCumulative)*12 * 100, 2);
@@ -763,24 +766,24 @@ class PrestationController extends Controller
                 $data['Taux d’utilisation mensuel % C (C)']['Total'] = 0;
             }
             // Taux d’utilisation cumulée % (D)
-            if ($data['Nombre moyen de bénéficiaire (A1)'][$month] > 0) {
-                $data['Taux d’utilisation cumulée %(D)'][$month] = number_format(($data['Nombre de consultation Cumulée (B1)'][$month] / $data['Nombre moyen de bénéficiaire (A1)'][$month])*$previousMonths * 100, 2);
+            if ($data['Nombre moyen de bénéficiaires (A1)'][$month] > 0) {
+                $data['Taux d’utilisation cumulée %(D)'][$month] = number_format(($data['Nombre de consultations Cumulées (B1)'][$month] / $data['Nombre moyen de bénéficiaires (A1)'][$month])*$previousMonths * 100, 2);
 
             }
-            if ($data['Nombre moyen de bénéficiaire (A1)']['Total'] > 0) {
-                $data['Taux d’utilisation cumulée %(D)']['Total'] = number_format(($consultationsCumulative / $data['Nombre moyen de bénéficiaire (A1)']['Total'])*12 * 100, 2);
+            if ($data['Nombre moyen de bénéficiaires (A1)']['Total'] > 0) {
+                $data['Taux d’utilisation cumulée %(D)']['Total'] = number_format(($consultationsCumulative / $data['Nombre moyen de bénéficiaires (A1)']['Total'])*12 * 100, 2);
             } else {
                 $data['Taux d’utilisation cumulée %(D)']['Total'] = 0;
             }
 
             // Coût moyen mensuel d’une consultation (F)
-            if ($data['Nombre de consultation (B)'][$month] > 0) {
-                $data['Coût moyen mensuel d’une consultation (F)'][$month] = $data['Coût total des consultations (E)'][$month] / $data['Nombre de consultation (B)'][$month];
+            if ($data['Nombre de consultations (B)'][$month] > 0) {
+                $data['Coût moyen mensuel d’une consultation (F)'][$month] = $data['Coût total des consultations (E)'][$month] / $data['Nombre de consultations (B)'][$month];
             }
 
         }
-        if ($data['Nombre de consultation (B)']['Total'] > 0) {
-            $data['Coût moyen mensuel d’une consultation (F)']['Total'] = $data['Coût total des consultations (E)']['Total']  / $data['Nombre de consultation (B)']['Total'];
+        if ($data['Nombre de consultations (B)']['Total'] > 0) {
+            $data['Coût moyen mensuel d’une consultation (F)']['Total'] = $data['Coût total des consultations (E)']['Total']  / $data['Nombre de consultations (B)']['Total'];
         } else {
             $data['Coût moyen mensuel d’une consultation (F)']['Total'] = 0;
         }
@@ -875,9 +878,9 @@ class PrestationController extends Controller
         $categories = [
             'Nombre de nouveaux bénéficiaires',
             'Nombre de bénéficiaires (A)',
-            'Nombre moyen de bénéficiaire (A1)',
+            'Nombre moyen de bénéficiaires (A1)',
             'Nombre de radios (B)',
-            'Nombre de radios Cumulée (B1)',
+            'Nombre de radios Cumulées (B1)',
             'Taux d’utilisation mensuel % C (C)',
             'Taux d’utilisation cumulée %(D)',
             'Coût total des radios (E)',
@@ -933,8 +936,8 @@ class PrestationController extends Controller
             $data['Nombre de bénéficiaires (A)'][$month] = $beneficiairesCumulative;
 
             // Calculer A1 = A / nombre de mois déjà écoulés
-            $data['Nombre moyen de bénéficiaire (A1)'][$month] = floor($beneficiairesCumulative / ($index + 1));
-            $data['Nombre moyen de bénéficiaire (A1)']['Total'] = $data['Nombre moyen de bénéficiaire (A1)'][$month];
+            $data['Nombre moyen de bénéficiaires (A1)'][$month] = floor($beneficiairesCumulative / ($index + 1));
+            $data['Nombre moyen de bénéficiaires (A1)']['Total'] = $data['Nombre moyen de bénéficiaires (A1)'][$month];
         }
 
         // Calculer les statistiques à partir des prestations
@@ -949,8 +952,8 @@ class PrestationController extends Controller
 
                 // Cumul des radios (B1)
                 $radiosCumulative++;
-                $data['Nombre de radios Cumulée (B1)'][$month] = $radiosCumulative;
-                $data['Nombre de radios Cumulée (B1)']['Total'] = $radiosCumulative;
+                $data['Nombre de radios Cumulées (B1)'][$month] = $radiosCumulative;
+                $data['Nombre de radios Cumulées (B1)']['Total'] = $radiosCumulative;
 
                 // Coût total des radios (E)
                 if (!isset($data['Coût total des radios (E)'][$month])) {
@@ -966,7 +969,7 @@ class PrestationController extends Controller
         // Calculer le cumul par mois pour B1
         foreach ($months as $index => $month) {
             if ($index > 0) {
-                $data['Nombre de radios Cumulée (B1)'][$month] = $data['Nombre de radios Cumulée (B1)'][$months[$index - 1]] + $data['Nombre de radios (B)'][$month];
+                $data['Nombre de radios Cumulées (B1)'][$month] = $data['Nombre de radios Cumulées (B1)'][$months[$index - 1]] + $data['Nombre de radios (B)'][$month];
             }
 
             // Cumul du coût total des radios (E1)
@@ -978,12 +981,12 @@ class PrestationController extends Controller
             $data['Coût Cumulé total des radios (E1)']['Total'] = $data['Coût Cumulé total des radios (E1)'][$month] ;
 
             // Coût moyen cumulé d’une radio (G)
-            if ($data['Nombre de radios Cumulée (B1)'][$month] > 0) {
-                $data['Coût moyen cumulé de radios (G)'][$month] = $data['Coût Cumulé total des radios (E1)'][$month] / $data['Nombre de radios Cumulée (B1)'][$month];
+            if ($data['Nombre de radios Cumulées (B1)'][$month] > 0) {
+                $data['Coût moyen cumulé de radios (G)'][$month] = $data['Coût Cumulé total des radios (E1)'][$month] / $data['Nombre de radios Cumulées (B1)'][$month];
             }
         }
-        if ($data['Nombre de radios Cumulée (B1)']['Total'] > 0) {
-            $data['Coût moyen cumulé d’une radio (G)']['Total'] = $data['Coût Cumulé total des radios (E1)']['Total']  / $data['Nombre de radios Cumulée (B1)']['Total'];
+        if ($data['Nombre de radios Cumulées (B1)']['Total'] > 0) {
+            $data['Coût moyen cumulé d’une radio (G)']['Total'] = $data['Coût Cumulé total des radios (E1)']['Total']  / $data['Nombre de radios Cumulées (B1)']['Total'];
         } else {
             $data['Coût moyen cumulé d’une radio (G)']['Total'] = 0;
         }
@@ -1002,12 +1005,12 @@ class PrestationController extends Controller
                 $data['Taux d’utilisation mensuel % C (C)']['Total'] = 0;
             }
             // Taux d’utilisation cumulée % (D)
-            if ($data['Nombre moyen de bénéficiaire (A1)'][$month] > 0) {
-                $data['Taux d’utilisation cumulée %(D)'][$month] = number_format(($data['Nombre de radios Cumulée (B1)'][$month] / $data['Nombre moyen de bénéficiaire (A1)'][$month])*$previousMonths * 100, 2);
+            if ($data['Nombre moyen de bénéficiaires (A1)'][$month] > 0) {
+                $data['Taux d’utilisation cumulée %(D)'][$month] = number_format(($data['Nombre de radios Cumulées (B1)'][$month] / $data['Nombre moyen de bénéficiaires (A1)'][$month])*$previousMonths * 100, 2);
 
             }
-            if ($data['Nombre moyen de bénéficiaire (A1)']['Total'] > 0) {
-                $data['Taux d’utilisation cumulée %(D)']['Total'] = number_format(($radiosCumulative / $data['Nombre moyen de bénéficiaire (A1)']['Total'])*12 * 100, 2);
+            if ($data['Nombre moyen de bénéficiaires (A1)']['Total'] > 0) {
+                $data['Taux d’utilisation cumulée %(D)']['Total'] = number_format(($radiosCumulative / $data['Nombre moyen de bénéficiaires (A1)']['Total'])*12 * 100, 2);
             } else {
                 $data['Taux d’utilisation cumulée %(D)']['Total'] = 0;
             }
@@ -1107,9 +1110,9 @@ class PrestationController extends Controller
         $categories = [
             'Nombre de nouveaux bénéficiaires',
             'Nombre de bénéficiaires (A)',
-            'Nombre moyen de bénéficiaire (A1)',
+            'Nombre moyen de bénéficiaires (A1)',
             'Nombre de maternites (B)',
-            'Nombre de maternites Cumulée (B1)',
+            'Nombre de maternites Cumulées (B1)',
             'Taux d’utilisation mensuel % C (C)',
             'Taux d’utilisation cumulée %(D)',
             'Coût total des maternites (E)',
@@ -1164,8 +1167,8 @@ class PrestationController extends Controller
             $data['Nombre de bénéficiaires (A)'][$month] = $beneficiairesCumulative;
 
             // Calculer A1 = A / nombre de mois déjà écoulés
-            $data['Nombre moyen de bénéficiaire (A1)'][$month] = floor($beneficiairesCumulative / ($index + 1));
-            $data['Nombre moyen de bénéficiaire (A1)']['Total'] = $data['Nombre moyen de bénéficiaire (A1)'][$month];
+            $data['Nombre moyen de bénéficiaires (A1)'][$month] = floor($beneficiairesCumulative / ($index + 1));
+            $data['Nombre moyen de bénéficiaires (A1)']['Total'] = $data['Nombre moyen de bénéficiaires (A1)'][$month];
         }
 
         // Calculer les statistiques à partir des prestations
@@ -1180,8 +1183,8 @@ class PrestationController extends Controller
 
                 // Cumul des maternites (B1)
                 $maternitesCumulative++;
-                $data['Nombre de maternites Cumulée (B1)'][$month] = $maternitesCumulative;
-                $data['Nombre de maternites Cumulée (B1)']['Total'] = $maternitesCumulative;
+                $data['Nombre de maternites Cumulées (B1)'][$month] = $maternitesCumulative;
+                $data['Nombre de maternites Cumulées (B1)']['Total'] = $maternitesCumulative;
 
                 // Coût total des maternites (E)
                 if (!isset($data['Coût total des maternites (E)'][$month])) {
@@ -1197,7 +1200,7 @@ class PrestationController extends Controller
         // Calculer le cumul par mois pour B1
         foreach ($months as $index => $month) {
             if ($index > 0) {
-                $data['Nombre de maternites Cumulée (B1)'][$month] = $data['Nombre de maternites Cumulée (B1)'][$months[$index - 1]] + $data['Nombre de maternites (B)'][$month];
+                $data['Nombre de maternites Cumulées (B1)'][$month] = $data['Nombre de maternites Cumulées (B1)'][$months[$index - 1]] + $data['Nombre de maternites (B)'][$month];
             }
 
             // Cumul du coût total des maternites (E1)
@@ -1209,12 +1212,12 @@ class PrestationController extends Controller
             $data['Coût Cumulé total des maternites (E1)']['Total'] = $data['Coût Cumulé total des maternites (E1)'][$month] ;
 
             // Coût moyen cumulé d’une maternite (G)
-            if ($data['Nombre de maternites Cumulée (B1)'][$month] > 0) {
-                $data['Coût moyen cumulé d’une maternite (G)'][$month] = $data['Coût Cumulé total des maternites (E1)'][$month] / $data['Nombre de maternites Cumulée (B1)'][$month];
+            if ($data['Nombre de maternites Cumulées (B1)'][$month] > 0) {
+                $data['Coût moyen cumulé d’une maternite (G)'][$month] = $data['Coût Cumulé total des maternites (E1)'][$month] / $data['Nombre de maternites Cumulées (B1)'][$month];
             }
         }
-        if ($data['Nombre de maternites Cumulée (B1)']['Total'] > 0) {
-            $data['Coût moyen cumulé d’une maternite (G)']['Total'] = $data['Coût Cumulé total des maternites (E1)']['Total']  / $data['Nombre de maternites Cumulée (B1)']['Total'];
+        if ($data['Nombre de maternites Cumulées (B1)']['Total'] > 0) {
+            $data['Coût moyen cumulé d’une maternite (G)']['Total'] = $data['Coût Cumulé total des maternites (E1)']['Total']  / $data['Nombre de maternites Cumulées (B1)']['Total'];
         } else {
             $data['Coût moyen cumulé d’une maternite (G)']['Total'] = 0;
         }
@@ -1233,12 +1236,12 @@ class PrestationController extends Controller
                 $data['Taux d’utilisation mensuel % C (C)']['Total'] = 0;
             }
             // Taux d’utilisation cumulée % (D)
-            if ($data['Nombre moyen de bénéficiaire (A1)'][$month] > 0) {
-                $data['Taux d’utilisation cumulée %(D)'][$month] = number_format(($data['Nombre de maternites Cumulée (B1)'][$month] / $data['Nombre moyen de bénéficiaire (A1)'][$month])*$previousMonths * 100, 2);
+            if ($data['Nombre moyen de bénéficiaires (A1)'][$month] > 0) {
+                $data['Taux d’utilisation cumulée %(D)'][$month] = number_format(($data['Nombre de maternites Cumulées (B1)'][$month] / $data['Nombre moyen de bénéficiaires (A1)'][$month])*$previousMonths * 100, 2);
 
             }
-            if ($data['Nombre moyen de bénéficiaire (A1)']['Total'] > 0) {
-                $data['Taux d’utilisation cumulée %(D)']['Total'] = number_format(($maternitesCumulative / $data['Nombre moyen de bénéficiaire (A1)']['Total'])*12 * 100, 2);
+            if ($data['Nombre moyen de bénéficiaires (A1)']['Total'] > 0) {
+                $data['Taux d’utilisation cumulée %(D)']['Total'] = number_format(($maternitesCumulative / $data['Nombre moyen de bénéficiaires (A1)']['Total'])*12 * 100, 2);
             } else {
                 $data['Taux d’utilisation cumulée %(D)']['Total'] = 0;
             }
@@ -1340,9 +1343,9 @@ class PrestationController extends Controller
         $categories = [
             'Nombre de nouveaux bénéficiaires',
             'Nombre de bénéficiaires (A)',
-            'Nombre moyen de bénéficiaire (A1)',
+            'Nombre moyen de bénéficiaires (A1)',
             'Nombre d’allocations (B)',
-            'Nombre d’allocations Cumulée (B1)',
+            'Nombre d’allocations Cumulées (B1)',
             'Taux d’utilisation mensuel % C (C)',
             'Taux d’utilisation cumulée %(D)',
             'Coût total des allocations (E)',
@@ -1395,8 +1398,8 @@ class PrestationController extends Controller
             $data['Nombre de bénéficiaires (A)'][$month] = $beneficiairesCumulative;
 
             // Calculer A1 = A / nombre de mois déjà écoulés
-            $data['Nombre moyen de bénéficiaire (A1)'][$month] = floor($beneficiairesCumulative / ($index + 1));
-            $data['Nombre moyen de bénéficiaire (A1)']['Total'] = $data['Nombre moyen de bénéficiaire (A1)'][$month];
+            $data['Nombre moyen de bénéficiaires (A1)'][$month] = floor($beneficiairesCumulative / ($index + 1));
+            $data['Nombre moyen de bénéficiaires (A1)']['Total'] = $data['Nombre moyen de bénéficiaires (A1)'][$month];
         }
 
         // Calculer les statistiques à partir des prestations
@@ -1411,8 +1414,8 @@ class PrestationController extends Controller
 
                 // Cumul des allocations (B1)
                 $allocationsCumulative++;
-                $data['Nombre d’allocations Cumulée (B1)'][$month] = $allocationsCumulative;
-                $data['Nombre d’allocations Cumulée (B1)']['Total'] = $allocationsCumulative;
+                $data['Nombre d’allocations Cumulées (B1)'][$month] = $allocationsCumulative;
+                $data['Nombre d’allocations Cumulées (B1)']['Total'] = $allocationsCumulative;
 
                 // Coût total des allocations (E)
                 if (!isset($data['Coût total des allocations (E)'][$month])) {
@@ -1428,7 +1431,7 @@ class PrestationController extends Controller
         // Calculer le cumul par mois pour B1
         foreach ($months as $index => $month) {
             if ($index > 0) {
-                $data['Nombre d’allocations Cumulée (B1)'][$month] = $data['Nombre d’allocations Cumulée (B1)'][$months[$index - 1]] + $data['Nombre d’allocations (B)'][$month];
+                $data['Nombre d’allocations Cumulées (B1)'][$month] = $data['Nombre d’allocations Cumulées (B1)'][$months[$index - 1]] + $data['Nombre d’allocations (B)'][$month];
             }
 
             // Cumul du coût total des allocations (E1)
@@ -1440,12 +1443,12 @@ class PrestationController extends Controller
             $data['Coût Cumulé total des allocations (E1)']['Total'] = $data['Coût Cumulé total des allocations (E1)'][$month] ;
 
             // Coût moyen cumulé d’une allocation (G)
-            if ($data['Nombre d’allocations Cumulée (B1)'][$month] > 0) {
-                $data['Coût moyen cumulé d’une allocation (G)'][$month] = $data['Coût Cumulé total des allocations (E1)'][$month] / $data['Nombre d’allocations Cumulée (B1)'][$month];
+            if ($data['Nombre d’allocations Cumulées (B1)'][$month] > 0) {
+                $data['Coût moyen cumulé d’une allocation (G)'][$month] = $data['Coût Cumulé total des allocations (E1)'][$month] / $data['Nombre d’allocations Cumulées (B1)'][$month];
             }
         }
-        if ($data['Nombre d’allocations Cumulée (B1)']['Total'] > 0) {
-            $data['Coût moyen cumulé d’une allocation (G)']['Total'] = $data['Coût Cumulé total des allocations (E1)']['Total']  / $data['Nombre d’allocations Cumulée (B1)']['Total'];
+        if ($data['Nombre d’allocations Cumulées (B1)']['Total'] > 0) {
+            $data['Coût moyen cumulé d’une allocation (G)']['Total'] = $data['Coût Cumulé total des allocations (E1)']['Total']  / $data['Nombre d’allocations Cumulées (B1)']['Total'];
         } else {
             $data['Coût moyen cumulé d’une allocation (G)']['Total'] = 0;
         }
@@ -1464,12 +1467,12 @@ class PrestationController extends Controller
                 $data['Taux d’utilisation mensuel % C (C)']['Total'] = 0;
             }
             // Taux d’utilisation cumulée % (D)
-            if ($data['Nombre moyen de bénéficiaire (A1)'][$month] > 0) {
-                $data['Taux d’utilisation cumulée %(D)'][$month] = number_format(($data['Nombre d’allocations Cumulée (B1)'][$month] / $data['Nombre moyen de bénéficiaire (A1)'][$month])*$previousMonths * 100, 2);
+            if ($data['Nombre moyen de bénéficiaires (A1)'][$month] > 0) {
+                $data['Taux d’utilisation cumulée %(D)'][$month] = number_format(($data['Nombre d’allocations Cumulées (B1)'][$month] / $data['Nombre moyen de bénéficiaires (A1)'][$month])*$previousMonths * 100, 2);
 
             }
-            if ($data['Nombre moyen de bénéficiaire (A1)']['Total'] > 0) {
-                $data['Taux d’utilisation cumulée %(D)']['Total'] = number_format(($allocationsCumulative / $data['Nombre moyen de bénéficiaire (A1)']['Total'])*12 * 100, 2);
+            if ($data['Nombre moyen de bénéficiaires (A1)']['Total'] > 0) {
+                $data['Taux d’utilisation cumulée %(D)']['Total'] = number_format(($allocationsCumulative / $data['Nombre moyen de bénéficiaires (A1)']['Total'])*12 * 100, 2);
             } else {
                 $data['Taux d’utilisation cumulée %(D)']['Total'] = 0;
             }
@@ -1548,9 +1551,9 @@ class PrestationController extends Controller
         $categories = [
             'Nombre de nouveaux bénéficiaires',
             'Nombre de bénéficiaires (A)',
-            'Nombre moyen de bénéficiaire (A1)',
+            'Nombre moyen de bénéficiaires (A1)',
             'Nombre d’analyses biomédicales (B)',
-            'Nombre d’analyses biomédicales Cumulée (B1)',
+            'Nombre d’analyses biomédicales Cumulées (B1)',
             'Taux d’utilisation mensuel % C (C)',
             'Taux d’utilisation cumulée %(D)',
             'Coût total des analyses biomédicales (E)',
@@ -1606,8 +1609,8 @@ class PrestationController extends Controller
             $data['Nombre de bénéficiaires (A)'][$month] = $beneficiairesCumulative;
 
             // Calculer A1 = A / nombre de mois déjà écoulés
-            $data['Nombre moyen de bénéficiaire (A1)'][$month] = floor($beneficiairesCumulative / ($index + 1));
-            $data['Nombre moyen de bénéficiaire (A1)']['Total'] = $data['Nombre moyen de bénéficiaire (A1)'][$month];
+            $data['Nombre moyen de bénéficiaires (A1)'][$month] = floor($beneficiairesCumulative / ($index + 1));
+            $data['Nombre moyen de bénéficiaires (A1)']['Total'] = $data['Nombre moyen de bénéficiaires (A1)'][$month];
         }
 
         // Calculer les statistiques à pfartir des prestations
@@ -1622,8 +1625,8 @@ class PrestationController extends Controller
 
                 // Cumul des analyses biomédicales (B1)
                 $analysesBiomedicalesCumulative++;
-                $data['Nombre d’analyses biomédicales Cumulée (B1)'][$month] = $analysesBiomedicalesCumulative;
-                $data['Nombre d’analyses biomédicales Cumulée (B1)']['Total'] = $analysesBiomedicalesCumulative;
+                $data['Nombre d’analyses biomédicales Cumulées (B1)'][$month] = $analysesBiomedicalesCumulative;
+                $data['Nombre d’analyses biomédicales Cumulées (B1)']['Total'] = $analysesBiomedicalesCumulative;
 
                 // Coût total des analyses biomédicales (E)
                 if (!isset($data['Coût total des analyses biomédicales (E)'][$month])) {
@@ -1639,7 +1642,7 @@ class PrestationController extends Controller
         // Calculer le cumul par mois pour B1
         foreach ($months as $index => $month) {
             if ($index > 0) {
-                $data['Nombre d’analyses biomédicales Cumulée (B1)'][$month] = $data['Nombre d’analyses biomédicales Cumulée (B1)'][$months[$index - 1]] + $data['Nombre d’analyses biomédicales (B)'][$month];
+                $data['Nombre d’analyses biomédicales Cumulées (B1)'][$month] = $data['Nombre d’analyses biomédicales Cumulées (B1)'][$months[$index - 1]] + $data['Nombre d’analyses biomédicales (B)'][$month];
             }
 
             // Cumul du coût total des analyses biomédicales (E1)
@@ -1651,12 +1654,12 @@ class PrestationController extends Controller
             $data['Coût Cumulé total des analyses biomédicales (E1)']['Total'] = $data['Coût Cumulé total des analyses biomédicales (E1)'][$month] ;
 
             // Coût moyen cumulé d’une analyse biomédicale (G)
-            if ($data['Nombre d’analyses biomédicales Cumulée (B1)'][$month] > 0) {
-                $data['Coût moyen cumulé d’une analyse biomédicale (G)'][$month] = $data['Coût Cumulé total des analyses biomédicales (E1)'][$month] / $data['Nombre d’analyses biomédicales Cumulée (B1)'][$month];
+            if ($data['Nombre d’analyses biomédicales Cumulées (B1)'][$month] > 0) {
+                $data['Coût moyen cumulé d’une analyse biomédicale (G)'][$month] = $data['Coût Cumulé total des analyses biomédicales (E1)'][$month] / $data['Nombre d’analyses biomédicales Cumulées (B1)'][$month];
             }
         }
-        if ($data['Nombre d’analyses biomédicales Cumulée (B1)']['Total'] > 0) {
-            $data['Coût moyen cumulé d’une analyse biomédicale (G)']['Total'] = $data['Coût Cumulé total des analyses biomédicales (E1)']['Total']  / $data['Nombre d’analyses biomédicales Cumulée (B1)']['Total'];
+        if ($data['Nombre d’analyses biomédicales Cumulées (B1)']['Total'] > 0) {
+            $data['Coût moyen cumulé d’une analyse biomédicale (G)']['Total'] = $data['Coût Cumulé total des analyses biomédicales (E1)']['Total']  / $data['Nombre d’analyses biomédicales Cumulées (B1)']['Total'];
         } else {
             $data['Coût moyen cumulé d’une analyse biomédicale (G)']['Total'] = 0;
         }
@@ -1675,12 +1678,12 @@ class PrestationController extends Controller
                 $data['Taux d’utilisation mensuel % C (C)']['Total'] = 0;
             }
             // Taux d’utilisation cumulée % (D)
-            if ($data['Nombre moyen de bénéficiaire (A1)'][$month] > 0) {
-                $data['Taux d’utilisation cumulée %(D)'][$month] = number_format(($data['Nombre d’analyses biomédicales Cumulée (B1)'][$month] / $data['Nombre moyen de bénéficiaire (A1)'][$month])*$previousMonths * 100, 2);
+            if ($data['Nombre moyen de bénéficiaires (A1)'][$month] > 0) {
+                $data['Taux d’utilisation cumulée %(D)'][$month] = number_format(($data['Nombre d’analyses biomédicales Cumulées (B1)'][$month] / $data['Nombre moyen de bénéficiaires (A1)'][$month])*$previousMonths * 100, 2);
 
             }
-            if ($data['Nombre moyen de bénéficiaire (A1)']['Total'] > 0) {
-                $data['Taux d’utilisation cumulée %(D)']['Total'] = number_format(($analysesBiomedicalesCumulative / $data['Nombre moyen de bénéficiaire (A1)']['Total'])*12 * 100, 2);
+            if ($data['Nombre moyen de bénéficiaires (A1)']['Total'] > 0) {
+                $data['Taux d’utilisation cumulée %(D)']['Total'] = number_format(($analysesBiomedicalesCumulative / $data['Nombre moyen de bénéficiaires (A1)']['Total'])*12 * 100, 2);
             } else {
                 $data['Taux d’utilisation cumulée %(D)']['Total'] = 0;
             }
@@ -1779,9 +1782,9 @@ class PrestationController extends Controller
         $categories = [
             'Nombre de nouveaux bénéficiaires',
             'Nombre de bénéficiaires (A)',
-            'Nombre moyen de bénéficiaire (A1)',
+            'Nombre moyen de bénéficiaires (A1)',
             'Nombre de pharmacies (B)',
-            'Nombre de pharmacies Cumulée (B1)',
+            'Nombre de pharmacies Cumulées (B1)',
             'Taux d’utilisation mensuel % C (C)',
             'Taux d’utilisation cumulée %(D)',
             'Coût total des pharmacies (E)',
@@ -1837,8 +1840,8 @@ class PrestationController extends Controller
             $data['Nombre de bénéficiaires (A)'][$month] = $beneficiairesCumulative;
 
             // Calculer A1 = A / nombre de mois déjà écoulés
-            $data['Nombre moyen de bénéficiaire (A1)'][$month] = floor($beneficiairesCumulative / ($index + 1));
-            $data['Nombre moyen de bénéficiaire (A1)']['Total'] = $data['Nombre moyen de bénéficiaire (A1)'][$month];
+            $data['Nombre moyen de bénéficiaires (A1)'][$month] = floor($beneficiairesCumulative / ($index + 1));
+            $data['Nombre moyen de bénéficiaires (A1)']['Total'] = $data['Nombre moyen de bénéficiaires (A1)'][$month];
         }
 
         // Calculer les statistiques à pfartir des prestations
@@ -1853,8 +1856,8 @@ class PrestationController extends Controller
 
                 // Cumul des pharmacies (B1)
                 $pharmaciesCumulative++;
-                $data['Nombre de pharmacies Cumulée (B1)'][$month] = $pharmaciesCumulative;
-                $data['Nombre de pharmacies Cumulée (B1)']['Total'] = $pharmaciesCumulative;
+                $data['Nombre de pharmacies Cumulées (B1)'][$month] = $pharmaciesCumulative;
+                $data['Nombre de pharmacies Cumulées (B1)']['Total'] = $pharmaciesCumulative;
 
                 // Coût total des pharmacies (E)
                 if (!isset($data['Coût total des pharmacies (E)'][$month])) {
@@ -1870,7 +1873,7 @@ class PrestationController extends Controller
         // Calculer le cumul par mois pour B1
         foreach ($months as $index => $month) {
             if ($index > 0) {
-                $data['Nombre de pharmacies Cumulée (B1)'][$month] = $data['Nombre de pharmacies Cumulée (B1)'][$months[$index - 1]] + $data['Nombre de pharmacies (B)'][$month];
+                $data['Nombre de pharmacies Cumulées (B1)'][$month] = $data['Nombre de pharmacies Cumulées (B1)'][$months[$index - 1]] + $data['Nombre de pharmacies (B)'][$month];
             }
 
             // Cumul du coût total des pharmacies (E1)
@@ -1882,12 +1885,12 @@ class PrestationController extends Controller
             $data['Coût Cumulé total des pharmacies (E1)']['Total'] = $data['Coût Cumulé total des pharmacies (E1)'][$month] ;
 
             // Coût moyen cumulé d’une pharmacie (G)
-            if ($data['Nombre de pharmacies Cumulée (B1)'][$month] > 0) {
-                $data['Coût moyen cumulé d’une pharmacie (G)'][$month] = $data['Coût Cumulé total des pharmacies (E1)'][$month] / $data['Nombre de pharmacies Cumulée (B1)'][$month];
+            if ($data['Nombre de pharmacies Cumulées (B1)'][$month] > 0) {
+                $data['Coût moyen cumulé d’une pharmacie (G)'][$month] = $data['Coût Cumulé total des pharmacies (E1)'][$month] / $data['Nombre de pharmacies Cumulées (B1)'][$month];
             }
         }
-        if ($data['Nombre de pharmacies Cumulée (B1)']['Total'] > 0) {
-            $data['Coût moyen cumulé d’une pharmacie (G)']['Total'] = $data['Coût Cumulé total des pharmacies (E1)']['Total']  / $data['Nombre de pharmacies Cumulée (B1)']['Total'];
+        if ($data['Nombre de pharmacies Cumulées (B1)']['Total'] > 0) {
+            $data['Coût moyen cumulé d’une pharmacie (G)']['Total'] = $data['Coût Cumulé total des pharmacies (E1)']['Total']  / $data['Nombre de pharmacies Cumulées (B1)']['Total'];
         } else {
             $data['Coût moyen cumulé d’une pharmacie (G)']['Total'] = 0;
         }
@@ -1906,12 +1909,12 @@ class PrestationController extends Controller
                 $data['Taux d’utilisation mensuel % C (C)']['Total'] = 0;
             }
             // Taux d’utilisation cumulée % (D)
-            if ($data['Nombre moyen de bénéficiaire (A1)'][$month] > 0) {
-                $data['Taux d’utilisation cumulée %(D)'][$month] = number_format(($data['Nombre de pharmacies Cumulée (B1)'][$month] / $data['Nombre moyen de bénéficiaire (A1)'][$month])*$previousMonths * 100, 2);
+            if ($data['Nombre moyen de bénéficiaires (A1)'][$month] > 0) {
+                $data['Taux d’utilisation cumulée %(D)'][$month] = number_format(($data['Nombre de pharmacies Cumulées (B1)'][$month] / $data['Nombre moyen de bénéficiaires (A1)'][$month])*$previousMonths * 100, 2);
 
             }
-            if ($data['Nombre moyen de bénéficiaire (A1)']['Total'] > 0) {
-                $data['Taux d’utilisation cumulée %(D)']['Total'] = number_format(($pharmaciesCumulative / $data['Nombre moyen de bénéficiaire (A1)']['Total'])*12 * 100, 2);
+            if ($data['Nombre moyen de bénéficiaires (A1)']['Total'] > 0) {
+                $data['Taux d’utilisation cumulée %(D)']['Total'] = number_format(($pharmaciesCumulative / $data['Nombre moyen de bénéficiaires (A1)']['Total'])*12 * 100, 2);
             } else {
                 $data['Taux d’utilisation cumulée %(D)']['Total'] = 0;
             }
@@ -2013,7 +2016,7 @@ class PrestationController extends Controller
         $categories = [
             'Nombre de nouveaux bénéficiaires',
             'Nombre de bénéficiaires (A)',
-            'Nombre moyen de bénéficiaire (A1)',
+            'Nombre moyen de bénéficiaires (A1)',
             'Nombre d’optiques (B)',
             'Nombre d’optiques Cumulée (B1)',
             'Taux d’utilisation mensuel % C (C)',
@@ -2071,8 +2074,8 @@ class PrestationController extends Controller
             $data['Nombre de bénéficiaires (A)'][$month] = $beneficiairesCumulative;
 
             // Calculer A1 = A / nombre de mois déjà écoulés
-            $data['Nombre moyen de bénéficiaire (A1)'][$month] = floor($beneficiairesCumulative / ($index + 1));
-            $data['Nombre moyen de bénéficiaire (A1)']['Total'] = $data['Nombre moyen de bénéficiaire (A1)'][$month];
+            $data['Nombre moyen de bénéficiaires (A1)'][$month] = floor($beneficiairesCumulative / ($index + 1));
+            $data['Nombre moyen de bénéficiaires (A1)']['Total'] = $data['Nombre moyen de bénéficiaires (A1)'][$month];
         }
 
         // Calculer les statistiques à pfartir des prestations
@@ -2140,12 +2143,12 @@ class PrestationController extends Controller
                 $data['Taux d’utilisation mensuel % C (C)']['Total'] = 0;
             }
             // Taux d’utilisation cumulée % (D)
-            if ($data['Nombre moyen de bénéficiaire (A1)'][$month] > 0) {
-                $data['Taux d’utilisation cumulée %(D)'][$month] = number_format(($data['Nombre d’optiques Cumulée (B1)'][$month] / $data['Nombre moyen de bénéficiaire (A1)'][$month])*$previousMonths * 100, 2);
+            if ($data['Nombre moyen de bénéficiaires (A1)'][$month] > 0) {
+                $data['Taux d’utilisation cumulée %(D)'][$month] = number_format(($data['Nombre d’optiques Cumulée (B1)'][$month] / $data['Nombre moyen de bénéficiaires (A1)'][$month])*$previousMonths * 100, 2);
 
             }
-            if ($data['Nombre moyen de bénéficiaire (A1)']['Total'] > 0) {
-                $data['Taux d’utilisation cumulée %(D)']['Total'] = number_format(($optiquesCumulative / $data['Nombre moyen de bénéficiaire (A1)']['Total'])*12 * 100, 2);
+            if ($data['Nombre moyen de bénéficiaires (A1)']['Total'] > 0) {
+                $data['Taux d’utilisation cumulée %(D)']['Total'] = number_format(($optiquesCumulative / $data['Nombre moyen de bénéficiaires (A1)']['Total'])*12 * 100, 2);
             } else {
                 $data['Taux d’utilisation cumulée %(D)']['Total'] = 0;
             }
@@ -2247,9 +2250,9 @@ class PrestationController extends Controller
         $categories = [
             'Nombre de nouveaux bénéficiaires',
             'Nombre de bénéficiaires (A)',
-            'Nombre moyen de bénéficiaire (A1)',
+            'Nombre moyen de bénéficiaires (A1)',
             'Nombre de dentaires et auditifs (B)',
-            'Nombre de dentaires et auditifs Cumulée (B1)',
+            'Nombre de dentaires et auditifs Cumulés (B1)',
             'Taux d’utilisation mensuel % C (C)',
             'Taux d’utilisation cumulée %(D)',
             'Coût total des dentaires et auditifs (E)',
@@ -2305,8 +2308,8 @@ class PrestationController extends Controller
             $data['Nombre de bénéficiaires (A)'][$month] = $beneficiairesCumulative;
 
             // Calculer A1 = A / nombre de mois déjà écoulés
-            $data['Nombre moyen de bénéficiaire (A1)'][$month] = floor($beneficiairesCumulative / ($index + 1));
-            $data['Nombre moyen de bénéficiaire (A1)']['Total'] = $data['Nombre moyen de bénéficiaire (A1)'][$month];
+            $data['Nombre moyen de bénéficiaires (A1)'][$month] = floor($beneficiairesCumulative / ($index + 1));
+            $data['Nombre moyen de bénéficiaires (A1)']['Total'] = $data['Nombre moyen de bénéficiaires (A1)'][$month];
         }
 
         // Calculer les statistiques à pfartir des prestations
@@ -2321,8 +2324,8 @@ class PrestationController extends Controller
 
                 // Cumul des dentaires et auditifs (B1)
                 $dentairesAuditifsCumulative++;
-                $data['Nombre de dentaires et auditifs Cumulée (B1)'][$month] = $dentairesAuditifsCumulative;
-                $data['Nombre de dentaires et auditifs Cumulée (B1)']['Total'] = $dentairesAuditifsCumulative;
+                $data['Nombre de dentaires et auditifs Cumulés (B1)'][$month] = $dentairesAuditifsCumulative;
+                $data['Nombre de dentaires et auditifs Cumulés (B1)']['Total'] = $dentairesAuditifsCumulative;
 
                 // Coût total des dentaires et auditifs (E)
                 if (!isset($data['Coût total des dentaires et auditifs (E)'][$month])) {
@@ -2338,7 +2341,7 @@ class PrestationController extends Controller
         // Calculer le cumul par mois pour B1
         foreach ($months as $index => $month) {
             if ($index > 0) {
-                $data['Nombre de dentaires et auditifs Cumulée (B1)'][$month] = $data['Nombre de dentaires et auditifs Cumulée (B1)'][$months[$index - 1]] + $data['Nombre de dentaires et auditifs (B)'][$month];
+                $data['Nombre de dentaires et auditifs Cumulés (B1)'][$month] = $data['Nombre de dentaires et auditifs Cumulés (B1)'][$months[$index - 1]] + $data['Nombre de dentaires et auditifs (B)'][$month];
             }
 
             // Cumul du coût total des dentaires et auditifs (E1)
@@ -2350,12 +2353,12 @@ class PrestationController extends Controller
             $data['Coût Cumulé total des dentaires et auditifs (E1)']['Total'] = $data['Coût Cumulé total des dentaires et auditifs (E1)'][$month] ;
 
             // Coût moyen cumulé d’une dentaire et auditif (G)
-            if ($data['Nombre de dentaires et auditifs Cumulée (B1)'][$month] > 0) {
-                $data['Coût moyen cumulé d’une dentaire et auditif (G)'][$month] = $data['Coût Cumulé total des dentaires et auditifs (E1)'][$month] / $data['Nombre de dentaires et auditifs Cumulée (B1)'][$month];
+            if ($data['Nombre de dentaires et auditifs Cumulés (B1)'][$month] > 0) {
+                $data['Coût moyen cumulé d’une dentaire et auditif (G)'][$month] = $data['Coût Cumulé total des dentaires et auditifs (E1)'][$month] / $data['Nombre de dentaires et auditifs Cumulés (B1)'][$month];
             }
         }
-        if ($data['Nombre de dentaires et auditifs Cumulée (B1)']['Total'] > 0) {
-            $data['Coût moyen cumulé d’une dentaire et auditif (G)']['Total'] = $data['Coût Cumulé total des dentaires et auditifs (E1)']['Total']  / $data['Nombre de dentaires et auditifs Cumulée (B1)']['Total'];
+        if ($data['Nombre de dentaires et auditifs Cumulés (B1)']['Total'] > 0) {
+            $data['Coût moyen cumulé d’une dentaire et auditif (G)']['Total'] = $data['Coût Cumulé total des dentaires et auditifs (E1)']['Total']  / $data['Nombre de dentaires et auditifs Cumulés (B1)']['Total'];
         } else {
             $data['Coût moyen cumulé d’une dentaire et auditif (G)']['Total'] = 0;
         }
@@ -2374,12 +2377,12 @@ class PrestationController extends Controller
                 $data['Taux d’utilisation mensuel % C (C)']['Total'] = 0;
             }
             // Taux d’utilisation cumulée % (D)
-            if ($data['Nombre moyen de bénéficiaire (A1)'][$month] > 0) {
-                $data['Taux d’utilisation cumulée %(D)'][$month] = number_format(($data['Nombre de dentaires et auditifs Cumulée (B1)'][$month] / $data['Nombre moyen de bénéficiaire (A1)'][$month])*$previousMonths * 100, 2);
+            if ($data['Nombre moyen de bénéficiaires (A1)'][$month] > 0) {
+                $data['Taux d’utilisation cumulée %(D)'][$month] = number_format(($data['Nombre de dentaires et auditifs Cumulés (B1)'][$month] / $data['Nombre moyen de bénéficiaires (A1)'][$month])*$previousMonths * 100, 2);
 
             }
-            if ($data['Nombre moyen de bénéficiaire (A1)']['Total'] > 0) {
-                $data['Taux d’utilisation cumulée %(D)']['Total'] = number_format(($dentairesAuditifsCumulative / $data['Nombre moyen de bénéficiaire (A1)']['Total'])*12 * 100, 2);
+            if ($data['Nombre moyen de bénéficiaires (A1)']['Total'] > 0) {
+                $data['Taux d’utilisation cumulée %(D)']['Total'] = number_format(($dentairesAuditifsCumulative / $data['Nombre moyen de bénéficiaires (A1)']['Total'])*12 * 100, 2);
             } else {
                 $data['Taux d’utilisation cumulée %(D)']['Total'] = 0;
             }
@@ -2481,9 +2484,9 @@ class PrestationController extends Controller
         $categories = [
             'Nombre de nouveaux bénéficiaires',
             'Nombre de bénéficiaires (A)',
-            'Nombre moyen de bénéficiaire (A1)',
+            'Nombre moyen de bénéficiaires (A1)',
             'Nombre autres (B)',
-            'Nombre autres Cumulée (B1)',
+            'Nombre autres Cumulés (B1)',
             'Taux d’utilisation mensuel % C (C)',
             'Taux d’utilisation cumulée %(D)',
             'Coût total des autres (E)',
@@ -2539,8 +2542,8 @@ class PrestationController extends Controller
             $data['Nombre de bénéficiaires (A)'][$month] = $beneficiairesCumulative;
 
             // Calculer A1 = A / nombre de mois déjà écoulés
-            $data['Nombre moyen de bénéficiaire (A1)'][$month] = floor($beneficiairesCumulative / ($index + 1));
-            $data['Nombre moyen de bénéficiaire (A1)']['Total'] = $data['Nombre moyen de bénéficiaire (A1)'][$month];
+            $data['Nombre moyen de bénéficiaires (A1)'][$month] = floor($beneficiairesCumulative / ($index + 1));
+            $data['Nombre moyen de bénéficiaires (A1)']['Total'] = $data['Nombre moyen de bénéficiaires (A1)'][$month];
         }
 
         // Calculer les statistiques à pfartir des prestations
@@ -2555,8 +2558,8 @@ class PrestationController extends Controller
 
                 // Cumul des autre (B1)
                 $autresCumulative++;
-                $data['Nombre autres Cumulée (B1)'][$month] = $autresCumulative;
-                $data['Nombre autres Cumulée (B1)']['Total'] = $autresCumulative;
+                $data['Nombre autres Cumulés (B1)'][$month] = $autresCumulative;
+                $data['Nombre autres Cumulés (B1)']['Total'] = $autresCumulative;
 
                 // Coût total des autres (E)
                 if (!isset($data['Coût total des autres (E)'][$month])) {
@@ -2572,7 +2575,7 @@ class PrestationController extends Controller
         // Calculer le cumul par mois pour B1
         foreach ($months as $index => $month) {
             if ($index > 0) {
-                $data['Nombre autres Cumulée (B1)'][$month] = $data['Nombre autres Cumulée (B1)'][$months[$index - 1]] + $data['Nombre autres (B)'][$month];
+                $data['Nombre autres Cumulés (B1)'][$month] = $data['Nombre autres Cumulés (B1)'][$months[$index - 1]] + $data['Nombre autres (B)'][$month];
             }
 
             // Cumul du coût total des autres (E1)
@@ -2584,12 +2587,12 @@ class PrestationController extends Controller
             $data['Coût Cumulé total des autres (E1)']['Total'] = $data['Coût Cumulé total des autres (E1)'][$month] ;
 
             // Coût moyen cumulé d’un autre (G)
-            if ($data['Nombre autres Cumulée (B1)'][$month] > 0) {
-                $data['Coût moyen cumulé d’un autre (G)'][$month] = $data['Coût Cumulé total des autres (E1)'][$month] / $data['Nombre autres Cumulée (B1)'][$month];
+            if ($data['Nombre autres Cumulés (B1)'][$month] > 0) {
+                $data['Coût moyen cumulé d’un autre (G)'][$month] = $data['Coût Cumulé total des autres (E1)'][$month] / $data['Nombre autres Cumulés (B1)'][$month];
             }
         }
-        if ($data['Nombre autres Cumulée (B1)']['Total'] > 0) {
-            $data['Coût moyen cumulé d’un autre (G)']['Total'] = $data['Coût Cumulé total des autres (E1)']['Total']  / $data['Nombre autres Cumulée (B1)']['Total'];
+        if ($data['Nombre autres Cumulés (B1)']['Total'] > 0) {
+            $data['Coût moyen cumulé d’un autre (G)']['Total'] = $data['Coût Cumulé total des autres (E1)']['Total']  / $data['Nombre autres Cumulés (B1)']['Total'];
         } else {
             $data['Coût moyen cumulé d’un autre (G)']['Total'] = 0;
         }
@@ -2608,12 +2611,12 @@ class PrestationController extends Controller
                 $data['Taux d’utilisation mensuel % C (C)']['Total'] = 0;
             }
             // Taux d’utilisation cumulée % (D)
-            if ($data['Nombre moyen de bénéficiaire (A1)'][$month] > 0) {
-                $data['Taux d’utilisation cumulée %(D)'][$month] = number_format(($data['Nombre autres Cumulée (B1)'][$month] / $data['Nombre moyen de bénéficiaire (A1)'][$month])*$previousMonths * 100, 2);
+            if ($data['Nombre moyen de bénéficiaires (A1)'][$month] > 0) {
+                $data['Taux d’utilisation cumulée %(D)'][$month] = number_format(($data['Nombre autres Cumulés (B1)'][$month] / $data['Nombre moyen de bénéficiaires (A1)'][$month])*$previousMonths * 100, 2);
 
             }
-            if ($data['Nombre moyen de bénéficiaire (A1)']['Total'] > 0) {
-                $data['Taux d’utilisation cumulée %(D)']['Total'] = number_format(($autresCumulative / $data['Nombre moyen de bénéficiaire (A1)']['Total'])*12 * 100, 2);
+            if ($data['Nombre moyen de bénéficiaires (A1)']['Total'] > 0) {
+                $data['Taux d’utilisation cumulée %(D)']['Total'] = number_format(($autresCumulative / $data['Nombre moyen de bénéficiaires (A1)']['Total'])*12 * 100, 2);
             } else {
                 $data['Taux d’utilisation cumulée %(D)']['Total'] = 0;
             }

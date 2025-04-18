@@ -171,7 +171,7 @@
                     <span class="ml-3">Gestion des évènements</span>
                 </a>
             </li>  --}}
-            @role('agentsaisie|controleur')
+            @role('agentsaisie|controleur|comptable')
 
             <li>
                 <a href="{{ route('prestations.index') }}" class="@if(Request::is('admin/prestations') || Request::is('admin/prestations/*')) active @endif flex items-center px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">

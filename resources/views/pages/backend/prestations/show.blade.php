@@ -192,7 +192,7 @@
             </div>
             @role('controleur')
             <div class="flex justify-around mt-6">
-                <form action="{{ route('prestations.valider', ['id' => $prestation->id]) }}" method="POST" class="flex items-center p-2 text-green-700 rounded-md shadow-sm ">
+                <form action="{{ route('prestations.valider', ['id' => $prestation->id]) }}" method="POST" class="flex items-center  text-green-700 rounded-md ">
                     @csrf
                     <x-primary-button type="submit">
                         <i class="fa fa-check"></i>
@@ -202,7 +202,7 @@
                     </x-primary-button>
                     
                 </form>
-                <form action="{{ route('prestations.rejeter', ['id' => $prestation->id]) }}" method="POST" class="flex items-center p-2 text-red-700 rounded-md shadow-sm ">
+                <form action="{{ route('prestations.rejeter', ['id' => $prestation->id]) }}" method="POST" class="flex items-center  text-red-700 rounded-md ">
                     @csrf
                     <x-primary-button type="submit" class=" bg-red-600">
                         <i class="fa fa-times"></i>
@@ -219,7 +219,7 @@
             @role('comptable')
             <div x-data="{ open: false }">
                 <div class="flex justify-around mt-6">
-                    <form action="{{ route('prestations.validerpaiement', ['id' => $prestation->id]) }}" method="POST" class="flex items-center p-2 text-green-700 rounded-md shadow-sm">
+                    <form action="{{ route('prestations.validerpaiement', ['id' => $prestation->id]) }}" method="POST" class="flex items-center  text-green-700 rounded-md ">
                         @csrf
                         <x-primary-button @click="open = true" type="submit">
                             <i class="fa fa-check"></i>
@@ -228,7 +228,7 @@
                     </form>
 
                     @if ($prestation->etat_paiement == 1)
-                        <a href="{{ route('prestations.downloadReceipt', ['id' => $prestation->id]) }}" class="flex items-center p-2 text-blue-700 rounded-md shadow-sm">
+                        <a href="{{ route('prestations.downloadReceipt', ['id' => $prestation->id]) }}" class="flex items-center  text-blue-700 rounded-md ">
                             <x-primary-button>
                                 <i class="fa fa-download"></i>
                                 <span class="ml-2">{{ __('Télécharger reçu') }}</span>

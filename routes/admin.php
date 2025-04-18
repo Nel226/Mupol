@@ -60,6 +60,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/dentaire-auditif/suivi', [PrestationController::class, 'suiviDentaireAuditif'])->name('suivi-dentaire-auditif');
     Route::get('/autre/suivi', [PrestationController::class, 'suiviAutre'])->name('suivi-autre');
     Route::get('/all/suivi', action: [PrestationController::class, 'suiviTous'])->name('suivi-all');
+    //Route::get('/prestations/search', [PrestationController::class, 'search'])->name('prestations.search');
 
 
     Route::resource('adherents', AdherentController::class);

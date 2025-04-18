@@ -16,6 +16,8 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Exception;
 use Illuminate\Support\Str;
+use Illuminate\Pagination\LengthAwarePaginator;
+
 
 class PrestationController extends Controller
 {
@@ -26,15 +28,15 @@ class PrestationController extends Controller
     {
         $user = Auth::user();
 
-        $adherents = Adherent::all(); 
-        $ayantsDroit = AyantDroit::all(); 
+        $adherents = Adherent::all();
+        $ayantsDroit = AyantDroit::all();
 
         // Date limite pour l'adhésion (6 mois en arrière)
         $sixMonthsAgo = Carbon::now()->subMonths(6);
 
 
         $adherentsValides = Adherent::where('date_enregistrement', '<=', $sixMonthsAgo)->get();
- 
+
         $ayantsDroitValides = AyantDroit::whereIn('adherent_id', $adherentsValides->pluck('id'))->get();
 
         $prestations = Prestation::orderBy('created_at', 'desc')->get();
@@ -56,18 +58,18 @@ class PrestationController extends Controller
      */
     public function create()
     {
-        $adherents = Adherent::all(); 
-        $ayantsDroit = AyantDroit::all(); 
+        $adherents = Adherent::all();
+        $ayantsDroit = AyantDroit::all();
 
         // Date limite pour l'adhésion (6 mois en arrière)
         $sixMonthsAgo = Carbon::now()->subMonths(6);
 
-        
+
         $adherentsValides = Adherent::all();
 
-    
 
-        
+
+
         $ayantsDroitValides = AyantDroit::whereIn('adherent_id', $adherentsValides->pluck('id'))->get();
 
         $prestations = Prestation::all();
@@ -81,7 +83,7 @@ class PrestationController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-   
+
     public function store(StorePrestationRequest $request)
     {
         $data = $request->all();
@@ -91,9 +93,9 @@ class PrestationController extends Controller
         $prestationsToSave = [];
 
         foreach ($types as $type) {
-        
-            for ($i = 0; $i <= 20; $i++) { 
-                $typeSuffix = $i > 0 ? "-$i" : ''; 
+
+            for ($i = 0; $i <= 20; $i++) {
+                $typeSuffix = $i > 0 ? "-$i" : '';
                 if (!empty($data["date_$type$typeSuffix"]) && !empty($data["centre_$type$typeSuffix"]) && !empty($data["montant_$type$typeSuffix"])) {
 
                     $prestationsToSave[] = [
@@ -120,7 +122,7 @@ class PrestationController extends Controller
         if (empty($prestationsToSave)) {
             return back()->withErrors(['message' => 'Veuillez remplir tous les champs obligatoires pour chaque prestation visible.']);
         }
-        
+
 
         foreach ($prestationsToSave as $prestationData) {
             $montant = $prestationData['montant'];
@@ -129,31 +131,31 @@ class PrestationController extends Controller
             }
 
             $prestation = new Prestation($prestationData);
-            
+
             // if ($request->hasFile('preuve')) {
             //     foreach ($request->file('preuve') as $file) {
-            //         $path = $file->store('preuves', 'public'); 
-            //         $prestation->preuve = json_encode([$path]); 
+            //         $path = $file->store('preuves', 'public');
+            //         $prestation->preuve = json_encode([$path]);
             //     }
             // }
             if ($request->hasFile('preuve')) {
                 $files = [];
                 foreach ($request->file('preuve') as $file) {
                     $path = $file->store("preuves/{$adherentCode}", 'public');
-                    
-                    $files[] = $path; 
-                }
-                $prestation->preuve = json_encode($files); 
-            }
-            
 
-            $prestation->save(); 
+                    $files[] = $path;
+                }
+                $prestation->preuve = json_encode($files);
+            }
+
+
+            $prestation->save();
         }
 
         return redirect()->route('prestations.index')->with('success', 'Enregistrement réussi');
     }
 
-     
+
 
     /**
      * Display the specified resource.
@@ -165,7 +167,7 @@ class PrestationController extends Controller
         } else {
             $prestation->preuve = [];
         }
-        
+
         $montantModerateur = (($prestation->montant*20)/100);
         $montantMutuelle = (($prestation->montant*80)/100);
 
@@ -199,7 +201,7 @@ class PrestationController extends Controller
     public function valider($id)
     {
         $prestation = Prestation::findOrFail($id);
-        $prestation->validite = 'accepté'; 
+        $prestation->validite = 'accepté';
 
         $prestation->save();
 
@@ -218,7 +220,7 @@ class PrestationController extends Controller
     public function validerPaiement($id)
     {
         $prestation = Prestation::findOrFail($id);
-        $prestation->etat_paiement = 1; 
+        $prestation->etat_paiement = 1;
         $prestation->save();
 
         $categorie = Categorie::where('nom', 'Prestations et dépenses de personnels')->first();
@@ -227,16 +229,16 @@ class PrestationController extends Controller
         Depense::create([
             'uuid' => (string) Str::uuid(),
             'montant' => $prestation->montant,
-            'description' => 'Dépense pour prestation' , 
-            'categorie_id' => $categorie->uuid, 
-            'sous_categorie_id' => $sousCategorie->uuid, 
+            'description' => 'Dépense pour prestation' ,
+            'categorie_id' => $categorie->uuid,
+            'sous_categorie_id' => $sousCategorie->uuid,
             'date' => $prestation->created_at->format('Y-m-d')
         ]);
 
         return redirect()->route('prestations.index')->with('success', 'Le paiement a été validé avec succès.');
     }
 
-    public function ImageToDataUrl(String $filename): String 
+    public function ImageToDataUrl(String $filename): String
     {
         if (!file_exists($filename)) {
             throw new Exception('File not found.');
@@ -265,42 +267,94 @@ class PrestationController extends Controller
         ];
         return PDFHelper::downloadPDF('pages.backend.prestations.prestation', $data, 'Recu_paiement_' . $prestation->id);
     }
-    
+
     public function suiviTous(Request $request)
     {
         $pageTitle = 'Prestations par adhérents';
         $currentYear = $request->input('year', Carbon::now()->year);
+        $centre = $request->input('centre');
+        $search = $request->input('search');
 
-        $adherentCodes = Adherent::pluck('code_carte')->toArray();
+        // Prestations des adhérents
         $prestationsAdherents = Prestation::join('adherents', 'prestations.adherentCode', '=', 'adherents.code_carte')
             ->whereYear('prestations.created_at', $currentYear)
+            ->when($search, function ($query, $search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('adherents.nom', 'like', "%$search%")
+                      ->orWhere('adherents.prenom', 'like', "%$search%")
+                      ->orWhere('adherents.code_carte', 'like', "%$search%");
+                });
+            })
+            ->when($centre, function ($query, $centre) {
+                $query->where('prestations.centre', $centre);
+            })
             ->select('prestations.*', 'adherents.id as adherent_id')
             ->get();
 
+        // Prestations des ayants droit
         $prestationsAyantsDroit = Prestation::join('ayant_droits', 'prestations.adherentCode', '=', 'ayant_droits.code')
             ->join('adherents', 'ayant_droits.adherent_id', '=', 'adherents.id')
             ->whereYear('prestations.created_at', $currentYear)
+            ->when($search, function ($query, $search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('adherents.nom', 'like', "%$search%")
+                      ->orWhere('adherents.prenom', 'like', "%$search%")
+                      ->orWhere('adherents.code_carte', 'like', "%$search%");
+                });
+            })
+            ->when($centre, function ($query, $centre) {
+                $query->where('prestations.centre', $centre);
+            })
             ->select('prestations.*', 'adherents.id as adherent_id')
             ->distinct()
             ->get();
 
-        
-
-        $prestationsAll = $prestationsAdherents->merge($prestationsAyantsDroit);
-
+        // Fusion, tri et regroupement
+        $prestationsAll = $prestationsAdherents
+            ->merge($prestationsAyantsDroit)
+            ->sortByDesc('created_at');
 
         $prestationsGroupedByAdherent = $prestationsAll->groupBy('adherent_id');
 
-        $adherents = Adherent::whereYear('date_enregistrement', $currentYear)->get();
-        $ayantsDroit = AyantDroit::join('adherents', 'ayant_droits.adherent_id', '=', 'adherents.id')
-            ->whereYear('adherents.date_enregistrement', $currentYear)
-            ->select('ayant_droits.*')
-            ->get();
-        $prestations = Prestation::whereYear('created_at', $currentYear)->get();
+        // Pagination manuelle
+        $adherentIds = $prestationsGroupedByAdherent->keys();
+        $page = $request->input('page', 1);
+        $perPage = 5;
+        $offset = ($page - 1) * $perPage;
 
-        return view('pages.backend.prestations.suivi.suivi-all', compact('pageTitle', 'prestationsGroupedByAdherent', 'prestationsAll', 'currentYear'));
+        $paginatedAdherentIds = $adherentIds->slice($offset, $perPage);
+        $paginatedGrouped = collect();
 
+        foreach ($paginatedAdherentIds as $adherentId) {
+            $paginatedGrouped[$adherentId] = $prestationsGroupedByAdherent[$adherentId];
+        }
+
+        $paginatedPrestations = new LengthAwarePaginator(
+            $paginatedGrouped,
+            $adherentIds->count(),
+            $perPage,
+            $page,
+            ['path' => $request->url(), 'query' => $request->query()]
+        );
+
+        // Récupération des centres distincts pour le filtre
+        $centresDisponibles = Prestation::select('centre')
+            ->distinct()
+            ->orderBy('centre')
+            ->pluck('centre');
+
+        // Vue AJAX ou complète
+        $view = view('pages.backend.prestations.suivi.suivi-all', compact(
+            'pageTitle',
+            'paginatedPrestations',
+            'currentYear',
+            'centre',
+            'centresDisponibles'
+        ));
+
+        return $request->ajax() ? response()->view('pages.backend.prestations.suivi.suivi-all', $view->getData()) : $view;
     }
+
     public function suivi(Request $request)
     {
         $pageTitle = 'Suivi des prestations';
@@ -319,7 +373,7 @@ class PrestationController extends Controller
             ->distinct()
             ->get();
 
-        
+
 
         $prestationsAll = $prestationsAdherents->merge($prestationsAyantsDroit);
 
@@ -419,7 +473,7 @@ class PrestationController extends Controller
                 $data['Coût total des hospitalisations (E)'][$month] += $prestation->montant;
                 $data['Coût total des hospitalisations (E)']['Total'] += $prestation->montant;
 
-                
+
             }
         }
 
@@ -435,15 +489,15 @@ class PrestationController extends Controller
             } else {
                 $data['Coût Cumulé total des hospitalisations (E1)'][$month] = $data['Coût total des hospitalisations (E)'][$month];
             }
-            $data['Coût Cumulé total des hospitalisations (E1)']['Total'] = $data['Coût Cumulé total des hospitalisations (E1)'][$month] ;        
-            
+            $data['Coût Cumulé total des hospitalisations (E1)']['Total'] = $data['Coût Cumulé total des hospitalisations (E1)'][$month] ;
+
             // Coût moyen cumulé d’une hospitalisation (G)
             if ($data['Nombre d’hospitalisation Cumulée (B1)'][$month] > 0) {
-                $data['Coût moyen cumulé d’une hospitalisation (G)'][$month] = $data['Coût Cumulé total des hospitalisations (E1)'][$month] / $data['Nombre d’hospitalisation Cumulée (B1)'][$month];
+                $data['Coût moyen cumulé d’une hospitalisation (G)'][$month] = number_format((float)$data['Coût Cumulé total des hospitalisations (E1)'][$month] / $data['Nombre d’hospitalisation Cumulée (B1)'][$month], 2, ',', ' ');
             }
         }
         if ($data['Nombre d’hospitalisation Cumulée (B1)']['Total'] > 0) {
-            $data['Coût moyen cumulé d’une hospitalisation (G)']['Total'] = $data['Coût Cumulé total des hospitalisations (E1)']['Total']  / $data['Nombre d’hospitalisation Cumulée (B1)']['Total'];
+            $data['Coût moyen cumulé d’une hospitalisation (G)']['Total'] = number_format((float)$data['Coût Cumulé total des hospitalisations (E1)']['Total']  / $data['Nombre d’hospitalisation Cumulée (B1)']['Total'], 2, ',', ' ');
         } else {
             $data['Coût moyen cumulé d’une hospitalisation (G)']['Total'] = 0;
         }
@@ -454,7 +508,7 @@ class PrestationController extends Controller
 
             // Taux d’utilisation mensuel % (C)
             if ($data['Nombre de bénéficiaires (A)'][$month] > 0) {
-                
+
                 $data['Taux d’utilisation mensuel % C (C)'][$month] = number_format(($data['Nombre d’hospitalisation (B)'][$month] / $data['Nombre de bénéficiaires (A)'][$month])*$previousMonths * 100, 2);
             }
             if ($beneficiairesCumulative > 0) {
@@ -465,7 +519,7 @@ class PrestationController extends Controller
             // Taux d’utilisation cumulée % (D)
             if ($data['Nombre moyen de bénéficiaire (A1)'][$month] > 0) {
                 $data['Taux d’utilisation cumulée %(D)'][$month] = number_format(($data['Nombre d’hospitalisation Cumulée (B1)'][$month] / $data['Nombre moyen de bénéficiaire (A1)'][$month])*$previousMonths * 100, 2);
-            
+
             }
             if ($data['Nombre moyen de bénéficiaire (A1)']['Total'] > 0) {
                 $data['Taux d’utilisation cumulée %(D)']['Total'] = number_format(($hospitalisationsCumulative / $data['Nombre moyen de bénéficiaire (A1)']['Total'])*12 * 100, 2);
@@ -475,32 +529,56 @@ class PrestationController extends Controller
 
             // Coût moyen mensuel d’une hospitalisation (F)
             if ($data['Nombre d’hospitalisation (B)'][$month] > 0) {
-                $data['Coût moyen mensuel d’une hospitalisation (F)'][$month] = $data['Coût total des hospitalisations (E)'][$month] / $data['Nombre d’hospitalisation (B)'][$month];
+            $data['Coût moyen mensuel d’une hospitalisation (F)'][$month] = number_format($data['Coût total des hospitalisations (E)'][$month] / $data['Nombre d’hospitalisation (B)'][$month], 2, ',', ' ');
             }
 
 
-            
+
         }
         if ($data['Nombre d’hospitalisation (B)']['Total'] > 0) {
-            $data['Coût moyen mensuel d’une hospitalisation (F)']['Total'] = $data['Coût total des hospitalisations (E)']['Total']  / $data['Nombre d’hospitalisation (B)']['Total'];
+            $data['Coût moyen mensuel d’une hospitalisation (F)']['Total'] = number_format($data['Coût total des hospitalisations (E)']['Total']  / $data['Nombre d’hospitalisation (B)']['Total'], 2, ',', ' ');
         } else {
             $data['Coût moyen mensuel d’une hospitalisation (F)']['Total'] = 0;
         }
 
-        // Calcul des moyennes totales pour chaque catégorie
+		// Calcul des moyennes totales pour chaque catégorie
         foreach ($categories as $category) {
-            $data[$category]['Moyenne'] = number_format($data[$category]['Total'] / count($months), 2, ',', ' ');
+            $data[$category]['Moyenne'] = (float) ($data[$category]['Total'] ?? 0) / max(count($months), 1);
         }
 
         // Convertir les données pour Tabulator
+        // Catégories nécessitant un affichage avec deux décimales (taux et coûts moyens)
+        $categoriesWithDecimals = [
+            'Taux d’utilisation mensuel % C (C)',
+            'Taux d’utilisation cumulée %(D)',
+            'Coût moyen mensuel d’une hospitalisation (F)',
+            'Coût moyen cumulé d’une hospitalisation (G)',
+        ];
+
+        // Convertion
         $tabulatorData = [];
         foreach ($categories as $category) {
             $row = ['Category' => $category];
             foreach ($months as $month) {
-                $row[$month] = $data[$category][$month];
+                $value = $data[$category][$month];
+
+                if (in_array($category, $categoriesWithDecimals) && is_numeric($value)) {
+                    $row[$month] = number_format($value, 2, ',', ' ');
+                } else {
+                    $row[$month] = is_numeric($value) ? number_format($value, 0, ',', ' ') : $value;
+                }
             }
-            $row['Total'] = $data[$category]['Total'];
-            $row['Moyenne'] = $data[$category]['Moyenne'];
+
+            $totalValue = $data[$category]['Total'];
+            $row['Total'] = in_array($category, $categoriesWithDecimals) && is_numeric($totalValue)
+                ? number_format($totalValue, 2, ',', ' ')
+                : (is_numeric($totalValue) ? number_format($totalValue, 0, ',', ' ') : $totalValue);
+
+            $moyenneValue = $data[$category]['Moyenne'];
+            $row['Moyenne'] = in_array($category, $categoriesWithDecimals) && is_numeric($moyenneValue)
+                ? number_format($moyenneValue, 2, ',', ' ')
+                : (is_numeric($moyenneValue) ? number_format($moyenneValue, 0, ',', ' ') : $moyenneValue);
+
             $row['Référence'] = $data[$category]['Référence'];
             $tabulatorData[] = $row;
         }
@@ -512,8 +590,6 @@ class PrestationController extends Controller
 
         return view('pages.backend.prestations.suivi', compact('tabulatorData', 'prestationsGroupedByAdherent', 'currentYear', 'prestationsAll', 'months' , 'data', 'pageTitle'));
     }
-
-
 
     public function suiviConsultation(Request $request)
     {
@@ -577,7 +653,7 @@ class PrestationController extends Controller
             // Nombre de bénéficiaires (A) par mois
             $data['Nombre de nouveaux bénéficiaires'][$month]++;
             $data['Nombre de nouveaux bénéficiaires']['Total']++;
-            
+
             $data['Nombre de bénéficiaires (A)'][$month]++;
             $data['Nombre de bénéficiaires (A)']['Total']++;
         }
@@ -614,7 +690,7 @@ class PrestationController extends Controller
                 $data['Coût total des consultations (E)'][$month] += $prestation->montant;
                 $data['Coût total des consultations (E)']['Total'] += $prestation->montant;
 
-                
+
             }
         }
 
@@ -630,8 +706,8 @@ class PrestationController extends Controller
             } else {
                 $data['Coût Cumulé total des consultations (E1)'][$month] = $data['Coût total des consultations (E)'][$month];
             }
-            $data['Coût Cumulé total des consultations (E1)']['Total'] = $data['Coût Cumulé total des consultations (E1)'][$month] ;        
-            
+            $data['Coût Cumulé total des consultations (E1)']['Total'] = $data['Coût Cumulé total des consultations (E1)'][$month] ;
+
             // Coût moyen cumulé d’une consultations (G)
             if ($data['Nombre de consultation Cumulée (B1)'][$month] > 0) {
                 $data['Coût moyen cumulé d’une consultation (G)'][$month] = $data['Coût Cumulé total des consultations (E1)'][$month] / $data['Nombre de consultation Cumulée (B1)'][$month];
@@ -659,7 +735,7 @@ class PrestationController extends Controller
             // Taux d’utilisation cumulée % (D)
             if ($data['Nombre moyen de bénéficiaire (A1)'][$month] > 0) {
                 $data['Taux d’utilisation cumulée %(D)'][$month] = number_format(($data['Nombre de consultation Cumulée (B1)'][$month] / $data['Nombre moyen de bénéficiaire (A1)'][$month])*$previousMonths * 100, 2);
-            
+
             }
             if ($data['Nombre moyen de bénéficiaire (A1)']['Total'] > 0) {
                 $data['Taux d’utilisation cumulée %(D)']['Total'] = number_format(($consultationsCumulative / $data['Nombre moyen de bénéficiaire (A1)']['Total'])*12 * 100, 2);
@@ -672,8 +748,6 @@ class PrestationController extends Controller
                 $data['Coût moyen mensuel d’une consultation (F)'][$month] = $data['Coût total des consultations (E)'][$month] / $data['Nombre de consultation (B)'][$month];
             }
 
-
-            
         }
         if ($data['Nombre de consultation (B)']['Total'] > 0) {
             $data['Coût moyen mensuel d’une consultation (F)']['Total'] = $data['Coût total des consultations (E)']['Total']  / $data['Nombre de consultation (B)']['Total'];
@@ -683,23 +757,51 @@ class PrestationController extends Controller
 
         // Calcul des moyennes totales pour chaque catégorie
         foreach ($categories as $category) {
-            //$data[$category]['Moyenne'] = number_format($data[$category]['Total'] / count($months), 2, ',', ' ');
-            $data[$category]['Moyenne'] = number_format(
-                (float) ($data[$category]['Total'] ?? 0) / max(count($months), 1),
-                2, ',', ' '
-            );
-
+            $data[$category]['Moyenne'] = (float) ($data[$category]['Total'] ?? 0) / max(count($months), 1);
         }
 
         // Convertir les données pour Tabulator
+        // $tabulatorData = [];
+        // foreach ($categories as $category) {
+        //     $row = ['Category' => $category];
+        //     foreach ($months as $month) {
+        //         $row[$month] = $data[$category][$month];
+        //     }
+        //     $row['Total'] = $data[$category]['Total'];
+        //     $row['Moyenne'] = $data[$category]['Moyenne'];
+        //     $row['Référence'] = $data[$category]['Référence'];
+        //     $tabulatorData[] = $row;
+        // }
+        $categoriesWithDecimals = [
+            'Taux d’utilisation mensuel % C (C)',
+            'Taux d’utilisation cumulée %(D)',
+            'Coût moyen mensuel d’une consultation (F)',
+            'Coût moyen cumulé d’une consultation (G)',
+        ];
+
         $tabulatorData = [];
         foreach ($categories as $category) {
             $row = ['Category' => $category];
             foreach ($months as $month) {
-                $row[$month] = $data[$category][$month];
+                $value = $data[$category][$month];
+
+                if (in_array($category, $categoriesWithDecimals) && is_numeric($value)) {
+                    $row[$month] = number_format($value, 2, ',', ' ');
+                } else {
+                    $row[$month] = is_numeric($value) ? number_format($value, 0, ',', ' ') : $value;
+                }
             }
-            $row['Total'] = $data[$category]['Total'];
-            $row['Moyenne'] = $data[$category]['Moyenne'];
+
+            $totalValue = $data[$category]['Total'];
+            $row['Total'] = in_array($category, $categoriesWithDecimals) && is_numeric($totalValue)
+                ? number_format($totalValue, 2, ',', ' ')
+                : (is_numeric($totalValue) ? number_format($totalValue, 0, ',', ' ') : $totalValue);
+
+            $moyenneValue = $data[$category]['Moyenne'];
+            $row['Moyenne'] = in_array($category, $categoriesWithDecimals) && is_numeric($moyenneValue)
+                ? number_format($moyenneValue, 2, ',', ' ')
+                : (is_numeric($moyenneValue) ? number_format($moyenneValue, 0, ',', ' ') : $moyenneValue);
+
             $row['Référence'] = $data[$category]['Référence'];
             $tabulatorData[] = $row;
         }
@@ -712,7 +814,7 @@ class PrestationController extends Controller
         return view('pages.backend.prestations.suivi-consultation', compact('tabulatorData', 'currentYear', 'months' , 'data', 'pageTitle'));
     }
 
-
+    // Radiologie
     public function suiviRadio(Request $request)
     {
         $pageTitle = 'Suivi des prestations';
@@ -730,10 +832,7 @@ class PrestationController extends Controller
             ->distinct()
             ->get();
 
-        
-
         $prestationsAll = $prestationsAdherents->merge($prestationsAyantsDroit);
-
 
         $prestationsGroupedByAdherent = $prestationsAll->groupBy('adherent_id');
 
@@ -830,7 +929,7 @@ class PrestationController extends Controller
                 $data['Coût total des radios (E)'][$month] += $prestation->montant;
                 $data['Coût total des radios (E)']['Total'] += $prestation->montant;
 
-                
+
             }
         }
 
@@ -846,8 +945,8 @@ class PrestationController extends Controller
             } else {
                 $data['Coût Cumulé total des radios (E1)'][$month] = $data['Coût total des radios (E)'][$month];
             }
-            $data['Coût Cumulé total des radios (E1)']['Total'] = $data['Coût Cumulé total des radios (E1)'][$month] ;        
-            
+            $data['Coût Cumulé total des radios (E1)']['Total'] = $data['Coût Cumulé total des radios (E1)'][$month] ;
+
             // Coût moyen cumulé d’une radio (G)
             if ($data['Nombre de radios Cumulée (B1)'][$month] > 0) {
                 $data['Coût moyen cumulé de radios (G)'][$month] = $data['Coût Cumulé total des radios (E1)'][$month] / $data['Nombre de radios Cumulée (B1)'][$month];
@@ -875,7 +974,7 @@ class PrestationController extends Controller
             // Taux d’utilisation cumulée % (D)
             if ($data['Nombre moyen de bénéficiaire (A1)'][$month] > 0) {
                 $data['Taux d’utilisation cumulée %(D)'][$month] = number_format(($data['Nombre de radios Cumulée (B1)'][$month] / $data['Nombre moyen de bénéficiaire (A1)'][$month])*$previousMonths * 100, 2);
-            
+
             }
             if ($data['Nombre moyen de bénéficiaire (A1)']['Total'] > 0) {
                 $data['Taux d’utilisation cumulée %(D)']['Total'] = number_format(($radiosCumulative / $data['Nombre moyen de bénéficiaire (A1)']['Total'])*12 * 100, 2);
@@ -889,7 +988,7 @@ class PrestationController extends Controller
             }
 
 
-            
+
         }
         if ($data['Nombre de radios (B)']['Total'] > 0) {
             $data['Coût moyen mensuel d’une radio (F)']['Total'] = $data['Coût total des radios (E)']['Total']  / $data['Nombre de radios (B)']['Total'];
@@ -899,23 +998,42 @@ class PrestationController extends Controller
 
         // Calcul des moyennes totales pour chaque catégorie
         foreach ($categories as $category) {
-            //$data[$category]['Moyenne'] = number_format($data[$category]['Total'] / count($months), 2, ',', ' ');
-            $data[$category]['Moyenne'] = number_format(
-                (float) ($data[$category]['Total'] ?? 0) / max(count($months), 1),
-                2, ',', ' '
-            );
-
+            $data[$category]['Moyenne'] = (float) ($data[$category]['Total'] ?? 0) / max(count($months), 1);
         }
 
         // Convertir les données pour Tabulator
+        // Catégories nécessitant un affichage avec deux décimales (taux et coûts moyens)
+        $categoriesWithDecimals = [
+            'Taux d’utilisation mensuel % C (C)',
+            'Taux d’utilisation cumulée %(D)',
+            'Coût moyen mensuel d’une radio (F)',
+            'Coût moyen cumulé d’une radio (G)',
+        ];
+
+        // Convertion
         $tabulatorData = [];
         foreach ($categories as $category) {
             $row = ['Category' => $category];
             foreach ($months as $month) {
-                $row[$month] = $data[$category][$month];
+                $value = $data[$category][$month];
+
+                if (in_array($category, $categoriesWithDecimals) && is_numeric($value)) {
+                    $row[$month] = number_format($value, 2, ',', ' ');
+                } else {
+                    $row[$month] = is_numeric($value) ? number_format($value, 0, ',', ' ') : $value;
+                }
             }
-            $row['Total'] = $data[$category]['Total'];
-            $row['Moyenne'] = $data[$category]['Moyenne'];
+
+            $totalValue = $data[$category]['Total'];
+            $row['Total'] = in_array($category, $categoriesWithDecimals) && is_numeric($totalValue)
+                ? number_format($totalValue, 2, ',', ' ')
+                : (is_numeric($totalValue) ? number_format($totalValue, 0, ',', ' ') : $totalValue);
+
+            $moyenneValue = $data[$category]['Moyenne'];
+            $row['Moyenne'] = in_array($category, $categoriesWithDecimals) && is_numeric($moyenneValue)
+                ? number_format($moyenneValue, 2, ',', ' ')
+                : (is_numeric($moyenneValue) ? number_format($moyenneValue, 0, ',', ' ') : $moyenneValue);
+
             $row['Référence'] = $data[$category]['Référence'];
             $tabulatorData[] = $row;
         }
@@ -927,7 +1045,8 @@ class PrestationController extends Controller
 
         return view('pages.backend.prestations.suivi-radio', compact('tabulatorData', 'prestationsGroupedByAdherent', 'currentYear', 'prestationsAll', 'months' , 'data', 'pageTitle'));
     }
-    
+
+    // Maternité
     public function suiviMaternite(Request $request)
     {
         $pageTitle = 'Suivi des prestations';
@@ -945,10 +1064,7 @@ class PrestationController extends Controller
             ->distinct()
             ->get();
 
-        
-
         $prestationsAll = $prestationsAdherents->merge($prestationsAyantsDroit);
-
 
         $prestationsGroupedByAdherent = $prestationsAll->groupBy('adherent_id');
 
@@ -1044,7 +1160,7 @@ class PrestationController extends Controller
                 $data['Coût total des maternites (E)'][$month] += $prestation->montant;
                 $data['Coût total des maternites (E)']['Total'] += $prestation->montant;
 
-                
+
             }
         }
 
@@ -1060,8 +1176,8 @@ class PrestationController extends Controller
             } else {
                 $data['Coût Cumulé total des maternites (E1)'][$month] = $data['Coût total des maternites (E)'][$month];
             }
-            $data['Coût Cumulé total des maternites (E1)']['Total'] = $data['Coût Cumulé total des maternites (E1)'][$month] ;        
-            
+            $data['Coût Cumulé total des maternites (E1)']['Total'] = $data['Coût Cumulé total des maternites (E1)'][$month] ;
+
             // Coût moyen cumulé d’une maternite (G)
             if ($data['Nombre de maternites Cumulée (B1)'][$month] > 0) {
                 $data['Coût moyen cumulé d’une maternite (G)'][$month] = $data['Coût Cumulé total des maternites (E1)'][$month] / $data['Nombre de maternites Cumulée (B1)'][$month];
@@ -1089,7 +1205,7 @@ class PrestationController extends Controller
             // Taux d’utilisation cumulée % (D)
             if ($data['Nombre moyen de bénéficiaire (A1)'][$month] > 0) {
                 $data['Taux d’utilisation cumulée %(D)'][$month] = number_format(($data['Nombre de maternites Cumulée (B1)'][$month] / $data['Nombre moyen de bénéficiaire (A1)'][$month])*$previousMonths * 100, 2);
-            
+
             }
             if ($data['Nombre moyen de bénéficiaire (A1)']['Total'] > 0) {
                 $data['Taux d’utilisation cumulée %(D)']['Total'] = number_format(($maternitesCumulative / $data['Nombre moyen de bénéficiaire (A1)']['Total'])*12 * 100, 2);
@@ -1103,7 +1219,7 @@ class PrestationController extends Controller
             }
 
 
-            
+
         }
         if ($data['Nombre de maternites (B)']['Total'] > 0) {
             $data['Coût moyen mensuel d’une maternite (F)']['Total'] = $data['Coût total des maternites (E)']['Total']  / $data['Nombre de maternites (B)']['Total'];
@@ -1113,18 +1229,41 @@ class PrestationController extends Controller
 
         // Calcul des moyennes totales pour chaque catégorie
         foreach ($categories as $category) {
-            $data[$category]['Moyenne'] = number_format($data[$category]['Total'] / count($months), 2, ',', ' ');
+            $data[$category]['Moyenne'] = (float) ($data[$category]['Total'] ?? 0) / max(count($months), 1);
         }
 
+        // Catégories nécessitant un affichage avec deux décimales (taux et coûts moyens)
+        $categoriesWithDecimals = [
+            'Taux d’utilisation mensuel % C (C)',
+            'Taux d’utilisation cumulée %(D)',
+            'Coût moyen mensuel d’une maternite (F)',
+            'Coût moyen cumulé d’une maternite (G)'
+        ];
+
+
         // Convertir les données pour Tabulator
-        $tabulatorData = [];
         foreach ($categories as $category) {
             $row = ['Category' => $category];
             foreach ($months as $month) {
-                $row[$month] = $data[$category][$month];
+                $value = $data[$category][$month];
+
+                if (in_array($category, $categoriesWithDecimals) && is_numeric($value)) {
+                    $row[$month] = number_format($value, 2, ',', ' ');
+                } else {
+                    $row[$month] = is_numeric($value) ? number_format($value, 0, ',', ' ') : $value;
+                }
             }
-            $row['Total'] = $data[$category]['Total'];
-            $row['Moyenne'] = $data[$category]['Moyenne'];
+
+            $totalValue = $data[$category]['Total'];
+            $row['Total'] = in_array($category, $categoriesWithDecimals) && is_numeric($totalValue)
+                ? number_format($totalValue, 2, ',', ' ')
+                : (is_numeric($totalValue) ? number_format($totalValue, 0, ',', ' ') : $totalValue);
+
+            $moyenneValue = $data[$category]['Moyenne'];
+            $row['Moyenne'] = in_array($category, $categoriesWithDecimals) && is_numeric($moyenneValue)
+                ? number_format($moyenneValue, 2, ',', ' ')
+                : (is_numeric($moyenneValue) ? number_format($moyenneValue, 0, ',', ' ') : $moyenneValue);
+
             $row['Référence'] = $data[$category]['Référence'];
             $tabulatorData[] = $row;
         }
@@ -1136,8 +1275,8 @@ class PrestationController extends Controller
 
         return view('pages.backend.prestations.suivi-maternite', compact('tabulatorData', 'prestationsGroupedByAdherent', 'currentYear', 'prestationsAll', 'months' , 'data', 'pageTitle'));
     }
-    
 
+    //
     public function suiviAllocation(Request $request)
     {
         $pageTitle = 'Suivi des prestations';
@@ -1155,7 +1294,7 @@ class PrestationController extends Controller
             ->distinct()
             ->get();
 
-        
+
 
         $prestationsAll = $prestationsAdherents->merge($prestationsAyantsDroit);
 
@@ -1252,7 +1391,7 @@ class PrestationController extends Controller
                 $data['Coût total des allocations (E)'][$month] += $prestation->montant;
                 $data['Coût total des allocations (E)']['Total'] += $prestation->montant;
 
-                
+
             }
         }
 
@@ -1268,8 +1407,8 @@ class PrestationController extends Controller
             } else {
                 $data['Coût Cumulé total des allocations (E1)'][$month] = $data['Coût total des allocations (E)'][$month];
             }
-            $data['Coût Cumulé total des allocations (E1)']['Total'] = $data['Coût Cumulé total des allocations (E1)'][$month] ;        
-            
+            $data['Coût Cumulé total des allocations (E1)']['Total'] = $data['Coût Cumulé total des allocations (E1)'][$month] ;
+
             // Coût moyen cumulé d’une allocation (G)
             if ($data['Nombre d’allocations Cumulée (B1)'][$month] > 0) {
                 $data['Coût moyen cumulé d’une allocation (G)'][$month] = $data['Coût Cumulé total des allocations (E1)'][$month] / $data['Nombre d’allocations Cumulée (B1)'][$month];
@@ -1297,7 +1436,7 @@ class PrestationController extends Controller
             // Taux d’utilisation cumulée % (D)
             if ($data['Nombre moyen de bénéficiaire (A1)'][$month] > 0) {
                 $data['Taux d’utilisation cumulée %(D)'][$month] = number_format(($data['Nombre d’allocations Cumulée (B1)'][$month] / $data['Nombre moyen de bénéficiaire (A1)'][$month])*$previousMonths * 100, 2);
-            
+
             }
             if ($data['Nombre moyen de bénéficiaire (A1)']['Total'] > 0) {
                 $data['Taux d’utilisation cumulée %(D)']['Total'] = number_format(($allocationsCumulative / $data['Nombre moyen de bénéficiaire (A1)']['Total'])*12 * 100, 2);
@@ -1311,7 +1450,7 @@ class PrestationController extends Controller
             }
 
 
-            
+
         }
         if ($data['Nombre d’allocations (B)']['Total'] > 0) {
             $data['Coût moyen mensuel d’une allocation (F)']['Total'] = $data['Coût total des allocations (E)']['Total']  / $data['Nombre d’allocation (B)']['Total'];
@@ -1363,7 +1502,7 @@ class PrestationController extends Controller
             ->distinct()
             ->get();
 
-        
+
 
         $prestationsAll = $prestationsAdherents->merge($prestationsAyantsDroit);
 
@@ -1463,7 +1602,7 @@ class PrestationController extends Controller
                 $data['Coût total des analyses biomédicales (E)'][$month] += $prestation->montant;
                 $data['Coût total des analyses biomédicales (E)']['Total'] += $prestation->montant;
 
-                
+
             }
         }
 
@@ -1479,8 +1618,8 @@ class PrestationController extends Controller
             } else {
                 $data['Coût Cumulé total des analyses biomédicales (E1)'][$month] = $data['Coût total des analyses biomédicales (E)'][$month];
             }
-            $data['Coût Cumulé total des analyses biomédicales (E1)']['Total'] = $data['Coût Cumulé total des analyses biomédicales (E1)'][$month] ;        
-            
+            $data['Coût Cumulé total des analyses biomédicales (E1)']['Total'] = $data['Coût Cumulé total des analyses biomédicales (E1)'][$month] ;
+
             // Coût moyen cumulé d’une analyse biomédicale (G)
             if ($data['Nombre d’analyses biomédicales Cumulée (B1)'][$month] > 0) {
                 $data['Coût moyen cumulé d’une analyse biomédicale (G)'][$month] = $data['Coût Cumulé total des analyses biomédicales (E1)'][$month] / $data['Nombre d’analyses biomédicales Cumulée (B1)'][$month];
@@ -1508,7 +1647,7 @@ class PrestationController extends Controller
             // Taux d’utilisation cumulée % (D)
             if ($data['Nombre moyen de bénéficiaire (A1)'][$month] > 0) {
                 $data['Taux d’utilisation cumulée %(D)'][$month] = number_format(($data['Nombre d’analyses biomédicales Cumulée (B1)'][$month] / $data['Nombre moyen de bénéficiaire (A1)'][$month])*$previousMonths * 100, 2);
-            
+
             }
             if ($data['Nombre moyen de bénéficiaire (A1)']['Total'] > 0) {
                 $data['Taux d’utilisation cumulée %(D)']['Total'] = number_format(($analysesBiomedicalesCumulative / $data['Nombre moyen de bénéficiaire (A1)']['Total'])*12 * 100, 2);
@@ -1522,7 +1661,7 @@ class PrestationController extends Controller
             }
 
 
-            
+
         }
         if ($data['Nombre d’analyses biomédicales (B)']['Total'] > 0) {
             $data['Coût moyen mensuel d’une analyse biomédicale (F)']['Total'] = $data['Coût total des analyses biomédicales (E)']['Total']  / $data['Nombre d’analyses biomédicales (B)']['Total'];
@@ -1530,25 +1669,44 @@ class PrestationController extends Controller
             $data['Coût moyen mensuel d’une analyse biomédicale (F)']['Total'] = 0;
         }
 
-        // Calcul des moyennes totales pour chaque catégorie
+		// Calcul des moyennes totales pour chaque catégorie
         foreach ($categories as $category) {
-            //$data[$category]['Moyenne'] = number_format($data[$category]['Total'] / count($months), 2, ',', ' ');
-            $data[$category]['Moyenne'] = number_format(
-                (float) ($data[$category]['Total'] ?? 0) / max(count($months), 1),
-                2, ',', ' '
-            );
-
+            $data[$category]['Moyenne'] = (float) ($data[$category]['Total'] ?? 0) / max(count($months), 1);
         }
 
         // Convertir les données pour Tabulator
+        // Catégories nécessitant un affichage avec deux décimales (taux et coûts moyens)
+        $categoriesWithDecimals = [
+            'Taux d’utilisation mensuel % C (C)',
+            'Taux d’utilisation cumulée %(D)',
+            'Coût moyen mensuel d’une analyse biomédicale (F)',
+            'Coût moyen cumulé d’une analyse biomédicale (G)',
+        ];
+
+        // Convertion
         $tabulatorData = [];
         foreach ($categories as $category) {
             $row = ['Category' => $category];
             foreach ($months as $month) {
-                $row[$month] = $data[$category][$month];
+                $value = $data[$category][$month];
+
+                if (in_array($category, $categoriesWithDecimals) && is_numeric($value)) {
+                    $row[$month] = number_format($value, 2, ',', ' ');
+                } else {
+                    $row[$month] = is_numeric($value) ? number_format($value, 0, ',', ' ') : $value;
+                }
             }
-            $row['Total'] = $data[$category]['Total'];
-            $row['Moyenne'] = $data[$category]['Moyenne'];
+
+            $totalValue = $data[$category]['Total'];
+            $row['Total'] = in_array($category, $categoriesWithDecimals) && is_numeric($totalValue)
+                ? number_format($totalValue, 2, ',', ' ')
+                : (is_numeric($totalValue) ? number_format($totalValue, 0, ',', ' ') : $totalValue);
+
+            $moyenneValue = $data[$category]['Moyenne'];
+            $row['Moyenne'] = in_array($category, $categoriesWithDecimals) && is_numeric($moyenneValue)
+                ? number_format($moyenneValue, 2, ',', ' ')
+                : (is_numeric($moyenneValue) ? number_format($moyenneValue, 0, ',', ' ') : $moyenneValue);
+
             $row['Référence'] = $data[$category]['Référence'];
             $tabulatorData[] = $row;
         }
@@ -1578,10 +1736,7 @@ class PrestationController extends Controller
             ->distinct()
             ->get();
 
-        
-
         $prestationsAll = $prestationsAdherents->merge($prestationsAyantsDroit);
-
 
         $prestationsGroupedByAdherent = $prestationsAll->groupBy('adherent_id');
 
@@ -1678,7 +1833,7 @@ class PrestationController extends Controller
                 $data['Coût total des pharmacies (E)'][$month] += $prestation->montant;
                 $data['Coût total des pharmacies (E)']['Total'] += $prestation->montant;
 
-                
+
             }
         }
 
@@ -1694,8 +1849,8 @@ class PrestationController extends Controller
             } else {
                 $data['Coût Cumulé total des pharmacies (E1)'][$month] = $data['Coût total des pharmacies (E)'][$month];
             }
-            $data['Coût Cumulé total des pharmacies (E1)']['Total'] = $data['Coût Cumulé total des pharmacies (E1)'][$month] ;        
-            
+            $data['Coût Cumulé total des pharmacies (E1)']['Total'] = $data['Coût Cumulé total des pharmacies (E1)'][$month] ;
+
             // Coût moyen cumulé d’une pharmacie (G)
             if ($data['Nombre de pharmacies Cumulée (B1)'][$month] > 0) {
                 $data['Coût moyen cumulé d’une pharmacie (G)'][$month] = $data['Coût Cumulé total des pharmacies (E1)'][$month] / $data['Nombre de pharmacies Cumulée (B1)'][$month];
@@ -1723,7 +1878,7 @@ class PrestationController extends Controller
             // Taux d’utilisation cumulée % (D)
             if ($data['Nombre moyen de bénéficiaire (A1)'][$month] > 0) {
                 $data['Taux d’utilisation cumulée %(D)'][$month] = number_format(($data['Nombre de pharmacies Cumulée (B1)'][$month] / $data['Nombre moyen de bénéficiaire (A1)'][$month])*$previousMonths * 100, 2);
-            
+
             }
             if ($data['Nombre moyen de bénéficiaire (A1)']['Total'] > 0) {
                 $data['Taux d’utilisation cumulée %(D)']['Total'] = number_format(($pharmaciesCumulative / $data['Nombre moyen de bénéficiaire (A1)']['Total'])*12 * 100, 2);
@@ -1737,7 +1892,7 @@ class PrestationController extends Controller
             }
 
 
-            
+
         }
         if ($data['Nombre de pharmacies (B)']['Total'] > 0) {
             $data['Coût moyen mensuel d’une pharmacie (F)']['Total'] = $data['Coût total des pharmacies (E)']['Total']  / $data['Nombre de pharmacies (B)']['Total'];
@@ -1745,25 +1900,44 @@ class PrestationController extends Controller
             $data['Coût moyen mensuel d’une pharmacie (F)']['Total'] = 0;
         }
 
-        // Calcul des moyennes totales pour chaque catégorie
+		// Calcul des moyennes totales pour chaque catégorie
         foreach ($categories as $category) {
-            //$data[$category]['Moyenne'] = number_format($data[$category]['Total'] / count($months), 2, ',', ' ');
-            $data[$category]['Moyenne'] = number_format(
-                (float) ($data[$category]['Total'] ?? 0) / max(count($months), 1),
-                2, ',', ' '
-            );
-
+            $data[$category]['Moyenne'] = (float) ($data[$category]['Total'] ?? 0) / max(count($months), 1);
         }
-		
+
         // Convertir les données pour Tabulator
+        // Catégories nécessitant un affichage avec deux décimales (taux et coûts moyens)
+        $categoriesWithDecimals = [
+            'Taux d’utilisation mensuel % C (C)',
+            'Taux d’utilisation cumulée %(D)',
+            'Coût moyen mensuel d’une pharmacie (F)',
+            'Coût moyen cumulé d’une pharmacie (G)',
+        ];
+
+        // Convertion
         $tabulatorData = [];
         foreach ($categories as $category) {
             $row = ['Category' => $category];
             foreach ($months as $month) {
-                $row[$month] = $data[$category][$month];
+                $value = $data[$category][$month];
+
+                if (in_array($category, $categoriesWithDecimals) && is_numeric($value)) {
+                    $row[$month] = number_format($value, 2, ',', ' ');
+                } else {
+                    $row[$month] = is_numeric($value) ? number_format($value, 0, ',', ' ') : $value;
+                }
             }
-            $row['Total'] = $data[$category]['Total'];
-            $row['Moyenne'] = $data[$category]['Moyenne'];
+
+            $totalValue = $data[$category]['Total'];
+            $row['Total'] = in_array($category, $categoriesWithDecimals) && is_numeric($totalValue)
+                ? number_format($totalValue, 2, ',', ' ')
+                : (is_numeric($totalValue) ? number_format($totalValue, 0, ',', ' ') : $totalValue);
+
+            $moyenneValue = $data[$category]['Moyenne'];
+            $row['Moyenne'] = in_array($category, $categoriesWithDecimals) && is_numeric($moyenneValue)
+                ? number_format($moyenneValue, 2, ',', ' ')
+                : (is_numeric($moyenneValue) ? number_format($moyenneValue, 0, ',', ' ') : $moyenneValue);
+
             $row['Référence'] = $data[$category]['Référence'];
             $tabulatorData[] = $row;
         }
@@ -1793,7 +1967,7 @@ class PrestationController extends Controller
             ->distinct()
             ->get();
 
-        
+
 
         $prestationsAll = $prestationsAdherents->merge($prestationsAyantsDroit);
 
@@ -1893,7 +2067,7 @@ class PrestationController extends Controller
                 $data['Coût total des optiques (E)'][$month] += $prestation->montant;
                 $data['Coût total des optiques (E)']['Total'] += $prestation->montant;
 
-                
+
             }
         }
 
@@ -1909,8 +2083,8 @@ class PrestationController extends Controller
             } else {
                 $data['Coût Cumulé total des optiques (E1)'][$month] = $data['Coût total des optiques (E)'][$month];
             }
-            $data['Coût Cumulé total des optiques (E1)']['Total'] = $data['Coût Cumulé total des optiques (E1)'][$month] ;        
-            
+            $data['Coût Cumulé total des optiques (E1)']['Total'] = $data['Coût Cumulé total des optiques (E1)'][$month] ;
+
             // Coût moyen cumulé d’une optique (G)
             if ($data['Nombre d’optiques Cumulée (B1)'][$month] > 0) {
                 $data['Coût moyen cumulé d’une optique (G)'][$month] = $data['Coût Cumulé total des optiques (E1)'][$month] / $data['Nombre d’optiques Cumulée (B1)'][$month];
@@ -1938,7 +2112,7 @@ class PrestationController extends Controller
             // Taux d’utilisation cumulée % (D)
             if ($data['Nombre moyen de bénéficiaire (A1)'][$month] > 0) {
                 $data['Taux d’utilisation cumulée %(D)'][$month] = number_format(($data['Nombre d’optiques Cumulée (B1)'][$month] / $data['Nombre moyen de bénéficiaire (A1)'][$month])*$previousMonths * 100, 2);
-            
+
             }
             if ($data['Nombre moyen de bénéficiaire (A1)']['Total'] > 0) {
                 $data['Taux d’utilisation cumulée %(D)']['Total'] = number_format(($optiquesCumulative / $data['Nombre moyen de bénéficiaire (A1)']['Total'])*12 * 100, 2);
@@ -1952,7 +2126,7 @@ class PrestationController extends Controller
             }
 
 
-            
+
         }
         if ($data['Nombre d’optiques (B)']['Total'] > 0) {
             $data['Coût moyen mensuel d’une optique (F)']['Total'] = $data['Coût total des optiques (E)']['Total']  / $data['Nombre d’optiques (B)']['Total'];
@@ -1960,20 +2134,44 @@ class PrestationController extends Controller
             $data['Coût moyen mensuel d’une optique (F)']['Total'] = 0;
         }
 
-        // Calcul des moyennes totales pour chaque catégorie
+		// Calcul des moyennes totales pour chaque catégorie
         foreach ($categories as $category) {
-            $data[$category]['Moyenne'] = number_format($data[$category]['Total'] / count($months), 2, ',', ' ');
+            $data[$category]['Moyenne'] = (float) ($data[$category]['Total'] ?? 0) / max(count($months), 1);
         }
 
         // Convertir les données pour Tabulator
+        // Catégories nécessitant un affichage avec deux décimales (taux et coûts moyens)
+        $categoriesWithDecimals = [
+            'Taux d’utilisation mensuel % C (C)',
+            'Taux d’utilisation cumulée %(D)',
+            'Coût moyen mensuel d’une optique (F)',
+            'Coût moyen cumulé d’une optique (G)',
+        ];
+
+        // Convertion
         $tabulatorData = [];
         foreach ($categories as $category) {
             $row = ['Category' => $category];
             foreach ($months as $month) {
-                $row[$month] = $data[$category][$month];
+                $value = $data[$category][$month];
+
+                if (in_array($category, $categoriesWithDecimals) && is_numeric($value)) {
+                    $row[$month] = number_format($value, 2, ',', ' ');
+                } else {
+                    $row[$month] = is_numeric($value) ? number_format($value, 0, ',', ' ') : $value;
+                }
             }
-            $row['Total'] = $data[$category]['Total'];
-            $row['Moyenne'] = $data[$category]['Moyenne'];
+
+            $totalValue = $data[$category]['Total'];
+            $row['Total'] = in_array($category, $categoriesWithDecimals) && is_numeric($totalValue)
+                ? number_format($totalValue, 2, ',', ' ')
+                : (is_numeric($totalValue) ? number_format($totalValue, 0, ',', ' ') : $totalValue);
+
+            $moyenneValue = $data[$category]['Moyenne'];
+            $row['Moyenne'] = in_array($category, $categoriesWithDecimals) && is_numeric($moyenneValue)
+                ? number_format($moyenneValue, 2, ',', ' ')
+                : (is_numeric($moyenneValue) ? number_format($moyenneValue, 0, ',', ' ') : $moyenneValue);
+
             $row['Référence'] = $data[$category]['Référence'];
             $tabulatorData[] = $row;
         }
@@ -2003,7 +2201,7 @@ class PrestationController extends Controller
             ->distinct()
             ->get();
 
-        
+
 
         $prestationsAll = $prestationsAdherents->merge($prestationsAyantsDroit);
 
@@ -2103,7 +2301,7 @@ class PrestationController extends Controller
                 $data['Coût total des dentaires et auditifs (E)'][$month] += $prestation->montant;
                 $data['Coût total des dentaires et auditifs (E)']['Total'] += $prestation->montant;
 
-                
+
             }
         }
 
@@ -2119,8 +2317,8 @@ class PrestationController extends Controller
             } else {
                 $data['Coût Cumulé total des dentaires et auditifs (E1)'][$month] = $data['Coût total des dentaires et auditifs (E)'][$month];
             }
-            $data['Coût Cumulé total des dentaires et auditifs (E1)']['Total'] = $data['Coût Cumulé total des dentaires et auditifs (E1)'][$month] ;        
-            
+            $data['Coût Cumulé total des dentaires et auditifs (E1)']['Total'] = $data['Coût Cumulé total des dentaires et auditifs (E1)'][$month] ;
+
             // Coût moyen cumulé d’une dentaire et auditif (G)
             if ($data['Nombre de dentaires et auditifs Cumulée (B1)'][$month] > 0) {
                 $data['Coût moyen cumulé d’une dentaire et auditif (G)'][$month] = $data['Coût Cumulé total des dentaires et auditifs (E1)'][$month] / $data['Nombre de dentaires et auditifs Cumulée (B1)'][$month];
@@ -2148,7 +2346,7 @@ class PrestationController extends Controller
             // Taux d’utilisation cumulée % (D)
             if ($data['Nombre moyen de bénéficiaire (A1)'][$month] > 0) {
                 $data['Taux d’utilisation cumulée %(D)'][$month] = number_format(($data['Nombre de dentaires et auditifs Cumulée (B1)'][$month] / $data['Nombre moyen de bénéficiaire (A1)'][$month])*$previousMonths * 100, 2);
-            
+
             }
             if ($data['Nombre moyen de bénéficiaire (A1)']['Total'] > 0) {
                 $data['Taux d’utilisation cumulée %(D)']['Total'] = number_format(($dentairesAuditifsCumulative / $data['Nombre moyen de bénéficiaire (A1)']['Total'])*12 * 100, 2);
@@ -2162,7 +2360,7 @@ class PrestationController extends Controller
             }
 
 
-            
+
         }
         if ($data['Nombre de dentaires et auditifs (B)']['Total'] > 0) {
             $data['Coût moyen mensuel d’une dentaire et auditif (F)']['Total'] = $data['Coût total des dentaires et auditifs (E)']['Total']  / $data['Nombre de dentaires et auditifs (B)']['Total'];
@@ -2170,20 +2368,44 @@ class PrestationController extends Controller
             $data['Coût moyen mensuel d’une dentaire et auditif (F)']['Total'] = 0;
         }
 
-        // Calcul des moyennes totales pour chaque catégorie
+		// Calcul des moyennes totales pour chaque catégorie
         foreach ($categories as $category) {
-            $data[$category]['Moyenne'] = number_format($data[$category]['Total'] / count($months), 2, ',', ' ');
+            $data[$category]['Moyenne'] = (float) ($data[$category]['Total'] ?? 0) / max(count($months), 1);
         }
 
         // Convertir les données pour Tabulator
+        // Catégories nécessitant un affichage avec deux décimales (taux et coûts moyens)
+        $categoriesWithDecimals = [
+            'Taux d’utilisation mensuel % C (C)',
+            'Taux d’utilisation cumulée %(D)',
+            'Coût moyen mensuel d’une dentaire et auditif (F)',
+            'Coût moyen cumulé d’une dentaire et auditif (G)',
+        ];
+
+        // Convertion
         $tabulatorData = [];
         foreach ($categories as $category) {
             $row = ['Category' => $category];
             foreach ($months as $month) {
-                $row[$month] = $data[$category][$month];
+                $value = $data[$category][$month];
+
+                if (in_array($category, $categoriesWithDecimals) && is_numeric($value)) {
+                    $row[$month] = number_format($value, 2, ',', ' ');
+                } else {
+                    $row[$month] = is_numeric($value) ? number_format($value, 0, ',', ' ') : $value;
+                }
             }
-            $row['Total'] = $data[$category]['Total'];
-            $row['Moyenne'] = $data[$category]['Moyenne'];
+
+            $totalValue = $data[$category]['Total'];
+            $row['Total'] = in_array($category, $categoriesWithDecimals) && is_numeric($totalValue)
+                ? number_format($totalValue, 2, ',', ' ')
+                : (is_numeric($totalValue) ? number_format($totalValue, 0, ',', ' ') : $totalValue);
+
+            $moyenneValue = $data[$category]['Moyenne'];
+            $row['Moyenne'] = in_array($category, $categoriesWithDecimals) && is_numeric($moyenneValue)
+                ? number_format($moyenneValue, 2, ',', ' ')
+                : (is_numeric($moyenneValue) ? number_format($moyenneValue, 0, ',', ' ') : $moyenneValue);
+
             $row['Référence'] = $data[$category]['Référence'];
             $tabulatorData[] = $row;
         }
@@ -2213,7 +2435,7 @@ class PrestationController extends Controller
             ->distinct()
             ->get();
 
-        
+
 
         $prestationsAll = $prestationsAdherents->merge($prestationsAyantsDroit);
 
@@ -2313,7 +2535,7 @@ class PrestationController extends Controller
                 $data['Coût total des autres (E)'][$month] += $prestation->montant;
                 $data['Coût total des autres (E)']['Total'] += $prestation->montant;
 
-                
+
             }
         }
 
@@ -2329,8 +2551,8 @@ class PrestationController extends Controller
             } else {
                 $data['Coût Cumulé total des autres (E1)'][$month] = $data['Coût total des autres (E)'][$month];
             }
-            $data['Coût Cumulé total des autres (E1)']['Total'] = $data['Coût Cumulé total des autres (E1)'][$month] ;        
-            
+            $data['Coût Cumulé total des autres (E1)']['Total'] = $data['Coût Cumulé total des autres (E1)'][$month] ;
+
             // Coût moyen cumulé d’un autre (G)
             if ($data['Nombre autres Cumulée (B1)'][$month] > 0) {
                 $data['Coût moyen cumulé d’un autre (G)'][$month] = $data['Coût Cumulé total des autres (E1)'][$month] / $data['Nombre autres Cumulée (B1)'][$month];
@@ -2358,7 +2580,7 @@ class PrestationController extends Controller
             // Taux d’utilisation cumulée % (D)
             if ($data['Nombre moyen de bénéficiaire (A1)'][$month] > 0) {
                 $data['Taux d’utilisation cumulée %(D)'][$month] = number_format(($data['Nombre autres Cumulée (B1)'][$month] / $data['Nombre moyen de bénéficiaire (A1)'][$month])*$previousMonths * 100, 2);
-            
+
             }
             if ($data['Nombre moyen de bénéficiaire (A1)']['Total'] > 0) {
                 $data['Taux d’utilisation cumulée %(D)']['Total'] = number_format(($autresCumulative / $data['Nombre moyen de bénéficiaire (A1)']['Total'])*12 * 100, 2);
@@ -2372,7 +2594,7 @@ class PrestationController extends Controller
             }
 
 
-            
+
         }
         if ($data['Nombre autres (B)']['Total'] > 0) {
             $data['Coût moyen mensuel d’un autre (F)']['Total'] = $data['Coût total des autres (E)']['Total']  / $data['Nombre autres (B)']['Total'];
@@ -2380,25 +2602,44 @@ class PrestationController extends Controller
             $data['Coût moyen mensuel d’un autre (F)']['Total'] = 0;
         }
 
-        // Calcul des moyennes totales pour chaque catégorie
+		// Calcul des moyennes totales pour chaque catégorie
         foreach ($categories as $category) {
-            //$data[$category]['Moyenne'] = number_format($data[$category]['Total'] / count($months), 2, ',', ' ');
-            $data[$category]['Moyenne'] = number_format(
-                (float) ($data[$category]['Total'] ?? 0) / max(count($months), 1),
-                2, ',', ' '
-            );
-
+            $data[$category]['Moyenne'] = (float) ($data[$category]['Total'] ?? 0) / max(count($months), 1);
         }
-		
+
         // Convertir les données pour Tabulator
+        // Catégories nécessitant un affichage avec deux décimales (taux et coûts moyens)
+        $categoriesWithDecimals = [
+            'Taux d’utilisation mensuel % C (C)',
+            'Taux d’utilisation cumulée %(D)',
+            'Coût moyen mensuel d’un autre (F)',
+            'Coût moyen cumulé d’un autre (G)',
+        ];
+
+        // Convertion
         $tabulatorData = [];
         foreach ($categories as $category) {
             $row = ['Category' => $category];
             foreach ($months as $month) {
-                $row[$month] = $data[$category][$month];
+                $value = $data[$category][$month];
+
+                if (in_array($category, $categoriesWithDecimals) && is_numeric($value)) {
+                    $row[$month] = number_format($value, 2, ',', ' ');
+                } else {
+                    $row[$month] = is_numeric($value) ? number_format($value, 0, ',', ' ') : $value;
+                }
             }
-            $row['Total'] = $data[$category]['Total'];
-            $row['Moyenne'] = $data[$category]['Moyenne'];
+
+            $totalValue = $data[$category]['Total'];
+            $row['Total'] = in_array($category, $categoriesWithDecimals) && is_numeric($totalValue)
+                ? number_format($totalValue, 2, ',', ' ')
+                : (is_numeric($totalValue) ? number_format($totalValue, 0, ',', ' ') : $totalValue);
+
+            $moyenneValue = $data[$category]['Moyenne'];
+            $row['Moyenne'] = in_array($category, $categoriesWithDecimals) && is_numeric($moyenneValue)
+                ? number_format($moyenneValue, 2, ',', ' ')
+                : (is_numeric($moyenneValue) ? number_format($moyenneValue, 0, ',', ' ') : $moyenneValue);
+
             $row['Référence'] = $data[$category]['Référence'];
             $tabulatorData[] = $row;
         }
@@ -2410,5 +2651,5 @@ class PrestationController extends Controller
 
         return view('pages.backend.prestations.suivi-autre', compact('tabulatorData', 'prestationsGroupedByAdherent', 'currentYear', 'prestationsAll', 'months' , 'data', 'pageTitle'));
     }
-    
+
 }

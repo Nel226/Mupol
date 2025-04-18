@@ -44,7 +44,6 @@
         "signature_pad": "^5.0.3",
         "slick-carousel": "^1.8.1",
         "tabulator-tables": "^6.2.5",
-        "tailwindcss-text-stroke": "^0.0.5",
-        "xlsx": "file:vendor/xlsx-0.20.3.tgz"
+        "tailwindcss-text-stroke": "^0.0.5"
     }
 }

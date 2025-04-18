@@ -337,13 +337,7 @@
                     }
                 </script>
 
-<style>
-    @media print {
-        thead, tfoot {
-            display: none !important;
-        }
-    }
-</style>
+
                 <script>
                     function showSpinner() {
                         document.getElementById('spinner').classList.remove('hidden');
@@ -454,7 +448,13 @@
 
             </div>
 
-
+            <style>
+                @media print {
+                    thead, tfoot {
+                        display: none !important;
+                    }
+                }
+            </style>
         </div>
     </x-content-page-admin>
 </x-app-layout>

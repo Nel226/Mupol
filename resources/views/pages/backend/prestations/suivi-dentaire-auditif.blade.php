@@ -455,7 +455,13 @@
                         tableSuivi.download("xlsx", "Suivi.xlsx", {});
                     });    
                 </script>
-                
+                <style>
+                    @media print {
+                        thead, tfoot {
+                            display: none !important;
+                        }
+                    }
+                </style>
 
 
             </div>

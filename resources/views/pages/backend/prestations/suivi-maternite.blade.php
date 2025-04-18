@@ -450,7 +450,7 @@
                         ],
                     });
                     document.getElementById('export-suivi').addEventListener('click', function() {
-                        tableSuivi.download("xlsx", "Suivi.xlsx", {});
+                        tableSuivi.download("xlsx", `Suivi_maternites_${currentYear}.xlsx`, {});
                     });    
                 </script>
                 

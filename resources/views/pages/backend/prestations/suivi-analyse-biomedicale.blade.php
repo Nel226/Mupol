@@ -450,7 +450,7 @@
                         ],
                     });
                     document.getElementById('export-suivi').addEventListener('click', function() {
-                        tableSuivi.download("xlsx", "Suivi.xlsx", {});
+                        tableSuivi.download("xlsx", `Suivi_analyses_biomedicales_${currentYear}.xlsx`, {});
                     });    
                 </script>
                  <style>

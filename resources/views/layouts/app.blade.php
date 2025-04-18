@@ -36,18 +36,19 @@
         <script src="{{ asset('js/pdfmake.min.js') }}"></script>
         <script src="{{ asset('js/vfs_fonts.js') }}"></script>
 
-        
+
         <script src="{{ asset('js/papaparse.min.js') }}"></script>
         <script src="{{ asset('js/jspdf.umd.min.js') }}"></script>
         <script src="{{ asset('js/jspdf.plugin.autotable.min.js') }}"></script>
-        
+
         <script src="{{ asset('js/tabulator.min.js') }}"></script>
         <script src="{{ asset('js/chart.umd.js') }}"></script>
         <script src="{{ asset('js/datatables.min.js') }}"></script>
         <script src="{{ asset('js/select2.min.js') }}"></script>
         <script src="{{ asset('js/theme.js') }}" defer></script>
+        <script src="{{ asset('js/xlsx.full.min.js') }}" defer></script>
 
-        
+
     </head>
     <body class="font-sans bg-blue-800   antialiased">
         <div class="min-h-screen bg-blue-800  dark:bg-gray-900">

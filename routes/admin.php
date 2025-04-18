@@ -49,7 +49,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/ayantdroits/import', [AyantDroitController::class, 'import'])->name('ayantdroits.import');
 
     Route::get('/prestations/{id}/recu', action: [PrestationController::class, 'downloadReceipt'])->name('prestations.downloadReceipt');
-    Route::get('/prestations/suivi', action: [PrestationController::class, 'suivi'])->name('suivi');
+    Route::get('/hospitalisation/suivi', action: [PrestationController::class, 'suivi'])->name('suivi-hospitalisation');
     Route::get('/consultation/suivi', [PrestationController::class, 'suiviConsultation'])->name('suivi-consultation');
     Route::get('/radio/suivi', [PrestationController::class, 'suiviRadio'])->name('suivi-radio');
     Route::get('/maternite/suivi', [PrestationController::class, 'suiviMaternite'])->name('suivi-maternite');
@@ -59,9 +59,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/optique/suivi', [PrestationController::class, 'suiviOptique'])->name('suivi-optique');
     Route::get('/dentaire-auditif/suivi', [PrestationController::class, 'suiviDentaireAuditif'])->name('suivi-dentaire-auditif');
     Route::get('/autre/suivi', [PrestationController::class, 'suiviAutre'])->name('suivi-autre');
-    Route::get('/prestations/all/suivi', action: [PrestationController::class, 'suiviTous'])->name('suivi-prestations-all');
+    Route::get('/all/suivi', action: [PrestationController::class, 'suiviTous'])->name('suivi-all');
+    //Route::get('/prestations/search', [PrestationController::class, 'search'])->name('prestations.search');
 
-   
+
     Route::resource('adherents', AdherentController::class);
     Route::get('/envoi-fiche-cession-salaire/{id}', [DemandeController::class, 'envoiFicheCessionSalaire'])
         ->name('adherents.envoi-fiche-cession-salaire');
@@ -75,7 +76,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
     Route::resource('partenaires', PartenaireController::class);
-    Route::resource('restrictions', RestrictionController::class);  
+    Route::resource('restrictions', RestrictionController::class);
     Route::resource('prestations', PrestationController::class);
     Route::resource('articles', ArticleController::class);
 

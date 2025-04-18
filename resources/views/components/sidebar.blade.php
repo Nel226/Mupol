@@ -6,8 +6,8 @@
                 {{ config('app.name') }}
             </span>
         </a>
-        
- 
+
+
         <div class="mt-6 text-gray-200 text-sm font-semibold uppercase tracking-wide">Menu</div>
         <ul class="mt-2 space-y-2 text-xs font-medium" x-data="{ openMenu: null }">
             <li>
@@ -46,13 +46,13 @@
                     </li>
                 </ul>
             </li>
-            
-            
-            
+
+
+
             <!-- Dépenses Menu -->
             <li  x-data="{ open: {{ Request::is('admin/depenses*') ? 'true' : 'false' }} }"  class="relative">
                 <a href="#" @click.prevent="open = !open" class="flex transition-transform transform items-center justify-between px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 duration-300 hover:scale-105">
-                   
+
                     <div class="flex items-center">
                         <i class="fa fa-reply w-3 h-3 dark:text-gray-400 group-hover:text-black transition-transform transform"></i>
                         <span class="ml-3">Dépenses</span>
@@ -78,18 +78,18 @@
                     </li>
                 </ul>
             </li>
-            
-            
+
+
             {{-- <li>
                 <a href="{{ route('caisse.index') }}" class="@if(Request::is('admin/caisse') || Request::is('admin/caisse/*')) active @endif flex items-center px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300 hover:scale-105">
                     <i class="fa  fa-bank w-5 h-5 dark:text-gray-400 group-hover:text-black"></i>
                     <span class="ml-3">Caisse</span>
                 </a>
             </li>
-            
+
             <li  x-data="{ open: {{ Request::is('admin/estimations*') ? 'true' : 'false' }} }"  class="relative">
                 <a href="#" @click.prevent="open = !open" class="flex transition-transform transform items-center justify-between px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 duration-300 hover:scale-105">
-                   
+
                     <div class="flex items-center">
                         <i class="fa fa-calculator w-3 h-3 dark:text-gray-400 group-hover:text-black transition-transform transform"></i>
                         <span class="ml-3">Estimations</span>
@@ -107,7 +107,7 @@
                         <a href="{{ route('estimations.categories') }}" class="@if(Request::is('depenses-categories')) active @endif flex items-center px-3 py-2 text-gray-200  hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
                             <span class="ml-3">Catégories</span>
                         </a>
-                    </li> 
+                    </li>
                     <li>
                         <a href="{{ route('estimations.create') }}" class="@if(Request::is('admin/estimations/create')) active @endif flex items-center px-3 py-2 text-gray-200 rounded-b-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
                             <span class="ml-3">Ajouter</span>
@@ -122,14 +122,14 @@
                     <span class="ml-3">Suivi</span>
                 </a>
             </li> --}}
-          
+
             {{--  <li>
                 <a href="{{ route('adherents.index') }}" class="@if(Request::is('adherents') || Request::is('adherents/*')) active @endif flex items-center px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300 hover:scale-105">
                     <i class="fa  fa-book w-5 h-5 dark:text-gray-400 group-hover:text-black"></i>
                     <span class="ml-3">Provisions</span>
                 </a>
             </li>  --}}
-         
+
             {{-- <li>
                 <a href="{{ route('adherents.index') }}" class="@if(Request::is('adherents') || Request::is('adherents/*')) active @endif flex items-center px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
                     <i class="fa fa-line-chart w-5 h-5 dark:text-gray-400 group-hover:text-black"></i>
@@ -164,7 +164,7 @@
                 </a>
             </li>
             @endrole
-            
+
             {{--  <li>
                 <a href="#" class="flex items-center px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
                     <i class="fa fa-calendar w-5 h-5 dark:text-gray-400 group-hover:text-black"></i>
@@ -179,7 +179,7 @@
                     <span class="ml-3">Gestion des prestations</span>
                 </a>
             </li>
-           
+
             @endrole
 
             @role('controleur')
@@ -202,7 +202,7 @@
 
              <!-- Suivi des Prestations (Controleur) -->
             @role('controleur')
-            <li x-data="{ open: {{ Request::is('admin/suivi*') ? 'true' : 'false' }} }" class="relative">
+            <li x-data="{ open: {{ (Request::is('admin/*/suivi') || Request::is('admin/suivi*')) ? 'true' : 'false' }} }" class="relative">
                 <a href="#" @click.prevent="open = !open" class="flex transition-transform transform items-center justify-between px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 duration-300 hover:scale-105">
                     <div class="flex items-center">
                         <i class="fa fa-table w-3 h-3 dark:text-gray-400 group-hover:text-black transition-transform transform"></i>
@@ -213,7 +213,7 @@
                 </a>
                 <ul x-show="open" x-cloak x-transition class="ml-5 mt-1 shadow-lg border border-gray-50 rounded-lg">
                     <li>
-                        <a href="{{ route('suivi-prestations-all') }}" class="@if(Request::is('admin/prestations/all/suivi')) active @endif flex items-center px-3 py-2 text-gray-200 rounded-t-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
+                        <a href="{{ route('suivi-all') }}" class="@if(Request::is('admin/all/suivi')) active @endif flex items-center px-3 py-2 text-gray-200 rounded-t-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
                             <span class="ml-3">Toutes</span>
                         </a>
                     </li>
@@ -223,7 +223,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('suivi') }}" class="@if(Request::is('admin/prestations/suivi')) active @endif flex items-center px-3 py-2 text-gray-200 hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
+                        <a href="{{ route('suivi-hospitalisation') }}" class="@if(Request::is('admin/hospitalisation/suivi')) active @endif flex items-center px-3 py-2 text-gray-200 hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
                             <span class="ml-3">Hospitalisation</span>
                         </a>
                     </li>
@@ -279,9 +279,8 @@
             </li>
             @endrole
 
-         
+
         </ul>
-       
+
     </div>
  </aside>
- 

@@ -1494,18 +1494,41 @@ class PrestationController extends Controller
 
         // Calcul des moyennes totales pour chaque catégorie
         foreach ($categories as $category) {
-            $data[$category]['Moyenne'] = number_format($data[$category]['Total'] / count($months), 2, ',', ' ');
+            $data[$category]['Moyenne'] = (float) ($data[$category]['Total'] ?? 0) / max(count($months), 1);
         }
 
+        // Catégories nécessitant un affichage avec deux décimales (taux et coûts moyens)
+        $categoriesWithDecimals = [
+            'Taux d’utilisation mensuel % C (C)',
+            'Taux d’utilisation cumulée %(D)',
+            'Coût moyen mensuel d’une allocation (F)',
+            'Coût moyen cumulé d’une allocation (G)'
+        ];
+
+
         // Convertir les données pour Tabulator
-        $tabulatorData = [];
         foreach ($categories as $category) {
             $row = ['Category' => $category];
             foreach ($months as $month) {
-                $row[$month] = $data[$category][$month];
+                $value = $data[$category][$month];
+
+                if (in_array($category, $categoriesWithDecimals) && is_numeric($value)) {
+                    $row[$month] = number_format($value, 2, ',', ' ');
+                } else {
+                    $row[$month] = is_numeric($value) ? number_format($value, 0, ',', ' ') : $value;
+                }
             }
-            $row['Total'] = $data[$category]['Total'];
-            $row['Moyenne'] = $data[$category]['Moyenne'];
+
+            $totalValue = $data[$category]['Total'];
+            $row['Total'] = in_array($category, $categoriesWithDecimals) && is_numeric($totalValue)
+                ? number_format($totalValue, 2, ',', ' ')
+                : (is_numeric($totalValue) ? number_format($totalValue, 0, ',', ' ') : $totalValue);
+
+            $moyenneValue = $data[$category]['Moyenne'];
+            $row['Moyenne'] = in_array($category, $categoriesWithDecimals) && is_numeric($moyenneValue)
+                ? number_format($moyenneValue, 2, ',', ' ')
+                : (is_numeric($moyenneValue) ? number_format($moyenneValue, 0, ',', ' ') : $moyenneValue);
+
             $row['Référence'] = $data[$category]['Référence'];
             $tabulatorData[] = $row;
         }

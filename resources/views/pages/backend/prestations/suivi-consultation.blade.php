@@ -355,13 +355,13 @@
                     const tableData = @json($tabulatorData);
                     const logoUrl = "{{ url('images/logo.png') }}";
                     const currentYear = @json($currentYear);
-                    
+
                     const tableSuivi = new Tabulator("#prestations-table", {
                         data: tableData,
                         layout: "fitDataStretch",
-                        printAsHtml : true , // activer l'impression du tableau HTML 
-                        printStyled : true , 
-                       
+                        printAsHtml : true , // activer l'impression du tableau HTML
+                        printStyled : true ,
+
                         printHeader: `
                             <div style="text-align:center; margin-bottom:20px;">
                                 <img src="${logoUrl}" alt="Logo MU-POL" style="display:inline-block; height:60px; margin-bottom:5px;">

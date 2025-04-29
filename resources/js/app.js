@@ -9,7 +9,7 @@ import 'select2';
 import Chart from 'chart.js/auto';
 import $ from 'jquery';
 import { TabulatorFull as Tabulator } from 'tabulator-tables';
-import * as XLSX from 'xlsx';
+//import * as XLSX from 'xlsx';
 import SignaturePad from 'signature_pad';
 
 // Importer Slick JS
@@ -25,7 +25,8 @@ window.$ = window.jQuery = $;
 window.Alpine = Alpine;
 
 Alpine.start();
-window.XLSX = XLSX; 
+window.XLSX = XLSX;
+window.XLSX = XLSX;
 
 window.SignaturePad = SignaturePad;
 

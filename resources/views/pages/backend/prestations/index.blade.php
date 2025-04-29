@@ -25,9 +25,13 @@
 
             <x-data-table id="table-prestations" :headers="['','N', 'Identifiant', 'Contact', 'Date', 'Acte', 'Montant', 'Etat']">
                 @role('comptable')
+<<<<<<< HEAD
                    
                 
                 
+=======
+
+>>>>>>> de5819e04ee8b4c174db5de8d2da22254b725788
                     @foreach($prestationsValides as $prestation)
                         <tr data-id="{{ $prestation->id }}" data-href="{{ route('prestations.show', $prestation->id) }}" class="row-clickable cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700">
                             <td><input type="checkbox" class="row-checkbox form-checkbox w-4 h-4" /></td>
@@ -55,7 +59,7 @@
                         <div id="validation-bar" class="hidden">
                             <button id="btn-valider-selections" class="btn bg-green-600 hover:bg-green-700 transition">
                                 Valider les prestations
-                                
+
                             </button>
                             <form id="form-valider-selections" method="POST" action="{{ route('prestations.validerMultiple') }}">
                                 @csrf
@@ -90,7 +94,12 @@
                     @endforeach
                 @endrole
             </x-data-table>
+
+
+
         </div>
+
+        <script >
 
         {{-- Scripts --}}
         <script>
@@ -165,6 +174,11 @@
                         dom: "<'flex flex-wrap items-center justify-between mb-2'lf>Bt<'flex items-center justify-between mt-2'ip>",
                         buttons: ['print', 'excel', 'pdf'],
                         scrollX: true,
+                        responsive: true
+                    });
+                }
+                const tableMutualistes = initializeDataTable('#table-prestations');
+
                         responsive: true,
                         scrollCollapse: true,
                         columnDefs: [{ orderable: false, targets: 0 }],
@@ -183,5 +197,6 @@
                 });
             });
         </script>
+
     </x-content-page-admin>
 </x-app-layout>

@@ -2,20 +2,21 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Helpers\PasswordHelper;
-use App\Http\Controllers\Controller;
-
-use App\Mail\PartenaireAdhesion;
-use App\Models\Partenaire;
-use App\Http\Requests\StorePartenaireRequest;
-use App\Http\Requests\UpdatePartenaireRequest;
 use App\Models\Adherent;
-use Illuminate\Support\Facades\Hash;
+use App\Models\Partenaire;
+
 use Illuminate\Http\Request;
+use App\Helpers\PasswordHelper;
+use App\Mail\PartenaireAdhesion;
+use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use App\Mail\Partenaires\PartenaireEmail;
 
-
+use App\Http\Requests\StorePartenaireRequest;
+use App\Http\Requests\UpdatePartenaireRequest;
 
 class PartenaireController extends Controller
 {
@@ -191,12 +192,12 @@ class PartenaireController extends Controller
 
 
     // Envoi de messages
-    public function envoyer(Request $request)
+    public function newEmail()
     {
         $breadcrumbsItems = [
             [
                 'name' => 'Partenaires',
-                'url' => route('partenaires.envoyer.mail'),
+                'url' => route('partenaires.mail'),
                 'active' => true
             ],
 
@@ -210,5 +211,34 @@ class PartenaireController extends Controller
 
         return view('pages.backend.partenaires.mail', compact('partenaires', 'breadcrumbsItems', 'pageTitle'));
     }
+    public function envoyerEmail(Request $request)
+    {
+        $request->validate([
+            'message' => 'required|string',
+            'objet' => 'required|string',
+            'email' => 'nullable|exists:partenaires,id', 
+        ]);
 
+        $message = nl2br(e($request->input('message')));
+        $objet = $request->input('objet');
+
+        if ($request->boolean('selectAll')) {
+            // Tous les partenaires
+            $partenaires = Partenaire::all();
+        } else {
+            // Un seul partenaire
+            $partenaire = Partenaire::findOrFail($request->input('email'));
+            $partenaires = collect([$partenaire]);
+        }
+
+        foreach ($partenaires as $partenaire) {
+            try {
+                Mail::to($partenaire->email)->send(new PartenaireEmail($message, $objet));
+            } catch (\Throwable $e) {
+                Log::error("Échec de l'envoi de l'email à {$partenaire->email} : " . $e->getMessage());
+            }
+        }
+        return redirect()->route('partenaires.index')->with('success', 'Email(s) envoyé(s) avec succès.');
+
+    }
 }

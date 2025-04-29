@@ -106,7 +106,8 @@ Route::middleware('auth')->group(function () {
 
 
     // Envoi de messages
-    Route::post('/partenaires/envoyer-message', [PartenaireController::class, 'envoyer'])->name('partenaires.envoyer.mail');
+    Route::get('/partenaires-envoyer-mail', [PartenaireController::class, 'newEmail'])->name('partenaires.mail');
+    Route::post('/partenaires-envoyer-mail', [PartenaireController::class, 'envoyerEmail'])->name('partenaires.envoyer.mail');
 
 
 });

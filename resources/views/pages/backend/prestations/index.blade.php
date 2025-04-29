@@ -7,7 +7,7 @@
 
     <x-top-navbar-admin />
 
-    <div id="sidebar" class="hidden lg:block bg-blue-800 w-64 h-screen fixed z-20 border-none rounded-none">
+    <div id="sidebar" class="fixed z-20 hidden w-64 h-screen bg-blue-800 border-none rounded-none lg:block">
         <x-sidebar id="logo-sidebar" />
     </div>
 
@@ -20,21 +20,17 @@
             {{ $pageTitle }}
         </x-header>
 
-        <div class="p-2 md:p-6 mt-4 mx-auto bg-white rounded-lg shadow-lg">
-            <input type="checkbox" id="select-all" class="form-checkbox w-4 h-4" />
+        <div class="p-2 mx-auto mt-4 bg-white rounded-lg shadow-lg md:p-6">
+            <input type="checkbox" id="select-all" class="w-4 h-4 form-checkbox" value="true" />
 
             <x-data-table id="table-prestations" :headers="['','N', 'Identifiant', 'Contact', 'Date', 'Acte', 'Montant', 'Etat']">
                 @role('comptable')
-<<<<<<< HEAD
                    
                 
                 
-=======
-
->>>>>>> de5819e04ee8b4c174db5de8d2da22254b725788
                     @foreach($prestationsValides as $prestation)
-                        <tr data-id="{{ $prestation->id }}" data-href="{{ route('prestations.show', $prestation->id) }}" class="row-clickable cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700">
-                            <td><input type="checkbox" class="row-checkbox form-checkbox w-4 h-4" /></td>
+                        <tr data-id="{{ $prestation->id }}" data-href="{{ route('prestations.show', $prestation->id) }}" class="cursor-pointer row-clickable hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <td><input type="checkbox" class="w-4 h-4 row-checkbox form-checkbox" /></td>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $prestation->idPrestation }}</td>
                             <td>{{ $prestation->contactPrestation }}</td>
@@ -44,11 +40,11 @@
                             <td>
                                 @if ($prestation->etat_paiement === 1)
                                     <span class="flex items-center justify-center p-1 text-green-600">
-                                        <i class="fa fa-check text-lg"></i>
+                                        <i class="text-lg fa fa-check"></i>
                                     </span>
                                 @else
                                     <span class="flex items-center justify-center p-1 text-orange-600">
-                                        <i class="fa fa-hourglass-half text-lg" aria-hidden="true"></i>
+                                        <i class="text-lg fa fa-hourglass-half" aria-hidden="true"></i>
                                     </span>
                                 @endif
                             </td>
@@ -57,7 +53,7 @@
                 @else
                     <div class="flex flex-wrap items-center justify-end gap-2 py-2">
                         <div id="validation-bar" class="hidden">
-                            <button id="btn-valider-selections" class="btn bg-green-600 hover:bg-green-700 transition">
+                            <button id="btn-valider-selections" class="transition bg-green-600 btn hover:bg-green-700">
                                 Valider les prestations
 
                             </button>
@@ -72,8 +68,8 @@
                     </div>
 
                     @foreach($prestations as $prestation)
-                        <tr data-id="{{ $prestation->id }}" data-href="{{ route('prestations.show', $prestation->id) }}" class="row-clickable cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700">
-                            <td><input type="checkbox" class="row-checkbox form-checkbox w-4 h-4" /></td>
+                        <tr data-id="{{ $prestation->id }}" data-href="{{ route('prestations.show', $prestation->id) }}" class="cursor-pointer row-clickable hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <td><input type="checkbox" class="w-4 h-4 row-checkbox form-checkbox" /></td>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $prestation->idPrestation }}</td>
                             <td>{{ $prestation->contactPrestation }}</td>

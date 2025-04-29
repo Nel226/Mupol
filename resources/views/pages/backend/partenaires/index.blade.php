@@ -23,11 +23,11 @@
                 <x-tabs :tabs="['Tous', 'Hôpitaux', 'Cliniques', 'Pharmacies']">
                     <!-- Tous Tab -->
                     <div id="tab-tous" class="p-1 bg-white rounded-md shadow-md tab-pane sm:p-4">
-                        <div class="flex flex-wrap items-center justify-between gap-2 py-2">
+                        <div class="flex flex-wrap items-center justify-start gap-2 py-2">
                             <a href="{{ route('partenaires.create') }}">
                                 <button class="btn">{{ __('Nouveau partenaire') }}</button>
                             </a>
-                            <a href="{{ route('partenaires.envoyer.mail') }}">
+                            <a href="{{ route('partenaires.mail') }}">
                                 <button class="btn">{{ __('Nouveau mail') }}</button>
                             </a>
                         </div>

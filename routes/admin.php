@@ -100,9 +100,14 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/prestations/{id}/valider', [PrestationController::class, 'valider'])->name('prestations.valider');
     Route::post('/prestations/valider-multiple', [PrestationController::class, 'validerMultiple'])->name('prestations.validerMultiple');
-    
+
     Route::post('/prestations/{id}/rejeter', [PrestationController::class, 'rejeter'])->name('prestations.rejeter');
     Route::post('/prestations/{id}/validerpaiement', [PrestationController::class, 'validerPaiement'])->name('prestations.validerpaiement');
+
+
+    // Envoi de messages
+    Route::post('/partenaires/envoyer-message', [PartenaireController::class, 'envoyer'])->name('partenaires.envoyerMessage');
+
 
 });
 

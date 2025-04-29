@@ -31,76 +31,34 @@
                     </div>
                 </div>
 
-                <!-- Filtre par centre -->
-                <div class="flex items-center justify-between py-4 text-sm">
-                    <div class="flex gap-3">
-                        <label for="centre">Centre de santé :</label>
-                        <select id="centre" name="centre" class="py-1 rounded-md">
-                            <option value="">Tous</option>
-                            @foreach ($centresDisponibles as $c)
-                                <option value="{{ $c }}" {{ request('centre') == $c ? 'selected' : '' }}>{{ $c }}</option>
-                            @endforeach
-                        </select>
+                <div class="flex items-center justify-end py-4 text-sm">
+                    <div class="relative mt-1">
+                        <input type="text" id="searchMembres" name="searchMembres"
+                               class="block pt-2 text-sm text-gray-900 border border-gray-300 rounded-lg ps-10 w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+                               placeholder="Rechercher par nom ou matricule">
+                        <div class="absolute inset-y-0 flex items-center pointer-events-none start-0 ps-3">
+                            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" fill="none" viewBox="0 0 20 20">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                            </svg>
+                        </div>
                     </div>
                 </div>
 
-
-                <!-- Spinner -->
-                <div id="loading-spinner" class="flex justify-center my-4 hidden">
-                    <svg class="w-6 h-6 text-blue-500 animate-spin" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
-                            stroke-width="4"></circle>
-                        <path class="opacity-75" fill="currentColor"
-                            d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
-                    </svg>
-                </div>
-
-
-
-
-
-                <!-- Résultats -->
+                <!-- Liste des adhérents -->
                 <div id="prestationsContainer" class="container p-4 mx-auto">
-                    <!-- Zone de recherche -->
-                    <div class="flex items-center justify-end py-4 text-sm">
-                        <div class="relative mt-1">
-                            <input type="text" id="searchMembres" name="searchMembres"
-                                class="block pt-2 text-sm text-gray-900 border border-gray-300 rounded-lg ps-10 w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
-                                placeholder="Rechercher par nom ou matricule">
-                            <div class="absolute inset-y-0 flex items-center pointer-events-none start-0 ps-3">
-                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" fill="none" viewBox="0 0 20 20">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Statistiques du centre -->
-                    @if ($centre && $nombreAdherentsCentre !== null && $nombrePrestationsCentre !== null)
-                    <div id="centre-stats" class="p-4 mb-4 text-sm text-blue-800 bg-blue-100 border border-blue-300 rounded-lg" role="alert">
-                        <div class="flex flex-col md:flex-row justify-between gap-3">
-                            <span><strong>Centre sélectionné :</strong> {{ $centre }}</span>
-                            <span><strong>Nombre d'adhérents ayant des prestations :</strong> {{ $nombreAdherentsCentre }}</span>
-                            <span><strong>Nombre total de prestations :</strong> {{ $nombrePrestationsCentre }}</span>
-                        </div>
-                    </div>
-                    @else
-                        <div id="centre-stats"></div>
-                    @endif
-
-                    <!-- Affichage des résultats -->
                     <div id="results-container">
                         @foreach ($paginatedPrestations as $adherentId => $prestations)
                             @php
-                                $adherent = $adherents[$adherentId] ?? null;
+                                $adherent = App\Models\Adherent::find($adherentId);
                                 $totalMontant = $prestations->sum('montant');
                             @endphp
 
                             <div class="mb-3 border border-gray-300 rounded-lg shadow-md
                                 @if($totalMontant >= 1500000) bg-red-100 border-red-500 @else bg-white @endif adherent"
                                 data-name="{{ strtolower($adherent->nom . ' ' . $adherent->prenom) }}"
-                                data-code="{{ strtolower($adherent->code_carte) }}" x-data="{ open: false }">
+                                data-code="{{ strtolower($adherent->code_carte) }}"
+                                x-data="{ open: false }">
 
                                 <h2 class="flex justify-between p-3 text-base font-semibold cursor-pointer
                                     @if($totalMontant >= 1500000) bg-red-100 border-red-500 @else bg-gray-100 @endif"
@@ -143,18 +101,14 @@
                                     </table>
                                 </div>
                             </div>
-                        @endforeach
 
-                        <div id="no-results-message">
-                            @if ($paginatedPrestations->isEmpty())
-                                <p class="mt-4 text-red-500">Aucune prestation trouvée.</p>
-                            @endif
-                        </div>
+                        @endforeach
                     </div>
 
                     <div id="pagination-links">
                         {{ $paginatedPrestations->appends(['search' => request('search'), 'year' => request('year')])->links() }}
                     </div>
+
 
                     <style>
                         #pagination-links a {
@@ -169,6 +123,10 @@
                             border-radius: 4px;
                         }
                     </style>
+
+                    @if ($paginatedPrestations->isEmpty())
+                        <p class="mt-4 text-red-500">Aucune prestation trouvée.</p>
+                    @endif
                 </div>
             </div>
         </div>
@@ -178,22 +136,17 @@
         document.addEventListener('DOMContentLoaded', function () {
             const searchInput = document.getElementById('searchMembres');
             const yearSelect = document.getElementById('year');
-            const centreSelect = document.getElementById('centre');
-            const spinner = document.getElementById('loading-spinner');
 
-            function fetchFilteredData() {
-                const query = searchInput.value.toLowerCase().trim();
+            // Recherche en temps réel
+            searchInput.addEventListener('input', function () {
+                const query = this.value.toLowerCase().trim();
                 const year = yearSelect.value;
-                const centre = centreSelect.value;
 
                 const url = new URL("{{ route('suivi-all') }}", window.location.origin);
                 url.searchParams.set('search', query);
                 url.searchParams.set('year', year);
-                url.searchParams.set('centre', centre); // toujours envoyer le centre même vide
 
                 window.history.pushState({}, '', url);
-
-                spinner.classList.remove('hidden');
 
                 fetch(url, {
                     headers: { 'X-Requested-With': 'XMLHttpRequest' }
@@ -202,34 +155,20 @@
                 .then(html => {
                     const parser = new DOMParser();
                     const doc = parser.parseFromString(html, 'text/html');
-                    document.querySelector('#results-container').innerHTML = doc.querySelector('#results-container').innerHTML;
-                    document.querySelector('#pagination-links').innerHTML = doc.querySelector('#pagination-links').innerHTML;
-                    document.querySelector('#no-results-message').innerHTML = doc.querySelector('#no-results-message').innerHTML;
-                    const stats = doc.querySelector('#centre-stats');
-                    if (stats) {
-                        document.querySelector('#centre-stats')?.replaceWith(stats);
-                    } else {
-                        document.querySelector('#centre-stats')?.replaceWith(document.createElement('div'));
-                    }
-                })
-                .finally(() => {
-                    spinner.classList.add('hidden');
+                    const newResults = doc.querySelector('#results-container').innerHTML;
+                    const newPagination = doc.querySelector('#pagination-links').innerHTML;
+
+                    document.querySelector('#results-container').innerHTML = newResults;
+                    document.querySelector('#pagination-links').innerHTML = newPagination;
                 });
-            }
+            });
 
-            searchInput.addEventListener('input', fetchFilteredData);
-            centreSelect.addEventListener('change', fetchFilteredData);
-
+            // Pagination AJAX
             document.addEventListener('click', function (e) {
                 const link = e.target.closest('#pagination-links a');
                 if (link) {
                     e.preventDefault();
-                    const url = new URL(link.getAttribute('href'));
-                    url.searchParams.set('search', searchInput.value.trim());
-                    url.searchParams.set('year', yearSelect.value);
-                    url.searchParams.set('centre', centreSelect.value);
-
-                    spinner.classList.remove('hidden');
+                    const url = link.getAttribute('href');
 
                     fetch(url, {
                         headers: { 'X-Requested-With': 'XMLHttpRequest' }
@@ -238,22 +177,15 @@
                     .then(html => {
                         const parser = new DOMParser();
                         const doc = parser.parseFromString(html, 'text/html');
-                        document.querySelector('#results-container').innerHTML = doc.querySelector('#results-container').innerHTML;
-                        document.querySelector('#pagination-links').innerHTML = doc.querySelector('#pagination-links').innerHTML;
-                        document.querySelector('#no-results-message').innerHTML = doc.querySelector('#no-results-message').innerHTML;
-                        const stats = doc.querySelector('#centre-stats');
-                        if (stats) {
-                            document.querySelector('#centre-stats')?.replaceWith(stats);
-                        } else {
-                            document.querySelector('#centre-stats')?.replaceWith(document.createElement('div'));
-                        }
-                    })
-                    .finally(() => {
-                        spinner.classList.add('hidden');
+                        const newResults = doc.querySelector('#results-container').innerHTML;
+                        const newPagination = doc.querySelector('#pagination-links').innerHTML;
+
+                        document.querySelector('#results-container').innerHTML = newResults;
+                        document.querySelector('#pagination-links').innerHTML = newPagination;
+                        window.history.pushState({}, '', url);
                     });
                 }
             });
         });
     </script>
-
 </x-app-layout>

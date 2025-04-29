@@ -27,7 +27,7 @@
                             <a href="{{ route('partenaires.create') }}">
                                 <button class="btn">{{ __('Nouveau partenaire') }}</button>
                             </a>
-                            <a href="{{ route('partenaires.envoyer') }}">
+                            <a href="{{ route('partenaires.envoyer.mail') }}">
                                 <button class="btn">{{ __('Nouveau mail') }}</button>
                             </a>
                         </div>

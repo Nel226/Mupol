@@ -196,7 +196,7 @@ class PartenaireController extends Controller
         $breadcrumbsItems = [
             [
                 'name' => 'Partenaires',
-                'url' => route('partenaires.envoyer.message'),
+                'url' => route('partenaires.envoyer.mail'),
                 'active' => true
             ],
 

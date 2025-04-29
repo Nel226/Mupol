@@ -30,7 +30,7 @@ class PartenaireController extends Controller
                 'url' => route('partenaires.index'),
                 'active' => true
             ],
-        
+
         ];
         $pageTitle = 'Partenaires';
 
@@ -50,7 +50,7 @@ class PartenaireController extends Controller
             'pageTitle' => $pageTitle,
 
         ]);
-        
+
     }
 
     /**
@@ -98,10 +98,10 @@ class PartenaireController extends Controller
             $partenaire = Partenaire::create($validatedData);
 
             Mail::to($validatedData['email'])->send(new PartenaireAdhesion(
-                $validatedData['email'], 
+                $validatedData['email'],
                 $generatedPassword // Assurez-vous que cette variable contient bien le mot de passe généré
             ));
-            
+
             return redirect()
                 ->route('partenaires.index')
                 ->with('success', 'Partenaire de santé ajouté avec succès.');
@@ -130,12 +130,12 @@ class PartenaireController extends Controller
                 'active' => false
             ],
             [
-                'name' => $partenaire->nom, 
+                'name' => $partenaire->nom,
                 'url' => route('partenaires.show', $partenaire->id),
                 'active' => true
             ],
         ];
-    
+
         $pageTitle = 'Détails de ' . $partenaire->nom;
         return view('pages.backend.partenaires.show', compact('partenaire', 'breadcrumbsItems', 'pageTitle'));
     }
@@ -147,7 +147,7 @@ class PartenaireController extends Controller
      */
     public function edit($id)
     {
-        $partenaire = Partenaire::findOrFail($id); 
+        $partenaire = Partenaire::findOrFail($id);
 
         $breadcrumbsItems = [
             [
@@ -156,18 +156,18 @@ class PartenaireController extends Controller
                 'active' => false
             ],
             [
-                'name' => $partenaire->nom,  
+                'name' => $partenaire->nom,
                 'url' => route('partenaires.index'),
                 'active' => true
             ],
         ];
 
-        $pageTitle = 'Édition de ' . $partenaire->nom;  
+        $pageTitle = 'Édition de ' . $partenaire->nom;
 
         return view('pages.backend.partenaires.edit', compact('partenaire', 'breadcrumbsItems', 'pageTitle'));
     }
-    
-    
+
+
     /**
      * Update the specified resource in storage.
      */
@@ -187,6 +187,20 @@ class PartenaireController extends Controller
         $partenaireSante = Partenaire::findOrFail($id);
         $partenaireSante->delete();
         return redirect()->route('partenaires.index')->with('success', 'partenaire de santé supprimé avec succès.');
+    }
+
+
+    // Envoi de messages
+    public function envoyer(Request $request)
+    {
+        $request->validate([
+            'message' => 'required|string|max:1000',
+        ]);
+
+        // Tu peux stocker ou envoyer le message ici
+        // Exemple : Mail::to(...)->send(new MessageEnvoye($request->message));
+
+        return redirect()->back()->with('success', 'Message envoyé avec succès.');
     }
 
 }

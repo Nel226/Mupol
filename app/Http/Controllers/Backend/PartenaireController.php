@@ -193,14 +193,22 @@ class PartenaireController extends Controller
     // Envoi de messages
     public function envoyer(Request $request)
     {
-        $request->validate([
-            'message' => 'required|string|max:1000',
-        ]);
+        $breadcrumbsItems = [
+            [
+                'name' => 'Partenaires',
+                'url' => route('partenaires.envoyer.message'),
+                'active' => true
+            ],
+
+        ];
+        $pageTitle = 'Envoyer mail partenaires';
+
+        $partenaires = Partenaire::all();
 
         // Tu peux stocker ou envoyer le message ici
         // Exemple : Mail::to(...)->send(new MessageEnvoye($request->message));
 
-        return redirect()->back()->with('success', 'Message envoyé avec succès.');
+        return view('pages.backend.partenaires.mail', compact('partenaires', 'breadcrumbsItems', 'pageTitle'));
     }
 
 }

@@ -6,7 +6,7 @@
     @endif
     <x-top-navbar-admin />
 
-    <div id="sidebar" class="lg:block z-20 hidden bg-blue-800 w-64 h-screen fixed rounded-none border-none">
+    <div id="sidebar" class="fixed z-20 hidden w-64 h-screen bg-blue-800 border-none rounded-none lg:block">
         <x-sidebar id="logo-sidebar" />
     </div>
 
@@ -15,9 +15,9 @@
             {{ $pageTitle }}
         </x-header>
         
-        <div class="md:p-6 p-2 mx-auto mt-4 bg-white rounded-lg shadow-lg">
+        <div class="p-2 mx-auto mt-4 bg-white rounded-lg shadow-lg md:p-6">
             @role('agentsaisie|controleur')
-                <div class="md:w-3/4 mx-auto">
+                <div class="mx-auto md:w-3/4">
                     
                 </div>
             @endrole

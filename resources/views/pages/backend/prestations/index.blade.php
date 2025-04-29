@@ -21,9 +21,13 @@
         </x-header>
 
         <div class="p-2 md:p-6 mt-4 mx-auto bg-white rounded-lg shadow-lg">
-            <x-data-table id="table-prestations" :headers="['N', 'Identifiant', 'Contact', 'Date', 'Acte', 'Montant', 'Etat']">
+            <input type="checkbox" id="select-all" class="form-checkbox w-4 h-4" />
+
+            <x-data-table id="table-prestations" :headers="['','N', 'Identifiant', 'Contact', 'Date', 'Acte', 'Montant', 'Etat']">
                 @role('comptable')
                    
+                
+                
                     @foreach($prestationsValides as $prestation)
                         <tr data-id="{{ $prestation->id }}" data-href="{{ route('prestations.show', $prestation->id) }}" class="row-clickable cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700">
                             <td><input type="checkbox" class="row-checkbox form-checkbox w-4 h-4" /></td>

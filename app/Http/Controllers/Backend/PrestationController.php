@@ -312,7 +312,7 @@ class PrestationController extends Controller
             })
             ->select('prestations.*', 'adherents.id as adherent_id')
             ->get();
-
+        
         // Prestations des ayants droit
         $prestationsAyantsDroit = Prestation::join('ayant_droits', 'prestations.adherentCode', '=', 'ayant_droits.code')
             ->join('adherents', 'ayant_droits.adherent_id', '=', 'adherents.id')
@@ -335,22 +335,21 @@ class PrestationController extends Controller
         $prestationsAll = $prestationsAdherents
             ->merge($prestationsAyantsDroit)
             ->sortByDesc('created_at');
-
         $prestationsGroupedByAdherent = $prestationsAll->groupBy('adherent_id');
-
+            
         // Pagination manuelle
         $adherentIds = $prestationsGroupedByAdherent->keys();
         $page = $request->input('page', 1);
-        $perPage = 5;
+        $perPage = 10;
         $offset = ($page - 1) * $perPage;
-
+        
         $paginatedAdherentIds = $adherentIds->slice($offset, $perPage);
         $paginatedGrouped = collect();
-
+        
         foreach ($paginatedAdherentIds as $adherentId) {
             $paginatedGrouped[$adherentId] = $prestationsGroupedByAdherent[$adherentId];
         }
-
+        
         $paginatedPrestations = new LengthAwarePaginator(
             $paginatedGrouped,
             $adherentIds->count(),
@@ -358,7 +357,6 @@ class PrestationController extends Controller
             $page,
             ['path' => $request->url(), 'query' => $request->query()]
         );
-
         // Récupération des centres distincts pour le filtre
         $centresDisponibles = Prestation::select('centre')
             ->distinct()
@@ -374,10 +372,13 @@ class PrestationController extends Controller
             $nombrePrestationsCentre = $prestationsAll->count();
         }
 
+        $adherents = Adherent::whereIn('id', $paginatedGrouped->keys())->get()->keyBy('id');
+
         // Vue AJAX ou complète
         $view = view('pages.backend.prestations.suivi.suivi-all', compact(
             'pageTitle',
             'paginatedPrestations',
+            'adherents',
             'currentYear',
             'centre',
             'centresDisponibles',

@@ -337,7 +337,7 @@
                     }
                 </script>
 
-
+                
                 <script>
                     function showSpinner() {
                         document.getElementById('spinner').classList.remove('hidden');
@@ -399,22 +399,56 @@
                         ],
                     });
                     document.getElementById('export-suivi').addEventListener('click', function() {
-                        tableSuivi.download("xlsx", `Suivi_consultations_${currentYear}.xlsx`, {});
+                        tableSuivi.download("xlsx", "Suivi.xlsx", {});
                     });
                 </script>
 
-                
+                {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script> --}}
+
+                {{-- <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        const tableData = @json($tabulatorData);
+
+                        const tableSuivi = new Tabulator("#prestations-table", {
+                            data: tableData,
+                            layout: "fitDataStretch",
+                            printAsHtml: true,
+                            columns: [
+                                { title: "Catégorie", field: "Category", width: 250 },
+                                { title: "Janvier", field: "Janvier" },
+                                { title: "Février", field: "Février" },
+                                { title: "Mars", field: "Mars" },
+                                { title: "Avril", field: "Avril" },
+                                { title: "Mai", field: "Mai" },
+                                { title: "Juin", field: "Juin" },
+                                { title: "Juillet", field: "Juillet" },
+                                { title: "Août", field: "Août" },
+                                { title: "Septembre", field: "Septembre" },
+                                { title: "Octobre", field: "Octobre" },
+                                { title: "Novembre", field: "Novembre" },
+                                { title: "Décembre", field: "Décembre" },
+                                { title: "Total", field: "Total" },
+                                { title: "Moyenne", field: "Moyenne" },
+                                { title: "Référence", field: "Référence" }
+                            ],
+                        });
+
+                        document.getElementById("print-table").addEventListener("click", function () {
+                            tableSuivi.print(false, true);
+                        });
+
+                        document.getElementById('export-suivi').addEventListener('click', function () {
+                            tableSuivi.download("xlsx", "Suivi.xlsx", {});
+                        });
+                    });
+                </script> --}}
+
+
 
 
             </div>
 
-            <style>
-                @media print {
-                    thead, tfoot {
-                        display: none !important;
-                    }
-                }
-            </style>
+
         </div>
     </x-content-page-admin>
 </x-app-layout>

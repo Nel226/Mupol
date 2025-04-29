@@ -92,12 +92,15 @@
                     <!-- Affichage des résultats -->
                     <div id="results-container">
                         @foreach ($paginatedPrestations as $adherentId => $prestations)
+                
                             @php
                                 $adherent = $adherents[$adherentId] ?? null;
                                 $totalMontant = $prestations->sum('montant');
                             @endphp
-
+                            
+                               
                             <div class="mb-3 border border-gray-300 rounded-lg shadow-md
+                            
                                 @if($totalMontant >= 1500000) bg-red-100 border-red-500 @else bg-white @endif adherent"
                                 data-name="{{ strtolower($adherent->nom . ' ' . $adherent->prenom) }}"
                                 data-code="{{ strtolower($adherent->code_carte) }}" x-data="{ open: false }">
@@ -143,6 +146,7 @@
                                     </table>
                                 </div>
                             </div>
+                            
                         @endforeach
 
                         <div id="no-results-message">

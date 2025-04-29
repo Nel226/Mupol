@@ -25,6 +25,8 @@ use App\Http\Controllers\Backend\PartenaireController;
 use App\Http\Controllers\Backend\RecetteController;
 use App\Http\Controllers\Backend\RestrictionController;
 
+use Laravel\Horizon\Horizon;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes

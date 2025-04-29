@@ -213,6 +213,7 @@ class PartenaireController extends Controller
     }
     public function envoyerEmail(Request $request)
     {
+        set_time_limit(1000);
         $request->validate([
             'message' => 'required|string',
             'objet' => 'required|string',
@@ -231,14 +232,24 @@ class PartenaireController extends Controller
             $partenaires = collect([$partenaire]);
         }
 
+        $envoyes = 0;
+        $echoues = 0;
         foreach ($partenaires as $partenaire) {
             try {
                 Mail::to($partenaire->email)->send(new PartenaireEmail($message, $objet));
+                $envoyes++;
+                Log::info("Email envoyé à {$partenaire->email} avec succès. numero:{$envoyes}");
+
             } catch (\Throwable $e) {
-                Log::error("Échec de l'envoi de l'email à {$partenaire->email} : " . $e->getMessage());
+                $echoues++;
+
+                Log::error("Échec de l'envoi de l'email à {$partenaire->email}{$echoues} : " . $e->getMessage());
             }
         }
-        return redirect()->route('partenaires.index')->with('success', 'Email(s) envoyé(s) avec succès.');
+        Log::info("Résultat de l'envoi des emails : {$envoyes} envoyés, {$echoues} échoués.");
 
+        return redirect()->route('partenaires.index')->with([
+            'success' => "Emails envoyés : $envoyes | Échecs : $echoues",
+        ]);
     }
 }

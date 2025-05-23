@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary(); 
             $table->string('code')->unique(); 
             $table->string('designation'); 
-            $table->string('categorie');
+            $table->string(column: 'categorie');
             $table->string('type');
             $table->string('sous_type')->nullable();  
             $table->integer('taux_remboursement')->default(0); 

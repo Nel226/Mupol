@@ -13,44 +13,44 @@ class RolesAndUsersSeeder extends Seeder
 {
     public function run()
     {
-        $adminRole = Role::create(['name' => 'administrateur']);
-        $agentSaisieRole = Role::create(['name' => 'agentsaisie']);
-        $controleurRole = Role::create(['name' => 'controleur']);
-        $comptableRole = Role::create(['name' => 'comptable']);
-        $communityManagerRole = Role::create(['name' => 'communitymanager']);
+        $adminRole = Role::create(['id' => Str::uuid(), 'name' => 'administrateur', 'guard_name' => 'web']);
+        $agentSaisieRole = Role::create(['id' => Str::uuid(), 'name' => 'agentsaisie', 'guard_name' => 'web']);
+        $controleurRole = Role::create(['id' => Str::uuid(), 'name' => 'controleur', 'guard_name' => 'web']);
+        $comptableRole = Role::create(['id' => Str::uuid(), 'name' => 'comptable', 'guard_name' => 'web']);
+        $communityManagerRole = Role::create(['id' => Str::uuid(), 'name' => 'communitymanager', 'guard_name' => 'web']);
 
         $admin = User::create([
             'name' => 'Administrateur',
             'email' => 'admin@example.com',
             'password' => bcrypt('password'),
         ]);
-        $admin->assignRole($adminRole);
+        $admin->assignRole($adminRole->id);
 
         $agentsaisie = User::create([
             'name' => 'Agent de Saisie',
             'email' => 'agentsaisie@example.com',
             'password' => bcrypt('password'),
         ]);
-        $agentsaisie->assignRole($agentSaisieRole);
+        $agentsaisie->assignRole($agentSaisieRole->id);
 
         $controleur = User::create([
             'name' => 'Controleur',
             'email' => 'controleur@example.com',
             'password' => bcrypt('password'),
         ]);
-        $controleur->assignRole($controleurRole);
+        $controleur->assignRole($controleurRole->id);
 
         $comptable = User::create([
             'name' => 'Comptable',
             'email' => 'comptable@example.com',
             'password' => bcrypt('password'),
         ]);
-        $comptable->assignRole($comptableRole);
+        $comptable->assignRole($comptableRole->id);
         $communityManager = User::create([
             'name' => 'Community Manager',
             'email' => 'communitymanager@example.com',
             'password' => bcrypt('password'),
         ]);
-        $communityManager->assignRole($communityManagerRole);
+        $communityManager->assignRole($communityManagerRole->id);
     }
 }

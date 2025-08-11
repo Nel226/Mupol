@@ -214,42 +214,48 @@ class PartenaireController extends Controller
     public function envoyerEmail(Request $request)
     {
         set_time_limit(1000);
+
         $request->validate([
             'message' => 'required|string',
             'objet' => 'required|string',
-            'email' => 'nullable|exists:partenaires,id', 
+            'email' => 'nullable|exists:partenaires,id',
+            'type' => 'nullable|string',
         ]);
 
         $message = nl2br(e($request->input('message')));
         $objet = $request->input('objet');
 
         if ($request->boolean('selectAll')) {
-            // Tous les partenaires
-            $partenaires = Partenaire::all();
+            // Envoi à tous ou à tous d'un type spécifique
+            if ($request->filled('type')) {
+                $partenaires = Partenaire::where('type', $request->type)->get();
+            } else {
+                $partenaires = Partenaire::all();
+            }
         } else {
-            // Un seul partenaire
             $partenaire = Partenaire::findOrFail($request->input('email'));
             $partenaires = collect([$partenaire]);
         }
 
         $envoyes = 0;
         $echoues = 0;
+
         foreach ($partenaires as $partenaire) {
             try {
                 Mail::to($partenaire->email)->send(new PartenaireEmail($message, $objet));
                 $envoyes++;
                 Log::info("Email envoyé à {$partenaire->email} avec succès. numero:{$envoyes}");
-
             } catch (\Throwable $e) {
                 $echoues++;
-
                 Log::error("Échec de l'envoi de l'email à {$partenaire->email}{$echoues} : " . $e->getMessage());
             }
         }
+
         Log::info("Résultat de l'envoi des emails : {$envoyes} envoyés, {$echoues} échoués.");
 
         return redirect()->route('partenaires.index')->with([
             'success' => "Emails envoyés : $envoyes | Échecs : $echoues",
         ]);
     }
+
 }

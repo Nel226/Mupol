@@ -10,7 +10,7 @@ use Carbon\Carbon;
 use App\Helpers\DemandeCategorieHelper;
 use App\Helpers\DateHelper;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\ConfirmationDemandeAdhesion; 
+use App\Mail\ConfirmationDemandeAdhesion;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Adherent;
 use Illuminate\Support\Facades\Hash;
@@ -109,8 +109,8 @@ class AccueilController extends Controller
 
         $totalSteps = 5;
         return view('components.wizard-membership', [
-            'step' => 5, 
-            'data' => $data, 
+            'step' => 5,
+            'data' => $data,
             'totalSteps' => $totalSteps,
         ]);
 
@@ -120,26 +120,26 @@ class AccueilController extends Controller
         $demandeAdhesion = DemandeAdhesion::findOrFail($id);
         $cotisations = DemandeCategorieHelper::calculerCotisationMensuelleTotale($demandeAdhesion->nombreAyantsDroits, $demandeAdhesion->statut);
 
-        $dateActuelle = now()->format('Y-m-d'); 
+        $dateActuelle = now()->format('Y-m-d');
         $dateEnLettres = DateHelper::convertirDateEnLettres($dateActuelle);
-        $ayantsDroits = json_decode($demandeAdhesion->ayantsDroits, true); 
+        $ayantsDroits = json_decode($demandeAdhesion->ayantsDroits, true);
         return view('pages.frontend.adherents.resume_adhesion', compact('demandeAdhesion', 'dateEnLettres', 'ayantsDroits','cotisations'));
     }
 
     public function showCessionVolontaire($id)
     {
-        $date = Carbon::parse(now())->translatedFormat('d F Y'); 
+        $date = Carbon::parse(now())->translatedFormat('d F Y');
 
         $demandeAdhesion = DemandeAdhesion::findOrFail($id);
         $cotisations = DemandeCategorieHelper::calculerCotisationMensuelleTotale($demandeAdhesion->nombreAyantsDroits, $demandeAdhesion->statut);
         return view('pages.frontend.adherents.fiches.cession_volontaire', compact('demandeAdhesion', 'cotisations'));
     }
-    
+
     public function finalAdhesion($id)
     {
 
         $demandeAdhesion = DemandeAdhesion::findOrFail($id);
-       
+
         $demandeAdhesion->save();
         $cotisations = DemandeCategorieHelper::calculerCotisationMensuelleTotale($demandeAdhesion->nombreAyantsDroits, $demandeAdhesion->statut);
         $mensualite = $cotisations['cotisationTotale'];
@@ -157,8 +157,8 @@ class AccueilController extends Controller
             'email' => $demandeAdhesion->email,
             'nom' => $demandeAdhesion->nom,
             'prenom' => $demandeAdhesion->prenom,
-            'genre' => $demandeAdhesion->genre, 
-            'departement' => $demandeAdhesion->departement, 
+            'genre' => $demandeAdhesion->genre,
+            'departement' => $demandeAdhesion->departement,
             'ville' => $demandeAdhesion->ville,
             'pays' => $demandeAdhesion->pays,
             'nom_pere' => $demandeAdhesion->nom_pere,
@@ -183,15 +183,15 @@ class AccueilController extends Controller
             'dateDepartARetraite' => $demandeAdhesion->dateDepartARetraite,
             'direction' => $demandeAdhesion->direction,
             'service' => $demandeAdhesion->service,
-            'password' => Hash::make($generatedPassword), 
+            'password' => Hash::make($generatedPassword),
             'date_enregistrement' => now(),
-            'code_carte' => $demandeAdhesion->matricule . '/00', 
+            'code_carte' => $demandeAdhesion->matricule . '/00',
             'region' => $demandeAdhesion->region,
             'province' => $demandeAdhesion->province,
             'localite' => $demandeAdhesion->localite,
             'must_change_password' => true,
             'demande_id' => $demandeAdhesion->id,
-            
+
             'is_new' => true,
 
             'is_adherent' => false,
@@ -199,7 +199,7 @@ class AccueilController extends Controller
 
         ];
         $adherent = Adherent::create($data);
-        
+
 
         $ayantsDroitsArray = json_decode($demandeAdhesion->ayantsDroits, true);
         if ($demandeAdhesion->nombreAyantsDroits > 0) {
@@ -214,12 +214,12 @@ class AccueilController extends Controller
                         'cnib' => !empty($ayantDroitData['cnib']) ? $ayantDroitData['cnib'] : null,
                         'extrait' => !empty($ayantDroitData['extrait']) ? $ayantDroitData['extrait'] : null,
                         'adherent_id' => $adherent->id ,
-    
+
                         'date_naissance' => $ayantDroitData['date_naissance'],
                         'relation' => $ayantDroitData['relation'],
-                        'code' => $adherent->matricule . '/' . str_pad($position, 2, '0', STR_PAD_LEFT), 
-                        'position' => $position, 
-    
+                        'code' => $adherent->matricule . '/' . str_pad($position, 2, '0', STR_PAD_LEFT),
+                        'position' => $position,
+
                     ]);
                 }
             }
@@ -244,17 +244,17 @@ class AccueilController extends Controller
     public function downloadCessionFiche($id)
     {
         $demandeAdhesion = DemandeAdhesion::findOrFail($id);
-        
+
         $data = [
             'demandeAdhesion' => $demandeAdhesion,
             'logoPath' => public_path('images/logofinal.png'),
-            'signature' => $demandeAdhesion->signature, 
+            'signature' => $demandeAdhesion->signature,
 
         ];
-        
+
         return PDFHelper::downloadPDF('pages.frontend.adherents.fiches.cession_volontaire', $data, 'Fiche_cession_volontaire_' . $demandeAdhesion->id);
     }
-    
+
     public function imprimerFicheCession($id)
     {
         $demandeAdhesion = DemandeAdhesion::findOrFail($id);
@@ -313,7 +313,7 @@ class AccueilController extends Controller
         $recentArticles = Article::latest()->take(3)->get();
         $previousArticle = Article::where('id', '<', $article->id)->latest()->first();
         $nextArticle = Article::where('id', '>', $article->id)->first();
-        
+
         return view('pages.frontend.articles.details', compact('article', 'recentArticles', 'previousArticle', 'nextArticle'));
     }
 }

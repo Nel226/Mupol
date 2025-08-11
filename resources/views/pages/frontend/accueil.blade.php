@@ -3,33 +3,33 @@
 
     <x-header-guest/>
     <hr class=" w-full h-0.5 bg-white">
-    
+
     <!-- Slider Area -->
     <section class="slider">
         <div class="hero-slider">
             @php
                 $slides = [
-                    
+
                     ['image' => 'images/caroussel/caroussel8.jpg', 'title' => 'MU-POL, la Mutuelle de la Police Nationale', 'text_color' => 'white'],
                     ['image' => 'images/caroussel/caroussel10.JPG', 'title' => 'MU-POL, la Mutuelle de la Police Nationale', 'text_color' => 'white'],
 
                 ];
             @endphp
-        
-    
+
+
             @foreach ($slides as $slide)
             <!-- Start Single Slider -->
             <div class="container">
                 <div class="single-slider !p-4" style="background-image:url('{{ $slide['image'] }}')">
                     <div class="row">
                         <div class="col-lg-7 !p-2">
-                            <div class="text text-stroke-200 bg-gray-700 bg-opacity-50 ">
+                            <div class="bg-gray-700 bg-opacity-50 text text-stroke-200 ">
                                 <h1 class="{{ $slide['text_color'] === 'white' ? 'text-white' : 'text-black' }}">
                                     {{ $slide['title'] }}
                                 </h1>
                                 <p class="{{ $slide['text_color'] === 'white' ? 'text-white' : 'text-black' }}" >Tous solidaires pour notre bien-être!</p>
                                 <p class="{{ $slide['text_color'] === 'white' ? 'text-white' : 'text-black' }}">Je suis policier (ère), j&apos;adhère ! Pour le bien-être des membres de ma famille (conjoint, enfants), je les adhère ! </p>
-        
+
                                 <div class="button">
                                     <a class="btn" href="{{ route('formulaire-adhesion', ['adherentType' => 'nouveau']) }}">
                                         Adhérer maintenant
@@ -43,21 +43,21 @@
             </div>
             <!-- End Single Slider -->
         @endforeach
-        
+
         </div>
     </section>
-    
+
     <!--/ End Slider Area -->
-    
+
     <!-- Start Schedule Area -->
     <section class="schedule">
         <div class="container">
             <div class="schedule-inner">
-                <div class="row  !-m-1"> 
+                <div class="row  !-m-1">
                     @php
                         $services = [
-                           
-                       
+
+
                         [
                             'icon' => 'icofont-hospital',
                             'title' => 'Hôpitaux Partenaires',
@@ -83,9 +83,9 @@
                             'link_text' => 'EN SAVOIR PLUS'
                         ],
                         ];
-                        
+
                     @endphp
-                
+
                     @foreach ($services as $service)
                         <div class="col-lg-4 col-md-6 col-12">
                             <!-- single-schedule -->
@@ -105,7 +105,7 @@
                         </div>
                     @endforeach
                 </div>
-                
+
             </div>
         </div>
     </section>
@@ -160,9 +160,9 @@
             </div>
         </div>
     </section>  --}}
-    
+
     <!--/ End Feautes -->
-    
+
     {{--  <!-- Start Fun-facts -->
     <div id="fun-facts" class="fun-facts section overlay">
         <div class="container">
@@ -215,25 +215,25 @@
         </div>
     </div>
     <!--/ End Fun-facts -->  --}}
-    
+
     <!-- Start Why choose -->
     <section class="why-choose section" id="apropos">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title who">
-                        <h2>Le mot 
-                            <span class=" lowercase">
+                        <h2>Le mot
+                            <span class="lowercase ">
                                 du
-                            </span>   
-                            Président 
-                            <span class=" lowercase">
+                            </span>
+                            Président
+                            <span class="lowercase ">
                                 du
-                            </span>     
-                            Conseil 
-                            <span class=" lowercase">
+                            </span>
+                            Conseil
+                            <span class="lowercase ">
                                 d&apos;
-                            </span> 
+                            </span>
                             administration
                         </h2>
                         <img  class="mx-auto" src="{{ asset('images/section-img.png') }}" alt="#">
@@ -241,8 +241,8 @@
                     </div>
                 </div>
             </div>
-            
-        
+
+
             <div class="row">
                 <div class="col-lg-12 col-12">
                     <div class="choose-content">
@@ -252,7 +252,7 @@
                             <figcaption class="photo-caption">Président du Conseil d&apos;Administration</figcaption>
                         </div>
 
-                        <h3 class=" font-bold text-lg my-2">Qui sommes-nous ?</h3>
+                        <h3 class="my-2 text-lg font-bold ">Qui sommes-nous ?</h3>
                         <p>
                             La Mutuelle de la Police Nationale (MU-POL) qui a été portée sur les fonts baptismaux lors d’une Assemblée Générale constitutive le 19 novembre 2022 et lancée officiellement le 28 juillet 2023, constitue la plus vaste entreprise sociale portée par la Police Nationale. Je voudrais, à l’occasion du lancement de la présente page Facebook de la MU-POL, remercier les plus hautes autorités, le Ministre en charge de la sécurité, les Directeurs généraux de la Police Nationale, tout le Commandement de la Police Nationale et l’UNAPOL dont les efforts conjugués nous ont permis d’avoir ce bel instrument de solidarité permettant d’offrir une assurance santé et diverses prestations sociales aux policiers, au personnel civil de la Police Nationale et aux policiers à la retraite.
                         </p>
@@ -270,14 +270,14 @@
                     </div>
                 </div>
             </div>
-            
+
         </div>
     </section>
     <!--/ End Why choose -->
 
 
-    
-    
+
+
     {{--  <!-- Start Call to action -->
     <section class="call-action overlay" data-stellar-background-ratio="0.5">
         <div class="container">
@@ -296,7 +296,7 @@
         </div>
     </section>
     <!--/ End Call to action -->  --}}
-    
+
 
     <!-- Start service -->
     <section class="services section">
@@ -311,7 +311,7 @@
                 </div>
             </div>
             <div class="row">
-              
+
 
                 @foreach ($types as $type)
                     <div class="col-lg-4 col-md-6 col-12">
@@ -363,7 +363,7 @@
                                     <h4><a href="{{ route('services') }}">Soins dentaires et auditifs</a></h4>
                                     <p>{{ $descriptions['dentaire_auditif'] }}</p>
                                     @break
-                                
+
                             @endswitch
                         </div>
                         <!-- End Single Service -->
@@ -375,7 +375,7 @@
         </div>
     </section>
     <!--/ End service -->
-    
+
     <!-- Start Blog Area -->
     <section class="blog section" id="actualites">
         <div class="container">
@@ -388,8 +388,8 @@
                     </div>
                 </div>
             </div>
-            <div class="article-slider overflow-hidden">
-                <div class="row mx-0">
+            <div class="overflow-hidden article-slider">
+                <div class="mx-0 row">
                     @foreach($articles as $article)
                         <div class="col-lg-4 col-md-6 col-12">
                             <!-- Single Blog -->
@@ -413,17 +413,17 @@
                     @endforeach
                 </div>
             </div>
-            
+
             <!-- jQuery -->
             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-            
+
             <!-- Slick Carousel CSS -->
             <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
             <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"/>
-            
+
             <!-- Slick Carousel JS -->
             <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
-            
+
             <script>
                 $(document).ready(function(){
                     $('.article-slider .row').slick({
@@ -431,7 +431,7 @@
                         slidesToShow: 3,         // Affiche 3 articles à la fois par défaut
                         slidesToScroll: 1,       // Fait défiler 1 article à la fois
                         autoplay: true,          // Active le défilement automatique
-                        autoplaySpeed: 3000,   
+                        autoplaySpeed: 3000,
                         responsive: [
                             {
                                 breakpoint: 1200,
@@ -451,13 +451,13 @@
                     });
                 });
             </script>
-            
-            
+
+
         </div>
     </section>
     <!-- End Blog Area -->
-    
-   
+
+
     <!-- Start Why choose -->
     <section class="why-choose section">
         <div class="container">
@@ -499,13 +499,13 @@
                     <!-- Start Choose Right -->
                     <div class="choose-right">
                         <div class="video-container">
-                            <iframe width="100%" height="315" 
-                                src="https://www.youtube.com/embed/leItTLjojuo?rel=0&showinfo=0&autoplay=0" 
+                            <iframe width="100%" height="315"
+                                src="https://www.youtube.com/embed/leItTLjojuo?rel=0&showinfo=0&autoplay=0"
                                 frameborder="0" allowfullscreen>
                             </iframe>
                         </div>
                     </div>
-                    
+
                     <!-- End Choose Right -->
                 </div>
             </div>
@@ -513,7 +513,7 @@
     </section>
     <!--/ End Why choose -->
 
-      
+
 
 </x-guest-layout>
 

@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Request as FacadesRequest;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
-use App\Mail\Adherent\FicheCessionVolontaire; 
+use App\Mail\Adherent\FicheCessionVolontaire;
 
 use Barryvdh\DomPDF\Facade\Pdf;
 
@@ -27,7 +27,7 @@ class DemandeController extends Controller
      */
     public function index()
     {
-        
+
         $breadcrumbsItems = [
             [
                 'name' => 'Demandes',
@@ -51,10 +51,10 @@ class DemandeController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
-            
+
         return view('pages.backend.demandes.index', compact('demandesAnciens', 'demandesNouveaux', 'breadcrumbsItems', 'pageTitle'));
     }
-    
+
 
 
     /**
@@ -62,7 +62,7 @@ class DemandeController extends Controller
      */
     public function create()
     {
-        
+
     }
 
     /**
@@ -91,7 +91,7 @@ class DemandeController extends Controller
             }
         }
         $pageTitle = 'Demande N°'.$demande->id;
-        $demande->ayantsDroits = json_decode($demande->ayantsDroits, true); 
+        $demande->ayantsDroits = json_decode($demande->ayantsDroits, true);
 
         return view('pages.backend.demandes.show', compact('demande', 'adherent', 'message', 'breadcrumbsItems', 'pageTitle' ));
 
@@ -102,7 +102,7 @@ class DemandeController extends Controller
      */
     public function edit( $id)
     {
-        $demande = DemandeAdhesion::findOrFail($id); 
+        $demande = DemandeAdhesion::findOrFail($id);
         $adherent = Adherent::where('demande_id', $id)->first();
         $breadcrumbsItems = [
             [
@@ -111,7 +111,7 @@ class DemandeController extends Controller
                 'active' => false
             ],
             [
-                'name' => $demande->nom,  
+                'name' => $demande->nom,
                 'url' => route('demandes.index'),
                 'active' => true
             ],
@@ -130,7 +130,7 @@ class DemandeController extends Controller
 
         // Valider les données envoyées dans la requête
         $validatedData = $request->validate([
-            'nom' => 'required|string|max:20', 
+            'nom' => 'required|string|max:20',
             'prenom' => 'required|string|max:55',
             'matricule' => 'required|string|max:10', // Validation unique avec exception pour l'enregistrement actuel
             'telephone' => 'required|string|max:20|regex:/^(\+?[1-9][0-9]{0,2})?[0-9]{8,10}$/',
@@ -156,23 +156,23 @@ class DemandeController extends Controller
             if (!$demande) {
                 return redirect()->back()->withErrors(['error' => 'La demande avec l\'ID fourni est introuvable.']);
             }
-    
+
             // Recherche de l'adhérent lié à la demande
             $adherent = Adherent::where('matricule', $demande->matricule)->first();
             if (!$adherent) {
                 return redirect()->back()->withErrors(['error' => 'Aucun adhérent correspondant à cette demande n\'a été trouvé.']);
             }
-    
+
             // Vérification d'unicité de l'email
             $emailExists = Adherent::where('email', $demande->email)->where('id', '!=', $adherent->id)->exists();
             if ($emailExists) {
                 return redirect()->back()->withErrors(['error' => 'L\'e-mail fourni est déjà utilisé par un autre adhérent.']);
             }
-    
+
             if ($adherent->is_new === 0) {
                 $generatedPassword = PasswordHelper::generateSecurePassword();
                 $categorie = DemandeCategorieHelper::determineCategorie($adherent->charge);
-    
+
                 // Mise à jour de l'adhérent
                 $adherent->password = Hash::make($generatedPassword);
                 $adherent->email = $demande->email;
@@ -181,26 +181,26 @@ class DemandeController extends Controller
                 $adherent->photo = $demande->photo;
                 $adherent->categorie = $categorie;
             }
-    
+
             $adherent->is_adherent = true;
             $adherent->demande_id = $demande->id;
             $adherent->save();
-    
+
             if ($adherent->is_new === 0) {
                 Mail::to($adherent->email)->send(new ConfirmationCreationCompte($adherent->email, $generatedPassword));
             }
-    
+
             // Mise à jour de l'état de la demande
             $demande->etat = true;
             $demande->save();
-    
+
             return redirect()->route('demandes.index')->with('success', 'La demande a été acceptée avec succès.');
         } catch (\Exception $e) {
             // Gestion des exceptions générales
             return redirect()->back()->withErrors(['error' => 'Une erreur inattendue s\'est produite : ' . $e->getMessage()]);
         }
     }
-    
+
 
     public function destroy($id)
     {
@@ -213,9 +213,9 @@ class DemandeController extends Controller
         AyantDroit::whereIn('adherent_id', Adherent::where('demande_id', $demande->id)->pluck('id'))->delete();
 
         Adherent::where('demande_id', $demande->id)->delete();
-        
+
         $demande->delete();
-    
+
         return redirect()->route('demandes.index')->with('success', 'La demande a été rejetée avec succès.');
     }
 
@@ -265,13 +265,13 @@ class DemandeController extends Controller
     public function envoiFicheCessionSalaire($id)
     {
         $demandeAdhesion = DemandeAdhesion::findOrFail($id);
-       
-       
+
+
         $pdf = Pdf::loadView('pages.frontend.adherents.fiches.cession_volontaire', ['demandeAdhesion' => $demandeAdhesion]);
         Mail::to($demandeAdhesion->email)->send(new FicheCessionVolontaire($demandeAdhesion, $pdf));
         return redirect()->back()->with('success', 'La fiche a été envoyée avec succès.');
 
     }
-        
+
 
 }

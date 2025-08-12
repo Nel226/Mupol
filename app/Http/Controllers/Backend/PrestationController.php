@@ -18,6 +18,8 @@ use Illuminate\Http\Request;
 use Exception;
 use Illuminate\Support\Str;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\PrestationsExport;
 
 
 class PrestationController extends Controller
@@ -42,7 +44,7 @@ class PrestationController extends Controller
 
         $prestations = Prestation::orderBy('created_at', 'desc')->get();
         $prestationsValides = Prestation::where('validite', 'accepté')->get();
-        
+
         $pageTitle = 'Liste des prestations';
         $breadcrumbsItems = [
             [
@@ -77,7 +79,7 @@ class PrestationController extends Controller
 
         $prestations = Prestation::all();
         $prestationsValides = Prestation::where('validite', 'accepté')->get();
-        
+
         $pageTitle = 'Nouvelle prestation';
 
         return view('pages.backend.prestations.create', compact('adherents', 'ayantsDroit', 'prestations', 'partenaires', 'prestationsValides', 'adherentsValides', 'ayantsDroitValides', 'pageTitle'));
@@ -110,7 +112,7 @@ class PrestationController extends Controller
                         'beneficiaire' => $data['beneficiaire'],
                         'idPrestation' => $data['idPrestation'],
                         'contactPrestation' => $data['contactPrestation'],
-                        'acte' => $data["acte"], // Modifie
+                        'acte' => $data["acte$typeSuffix"] ?? null,
                         'date' => $data["date_$type$typeSuffix"],
                         'centre' => $data["centre_$type$typeSuffix"],
                         'montant' => $data["montant_$type$typeSuffix"],
@@ -157,6 +159,12 @@ class PrestationController extends Controller
         }
 
         return redirect()->route('prestations.index')->with('success', 'Enregistrement réussi');
+    }
+
+
+    public function export()
+    {
+        return Excel::download(new PrestationsExport, 'prestations.xlsx');
     }
 
 
@@ -215,7 +223,7 @@ class PrestationController extends Controller
     public function validerMultiple(Request $request)
     {
         $ids = $request->input('ids', []);
-        
+
         if (empty($ids)) {
             return redirect()->back()->with('error', 'Aucune prestation sélectionnée.');
         }
@@ -228,7 +236,7 @@ class PrestationController extends Controller
         return redirect()->back()->with('success', 'Les prestations ont été validées avec succès.');
     }
 
-    
+
     public function rejeter($id)
     {
         $prestation = Prestation::findOrFail($id);
@@ -312,7 +320,7 @@ class PrestationController extends Controller
             })
             ->select('prestations.*', 'adherents.id as adherent_id')
             ->get();
-        
+
         // Prestations des ayants droit
         $prestationsAyantsDroit = Prestation::join('ayant_droits', 'prestations.adherentCode', '=', 'ayant_droits.code')
             ->join('adherents', 'ayant_droits.adherent_id', '=', 'adherents.id')
@@ -336,20 +344,20 @@ class PrestationController extends Controller
             ->merge($prestationsAyantsDroit)
             ->sortByDesc('created_at');
         $prestationsGroupedByAdherent = $prestationsAll->groupBy('adherent_id');
-            
+
         // Pagination manuelle
         $adherentIds = $prestationsGroupedByAdherent->keys();
         $page = $request->input('page', 1);
         $perPage = 10;
         $offset = ($page - 1) * $perPage;
-        
+
         $paginatedAdherentIds = $adherentIds->slice($offset, $perPage);
         $paginatedGrouped = collect();
-        
+
         foreach ($paginatedAdherentIds as $adherentId) {
             $paginatedGrouped[$adherentId] = $prestationsGroupedByAdherent[$adherentId];
         }
-        
+
         $paginatedPrestations = new LengthAwarePaginator(
             $paginatedGrouped,
             $adherentIds->count(),

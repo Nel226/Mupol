@@ -34,25 +34,25 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-      
+    
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:8|confirmed',
             'role' => 'required'
         ]);
-        
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
-        $role = Role::findOrFail($request->role); 
+        $role = Role::findOrFail($request->role);
         $user->assignRole($role);
         // Envoyer l'email de confirmation
         Mail::to($user->email)->send( new CreateUserMail($user, $role) );
-        
+
         return redirect()->route('users.index')->with('success', 'Utilisateur créé avec succès.');
     }
 

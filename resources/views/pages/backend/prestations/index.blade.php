@@ -25,9 +25,7 @@
 
             <x-data-table id="table-prestations" :headers="['','N', 'Identifiant', 'Contact', 'Date', 'Acte', 'Montant', 'Etat']">
                 @role('comptable')
-                   
-                
-                
+
                     @foreach($prestationsValides as $prestation)
                         <tr data-id="{{ $prestation->id }}" data-href="{{ route('prestations.show', $prestation->id) }}" class="cursor-pointer row-clickable hover:bg-gray-100 dark:hover:bg-gray-700">
                             <td><input type="checkbox" class="w-4 h-4 row-checkbox form-checkbox" /></td>
@@ -52,6 +50,17 @@
                     @endforeach
                 @else
                     <div class="flex flex-wrap items-center justify-end gap-2 py-2">
+
+                        <!-- Bouton Excel à gauche -->
+                        <div>
+                            <a href="{{ route('prestations.export') }}"
+                            <button class="bg-green-500 text-white px-3 py-1 rounded shadow hover:bg-green-600">
+                                Excel
+                            </button>
+
+                            Excel
+                            </a>
+                        </div>
                         <div id="validation-bar" class="hidden">
                             <button id="btn-valider-selections" class="transition bg-green-600 btn hover:bg-green-700">
                                 Valider les prestations
@@ -65,6 +74,11 @@
                         <a href="{{ route('prestations.create') }}">
                             <button class="btn">{{ __('Nouvelle') }}</button>
                         </a>
+                        <a href="{{ route('prestations.export') }}"
+                            class="bg-green-500 text-white px-3 py-1 rounded shadow hover:bg-green-600">
+                            Excel
+                        </a>
+
                     </div>
 
                     @foreach($prestations as $prestation)
@@ -168,7 +182,10 @@
                 function initializeDataTable(tableId) {
                     return $(tableId).DataTable({
                         dom: "<'flex flex-wrap items-center justify-between mb-2'lf>Bt<'flex items-center justify-between mt-2'ip>",
-                        buttons: ['print', 'excel', 'pdf'],
+                        buttons: [
+                            'print',
+                            'excel',
+                            'pdf'],
                         scrollX: true,
                         responsive: true
                     });

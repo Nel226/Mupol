@@ -16,6 +16,13 @@
                     <span class="ml-3">Tableau de bord</span>
                 </a>
             </li>
+
+            <li>
+                <a href="{{ route('prestations.index') }}" class="@if(Request::is('admin/prestations') || Request::is('admin/prestations/*')) active @endif flex items-center px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
+                    <i class="fa fa-file w-5 h-5 dark:text-gray-400 group-hover:text-black"></i>
+                    <span class="ml-3">Gestion des prestations</span>
+                </a>
+            </li>
             @role('comptable')
             <!-- Recettes Menu -->
 
@@ -137,6 +144,7 @@
                 </a>
             </li> --}}
             @endrole
+
             @role('agentsaisie|controleur')
             <li>
                 <a href="{{ route('demandes.index') }}" class="@if(Request::is('admin/demandes') || Request::is('admin/demandes/*')) active @endif flex items-center px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
@@ -147,7 +155,6 @@
             @endrole
 
             @role('agentsaisie|controleur')
-
             <li>
                 <a href="{{ route('adherents.index') }}" class="@if(Request::is('admin/adherents') || Request::is('admin/adherents/*')) active @endif flex items-center px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
                     <i class="fa fa-user w-5 h-5 dark:text-gray-400 group-hover:text-black"></i>
@@ -172,7 +179,6 @@
                 </a>
             </li>  --}}
             @role('agentsaisie|controleur|comptable')
-
             <li>
                 <a href="{{ route('prestations.index') }}" class="@if(Request::is('admin/prestations') || Request::is('admin/prestations/*')) active @endif flex items-center px-3 py-2 text-white rounded-lg hover:text-black hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300">
                     <i class="fa fa-file w-5 h-5 dark:text-gray-400 group-hover:text-black"></i>

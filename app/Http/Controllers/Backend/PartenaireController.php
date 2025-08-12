@@ -211,6 +211,8 @@ class PartenaireController extends Controller
 
         return view('pages.backend.partenaires.mail', compact('partenaires', 'breadcrumbsItems', 'pageTitle'));
     }
+
+
     public function envoyerEmail(Request $request)
     {
         set_time_limit(1000);
@@ -218,6 +220,7 @@ class PartenaireController extends Controller
         $request->validate([
             'message' => 'required|string',
             'objet' => 'required|string',
+            'email' => 'nullable|exists:partenaires,id',
             'email' => 'nullable|exists:partenaires,id',
             'type' => 'nullable|string',
         ]);

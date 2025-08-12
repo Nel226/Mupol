@@ -115,6 +115,7 @@ class AccueilController extends Controller
         ]);
 
     }
+    
     public function resumeAdhesion($id)
     {
         $demandeAdhesion = DemandeAdhesion::findOrFail($id);

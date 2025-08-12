@@ -15,13 +15,13 @@
         .vertical-align {
             vertical-align: top;
         }
-        
+
         .adhesion-form {
             width: 100%;
             background-color: white;
             color: black;
         }
-        
+
         .header {
             display: flex;
             justify-content: space-between;
@@ -69,52 +69,52 @@
         .personal-information {
             margin-top: 4px;
         }
-        
+
         .column {
             flex: 1;
             text-align: center;
         }
-        
+
         .line {
             width: 50px;
             height: 1px;
             background-color: black;
             margin: 5px auto;
         }
-        
+
         .logo {
             text-align: center;
             flex: 0 0 100px;
         }
-        
+
         .logo-img {
             width: 80px;
         }
-        
-        
-        
+
+
+
         h2 {
             font-size: 15px;
             margin: 0;
         }
-        
-        
-        
+
+
+
         .section {
             margin-top: 20px;
             border-top: 1px solid black;
             padding-top: 10px;
         }
-        
+
         .inline {
             display: flex;
             justify-content: space-between;
         }
-        
+
         p {
             margin: 5px 0;
         }
-        
+
         h3 {
             font-size: 14px;
             margin: 10px 0;
@@ -132,9 +132,9 @@
         }
 
         .section-title {
-            font-size: 0.7rem; 
+            font-size: 0.7rem;
             font-weight: 600; /* font-semibold */
-            
+
         }
 
         .references-table tr {
@@ -160,7 +160,7 @@
         /* -------------------------------- ETAT VIVIL -------------------------------- */
         .gender-box {
             width: 80%;
-            margin: auto; 
+            margin: auto;
             height: 50px;
             border: 1px solid black;
             display: flex;
@@ -187,7 +187,7 @@
             border: 1px solid black;
         }
         .tableau-ayantsDroits {
-            border-collapse: collapse; 
+            border-collapse: collapse;
             width: 100%; /* Ajuste la largeur du tableau si nécessaire */
             border-spacing: 0;
         }
@@ -260,11 +260,11 @@
         .footer-table tr,
         .footer-table {
             margin-top: 2px;
-            border: 1px solid black; 
+            border: 1px solid black;
 
         }
 
-        
+
     </style>
 </head>
 <body>
@@ -295,7 +295,7 @@
                 </tr>
             </table>
         </div>
-        
+
         <!-- Title -->
         <div class="main-title">
             <h1 class="title-form">FORMULAIRE D'ADHÉSION</h1>
@@ -319,7 +319,7 @@
                         <div>
                             <p><strong>Matricule :</strong> {{ $demandeAdhesion->matricule }}</p>
                         </div>
-    
+
                         <!-- NIP et CNIB sur la même ligne -->
                         <table>
                             <tr>
@@ -361,7 +361,7 @@
                         <p><strong>Adresse permanente :</strong> {{ $demandeAdhesion->adresse }}</p>
                     </td>
                 </tr>
-                
+
                 <tr>
                     <td style="width: 50%">
                         <table>
@@ -376,7 +376,7 @@
                         </table>
                     </td>
                     <td >
-                        
+
                     </td>
                 </tr>
             </table>
@@ -406,16 +406,16 @@
                                 <td colspan="2" style="width: 75%;"> <strong>:</strong> {{ $demandeAdhesion->prenom }} </td>
                             </tr>
                         </table>
-                            
+
                         <table>
                             <tr>
                                 <td style="width: 12%;"> <strong>Lieu de naissance</strong> </td>
 
                                 <td style="width: 1%; border-left: 1.2px solid gray; padding: 4px 0;"></td>
-                                
-                                
 
-                                <td style="width: 86%;"> 
+
+
+                                <td style="width: 86%;">
                                     <table>
                                         <tr>
                                             <td style="width: 17%;"> <strong>Département</strong></td>
@@ -454,7 +454,7 @@
                 </tr>
             </table>
         </div>
-        
+
         <!-- Section: Informations personnelles -->
         <div class="personal-information section">
             <table>
@@ -518,7 +518,7 @@
                                 <td> {{ $ayantDroit['relation'] }} </td>
                             </tr>
                         @endforeach
-            
+
                         {{-- Ajoute des lignes vides si nécessaire --}}
                         @for ($i = count($ayantsDroits); $i < 6; $i++)
                             <tr>
@@ -545,7 +545,7 @@
                     @endif
                 </tbody>
             </table>
-            
+
         </div>
 
         <div class="informations-pro section">
@@ -577,7 +577,7 @@
                 </table>
             @endif
 
-            
+
             <!-- Personnel en activite -->
             @if ($demandeAdhesion->statut === 'Actif(ve)')
                 <table>
@@ -619,7 +619,7 @@
                                 <li>Joindre une copie de l’extrait de naissance de chaque enfant</li>
                                 <li>Joindre une copie de l’extrait de naissance et de la CNIB pour la ou le(s) conjoint(es)</li>
 
-                            </ul>  
+                            </ul>
                             {{-- <h3 class="instructions">
                                  joindre une copie de l’extrait de naissance de chaque enfant
                             </h3>
@@ -629,7 +629,7 @@
                         </div>
                     </div>
                 </td>
-                
+
                 <td style="width: 5%;"></td>
 
                 <td style="width: 25%;">
@@ -642,12 +642,12 @@
                 </td>
             </tr>
         </table>
-        
 
-        
+
+
 
         <!-- Section: Informations professionnelles -->
-        
+
     </div>
 </body>
 </html>

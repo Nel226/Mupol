@@ -42,7 +42,7 @@
             <div class="logo-email">
                 <img src="{{ $message->embed(public_path() . '/images/logofinal.png') }}" alt="Logo" style="width: 150px" />
             </div>
-            
+
 
 
             <h2>{{ $objet }}</h2>
@@ -51,7 +51,7 @@
         <div class="contenu" >{!! $contenu !!}</div>
 
         <div class="footer">
-            <p>Merci,</p>
+            <p>Cordialement,</p>
             <p>L'équipe de la Mutuelle de la Police Nationale</p>
         </div>
     </div>

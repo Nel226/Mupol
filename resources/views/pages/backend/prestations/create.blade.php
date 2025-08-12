@@ -80,25 +80,9 @@
                                         <!-- 1. Remplacer la section "Statut du bénéficiaire" existante par ceci : -->
                                         <div class="w-full md:w-1/2">
                                             <label for="beneficiaire" class="block mb-2 text-sm font-medium text-gray-900">Statut du bénéficiaire :</label>
-                                            <div class="flex gap-2">
-                                                <input id="beneficiaire" name="beneficiaire" type="text"
-                                                    class="block w-full p-2 mb-4 bg-gray-200 border border-gray-300 rounded-lg focus:outline-none"
-                                                    readonly>
-                                                <select id="beneficiaireSelect" name="beneficiaire"
-                                                    class="hidden block w-full p-2 mb-4 border border-gray-300 rounded-lg focus:outline-none">
-                                                    <option value="Adhérent">Adhérent</option>
-                                                    <option value="Ayant Droit">Ayant Droit</option>
-                                                </select>
-                                                <button type="button" id="editBeneficiaire"
-                                                    class="px-3 py-2 mb-4 text-xs bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300 flex-shrink-0">
-                                                    ✏️ Modifier
-                                                </button>
-
-                                                <button type="button" id="cancelBeneficiaire"
-                                                    class="hidden px-3 py-2 mb-4 text-xs bg-gray-500 text-white rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-300 flex-shrink-0">
-                                                    ✗ Annuler
-                                                </button>
-                                            </div>
+                                            <input id="beneficiaire" name="beneficiaire" type="text"
+                                                class="block w-full p-2 mb-4 bg-gray-200 border border-gray-300 rounded-lg focus:outline-none"
+                                                readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -208,7 +192,15 @@
                                                                         @endforeach
                                                                     </select>
                                                                 </div>
-
+                                                                <script>
+                                                                    $(document).ready(function() {
+                                                                        $('.centre-select').select2({
+                                                                            placeholder: "Sélectionner un centre de santé",
+                                                                            allowClear: true,
+                                                                            width: '100%'
+                                                                        });
+                                                                    });
+                                                                </script>
 
 
 
@@ -652,25 +644,6 @@
                     });
                 }
 
-
-                // Fonction pour initialiser Select2 sur un formulaire
-                function initializeSelect2(form) {
-                    form.querySelectorAll('.centre-select').forEach(function(select) {
-                        // Détruire l'instance Select2 existante si elle existe
-                        if ($(select).hasClass('select2-hidden-accessible')) {
-                            $(select).select2('destroy');
-                        }
-
-                        // Initialiser Select2 avec un ID unique
-                        $(select).select2({
-                            placeholder: "Sélectionner un centre de santé",
-                            allowClear: true,
-                            width: '100%',
-                            tags: true,
-                            dropdownParent: $(select).closest('.form-prestation') // Important pour éviter les conflits
-                        });
-                    });
-                }
                 function addDeleteButton(form) {
                     let deleteBtn = form.querySelector('.delete-form-btn');
 
@@ -726,45 +699,34 @@
                     });
                 }
 
+
+                // Fonction pour réinitialiser tous les Select2
+                function reinitializeAllSelect2() {
+                    // Détruire toutes les instances Select2 existantes
+                    $('.centre-select').each(function() {
+                        if ($(this).hasClass("select2-hidden-accessible")) {
+                            $(this).select2('destroy');
+                        }
+                    });
+
+                    // Réinitialiser tous les Select2
+                    $('.centre-select').select2({
+                        placeholder: "Sélectionner un centre de santé",
+                        allowClear: true,
+                        width: '100%',
+                        tags: true
+                    });
+
+
+                }
+
+
                 document.addEventListener('DOMContentLoaded', function () {
 
                     const firstForm = document.querySelector('.form-prestation');
                     initializeAccordion(firstForm);
                     addDeleteButton(firstForm);
 
-                    // Initialiser Select2 pour le premier formulaire
-                    initializeSelect2(firstForm);
-
-
-                    function updateActeOptions() {
-                        let selectedActes = [];
-
-                        // Récupère tous les actes déjà choisis
-                        document.querySelectorAll('.acte-select').forEach(function(select) {
-                            if (select.value) {
-                                selectedActes.push(select.value);
-                            }
-                        });
-
-                        // Ajoute l’événement sur les selects existants
-                        document.querySelectorAll('.acte-select').forEach(function(select) {
-                            select.addEventListener('change', updateActeOptions);
-                        });
-
-
-                        // Parcourt chaque select et désactive les options déjà prises ailleurs
-                        document.querySelectorAll('.acte-select').forEach(function(select) {
-                            select.querySelectorAll('option').forEach(function(option) {
-                                if (selectedActes.includes(option.value) && option.value !== select.value && option.value !== "") {
-                                    option.disabled = true;
-                                } else {
-                                    option.disabled = false;
-                                }
-                            });
-                        });
-                    }
-
-                    // Modifier la fonction d'ajout de formulaire
                     document.getElementById('add-form').addEventListener('click', function () {
                         const formContainer = document.getElementById('form-container');
                         const originalForm = document.querySelector('.form-prestation');
@@ -775,7 +737,6 @@
                         if (label) {
                             label.textContent = `Prestation #${formIndex}`;
                         }
-
 
                         // Réinitialiser les champs
                         // Réinitialise les champs
@@ -793,6 +754,7 @@
                             if (element.id) {
                                 element.id = `${element.id.split('-')[0]}-${formIndex}`;
                             }
+
                             if (element.tagName === 'SELECT') {
                                 element.selectedIndex = 0;
                             } else if (['text', 'number', 'file', 'date'].includes(element.type)) {
@@ -801,19 +763,6 @@
                                 element.checked = false;
                             }
                         });
-                        // Supprimer les éléments Select2 clonés
-                        newForm.querySelectorAll('.select2-container').forEach(function(container) {
-                            container.remove();
-                        });
-
-                        // Réinitialiser les classes des selects
-                        newForm.querySelectorAll('.centre-select').forEach(function(select) {
-                            select.classList.remove('select2-hidden-accessible');
-                            select.removeAttribute('data-select2-id');
-                            select.removeAttribute('aria-hidden');
-                            select.removeAttribute('tabindex');
-                        });
-
 
                         initializeAccordion(newForm);
                         hideAllOptions(newForm);
@@ -833,10 +782,11 @@
                             }
                         }
 
-
                         formContainer.appendChild(newForm);
                         updateFormIndices(formContainer);
-                        // Initialiser Select2 pour le nouveau formulaire
+                        // IMPORTANT : Réinitialiser tous les Select2 après ajout
+                        reinitializeAllSelect2();
+
 
 
                         // Initialiser Select2 pour le nouveau formulaire
@@ -844,8 +794,6 @@
                         // Mettre à jour la restriction des actes
                         updateActeOptions();
                     });
-                    updateActeOptions();
-
 
                     // Initialiser les événements sur les select existants
                     document.querySelectorAll('.acte-select').forEach(function (acteSelect) {
@@ -856,6 +804,11 @@
 
                         });
                     });
+                    // Initialisation au chargement
+                    $(document).ready(function () {
+                        reinitializeAllSelect2();
+                    });
+
                 });
 
             </script>
@@ -888,44 +841,6 @@
                     const infosACompleter = document.getElementById('infosACompleter');
 
 
-                    // 2. Ajouter ce JavaScript dans le script defer existant, juste après la ligne "const infosACompleter = document.getElementById('infosACompleter');"
-
-                    const beneficiaireInput = document.getElementById('beneficiaire');
-                    const beneficiaireSelect = document.getElementById('beneficiaireSelect');
-                    const editBeneficiaireBtn = document.getElementById('editBeneficiaire');
-                    const cancelBeneficiaireBtn = document.getElementById('cancelBeneficiaire');
-                    let originalBeneficiaireValue = '';
-
-                    // Gérer le clic sur "Modifier"
-                    editBeneficiaireBtn.addEventListener('click', function() {
-                        originalBeneficiaireValue = beneficiaireInput.value;
-                        beneficiaireSelect.value = beneficiaireInput.value;
-
-                        beneficiaireInput.classList.add('hidden');
-                        beneficiaireSelect.classList.remove('hidden');
-                        editBeneficiaireBtn.classList.add('hidden');
-                        cancelBeneficiaireBtn.classList.remove('hidden');
-                    });
-
-                    // Validation automatique lors du changement de sélection
-                    beneficiaireSelect.addEventListener('change', function() {
-                        beneficiaireInput.value = beneficiaireSelect.value;
-
-                        beneficiaireInput.classList.remove('hidden');
-                        beneficiaireSelect.classList.add('hidden');
-                        editBeneficiaireBtn.classList.remove('hidden');
-                        cancelBeneficiaireBtn.classList.add('hidden');
-                    });
-
-                    // Gérer le clic sur "Annuler"
-                    cancelBeneficiaireBtn.addEventListener('click', function() {
-                        beneficiaireInput.value = originalBeneficiaireValue;
-
-                        beneficiaireInput.classList.remove('hidden');
-                        beneficiaireSelect.classList.add('hidden');
-                        editBeneficiaireBtn.classList.remove('hidden');
-                        cancelBeneficiaireBtn.classList.add('hidden');
-                    });
 
                     $('#adherentCode').on('change', function() {
                         const selectedCode = $(this).val(); // Récupérer la valeur sélectionnée
@@ -1050,52 +965,7 @@
 
             </script>
 
-            <script>
-            $(document).ready(function () {
-                // Initialisation Select2
-                $('.centre-select').select2({
-                    placeholder: "Sélectionner un centre de santé",
-                    allowClear: true,
-                    width: '100%',
-                    tags: true
-                });
-
-                // Quand un select change, on met à jour l'autre pour éviter les doublons
-                $('.centre-select').on('change', function () {
-                    let selectedValues = [];
-
-                    // Récupère toutes les valeurs déjà choisies
-                    $('.centre-select').each(function () {
-                        let val = $(this).val();
-                        if (val) {
-                            selectedValues.push(val);
-                        }
-                    });
-
-                    // Pour chaque select, on masque les options déjà sélectionnées ailleurs
-                    $('.centre-select').each(function () {
-                        let $select = $(this);
-                        $select.find('option').each(function () {
-                            let optionVal = $(this).attr('value');
-
-                            // On n'exclut pas l'option déjà choisie dans ce même select
-                            if (selectedValues.includes(optionVal) && optionVal !== $select.val()) {
-                                $(this).prop('disabled', true); // Désactive l'option
-                            } else {
-                                $(this).prop('disabled', false);
-                            }
-                        });
-
-                        // Mise à jour visuelle pour Select2
-                        $select.trigger('change.select2');
-                    });
-                });
-            });
-            </script>
-
-
         </div>
 
     </x-content-page-admin>
 </x-app-layout>
-

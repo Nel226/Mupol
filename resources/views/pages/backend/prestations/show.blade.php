@@ -43,7 +43,8 @@
                                 <td class="px-4 py-2 border border-gray-300 whitespace-nowrap">{{ $prestation->adherentCode }}</td>
                                 <td class="px-4 py-2 border border-gray-300 whitespace-nowrap">{{ $prestation->beneficiaire }}</td>
                                 <td class="px-4 py-2 border border-gray-300 whitespace-nowrap">{{ $prestation->adherentSexe }}</td>
-                                <td class="px-4 py-2 border border-gray-300 whitespace-nowrap">{{ $prestation->centre }}</td>
+                                {{-- <td class="px-4 py-2 border border-gray-300 whitespace-nowrap">{{ $prestation->centre }}</td> --}}
+                                <td class="px-4 py-2 border border-gray-300 whitespace-nowrap">{{ $prestation->partenaire->nom ?? '—' }}</td>
                                 <td class="px-4 py-2 border border-gray-300 whitespace-nowrap">{{ $prestation->acte }}</td>
                                 <td class="px-4 py-2 border border-gray-300 whitespace-nowrap">{{ number_format($prestation->montant, 2, ',', ' ') }}</td>
                                 <td class="px-4 py-2 border border-gray-300 whitespace-nowrap">{{ $prestation->montant*20/100}}</td>

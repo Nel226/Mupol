@@ -31,10 +31,15 @@ class Prestation extends Model
         'preuve',
     ];
 
+    // public function partenaire()
+    // {
+    //     return $this->belongsTo(Partenaire::class); 
+    // }
     public function partenaire()
     {
-        return $this->belongsTo(Partenaire::class); 
+        return $this->belongsTo(Partenaire::class, 'centre'); 
     }
+
     public function acteMedical()
     {
         return $this->belongsTo(ActeMedical::class, 'acte_medical_id');

@@ -31,11 +31,11 @@
                                     </span>
                                 </div>
                             </div>
-                            
+
                             <div class="form-content p-4 md:p-6 bg-white rounded-lg shadow-md">
                                 <!-- Barre de séparation -->
                                 <hr class="w-4/5 h-1 mx-auto mb-6 bg-primary1 border-0 rounded dark:bg-gray-700">
-                            
+
                                 <!-- Sélecteur du code -->
                                 <label for="adherentCode" class="block mb-2 text-sm font-medium text-gray-900">Sélectionnez le code du mutualiste :</label>
                                 <select id="adherentCode" name="adherentCode" class="block w-full p-2 mb-6 border border-gray-300 rounded-lg focus:ring focus:ring-primary1 focus:outline-none">
@@ -47,45 +47,45 @@
                                         <option value="{{ $ayantDroit->code }}">{{ $ayantDroit->code }}</option>
                                     @endforeach
                                 </select>
-                            
+
                                 <div id="adherentInfo" class="hidden mt-4">
                                     <!-- Première ligne : Nom et Prénom -->
                                     <div class="flex flex-col sm:flex-row gap-2">
                                         <!-- Nom -->
                                         <div class="w-full md:w-1/2">
                                             <label for="adherentNom" class="block mb-2 text-sm font-medium text-gray-900">Nom :</label>
-                                            <input id="adherentNom" name="adherentNom" type="text" 
-                                                class="block w-full p-2 mb-4 bg-gray-200 border border-gray-300 rounded-lg focus:outline-none" 
+                                            <input id="adherentNom" name="adherentNom" type="text"
+                                                class="block w-full p-2 mb-4 bg-gray-200 border border-gray-300 rounded-lg focus:outline-none"
                                                 readonly>
                                         </div>
                                         <!-- Prénom -->
                                         <div class="w-full md:w-1/2">
                                             <label for="adherentPrenom" class="block mb-2 text-sm font-medium text-gray-900">Prénom :</label>
-                                            <input id="adherentPrenom" name="adherentPrenom" type="text" 
-                                                class="block w-full p-2 mb-4 bg-gray-200 border border-gray-300 rounded-lg focus:outline-none" 
+                                            <input id="adherentPrenom" name="adherentPrenom" type="text"
+                                                class="block w-full p-2 mb-4 bg-gray-200 border border-gray-300 rounded-lg focus:outline-none"
                                                 readonly>
                                         </div>
                                     </div>
-                            
+
                                     <!-- Deuxième ligne : Sexe et Statut -->
                                     <div class="flex flex-col sm:flex-row gap-2">
                                         <!-- Sexe -->
                                         <div class="w-full md:w-1/2">
                                             <label for="adherentSexe" class="block mb-2 text-sm font-medium text-gray-900">Sexe :</label>
-                                            <input id="adherentSexe" name="adherentSexe" type="text" 
-                                                class="block w-full p-2 mb-4 bg-gray-200 border border-gray-300 rounded-lg focus:outline-none" 
+                                            <input id="adherentSexe" name="adherentSexe" type="text"
+                                                class="block w-full p-2 mb-4 bg-gray-200 border border-gray-300 rounded-lg focus:outline-none"
                                                 readonly>
                                         </div>
                                         <!-- Statut du bénéficiaire -->
                                         <div class="w-full md:w-1/2">
                                             <label for="beneficiaire" class="block mb-2 text-sm font-medium text-gray-900">Statut du bénéficiaire :</label>
-                                            <input id="beneficiaire" name="beneficiaire" type="text" 
-                                                class="block w-full p-2 mb-4 bg-gray-200 border border-gray-300 rounded-lg focus:outline-none" 
+                                            <input id="beneficiaire" name="beneficiaire" type="text"
+                                                class="block w-full p-2 mb-4 bg-gray-200 border border-gray-300 rounded-lg focus:outline-none"
                                                 readonly>
                                         </div>
                                     </div>
                                 </div>
-                            
+
                                 <!-- Sélection principale -->
                                 <div  id="infosACompleter" class=" infosACompleter hidden" >
                                     <fieldset class=" mt-2 ">
@@ -97,7 +97,7 @@
                                         </button>  --}}
                                         {{--  <div  class="p-2 border-2 border-primary1 rounded-md">
                                         </div>  --}}
-                                        
+
                                             <div class="w-11/12 sm:w-4/5 mx-auto flex items-center py-5">
                                                 <!-- Ligne gauche -->
                                                 <div class="flex-grow border-t border-gray-400 border-2 sm:border-4"></div>
@@ -106,7 +106,7 @@
                                                 <!-- Ligne droite -->
                                                 <div class="flex-grow border-t border-gray-400 border-2 sm:border-4"></div>
                                             </div>
-                                        
+
                                             <div id="acteContainer" class="acteContainer hidden">
                                                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                                                     <!-- Identifiant prestation -->
@@ -114,12 +114,12 @@
                                                         <label for="idPrestation" class="block mb-2 text-sm font-medium text-gray-900">
                                                             Identifiant prestation :
                                                         </label>
-                                                        <input 
-                                                            id="idPrestation" 
-                                                            name="idPrestation" 
-                                                            type="text" 
-                                                            class="block w-full p-2 mb-4 border border-gray-300 rounded-lg" 
-                                                            placeholder="Entrez l'identifiant de la prestation" 
+                                                        <input
+                                                            id="idPrestation"
+                                                            name="idPrestation"
+                                                            type="text"
+                                                            class="block w-full p-2 mb-4 border border-gray-300 rounded-lg"
+                                                            placeholder="Entrez l'identifiant de la prestation"
                                                             required
                                                         >
                                                     </div>
@@ -128,27 +128,27 @@
                                                         <label for="contactPrestation" class="block mb-2 text-sm font-medium text-gray-900">
                                                             Téléphone :
                                                         </label>
-                                                        <input 
-                                                            id="contactPrestation" 
-                                                            name="contactPrestation" 
-                                                            type="number" 
-                                                            class="block w-full p-2 mb-4 border border-gray-300 rounded-lg" 
-                                                            placeholder="Entrez un numéro de téléphone pour le paiement" 
+                                                        <input
+                                                            id="contactPrestation"
+                                                            name="contactPrestation"
+                                                            type="number"
+                                                            class="block w-full p-2 mb-4 border border-gray-300 rounded-lg"
+                                                            placeholder="Entrez un numéro de téléphone pour le paiement"
                                                             required
                                                         >
                                                     </div>
                                                 </div>
                                             </div>
-                                            
+
                                             <div id="form-container">
                                                 <div class="form-prestation rounded-md  !mt-2 bg-gray-100 shadow-lg  border">
                                                     <div class="w-full p-2 rounded-t-md bg-gray-300 flex items-center justify-between cursor-pointer" >
-                                                        <button id="accordion-header" >          
+                                                        <button id="accordion-header" >
                                                             <span id="toggle-icon" class="text-xs" >▼ Masquer</span>
                                                         </button>
                                                         <label for="form" id="label" class="block text-bold text-sm font-medium text-gray-900">Prestation #1</label>
                                                         <div class=" flex justify-end items-center">
-                                                            
+
                                                             <div class="text-right mt-4">
                                                                 <button type="button" class="bg-red-600 text-white text-xs px-3 py-1 rounded delete-form-btn">
                                                                     Supprimer
@@ -158,7 +158,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="p-4 " id="accordion-content">
-                                                        
+
                                                         <label for="acte" class="block mb-2 text-sm font-medium text-gray-900">Sélectionnez une option :</label>
                                                         <select id="acte" name="acte" class="acte-select block w-full p-2 mb-4 border border-gray-300 rounded-lg">
                                                             <option value="">-- Choisir --</option>
@@ -172,7 +172,7 @@
                                                             <option value="dentaire_auditif">Dentaire et auditif</option>
                                                             <option value="allocation">Allocation</option>
                                                             <option value="autre">Autre</option>
-        
+
                                                         </select>
                                                         <!-- Options spécifiques -->
                                                         <div id="consultationOptions" class="options consultation hidden">
@@ -182,7 +182,7 @@
                                                                     <label for="date" class="block mb-2 text-sm font-medium text-gray-900">Date :</label>
                                                                     <input id="date" name="date_consultation" type="date" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
                                                                 </div>
-                                                                
+
                                                                 <div class="w-full">
                                                                     <label for="centre" class="block mb-2 text-sm font-medium text-gray-900">Centre de santé :</label>
                                                                     <select  name="centre_consultation" class="centre-select block w-full p-2 mb-4 border border-gray-300 rounded-lg select2">
@@ -200,9 +200,9 @@
                                                                         });
                                                                     });
                                                                 </script>
-                                                                
-                                                                
-                                                                
+
+
+
                                                             </div>
                                                             <label class="block mb-2 text-sm font-medium text-gray-900">Type de consultation :</label>
                                                             <select  id="typeConsultation" name="type_consultation" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg">
@@ -244,15 +244,15 @@
                                                                     <label for="montant"   class="block mb-2 text-sm font-medium text-gray-900">Montant :</label>
                                                                     <input id="montant"  name="montant_consultation" type="number" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg "  >
                                                                 </div>
-                                                                
+
                                                                 <div class="w-full">
                                                                     <label for="preuve" class="block mb-2 text-sm font-medium text-gray-900">Preuve :</label>
                                                                     <input id="preuve" name="preuve[]" type="file" accept="image/*" multiple class="block w-full p-2 mb-4 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
                                                                 </div>
-                                                                
+
                                                             </div>
                                                         </div>
-                                                        
+
                                                         <div id="hospitalisationOptions" class="hospitalisation options hidden">
                                                             <h3 class="mb-2 text-xl font-semibold">Hospitalisation</h3>
                                                             <div class="flex space-x-6 sm:flex-row">
@@ -260,7 +260,7 @@
                                                                     <label for="date" class="block mb-2 text-sm font-medium text-gray-900">Date :</label>
                                                                     <input id="date" name="date_hospitalisation" type="date" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
                                                                 </div>
-                                                                
+
                                                                 <div class="w-full">
                                                                     <label for="centre" class="block mb-2 text-sm font-medium text-gray-900">Centre de santé :</label>
                                                                     <select  name="centre_hospitalisation" class="centre-select block w-full p-2 mb-4 border border-gray-300 rounded-lg select2">
@@ -269,7 +269,7 @@
                                                                         @endforeach
                                                                     </select>
                                                                 </div>
-                                                                
+
                                                             </div>
                                                             <label class="block mb-2 text-sm font-medium text-gray-900">Durée :</label>
                                                             <select name="type_hospitalisation" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg">
@@ -284,25 +284,25 @@
                                                                     <label for="montant" class="block mb-2 text-sm font-medium text-gray-900">Montant :</label>
                                                                     <input id="montant" name="montant_hospitalisation" type="number" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
                                                                 </div>
-                                                                
+
                                                                 <div class="w-1/2">
                                                                     <label for="preuve" class="block mb-2 text-sm font-medium text-gray-900">Preuve(s) :</label>
                                                                     <input id="preuve" name="preuve[]" type="file" multiple accept="image/*" class="block w-full p-2 mb-4 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
                                                                 </div>
-                                                                
+
                                                             </div>
-                                                            
+
                                                         </div>
-                            
+
                                                         <div id="analyseBiomedicaleOptions" class="options analyse_biomedicale hidden">
-                                                            
+
                                                             <h3 class="mb-2 text-xl font-semibold">Analyse biomédicale</h3>
                                                             <div class="flex space-x-6">
                                                                 <div class="w-1/2">
                                                                     <label for="date" class="block mb-2 text-sm font-medium text-gray-900">Date :</label>
                                                                     <input id="date"  name="date_analyse_biomedicale" type="date" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
                                                                 </div>
-                                                                
+
                                                                 <div class="w-1/2">
                                                                     <label for="centre" class="block mb-2 text-sm font-medium text-gray-900">Centre de santé :</label>
                                                                     <select  name="centre_analyse_biomedicale" class="centre-select block w-full p-2 mb-4 border border-gray-300 rounded-lg select2">
@@ -311,23 +311,23 @@
                                                                         @endforeach
                                                                     </select>
                                                                 </div>
-                                                                
+
                                                             </div>
-                                                            
+
                                                             <div class="flex space-x-6">
                                                                 <div class="w-1/2">
                                                                     <label for="montant" class="block mb-2 text-sm font-medium text-gray-900">Montant :</label>
                                                                     <input id="montant"  name="montant_analyse_biomedicale" type="number" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
                                                                 </div>
-                                                                
+
                                                                 <div class="w-1/2">
                                                                     <label for="preuve" class="block mb-2 text-sm font-medium text-gray-900">Preuve(s) :</label>
                                                                     <input id="preuve" name="preuve[]" type="file" accept="image/*" multiple class="block w-full p-2 mb-4 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
                                                                 </div>
-                                                                
+
                                                             </div>
                                                         </div>
-                                                        
+
                                                         <div id="radioOptions" class="options radio hidden">
                                                             <h3 class="mb-2 text-xl font-semibold">Radio</h3>
                                                             <div class="flex space-x-6">
@@ -335,7 +335,7 @@
                                                                     <label for="date" class="block mb-2 text-sm font-medium text-gray-900">Date :</label>
                                                                     <input id="date" name="date_radio" type="date" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
                                                                 </div>
-                                                                
+
                                                                 <div class="w-1/2">
                                                                     <label for="centre" class="block mb-2 text-sm font-medium text-gray-900">Centre de santé :</label>
                                                                     <select  name="centre_radio" class="centre-select block w-full p-2 mb-4 border border-gray-300 rounded-lg select2">
@@ -344,7 +344,7 @@
                                                                         @endforeach
                                                                     </select>
                                                                 </div>
-                                                                
+
                                                             </div>
                                                             <label class="block mb-2 text-sm font-medium text-gray-900">Type :</label>
                                                             <select name="type_radio" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg">
@@ -362,24 +362,24 @@
                                                                     <label for="montant" class="block mb-2 text-sm font-medium text-gray-900">Montant :</label>
                                                                     <input id="montant" name="montant_radio" type="number" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
                                                                 </div>
-                                                                
+
                                                                 <div class="w-1/2">
                                                                     <label for="preuve" class="block mb-2 text-sm font-medium text-gray-900">Preuve(s) :</label>
                                                                     <input id="preuve" name="preuve[]" type="file" accept="image/*" multiple class="block w-full p-2 mb-4 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
                                                                 </div>
-                                                                
+
                                                             </div>
                                                         </div>
-                            
+
                                                         <div id="pharmacieOptions" class="options pharmacie hidden">
-                                                            
+
                                                             <h3 class="mb-2 text-xl font-semibold">Pharmacie</h3>
                                                             <div class="flex space-x-6">
                                                                 <div class="w-1/2">
                                                                     <label for="date" class="block mb-2 text-sm font-medium text-gray-900">Date :</label>
                                                                     <input id="date"  name="date_pharmacie" type="date" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
                                                                 </div>
-                                                                
+
                                                                 <div class="w-1/2">
                                                                     <label for="centre" class="block mb-2 text-sm font-medium text-gray-900">Centre de santé :</label>
                                                                     <select  name="centre_pharmacie" class="centre-select block w-full p-2 mb-4 border border-gray-300 rounded-lg select2">
@@ -388,32 +388,32 @@
                                                                         @endforeach
                                                                     </select>
                                                                 </div>
-                                                                
+
                                                             </div>
-                                                            
+
                                                             <div class="flex space-x-6">
                                                                 <div class="w-1/2">
                                                                     <label for="montant" class="block mb-2 text-sm font-medium text-gray-900">Montant :</label>
                                                                     <input id="montant"  name="montant_pharmacie" type="number" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
                                                                 </div>
-                                                                
+
                                                                 <div class="w-1/2">
                                                                     <label for="preuve" class="block mb-2 text-sm font-medium text-gray-900">Preuve(s) :</label>
                                                                     <input id="preuve" name="preuve[]" type="file" accept="image/*" multiple class="block w-full p-2 mb-4 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
                                                                 </div>
-                                                                
+
                                                             </div>
                                                         </div>
-                                                        
+
                                                         <div id="materniteOptions" class="options maternite hidden">
-                                                            
+
                                                             <h3 class="mb-2 text-xl font-semibold">Maternité</h3>
                                                             <div class="flex space-x-6">
                                                                 <div class="w-1/2">
                                                                     <label for="date" class="block mb-2 text-sm font-medium text-gray-900">Date :</label>
                                                                     <input id="date"  name="date_maternite" type="date" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
                                                                 </div>
-                                                                
+
                                                                 <div class="w-1/2">
                                                                     <label for="centre" class="block mb-2 text-sm font-medium text-gray-900">Centre de santé :</label>
                                                                     <select  name="centre_maternite" class="centre-select block w-full p-2 mb-4 border border-gray-300 rounded-lg select2">
@@ -422,7 +422,7 @@
                                                                         @endforeach
                                                                     </select>
                                                                 </div>
-                                                                
+
                                                             </div>
                                                             <label class="block mb-2 text-sm font-medium text-gray-900">Type :</label>
                                                             <select name="type_maternite" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg">
@@ -435,24 +435,24 @@
                                                                     <label for="montant" class="block mb-2 text-sm font-medium text-gray-900">Montant :</label>
                                                                     <input id="montant"  name="montant_maternite" type="number" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
                                                                 </div>
-                                                                
+
                                                                 <div class="w-1/2">
                                                                     <label for="preuve" class="block mb-2 text-sm font-medium text-gray-900">Preuve(s) :</label>
                                                                     <input id="preuve" name="preuve[]" type="file" accept="image/*" multiple class="block w-full p-2 mb-4 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
                                                                 </div>
-                                                                
+
                                                             </div>
                                                         </div>
-                            
+
                                                         <div id="optiqueOptions" class="options optique hidden">
-                                                            
+
                                                             <h3 class="mb-2 text-xl font-semibold">Optique</h3>
                                                             <div class="flex space-x-6">
                                                                 <div class="w-1/2">
                                                                     <label for="date" class="block mb-2 text-sm font-medium text-gray-900">Date :</label>
                                                                     <input id="date"  name="date_optique" type="date" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
                                                                 </div>
-                                                                
+
                                                                 <div class="w-1/2">
                                                                     <label for="centre" class="block mb-2 text-sm font-medium text-gray-900">Centre de santé :</label>
                                                                     <select name="centre_optique" class="centre-select block w-full p-2 mb-4 border border-gray-300 rounded-lg select2">
@@ -461,32 +461,32 @@
                                                                         @endforeach
                                                                     </select>
                                                                 </div>
-                                                                
+
                                                             </div>
-                                                            
+
                                                             <div class="flex space-x-6">
                                                                 <div class="w-1/2">
                                                                     <label for="montant" class="block mb-2 text-sm font-medium text-gray-900">Montant :</label>
                                                                     <input id="montant"  name="montant_optique" type="number" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
                                                                 </div>
-                                                                
+
                                                                 <div class="w-1/2">
                                                                     <label for="preuve" class="block mb-2 text-sm font-medium text-gray-900">Preuve(s) :</label>
                                                                     <input id="preuve" name="preuve[]" type="file" accept="image/*" multiple class="block w-full p-2 mb-4 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
                                                                 </div>
-                                                                
+
                                                             </div>
                                                         </div>
-                                                        
+
                                                         <div id="dentaireAuditifOptions" class="options dentaire_auditif hidden">
-                                                            
+
                                                             <h3 class="mb-2 text-xl font-semibold">Dentaire et auditif</h3>
                                                             <div class="flex space-x-6">
                                                                 <div class="w-1/2">
                                                                     <label for="date" class="block mb-2 text-sm font-medium text-gray-900">Date :</label>
                                                                     <input id="date"  name="date_dentaire_auditif" type="date" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
                                                                 </div>
-                                                                
+
                                                                 <div class="w-1/2">
                                                                     <label for="centre" class="block mb-2 text-sm font-medium text-gray-900">Centre de santé :</label>
                                                                     <select  name="centre_dentaire_auditif" class="centre-select block w-full p-2 mb-4 border border-gray-300 rounded-lg select2">
@@ -495,23 +495,23 @@
                                                                         @endforeach
                                                                     </select>
                                                                 </div>
-                                                                
+
                                                             </div>
-                                                            
+
                                                             <div class="flex space-x-6">
                                                                 <div class="w-1/2">
                                                                     <label for="montant" class="block mb-2 text-sm font-medium text-gray-900">Montant :</label>
                                                                     <input id="montant"  name="montant_dentaire_auditif" type="number" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
                                                                 </div>
-                                                                
+
                                                                 <div class="w-1/2">
                                                                     <label for="preuve" class="block mb-2 text-sm font-medium text-gray-900">Preuve(s) :</label>
                                                                     <input id="preuve" name="preuve[]" type="file" accept="image/*" multiple class="block w-full p-2 mb-4 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
                                                                 </div>
-                                                                
+
                                                             </div>
                                                         </div>
-                            
+
                                                         <div id="allocationOptions" class="options allocation hidden">
                                                             <h3 class="mb-2 text-xl font-semibold">Allocation</h3>
                                                             <div class="flex space-x-6">
@@ -519,7 +519,7 @@
                                                                     <label for="date" class="block mb-2 text-sm font-medium text-gray-900">Date :</label>
                                                                     <input id="date"  name="date_allocation" type="date" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
                                                                 </div>
-                                                                
+
                                                                 <div class="w-1/2">
                                                                     <label for="centre" class="block mb-2 text-sm font-medium text-gray-900">Centre de santé :</label>
                                                                     <select  name="centre_allocation" class="centre-select block w-full p-2 mb-4 border border-gray-300 rounded-lg select2">
@@ -528,7 +528,7 @@
                                                                         @endforeach
                                                                     </select>
                                                                 </div>
-                                                                
+
                                                             </div>
                                                             <label class="block mb-2 text-sm font-medium text-gray-900">Type :</label>
                                                             <select name="type_allocation" id="allocationType" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg">
@@ -538,7 +538,7 @@
                                                                 <option value="deces-ayant-droit">Décès ayant droit</option>
                                                                 <option value="secours-medical">Secours Médical</option>
                                                             </select>
-                                                            
+
                                                             <div id="secoursMedicalDetail" class="hidden mt-2">
                                                                 <label class="block mb-2 text-sm font-medium text-gray-900">Détail :</label>
                                                                 <select name="sous_type_allocation" id="secoursMedicalDetailSelect" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg">
@@ -553,23 +553,23 @@
                                                                     <label for="montant" class="block mb-2 text-sm font-medium text-gray-900">Montant :</label>
                                                                     <input id="montant" name="montant_allocation" type="number" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
                                                                 </div>
-                                                                
+
                                                                 <div class="w-1/2">
                                                                     <label for="preuve" class="block mb-2 text-sm font-medium text-gray-900">Preuve(s) :</label>
                                                                     <input id="preuve" name="preuve[]" type="file" multiple accept="image/*" class="block w-full p-2 mb-4 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
                                                                 </div>
-                                                                
+
                                                             </div>
                                                         </div>
                                                         <div id="autreOptions" class="options autre hidden">
-                                                            
+
                                                             <h3 class="mb-2 text-xl font-semibold">Autre</h3>
                                                             <div class="flex space-x-6">
                                                                 <div class="w-1/2">
                                                                     <label for="date" class="block mb-2 text-sm font-medium text-gray-900">Date :</label>
                                                                     <input id="date"  name="date_autre" type="date" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
                                                                 </div>
-                                                                
+
                                                                 <div class="w-1/2">
                                                                     <label for="centre" class="block mb-2 text-sm font-medium text-gray-900">Centre de santé :</label>
                                                                     <select  name="centre_autre" class="centre-select block w-full p-2 mb-4 border border-gray-300 rounded-lg select2">
@@ -578,39 +578,39 @@
                                                                         @endforeach
                                                                     </select>
                                                                 </div>
-                                                                
+
                                                             </div>
                                                             <div class="w-full">
                                                                 <label for="type_autre" class="block mb-2 text-sm font-medium text-gray-900">Détails :</label>
                                                                 <input id="type_autre" name="type_autre" type="text" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
                                                             </div>
-                                                        
-                                                            
+
+
                                                             <div class="flex space-x-6">
                                                                 <div class="w-1/2">
                                                                     <label for="montant" class="block mb-2 text-sm font-medium text-gray-900">Montant :</label>
                                                                     <input id="montant"  name="montant_autre" type="number" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
                                                                 </div>
-                                                                
+
                                                                 <div class="w-1/2">
                                                                     <label for="preuve" class="block mb-2 text-sm font-medium text-gray-900">Preuve(s) :</label>
                                                                     <input id="preuve" name="preuve[]" type="file" accept="image/*" multiple class="block w-full p-2 mb-4 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
                                                                 </div>
-                                                                
+
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                     </fieldset>
-                            
-                                    
+
+
                                 </div>
                                 <div class=" flex justify-start">
                                     <x-primary-button type="button" id="add-form" class="mt-4">
                                         Ajouter une autre prestation
                                     </x-primary-button>
-                                
+
                                 </div>
                             </div>
                         </div>
@@ -618,7 +618,7 @@
 
                 </div>
                 <div class="flex items-end justify-end gap-4 mt-8">
-                    
+
                     <x-primary-button type="submit" class="mt-4 ">
                         Valider
                     </x-primary-button>
@@ -626,30 +626,30 @@
             </form>
             <script>
                 let formIndex = 1;
-            
+
                 function initializeAccordion(form) {
                     const accordionHeader = form.querySelector('#accordion-header');
                     const accordionContent = form.querySelector('#accordion-content');
                     const toggleIcon = form.querySelector('#toggle-icon');
-            
+
                     accordionHeader.addEventListener('click', function () {
                         accordionContent.classList.toggle('hidden');
                         toggleIcon.textContent = accordionContent.classList.contains('hidden') ? '▶ Afficher' : '▼ Masquer';
                     });
                 }
-            
+
                 function addDeleteButton(form) {
                     let deleteBtn = form.querySelector('.delete-form-btn');
-            
+
                     // Si le bouton n'existe pas, on le crée
                     if (!deleteBtn) {
                         deleteBtn = document.createElement('button');
                         deleteBtn.className = 'bg-red-500 text-white p-2 text-xs rounded delete-form-btn mt-2';
                         deleteBtn.textContent = 'Supprimer';
-            
+
                         form.appendChild(deleteBtn);
                     }
-            
+
                     deleteBtn.addEventListener('click', function () {
                         const formContainer = document.getElementById('form-container');
                         if (formContainer.children.length > 1) {
@@ -660,7 +660,7 @@
                         }
                     });
                 }
-            
+
                 function updateFormIndices(container) {
                     const forms = container.querySelectorAll('.form-prestation');
                     forms.forEach((form, index) => {
@@ -671,11 +671,11 @@
                     });
                     formIndex = forms.length;
                 }
-            
+
                 function showSelectedOption(acteSelect) {
                     const form = acteSelect.closest('.form-prestation');
                     hideAllOptions(form);
-            
+
                     const selectedOption = acteSelect.value;
                     if (selectedOption) {
                         const optionToShow = form.querySelector('.' + selectedOption);
@@ -686,29 +686,50 @@
                         }
                     }
                 }
-            
+
                 function hideAllOptions(form) {
                     form.querySelectorAll('.options').forEach(function (option) {
                         option.classList.add('hidden');
                     });
                 }
-            
+
+                // Fonction pour réinitialiser tous les Select2
+                function reinitializeAllSelect2() {
+                    // Détruire toutes les instances Select2 existantes
+                    $('.centre-select').each(function() {
+                        if ($(this).hasClass("select2-hidden-accessible")) {
+                            $(this).select2('destroy');
+                        }
+                    });
+
+                    // Réinitialiser tous les Select2
+                    $('.centre-select').select2({
+                        placeholder: "Sélectionner un centre de santé",
+                        allowClear: true,
+                        width: '100%',
+                        tags: true
+                    });
+
+
+                }
+
+
                 document.addEventListener('DOMContentLoaded', function () {
                     const firstForm = document.querySelector('.form-prestation');
                     initializeAccordion(firstForm);
                     addDeleteButton(firstForm);
-            
+
                     document.getElementById('add-form').addEventListener('click', function () {
                         const formContainer = document.getElementById('form-container');
                         const originalForm = document.querySelector('.form-prestation');
                         const newForm = originalForm.cloneNode(true);
-            
+
                         formIndex++;
                         const label = newForm.querySelector('label');
                         if (label) {
                             label.textContent = `Prestation #${formIndex}`;
                         }
-            
+
                         // Réinitialiser les champs
                         newForm.querySelectorAll('input, select').forEach(function (element) {
                             if (element.name) {
@@ -717,7 +738,7 @@
                             if (element.id) {
                                 element.id = `${element.id.split('-')[0]}-${formIndex}`;
                             }
-            
+
                             if (element.tagName === 'SELECT') {
                                 element.selectedIndex = 0;
                             } else if (['text', 'number', 'file', 'date'].includes(element.type)) {
@@ -726,28 +747,31 @@
                                 element.checked = false;
                             }
                         });
-            
+
                         initializeAccordion(newForm);
                         hideAllOptions(newForm);
                         addDeleteButton(newForm);
-            
+
                         const acteSelect = newForm.querySelector('.acte-select');
                         if (acteSelect) {
                             acteSelect.selectedIndex = 0;
                             acteSelect.addEventListener('change', function () {
                                 showSelectedOption(acteSelect);
                             });
-            
+
                             if (acteSelect.value) {
                                 showSelectedOption(acteSelect);
                             }
                         }
-            
+
                         formContainer.appendChild(newForm);
                         updateFormIndices(formContainer);
+                        // IMPORTANT : Réinitialiser tous les Select2 après ajout
+                        reinitializeAllSelect2();
+
 
                     });
-            
+
                     // Initialiser les événements sur les select existants
                     document.querySelectorAll('.acte-select').forEach(function (acteSelect) {
                         acteSelect.selectedIndex = 0;
@@ -755,11 +779,17 @@
                             showSelectedOption(acteSelect);
                         });
                     });
+                    // Initialisation au chargement
+                    $(document).ready(function () {
+                        reinitializeAllSelect2();
+                    });
+
                 });
+
             </script>
-            
-            
-            
+
+
+
             <script defer>
                 document.addEventListener('DOMContentLoaded', () => {
                     const adherentCode = document.getElementById('adherentCode');
@@ -768,48 +798,48 @@
                     const consultationOptions = document.getElementById('consultationOptions');
                     const hospitalisationOptions = document.getElementById('hospitalisationOptions');
                     const analyseBiomedicaleOptions = document.getElementById('analyseBiomedicaleOptions');
-        
+
                     const radioOptions = document.getElementById('radioOptions');
                     const pharmacieOptions = document.getElementById('pharmacieOptions');
-        
+
                     const materniteOptions = document.getElementById('materniteOptions');
                     const optiqueOptions = document.getElementById('optiqueOptions');
                     const dentaireAuditifOptions = document.getElementById('dentaireAuditifOptions');
-        
+
                     const allocationOptions = document.getElementById('allocationOptions');
                     const secoursMedicalDetail = document.getElementById('secoursMedicalDetail');
-                    var adherents = @json($adherents); 
-                    var ayantsDroit = @json($ayantsDroit); 
-                    
+                    var adherents = @json($adherents);
+                    var ayantsDroit = @json($ayantsDroit);
+
                     const adherentInfo = document.getElementById('adherentInfo');
                     const beneficiaireIndicator = document.getElementById('beneficiaire');
                     const infosACompleter = document.getElementById('infosACompleter');
 
-                    
-                    
+
+
                     $('#adherentCode').on('change', function() {
                         const selectedCode = $(this).val(); // Récupérer la valeur sélectionnée
                         const selectedAdherent = adherents.find(adherent => adherent.code_carte === selectedCode);
-                
+
                         if (selectedAdherent) {
                             document.getElementById('adherentNom').value = selectedAdherent.nom;
                             document.getElementById('adherentPrenom').value = selectedAdherent.prenom;
                             document.getElementById('adherentSexe').value = selectedAdherent.genre;
                             beneficiaireIndicator.value = 'Adhérent';
-                
+
                             acteContainer.classList.remove('hidden');
                             adherentInfo.classList.remove('hidden');
                             infosACompleter.classList.remove('hidden');
 
                         } else {
                             const selectedAyantDroit = ayantsDroit.find(ayantDroit => ayantDroit.code === selectedCode);
-                
+
                             if (selectedAyantDroit) {
                                 document.getElementById('adherentNom').value = selectedAyantDroit.nom;
                                 document.getElementById('adherentPrenom').value = selectedAyantDroit.prenom;
                                 document.getElementById('adherentSexe').value = selectedAyantDroit.sexe;
                                 beneficiaireIndicator.value = 'Ayant Droit';
-                
+
                                 acteContainer.classList.remove('hidden');
                                 adherentInfo.classList.remove('hidden');
                                 infosACompleter.classList.remove('hidden');
@@ -820,14 +850,14 @@
                                 document.getElementById('adherentPrenom').value = '';
                                 document.getElementById('adherentSexe').value = '';
                                 beneficiaireIndicator.value = 'Non trouvé';
-                
+
                                 acteContainer.classList.add('hidden');
                                 acte.value = '';
                                 hideAllOptions();
                             }
                         }
                     });
-                    
+
                     typeConsultation.addEventListener('change', () => {
                         if (typeConsultation.value === 'specialiste') {
                             specialiteContainer.classList.remove('hidden');
@@ -835,62 +865,62 @@
                             specialiteContainer.classList.add('hidden');
                         }
                     });
-                    
+
                     allocationType.addEventListener('change', () => {
                         const selectedValue = allocationType.value;
-                        
+
                         secoursMedicalDetail.classList.add('hidden');
-                        
+
                         if (selectedValue === 'secours-medical') {
                             secoursMedicalDetail.classList.remove('hidden');
                         }
                     });
-                    
-                    
-                    
+
+
+
                 });
             </script>
             <script>
                 function validateForm(form) {
-                    let isValid = true; 
-                    const inputs = form.querySelectorAll('input, select, textarea'); 
+                    let isValid = true;
+                    const inputs = form.querySelectorAll('input, select, textarea');
 
                     inputs.forEach((input) => {
                         if (input.name && input.name.startsWith('preuve')) {
-                            return; 
+                            return;
                         }
                         if (!input.closest('.hidden') && (input.type !== 'checkbox' && input.type !== 'radio')) {
                             if (input.value.trim() === '') {
-                                isValid = false; 
-                                input.classList.add('border-red-500'); 
+                                isValid = false;
+                                input.classList.add('border-red-500');
                             } else {
-                                input.classList.remove('border-red-500'); 
+                                input.classList.remove('border-red-500');
                             }
                         }
-                        
+
                         if (input.type === 'checkbox' || input.type === 'radio') {
-                            const groupName = input.name; 
+                            const groupName = input.name;
                             const isChecked = form.querySelector(`input[name="${groupName}"]:checked`);
                             if (!isChecked) {
-                                isValid = false; 
-                                input.classList.add('border-red-500'); 
+                                isValid = false;
+                                input.classList.add('border-red-500');
                             } else {
-                                input.classList.remove('border-red-500'); 
+                                input.classList.remove('border-red-500');
                             }
                         }
                     });
 
-                    return isValid; 
+                    return isValid;
                 }
 
                 document.getElementById('formPrestation').addEventListener('submit', function(event) {
-                    event.preventDefault(); 
+                    event.preventDefault();
 
-                    const form = this; 
+                    const form = this;
                     if (validateForm(form)) {
-                        form.submit(); 
+                        form.submit();
                     } else {
-                        alert('Veuillez remplir tous les champs requis.'); 
+                        alert('Veuillez remplir tous les champs requis.');
                     }
                 });
 
@@ -904,14 +934,13 @@
                             }
                         }
                     });
-                
-                    
+
+
                 });
-                                     
-            </script>                    
-        
+
+            </script>
+
         </div>
-        
+
     </x-content-page-admin>
 </x-app-layout>
-

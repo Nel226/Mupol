@@ -9,7 +9,7 @@
         <script>
             document.addEventListener('DOMContentLoaded', function () {
                 const notification = document.getElementById('success-notification');
-                
+
                 setTimeout(() => {
                     notification.classList.add('hidden'); // Cache le message après 5 secondes
                 }, 5000);
@@ -17,48 +17,48 @@
         </script>
     @endif
     @if (Auth::guard('adherent')->user()->is_adherent === 0)
-    
+
     <x-header-guest/>
     <hr class=" w-full h-0.5 bg-white">
-    
+
     <div class=" h-screen">
 
         <section class="contact-us section">
             <div class="container">
                 <div class="inner">
-                    <div class="row d-flex justify-content-center"> 
-                        
+                    <div class="row d-flex justify-content-center">
+
                         <div class="col-lg-6  col-md-8 col-12 mx-auto">
                             <div class="contact-us-form  bg-green-100 border border-green-400 text-green-700">
                                 <h2 class=" !text-xl">Votre demande d&apos;adhésion a été bien reçue !</h2>
                                 <p class=" text-justify">Elle est en cours de traitement. Veuillez contacter le <strong>{{ config('contact.phone_mupol') }}</strong>  si vous ne recevez pas de réponse dans les <strong>72 heures (jours ouvrables)</strong> qui suivent votre demande. </p>
-                            
+
                             </div>
                         </div>
                     </div>
                 </div>
-            
+
             </div>
         </section>
-    
+
     </div>
-   
-        
+
+
     @else
-    
+
         <div id="app-layout" class="layout-guest overflow-x-hidden flex">
            @include("components.navbar-guest-connected")
            <!-- app layout content -->
-           <div 
-           id="app-layout-content" 
+           <div
+           id="app-layout-content"
            class="min-h-screen w-full lg:pl-[5.625rem] transition-all duration-300 ease-out">
-        
+
                @include("components.top-navbar-guest-connected")
 
               <div class="bg-indigo-600 px-8 pt-10 lg:pt-14 pb-16 flex justify-between items-center mb-3">
                  <!-- title -->
                  <h1 class="text-xl text-white">{{ $pageTitle }}</h1>
-                 
+
               </div>
               <div class="-mt-12 mx-6 mb-6 ">
                <div class="px-4  text-center ">
@@ -71,7 +71,7 @@
                    <p class="text-sm font-medium">Catégorie {{ $adherent->categorie }}</p>
                </div>
                   <div class="container ">
-                     
+
                       <div class="inner">
                           <!-- Widgets en colonnes -->
                           <div class="row ">
@@ -92,7 +92,7 @@
                                       </div>
                                   </div>
                               </div>
-                  
+
                               <!-- Deuxième colonne -->
                               <div class="col-lg-6 col-12 mb-4 px-0 px-lg-3 no-gutter-mobile">
 
@@ -119,20 +119,20 @@
                                           <h3 class="title">Informations personnelles</h3>
                                           <ul class="categor-list">
                                               <li><strong>Situation matrimoniale :</strong> {{ $adherent->situation_matrimoniale }}</li>
-                                              <li><strong>Personne à prévenir en cas de besoin :</strong> 
+                                              <li><strong>Personne à prévenir en cas de besoin :</strong>
                                                   <ol class=" list-disc list">
                                                       <li>Nom et prénom(s) : {{ $adherent->nom_prenom_personne_besoin }} </li>
                                                       <li>Lieu de résidence : {{ $adherent->lieu_residence }} </li>
                                                       <li>Téléphone : {{ $adherent->telephone_personne_prevenir}} </li>
-          
+
                                                   </ol>
                                               </li>
-                                              
+
                                           </ul>
                                       </div>
                                   </div>
                               </div>
-                  
+
                               <!-- Deuxième colonne -->
                               <div class="col-lg-6 col-12 mb-4 px-0 px-lg-3 no-gutter-mobile">
 
@@ -141,7 +141,7 @@
                                           <h3 class="title">Informations profesionnelles</h3>
                                           <ul class="categor-list">
                                               @if ($adherent->statut === 'Retraité(e)')
-                                  
+
                                               <li><strong>Statut :</strong> Personnel retraité</li>
                                               <li><strong>Grade :</strong> {{ $adherent->grade }}</li>
                                               <li><strong>Date de départ à la retraite :</strong> {{ $adherent->departARetraite }}</li>
@@ -154,7 +154,7 @@
                                               <li><strong>N° CARFO :</strong> {{ $adherent->numeroCARFO }}</li>
                                               {{-- <li><strong>Direction :</strong> {{ $adherent->direction }}</li> --}}
                                               <li><strong>Service :</strong> {{ $adherent->service }}</li>
-          
+
                                               @endif
                                           </ul>
                                       </div>
@@ -168,31 +168,31 @@
                                 <div class="main-sidebar">
                                     <div class="single-widget category">
                                         <h3 class="title">Fiches</h3>
-                                        <ul class="categor-list">
-                                            <li><strong>Situation matrimoniale :</strong> 
+                                        {{-- <ul class="categor-list">
+                                            <li><strong>Situation matrimoniale :</strong>
                                                 <a class="text-primary1 underline" href="{{ route('download-form-adhesion', ['id' => $demandeAdhesion->id]) }}">
                                                     Télécharger le formulaire d&apos;adhésion
                                                 </a>
                                             </li>
-                                            <li><strong>Personne à prévenir en cas de besoin :</strong> 
+                                            <li><strong>Personne à prévenir en cas de besoin :</strong>
                                                 <a class="text-primary1 underline" href="{{ route('download-fiche-cession-volontaire', ['id' => $demandeAdhesion->id]) }}">
                                                     Télécharger la fiche de cession volontaire
                                                 </a>
                                             </li>
-                                            
-                                        </ul>
+
+                                        </ul> --}}
                                     </div>
                                 </div>
                             </div>
-                
-                          
+
+
                         </div>
                       </div>
                   </div>
-                  
-                 
+
+
               </div>
-              
+
               @include("components.footer-guest-connected")
            </div>
         </div>

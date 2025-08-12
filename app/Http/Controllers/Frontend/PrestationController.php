@@ -18,7 +18,7 @@ class PrestationController extends Controller
     public function prestations()
     {
         $adherent = auth()->guard('adherent')->user();
-        
+
         $prestations = $adherent->prestations;
         $pageTitle = 'Liste des demandes';
         return  view('pages.frontend.adherents.prestations.index',
@@ -34,8 +34,8 @@ class PrestationController extends Controller
                 compact('partenaire', 'prestations')
         );
     }
-   
-    
+
+
 
     public function newPrestationAdherent()
     {
@@ -43,14 +43,14 @@ class PrestationController extends Controller
         $adherent->ayantsDroits = AyantDroit::where('adherent_id', $adherent->id)->get();
         $pageTitle = 'Remboursements';
 
-    
+
         return view('pages.frontend.adherents.prestations.create', compact('adherent', 'pageTitle'));
     }
     public function newPrestationPartenaire()
     {
         $partenaire = auth()->guard('partenaire')->user();
         $pageTitle ='Recherche';
-    
+
         return view('pages.frontend.partenaires.prestations.create', compact('partenaire', 'pageTitle'));
     }
     public function storePrestationAdherent(StorePrestationRequest $request)
@@ -62,9 +62,9 @@ class PrestationController extends Controller
         $prestationsToSave = [];
 
         foreach ($types as $type) {
-          
-            for ($i = 0; $i <= 20; $i++) { 
-                $typeSuffix = $i > 0 ? "-$i" : ''; 
+
+            for ($i = 0; $i <= 20; $i++) {
+                $typeSuffix = $i > 0 ? "-$i" : '';
                 if (!empty($data["date_$type$typeSuffix"]) && !empty($data["centre_$type$typeSuffix"]) && !empty($data["montant_$type$typeSuffix"])) {
 
                     $prestationsToSave[] = [
@@ -92,7 +92,6 @@ class PrestationController extends Controller
             return back()->withErrors(['message' => 'Veuillez remplir tous les champs obligatoires pour chaque prestation visible.']);
         }
         
-
         foreach ($prestationsToSave as $prestationData) {
             $montant = $prestationData['montant'];
             if ($totalMontant + $montant > 1500000) {
@@ -100,32 +99,32 @@ class PrestationController extends Controller
             }
 
             $prestation = new Prestation($prestationData);
-            
+
             // if ($request->hasFile('preuve')) {
             //     foreach ($request->file('preuve') as $file) {
-            //         $path = $file->store('preuves', 'public'); 
-            //         $prestation->preuve = json_encode([$path]); 
+            //         $path = $file->store('preuves', 'public');
+            //         $prestation->preuve = json_encode([$path]);
             //     }
             // }
             if ($request->hasFile('preuve')) {
                 $files = [];
                 foreach ($request->file('preuve') as $file) {
                     $path = $file->store('preuves', 'public');
-                    $files[] = $path; 
+                    $files[] = $path;
                 }
-                $prestation->preuve = json_encode($files); 
+                $prestation->preuve = json_encode($files);
             }
-            
 
-            $prestation->save(); 
+
+            $prestation->save();
         }
 
         $adherent = auth()->guard('adherent')->user();
-        
-        $adherent->ayantsDroits = json_decode($adherent->ayantsDroits, true); 
+
+        $adherent->ayantsDroits = json_decode($adherent->ayantsDroits, true);
 
         return redirect()->route('adherents.prestations')->with('success', 'Enregistrement réussi');
 
     }
-    
+
 }

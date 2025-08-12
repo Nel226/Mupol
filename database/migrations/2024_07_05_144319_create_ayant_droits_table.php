@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('ayant_droits', function (Blueprint $table) {
-            $table->uuid('id')->primary(); 
+            $table->uuid('id')->primary();
             $table->string('nom');
             $table->string('prenom');
             $table->string('sexe');

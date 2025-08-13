@@ -21,6 +21,14 @@
         </x-header>
 
         <div class="p-2 mx-auto mt-4 bg-white rounded-lg shadow-lg md:p-6">
+            <!-- Bouton Excel à gauche -->
+            <div>
+                <a href="{{ route('prestations.export') }}"
+                class="bg-green-500 text-white px-3 py-1 rounded shadow hover:bg-green-600">
+                Excel
+                </a>
+            </div>
+
             <div class="flex items-center justify-between mb-3">
                 <input type="checkbox" id="select-all" class="w-4 h-4 form-checkbox" value="true" />
                 <a href="{{ route('prestations.create') }}">

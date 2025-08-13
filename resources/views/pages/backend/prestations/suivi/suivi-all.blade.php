@@ -49,15 +49,15 @@
                 <div id="prestationsContainer" class="container p-4 mx-auto">
                     <div id="results-container">
                         @foreach ($paginatedPrestations as $adherentId => $prestations)
-                
+
                             @php
                                 $adherent = App\Models\Adherent::find($adherentId);
                                 $totalMontant = $prestations->sum('montant');
                             @endphp
-                            
-                               
+
+
                             <div class="mb-3 border border-gray-300 rounded-lg shadow-md
-                            
+
                                 @if($totalMontant >= 1500000) bg-red-100 border-red-500 @else bg-white @endif adherent"
                                 data-name="{{ strtolower($adherent->nom . ' ' . $adherent->prenom) }}"
                                 data-code="{{ strtolower($adherent->code_carte) }}"
@@ -104,11 +104,8 @@
                                     </table>
                                 </div>
                             </div>
-<<<<<<< HEAD
-                            
+
                         @endforeach
-=======
->>>>>>> de5819e04ee8b4c174db5de8d2da22254b725788
 
                         @endforeach
                     </div>

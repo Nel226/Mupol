@@ -20,7 +20,7 @@ use Illuminate\Support\Str;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\PrestationsExport;
-
+use Illuminate\Support\Facades\Log;
 
 class PrestationController extends Controller
 {
@@ -90,38 +90,62 @@ class PrestationController extends Controller
      * Store a newly created resource in storage.
      */
 
+
     public function store(StorePrestationRequest $request)
     {
         $data = $request->all();
+        Log::info('Data received for prestation creation:', $data);
         $adherentCode = $request->adherentCode;
         $totalMontant = Prestation::where('adherentCode', $adherentCode)->sum('montant');
         $types = ['consultation', 'hospitalisation', 'radio', 'maternite', 'allocation', 'analyse_biomedicale', 'pharmacie', 'optique', 'dentaire_auditif', 'autre'];
         $prestationsToSave = [];
 
+        // 1. CORRECTION: Identifier d'abord combien de prestations existent
+        $prestationCount = 0;
         foreach ($types as $type) {
-
             for ($i = 0; $i <= 20; $i++) {
                 $typeSuffix = $i > 0 ? "-$i" : '';
-                if (!empty($data["date_$type$typeSuffix"]) && !empty($data["centre_$type$typeSuffix"]) && !empty($data["montant_$type$typeSuffix"])) {
-
-                    $prestationsToSave[] = [
-                        'adherentCode' => $data['adherentCode'],
-                        'adherentNom' => $data['adherentNom'],
-                        'adherentPrenom' => $data['adherentPrenom'],
-                        'adherentSexe' => $data['adherentSexe'],
-                        'beneficiaire' => $data['beneficiaire'],
-                        'idPrestation' => $data['idPrestation'],
-                        'contactPrestation' => $data['contactPrestation'],
-                        'acte' => $data["acte$typeSuffix"] ?? null,
-                        'date' => $data["date_$type$typeSuffix"],
-                        'centre' => $data["centre_$type$typeSuffix"],
-                        'montant' => $data["montant_$type$typeSuffix"],
-                        'type' => $data["type_$type$typeSuffix"] ?? null,
-                        'sous_type' => $data["sous_type_$type$typeSuffix"] ?? null,
-                        'validite' => 'en attente',
-                        'etat_paiement' => false,
-                    ];
+                if (!empty($data["date_$type$typeSuffix"])) {
+                    $prestationCount = max($prestationCount, $i + 1);
                 }
+            }
+        }
+
+        // 2. CORRECTION: Traiter chaque prestation individuellement
+        for ($prestationIndex = 0; $prestationIndex < $prestationCount; $prestationIndex++) {
+            $suffix = $prestationIndex > 0 ? "-$prestationIndex" : '';
+
+            // Trouver le type d'acte pour cette prestation
+            $acteType = null;
+            foreach ($types as $type) {
+                if (!empty($data["date_$type$suffix"])) {
+                    $acteType = $type;
+                    break;
+                }
+            }
+
+            if ($acteType && !empty($data["date_$acteType$suffix"]) &&
+                !empty($data["centre_$acteType$suffix"]) &&
+                !empty($data["montant_$acteType$suffix"])) {
+
+                $prestationsToSave[] = [
+                    'adherentCode' => $data['adherentCode'],
+                    'adherentNom' => $data['adherentNom'],
+                    'adherentPrenom' => $data['adherentPrenom'],
+                    'adherentSexe' => $data['adherentSexe'],
+                    'beneficiaire' => $data['beneficiaire'],
+                    'idPrestation' => $data['idPrestation'],
+                    'contactPrestation' => $data['contactPrestation'],
+                    'acte' => $acteType,
+                    'date' => $data["date_$acteType$suffix"],
+                    'centre' => $data["centre_$acteType$suffix"],
+                    'montant' => $data["montant_$acteType$suffix"],
+                    'type' => $data["type_$acteType$suffix"] ?? null,
+                    'sous_type' => $data["sous_type_$acteType$suffix"] ?? null,
+                    'validite' => 'en attente',
+                    'etat_paiement' => false,
+                    'prestation_index' => $prestationIndex, // Pour associer les fichiers
+                ];
             }
         }
 
@@ -129,31 +153,42 @@ class PrestationController extends Controller
             return back()->withErrors(['message' => 'Veuillez remplir tous les champs obligatoires pour chaque prestation visible.']);
         }
 
+        // 3. CORRECTION: Vérifier le montant total avant de sauvegarder
+        $nouveauMontantTotal = array_sum(array_column($prestationsToSave, 'montant'));
+        if ($totalMontant + $nouveauMontantTotal > 1500000) {
+            return back()->withErrors(['error' => 'Erreur : La somme totale des prestations de cet adhérent dépasse 1 500 000.']);
+        }
 
-        foreach ($prestationsToSave as $prestationData) {
-            $montant = $prestationData['montant'];
-            if ($totalMontant + $montant > 1500000) {
-                return back()->withErrors(['error' => 'Erreur : La somme totale des prestations de cet adhérent dépasse 1 500 000.']);
+        // 4. CORRECTION: Traitement des fichiers par prestation
+        $filesByPrestation = [];
+        if ($request->hasFile('preuve')) {
+            foreach ($request->file('preuve') as $index => $file) {
+                // Associer chaque fichier à sa prestation correspondante
+                $prestationIndex = 0; // Par défaut à la première prestation
+
+                // Si vous voulez une logique plus sophistiquée pour associer les fichiers
+                // aux bonnes prestations, vous pouvez modifier cette partie
+
+                $path = $file->store("preuves/{$adherentCode}", 'public');
+
+                if (!isset($filesByPrestation[$prestationIndex])) {
+                    $filesByPrestation[$prestationIndex] = [];
+                }
+                $filesByPrestation[$prestationIndex][] = $path;
             }
+        }
+
+        // 5. Sauvegarder les prestations
+        foreach ($prestationsToSave as $index => $prestationData) {
+            $prestationIndex = $prestationData['prestation_index'];
+            unset($prestationData['prestation_index']); // Retirer cet index temporaire
 
             $prestation = new Prestation($prestationData);
 
-            // if ($request->hasFile('preuve')) {
-            //     foreach ($request->file('preuve') as $file) {
-            //         $path = $file->store('preuves', 'public');
-            //         $prestation->preuve = json_encode([$path]);
-            //     }
-            // }
-            if ($request->hasFile('preuve')) {
-                $files = [];
-                foreach ($request->file('preuve') as $file) {
-                    $path = $file->store("preuves/{$adherentCode}", 'public');
-
-                    $files[] = $path;
-                }
-                $prestation->preuve = json_encode($files);
+            // Associer les fichiers à cette prestation
+            if (isset($filesByPrestation[$prestationIndex])) {
+                $prestation->preuve = json_encode($filesByPrestation[$prestationIndex]);
             }
-
 
             $prestation->save();
         }

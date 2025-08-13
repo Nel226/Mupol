@@ -28,7 +28,7 @@
                 </a>
             </div>
 
-            <table id="table-prestations" class="min-w-full border text-sm border-collapse border-gray-300">
+            <table id="table-prestations" class="min-w-full border text-xs border-collapse border-gray-300">
                 <thead>
                     <tr class="bg-gray-200">
                         <th></th>
@@ -37,6 +37,8 @@
                         <th>Contact</th>
                         <th>Date</th>
                         <th>Acte</th>
+                        <th>Benf</th>
+
                         <th>Montant</th>
                         <th>État</th>
                     </tr>
@@ -67,13 +69,16 @@
                         @endforeach
                     @else
                         @foreach($prestations as $prestation)
-                            <tr data-id="{{ $prestation->id }}" data-href="{{ route('prestations.show', $prestation->id) }}" class="cursor-pointer row-clickable hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <tr data-id="{{ $prestation->id }}" data-href="{{ route('prestations.show', $prestation->id) }}" class="cursor-pointer border row-clickable hover:bg-gray-100 dark:hover:bg-gray-700">
                                 <td><input type="checkbox" class="w-4 h-4 row-checkbox form-checkbox" /></td>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $prestation->idPrestation }}</td>
                                 <td>{{ $prestation->contactPrestation }}</td>
                                 <td>{{ $prestation->date }}</td>
                                 <td>{{ $prestation->acte }}</td>
+                                <td>{{ $prestation->beneficiaire }}</td>
+
+
                                 <td>{{ $prestation->montant }}</td>
                                 <td>
                                     @php $validite = $prestation->validite; @endphp
@@ -95,26 +100,29 @@
 
         </div>
 
-        <script >
-            $(document).ready(function () {
-                $('#table-prestations').DataTable({
-                    dom: "<'flex flex-wrap items-center justify-between mb-2'lf>Bt<'flex items-center justify-between mt-2'ip>",
-                    buttons: ['print', 'excel', 'pdf'],
-                    scrollX: true,
-                    responsive: true,
-                    columnDefs: [{ orderable: false, targets: 0 }],
-                    order: [[1, 'asc']]
-                });
+        <script>
+        $(document).ready(function () {
+            $('#table-prestations').DataTable({
+                dom: "<'flex flex-wrap items-center justify-between mb-2'lf>Bt<'flex items-center justify-between mt-2'ip>",
+                buttons: ['print', 'excel', 'pdf'],
+                scrollX: true,
+                responsive: true,
+                scrollCollapse: true,
+                stripeClasses: ['bg-gray-50', 'bg-white'], // Classes CSS pour l'alternance
+                columnDefs: [{ orderable: false, targets: 0 }],
+                order: [[1, 'asc']]
+            });
 
-                $('#select-all').on('click', function () {
-                    const checked = this.checked;
-                    $('.row-checkbox').each(function () {
-                        this.checked = checked;
-                        this.dispatchEvent(new Event('change'));
-                    });
+            $('#select-all').on('click', function () {
+                const checked = this.checked;
+                $('.row-checkbox').each(function () {
+                    this.checked = checked;
+                    this.dispatchEvent(new Event('change'));
                 });
             });
+        });
         </script>
+
         {{-- Scripts --}}
         <script>
             document.addEventListener('DOMContentLoaded', () => {

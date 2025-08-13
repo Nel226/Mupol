@@ -76,13 +76,28 @@
                                                 class="block w-full p-2 mb-4 bg-gray-200 border border-gray-300 rounded-lg focus:outline-none"
                                                 readonly>
                                         </div>
-                                        <!-- 1. Remplacer la section "Statut du bénéficiaire" existante par ceci : -->
-                                        <!-- 1. Remplacer la section "Statut du bénéficiaire" existante par ceci : -->
+                                         <!-- Statut du bénéficiaire -->
                                         <div class="w-full md:w-1/2">
                                             <label for="beneficiaire" class="block mb-2 text-sm font-medium text-gray-900">Statut du bénéficiaire :</label>
-                                            <input id="beneficiaire" name="beneficiaire" type="text"
-                                                class="block w-full p-2 mb-4 bg-gray-200 border border-gray-300 rounded-lg focus:outline-none"
-                                                readonly>
+                                            <div class="flex gap-2">
+                                                <input id="beneficiaire" name="beneficiaire" type="text"
+                                                    class="block w-full p-2 mb-4 bg-gray-200 border border-gray-300 rounded-lg focus:outline-none"
+                                                    readonly>
+                                                <select id="beneficiaireSelect" name="beneficiaire"
+                                                    class="hidden block w-full p-2 mb-4 border border-gray-300 rounded-lg focus:outline-none">
+                                                    <option value="Adhérent">Adhérent</option>
+                                                    <option value="Ayant Droit">Ayant Droit</option>
+                                                </select>
+                                                <button type="button" id="editBeneficiaire"
+                                                    class="px-3 py-2 mb-4 text-xs bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300 flex-shrink-0">
+                                                    Modifier
+                                                </button>
+
+                                                <button type="button" id="cancelBeneficiaire"
+                                                    class="hidden px-3 py-2 mb-4 text-xs bg-gray-500 text-white rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-300 flex-shrink-0">
+                                                    ✗ Annuler
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -186,21 +201,12 @@
 
                                                                 <div class="w-full">
                                                                     <label for="centre" class="block mb-2 text-sm font-medium text-gray-900">Centre de santé :</label>
-                                                                    <select  name="centre_consultation" class="centre-select block w-full p-2 mb-4 border border-gray-300 rounded-lg select2">
+                                                                    <select  name="centre_consultation" class="centre-select block w-full p-2 mb-4 border border-gray-300 rounded-lg ">
                                                                         @foreach($partenaires as $partenaire)
                                                                             <option value="{{ $partenaire->id }}">{{ $partenaire->nom }}</option>
                                                                         @endforeach
                                                                     </select>
                                                                 </div>
-                                                                <script>
-                                                                    $(document).ready(function() {
-                                                                        $('.centre-select').select2({
-                                                                            placeholder: "Sélectionner un centre de santé",
-                                                                            allowClear: true,
-                                                                            width: '100%'
-                                                                        });
-                                                                    });
-                                                                </script>
 
 
 
@@ -264,7 +270,7 @@
 
                                                                 <div class="w-full">
                                                                     <label for="centre" class="block mb-2 text-sm font-medium text-gray-900">Centre de santé :</label>
-                                                                    <select  name="centre_hospitalisation" class="centre-select block w-full p-2 mb-4 border border-gray-300 rounded-lg select2">
+                                                                    <select  name="centre_hospitalisation" class="centre-select block w-full p-2 mb-4 border border-gray-300 rounded-lg ">
                                                                         @foreach($partenaires as $partenaire)
                                                                             <option value="{{ $partenaire->id }}">{{ $partenaire->nom }}</option>
                                                                         @endforeach
@@ -306,7 +312,7 @@
 
                                                                 <div class="w-1/2">
                                                                     <label for="centre" class="block mb-2 text-sm font-medium text-gray-900">Centre de santé :</label>
-                                                                    <select  name="centre_analyse_biomedicale" class="centre-select block w-full p-2 mb-4 border border-gray-300 rounded-lg select2">
+                                                                    <select  name="centre_analyse_biomedicale" class="centre-select block w-full p-2 mb-4 border border-gray-300 rounded-lg ">
                                                                         @foreach($partenaires as $partenaire)
                                                                             <option value="{{ $partenaire->id }}">{{ $partenaire->nom }}</option>
                                                                         @endforeach
@@ -339,7 +345,7 @@
 
                                                                 <div class="w-1/2">
                                                                     <label for="centre" class="block mb-2 text-sm font-medium text-gray-900">Centre de santé :</label>
-                                                                    <select  name="centre_radio" class="centre-select block w-full p-2 mb-4 border border-gray-300 rounded-lg select2">
+                                                                    <select  name="centre_radio" class="centre-select block w-full p-2 mb-4 border border-gray-300 rounded-lg ">
                                                                         @foreach($partenaires as $partenaire)
                                                                             <option value="{{ $partenaire->id }}">{{ $partenaire->nom }}</option>
                                                                         @endforeach
@@ -383,7 +389,7 @@
 
                                                                 <div class="w-1/2">
                                                                     <label for="centre" class="block mb-2 text-sm font-medium text-gray-900">Centre de santé :</label>
-                                                                    <select  name="centre_pharmacie" class="centre-select block w-full p-2 mb-4 border border-gray-300 rounded-lg select2">
+                                                                    <select  name="centre_pharmacie" class="centre-select block w-full p-2 mb-4 border border-gray-300 rounded-lg ">
                                                                         @foreach($partenaires as $partenaire)
                                                                             <option value="{{ $partenaire->id }}">{{ $partenaire->nom }}</option>
                                                                         @endforeach
@@ -417,7 +423,7 @@
 
                                                                 <div class="w-1/2">
                                                                     <label for="centre" class="block mb-2 text-sm font-medium text-gray-900">Centre de santé :</label>
-                                                                    <select  name="centre_maternite" class="centre-select block w-full p-2 mb-4 border border-gray-300 rounded-lg select2">
+                                                                    <select  name="centre_maternite" class="centre-select block w-full p-2 mb-4 border border-gray-300 rounded-lg ">
                                                                         @foreach($partenaires as $partenaire)
                                                                             <option value="{{ $partenaire->id }}">{{ $partenaire->nom }}</option>
                                                                         @endforeach
@@ -456,7 +462,7 @@
 
                                                                 <div class="w-1/2">
                                                                     <label for="centre" class="block mb-2 text-sm font-medium text-gray-900">Centre de santé :</label>
-                                                                    <select name="centre_optique" class="centre-select block w-full p-2 mb-4 border border-gray-300 rounded-lg select2">
+                                                                    <select name="centre_optique" class="centre-select block w-full p-2 mb-4 border border-gray-300 rounded-lg ">
                                                                         @foreach($partenaires as $partenaire)
                                                                             <option value="{{ $partenaire->id }}">{{ $partenaire->nom }}</option>
                                                                         @endforeach
@@ -490,7 +496,7 @@
 
                                                                 <div class="w-1/2">
                                                                     <label for="centre" class="block mb-2 text-sm font-medium text-gray-900">Centre de santé :</label>
-                                                                    <select  name="centre_dentaire_auditif" class="centre-select block w-full p-2 mb-4 border border-gray-300 rounded-lg select2">
+                                                                    <select  name="centre_dentaire_auditif" class="centre-select block w-full p-2 mb-4 border border-gray-300 rounded-lg ">
                                                                         @foreach($partenaires as $partenaire)
                                                                             <option value="{{ $partenaire->id }}">{{ $partenaire->nom }}</option>
                                                                         @endforeach
@@ -523,7 +529,7 @@
 
                                                                 <div class="w-1/2">
                                                                     <label for="centre" class="block mb-2 text-sm font-medium text-gray-900">Centre de santé :</label>
-                                                                    <select  name="centre_allocation" class="centre-select block w-full p-2 mb-4 border border-gray-300 rounded-lg select2">
+                                                                    <select  name="centre_allocation" class="centre-select block w-full p-2 mb-4 border border-gray-300 rounded-lg ">
                                                                         @foreach($partenaires as $partenaire)
                                                                             <option value="{{ $partenaire->id }}">{{ $partenaire->nom }}</option>
                                                                         @endforeach
@@ -565,8 +571,6 @@
                                                         <div id="autreOptions" class="options autre hidden">
 
                                                             <h3 class="mb-2 text-xl font-semibold">Autre</h3>
-                                                            <label class="block mb-2 text-sm font-medium text-gray-900">Désignation de l'acte :</label>
-                                                            <input id="typeAutre"  name="type_autre" type="text" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
 
 
                                                             <div class="flex space-x-6">
@@ -577,7 +581,7 @@
 
                                                                 <div class="w-1/2">
                                                                     <label for="centre" class="block mb-2 text-sm font-medium text-gray-900">Centre de santé :</label>
-                                                                    <select  name="centre_autre" class="centre-select block w-full p-2 mb-4 border border-gray-300 rounded-lg select2">
+                                                                    <select  name="centre_autre" class="centre-select block w-full p-2 mb-4 border border-gray-300 rounded-lg ">
                                                                         @foreach($partenaires as $partenaire)
                                                                             <option value="{{ $partenaire->id }}">{{ $partenaire->nom }}</option>
                                                                         @endforeach
@@ -587,7 +591,7 @@
                                                             </div>
                                                             <div class="w-full">
                                                                 <label for="type_autre" class="block mb-2 text-sm font-medium text-gray-900">Détails :</label>
-                                                                <input id="type_autre" name="type_Autre" type="text" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
+                                                                <input id="type_Autre" name="type_autre" type="text" class="block w-full p-2 mb-4 border border-gray-300 rounded-lg " >
                                                             </div>
 
 
@@ -630,47 +634,44 @@
                 </div>
             </form>
             <script>
-
+                // Script corrigé pour les formulaires de prestation
                 let formIndex = 1;
 
                 function initializeAccordion(form) {
-                    const accordionHeader = form.querySelector('#accordion-header');
-                    const accordionContent = form.querySelector('#accordion-content');
-                    const toggleIcon = form.querySelector('#toggle-icon');
+                    const accordionHeader = form.querySelector('[id^="accordion-header"]');
+                    const accordionContent = form.querySelector('[id^="accordion-content"]');
+                    const toggleIcon = form.querySelector('[id^="toggle-icon"]');
 
-                    accordionHeader.addEventListener('click', function () {
-                        accordionContent.classList.toggle('hidden');
-                        toggleIcon.textContent = accordionContent.classList.contains('hidden') ? '▶ Afficher' : '▼ Masquer';
-                    });
+                    if (accordionHeader && accordionContent && toggleIcon) {
+                        accordionHeader.addEventListener('click', function (e) {
+                            e.preventDefault();
+                            accordionContent.classList.toggle('hidden');
+                            toggleIcon.textContent = accordionContent.classList.contains('hidden') ? '▶ Afficher' : '▼ Masquer';
+                        });
+                    }
                 }
 
                 function addDeleteButton(form) {
                     let deleteBtn = form.querySelector('.delete-form-btn');
 
-                    // Si le bouton n'existe pas, on le crée
-                    if (!deleteBtn) {
-                        deleteBtn = document.createElement('button');
-                        deleteBtn.className = 'bg-red-500 text-white p-2 text-xs rounded delete-form-btn mt-2';
-                        deleteBtn.textContent = 'Supprimer';
-
-                        form.appendChild(deleteBtn);
+                    if (deleteBtn) {
+                        deleteBtn.addEventListener('click', function () {
+                            const formContainer = document.getElementById('form-container');
+                            if (formContainer.children.length > 1) {
+                                form.remove();
+                                updateFormIndices(formContainer);
+                                // Pas besoin de réinitialiser Select2 après suppression
+                            } else {
+                                alert("Vous devez avoir au moins une prestation.");
+                            }
+                        });
                     }
-
-                    deleteBtn.addEventListener('click', function () {
-                        const formContainer = document.getElementById('form-container');
-                        if (formContainer.children.length > 1) {
-                            form.remove();
-                            updateFormIndices(formContainer);
-                        } else {
-                            alert("Vous devez avoir au moins une prestation.");
-                        }
-                    });
                 }
 
                 function updateFormIndices(container) {
                     const forms = container.querySelectorAll('.form-prestation');
                     forms.forEach((form, index) => {
-                        const label = form.querySelector('label');
+                        const label = form.querySelector('#label, [id^="label"]');
                         if (label) {
                             label.textContent = `Prestation #${index + 1}`;
                         }
@@ -687,8 +688,6 @@
                         const optionToShow = form.querySelector('.' + selectedOption);
                         if (optionToShow) {
                             optionToShow.classList.remove('hidden');
-                        } else {
-                            console.error('Option manquante pour:', selectedOption);
                         }
                     }
                 }
@@ -699,118 +698,173 @@
                     });
                 }
 
-
-                // Fonction pour réinitialiser tous les Select2
-                function reinitializeAllSelect2() {
-                    // Détruire toutes les instances Select2 existantes
-                    $('.centre-select').each(function() {
-                        if ($(this).hasClass("select2-hidden-accessible")) {
-                            $(this).select2('destroy');
+                function makeElementsUnique(form, formNumber) {
+                    // Rendre tous les IDs uniques
+                    form.querySelectorAll('[id]').forEach(function(element) {
+                        if (element.id && formNumber > 1) {
+                            const currentId = element.id;
+                            // Éviter de dupliquer les suffixes
+                            if (!currentId.includes(`-${formNumber}`)) {
+                                element.id = `${currentId}-${formNumber}`;
+                            }
                         }
                     });
 
-                    // Réinitialiser tous les Select2
-                    $('.centre-select').select2({
-                        placeholder: "Sélectionner un centre de santé",
-                        allowClear: true,
-                        width: '100%',
-                        tags: true
+                    // Rendre les noms uniques pour les éléments de formulaire
+                    form.querySelectorAll('[name]').forEach(function(element) {
+                        if (element.name && formNumber > 1) {
+                            const currentName = element.name;
+                            // Éviter de dupliquer les suffixes dans les noms
+                            if (!currentName.includes(`-${formNumber}`) && !currentName.includes('[]')) {
+                                element.name = currentName.includes('[]') ? currentName : `${currentName}-${formNumber}`;
+                            }
+                        }
                     });
-
-
                 }
 
 
+
+
+                function initializeSelect2ForForm(form) {
+                    const centreSelects = form.querySelectorAll('.centre-select');
+
+                    centreSelects.forEach(function(select) {
+                        // Détruire complètement Select2 s'il existe
+                        if ($(select).hasClass("select2-hidden-accessible")) {
+                            $(select).select2('destroy');
+                        }
+
+                        // Supprimer tous les éléments Select2 résiduels
+                        $(select).next('.select2-container').remove();
+
+                        // Rendre le select visible et utilisable
+                        $(select).show().prop('disabled', false);
+
+                        // Réinitialiser les classes
+                        $(select).removeClass('select2-hidden-accessible');
+
+                        // Initialiser Select2
+                        $(select).select2({
+                            placeholder: "Sélectionner un centre de santé",
+                            allowClear: true,
+                            width: '100%',
+                            tags: true
+                        });
+                    });
+                }
+
+                function initializeFormEventListeners(form, index) {
+                    // Event listener pour typeConsultation
+                    const typeConsultation = form.querySelector(`[id*="typeConsultation"]`);
+                    const specialiteContainer = form.querySelector(`[id*="specialiteContainer"]`);
+
+                    if (typeConsultation && specialiteContainer) {
+                        typeConsultation.addEventListener('change', () => {
+                            if (typeConsultation.value === 'specialiste') {
+                                specialiteContainer.classList.remove('hidden');
+                            } else {
+                                specialiteContainer.classList.add('hidden');
+                            }
+                        });
+                    }
+
+                    // Event listener pour allocationType
+                    const allocationType = form.querySelector(`[id*="allocationType"]`);
+                    const secoursMedicalDetail = form.querySelector(`[id*="secoursMedicalDetail"]`);
+
+                    if (allocationType && secoursMedicalDetail) {
+                        allocationType.addEventListener('change', () => {
+                            const selectedValue = allocationType.value;
+                            secoursMedicalDetail.classList.add('hidden');
+
+                            if (selectedValue === 'secours-medical') {
+                                secoursMedicalDetail.classList.remove('hidden');
+                            }
+                        });
+                    }
+
+                    // Event listener pour le select d'acte
+                    const acteSelect = form.querySelector('.acte-select');
+                    if (acteSelect) {
+                        acteSelect.addEventListener('change', function () {
+                            showSelectedOption(acteSelect);
+                        });
+                    }
+                }
+
+                function resetFormFields(form) {
+                    // Réinitialiser tous les champs du formulaire
+                    form.querySelectorAll('input, select').forEach(function (element) {
+                        if (element.tagName === 'SELECT') {
+                            element.selectedIndex = 0;
+                        } else if (['text', 'number', 'file', 'date'].includes(element.type)) {
+                            element.value = '';
+                        } else if (['checkbox', 'radio'].includes(element.type)) {
+                            element.checked = false;
+                        }
+                    });
+                }
+
                 document.addEventListener('DOMContentLoaded', function () {
-
                     const firstForm = document.querySelector('.form-prestation');
-                    initializeAccordion(firstForm);
-                    addDeleteButton(firstForm);
+                    if (firstForm) {
+                        initializeAccordion(firstForm);
+                        addDeleteButton(firstForm);
+                        initializeFormEventListeners(firstForm, 1);
+                        initializeSelect2ForForm(firstForm);
+                    }
 
+                    // Ajouter le event listener pour le bouton "Ajouter une autre prestation"
                     document.getElementById('add-form').addEventListener('click', function () {
                         const formContainer = document.getElementById('form-container');
                         const originalForm = document.querySelector('.form-prestation');
                         const newForm = originalForm.cloneNode(true);
 
                         formIndex++;
-                        const label = newForm.querySelector('label');
+
+                        // Rendre les éléments uniques AVANT de réinitialiser
+                        makeElementsUnique(newForm, formIndex);
+
+                        // Réinitialiser les champs
+                        resetFormFields(newForm);
+
+                        // Mettre à jour le label
+                        const label = newForm.querySelector('[id^="label"]');
                         if (label) {
                             label.textContent = `Prestation #${formIndex}`;
                         }
 
-                        // Réinitialiser les champs
-                        // Réinitialise les champs
-                        newForm.querySelectorAll('input, select').forEach(function (element) {
-
-                            if (element.name) {
-                                if (formIndex === 1) {
-                                    // Premier formulaire → pas de suffixe
-                                    element.name = element.name.split('-')[0];
-                                } else {
-                                    element.name = `${element.name.split('-')[0]}-${formIndex - 1}`;
-                                }
-                            }
-
-                            if (element.id) {
-                                element.id = `${element.id.split('-')[0]}-${formIndex}`;
-                            }
-
-                            if (element.tagName === 'SELECT') {
-                                element.selectedIndex = 0;
-                            } else if (['text', 'number', 'file', 'date'].includes(element.type)) {
-                                element.value = '';
-                            } else if (['checkbox', 'radio'].includes(element.type)) {
-                                element.checked = false;
-                            }
-                        });
-
-                        initializeAccordion(newForm);
+                        // Masquer toutes les options
                         hideAllOptions(newForm);
+
+                        // Initialiser les fonctionnalités pour le nouveau formulaire
+                        initializeAccordion(newForm);
                         addDeleteButton(newForm);
 
-                        const acteSelect = newForm.querySelector('.acte-select');
-                        if (acteSelect) {
-                            acteSelect.selectedIndex = 0;
-                            acteSelect.addEventListener('change', function () {
-                                showSelectedOption(acteSelect);
-                                updateActeOptions();
-
-                            });
-
-                            if (acteSelect.value) {
-                                showSelectedOption(acteSelect);
-                            }
-                        }
-
+                        // Ajouter le nouveau formulaire au conteneur
                         formContainer.appendChild(newForm);
+
+                        // Initialiser les event listeners APRÈS avoir ajouté au DOM
+                        initializeFormEventListeners(newForm, formIndex);
+
+                        // Initialiser Select2 APRÈS avoir ajouté au DOM
+                        setTimeout(() => {
+                            // Nettoyer les éléments Select2 clonés avant d'initialiser
+                            newForm.querySelectorAll('.select2-container').forEach(el => el.remove());
+                            initializeSelect2ForForm(newForm);
+                        }, 100);
+
                         updateFormIndices(formContainer);
-                        // IMPORTANT : Réinitialiser tous les Select2 après ajout
-                        reinitializeAllSelect2();
-
-
-
-                        // Initialiser Select2 pour le nouveau formulaire
-                        initializeSelect2(newForm);
-                        // Mettre à jour la restriction des actes
-                        updateActeOptions();
                     });
 
-                    // Initialiser les événements sur les select existants
+                    // Initialiser les événements sur les selects existants
                     document.querySelectorAll('.acte-select').forEach(function (acteSelect) {
                         acteSelect.selectedIndex = 0;
                         acteSelect.addEventListener('change', function () {
                             showSelectedOption(acteSelect);
-                            updateActeOptions();
-
                         });
                     });
-                    // Initialisation au chargement
-                    $(document).ready(function () {
-                        reinitializeAllSelect2();
-                    });
-
                 });
-
             </script>
 
 
@@ -832,6 +886,8 @@
                     const dentaireAuditifOptions = document.getElementById('dentaireAuditifOptions');
 
                     const allocationOptions = document.getElementById('allocationOptions');
+                    const autreOptions = document.getElementById('autreOptions');
+
                     const secoursMedicalDetail = document.getElementById('secoursMedicalDetail');
                     var adherents = @json($adherents);
                     var ayantsDroit = @json($ayantsDroit);
@@ -839,6 +895,44 @@
                     const adherentInfo = document.getElementById('adherentInfo');
                     const beneficiaireIndicator = document.getElementById('beneficiaire');
                     const infosACompleter = document.getElementById('infosACompleter');
+
+
+                    const beneficiaireInput = document.getElementById('beneficiaire');
+                    const beneficiaireSelect = document.getElementById('beneficiaireSelect');
+                    const editBeneficiaireBtn = document.getElementById('editBeneficiaire');
+                    const cancelBeneficiaireBtn = document.getElementById('cancelBeneficiaire');
+                    let originalBeneficiaireValue = '';
+
+                    // Gérer le clic sur "Modifier"
+                    editBeneficiaireBtn.addEventListener('click', function() {
+                        originalBeneficiaireValue = beneficiaireInput.value;
+                        beneficiaireSelect.value = beneficiaireInput.value;
+
+                        beneficiaireInput.classList.add('hidden');
+                        beneficiaireSelect.classList.remove('hidden');
+                        editBeneficiaireBtn.classList.add('hidden');
+                        cancelBeneficiaireBtn.classList.remove('hidden');
+                    });
+
+                    // Validation automatique lors du changement de sélection
+                    beneficiaireSelect.addEventListener('change', function() {
+                        beneficiaireInput.value = beneficiaireSelect.value;
+
+                        beneficiaireInput.classList.remove('hidden');
+                        beneficiaireSelect.classList.add('hidden');
+                        editBeneficiaireBtn.classList.remove('hidden');
+                        cancelBeneficiaireBtn.classList.add('hidden');
+                    });
+
+                    // Gérer le clic sur "Annuler"
+                    cancelBeneficiaireBtn.addEventListener('click', function() {
+                        beneficiaireInput.value = originalBeneficiaireValue;
+
+                        beneficiaireInput.classList.remove('hidden');
+                        beneficiaireSelect.classList.add('hidden');
+                        editBeneficiaireBtn.classList.remove('hidden');
+                        cancelBeneficiaireBtn.classList.add('hidden');
+                    });
 
 
 

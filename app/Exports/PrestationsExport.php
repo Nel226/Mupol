@@ -10,7 +10,7 @@ class PrestationsExport implements FromView
 {
     public function view(): View
     {
-        return view('pages.backend.prestations.statistiques', [
+        return view('pages.backend.prestations.statistiques.export', [
             'prestations' => Prestation::all() // ou ta requête filtrée
         ]);
     }

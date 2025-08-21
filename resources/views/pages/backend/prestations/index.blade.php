@@ -45,7 +45,7 @@
                         <th>Contact</th>
                         <th>Date</th>
                         <th>Acte</th>
-                        <th>Benf</th>
+                        <th>Bénéficiaire</th>
 
                         <th>Montant</th>
                         <th>État</th>

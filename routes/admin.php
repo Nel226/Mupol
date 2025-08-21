@@ -50,7 +50,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/import-csv', [CsvImportController::class, 'import'])->name('import-csv');
     Route::post('/ayantdroits/import', [AyantDroitController::class, 'import'])->name('ayantdroits.import');
 
+    // Prestations
     Route::get('/export-prestations', [PrestationController::class, 'export'])->name('prestations.export');
+
 
 
     Route::get('/prestations/{id}/recu', action: [PrestationController::class, 'downloadReceipt'])->name('prestations.downloadReceipt');
@@ -102,6 +104,8 @@ Route::middleware('auth')->group(function () {
     //FIN COMPTABILITE
 
     Route::get('/get-data', [CotisationController::class, 'getData']);
+    // Prestations
+    //Route::get('/prestations/{id}/edit', [PrestationController::class, 'edit'])->name('prestations.edit');
 
     Route::post('/prestations/{id}/valider', [PrestationController::class, 'valider'])->name('prestations.valider');
     Route::post('/prestations/valider-multiple', [PrestationController::class, 'validerMultiple'])->name('prestations.validerMultiple');

@@ -17,6 +17,7 @@
                         {{ ucfirst($prestation->validite) }}
                     </span>
                 </div>
+                
                 @role('controleur|agentsaisie')
                 <div class="mt-3 overflow-x-auto">
                     <table class="min-w-full border border-collapse border-gray-300">
@@ -62,28 +63,28 @@
                                 <span>Date</span>
                                 <span class="text-gray-900">{{ $prestation->date }}</span>
                             </div>
-                        
+
                             <div class="flex justify-between text-sm font-medium text-gray-500 mt-4">
                                 <span>Acte</span>
                                 <span class="text-gray-900">{{ $prestation->acte }}</span>
                             </div>
-                        
+
                             <div class="flex justify-between text-sm font-medium text-gray-500 mt-4">
                                 <span>Type</span>
                                 <span class="text-gray-900">{{ $prestation->type }}</span>
                             </div>
-                        
+
                             <div class="flex justify-between text-sm font-medium text-gray-500 mt-4">
                                 <span>Sous-Type</span>
                                 <span class="text-gray-900">{{ $prestation->sous_type ?? 'N/A' }}</span>
                             </div>
-                        
+
                             <div class="flex justify-between text-sm font-medium text-gray-500 mt-4">
                                 <span>Centre de santé</span>
                                 <span class="text-gray-900">{{ $prestation->centre }}</span>
                             </div>
                         </x-card>
-                        
+
                     </div>
                     <div>
                         <x-card title="Montants">
@@ -91,7 +92,7 @@
                                 <span>Montant total</span>
                                 <span class="text-gray-900">{{ $prestation->montant }}</span>
                             </div>
-                            
+
                             <div class="flex justify-between items-center text-sm font-medium text-gray-500 mt-4">
                                 <span>Montant modérateur</span>
                                 <div class="flex items-center gap-2">
@@ -99,7 +100,7 @@
                                     <span class="bg-blue-100 text-primary1 text-xs font-medium px-2.5 py-1 rounded border border-blue-400">20%</span>
                                 </div>
                             </div>
-                            
+
                             <div class="flex justify-between items-center text-sm font-medium text-gray-500 mt-4">
                                 <span>Montant mutuelle</span>
                                 <div class="flex items-center gap-2">
@@ -107,7 +108,7 @@
                                     <span class="bg-blue-100 text-primary1 text-xs font-medium px-2.5 py-1 rounded border border-blue-400">80%</span>
                                 </div>
                             </div>
-                            
+
                             <div class="flex justify-between items-center text-sm font-medium text-gray-500 mt-4">
                                 <span>État de paiement</span>
                                 <div class="text-sm">
@@ -119,38 +120,38 @@
                                 </div>
                             </div>
                         </x-card>
-                        
-                    </div>    
-                    
+
+                    </div>
+
                 </div>
                 @endrole
-               
+
                 @role('controleur|agentsaisie')
                 <div class="mt-4">
-    
+
                     <span class="mt-4 text-sm font-medium text-gray-500">
                         Preuves
                     </span>
                     <div class="grid-cols-3 py-3 sm:py-5 sm:grid sm:grid-cols-3 ">
-                        
+
                         @foreach ($prestation->preuve as $index => $preuve)
                             <div class="flex flex-wrap gap-2 py-3">
                                 <a href="#"
-                                
+
                                 onclick="showPDF('{{ URL::asset('storage/'.$preuve) }}'); return false;">
                                     <img src="{{ asset('images/pdf-80.png') }}" alt="PDF" width="150" height="100" class="p-2 border rounded-md">
                                     <p class="mt-2 text-sm font-thin text-center">Preuve {{ $index + 1 }}</p>
                                 </a>
                             </div>
                         @endforeach
-                
-                    </div>  
-                    
+
+                    </div>
+
                     <!-- Main modal -->
                     <div id="pdfModal" tabindex="-1" aria-hidden="true" class="fixed inset-0 z-50 flex items-center justify-center hidden w-full h-full bg-black bg-opacity-50">
                         <div class="relative w-full h-full max-w-4xl p-4">
                             <!-- Modal content -->
-    
+
                             <div class="relative flex flex-col h-full bg-white rounded-lg shadow dark:bg-gray-700">
                                 <!-- Modal header -->
                                 <div class="flex justify-end p-2">
@@ -168,17 +169,17 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <script>
                         function showPDF(pdfUrl) {
                             var pdfModal = document.getElementById('pdfModal');
                             var pdfIframe = document.getElementById('pdfIframe');
-                            
+
                             pdfIframe.src = pdfUrl;
-                            
+
                             pdfModal.classList.remove('hidden');
                         }
-                    
+
                         function closePDFModal() {
                             var pdfModal = document.getElementById('pdfModal');
                             var pdfIframe = document.getElementById('pdfIframe');
@@ -186,37 +187,46 @@
                             pdfIframe.src = '';
                         }
                     </script>
-                    
+
                 </div>
                 @endrole
-    
+
             </div>
             @role('controleur')
-            <div class="flex justify-around mt-6">
-                <form action="{{ route('prestations.valider', ['id' => $prestation->id]) }}" method="POST" class="flex items-center  text-green-700 rounded-md ">
-                    @csrf
-                    <x-primary-button type="submit">
-                        <i class="fa fa-check"></i>
-                        <span class="ml-2">
-                            {{ __('Valider') }}
-                        </span>
-                    </x-primary-button>
-                    
-                </form>
-                <form action="{{ route('prestations.rejeter', ['id' => $prestation->id]) }}" method="POST" class="flex items-center  text-red-700 rounded-md ">
-                    @csrf
-                    <x-primary-button type="submit" class=" bg-red-600">
-                        <i class="fa fa-times"></i>
-                        <span class="ml-2">
-                            {{ __('Rejeter') }}
-                        </span>
-                    </x-primary-button>
-                   
-                </form>
-            </div>
-               
+                <div class="flex justify-around mt-6">
+                    <form action="{{ route('prestations.valider', ['id' => $prestation->id]) }}" method="POST" class="flex items-center  text-green-700 rounded-md ">
+                        @csrf
+                        <x-primary-button type="submit">
+                            <i class="fa fa-check"></i>
+                            <span class="ml-2">
+                                {{ __('Valider') }}
+                            </span>
+                        </x-primary-button>
+
+                    </form>
+
+                    <!-- Bouton Modifier -->
+                    {{-- <a href="{{ route('prestations.edit', ['id' => $prestation->id]) }}"
+                    class="flex items-center text-yellow-700 rounded-md">
+                        <x-primary-button class="bg-yellow-500 hover:bg-yellow-600">
+                            <i class="fa fa-edit"></i>
+                            <span class="ml-2">Modifier</span>
+                        </x-primary-button>
+                    </a> --}}
+
+                    <form action="{{ route('prestations.rejeter', ['id' => $prestation->id]) }}" method="POST" class="flex items-center  text-red-700 rounded-md ">
+                        @csrf
+                        <x-primary-button type="submit" class=" bg-red-600">
+                            <i class="fa fa-times"></i>
+                            <span class="ml-2">
+                                {{ __('Rejeter') }}
+                            </span>
+                        </x-primary-button>
+
+                    </form>
+                </div>
             @endrole
-            
+
             @role('comptable')
             <div x-data="{ open: false }">
                 <div class="flex justify-around mt-6">
@@ -237,10 +247,10 @@
                         </a>
                     @endif
                 </div>
-            
-            
+
+
                 <x-modal-confirm title="Confirmer le paiement" icon="fa fa-money text-green-700">
-                    {{__('Êtes-vous sûr de vouloir valider ce paiement ?')}}  
+                    {{__('Êtes-vous sûr de vouloir valider ce paiement ?')}}
                     <x-slot name="actions">
                         <form action="{{ route('prestations.validerpaiement', ['id' => $prestation->id]) }}" method="POST">
                             @csrf
@@ -251,10 +261,10 @@
                     </x-slot>
                 </x-modal-confirm>
             </div>
-            
+
             @endrole
-    
-        </div>  
+
+        </div>
     </x-content-page>
-  
+
 </x-app-layout>

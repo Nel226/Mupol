@@ -12,7 +12,7 @@ class Partenaire extends Authenticatable implements CanResetPassword
 {
     use HasFactory, HasUuids, CanResetPasswordTrait;
 
-    protected $keyType = 'string'; 
+    protected $keyType = 'string';
     public $incrementing = false;
     protected $fillable = [
         'nom',
@@ -24,6 +24,7 @@ class Partenaire extends Authenticatable implements CanResetPassword
         'province',
         'photo',
         'geolocalisation',
+        'ville',
 
         'password',
     ];

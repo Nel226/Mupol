@@ -12,16 +12,18 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('partenaires', function (Blueprint $table) {
-            $table->uuid('id')->primary(); 
-            $table->string('nom'); 
-            $table->string('type'); 
-            $table->string('adresse'); 
-            $table->string('geolocalisation'); 
-            $table->string('telephone'); 
+            $table->uuid('id')->primary();
+            $table->string('nom');
+            $table->string('type');
+            $table->string('adresse');
+            $table->string('geolocalisation');
+            $table->string('telephone');
             $table->string('email');
             $table->string('region');
             $table->string('province');
-            $table->string('photo')->nullable(); 
+            $table->string('ville');
+
+            $table->string('photo')->nullable();
             $table->string('password');
             $table->boolean('must_change_password')->default(true);
 
@@ -41,7 +43,7 @@ return new class extends Migration
         Schema::table('partenaires', function (Blueprint $table) {
             $table->dropIndex(['email']);
         });
-        
+
         Schema::dropIfExists('partenaires');
     }
 };

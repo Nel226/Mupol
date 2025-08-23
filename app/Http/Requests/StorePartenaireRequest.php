@@ -25,12 +25,13 @@ class StorePartenaireRequest extends FormRequest
             'nom' => 'required|string|max:255',
             'type' => 'required|string|max:100',
             'adresse' => 'required|string|max:255',
-            'telephone' => 'required|string|max:20', 
+            'telephone' => 'required|string|max:20',
             'email' => 'required|email|unique:adherents,email|unique:partenaires,email',
             'region' => 'required|string|max:100',
             'province' => 'required|string|max:100',
+            'ville' => 'required|string|max:100',
             'geolocalisation' => 'required|string',
-            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', 
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
 }

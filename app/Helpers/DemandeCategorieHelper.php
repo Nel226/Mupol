@@ -2,6 +2,8 @@
 
 namespace App\Helpers;
 
+use Illuminate\Support\Facades\Log;
+
 class DemandeCategorieHelper
 {
     public static function determineCategorie($nombreAyantsDroits)
@@ -16,8 +18,10 @@ class DemandeCategorieHelper
     public static function calculerCotisationMensuelleTotale($nombreAyantsDroits , $statut)
     {
         $fraisAdhesion = 10000;
+        Log::info('Statut reçu: ' . $statut);
         $cotisationAdherent = ($statut === 'Retraité(e)') ? 3000 : 5000;
-        $cotisationAyantsDroits = 2000 * $nombreAyantsDroits; 
+        Log::info('Cotisation adhérent calculée: ' . $cotisationAdherent);
+        $cotisationAyantsDroits = 2000 * $nombreAyantsDroits;
 
         $cotisationTotale =  $cotisationAdherent + $cotisationAyantsDroits;
 

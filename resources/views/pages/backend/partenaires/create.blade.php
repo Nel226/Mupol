@@ -6,7 +6,7 @@
     @endif
     <x-top-navbar-admin />
 
-    <div id="sidebar" class="lg:block z-20 hidden bg-blue-800 w-64 h-screen fixed rounded-none border-none">
+    <div id="sidebar" class="fixed z-20 hidden w-64 h-screen bg-blue-800 border-none rounded-none lg:block">
         <x-sidebar id="logo-sidebar" />
     </div>
 
@@ -14,15 +14,15 @@
         <x-header>
             {{ $pageTitle }}
         </x-header>
-        
-        <div class="md:p-6 p-2 mx-auto mt-4 bg-white rounded-lg shadow-lg">
+
+        <div class="p-2 mx-auto mt-4 bg-white rounded-lg shadow-lg md:p-6">
             @role('agentsaisie|controleur')
-                <div class="md:w-3/4 mx-auto">
-                    <h2 class="mb-4 text-sm md:text-lg lg:text-xl font-bold text-gray-900 dark:text-white">Ajouter un nouveau partenaire</h2>
-                    
+                <div class="mx-auto md:w-3/4">
+                    <h2 class="mb-4 text-sm font-bold text-gray-900 md:text-lg lg:text-xl dark:text-white">Ajouter un nouveau partenaire</h2>
+
                     <form method="POST" action="{{ route('partenaires.store') }}" enctype="multipart/form-data">
                         @csrf
-                        <div class="grid grid-cols-1 sm:grid-cols-2  gap-3 md:gap-5">
+                        <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 md:gap-5">
                             <!-- Nom du partenaire -->
                             <div>
                                 <label for="nom" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nom</label>
@@ -31,7 +31,7 @@
                                     <p class="text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
-                        
+
                             <!-- Type du partenaire -->
                             <div>
                                 <label for="type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Type</label>
@@ -50,7 +50,7 @@
                                     <p class="text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
-                        
+
                             <!-- Adresse -->
                             <div>
                                 <label for="adresse" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Adresse</label>
@@ -59,7 +59,7 @@
                                     <p class="text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
-                        
+
                             <!-- Lien Google Maps -->
                             <div>
                                 <label for="geolocalisation" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Lien Google Maps</label>
@@ -68,7 +68,7 @@
                                     <p class="text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
-                        
+
                             <!-- Téléphone -->
                             <div>
                                 <label for="telephone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Téléphone</label>
@@ -77,7 +77,7 @@
                                     <p class="text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
-                        
+
                             <!-- Email -->
                             <div>
                                 <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
@@ -86,7 +86,7 @@
                                     <p class="text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
-                        
+
                             <!-- Région -->
                             <div>
                                 <label for="region" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Région</label>
@@ -97,7 +97,7 @@
                                     <p class="text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
-                        
+
                             <!-- Province -->
                             <div>
                                 <label for="province" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Province</label>
@@ -108,33 +108,40 @@
                                     <p class="text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
+                            <div>
+                                <label for="ville" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ville</label>
+                                <input type="text" name="ville" id="ville" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Nom de la ville" required>
+                                @error('ville')
+                                    <p class="text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
                             <script>
-                        
-                        
+
+
                                 document.addEventListener("DOMContentLoaded", function() {
                                     const regionSelect = document.getElementById("region");
                                     const provinceSelect = document.getElementById("province");
-                                
+
                                     for (const region in regions) {
                                         const option = document.createElement("option");
                                         option.value = region;
                                         option.textContent = region;
                                         regionSelect.appendChild(option);
                                     }
-                                
+
                                     regionSelect.addEventListener("change", function() {
                                         const selectedRegion = regionSelect.value;
-                                
+
                                         provinceSelect.innerHTML = "";
                                         provinceSelect.disabled = false;
-                                
+
                                         const defaultOption = document.createElement("option");
                                         defaultOption.value = "";
                                         defaultOption.disabled = true;
                                         defaultOption.selected = true;
                                         defaultOption.textContent = "Choisissez votre province";
                                         provinceSelect.appendChild(defaultOption);
-                                
+
                                         regions[selectedRegion].provinces.forEach(province => {
                                             const option = document.createElement("option");
                                             option.value = province;
@@ -143,17 +150,17 @@
                                         });
                                     });
                                 });
-                                
+
                             </script>
                             <!-- Photo -->
-                            <div class="col-span-2">
+                            <div >
                                 <label for="photo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Photo</label>
                                 <input type="file" name="photo" id="photo" accept="image/*" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                                 @error('photo')
                                     <p class="text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                                 <div class="mt-4">
-                                    <img id="preview" src="#" alt="Prévisualisation de l'image" class="hidden max-w-full h-auto border border-gray-300 rounded-lg">
+                                    <img id="preview" src="#" alt="Prévisualisation de l'image" class="hidden h-auto max-w-full border border-gray-300 rounded-lg">
                                 </div>
                             </div>
                         </div>
@@ -161,12 +168,12 @@
                             {{-- Affiche le reCAPTCHA --}}
                             {{-- {!! NoCaptcha::display() !!} --}}
                         {{-- </div> --}}
-                        
+
                         {{-- Charge le script JavaScript de reCAPTCHA --}}
                         {{-- {!! NoCaptcha::renderJs() !!} --}}
-                        
+
                         <div class="flex justify-end">
-                            <button type="submit" class="btn mt-5 ">
+                            <button type="submit" class="mt-5 btn ">
                                 Ajouter partenaire
                             </button>
 

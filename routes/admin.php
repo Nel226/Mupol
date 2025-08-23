@@ -50,7 +50,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/import-csv', [CsvImportController::class, 'import'])->name('import-csv');
     Route::post('/ayantdroits/import', [AyantDroitController::class, 'import'])->name('ayantdroits.import');
 
-    Route::get('/export-prestations', [PrestationController::class, 'export'])->name('prestations.export');
+    Route::get('/prestations/statistiques/{year}', [PrestationController::class, 'statistiques'])->name('prestations.statistiques');
+    Route::get('/prestations/export/{year}', [PrestationController::class, 'exportStats'])->name('prestations.export');
 
 
     Route::get('/prestations/{id}/recu', action: [PrestationController::class, 'downloadReceipt'])->name('prestations.downloadReceipt');

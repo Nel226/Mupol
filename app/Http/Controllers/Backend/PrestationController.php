@@ -197,8 +197,34 @@ class PrestationController extends Controller
     }
 
 
-    public function export()
+    public function statistiques($year)
     {
+        $pageTitle = 'Statistiques des prestations';
+        $breadcrumbsItems = [
+            [
+                'name' => 'Stat',
+                'url' => route('prestations.index'),
+                'active' => true
+            ],
+        ];
+        $prestations = Prestation::whereYear('created_at', $year)->get();
+
+        if ($prestations->isEmpty()) {
+            return redirect()->back()->with('error', 'Aucune prestation trouvée pour l\'année sélectionnée.');
+        }
+        return view('pages.backend.prestations.statistiques.listing',compact('prestations' ));
+
+    }
+
+    public function export($year)
+    {
+        $prestations = Prestation::whereYear('created_at', $year)->get();
+        $actes = ['consultation', 'hospitalisation', 'radio', 'maternite', 'allocation', 'analyse_biomedicale', 'pharmacie', 'optique', 'dentaire_auditif', 'autre'];
+
+        if ($prestations->isEmpty()) {
+            return redirect()->back()->with('error', 'Aucune prestation trouvée pour l\'année sélectionnée.');
+        }
+
         return Excel::download(new PrestationsExport, 'prestations.xlsx');
     }
 

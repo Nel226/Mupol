@@ -23,9 +23,10 @@
         <div class="p-2 mx-auto mt-4 bg-white rounded-lg shadow-lg md:p-6">
             <!-- Bouton Excel à gauche -->
             <div>
-                <a href="{{ route('prestations.export') }}"
+                <a href="{{ route('prestations.statistiques', ['year' => date('Y')]) }}"
+
                 class="bg-green-500 text-white px-3 py-1 rounded shadow hover:bg-green-600">
-                Excel
+                Statistiques
                 </a>
             </div>
 

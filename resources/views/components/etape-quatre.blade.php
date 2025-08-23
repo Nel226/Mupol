@@ -80,32 +80,32 @@
                     <input required type="text" id="localite" name="localite" class="bg-gray-50 border-2 rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline">
                 </div>
                 <script>
-            
-            
+
+
                     document.addEventListener("DOMContentLoaded", function() {
                         const regionSelect = document.getElementById("region");
                         const provinceSelect = document.getElementById("province");
-                    
+
                         for (const region in regions) {
                             const option = document.createElement("option");
                             option.value = region;
                             option.textContent = region;
                             regionSelect.appendChild(option);
                         }
-                    
+
                         regionSelect.addEventListener("change", function() {
                             const selectedRegion = regionSelect.value;
-                    
+
                             provinceSelect.innerHTML = "";
                             provinceSelect.disabled = false;
-                    
+
                             const defaultOption = document.createElement("option");
                             defaultOption.value = "";
                             defaultOption.disabled = true;
                             defaultOption.selected = true;
                             defaultOption.textContent = "Choisissez votre province";
                             provinceSelect.appendChild(defaultOption);
-                    
+
                             regions[selectedRegion].provinces.forEach(province => {
                                 const option = document.createElement("option");
                                 option.value = province;
@@ -114,7 +114,8 @@
                             });
                         });
                     });
-                    
+
+
                 </script>
             </div>
         </fieldset>
@@ -132,14 +133,12 @@
         'Adjudant-Chef Major de Police'
     ];
 
-    function resetFields() {
-        document.getElementById('grade').innerHTML = '<option value="" disabled selected>Sélectionnez un grade</option>';
-        ['departARetraite', 'numeroCARFO', 'dateIntegration', 'dateDepartARetraite', 'direction', 'service']
-            .forEach(id => document.getElementById(id).value = '');
-    }
-
+    // Remplit la liste des grades une seule fois
     function fillGradeSelector() {
         const selector = document.getElementById('grade');
+        if (!selector) return;
+        // Si déjà rempli (plus de l'option par défaut), on ne fait rien
+        if (selector.options.length > 1) return;
         grades.forEach(grade => {
             const option = document.createElement('option');
             option.value = grade;
@@ -148,12 +147,44 @@
         });
     }
 
+    // Active/désactive des champs et gère required sans effacer la valeur
+    function setFieldState(ids, visible) {
+        ids.forEach(id => {
+            const el = document.getElementById(id);
+            if (!el) return;
+            if (visible) {
+                el.removeAttribute('disabled');
+                // Si vous voulez qu'ils soient requis uniquement quand visibles, ajoutez required
+                el.setAttribute('required', 'required');
+            } else {
+                el.removeAttribute('required');
+                el.setAttribute('disabled', 'disabled'); // évite la validation côté client
+            }
+        });
+    }
+
+
     function changeStatut(statut) {
-        resetFields();
         fillGradeSelector();
 
         document.getElementById('common_fields').classList.remove('hidden');
-        document.getElementById('personnel_retraite_fields').classList.toggle('hidden', statut !== 'Retraité(e)');
-        document.getElementById('personnel_active_fields').classList.toggle('hidden', statut !== 'Actif(ve)');
+
+        const isRetraite = statut === 'Retraité(e)';
+        const isActif = statut === 'Actif(ve)';
+
+        document.getElementById('personnel_retraite_fields').classList.toggle('hidden', !isRetraite);
+        document.getElementById('personnel_active_fields').classList.toggle('hidden', !isActif);
+
+        // Lorsqu'on cache un groupe, on le disable pour éviter la validation, sans vider les valeurs.
+        setFieldState(['departARetraite', 'numeroCARFO'], isRetraite);
+        setFieldState(['dateIntegration', 'dateDepartARetraite', 'service'], isActif);
+
+        // Garder la direction et le grade intacts (ne plus les réinitialiser automatiquement)
     }
+    // Initialisation
+    document.addEventListener('DOMContentLoaded', function() {
+        fillGradeSelector();
+        // Désactiver par défaut les champs des deux groupes pour éviter validation initiale
+        setFieldState(['departARetraite', 'numeroCARFO', 'dateIntegration', 'dateDepartARetraite', 'service'], false);
+    });
 </script>

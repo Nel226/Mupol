@@ -29,7 +29,7 @@
                 <div id="step3" class="step" style="display:none;">
                     <x-etape-trois />
                 </div>
-                
+
                 <!-- Contenu de l'étape 4 -->
                 <div id="step4" class="step" style="display:none;">
                     <x-etape-quatre />
@@ -71,7 +71,7 @@
     function updateStepper() {
         const stepperMobile = document.getElementById('stepper-mobile');
         const stepperDesktop = document.getElementById('stepper-desktop');
-        
+
         // Mettre à jour les étapes pour le mobile
         stepperMobile.innerHTML = '';
         for (let step = 1; step <= totalSteps; step++) {
@@ -101,7 +101,7 @@
                 <div class="relative flex items-center w-full" onclick="setStep(${step})" style="align-items: center;">
                     <!-- Ligne avant le cercle - invisible pour le premier step -->
                     ${step > 1 ? `<div class="flex-1 h-1 ${currentStep >= step ? 'bg-primary1' : 'bg-gray-300'}" style="height: 3px;"></div>` : '<div class="flex-1 h-1 invisible" style="height: 3px;"></div>'}
-                    
+
                     <!-- Cercle -->
                     <div class="w-8 h-8 flex shadow-lg items-center justify-center rounded-full text-white z-10 transition-all duration-200 ${currentStep >= step ? 'bg-primary1' : 'bg-gray-300'}">
                         ${currentStep > step ? '<i class="fa fa-check"></i>' : `<span>${step}</span>`}
@@ -117,7 +117,7 @@
                         ${step === 1 ? 'Références de l\'adhérent' :
                         step === 2 ? 'Etat civil' :
                         step === 3 ? 'Informations personnelles' :
-                        step === 4 ? 'Informations professionnelles' : 
+                        step === 4 ? 'Informations professionnelles' :
                         'Récapitulatif'}
                     </p>
                 </div>
@@ -154,7 +154,7 @@
     // Fonction pour soumettre le formulaire
     async function handleSubmit(event) {
         event.preventDefault();
-        
+
         const submitBtn = document.getElementById('submitBtn');
         submitBtn.disabled = true; // Désactiver le bouton
         submitBtn.innerHTML = 'Envoi en cours...'; // Ajouter un indicateur de chargement
@@ -199,38 +199,41 @@
 
     // **********************************************  Fonctions  ******************************************************************
     // Collecte des données par étape
-
     function collectStepData() {
-        let data = new FormData(); 
-        const stepId = `step${currentStep}`; 
+        let data = new FormData();
+        const stepId = `step${currentStep}`;
         const stepElement = document.getElementById(stepId);
 
         // Parcours de tous les champs de l'étape courante (input, select, textarea)
         const inputs = stepElement.querySelectorAll('input, select, textarea');
         inputs.forEach(input => {
-            if (input.name) { 
-                if (input.type === "file") {
-                    // Si c'est un fichier, on ajoute le fichier à FormData
-                    const files = input.files;
-                    for (let i = 0; i < files.length; i++) {
-                        data.append(input.name, files[i]);
-                    }
-                } else {
-                    // Sinon, on ajoute la valeur du champ
-                    data.append(input.name, input.value);
+            if (!input.name) return;
+            if (input.disabled) return; // ignorer les champs désactivés
+
+            if (input.type === "file") {
+                const files = input.files;
+                for (let i = 0; i < files.length; i++) {
+                    data.append(input.name, files[i]);
                 }
+            } else if (input.type === "checkbox") {
+                if (input.checked) data.append(input.name, input.value);
+            } else if (input.type === "radio") {
+                if (input.checked) data.append(input.name, input.value);
+            } else {
+                data.append(input.name, input.value);
             }
         });
 
         // Ajouter l'étape courante aux données
         data.append('currentStep', currentStep);
 
-        // Affichage du log des données collectées dans la console
-        console.log("Données collectées pour l'étape", currentStep);
-        console.table(data);
+        // Debug : afficher le contenu envoyé
+        console.log("Données collectées pour l'étape", currentStep, [...data.entries()]);
 
         return data;
     }
+
+    // Collecte des données de toutes les étapes
     function collectAllStepsData() {
         if (currentStep === 4) { // Ne collecte les données que lorsque l'on est à l'étape 4
             let allStepData = {}; // Initialiser un objet vide pour les données
@@ -240,34 +243,34 @@
                 const stepId = `step${step}`;
                 const stepElement = document.getElementById(stepId);
 
-                // Si l'élément de l'étape existe, on collecte les données
-                if (stepElement) {
-                    const inputs = stepElement.querySelectorAll('input, select, textarea');
-                    inputs.forEach(input => {
-                        if (input.name) {
-                            if (input.type === "file") {
-                                // Si c'est un fichier, on stocke le nom du fichier
-                                const files = input.files;
-                                let fileData = [];
-                                for (let i = 0; i < files.length; i++) {
-                                    fileData.push(files[i].name); // On ajoute le nom du fichier ici
-                                }
-                                allStepData[input.name] = fileData;
-                            } else {
-                                // Sinon, on ajoute la valeur du champ
-                                allStepData[input.name] = input.value;
-                            }
+                if (!stepElement) continue;
+
+                const inputs = stepElement.querySelectorAll('input, select, textarea');
+                inputs.forEach(input => {
+                    if (!input.name || input.disabled) return;
+
+                    if (input.type === "file") {
+                        const files = input.files;
+                        let fileData = [];
+                        for (let i = 0; i < files.length; i++) {
+                            fileData.push(files[i].name);
                         }
-                    });
-                }
+                        allStepData[input.name] = fileData;
+                    } else if (input.type === "checkbox") {
+                        if (input.checked) allStepData[input.name] = input.value;
+                    } else if (input.type === "radio") {
+                        if (input.checked) allStepData[input.name] = input.value;
+                    } else {
+                        allStepData[input.name] = input.value;
+                    }
+                });
             }
 
             // Ajouter l'étape courante aux données
             allStepData.currentStep = currentStep;
 
-            // Affichage du log des données collectées dans la console
-            console.log("Données collectées pour les étapes 1 à 4 :");
-            console.table(allStepData);
+            // Debug : log
+            console.log("Données collectées pour les étapes 1 à 4 :", allStepData);
 
             // Envoi des données à la fonction souhaitée
             sendDataToRecapt(allStepData); // Envoi des données au composant à l'étape 5
@@ -275,71 +278,71 @@
     }
 
     // Fonction pour envoyer les données collectées au contrôleur
-async function sendDataToRecapt(allStepData) {
-    try {
-        const response = await fetch("{{ route('recapt.data') }}", {
+    async function sendDataToRecapt(allStepData) {
+        try {
+            const response = await fetch("{{ route('recapt.data') }}", {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content, // CSRF token pour sécurité
+                    'Content-Type': 'application/json', // Envoyer des données au format JSON
+                },
+                body: JSON.stringify(allStepData), // Convertir les données en JSON avant l'envoi
+            });
+
+            const data = await response.json(); // Attendre la réponse JSON du serveur
+
+            if (data.success) {
+                console.log("Données envoyées avec succès !");
+                // Vous pouvez rediriger ou traiter la réponse comme nécessaire
+            } else {
+                console.log("Erreur lors de l'envoi des données :", data.errors);
+            }
+        } catch (error) {
+            console.error("Erreur lors de l'envoi des données au serveur :", error);
+        }
+    }
+
+
+
+
+
+        // Envoi des données au serveur ----------------------------------------------------
+    async function sendStepDataToServer() {
+        const data = collectStepData(); // Collecte des données de l'étape en cours (y compris les fichiers)
+
+        const response = await fetch('{{ route('test.submit') }}', {
             method: 'POST',
             headers: {
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content, // CSRF token pour sécurité
-                'Content-Type': 'application/json', // Envoyer des données au format JSON
             },
-            body: JSON.stringify(allStepData), // Convertir les données en JSON avant l'envoi
+            body: data, // Envoi de FormData directement, pas besoin de JSON.stringify
         });
 
-        const data = await response.json(); // Attendre la réponse JSON du serveur
+        const responseData = await response.json(); // Récupération de la réponse JSON du serveur
 
-        if (data.success) {
-            console.log("Données envoyées avec succès !");
-            // Vous pouvez rediriger ou traiter la réponse comme nécessaire
+        if (responseData.success) {
+            // Si les données sont validées, passer à l'étape suivante
+            goToNextStep();
         } else {
-            console.log("Erreur lors de l'envoi des données :", data.errors);
+            // Afficher les erreurs de validation
+            showErrors(responseData.errors);
         }
-    } catch (error) {
-        console.error("Erreur lors de l'envoi des données au serveur :", error);
     }
-}
 
 
-
-
-
-    // Envoi des données au serveur ----------------------------------------------------
-async function sendStepDataToServer() {
-    const data = collectStepData(); // Collecte des données de l'étape en cours (y compris les fichiers)
-
-    const response = await fetch('{{ route('test.submit') }}', {
-        method: 'POST',
-        headers: {
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content, // CSRF token pour sécurité
-        },
-        body: data, // Envoi de FormData directement, pas besoin de JSON.stringify
-    });
-
-    const responseData = await response.json(); // Récupération de la réponse JSON du serveur
-
-    if (responseData.success) {
-        // Si les données sont validées, passer à l'étape suivante
-        goToNextStep();
-    } else {
-        // Afficher les erreurs de validation
-        showErrors(responseData.errors);
+        // Afficher les erreurs -----------------------------------------------------------
+        // Fonction qui convertit une clé d'erreur (format dot) en sélecteur correspondant au nom de l'input
+    function convertErrorKeyToInputName(key) {
+        // Si la clé contient un point, on la transforme
+        if (key.indexOf('.') !== -1) {
+            const parts = key.split('.');
+            // Le premier élément reste tel quel, puis on enveloppe chaque partie suivante entre crochets
+            return parts.shift() + parts.map(part => `[${part}]`).join('');
+        }
+        return key;
     }
-}
 
-
-    // Afficher les erreurs -----------------------------------------------------------
-    // Fonction qui convertit une clé d'erreur (format dot) en sélecteur correspondant au nom de l'input
-function convertErrorKeyToInputName(key) {
-    // Si la clé contient un point, on la transforme
-    if (key.indexOf('.') !== -1) {
-        const parts = key.split('.');
-        // Le premier élément reste tel quel, puis on enveloppe chaque partie suivante entre crochets
-        return parts.shift() + parts.map(part => `[${part}]`).join('');
-    }
-    return key;
-}
-
-// Fonction pour afficher les erreurs sur le formulaire
+    // Fonction pour afficher les erreurs sur le formulaire
     function showErrors(errors) {
         // Supprimer les anciens messages d'erreur
         document.querySelectorAll('.error-message').forEach(message => message.remove());
@@ -371,30 +374,30 @@ function convertErrorKeyToInputName(key) {
 
     // Navigation vers l'étape suivante ----------------------------------------------
     function goToNextStep() {
-        currentStep++; 
-        updateStepper(); 
+        currentStep++;
+        updateStepper();
         showStep();
     }
-    
+
     // Navigation vers l'étape précédente ----------------------------------------------
     function goToPreviousStep() {
-        currentStep--; 
-        updateStepper(); 
-        showStep(); 
+        currentStep--;
+        updateStepper();
+        showStep();
     }
 
     // Renitialiser le formulaire --------------------------------------------------------
     function resetForm() {
         const form = document.getElementById('membership-form');
         const inputs = form.querySelectorAll('input, select, textarea');
-        
+
         inputs.forEach(input => {
             if (input.type === 'file') {
-                input.value = ''; 
+                input.value = '';
             } else if (input.type === 'checkbox' || input.type === 'radio') {
-                input.checked = false; 
+                input.checked = false;
             } else {
-                input.value = ''; 
+                input.value = '';
             }
         });
 
@@ -410,7 +413,7 @@ function convertErrorKeyToInputName(key) {
     });
     // Événement pour le bouton "Suivant"
     document.getElementById('nextBtn').addEventListener('click', function () {
-        collectAllStepsData(); 
+        collectAllStepsData();
         sendStepDataToServer();
     });
 

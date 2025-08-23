@@ -54,6 +54,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/prestations/export/{year}', [PrestationController::class, 'exportStats'])->name('prestations.export');
 
 
+
     Route::get('/prestations/{id}/recu', action: [PrestationController::class, 'downloadReceipt'])->name('prestations.downloadReceipt');
     Route::get('/hospitalisation/suivi', action: [PrestationController::class, 'suivi'])->name('suivi-hospitalisation');
     Route::get('/consultation/suivi', [PrestationController::class, 'suiviConsultation'])->name('suivi-consultation');
@@ -103,6 +104,8 @@ Route::middleware('auth')->group(function () {
     //FIN COMPTABILITE
 
     Route::get('/get-data', [CotisationController::class, 'getData']);
+    // Prestations
+    //Route::get('/prestations/{id}/edit', [PrestationController::class, 'edit'])->name('prestations.edit');
 
     Route::post('/prestations/{id}/valider', [PrestationController::class, 'valider'])->name('prestations.valider');
     Route::post('/prestations/valider-multiple', [PrestationController::class, 'validerMultiple'])->name('prestations.validerMultiple');

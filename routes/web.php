@@ -163,3 +163,38 @@ Route::post('/logout/adherent', [AdherentAuthenticatedSessionController::class, 
 
 
 require __DIR__.'/auth.php';
+
+// BackOffice API Routes
+use App\Http\Controllers\BackOffice\Auth\AdminAuthController;
+use App\Http\Controllers\BackOffice\UserController as BackOfficeUserController;
+
+// Routes d'authentification admin
+Route::prefix('admin')->group(function () {
+    // Login/logout
+    Route::post('/login', [AdminAuthController::class, 'login'])->name('admin.login');
+    Route::post('/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
+    
+    // Vérification d'authentification
+    Route::get('/check-auth', [AdminAuthController::class, 'checkAuth'])->name('admin.check-auth');
+    
+    // Informations utilisateur (protégé)
+    Route::get('/user', [AdminAuthController::class, 'user'])
+        ->middleware('auth:web')
+        ->name('admin.user');
+});
+
+// Routes protégées par authentification
+Route::middleware(['auth:web'])->group(function () {
+    // endpoints de hiérarchie stables pour le frontend
+    Route::prefix('admin/hierarchy')->group(function () {
+        Route::get('/directions', [BackOfficeUserController::class, 'directions'])->name('admin.hierarchy.directions');
+        Route::get('/directions/{id}', [BackOfficeUserController::class, 'getDirection']);
+        Route::get('/services/{directionId}', [BackOfficeUserController::class, 'services'])->name('admin.hierarchy.services');
+        Route::get('/service/{id}', [BackOfficeUserController::class, 'getService']);
+        Route::get('/services/{id}/stats', [BackOfficeUserController::class, 'getServiceStats']);
+        Route::get('/users', [BackOfficeUserController::class, 'users'])->name('admin.hierarchy.users');
+        Route::post('/users', [BackOfficeUserController::class, 'createUser']);
+        Route::put('/users/{id}', [BackOfficeUserController::class, 'updateUser']);
+        Route::delete('/users/{id}', [BackOfficeUserController::class, 'deleteUser']);
+    });
+});

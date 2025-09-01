@@ -26,8 +26,13 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'nom',
+        'prenom',
         'email',
         'password',
+        'direction_id',
+        'service_id',
+        'statut',
     ];
 
     /**
@@ -49,6 +54,27 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    // Relations
+    public function direction()
+    {
+        return $this->belongsTo(Direction::class);
+    }
+
+    public function service()
+    {
+        return $this->belongsTo(Service::class);
+    }
+
+    public function directionGere()
+    {
+        return $this->hasOne(Direction::class, 'directeur_id');
+    }
+
+    public function serviceGere()
+    {
+        return $this->hasOne(Service::class, 'chef_service_id');
+    }
 
     // public function getActivitylogOptions(): LogOptions
     // {
